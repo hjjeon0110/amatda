@@ -28,15 +28,15 @@
 			</tr>
 			<tr>
 				<td>키(Cm)</td>
-				<td><input type="text" placeholder="숫자만 입력하세요" name="height" class="form-control" style="height:23px;" autofocus/></td>
+				<td><input type="text" placeholder="숫자만 입력하세요" name="height" class="form-control" autofocus/></td>
 			</tr>
 			<tr>
 				<td>몸무게(Kg)</td>
-				<td><input type="text" placeholder="숫자만 입력하세요" name="weight" class="form-control" style="height:23px;"/></td>
+				<td><input type="text" placeholder="숫자만 입력하세요" name="weight" class="form-control" /></td>
 			</tr>
 			<tr>
 				<td>목표 몸무게(Kg)</td>
-				<td><input type="text" placeholder="숫자만 입력하세요" name="hope_weight" class="form-control" style="height:23px;"/></td>
+				<td><input type="text" placeholder="숫자만 입력하세요" name="hope_weight" class="form-control" /></td>
 			</tr>
 			<tr>
 				<td>나이 연령대</td>
@@ -114,7 +114,7 @@
 			<tr>
 				<td>운동시작희망일자</td>
 				<td>
-					<input type="date" name="hope_start" class="form-control" style="width:200px;height:30px;"/>			
+					<input type="date" name="hope_start" class="form-control" />			
 				</td>
 			</tr>
 			<tr>
@@ -157,11 +157,11 @@
 			</tr>
 			<tr>
 				<td>장애및질병여유</td>
-				<td><input type="text" placeholder="장애 및 병명을 입력하세요" name="disease" class="form-control" style="height:23px;" autofocus/></td>
+				<td><input type="text" placeholder="장애 및 병명을 입력하세요" name="disease" class="form-control"/></td>
 			</tr>
 			<tr>
 				<td>일일운동시간</td>
-				<td><input type="text" placeholder="시간을 입력하세요" name="day_time" class="form-control" style="height:23px;" autofocus/></td>
+				<td><input type="text" placeholder="시간을 입력하세요" name="day_time" class="form-control"/></td>
 			</tr>
 			<tr align="center">
 				<td><input type="submit" value="등록" /></td>
