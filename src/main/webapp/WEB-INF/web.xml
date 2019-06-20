@@ -30,6 +30,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping> -->
 	
+
 	<!-- 설문조사/양상모 -->
 	<servlet>
 		<servlet-name>survey</servlet-name>
@@ -57,6 +58,5 @@
 		<servlet-name>diary</servlet-name>
 		<url-pattern>*.di</url-pattern>
 	</servlet-mapping>
-	
 
 </web-app>
