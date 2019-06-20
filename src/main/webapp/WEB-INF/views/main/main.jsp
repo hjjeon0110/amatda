@@ -5,193 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
-
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main/main.css">
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Montserrat|Noto+Sans+KR&display=swap" rel="stylesheet">
-<style>
-	.recommendNewTrainer, .recommendBestTrainer {  
-		text-align:center;
-		font-family: 'Noto Sans KR', sans-serif;
-		font-size:25px;
-		color:#ff0066
-	}
-	.bestReviewLabel {
-		font-family: 'Montserrat', sans-serif;
-		font-size:25px;
-		color:#ff0066
-	}
-	.newBtn {
-		border-style:none;
-		width:35px;
-		height:25px;
-		font-size:12px;
-		background:#ffe6f3;
-		color:white;
-	}
-	.simpleProfile {
-		font-size:12px;
-		color:gray;
-	}
-	.goProfile {
-		border-style:none;
-		width:130px;
-		height:30px;
-		font-size:15px;
-		background:#ff0066;
-		color:white;
-	}
-	.blog_section {
-  padding-top: 5rem;
-  padding-bottom: 3rem;
-}
-.blog_section .blog_content .blog_item {
-  margin-bottom: 30px;
-  box-shadow: 0 0 11px 0 rgba(6, 22, 58, 0.14);
-  position: relative;
-  border-radius: 2px;
-  overflow: hidden;
-}
-.blog_section .blog_content .blog_item:hover .blog_image img {
-  transform: scale(1.1);
-}
-.blog_section .blog_content .blog_item .blog_image {
-  overflow: hidden;
-  padding: 0;
-}
-.blog_section .blog_content .blog_item .blog_image img {
-  width: 100%;
-  transition: transform 0.5s ease-in-out;
-}
-.blog_section .blog_content .blog_item .blog_image span i {
-  position: absolute;
-  z-index: 2;
-  color: #fff;
-  font-size: 18px;
-  width: 38px;
-  height: 45px;
-  padding-top: 7px;
-  text-align: center;
-  right: 20px;
-  top: 0;
-  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 79%, 0 100%);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 79%, 0 100%);
-  background-color: #ff0066;
-}
-.blog_section .blog_content .blog_item .blog_details {
-  padding: 25px 20px 30px 20px;
-}
-.blog_section .blog_content .blog_item .blog_details .blog_title h5 a {
-  color: #020d26;
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 20px;
-  line-height: 32px;
-  transition: all 0.3s;
-  text-decoration: none;
-}
-.blog_section .blog_content .blog_item .blog_details .blog_title h5 a:hover {
-  color: #ff0066;
-}
-.blog_section .blog_content .blog_item .blog_details ul {
-  padding: 0 3px 10px 0;
-  margin: 0;
-}
-
-.blog_section .blog_content .blog_item .blog_details ul li {
-  display: inline-block;
-  padding-right: 15px;
-  position: relative;
-  color: gray;
-  font-size:15px;
-}
-.blog_section .blog_content .blog_item .blog_details ul li i {
-  padding-right: 7px;
-}
-.blog_section .blog_content .blog_item .blog_details p {
-  border-top: 1px solid #e5e5e5;
-  margin-top: 4px;
-  padding: 20px 0 4px;
-}
-.blog_section .blog_content .blog_item .blog_details a {
-  font-size: 15px;
-  display: inline-block;
-  color: gray;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s;
-}
-.blog_section .blog_content .blog_item .blog_details a:hover {
-  color: #ff0066;
-}
-.blog_section .blog_content .blog_item .blog_details a i {
-  vertical-align: middle;
-  font-size: 10px;
-}
-.blog_section .blog_content .owl-nav {
-  display: block;
-}
-.blog_section .blog_content .owl-nav .owl-prev {
-  position: absolute;
-  left: -27px;
-  top: 33%;
-  border: 5px solid #fff;
-  text-align: center;
-  z-index: 5;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  outline: 0;
-  background: #ff5e14;
-  transition: all 0.3s;
-  color: #fff;
-}
-.blog_section .blog_content .owl-nav .owl-prev span {
-  font-size: 25px;
-  margin-top: -6px;
-  display: inline-block;
-}
-.blog_section .blog_content .owl-nav .owl-prev:hover {
-  background: #fff;
-  border-color: #ff5e14;
-  color: #ff5e14;
-}
-.blog_section .blog_content .owl-nav .owl-next {
-  position: absolute;
-  right: -27px;
-  top: 33%;
-  border: 5px solid #fff;
-  text-align: center;
-  z-index: 5;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  outline: 0;
-  background: #ff5e14;
-  color: #fff;
-  transition: all 0.3s;
-}
-.blog_section .blog_content .owl-nav .owl-next span {
-  font-size: 25px;
-  margin-top: -6px;
-  display: inline-block;
-}
-.blog_section .blog_content .owl-nav .owl-next:hover {
-  background: #fff;
-  border-color: #ff5e14;
-  color: #ff5e14;
-}
-
-@media only screen and (max-width: 577px) {
-  .blog_section .owl-nav .owl-prev {
-    left: -17px !important;
-  }
-  .blog_section .owl-nav .owl-next {
-    right: -17px !important;
-  }
-}
-</style>
 </head>
 <body>
 
@@ -222,7 +37,7 @@
 			<span class="sr-only">Next</span>
 		</a>
 	</div>
-	<br><br><br><br><br>
+	<br><br><br>
 
 	
 	<!-- 추천 신입 트레이너 ----------------------------------------------------------------------------------------------------- -->
@@ -236,49 +51,43 @@
 						<div class="blog_item">
 							<div class="blog_image">
 								<img class="img-fluid"
-									src="https://cdn.pixabay.com/photo/2019/03/10/18/31/hong-kong-4046913_960_720.jpg"
+									src="${contextPath}/resources/images/trainer.jpg"
 									alt="images not found"> <span><i
 									class="icon ion-md-create"></i></span>
 							</div>
 							<div class="blog_details">
-								<div class="blog_title">
-										<a href="#">트레이너1</a>&nbsp;&nbsp;<button class="newBtn">신입</button>
-								</div>
+								<label class="tName">트레이너1&nbsp;&nbsp;</label><button class="newBtn">신입</button><br>
 								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br>
 								<!-- <a href="#">프로필 상세보기<i class="icofont-long-arrow-right"></i></a> -->
-								<button class="goProfile">프로필 상세보기</button>
+								<button class="goProfile">프로필 상세보기 ></button><br>
 							</div>
 						</div>
 						<div class="blog_item">
 							<div class="blog_image">
 								<img class="img-fluid"
-									src="https://cdn.pixabay.com/photo/2015/07/09/22/45/tree-838667_960_720.jpg"
+									src="${contextPath}/resources/images/trainer.jpg"
 									alt="images not found"> <span><i
 									class="icon ion-md-create"></i></span>
 							</div>
 							<div class="blog_details">
-								<div class="blog_title">
-										<a href="#">트레이너2</a>&nbsp;&nbsp;<button class="newBtn">신입</button>
-								</div>
+								<label class="tName">트레이너2&nbsp;&nbsp;</label><button class="newBtn">신입</button><br>
 								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br>
 								<!-- <a href="#">프로필 상세보기<i class="icofont-long-arrow-right"></i></a> -->
-								<button class="goProfile">프로필 상세보기</button>
+								<button class="goProfile">프로필 상세보기 ></button><br>
 							</div>
 						</div>
 						<div class="blog_item">
 							<div class="blog_image">
 								<img class="img-fluid"
-									src="https://cdn.pixabay.com/photo/2015/10/30/20/13/sunrise-1014712_960_720.jpg"
+									src="${contextPath}/resources/images/trainer.jpg"
 									alt="images not found"> <span><i
 									class="icon ion-md-create"></i></span>
 							</div>
 							<div class="blog_details">
-								<div class="blog_title">
-										<a href="#">트레이너3</a>&nbsp;&nbsp;<button class="newBtn">신입</button>
-								</div>
+								<label class="tName">트레이너3&nbsp;&nbsp;</label><button class="newBtn">신입</button><br>
 								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br>
 								<!-- <a href="#">프로필 상세보기<i class="icofont-long-arrow-right"></i></a> -->
-								<button class="goProfile">프로필 상세보기</button>
+								<button class="goProfile">프로필 상세보기 ></button><br>
 							</div>
 						</div>
 					</div>
@@ -302,8 +111,58 @@
 	<!-- 추천 인기 트레이너 ----------------------------------------------------------------------------------------------------- -->
 	<div class="recommendBestTrainer">
 		<label class="recommendBestTrainerLabel" data-aos="fade-up">추천 인기 트레이너</label>
+		<section class="blog_section">
+			<div class="container">
+				<div class="blog_content">
+					<div class="owl-carousel owl-theme">
+						<div class="blog_item">
+							<div class="blog_image">
+								<img class="img-fluid"
+									src="${contextPath}/resources/images/trainer.jpg"
+									alt="images not found"> <span><i
+									class="icon ion-md-create"></i></span>
+							</div>
+							<div class="blog_details">
+								<label class="tName">트레이너1&nbsp;&nbsp;</label><button class="newBtn">인기</button><br>
+								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br>
+								<!-- <a href="#">프로필 상세보기<i class="icofont-long-arrow-right"></i></a> -->
+								<button class="goProfile">프로필 상세보기 ></button><br>
+							</div>
+						</div>
+						<div class="blog_item">
+							<div class="blog_image">
+								<img class="img-fluid"
+									src="${contextPath}/resources/images/trainer.jpg"
+									alt="images not found"> <span><i
+									class="icon ion-md-create"></i></span>
+							</div>
+							<div class="blog_details">
+								<label class="tName">트레이너2&nbsp;&nbsp;</label><button class="newBtn">인기</button><br>
+								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br>
+								<!-- <a href="#">프로필 상세보기<i class="icofont-long-arrow-right"></i></a> -->
+								<button class="goProfile">프로필 상세보기 ></button><br>
+							</div>
+						</div>
+						<div class="blog_item">
+							<div class="blog_image">
+								<img class="img-fluid"
+									src="${contextPath}/resources/images/trainer.jpg"
+									alt="images not found"> <span><i
+									class="icon ion-md-create"></i></span>
+							</div>
+							<div class="blog_details">
+								<label class="tName">트레이너3&nbsp;&nbsp;</label><button class="newBtn">인기</button><br>
+								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br>
+								<!-- <a href="#">프로필 상세보기<i class="icofont-long-arrow-right"></i></a> -->
+								<button class="goProfile">프로필 상세보기 ></button><br>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 	</div>
-	
+	<hr><br><br>
 	
 	<!-- 베스트 리뷰 영역 ------------------------------------------------------------------------------------------------------ -->
 	<div class="bestReview">
@@ -408,9 +267,10 @@
 			</div>
 		</div>
 	</div>
+	<br><br>
 	
 	
-	<section class="site-hero overlay" style="background: #ffe6f3;" data-stellar-background-ratio="0.5" id="section-home">
+	<section class="site-hero overlay" style="background-image:url(${contextPath}/resources/images/testFooter.jpg)" data-stellar-background-ratio="0.5" id="section-home">
 		<div class="container">
 			<div class="row site-hero-inner justify-content-center align-items-center">
 				<div class="col-md-10 text-center" data-aos="fade-up">
@@ -419,6 +279,8 @@
 			</div>
 		</div>
 	</section>
+	<br><br><hr><br><br>
+	
 	
 	<!-- footer ----------------------------------------------------------------------------------------------------- -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
