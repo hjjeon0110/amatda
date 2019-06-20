@@ -18,57 +18,16 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/fontawesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Montserrat|Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/menubar.css">
 </head>
-<style>
-	.miniMenubar {
-		width:100%;
-		height:45px;
-		font-family:나눔고딕;
-		text-align:right;
-		border-bottom:1px solid lightgray;
-		margin-top:15px;
-	}
-	.miniMenubar ul li {
-		display:inline;
-		font-size:12px;
-	}
-	.miniMenubarLabel {
-		font-size:12px;
-		color:gray;
-	}
-	.menubarDiv{
-		width:100%;
-		height:110px;
-	}
-	.text-danger {
-		font-family: 'Black Han Sans', sans-serif;
-		font-size:55px;
-	}
-	ul {
-		margin:0px;
-	}
-	.menubarLi li {
-		display:inline;
-		color:gray;
-		font-family: 'Noto Sans KR', sans-serif;
-		font-size:20px;
-	}
-	.menubarLi li:hover {
-		display:inline;
-		color:#ff0066;
-		font-family: 'Noto Sans KR', sans-serif;
-		font-size:20px;
-		cursor:pointer;
-	}
-</style>
 <body>
 	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application" />
-
+	
 	<div class="miniMenubar">
 		<ul>
-			<li> 로그인 </li><lable class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</lable>
-			<li> 회원가입 </li><lable class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</lable>
-			<li> 고객센터 </li>
+			<li> 로그인 </li><label class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</label>
+			<li> 회원가입 </li><label class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</label>
+			<li><a href="#"> 고객센터 </a></li>
 			<li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </li>
 		</ul>
 	</div>
