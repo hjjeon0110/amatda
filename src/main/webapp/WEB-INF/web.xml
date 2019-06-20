@@ -30,6 +30,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping> -->
 	
+
 	<servlet>
 		<servlet-name>admin</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -41,6 +42,34 @@
 	<servlet-mapping>
 		<servlet-name>admin</servlet-name>
 		<url-pattern>*.ad</url-pattern>
+
+	<!-- 설문조사/양상모 -->
+	<servlet>
+		<servlet-name>survey</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/survey-servlet.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>survey</servlet-name>
+		<url-pattern>*.sv</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 프라이빗다이어리/양상모 -->
+	<servlet>
+		<servlet-name>diary</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/diary-servlet.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>diary</servlet-name>
+		<url-pattern>*.di</url-pattern>
+
 	</servlet-mapping>
 
 </web-app>
