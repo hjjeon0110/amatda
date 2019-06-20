@@ -11,7 +11,7 @@
 
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Montserrat|Noto+Sans+KR&display=swap" rel="stylesheet">
 <style>
-	.recommendNewTrainer, .recommendBestTrainer { 
+	.recommendNewTrainer, .recommendBestTrainer {  
 		text-align:center;
 		font-family: 'Noto Sans KR', sans-serif;
 		font-size:25px;
