@@ -15,6 +15,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+	<jsp:include page="../common/menubar.jsp"></jsp:include>
+
 	<div class="container">
 	<form action="" method="post">
 		<table align="center">
@@ -171,5 +174,6 @@
 	</form>
 	
 	</div>
+	<jsp:include page="../common/footer.jsp"></jsp:include>
 </body>
 </html>
