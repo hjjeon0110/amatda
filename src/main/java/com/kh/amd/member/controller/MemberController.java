@@ -16,9 +16,15 @@ public class MemberController {
 		return "common/memberJoin";
 	}
 	
+	@RequestMapping("insertTrainer.me")
+	public String insertTrainer() {
+		return "common/trainerJoin";
+	}
 	
 	@RequestMapping("loginMember.me")
 	public String loginMember() {
 		return "common/login";
 	}
+	
+	
 }
