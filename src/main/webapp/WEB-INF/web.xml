@@ -42,7 +42,8 @@
 	<servlet-mapping>
 		<servlet-name>admin</servlet-name>
 		<url-pattern>*.ad</url-pattern>
-
+	</servlet-mapping>
+	
 	<!-- 설문조사/양상모 -->
 	<servlet>
 		<servlet-name>survey</servlet-name>
