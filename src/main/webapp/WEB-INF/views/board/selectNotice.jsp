@@ -25,22 +25,36 @@ a:hover {text-decoration: underline; color: black;}
 a:active {text-decoration: none; color: #333333;}
  */
  
+ .firstTable hr{
+ width:200px;
+ size:5px;
+ color:black;
+ align:left;
+ }
  
+ .firstTable h5{
+ cursor:pointer;
+ }
+ 
+ .SecondTable tr{
+ cursor:pointer;
+ }
  
  .csTable{
  height:470px;
+ 
  }
  
  .firstTable{
+ 
  margin-top:5%;
  float:left;
  width:20%;
  margin-left:10%;
- 
- 
  }
  
- .SecondTable{
+ .secondTable{
+
  margin-top:5%;
  float:right;
  width: 60%;
@@ -58,8 +72,7 @@ a:active {text-decoration: none; color: #333333;}
 }
  
  .checkboxgroup{
-		margin-left:70%;
-		
+		margin-left:60%;
 	}
  
 </style>
@@ -70,31 +83,24 @@ a:active {text-decoration: none; color: #333333;}
 	
 	
 	<div class="csTable">
-	
 		<div class="firstTable">
-		<hr width="200px" size="5px" color="black" align="left">
-			<h5><a href="http://www.naver.com">공지사항 / 이벤트</a></h5>
-			<h5><a href="http://www.naver.com">공지사항 </a></h5>
-			<h5><a href="http://www.naver.com">이벤트</a></h5>
-		
-		
-		<hr width="200px" size="1px" color="gray" align="left">
+		<hr>
+		<h5><a href="http://www.naver.com">공지사항 / 이벤트</a></h5>
+		<h5><a href="http://www.naver.com">공지사항 </a></h5>
+		<h5><a href="http://www.naver.com">이벤트</a></h5>
+		<hr>
 		<h5><a href="http://www.naver.com">Q&A</a></h5>
-		
-		<hr width="200px" size="1px" color="gray" align="left">
+		<hr>
 		<h5><a href="http://www.naver.com">아맞다 후기리뷰</a></h5>
-		
-		<hr width="200px" size="1px" color="gray" align="left">
+		<hr>
 		<h5><a href="http://www.naver.com">FAQ</a></h5>
-		
-		<hr width="200px" size="1px" color="gray" align="left">
+		<hr>
 		<h5><a href="http://www.naver.com">신고</a></h5>
-		
-		<hr width="200px" size="5px" color="black" align="left">
+		<hr>
 		</div>
 		
 	
-		<div class="SecondTable">
+		<div class="secondTable">
 			<table class="table table-hover">
 			    <thead>
 			      <tr>
@@ -106,7 +112,7 @@ a:active {text-decoration: none; color: #333333;}
 			      </tr>
 			    </thead>
 			    <tbody>
-			        <tr>
+			      <tr onclick="location.href='selectOneNotice.bo'">
                   <td>10</td>
                   <td>공지사항</td>
                   <td>10번째 공지사항입니다.</td>
@@ -193,27 +199,20 @@ a:active {text-decoration: none; color: #333333;}
 				<input type="checkbox" name="chk_info" value="title" checked="checked">제목
 				<input type="checkbox" name="chk_info" value="content">내용
 				<input type="text">&nbsp;
-				<button onclick="location.href='<%=request.getContextPath()%>/views/notice/noticeList.jsp'">검색</button>
+				<button onclick="location.href='selectNotice.bo'">검색</button> 
 			</div>
   			
 	  			<ul class="pagination">
-				<li><a href="<%=request.getContextPath()%>">이전</a></li>
+				<%-- <li><a href="<%=request.getContextPath()%>">이전</a></li>
 				<li><a href="<%=request.getContextPath()%>">1</a></li>
 				<li><a href="<%=request.getContextPath()%>">2</a></li>
 				<li><a href="<%=request.getContextPath()%>">3</a></li>
 				<li><a href="<%=request.getContextPath()%>">4</a></li>
 				<li><a href="<%=request.getContextPath()%>">5</a></li>
-				<li><a href="<%=request.getContextPath()%>">다음</a></li>
+				<li><a href="<%=request.getContextPath()%>">다음</a></li> --%>
 				</ul>
 		</div>
 	</div>
 	<br>
-	
-		
-	
-	
-	
-
-	
 </body>
 </html>
