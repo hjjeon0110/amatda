@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main/main.css">
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Montserrat|Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/fontawesome/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -169,14 +170,18 @@
 		<div class="container section" id="section-team">
 			<div class="row justify-content-center text-center mb-5">
 				<div class="col-md-7 mb-5">
-					<label class="bestReviewLabel" data-aos="fade-up">BEST REVIEW</label>
+					<label class="bestReviewLabel" data-aos="fade-up">이 달의 BEST REVIEW</label>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+					<label class="level">1위</label>
 					<div class="block-2">
 						<div class="flipper">
 							<div class="front">
+								<div class="like">
+									<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum">777개</label>
+								</div>
 								<div class="box">
 									<h2>Will Smith</h2>
 									<p>President</p>
@@ -204,10 +209,14 @@
 					<!-- .flip-container -->
 				</div>
 				<div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+					<label class="level">2위</label>
 					<div class="block-2">
 						<!-- .hover -->
 						<div class="flipper">
 							<div class="front">
+								<div class="like">
+									<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum">555개</label>
+								</div>
 								<div class="box">
 									<h2>Claire Williams</h2>
 									<p>Business Manager</p>
@@ -235,9 +244,13 @@
 					<!-- .flip-container -->
 				</div>
 				<div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+					<label class="level">3위</label>
 					<div class="block-2">
 						<div class="flipper">
 							<div class="front">
+								<div class="like">
+									<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum">333개</label>
+								</div>
 								<div class="box">
 									<h2>Jane Johnson</h2>
 									<p>Marketing Director</p>
@@ -280,6 +293,28 @@
 		</div>
 	</section>
 	<br><br><hr><br><br>
+	
+	<div class="trainerList">
+		<table class="trainerListTable" >
+			<tr>
+				<td rowspan="3" class="trainerListTableTd1">
+					IMAGE
+				</td>
+				<td class="trainerListTableTd2">트레이너 이름</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>키워드</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>한 줄 프로필</td>
+				<td class="trainerListTableTd1"><button class="goProfileDetail">프로필 보기</button></td>
+			</tr>
+		</table>
+		<div class="block">답변기한을 초과했습니다.</div>
+	</div>
+	
 	
 	
 	<!-- footer ----------------------------------------------------------------------------------------------------- -->
