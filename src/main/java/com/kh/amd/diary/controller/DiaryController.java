@@ -12,5 +12,12 @@ public class DiaryController {
 		return "diary/diaryDetail";
 		
 	}
+	
+	@RequestMapping("diaryDetail2.di")
+	public String showDiaryDetail2() {
+		
+		return "diary/diaryDetail2";
+		
+	}
 
 }

@@ -34,6 +34,7 @@
 			</tr>			
 		</table>
 		<div align="center" class="btnArea1">
+			<button type="submit">수정</button>
 			<button type="submit">등록</button>
 		</div>
 	</form>
@@ -45,6 +46,9 @@
 			<td><textarea name="repContent" id="" cols="76" rows="5" placeholder="트레이너만 작성가능한 댓글"></textarea></td>			
 			</tr>
 		</table>
+		<!-- <div align="center" class="btnArea2">
+			<button type="submit">수정</button>
+		</div> -->
 		<div align="center" class="btnArea2">
 			<button type="submit">등록</button>
 		</div>
