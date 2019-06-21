@@ -78,7 +78,7 @@ table{
 <div class="container">
 <hr style="margin-top:100px;">
   <h2 align="center" style="color:#CC3366; font-size:40px; margin-top:30px;">JOIN</h2>
-  <form action="/action_page.php">
+  <form action="insertMember.me" method="post">
     <table align="center">
     	<tr>
     		<td class="bigName">이메일</td>
@@ -97,6 +97,7 @@ table{
     	<tr>
     		<td class="bigName">아이디</td>
     		<td class="tdInput"><input type="text" name="userId" id="userId" class="form-control input"></td>
+    		<td class="tdBtn"><button onclick="checkId()" class="checkIdBtn">중복확인</button></td>
     	</tr>
     	<tr>
     		<td class="bigName">비밀번호</td>
