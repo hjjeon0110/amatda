@@ -4,7 +4,7 @@ body {
   font-weight: 200;
   font-size: 16px;
   line-height: 1.8;
-  color: #6c757d;
+  /* color: #6c757d; */
   position: relative; }
 
 ::-moz-selection {
@@ -1310,7 +1310,7 @@ textarea.form-control {
           padding-left: 0rem !important;
           padding-right: 0rem !important; } }
       .pb_navbar.scrolled.pb_scrolled-light ul li a {
-        color: #212529 !important; }
+        color: gray !important; }
         .pb_navbar.scrolled.pb_scrolled-light ul li a:hover, .pb_navbar.scrolled.pb_scrolled-light ul li a:active, .pb_navbar.scrolled.pb_scrolled-light ul li a:focus {
           color: #6c757d !important; }
         .pb_navbar.scrolled.pb_scrolled-light ul li a.active {
