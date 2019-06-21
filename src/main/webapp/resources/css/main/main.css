@@ -43,6 +43,26 @@
 	color:black;
 }
 
+.level {
+	font-size:25px;
+	color:gray;
+	width:100%;
+	text-align:center;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.like {
+	width:100%;
+	height:100%;
+	padding:20px;
+}
+
+.likeNum {
+	font-size:20px;
+	color:white;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
 .blog_section {
 	padding-top: 5rem;
 	padding-bottom: 3rem;
@@ -156,55 +176,53 @@
 .blog_section .blog_content .owl-nav .owl-prev {
 	position: absolute;
 	left: -27px;
-	top: 33%;
-	border: 5px solid #fff;
+	border: 3px solid #fff;
 	text-align: center;
 	z-index: 5;
-	width: 40px;
-	height: 40px;
+	width: 30px;
+	height: 30px;
 	border-radius: 50%;
 	outline: 0;
-	background: #ff0066;
+	background: rgba(255, 255, 255, 0.5);
 	transition: all 0.3s;
 	color: #fff;
 }
 
 .blog_section .blog_content .owl-nav .owl-prev span {
-	font-size: 25px;
+	font-size: 0px;
 	display: inline-block;
 }
 
 .blog_section .blog_content .owl-nav .owl-prev:hover {
 	background: #fff;
-	border-color: #ff0066;
-	color: #ff0066;
+	border-color: rgba(255, 255, 255, 0.5);
+	color: rgba(255, 255, 255, 1);
 }
 
 .blog_section .blog_content .owl-nav .owl-next {
 	position: absolute;
 	right: -27px;
-	top: 33%;
-	border: 5px solid #fff;
+	border: 3px solid #fff;
 	text-align: center;
 	z-index: 5;
-	width: 40px;
-	height: 40px;
+	width: 30px;
+	height: 30px;
 	border-radius: 50%;
 	outline: 0;
-	background: #ff0066;
+	background: rgba(255, 255, 255, 0.5);
 	color: #fff;
 	transition: all 0.3s;
 }
 
 .blog_section .blog_content .owl-nav .owl-next span {
-	font-size: 25px;
+	font-size: 0px;
 	display: inline-block;
 }
 
 .blog_section .blog_content .owl-nav .owl-next:hover {
 	background: #fff;
-	border-color: #ff0066;
-	color: #ff0066;
+	border-color: rgba(255, 255, 255, 0.5);
+	color: rgba(255, 255, 255, 1);
 }
 
 @media only screen and (max-width: 577px) {
@@ -214,4 +232,53 @@
 	.blog_section .owl-nav .owl-next {
 		right: -17px !important;
 	}
+}
+
+
+.trainerList {
+	width:100%; 
+	height:100%;
+	position: relative;
+}
+
+.trainerListTable {
+	width:80%; 
+	height:100%; 
+	border:1px solid lightgray; 
+	margin-left:auto; 
+	margin-right:auto;
+	position: relative;
+}
+
+.trainerListTable td {
+	padding:5px;
+}
+
+.trainerListTableTd1 {
+	width:15%; 
+	text-align:center;
+}
+
+.trainerListTableTd2 {
+	width:70%; 
+}
+
+.goProfileDetail {
+	border-style:none; 
+	background:#ff0066; 
+	color:white; 
+	margin-left:auto; 
+	margin-right:auto;
+	width:130px;
+}
+
+.block {
+	width:80%;
+	height:118px;
+	background:rgba(0, 0, 0, 0.5);
+	color:white;
+	text-align:center;
+	margin-left:auto; 
+	margin-right:auto;
+	position: relative;
 }
