@@ -18,4 +18,44 @@ public class BoardController {
 		return "board/selectOneNotice";
 	}
 
+	//qna 입력게시판(sr)
+	@RequestMapping("insertQna.bo")
+	public String insertQna() {
+		return "board/insertQna";
+	}
+	
+	//리뷰게시판 리스트(sr)
+	@RequestMapping("selectReview.bo")
+	public String selectReview() {
+		return "board/selectReview";
+	}
+	
+	//리뷰게시판 상세페이지(sr)
+	@RequestMapping("selectOneReview.bo")
+	public String selectOneReview() {
+		return "board/selectOneReview";
+	}
+	
+	//리뷰게시판 작성페이지 (sr)
+	@RequestMapping("insertReview.bo")
+	public String insertReview() {
+		return "board/insertReview";
+	}
+	
+	//faq 리스트(sr)
+	@RequestMapping("selectFaq.bo")
+	public String selectFaq() {
+		return "board/selectFaq";
+	}
+	
+	//신고 입력 게시판(sr)
+	@RequestMapping("insertDeclaration.bo")
+	public String insertDeclaration() {
+		return "board/insertDeclaration";
+	}
+
+	
+	
+	
+	
 }
