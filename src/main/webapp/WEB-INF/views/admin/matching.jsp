@@ -170,7 +170,7 @@
 								</tr>
 							</c:forEach>
 
-						</tbody>
+						</tbody> 
 					</table>
 				</div>
 			</div>
