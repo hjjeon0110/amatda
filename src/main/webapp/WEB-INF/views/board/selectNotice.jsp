@@ -26,7 +26,7 @@ a:active {text-decoration: none; color: #333333;}
  */
  
  .firstTable hr{
- width:200px;
+ width:150px;
  size:5px;
  color:black;
  align:left;
@@ -74,28 +74,35 @@ a:active {text-decoration: none; color: #333333;}
  .checkboxgroup{
 		margin-left:60%;
 	}
- 
+	ul{
+	align:center;
+	}
+	
+	.testImg {
+	width:100%;
+	}
 </style>
 
 </head>
 <body>
-	<%-- <jsp:include page="../common/menubar.jsp"/> --%>
+	<jsp:include page="../common/menubar.jsp"/> 
 	
+	<img class="testImg" src="${ contextPath }/resources/images/testMain.jpg">
 	
 	<div class="csTable">
 		<div class="firstTable">
 		<hr>
-		<h5><a href="http://www.naver.com">공지사항 / 이벤트</a></h5>
-		<h5><a href="http://www.naver.com">공지사항 </a></h5>
-		<h5><a href="http://www.naver.com">이벤트</a></h5>
+		<h5><a href="selectNotice.bo">공지사항 / 이벤트</a></h5>
+		<h5><a href="selectNotice.bo">공지사항 </a></h5>
+		<h5><a href="selectNotice.bo">이벤트</a></h5>
 		<hr>
-		<h5><a href="http://www.naver.com">Q&A</a></h5>
+		<h5><a href="insertQna.bo">Q&A</a></h5>
 		<hr>
-		<h5><a href="http://www.naver.com">아맞다 후기리뷰</a></h5>
+		<h5><a href="selectReview.bo">아맞다 후기리뷰</a></h5>
 		<hr>
-		<h5><a href="http://www.naver.com">FAQ</a></h5>
+		<h5><a href="selectFaq.bo">FAQ</a></h5>
 		<hr>
-		<h5><a href="http://www.naver.com">신고</a></h5>
+		<h5><a href="insertDeclaration.bo">신고</a></h5>
 		<hr>
 		</div>
 		
@@ -202,17 +209,34 @@ a:active {text-decoration: none; color: #333333;}
 				<button onclick="location.href='selectNotice.bo'">검색</button> 
 			</div>
   			
-	  			<ul class="pagination">
-				<%-- <li><a href="<%=request.getContextPath()%>">이전</a></li>
+	  			<%-- <ul class="pagination">
+				<li><a href="<%=request.getContextPath()%>">이전</a></li>
 				<li><a href="<%=request.getContextPath()%>">1</a></li>
 				<li><a href="<%=request.getContextPath()%>">2</a></li>
 				<li><a href="<%=request.getContextPath()%>">3</a></li>
 				<li><a href="<%=request.getContextPath()%>">4</a></li>
 				<li><a href="<%=request.getContextPath()%>">5</a></li>
-				<li><a href="<%=request.getContextPath()%>">다음</a></li> --%>
-				</ul>
+				<li><a href="<%=request.getContextPath()%>">다음</a></li> 
+				</ul> --%>
 		</div>
 	</div>
 	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<jsp:include page="../common/footer.jsp"/> 
+	<br>
+	<br>
+	<br>
+	
+	
+
 </body>
 </html>
