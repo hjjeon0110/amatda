@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+   <resultMap type="com.kh.amd.member.model.vo.Member" id="memberResultSet">
+      <id property="mno" column="MNO"/>            <!-- DB 기본키 -->
+      <result property="name" column="NAME"/>
+      <result property="userId" column="ID"/>   <!-- 일반컬럼 -->
+      <result property="userPwd" column="PWD"/>
+      <result property="phone" column="PHONE"/>
+      <result property="gender" column="GENDER"/>
+      <result property="email" column="EMAIL"/>
+ 	  <result property="mtype" column="MTYPE"/>
+      <result property="status" column="STATUS"/>
+      <result property="matchTime" column="MATCH_TIME"/>
+      <result property="emailYn" column="EMAIL_YN"/>
+      <result property="enrollDate" column="ENROLL_DATE"/>
+      <result property="modifyDate" column="MODIFY_DATE"/>
+      
+   </resultMap>
+
+
+	
+
+	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
+	
+		SELECT *
+		FROM MEMBER
+		WHERE USER_ID = #{userId}
+		<!-- AND USER_PWD = #{userPwd} -->
+		AND STATUS='Y'
+	</select>
+   
+   
+   <!-- 회원가입용 -->
+   <insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES (MNO_SEQ.NEXTVAL, #{name}, #{userId}, #{userPwd}, #{phone}, #{gender}, #{email}, 'U', 'Y', null,'Y', sysdate, null)	
+   </insert>
+   
+   
+   
+   <insert id="insertTrainer" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES (MNO_SEQ.NEXTVAL, #{name}, #{userId}, #{userPwd}, #{phone}, #{gender}, #{email}, 'T', 'Y', null,'Y', sysdate, null)	
+   </insert>
+   
+   <!-- 트레이너 추가 정보 회원가입 -->
+   <insert id="insertTrainerInfo" parameterType="TrainerInfo">
+   		INSERT INTO TUSER_INFO
+   		VALUES(TNO_SEQ.NEXTVAVL, #{accountName}, #{bankCode}, #{accountNo}, #{tage}, #{topen}, #{remainNum})
+   </insert>
+   
+  
+</mapper>
+
+
+<mapper namespace="TrainerInfo">
+	<resultMap type="com.kh.amd.member.model.vo.TrainerInfo" id="trainerResultSet">
+      <id property="tno" column="TNO"/>            <!-- DB 기본키 -->
+      <result property="accountName" column="ACCOUNT_NAME"/>
+      <result property="bankCode" column="BANKCODE"/>   <!-- 일반컬럼 -->
+      <result property="accountNo" column="ACCOUNT_NO"/>
+      <result property="tage" column="TAGE"/>
+      <result property="topen" column="TOPEN"/>
+      <result property="remainNum" column="REMAIN_NUM"/>
+   </resultMap>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

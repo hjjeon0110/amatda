@@ -84,13 +84,13 @@
 <hr style="margin-top:100px;">
 <h2 align="center" style="color:#CC3366; font-size:40px; margin-top:30px;">JOIN</h2>
   <div class="row">
-    <div class="col-sm-5 user" onclick="location.href='insertMember.me'">
+    <div class="col-sm-5 user" onclick="location.href='memberJoinView.me'">
     	<img class="img1" src="${contextPath}/resources/images/user.png" >
   			<label class="bigName">일반회원</label><br>
   			<label class="smallName">가입하기</label>
     </div>
     <div class="col-sm-2" style="background-color:white;"></div>
-    <div class="col-sm-5 trainer"  onclick="location.href='insertTrainer.me'">
+    <div class="col-sm-5 trainer"  onclick="location.href='trainerJoinView.me'">
    		<img class="img2" src="${contextPath}/resources/images/clock.png" >
   			<label class="bigName2">트레이너</label><br>
   			<label class="smallName2">가입하기</label>

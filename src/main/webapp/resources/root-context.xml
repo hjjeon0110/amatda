@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+    <!-- 데이터베이스 접속에 관련된 클래스를 bean으로 등록할 수 있다. -->
+    <!-- 객체를 만들어 놓아라~ -->
+    
+    <!-- sqlSessionTemplate 등록 -->
+    
+    <!-- bean태그는 객체를 만들어라~ id는 변수명 -->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+    	<!-- 객체타입에 sqlSession을 넣어줘라~ 그 전에 sqlSession을 빈으로 생성해야함 -->
+    	<constructor-arg ref="sqlSession"/>  <!-- sqlSession이라는 객체를 넣어준다. -->
+    </bean>
+    
+    <!-- 위에 인자로 넘긴 sqlSession도 마찬가지로 bean으로 등록해주어야한다. -->
+    <!-- sqlSession은 SqlSessionFactory를 사용하여 만들어주어야한다. -->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+    
+    	<!-- 해당파일의 경로를 setter를 통해서 넣어준다. -->
+    	<!-- configLocation : MyBatis 설정 파일의 위치 지정 -->
+    	<property name="configLocation" value="classpath:mybatis-config.xml"></property> <!-- configLocation대소문자 주의  / 문자열의 값을 넣을때도 value사용-->
+    	<!-- ref는 객체이므로 빈으로 등록해줘야한다(아래처럼) -->
+    	<property name="dataSource" ref="dataSource"/> <!-- dataSource : 데이터베이스 접속 정보 -->
+    </bean> <!--여기서 만든 sqlSession을 위에 있는 SqlSession을 넣어준다. -->
+    
+    
+    <!-- 위에쓴 dataSource를 빈으로 등록한다. -->
+    <!-- 이 클래스를 이용해서 객체를 만들어준다. -->
+    <!-- dbcp라이브러리를 다운받아야한다. -->
+    <!-- 객체 소멸시, 실행시킬 메소드: close메소드를 실행시키겠다. -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    	<!-- 객체를 생성하고, 생성한 객체를 setter를 통해서 값을 주입시켜라 -->
+    	<!-- driverClassName필드에 value의 값을 넣어줘라 -->
+    	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+    	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+    	<property name="username" value="amatda"></property> <!-- 반드시 소문자로 작성-->
+    	<property name="password" value="amatda"></property>
+    	<property name="defaultAutoCommit" value="false"></property>
+    </bean>
+    
+    
+    <!-- 이 과정을 통해 transactionManager객체 생성! -->
+    <!-- 트랜젝션 매니저 bean등록 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <!-- DataSourceTransaction은 dataSource를 작성해줘야 bean으로 설정할 수있다. -->
+     	<property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+    
+    
+    
+    <!-- 어노테이션으로 트랜젝션 매니저를 설정하기 위해 추가해야하는 설정 -->
+    <!-- 어노테이션을 사용하기 위해 tx관련 스키마 추가 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+  
+  
+    <!-- 트랜젝션 매니저를 이용해 tx advice를 정의한다. -->
+    <!-- advice는 공통코드 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    	<!-- 속성 정의 -->
+    	<tx:attributes>
+    	<!-- select라고 시작하는 메소드 & 읽기전용 & exception발생시 rollback -->
+    		<tx:method name="select*" read-only="true" rollback-for="Exception"/>
+    		<tx:method name="insert*" rollback-for="Exception" propagation="REQUIRED" isolation="SERIALIZABLE"/> <!-- MemberServiceImpl에서 해줬던것을 xml에서 설정해줌 -->
+    		<tx:method name="update*" rollback-for="Exception" propagation="REQUIRED" isolation="SERIALIZABLE"/>
+    		<tx:method name="delete*" rollback-for="Exception" propagation="REQUIRED" isolation="SERIALIZABLE"/>
+    	</tx:attributes>
+    </tx:advice>
+    
+    
+ 
+    <!-- AOP를 이용하여 위의 txAdvice를 적용시키기 위해 advice객체가 weaving될 시점을 정해준다. -->
+    <!-- pointcut을 등록해야한다. -->
+    <!-- 사용할 공통 로직(Advice) + 사용할 위치(pointcut) = ASPECT -->
+    <aop:config proxy-target-class="true">
+    	<aop:pointcut  id="serviceMethod" expression="execution(* com.kh.amd..*ServiceImpl.*(..))"/> <!-- 사용할 메소드의 패턴지정(리턴타입+경로(..은 몇레벨이든 상관없이 하위/.은 바로 한단계 하위) + ServiceImpl로 끝나는  모든 메소드 -->
+    	<aop:advisor id="transactionAdvice" pointcut-ref="serviceMethod" advice-ref="txAdvice"/>
+    </aop:config>
+</beans>

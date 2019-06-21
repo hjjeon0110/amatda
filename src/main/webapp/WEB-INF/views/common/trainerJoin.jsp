@@ -83,7 +83,7 @@ table{
 <div class="container">
 <hr style="margin-top:100px;">
   <h2 align="center" style="color:#CC3366; font-size:40px; margin-top:30px;">JOIN</h2>
-  <form action="/action_page.php">
+  <form action="insertTrainer.me">
     <table align="center">
     	<tr>
     		<td class="bigName">이메일</td>

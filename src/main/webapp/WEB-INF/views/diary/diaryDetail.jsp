@@ -35,6 +35,7 @@
 		</table>
 		<div align="center" class="btnArea1">
 			<button type="submit">수정</button>
+			<button type="submit">등록</button>
 		</div>
 	</form>
 		<br /><br />
@@ -48,6 +49,9 @@
 		<!-- <div align="center" class="btnArea2">
 			<button type="submit">수정</button>
 		</div> -->
+		<div align="center" class="btnArea2">
+			<button type="submit">등록</button>
+		</div>
 	</form>
 	</div>
 		
