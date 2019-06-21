@@ -25,7 +25,7 @@
 	-->
 <style>
 	#search_input{
-	margin-left:600px;
+	margin-left:750px;
 }
 	
 </style>
@@ -58,7 +58,7 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">회원 정보 조회<a>
+                                <a class="dropdown-item" href="main.ad">회원 정보 조회<a>
                                 <a class="dropdown-item" href="trainer.ad">트레이너 조회</a>
                                 <a class="dropdown-item" href="matching.ad">매칭 조회</a>
                             </div>
@@ -136,15 +136,8 @@
 			<div class="col-12 tm-block-col">
 				<div
 					class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
-					<h2 class="tm-block-title">회원 정보 조회</h2>
+					<h2 class="tm-block-title">매칭 조회</h2>
 
-					<select class="custom-select">
-						<option value="0">카테고리별 조회</option>
-						<option value="1">성별</option>
-						<option value="2">나이대</option>
-						<option value="2">매칭상태</option>
-					</select> 
-					
 					<input id="search_input" type="text" name="" placeholder="아이디 입력">
 					<a href="#" class="search_icon"><i class="fas fa-search"></i></a>
 
@@ -153,13 +146,12 @@
 						<thead>
 							<tr>
 								<th scope="col">번호</th>
-								<th scope="col">아이디</th>
-								<th scope="col">이름</th>
-								<th scope="col">성별</th>
-								<th scope="col">나이대</th>
-								<th scope="col">이메일</th>
-								<th scope="col">매칭상태</th>
-								<th scope="col">매칭횟수</th>
+								<th scope="col">회원 아이디</th>
+								<th scope="col">트레이너 아이디</th>
+								<th scope="col">입금완료일</th>
+								<th scope="col">PT시작일</th>
+								<th scope="col">PT종료일</th>
+								<th scope="col">상태</th>
 							</tr>
 						</thead>
 
@@ -168,13 +160,13 @@
 							<c:forEach var="member" begin="1" end="10">
 								<tr>
 									<th scope="row"><b>1</b></th>
-									<td>김선아</td>
 									<td>sunah</td>
-									<td>여</td>
-									<td>18~24세</td>
-									<td>ksa@gmail.com</td>
-									<td>Y</td>
-									<td>1</td>
+									<td>wannaOne</td>
+									<td>2019.06.07</td>
+									<td>2019.06.21</td>
+									<td>2019.12.21</td>
+									<td><button class="button">매칭 종료</button></td>
+									
 								</tr>
 							</c:forEach>
 
