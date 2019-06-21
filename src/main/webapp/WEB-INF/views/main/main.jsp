@@ -294,28 +294,6 @@
 	</section>
 	<br><br><hr><br><br>
 	
-	<div class="trainerList">
-		<table class="trainerListTable" >
-			<tr>
-				<td rowspan="3" class="trainerListTableTd1">
-					IMAGE
-				</td>
-				<td class="trainerListTableTd2">트레이너 이름</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>키워드</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>한 줄 프로필</td>
-				<td class="trainerListTableTd1"><button class="goProfileDetail">프로필 보기</button></td>
-			</tr>
-		</table>
-		<div class="block">답변기한을 초과했습니다.</div>
-	</div>
-	
-	
 	
 	<!-- footer ----------------------------------------------------------------------------------------------------- -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>

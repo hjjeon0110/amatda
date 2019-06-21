@@ -56,7 +56,9 @@
 						</li>
 					</ul> -->
 					<ul class="menubarLi">
-						<li>회원/트레이너 찾기</li>
+						<li>회원 찾기</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<li><a href="goMyPageView.tr">MY PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<li>PT 관리</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					</ul>
 				</div>
 			</div>
