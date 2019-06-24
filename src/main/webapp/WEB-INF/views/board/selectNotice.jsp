@@ -7,10 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+ -->
 <style type="text/css">
 
 /* table{
@@ -32,7 +32,7 @@ a:active {text-decoration: none; color: #333333;}
  align:left;
  }
  
- .firstTable h5{
+ .firstTable h6{
  cursor:pointer;
  }
  
@@ -41,7 +41,7 @@ a:active {text-decoration: none; color: #333333;}
  }
  
  .csTable{
- height:470px;
+ height:600px;
  
  }
  
@@ -63,6 +63,10 @@ a:active {text-decoration: none; color: #333333;}
 /*  background:skyblue; */	
  }
  
+/*  .secondTable tbody :hover{
+ background-color: #ffe6f3; 
+ } */
+ 
  .btn{
  	margin-right:10%;
  }
@@ -74,41 +78,126 @@ a:active {text-decoration: none; color: #333333;}
  .checkboxgroup{
 		margin-left:60%;
 	}
-	ul{
-	align:center;
-	}
+	
 	
 	.testImg {
 	width:100%;
 	}
+	
+	
+	.firstTable h6:hover{
+background:#ffe6f3;
+width:180px;
+}
+	.firstTableLine1{
+background:#ff0066; 
+width:180px; 
+height:5px; 
+margin-bottom:15px;
+}
+
+.firstTableLine2{
+background:#ff0066; 
+width:180px; 
+height:1px; 
+margin-bottom:15px;
+}
+
+/*페이징 페이지 start*/
+
+.paging {
+	margin-top: 15px;
+	text-align: center;
+	font-size: 0;
+}
+.paging a,
+.paging strong {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin: 0 1px;
+	border: 1px solid #dbdbdb;
+	color: #767676;
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 20px;
+	vertical-align: middle;
+  text-decoration: none;
+}
+.paging a:hover,
+.paging a:active,
+.paging a:focus {
+	border: 1px solid #4c8500;	
+}
+.paging strong {
+	color: #fff;
+	background: #4c8500;
+	border: 1px solid #4c8500;
+}
+.paging .direction {
+	background: url('http://leroro.net/images/ui/sp_btn_paging.gif') no-repeat;
+}
+.paging .direction.first {
+	background-position: left top;
+}
+.paging .direction.prev {
+	margin: 0 12px 0 1px;
+	background-position: -20px 0;
+}
+.paging .direction.next {
+	margin: 0 1px 0 12px;
+	background-position: -40px 0;
+}
+.paging .direction.last {
+	background-position: right top;
+}
+.paging .direction span {
+	position: absolute;
+	display: block;
+	width: 20px;
+	height: 18px;
+	overflow: hidden;
+	z-index: -1;
+}
+
+.
+
+	
 </style>
 
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/> 
 	
-	<img class="testImg" src="${ contextPath }/resources/images/testMain.jpg">
+	<img class="testImg" src="${ contextPath }/resources/images/sstestMain.jpg">
 	
 	<div class="csTable">
-		<div class="firstTable">
-		<hr>
-		<h5><a href="selectNotice.bo">공지사항 / 이벤트</a></h5>
-		<h5><a href="selectNotice.bo">공지사항 </a></h5>
-		<h5><a href="selectNotice.bo">이벤트</a></h5>
-		<hr>
-		<h5><a href="insertQna.bo">Q&A</a></h5>
-		<hr>
-		<h5><a href="selectReview.bo">아맞다 후기리뷰</a></h5>
-		<hr>
-		<h5><a href="selectFaq.bo">FAQ</a></h5>
-		<hr>
-		<h5><a href="insertDeclaration.bo">신고</a></h5>
-		<hr>
-		</div>
+		 <div class="firstTable">
+      
+      <h2>고객센터</h2>
+      <div class="firstTableLine1"></div>
+      
+      <h6><a href="selectNotice.bo">공지사항 / 이벤트</a></h6>
+      <h6><a href="selectNoticeCate.bo">공지사항 </a></h6>
+      <h6><a href="selectEventCate.bo">이벤트</a></h6>
+      
+      
+     <div class="firstTableLine2"></div>
+      <h6><a href="insertQna.bo">Q&A</a></h6>
+      <div class="firstTableLine2"></div>
+      <h6><a href="selectReview.bo">아맞다 후기리뷰</a></h6>
+      <div class="firstTableLine2"></div>
+      <h6><a href="selectFaq.bo">FAQ</a></h6>
+      <div class="firstTableLine2"></div>
+      <h6><a href="insertDeclaration.bo">신고</a></h6>
+    <div class="firstTableLine1"></div>
+      </div>
 		
 	
 		<div class="secondTable">
-			<table class="table table-hover">
+		<h2>공지사항/이벤트</h2>
+		<br>
+			<table class="table table-hover" color="pink">
 			    <thead>
 			      <tr>
 			        <th>글번호</th>
@@ -119,10 +208,58 @@ a:active {text-decoration: none; color: #333333;}
 			      </tr>
 			    </thead>
 			    <tbody>
-			      <tr onclick="location.href='selectOneNotice.bo'">
+			      <tr onclick="location.href='selectOneNotice.bo'" >
                   <td>10</td>
                   <td>공지사항</td>
                   <td>10번째 공지사항입니다.</td>
+                  <td>2019.6.10</td>
+                  <td>10</td>
+               </tr>
+               
+               <tr>
+                  <td>10</td>
+                  <td>공지사항</td>
+                  <td>10번째 공지사항입니다.</td>
+                  <td>2019.6.10</td>
+                  <td>10</td>
+               </tr>
+               
+               <tr>
+                  <td>10</td>
+                  <td>이벤트</td>
+                  <td>10번째 이벤트입니다.</td>
+                  <td>2019.6.10</td>
+                  <td>10</td>
+               </tr>
+               
+               <tr>
+                  <td>10</td>
+                  <td>이벤트</td>
+                  <td>10번째 이벤트입니다.</td>
+                  <td>2019.6.10</td>
+                  <td>10</td>
+               </tr>
+               
+               <tr>
+                  <td>10</td>
+                  <td>공지사항</td>
+                  <td>10번째 공지사항입니다.</td>
+                  <td>2019.6.10</td>
+                  <td>10</td>
+               </tr>
+               
+               <tr>
+                  <td>10</td>
+                  <td>이벤트</td>
+                  <td>10번째 이벤트입니다.</td>
+                  <td>2019.6.10</td>
+                  <td>10</td>
+               </tr>
+               
+               <tr>
+                  <td>10</td>
+                  <td>이벤트</td>
+                  <td>10번째 이벤트입니다.</td>
                   <td>2019.6.10</td>
                   <td>10</td>
                </tr>
@@ -145,56 +282,8 @@ a:active {text-decoration: none; color: #333333;}
                
                <tr>
                   <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
+                  <td>이벤트</td>
+                  <td>10번째 이벤트입니다.</td>
                   <td>2019.6.10</td>
                   <td>10</td>
                </tr>
@@ -209,15 +298,24 @@ a:active {text-decoration: none; color: #333333;}
 				<button onclick="location.href='selectNotice.bo'">검색</button> 
 			</div>
   			
-	  			<%-- <ul class="pagination">
-				<li><a href="<%=request.getContextPath()%>">이전</a></li>
-				<li><a href="<%=request.getContextPath()%>">1</a></li>
-				<li><a href="<%=request.getContextPath()%>">2</a></li>
-				<li><a href="<%=request.getContextPath()%>">3</a></li>
-				<li><a href="<%=request.getContextPath()%>">4</a></li>
-				<li><a href="<%=request.getContextPath()%>">5</a></li>
-				<li><a href="<%=request.getContextPath()%>">다음</a></li> 
-				</ul> --%>
+	  		<!-- 페이징 시작 -->
+	  		
+	  		<div class="paging">
+				<a href="#" class="direction fisrt"><span>처음</span></a>
+				<a href="#" class="direction prev"><span>이전</span></a>
+				<a href="#">1</a>
+				<a href="#">2</a>
+				<a href="#">3</a>
+				<a href="#">4</a>
+				<strong>5</strong>
+				<a href="#">6</a>
+				<a href="#">7</a>
+				<a href="#">8</a>
+				<a href="#">9</a>
+				<a href="#" class="direction next"><span>다음</span></a>
+				<a href="#" class="direction last"><span>끝</span></a>
+			</div>
+				
 		</div>
 	</div>
 	<br>
@@ -235,6 +333,7 @@ a:active {text-decoration: none; color: #333333;}
 	<br>
 	<br>
 	<br>
+	
 	
 	
 
