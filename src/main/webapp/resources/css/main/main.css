@@ -1,54 +1,63 @@
 @charset "UTF-8";
 
+#carouselImg {
+	height:300px;
+}
+
 .recommendNewTrainer, .recommendBestTrainer {
 	text-align: center;
 	font-family: 'Noto Sans KR', sans-serif;
-	font-size: 25px;
+	font-size: 20px;
 	color: #ff0066
 }
 
 .bestReviewLabel {
 	font-family: 'Montserrat', sans-serif;
-	font-size: 25px;
+	font-size: 20px;
 	color: #ff0066
 }
 
 .newBtn {
 	border-style: none;
-	width: 35px;
-	height: 20px;
+	border-radius:10%; 
+	width: 40px;
+	height: 18px;
 	font-size: 12px;
 	background: #ffe6f3;
 	color: #ff0066;
 	padding-bottom:22px;
 }
 
+.tName {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 16px;
+	color:black;
+	padding-top:15px;
+}
+
 .simpleProfile {
-	font-size: 12px;
-	color: gray;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-size:12px;
+	color:gray;
 }
 
 .goProfile {
 	border-style: none;
-	width: 130px;
-	height: 30px;
-	font-size: 15px;
+	width: 120px;
+	height: 27px;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-size: 12px;
 	background: #ff0066;
 	color: white;
-}
-
-.tName {
-	font-family: 'Noto Sans KR', sans-serif;
-	font-size: 15px;
-	color:black;
+	float:right;
 }
 
 .level {
-	font-size:25px;
+	font-size:20px;
 	color:gray;
 	width:100%;
 	text-align:center;
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Montserrat', sans-serif;
 }
 
 .like {
@@ -58,14 +67,13 @@
 }
 
 .likeNum {
-	font-size:20px;
+	font-size:16px;
 	color:white;
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
 .blog_section {
-	padding-top: 5rem;
-	padding-bottom: 3rem;
+	padding-top: 3rem;
 }
 
 .blog_section .blog_content .blog_item {
@@ -110,7 +118,8 @@
 	/* padding: 25px 20px 30px 20px; */
 	text-align:left;
 	padding-left:20px;
-	padding-bottom:20px;
+	padding-right:20px;
+	padding-bottom:10px;
 }
 
 .blog_section .blog_content .blog_item .blog_details .blog_title h5 a {
