@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class BoardController {
 	
-	//공지사항리스트(sr)
+	//공지사항/이벤트 통합 리스트(sr)
 	@RequestMapping("selectNotice.bo")
 	public String selectNotice() {
 		return "board/selectNotice";
@@ -54,6 +54,17 @@ public class BoardController {
 		return "board/insertDeclaration";
 	}
 
+	//공지사항 카테고리 리스트
+	@RequestMapping("selectNoticeCate.bo")
+	public String selectNoticeCate() {
+		return "board/selectNoticeCate";
+	}
+	
+	//이벤트 카테고리 리스트
+	@RequestMapping("selectEventCate.bo")
+	public String selectEventCate() {
+		return "board/selectEventCate";
+	}
 	
 	
 	

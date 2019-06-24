@@ -1,0 +1,259 @@
+@charset "UTF-8";
+
+.btn {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 14px;
+	border-style: none;
+	background: #ff0066;
+	color: white;
+	border-radius:0 !important;
+}
+
+.btn btn-primary:hover {
+	background: white;
+	color: #ff0066;
+	border: 1px solid #ff0066;
+}
+
+.menubarLi2 {
+	color:#ff0066;
+}
+
+#myPageMenu1 {
+	background: #ff0066;
+	color: white;
+}
+
+.profile {
+	width: 100%;
+	height: 250px;
+	background: #ffe6f3;
+}
+
+.subTitle {
+	font-size: 18px;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+	color: black;
+	margin-left: 50px;
+}
+
+.traineProfile {
+	width: 100%;
+	height: 100%;
+}
+
+.traineProfileTable {
+	width: 100%;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.traineProfileTable td {
+	font-size: 14px;
+}
+
+.traineProfileTableTd1 {
+	width: 30%;
+	text-align: center;
+}
+
+.traineProfileTableTd2 {
+	width: 40%;
+	font-weight: bold;
+}
+
+.traineProfileTableTd2Label {
+	font-size: 20px;
+}
+
+#goProfileDetail {
+	border-style: none;
+	background: #ff0066;
+	color: white;
+	margin-left: auto;
+	margin-right: auto;
+	width: 130px;
+}
+
+#goProfileDetail:hover {
+	border:1px solid #ff0066;
+	background: white;
+	color: #ff0066;
+	margin-left: auto;
+	margin-right: auto;
+	width: 130px;
+	cursor:pointer;
+}
+
+.profileImg {
+	margin-left:70px;
+	width: 58%;
+	height: 70%;
+	border-radius: 50%;
+	background: white;
+	border: 2px solid white;
+}
+
+.fa-star {
+	color: gold;
+	font-size: 15px;
+}
+
+.fa-heart {
+	color: #ff0066;
+	font-size: 8px;
+}
+
+@media (min-width: 768px) {
+
+    /* show 3 items */
+    .carouselPrograms .carousel-inner .active,
+    .carouselPrograms .carousel-inner .active + .carousel-item,
+    .carouselPrograms .carousel-inner .active + .carousel-item + .carousel-item {
+        display: block;
+    }
+
+    .carouselPrograms .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+    .carouselPrograms .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item,
+    .carouselPrograms .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item {
+        transition: none;
+    }
+
+    .carouselPrograms .carousel-inner .carousel-item-next,
+    .carouselPrograms .carousel-inner .carousel-item-prev {
+        position: relative;
+        transform: translate3d(0, 0, 0);
+    }
+
+    .carouselPrograms .carousel-inner .active.carousel-item + .carousel-item + .carousel-item + .carousel-item {
+        position: absolute;
+        top: 0;
+        right: -33.333%;
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+
+    /* left or forward direction */
+    .carouselPrograms .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+    .carouselPrograms .carousel-item-next.carousel-item-left + .carousel-item,
+    .carouselPrograms .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
+    .carouselPrograms .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item {
+        position: relative;
+        transform: translate3d(-100%, 0, 0);
+        visibility: visible;
+    }
+
+    /* farthest right hidden item must be abso position for animations */
+    .carouselPrograms .carousel-inner .carousel-item-prev.carousel-item-right {
+        position: absolute;
+        top: 0;
+        left: 0%;
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+
+    /* right or prev direction */
+    .carouselPrograms .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+    .carouselPrograms .carousel-item-prev.carousel-item-right + .carousel-item,
+    .carouselPrograms .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
+    .carouselPrograms .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item {
+        position: relative;
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+        display: block;
+        visibility: visible;
+    }
+}
+
+.keywordDiv {
+	width:100%;
+	height:100%;
+	margin-left:50px;
+}
+.badge {
+	font-family: 'Noto Sans KR', sans-serif;
+	background: #ffe6f3;
+}
+
+.trainerInfoDiv {
+	width:90%;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.trainerInfo {
+	width:100%;
+	background:whitesmoke;
+	border-style:none;
+	font-size:14px;
+	font-family: 'Nanum Gothic', sans-serif;
+	padding:12px;
+}
+
+.reviewDiv {
+	width:90%;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.reviewTable {
+	width:100%;
+	height:100%;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-bottom:1px solid lightgray;
+}
+
+.reviewWriter, .reviewWriteDate {
+	font-size:14px;
+	font-weight:bold;
+}
+
+.review {
+	width:100%;
+	font-size:12px;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+.modal {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.modalHeader {
+	color: #ff0066;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.index {
+	color: #ff0066;
+	font-weight: bold;
+}
+
+.answer {
+	width:95%;
+	height:100%;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+.modalMenubar {
+	width:100%;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.modalMenubar thead {
+	color:white;
+	background:#ff0066;
+	text-align:center;
+}
+
+.modalMenubar td {
+	width:25%;
+	border:1px solid white;
+}

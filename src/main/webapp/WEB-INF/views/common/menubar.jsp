@@ -17,21 +17,40 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/ionicons/css/ionicons.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/fontawesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Montserrat|Noto+Sans+KR&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Montserrat|Nanum+Gothic|Noto+Sans+KR:300|Open+Sans&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/menubar.css">
 </head>
 <body>
 	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application" />
 	
+	
+	<c:if test="${empty sessionScope.loginUser }">
 	<div class="miniMenubar">
 		<ul>
 			<li onclick="location.href='loginMember.me'">로그인 </li><label class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</label>
 			<li onclick="location.href='selectJoinType.me'"> 회원가입 </li><label class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</label>
-			<li><a href="#"> 고객센터 </a></li>
+			<li onclick="location.href='selectNotice.bo'"> 고객센터 </li><label class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</label>
 			<li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </li>
 		</ul>
 	</div>
-	
+	</c:if>
+	<!-- 로그인o -->	
+		<c:if test="${!empty sessionScope.loginUser }">
+		
+		<div class="miniMenubar">
+		<ul>
+			<li align="center"><c:out value="${sessionScope.loginUser.name }님의 다이어트 성공을 기원합니다!"/></li><label class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</label>
+			<li><a href="#">정보수정</a></li><label class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</label>
+			<li><a href="#"> 고객센터 </a></li><label class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</label>
+			<li><a href="logout.me">로그아웃</a></li>
+			<li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </li>
+		</ul>
+	</div>
+			<%-- <!-- 바로 el을 작성하지 않고 c:out에 작성한다(보안성up) -->
+			<h3 align="right"><c:out value="${sessionScope.loginUser.name }님 환영합니다."/></h3>
+			<button>정보수정</button>
+			<button onclick="location.href='logout.me'">로그아웃</button> --%>
+		</c:if>
 	<div class="menubarDiv">
 		<nav class="navbar navbar-expand-lg navbar-dark pb_navbar pb_scrolled-light" id="templateux-navbar">
 			<div class="container">
@@ -56,10 +75,28 @@
 						</li>
 					</ul> -->
 					<ul class="menubarLi">
-						<li>회원 찾기</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<li><a href="goMyPageView.tr">MY PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<li>PT 관리</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<li class="menubarLi1"><a class="menubarLi1"
+							href="showUserFindPageView.tr">회원 찾기</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<li class="menubarLi2"><a class="menubarLi2"
+							href="showMyPageProfile.tr">MY PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<li class="menubarLi3"><a class="menubarLi3"
+							href="showMatchingInProgressPage.tr">PT 관리</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<li class="menubarLi4"><a class="menubarLi4"
+							href="showRecommendTrainerPageView.us">트레이너 찾기</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<li class="menubarLi5"><a class="menubarLi5"
+							href="showMyPagePrivacy.us">MY PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<li class="menubarLi6"><a class="menubarLi6" href="#">PT
+								PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					</ul>
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button"
+							id="dropdownMenuButton" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">전효정 트레이너님</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" href="#">공개 설정</a> 
+							<a class="dropdown-item" href="#">로그아웃</a> 
+						</div>
+					</div>
 				</div>
 			</div>
 		</nav>

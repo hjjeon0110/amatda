@@ -1,5 +1,7 @@
 package com.kh.amd.member.model.service;
 
+import javax.security.auth.login.LoginException;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.amd.member.model.dao.MemberDao;
 import com.kh.amd.member.model.vo.Member;
 
-@Component
+
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -34,9 +36,18 @@ public class MemberServiceImpl implements MemberService{
 		
 		
 		int result = 0;
+		int result2 = 0;
 		int result1 = md.insertTrainer(sqlSession, m);
-		int result2 = md.insertTrainerInfo(sqlSession,m);
+		int mno = md.selectMno(sqlSession, m);
+		m.setMno(mno);
+		System.out.println("result1 mno: " + m.getMno());
 		
+		if(result1>0) {
+			result2 = md.insertTrainerInfo(sqlSession,m);
+			System.out.println("result2의 트레이너: "+m);
+		}else {
+			System.out.println("트레이너 추가정보 입력 실패!");
+		}
 		if(result1>0 && result2>0) {
 			result = 1;
 		}else {
@@ -46,5 +57,40 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 		
 	}
+
+	//아이디 중복체크
+	@Override
+	public int idCheck(String userId) {
+		int result = md.idCheck(sqlSession,userId);
+		System.out.println("MemberServiceImpl: "+result);
+		return result;
+	}
+	
+	//이메일 중복체크
+	@Override
+	public int emailCheck(String email) {
+		int result = md.emailCheck(sqlSession,email);
+		return result;
+	}
+
+	//로그인
+	@Override
+	public Member loginMember(Member m) {
+		Member loginUser = null;
+
+		// 아이디를 통해 비밀번호 조회
+		String encPassword = md.selectEncPassword(sqlSession, m);
+
+		/*if (!passwordEncoder.matches(m.getUserPwd(), encPassword)) {
+			throw new LoginException("로그인 실패!");
+
+			// 일치하면 로그인 유저 정보 조회
+		} else {*/
+			loginUser = md.selectMember(sqlSession, m);
+		/* } */
+		return loginUser;
+	}
+
+	
 
 }

@@ -13,6 +13,7 @@
   	<mappers>
   		<mapper resource="mappers/member-mapper.xml"/> <!-- 이 파일의 쿼리를 사용한다. -->
   		<mapper resource="mappers/survey-mapper.xml"/>
+  		<mapper resource="mappers/trainer-mapper.xml"/>
   	</mappers>
 </configuration>
   

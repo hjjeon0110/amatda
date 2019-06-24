@@ -114,6 +114,20 @@
 		<servlet-name>trainer</servlet-name>
 		<url-pattern>*.tr</url-pattern>
 	</servlet-mapping>
+	
+	<!-- 일반회원/전효정 -->
+	<servlet>
+		<servlet-name>user</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/user-servlet.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>user</servlet-name>
+		<url-pattern>*.us</url-pattern>
+	</servlet-mapping>
 
 	<!-- 인코딩 필터 추가 / 전효정 -->
 	<filter>
