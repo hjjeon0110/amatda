@@ -1,0 +1,159 @@
+@charset "UTF-8";
+
+.menubarLi4 {
+	color:#ff0066;
+}
+
+#myPageMenu1 {
+	background: #ff0066;
+	color: white;
+}
+
+.profileDiv {
+	width: 100%;
+	height: 100%;
+	border-top:1px solid lightgray;
+}
+
+.profile {
+	width: 100%;
+	height: 250px;
+	background: #ffe6f3;
+}
+
+.subTitle {
+	font-size: 18px;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+	color: black;
+	margin-left: 50px;
+}
+
+.traineProfile {
+	width: 100%;
+	height: 100%;
+}
+
+.traineProfileTable {
+	width: 100%;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.traineProfileTable td {
+	font-size: 14px;
+}
+
+.traineProfileTableTd1 {
+	width: 30%;
+	text-align: center;
+}
+
+.traineProfileTableTd2 {
+	width: 40%;
+	font-weight: bold;
+}
+
+.traineProfileTableTd2Label {
+	font-size: 20px;
+}
+
+.addMyTrainerBtn {
+	border-style: none;
+	background: #ff0066;
+	color: white;
+	margin-left: auto;
+	margin-right: auto;
+	width: 200px;
+}
+
+.profileImg {
+	margin-left:70px;
+	width: 58%;
+	height: 70%;
+	border-radius: 50%;
+	background: white;
+	border: 2px solid white;
+}
+
+.fa-star {
+	color: gold;
+	font-size: 15px;
+}
+
+.fa-heart {
+	color: #ff0066;
+	font-size: 8px;
+}
+
+.reviewDiv {
+	width:90%;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.reviewTable {
+	width:100%;
+	height:100%;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-bottom:1px solid lightgray;
+}
+
+.reviewWriter, .reviewWriteDate {
+	font-size:14px;
+	font-weight:bold;
+}
+
+.review {
+	width:100%;
+	font-size:12px;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+.seeMoreReviewBtn {
+	width:100%;
+	height:100%;
+	background:#ff0066;
+	color:white;
+	border-style:none;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.seeMoreReviewBtn:hover {
+	width:100%;
+	height:100%;
+	background:white;
+	color:#ff0066;
+	border:1px solid #ff0066;
+	cursor:pointer;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.keywordDiv {
+	width:100%;
+	height:100%;
+	margin-left:50px;
+}
+.badge {
+	font-family: 'Noto Sans KR', sans-serif;
+	background: #ffe6f3;
+}
+
+.trainerInfoDiv {
+	width:90%;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.trainerInfo {
+	width:100%;
+	background:whitesmoke;
+	border-style:none;
+	font-size:14px;
+	font-family: 'Nanum Gothic', sans-serif;
+	padding:12px;
+}

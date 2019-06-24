@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+.menubarLi5 {
+	color: #ff0066;
+}
+
+#myPageMenu3 {
+	background: #ff0066;
+	color: white;
+}
+
+.searchTrainerListDiv {
+	width: 100%;
+	height: 100%;
+	background: whitesmoke;
+	border-top:1px solid lightgray;
+}
+
+.trainerSelect {
+	width: 150px;
+	font-family: 'Noto Sans KR', sans-serif;
+	border: 1px solid darkgray;
+	margin-left: 50px;
+}
+
+.trainerListDiv {
+	width: 90%;
+	border: 1px solid darkgray;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	background: white;
+}
+
+.trainerListTable {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	background: white;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.profileImg {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	border: 2px solid white;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.profileImage {
+	width: 100%;
+	height: 100%;
+}
+
+.trainerListTable td {
+	padding: 5px;
+	font-size: 14px;
+}
+
+.trainerListTableTd1 {
+	width: 15%;
+	align: center;
+}
+
+.trainerListTableTd2 {
+	width: 70%;
+}
+
+.trainerName {
+	font-weight: bold;
+}
+
+.trainerGender {
+	color: darkgray;
+}
+
+.trainerKeyword {
+	color: #ff0066;
+}
+
+.daysRemaining {
+	border-style:none; 
+	background:#ffe6f3; 
+	color:#ff0066;
+	margin-left:auto; 
+	margin-right:auto;
+	width:100px;
+}
+
+.simpleProfile {
+	font-size: 13px;
+}
+
+.goProfileDetail {
+	border-style: none;
+	background: #ff0066;
+	color: white;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100px;
+}
+
+.goProfileDetail:hover {
+	border:1px solid #ff0066;
+	background:white;
+	color:#ff0066;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100px;
+	cursor:pointer;
+}

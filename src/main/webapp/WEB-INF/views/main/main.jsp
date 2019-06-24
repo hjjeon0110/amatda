@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>아맞다에 오신 것을 환영합니다.</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main/main.css">
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Montserrat|Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/fontawesome/css/font-awesome.min.css">
@@ -20,13 +20,13 @@
 		data-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img src="${ contextPath }/resources/images/testImage.png" class="d-block w-100" alt="...">
+				<img src="${ contextPath }/resources/images/testImage.png" class="d-block w-100" alt="..." id="carouselImg">
 			</div>
 			<div class="carousel-item">
-				<img src="${ contextPath }/resources/images/testImage.png" class="d-block w-100" alt="...">
+				<img src="${ contextPath }/resources/images/testImage.png" class="d-block w-100" alt="..." id="carouselImg">
 			</div>
 			<div class="carousel-item">
-				<img src="${ contextPath }/resources/images/testImage.png" class="d-block w-100" alt="...">
+				<img src="${ contextPath }/resources/images/testImage.png" class="d-block w-100" alt="..." id="carouselImg">
 			</div>
 		</div>
 		<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"> 
@@ -38,13 +38,12 @@
 			<span class="sr-only">Next</span>
 		</a>
 	</div>
-	<br><br><br>
+	<br><br>
 
 	
 	<!-- 추천 신입 트레이너 ----------------------------------------------------------------------------------------------------- -->
 	<div class="recommendNewTrainer">
-		<label class="recommendNewTrainerLabel" data-aos="fade-up">추천
-			신입 트레이너</label>
+		<label class="recommendNewTrainerLabel" data-aos="fade-up">추천 신입 트레이너</label>
 		<section class="blog_section">
 			<div class="container">
 				<div class="blog_content">
@@ -58,8 +57,7 @@
 							</div>
 							<div class="blog_details">
 								<label class="tName">트레이너1&nbsp;&nbsp;</label><button class="newBtn">신입</button><br>
-								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br>
-								<!-- <a href="#">프로필 상세보기<i class="icofont-long-arrow-right"></i></a> -->
+								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br><br>
 								<button class="goProfile">프로필 상세보기 ></button><br>
 							</div>
 						</div>
@@ -72,8 +70,7 @@
 							</div>
 							<div class="blog_details">
 								<label class="tName">트레이너2&nbsp;&nbsp;</label><button class="newBtn">신입</button><br>
-								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br>
-								<!-- <a href="#">프로필 상세보기<i class="icofont-long-arrow-right"></i></a> -->
+								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br><br>
 								<button class="goProfile">프로필 상세보기 ></button><br>
 							</div>
 						</div>
@@ -86,8 +83,7 @@
 							</div>
 							<div class="blog_details">
 								<label class="tName">트레이너3&nbsp;&nbsp;</label><button class="newBtn">신입</button><br>
-								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br>
-								<!-- <a href="#">프로필 상세보기<i class="icofont-long-arrow-right"></i></a> -->
+								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br><br>
 								<button class="goProfile">프로필 상세보기 ></button><br>
 							</div>
 						</div>
@@ -108,6 +104,7 @@
 			src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
 
 	</div>
+	<br>
 
 	<!-- 추천 인기 트레이너 ----------------------------------------------------------------------------------------------------- -->
 	<div class="recommendBestTrainer">
@@ -125,8 +122,7 @@
 							</div>
 							<div class="blog_details">
 								<label class="tName">트레이너1&nbsp;&nbsp;</label><button class="newBtn">인기</button><br>
-								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br>
-								<!-- <a href="#">프로필 상세보기<i class="icofont-long-arrow-right"></i></a> -->
+								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br><br>
 								<button class="goProfile">프로필 상세보기 ></button><br>
 							</div>
 						</div>
@@ -139,8 +135,7 @@
 							</div>
 							<div class="blog_details">
 								<label class="tName">트레이너2&nbsp;&nbsp;</label><button class="newBtn">인기</button><br>
-								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br>
-								<!-- <a href="#">프로필 상세보기<i class="icofont-long-arrow-right"></i></a> -->
+								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br><br>
 								<button class="goProfile">프로필 상세보기 ></button><br>
 							</div>
 						</div>
@@ -153,8 +148,7 @@
 							</div>
 							<div class="blog_details">
 								<label class="tName">트레이너3&nbsp;&nbsp;</label><button class="newBtn">인기</button><br>
-								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br>
-								<!-- <a href="#">프로필 상세보기<i class="icofont-long-arrow-right"></i></a> -->
+								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br><br>
 								<button class="goProfile">프로필 상세보기 ></button><br>
 							</div>
 						</div>
@@ -163,7 +157,7 @@
 			</div>
 		</section>
 	</div>
-	<hr><br><br>
+	<br><br><hr><br><br>
 	
 	<!-- 베스트 리뷰 영역 ------------------------------------------------------------------------------------------------------ -->
 	<div class="bestReview">
@@ -173,14 +167,15 @@
 					<label class="bestReviewLabel" data-aos="fade-up">이 달의 BEST REVIEW</label>
 				</div>
 			</div>
+			<br><br>
 			<div class="row">
 				<div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-					<label class="level">1위</label>
+					<label class="level">1st</label>
 					<div class="block-2">
 						<div class="flipper">
 							<div class="front">
 								<div class="like">
-									<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum">777개</label>
+									<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum">777</label>
 								</div>
 								<div class="box">
 									<h2>Will Smith</h2>
@@ -209,13 +204,13 @@
 					<!-- .flip-container -->
 				</div>
 				<div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-					<label class="level">2위</label>
+					<label class="level">2nd</label>
 					<div class="block-2">
 						<!-- .hover -->
 						<div class="flipper">
 							<div class="front">
 								<div class="like">
-									<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum">555개</label>
+									<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum">555</label>
 								</div>
 								<div class="box">
 									<h2>Claire Williams</h2>
@@ -244,12 +239,12 @@
 					<!-- .flip-container -->
 				</div>
 				<div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
-					<label class="level">3위</label>
+					<label class="level">3rd</label>
 					<div class="block-2">
 						<div class="flipper">
 							<div class="front">
 								<div class="like">
-									<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum">333개</label>
+									<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum">333</label>
 								</div>
 								<div class="box">
 									<h2>Jane Johnson</h2>

@@ -55,28 +55,3 @@
    
   
 </mapper>
-
-
-<mapper namespace="TrainerInfo">
-	<resultMap type="com.kh.amd.member.model.vo.TrainerInfo" id="trainerResultSet">
-      <id property="tno" column="TNO"/>            <!-- DB 기본키 -->
-      <result property="accountName" column="ACCOUNT_NAME"/>
-      <result property="bankCode" column="BANKCODE"/>   <!-- 일반컬럼 -->
-      <result property="accountNo" column="ACCOUNT_NO"/>
-      <result property="tage" column="TAGE"/>
-      <result property="topen" column="TOPEN"/>
-      <result property="remainNum" column="REMAIN_NUM"/>
-   </resultMap>
-</mapper>
-
-
-
-
-
-
-
-
-
-
-
-
