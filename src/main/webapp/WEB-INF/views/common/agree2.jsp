@@ -49,6 +49,7 @@ form{
 	<div class="container" align="center">
 	<hr style="margin-top:100px;">
 	<h2 align="center" class="eng" style="color:#ff0066; font-size:40px; margin-top:30px;">약관동의</h2>
+	<h5 class="eng">모든 약관을 동의하셔야 회원가입이 가능합니다.</h5>
 	<form action="trainerJoinView.me" method="post">
 		<table>
 		<tr>
@@ -58,7 +59,7 @@ form{
     		<td colspan="3"><textarea class="form-control" cols="67" rows="5"></textarea></td>
     	</tr>
     	<tr>
-    		<td colspan="3"><input type="checkbox" class="checkbox"><p>동의함</p></td>
+    		<td colspan="3"><input type="checkbox" class="checkbox" id="agree1"><p>동의함</p></td>
     	</tr>
     	<tr>
     		<td colspan="3" class="privateInfo">개인정보 처리 방침</td>
@@ -67,7 +68,10 @@ form{
     		<td colspan="3"><textarea class="form-control" cols="67" rows="5"></textarea></td>
     	</tr>
     	<tr>
-    		<td colspan="3"><input type="checkbox" class="checkbox"><p>동의함</p></td>
+    		<td colspan="3"><input type="checkbox" class="checkbox" id="agree2"><p>동의함</p></td>
+    	</tr>
+    	<tr>
+    		<td colspan="3"><input type="checkbox" class="checkbox" id="allCheck"><p>전체동의</p></td>
     	</tr>
     	 <tr class="registerTr">
     		<td colspan="3"><button type="submit" id="submit"class="form-control">다음</button></td>
@@ -76,4 +80,42 @@ form{
 	</form>
 	</div>
 </body>
+
+<script>
+
+	$(function(){
+		$("button[type='submit']").attr("disabled", true).css({"background":"lightgray","border":"1px solid lightgray"});
+	
+	})
+	
+	//동의
+	$("input:checkbox").change(function(){
+	
+		console.log("test")
+		test();
+	});
+	
+
+	function test(){
+
+		if ($("input:checkbox[id='agree1']").is(":checked")&& $("input:checkbox[id='agree2']").is(":checked")){
+			console.log("all checked");
+			$("#submit").removeAttr("disabled").css({"background":"#ff0066","border":"1px solid #ff0066"});
+		}else{		
+			$("#submit").attr("disabled","true");
+		}	
+		
+	};
+	
+	
+	//전체동의
+	$("#allCheck").click(function(){
+		if($("#allCheck").prop("checked")){
+			$("input[type=checkbox]").prop("checked",true);
+		}else{
+			$("input[type=checkbox]").prop("checked",false);
+			$("#submit").attr("disabled","true").css({"background":"lightgray","border":"1px solid lightgray"});
+		}
+	})
+</script>
 </html>

@@ -15,10 +15,10 @@
 	}
 	#submitBtn{
 		width:500px; 
-		border:1px solid hotpink; 
+		border:1px solid #ff0066; 
 		font-size:17px; 
 		color:white; 
-		background:hotpink
+		background:#ff0066;
 	}
 	body{
 		font-family: 'Noto Sans KR', sans-serif;
@@ -47,9 +47,9 @@
 			<input type="text" name="userPwd" id="userPwd" class="form-control" placeholder="PWD">						
 		</div>
 		
-		
+		<div class="findIdPwd" onclick="location.href='findIdPwd.me'">
 			<label>아이디/비밀번호 찾기</label>
-	
+		</div>
 		<button type="submit" class="form-control" id="submitBtn">로그인</button><br>
 		
 	</form>
