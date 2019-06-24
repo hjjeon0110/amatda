@@ -26,7 +26,9 @@
 		<property name="password" value="amatda"/>
 		<property name="defaultAutoCommit" value="false"/>
 	</bean>
-	   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     <!-- DataSourceTransaction은 dataSource를 작성해줘야 bean으로 설정할 수있다. -->
      	<property name="dataSource" ref="dataSource"/>
     </bean>
@@ -61,4 +63,24 @@
     	<aop:pointcut  id="serviceMethod" expression="execution(* com.kh.amd..*ServiceImpl.*(..))"/> <!-- 사용할 메소드의 패턴지정(리턴타입+경로(..은 몇레벨이든 상관없이 하위/.은 바로 한단계 하위) + ServiceImpl로 끝나는  모든 메소드 -->
     	<aop:advisor id="transactionAdvice" pointcut-ref="serviceMethod" advice-ref="txAdvice"/>
     </aop:config>
+    
+    
+    <!-- 메일 보내기 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="wln02036549@gmail.com" />
+		<property name="password" value="011flskdidchlrh" />
+
+
+	<!-- email 요청시는 SMTP -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
 </beans>

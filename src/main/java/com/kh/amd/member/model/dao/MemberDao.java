@@ -12,4 +12,18 @@ public interface MemberDao {
 
 	int insertTrainerInfo(SqlSessionTemplate sqlSession, Member m);
 
+	int selectMno(SqlSessionTemplate sqlSession, Member m);
+
+	int idCheck(SqlSessionTemplate sqlSession, String userId);
+
+	int emailCheck(SqlSessionTemplate sqlSession, String email);
+
+	String selectEncPassword(SqlSessionTemplate sqlSession, Member m);
+
+	Member selectMember(SqlSessionTemplate sqlSession, Member m);
+
+	
+
+	
+
 }

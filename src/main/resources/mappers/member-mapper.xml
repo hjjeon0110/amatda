@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -24,49 +25,65 @@
 
 	
 
-	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
 	
-		SELECT *
-		FROM MEMBER
-		WHERE USER_ID = #{userId}
-		<!-- AND USER_PWD = #{userPwd} -->
-		AND STATUS='Y'
-	</select>
    
-   
-   <!-- 회원가입용 -->
+   <!-- 일반 사용자 회원가입용 -->
    <insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
 		VALUES (MNO_SEQ.NEXTVAL, #{name}, #{userId}, #{userPwd}, #{phone}, #{gender}, #{email}, 'U', 'Y', null,'Y', sysdate, null)	
    </insert>
    
+   <!-- 트레이너 회원가입을 위한 mno조회용 -->
+   <select id="selectMno" parameterType="_int" resultType="int">
+		SELECT MNO_SEQ.CURRVAL
+		FROM DUAL
+	</select>
    
-   
+   <!-- 트레이너 회원가입용 -->
    <insert id="insertTrainer" parameterType="Member">
 		INSERT INTO MEMBER
 		VALUES (MNO_SEQ.NEXTVAL, #{name}, #{userId}, #{userPwd}, #{phone}, #{gender}, #{email}, 'T', 'Y', null,'Y', sysdate, null)	
    </insert>
    
-   <!-- 트레이너 추가 정보 회원가입 -->
-   <insert id="insertTrainerInfo" parameterType="TrainerInfo">
-   		INSERT INTO TUSER_INFO
-   		VALUES(TNO_SEQ.NEXTVAVL, #{accountName}, #{bankCode}, #{accountNo}, #{tage}, #{topen}, #{remainNum})
-   </insert>
-   
   
+   
+  	<!-- 아이디 중복체크용 -->
+  	<!-- 반환 타입 : resultType 즉 COUNT는 숫자를 반환하므로 int / 넘어온 파라미터 타입 : parameterType 즉 userId -->
+  	<select id="idCheck" parameterType="java.lang.String" resultType="int">
+  		SELECT COUNT(*) 
+  		FROM MEMBER
+  		WHERE ID= #{userId}
+  		
+  	</select>
+  	
+  	
+  	<!-- 이메일 중복확인 -->
+  	<select id="emailCheck"  parameterType="java.lang.String" resultType="int">
+  		SELECT COUNT(*)
+  		FROM MEMBER
+  		WHERE EMAIL= #{email}
+  	</select>
+  	
+  	
+  	
+  	<!-- 암호화된 비밀번호 조회용 메소드 -->
+   <select id="selectPwd" resultType="java.lang.String" parameterType="java.lang.String">
+   	SELECT PWD
+   	FROM MEMBER
+   	WHERE ID = #{userId}
+   	
+   </select>
+  	
+  	
+  	
+  	
+  	<!-- 로그인 정보 조회 -->
+  	 <select id="selectLoginUser" resultMap="memberResultSet" parameterType="Member">
+   		SELECT *
+   		FROM MEMBER
+   		WHERE ID = #{userId}
+   		AND PWD = #{userPwd}
+   </select>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
