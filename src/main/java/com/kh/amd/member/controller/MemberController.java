@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +30,46 @@ import com.kh.amd.member.model.vo.Member;
 @Controller
 
 public class MemberController {
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private MemberService ms;
+	
+	//아이디,비밀번호 찾기 뷰 페이지로 이동
+	@RequestMapping("findIdPwd.me")
+	public String find() {
+		return "common/findIdPwd";
+	}
+	
+	//아이디 찾기
+	@RequestMapping("findId.me")
+	public void find(Model model, Member m, HttpServletResponse response) {
+		
+		Member loginUser;
+		loginUser  = ms.selectId(m);
+		
+		System.out.println("아이디 정보 조회를 위한 회원 조회: "+loginUser);
+		
+		
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			if(loginUser !=null) {
+				
+				//jsp(ajax)로 보낼값
+				response.getWriter().print(loginUser.getUserId());
+			}else {
+				response.getWriter().print("FAIL");
+			}
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
 	
 	@RequestMapping("selectJoinType.me")
 	public String joinType() {
@@ -91,10 +129,14 @@ public class MemberController {
 	@RequestMapping("insertMember.me")
 	public String insertMember(Model model,Member m) {
 		
+		
 		System.out.println("일반 회원가입: "+m);
 		
+		m.setUserPwd(passwordEncoder.encode(m.getUserPwd()));
+		
 		ms.insertMember(m);
-	
+		
+		
 		
 		return "redirect:index.jsp";
 	}
@@ -103,6 +145,7 @@ public class MemberController {
 	public String insertTrainer(Model model, Member m) {
 		
 		System.out.println("트레이너 회원가입 : " + m);
+		m.setUserPwd(passwordEncoder.encode(m.getUserPwd()));
 		ms.insertTrainer(m);
 		
 		return "redirect:index.jsp";
@@ -277,5 +320,7 @@ public class MemberController {
 			}
 			return buffer.toString();
 		}
+		
+		
 
 }

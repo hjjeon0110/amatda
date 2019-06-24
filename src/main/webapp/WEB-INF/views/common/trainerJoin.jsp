@@ -154,7 +154,7 @@ table{
     			</select>
     		</td>
     	</tr>
-    	<tr>
+    	<!-- <tr>
     		<td colspan="3" class="bigName">이용약관</td>
     	</tr>
     	<tr class="trHeight">
@@ -171,7 +171,7 @@ table{
     	</tr>
     	<tr>
     		<td colspan="3"><input type="checkbox" class="checkbox"><p>동의함</p></td>
-    	</tr>
+    	</tr> -->
     	 <tr class="registerTr">
     		<td colspan="3"><button type="submit" class="form-control" id="submit">가입하기</button></td>
     	</tr>

@@ -36,7 +36,7 @@ public class MemberDaoImpl implements MemberDao{
 	//트레이너 정보 추가 회원가입
 	@Override
 	public int insertTrainerInfo(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.insert("TrainerInfo.insertTrainerInfo", m);
+		return sqlSession.insert("Trainer.insertTrainerInfo", m);
 		
 	}
 
@@ -62,7 +62,15 @@ public class MemberDaoImpl implements MemberDao{
 	//로그인 정보 조회
 	@Override
 	public Member selectMember(SqlSessionTemplate sqlSession, Member m) {
+		
 		return sqlSession.selectOne("Member.selectLoginUser", m);
+	}
+
+	
+	//아이디 찾기
+	@Override
+	public Member selectId(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("Member.selectId", m);
 	}
 	
 

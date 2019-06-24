@@ -22,6 +22,8 @@ public interface MemberDao {
 
 	Member selectMember(SqlSessionTemplate sqlSession, Member m);
 
+	Member selectId(SqlSessionTemplate sqlSession, Member m);
+
 	
 
 	
