@@ -1,11 +1,19 @@
 package com.kh.amd.trainer.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.service.TrainerService;
+import com.kh.amd.trainer.model.vo.Profile;
 
+@SessionAttributes("loginUser")
 @Controller
 public class TrainerController {
 	
@@ -20,8 +28,19 @@ public class TrainerController {
 	
 	// 트레이너 마이페이지_프로필관리 이동 (전효정)
 	@RequestMapping("showMyPageProfile.tr")
-	public String showTrainerMyPageProfileView() {
+	public String showTrainerMyPageProfileView(Model model, int mno) {
+		
+		// 프로필 작성 여부 확인 메소드 (전효정)
+		Profile profile = ts.checkProfile(mno);
+		
+		System.out.println("컨트롤러 profile : " + profile);
+		
 		return "trainer/2_1_myPage_profile";
+		
+
+		
+			
+		
 	}
 	
 	// 트레이너 마이페이지_견적서관리 이동 (전효정)

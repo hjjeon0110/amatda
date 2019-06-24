@@ -42,6 +42,9 @@
 </style>
 </head>
 <body>
+
+	<!-- 메뉴바 include ----------------------------------------------------------------------------------------------------- -->
+	<jsp:include page="../common/menubar.jsp"></jsp:include>
 	
 	<div class="myPageMenuBarArea">
 		<div class="myPageMenuBar">

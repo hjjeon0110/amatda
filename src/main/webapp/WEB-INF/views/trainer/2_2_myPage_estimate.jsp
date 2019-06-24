@@ -118,18 +118,14 @@ select {
 <body>
 
 
-	<!-- 메뉴바 include ----------------------------------------------------------------------------------------------------- -->
-	<jsp:include page="../common/menubar.jsp"/>
-	
-	
 	<!-- 트레이너 마이페이지 메뉴바 include ---------------------------------------------------------------------------------------- -->
 	<jsp:include page="../trainer/2_myPageMenubar.jsp"/>
 	
 	
 	<!-- 트레이너 마이페이지 서브메뉴바  --------------------------------------------------------------------------------------------- -->
 	<div class="subMenuBar">
-		<div class="subMenuBar1">견적서1</div>
-		<div class="subMenuBar2">견적서2</div>
+		<div class="subMenuBar1">견적서1<input type="hidden" value="1"></div>
+		<div class="subMenuBar2">견적서2<input type="hidden" value="2"></div>
 	</div>
 	
 	
@@ -191,6 +187,21 @@ select {
 	<!-- footer ----------------------------------------------------------------------------------------------------- -->
 	<br><br><hr><br>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
+	
+	<script>
+		$(function(){
+			$(document).on("click",".subMenuBar1",function(){
+				var type = $(this).children().val();
+				console.log(type);
+			})
+		})
+		$(function(){
+			$(document).on("click",".subMenuBar2",function(){
+				var type = $(this).children().val();
+				console.log(type);
+			})
+		})
+	</script>
 	
 </body>
 </html>

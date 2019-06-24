@@ -12,10 +12,10 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/trainer/2_1_myPage_profile.css">
 </head>
 <body>
-
-
-	<!-- 메뉴바 include ----------------------------------------------------------------------------------------------------- -->
-	<jsp:include page="../common/menubar.jsp"></jsp:include>
+	
+	<c:if test="">
+	
+	</c:if>
 	
 	<jsp:include page="../trainer/2_myPageMenubar.jsp"/>
 			
