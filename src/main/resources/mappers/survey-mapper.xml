@@ -6,6 +6,7 @@
 <mapper namespace="Survey">
 	<resultMap type="com.kh.amd.survey.model.vo.Survey" id="surveyResultSet">
 		<id property="surveyNo" column="SURVEY_NO"/>
+		<result property="uNo" column="UNO"/>
 		<result property="hopePeriod" column="HOPE_PERIOD"/>
 		<result property="hopeBody" column="HOPE_BODY"/>
 		<result property="hopeMethod" column="HOPE_METHOD"/>
@@ -25,13 +26,50 @@
 		<result property="weight" column="WEIGHT"/>
 		<result property="hopeWeight" column="HOPE_WEIGHT"/>
 		<result property="uAge" column="UAGE"/>
-		<result property="uNo" column="UNO"/>
 	</resultMap>
 	
+	<!-- 첫번째 설문조사 -->
 	<insert id="insertSurvey1" parameterType="Survey">		
 		INSERT INTO SURVEY (SURVEY_NO, HEIGHT, WEIGHT, HOPE_WEIGHT, UAGE, UNO)
 		VALUES (SURVEY_NO_SEQ.NEXTVAL, #{height}, #{weight}, #{hopeWeight}, #{uAge}, 5)
 	</insert>
+	
+	<!-- 두번째 설문조사 -->
+	<!-- <insert id="insertSurvey2" parameterType="Survey">		
+		INSERT INTO SURVEY (SURVEY_NO, HOPE_PERIOD, HOPE_BODY, HOPE_METHOD, HOPE_GENDER, HOPE_AGE)
+		VALUES (#{surveyNo}, #{hopePeriod}, #{hopeBody}, #{hopeMethod}, #{hopeGender}, #{hopeAge})
+		WHERE UNO = 5
+	</insert> -->
+	<update id="insertSurvey2" parameterType="Survey">
+		UPDATE SURVEY
+		SET HOPE_PERIOD = #{hopePeriod},
+			HOPE_BODY = #{hopeBody},
+			HOPE_METHOD = #{hopeMethod},
+			HOPE_GENDER = #{hopeGender},
+			HOPE_AGE = #{hopeAge}		
+		WHERE UNO = 5 
+	</update>
+	
+	<!-- 세번째 설문조사 -->
+	<!-- <insert id="insertSurvey3" parameterType="Survey">		
+		INSERT INTO SURVEY (SURVEY_NO, DIET_FAIL, HOPE_START, DIET_REASON, HOPE_EXERCISE, DAT_EXERCISE, DAT_FOOD, DISEASE, DAY_TIME, ENROLL_DATE, UNO)
+		VALUES (#{surveyNo}, #{dietFail}, #{hopeStart}, #{dietReason}, #{hopeExercise}, #{datExercise}, #{datFood}, #{disease}, #{dayTime}, sysdate, 5)
+	</insert> -->
+	<update id="insertSurvey3" parameterType="Survey">
+		UPDATE SURVEY
+		SET DIET_FAIL = #{dietFail},
+			HOPE_START = #{hopeStart},
+			DIET_REASON = #{dietReason},
+			HOPE_EXERCISE = #{hopeExercise},
+			DAT_EXERCISE = #{datExercise},
+			DAT_FOOD = #{datFood},
+			DISEASE = #{disease},
+			DAY_TIME = #{dayTime},
+			ENROLL_DATE = sysdate			
+		WHERE UNO = 5 
+	</update>
+	
+	
 	
 </mapper>
 

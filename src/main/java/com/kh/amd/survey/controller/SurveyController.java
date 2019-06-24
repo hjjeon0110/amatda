@@ -16,6 +16,16 @@ public class SurveyController {
 	@Autowired
 	private SurveyService ss;
 	
+	//설문조사 시작
+	@RequestMapping("survey1.su")
+	public String showSurvey1() {
+		
+		return "survey/survey1";
+		
+	}
+	
+	
+	//첫번째 설문조사 insert
 	@RequestMapping(value="insert1.su")
 	public String insertSurvey1(Model model, Survey s, HttpServletRequest request) {
 		
@@ -34,29 +44,11 @@ public class SurveyController {
 			
 			return "common/errorPage";
 			
-		}
-		
-		/* return "survey/survey1"; */
+		}	
 		
 	}
-	
-	@RequestMapping("survey1.su")
-	public String showSurvey1() {
 		
-		return "survey/survey1";
-		
-	}
-	
-	/*
-	 * @RequestMapping("survey2.su") public String insertSurvey2() {
-	 * 
-	 * 
-	 * 
-	 * return "survey/survey2";
-	 * 
-	 * }
-	 */
-	
+	//두번째 설문조사 insert
 	@RequestMapping(value="insert2.su")
 	public String insertSurvey2(Model model, Survey s, HttpServletRequest request) {
 		
@@ -64,29 +56,50 @@ public class SurveyController {
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
-		try {
-			ss.insertSurvey1(s);
-			
-			return "survey/survey3";
-			
-		}catch(Exception e){
-			
-			model.addAttribute("msg","등록실패");
-			
-			return "common/errorPage";
-			
-		}
+		int result = ss.insertSurvey2(s);
 		
-		/* return "survey/survey1"; */
+		if(result > 0) {
+			return "survey/survey3";
+		}else {
+			model.addAttribute("msg","등록실패");
+			return "common/errorPage";
+		}		 
 		
 	}
 	
-	@RequestMapping("survey3.su")
-	public String insertSurvey3() {
-		
-		return "survey/survey3";
-		
-	}
+	
+	//세번째 설문조사 insert
+		@RequestMapping(value="insert3.su")
+		public String insertSurvey3(Model model, Survey s, HttpServletRequest request) {
+			
+			System.out.println(s);
+			
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			
+			try {
+				
+			ss.insertSurvey3(s);
+				
+				return "redirect:index.jsp";
+				
+			}catch(Exception e){
+				
+				model.addAttribute("msg","등록실패");
+				
+				return "common/errorPage";
+				
+			}		
+			
+		}
+	
+	
+	/*
+	 * @RequestMapping("survey3.su") public String insertSurvey3() {
+	 * 
+	 * return "survey/survey3";
+	 * 
+	 * }
+	 */
 	
 
 }

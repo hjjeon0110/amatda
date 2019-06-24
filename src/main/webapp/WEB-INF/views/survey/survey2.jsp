@@ -21,7 +21,7 @@
 
 td {
 	height: 35px;
-	border: 1px solid #ff0066;
+	/* border: 1px solid #ff0066; */
 }
 
 #font {

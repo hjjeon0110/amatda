@@ -10,6 +10,12 @@ public interface SurveyDao {
 
 	int insertSurvey1(SqlSessionTemplate sqlSession, Survey s);
 
+	int insertSurvey2(SqlSessionTemplate sqlSession, Survey s);
+
+	int insertSurvey3(SqlSessionTemplate sqlSession, Survey s);
+
+	
+
 	
 
 	
