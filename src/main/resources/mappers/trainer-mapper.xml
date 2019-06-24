@@ -6,7 +6,7 @@
 <mapper namespace="TrainerInfo">
   
 <resultMap type="com.kh.amd.member.model.vo.TrainerInfo" id="trainerResultSet">
-      <id property="tno" column="TNO"/>            <!-- DB 기본키 -->
+      <id property="mno" column="TNO"/>            <!-- DB 기본키 -->
       <result property="accountName" column="ACCOUNT_NAME"/>
       <result property="bankCode" column="BANKCODE"/>   <!-- 일반컬럼 -->
       <result property="accountNo" column="ACCOUNT_NO"/>
@@ -15,13 +15,13 @@
       <result property="remainNum" column="REMAIN_NUM"/>
  	  
       
-   </resultMap>
-
+</resultMap>
+	
    
    <!-- 트레이너 추가 정보 회원가입 -->
    <insert id="insertTrainerInfo" parameterType="TrainerInfo">
    		INSERT INTO TUSER_INFO
-   		VALUES(TNO_SEQ.NEXTVAVL, #{accountName}, #{bankCode}, #{accountNo}, #{tage}, #{topen}, #{remainNum})
+   		VALUES(#{mno}, #{accountName}, #{bankCode}, #{accountNo}, null, 'Y', null)
    </insert>
    
   

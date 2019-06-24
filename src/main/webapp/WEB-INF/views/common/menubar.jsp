@@ -23,6 +23,8 @@
 <body>
 	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application" />
 	
+	
+	<c:if test="${empty sessionScope.loginUser }">
 	<div class="miniMenubar">
 		<ul>
 			<li onclick="location.href='loginMember.me'">로그인 </li><label class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</label>
@@ -31,7 +33,24 @@
 			<li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </li>
 		</ul>
 	</div>
-	
+	</c:if>
+	<!-- 로그인o -->	
+		<c:if test="${!empty sessionScope.loginUser }">
+		
+		<div class="miniMenubar">
+		<ul>
+			<li align="center"><c:out value="${sessionScope.loginUser.name }님의 다이어트 성공을 기원합니다!"/></li><label class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</label>
+			<li><a href="#">정보수정</a></li><label class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</label>
+			<li><a href="#"> 고객센터 </a></li><label class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</label>
+			<li><a href="logout.me">로그아웃</a></li>
+			<li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </li>
+		</ul>
+	</div>
+			<%-- <!-- 바로 el을 작성하지 않고 c:out에 작성한다(보안성up) -->
+			<h3 align="right"><c:out value="${sessionScope.loginUser.name }님 환영합니다."/></h3>
+			<button>정보수정</button>
+			<button onclick="location.href='logout.me'">로그아웃</button> --%>
+		</c:if>
 	<div class="menubarDiv">
 		<nav class="navbar navbar-expand-lg navbar-dark pb_navbar pb_scrolled-light" id="templateux-navbar">
 			<div class="container">
