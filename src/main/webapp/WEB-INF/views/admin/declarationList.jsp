@@ -26,10 +26,9 @@
 	https://templatemo.com/tm-524-product-admin
 	-->
 <style>
-	#search_input{
-	margin-left:600px;
+#search_input {
+	margin-left: 600px;
 }
-	
 </style>
 </head>
 
@@ -60,7 +59,7 @@
 						</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item" href="main.ad">회원 정보 조회<a> <a
-										class="dropdown-item" href="#">트레이너 조회</a> <a
+										class="dropdown-item" href="trainer.ad">트레이너 조회</a> <a
 										class="dropdown-item" href="matching.ad">매칭 조회</a>
 							</div></li>
 
@@ -72,9 +71,9 @@
 							</span>
 						</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#">공지사항</a> <a
-									class="dropdown-item" href="#">자주 묻는 질문</a> <a
-									class="dropdown-item" href="#">1:1문의</a>
+								<a class="dropdown-item" href="notice.ad">공지사항</a> <a
+									class="dropdown-item" href="FAQ.ad">자주 묻는 질문</a> <a
+									class="dropdown-item" href="QNA.ad">1:1문의</a>
 							</div></li>
 
 						<li class="nav-item dropdown"><a
@@ -85,11 +84,11 @@
 							</span>
 						</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#">멤버쉽</a> <a
-									class="dropdown-item" href="#">환불</a>
+								<a class="dropdown-item" href="membership.ad">멤버쉽</a> <a
+									class="dropdown-item" href="refund.ad">환불</a>
 							</div></li>
 
-						<li class="nav-item"><a class="nav-link" href="#"> <i
+						<li class="nav-item"><a class="nav-link" href="declaration.ad"> <i
 								class="fas fa-cog"></i> 신고관리 <span class="sr-only">(current)</span>
 						</a></li>
 
@@ -119,51 +118,93 @@
 
 			<div class="col-12 tm-block-col">
 				<div
-					class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
-					<h2 class="tm-block-title">트레이너 조회</h2>
+					class="tm-bg-primary-dark tm-block tm-block-taller">
+					<h2 class="tm-block-title">신고게시판</h2>
 
-					<select class="custom-select">
-						<option value="0">카테고리별 조회</option>
-						<option value="1">성별</option>
-						<option value="2">나이대</option>
-						<option value="2">매칭상태</option>
-					</select> 
-					
-					<input id="search_input" type="text" name="" placeholder="아이디 입력">
-					<a href="#" class="search_icon"><i class="fas fa-search"></i></a>
-
-
-					<table class="table">
+					<table class="table" id="declarationArea">
 						<thead>
 							<tr>
 								<th scope="col">번호</th>
-								<th scope="col">아이디</th>
-								<th scope="col">이름</th>
-								<th scope="col">성별</th>
-								<th scope="col">나이대</th>
-								<th scope="col">이메일</th>
-								<th scope="col">멤버쉽</th>
-								<th scope="col">고용횟수</th>
+								<th scope="col">제목</th>
+								<th scope="col">작성자</th>
+								<th scope="col">작성일</th>
 							</tr>
 						</thead>
 
 						<tbody>
 
-							<c:forEach var="member" begin="1" end="10">
+							<c:forEach var="member" begin="1" end="5">
 								<tr>
 									<th scope="row"><b>1</b></th>
-									<td>강다니엘</td>
-									<td>wannaOne</td>
-									<td>남</td>
-									<td>18~24세</td>
-									<td>wannaone@gmail.com</td>
-									<td>S</td>
-									<td>1</td>
+									<td>트레이너 관리가 소홀합니다.</td>
+									<td>user01</td>
+									<td>2019-06-05</td>
 								</tr>
 							</c:forEach>
 
 						</tbody>
 					</table>
+
+					<br><br>
+					
+					<!-- 페이징처리 -->
+					<div id="paginaArea" align="center">
+						<!-- 첫 페이지를 보고 있는 경우 -->
+						<c:if test="${pi.currentPage <= 1}">
+				[이전] &nbsp;
+			</c:if>
+
+						<!-- 첫 페이지가 아닌 다른페이지를 보고있는 경우 -->
+						<c:if test="${pi.currentPage > 1 }">
+							<c:url var="blistBack" value="/selectList.bo">
+								<c:param name="currnetPage" value="${pi.currentPage - 1 }" />
+							</c:url>
+							<a href="${blistBack}">[이전]</a> &nbsp;
+			</c:if>
+
+						<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
+							<c:if test="${p == pi.currentPage }">
+								<font color="red" size="4"> <b>[${p }]</b>
+								</font>
+							</c:if>
+
+							<c:if test="${p != pi.currentPage }">
+								<c:url var="blistCheck" value="selectList.bo">
+									<c:param name="currentPage" value="${p }" />
+								</c:url>
+								<a href="${blistCheck }">${p }</a>
+							</c:if>
+						</c:forEach>
+
+						<!-- 마지막페이지를 보고있는 경우 -->
+						<c:if test="${pi.currentPage >= pi.maxPage }">
+			 		&nbsp; [다음]
+			 	</c:if>
+
+						<c:if test="${pi.currentPage < pi.maxPage }">
+							<c:url var="blistEnd" value="selectList.bo">
+								<c:param name="currentPage" value="${pi.currentPage + 1 }" />
+							</c:url>
+							<a href="${blistEnd }">&nbsp; [다음]</a>
+						</c:if>
+					</div>
+
+					<script>
+					
+			$(function(){
+				$("#declarationArea").find("td").mouseenter(function(){					
+					$(this).parents("tr").css({"background":"#f8585b","cursor":"pointer"});		
+				}).mouseout(function(){
+					$(this).parents("tr").css({"background":"#567086"});
+				}).click(function(){
+					/* var bid = $(this).parents().children("td").eq(0).text();
+					
+					location.href="selectOne.bo?bid="+ bid; */
+					location.href="declarationSelectOne.ad";
+				})
+				
+			})
+		</script>
 				</div>
 			</div>
 		</div>
