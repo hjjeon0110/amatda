@@ -58,7 +58,7 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">회원 정보 조회<a>
+                                <a class="dropdown-item" href="main.ad">회원 정보 조회<a>
                                 <a class="dropdown-item" href="trainer.ad">트레이너 조회</a>
                                 <a class="dropdown-item" href="matching.ad">매칭 조회</a>
                             </div>
@@ -75,9 +75,9 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">공지사항</a>
-                                <a class="dropdown-item" href="#">자주 묻는 질문</a>
-                                <a class="dropdown-item" href="#">1:1문의</a>
+                                <a class="dropdown-item" href="notice.ad">공지사항</a>
+                                <a class="dropdown-item" href="FAQ.ad">자주 묻는 질문</a>
+                                <a class="dropdown-item" href="QNA.ad">1:1문의</a>
                             </div>
                         </li>
                         
@@ -92,13 +92,13 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">멤버쉽</a>
-                                <a class="dropdown-item" href="#">환불</a>                       
+                                <a class="dropdown-item" href="membership.ad">멤버쉽</a>
+                                <a class="dropdown-item" href="refund.ad">환불</a>                       
                             </div>
                         </li>
    
                           <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="declaration.ad">
                                 <i class="fas fa-cog"></i>
                                 	신고관리
                                 <span class="sr-only">(current)</span>
