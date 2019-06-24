@@ -84,94 +84,94 @@ a:active {text-decoration: none; color: #333333;}
 	width:100%;
 	}
 	
+		
+		.firstTable h6:hover{
+	background:#ffe6f3;
+	width:180px;
+	}
+		.firstTableLine1{
+	background:#ff0066; 
+	width:180px; 
+	height:5px; 
+	margin-bottom:15px;
+	}
 	
-	.firstTable h6:hover{
-background:#ffe6f3;
-width:180px;
-}
-	.firstTableLine1{
-background:#ff0066; 
-width:180px; 
-height:5px; 
-margin-bottom:15px;
-}
-
-.firstTableLine2{
-background:#ff0066; 
-width:180px; 
-height:1px; 
-margin-bottom:15px;
-}
-
-/*페이징 페이지 start*/
-
-.paging {
-	margin-top: 15px;
-	text-align: center;
-	font-size: 0;
-}
-.paging a,
-.paging strong {
-	display: inline-block;
-	width: 20px;
-	height: 20px;
-	margin: 0 1px;
-	border: 1px solid #dbdbdb;
-	color: #767676;
-	font-size: 15px;
-	font-weight: bold;
-	line-height: 20px;
-	vertical-align: middle;
-  text-decoration: none;
-}
-.paging a:hover,
-.paging a:active,
-.paging a:focus {
-	border: 1px solid #4c8500;	
-}
-.paging strong {
-	color: #fff;
-	background: #4c8500;
-	border: 1px solid #4c8500;
-}
-.paging .direction {
-	background: url('http://leroro.net/images/ui/sp_btn_paging.gif') no-repeat;
-}
-.paging .direction.first {
-	background-position: left top;
-}
-.paging .direction.prev {
-	margin: 0 12px 0 1px;
-	background-position: -20px 0;
-}
-.paging .direction.next {
-	margin: 0 1px 0 12px;
-	background-position: -40px 0;
-}
-.paging .direction.last {
-	background-position: right top;
-}
-.paging .direction span {
-	position: absolute;
-	display: block;
-	width: 20px;
-	height: 18px;
-	overflow: hidden;
-	z-index: -1;
-}
-
-#searchicon{
-width:20px;
-}
-
-#writeicon{
-width:20px;
-}
-
-#searchArea{
-width:300px;
-height:25px;
-}
+	.firstTableLine2{
+	background:#ff0066; 
+	width:180px; 
+	height:1px; 
+	margin-bottom:15px;
+	}
+	
+	/*페이징 페이지 start*/
+	
+	.paging {
+		margin-top: 15px;
+		text-align: center;
+		font-size: 0;
+	}
+	.paging a,
+	.paging strong {
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		margin: 0 1px;
+		border: 1px solid #dbdbdb;
+		color: #767676;
+		font-size: 15px;
+		font-weight: bold;
+		line-height: 20px;
+		vertical-align: middle;
+	  text-decoration: none;
+	}
+	.paging a:hover,
+	.paging a:active,
+	.paging a:focus {
+		border: 1px solid #4c8500;	
+	}
+	.paging strong {
+		color: #fff;
+		background: #4c8500;
+		border: 1px solid #4c8500;
+	}
+	.paging .direction {
+		background: url('http://leroro.net/images/ui/sp_btn_paging.gif') no-repeat;
+	}
+	.paging .direction.first {
+		background-position: left top;
+	}
+	.paging .direction.prev {
+		margin: 0 12px 0 1px;
+		background-position: -20px 0;
+	}
+	.paging .direction.next {
+		margin: 0 1px 0 12px;
+		background-position: -40px 0;
+	}
+	.paging .direction.last {
+		background-position: right top;
+	}
+	.paging .direction span {
+		position: absolute;
+		display: block;
+		width: 20px;
+		height: 18px;
+		overflow: hidden;
+		z-index: -1;
+	}
+	
+	#searchicon{
+	width:20px;
+	}
+	
+	#writeicon{
+	width:20px;
+	}
+	
+	#searchArea{
+	width:300px;
+	height:25px;
+	}
 
 	
 	.bestReview h6{

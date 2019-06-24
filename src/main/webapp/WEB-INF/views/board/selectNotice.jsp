@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.amd.board.model.vo.*,com.kh.amd.member.model.vo.*"%>
+    
+<%
+	HashMap<String,Object> hmap = (HashMap<String,Object>) request.getAttribute("hmap");
+	ArrayList<Member> mList=(ArrayList<Member>)hmap.get("mList");
+	ArrayList<Board> bList=(ArrayList<Board>)hmap.get("bList");
+	
+%> 
     
  
 <!DOCTYPE html>
