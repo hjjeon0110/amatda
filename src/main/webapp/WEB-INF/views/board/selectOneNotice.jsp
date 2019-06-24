@@ -30,13 +30,13 @@ border:1px solid black;
 	/*  background:skyblue; */	
 	 }
  
- .contentTable{
- 	width:750px;
- 	margin-left: 100px;
- }
- 	.btn{
- 	margin-right:10%;
- }
+	 .contentTable{
+	 	width:750px;
+	 	margin-left: 100px;
+	 }
+	 	.btn{
+	 	margin-right:10%;
+	 }
 
 	 table th{
 	text-align: center;
@@ -50,11 +50,6 @@ border:1px solid black;
 	 
 	 .boardBtn{
 	align:center;
-	 	
-	 }
-	 
-	 
-	 table h6{
 	 	
 	 }
 	 
@@ -73,20 +68,17 @@ border:1px solid black;
 	 size:5px;
 	 color:black;
 	 align:center;
-	 
-		}
+	}
 	.testImg {
 	width:100%;
 	}
 
  .bordered{
- 
  align:center;
- 
  }
  
- .tr.bordered2 td{
-margin-left: 100px;
+tr.bordered2 td{
+margin-left: 400px;
  }
  
 </style>
@@ -103,7 +95,7 @@ margin-left: 100px;
 				
 		<table class="contentTable">
 		  	<tr></tr>
-			<tr class="bordered">
+			<tr class="bordered" >
 				<!-- <td width="10%"><h6>9</h6></td>
 				<td width="10%"><h6>공지사항</h6></td>
 				<td width="50%"><h6>공지사항입니다.</h6></td>
@@ -136,41 +128,25 @@ margin-left: 100px;
 				
 			</tr>
 			<tr class="bordered2">
-				<td>
-				안녕하세요 
-				하하하
+				<td colspan="5">
+					<div class="reviewPic">
+						<img id="reviewPic1"src="${ contextPath }/resources/images/selectOneReview2.JPG">
+					</div><br>
 				</td>
 			</tr>
-			
-			 
 			</table>
 			
-			<br><br><br><br><br><br>
+			<br><br><br>
 		
 	       <div class="boardBtn">
-	         <button onclick="location.href='selectNotice.bo'">목록</button>
+	         <button type="button" class="btn btn-primary" data-toggle="modal" 
+		        data-target="#my80sizeCenterModal" onclick="location.href='selectNotice.bo'">목록</button>
 	        </div>
 		</div>
 		
 		<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+	
+	
 	<br>
 	<br>
 	<jsp:include page="../common/footer.jsp"/> 
