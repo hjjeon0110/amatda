@@ -20,6 +20,13 @@
 		color:white; 
 		background:hotpink
 	}
+	body{
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	
+	.eng{
+		font-family: 'Montserrat', sans-serif;
+	}
 </style>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -27,9 +34,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<jsp:include page="../common/menubar.jsp"/>
 	<div class="container" align="center">
-		<h2 align="center">Login</h2>
-	<form action="">
+	<hr style="margin-top:100px;">
+		<h2 align="center" class="eng">Login</h2>
+	<form action="login.me">
 		<div class="form-group">
 			<input type="text" name="userId" id="userId" class="form-control"  placeholder="ID" autofocus>
 		</div>

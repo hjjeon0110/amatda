@@ -8,4 +8,11 @@ public interface MemberService {
 
 	int insertTrainer(Member m);
 
+	int idCheck(String userId);
+
+	int emailCheck(String email);
+
+	Member loginMember(Member m);
+
+	
 }
