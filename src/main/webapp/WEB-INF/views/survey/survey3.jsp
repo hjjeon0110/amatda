@@ -21,7 +21,7 @@
 
 td {
 	height: 35px;
-	border: 1px solid #ff0066;
+	/* border: 1px solid #ff0066; */
 }
 
 #font {
@@ -53,7 +53,7 @@ td {
 		
 		<h1 id="font" align="center">설문조사</h1>
 		<br />
-		<form action="" method="post">
+		<form action="insert3.su" method="post">
 			<table align="center" id="font">
 
 				<!-- <tr>
@@ -134,51 +134,50 @@ td {
 				</tr> -->
 				<tr>
 					<td>앞선다이어트실패원인</td>
-					<td><input type="checkbox" name="diet_fail" value="다이어트정보부족" />다이어트정보부족 &nbsp;&nbsp; 
-						<input type="checkbox" name="diet_fail" value="운동부족" />운동부족 &nbsp;&nbsp; 
-						<input type="checkbox" name="diet_fail" value="과식" />과식/야식 &nbsp;&nbsp; 
-						<input type="checkbox" name="diet_fail" value="음주" />음주문화	&nbsp;&nbsp; 
-						<input type="checkbox" name="diet_fail" value="의지박약" />의지박약 &nbsp;&nbsp; 
-						<input type="checkbox" name="diet_fail" value="경험없음" />다이어트경험없음	&nbsp;&nbsp;
+					<td><input type="checkbox" name="dietFail" value="다이어트정보부족" />다이어트정보부족 &nbsp;&nbsp; 
+						<input type="checkbox" name="dietFail" value="운동부족" />운동부족 &nbsp;&nbsp; 
+						<input type="checkbox" name="dietFail" value="과식" />과식/야식 &nbsp;&nbsp; 
+						<input type="checkbox" name="dietFail" value="음주" />음주문화	&nbsp;&nbsp; 
+						<input type="checkbox" name="dietFail" value="의지박약" />의지박약 &nbsp;&nbsp; 
+						<input type="checkbox" name="dietFail" value="경험없음" />다이어트경험없음	&nbsp;&nbsp;
 					</td>
 				</tr>
 				<tr>
 					<td>운동시작희망일자</td>
-					<td><input type="date" name="hope_start" class="form-control" />
+					<td><input type="date" name="hopeStart" class="form-control" />
 					</td>
 				</tr>
 				<tr>
 					<td>다이어트를하고싶은이유</td>
-					<td><input type="radio" name="diet_reason" value="미모" />미모	&nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="diet_reason" value="다이어트" />다이어트 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio"	name="diet_reason" value="건강" />건강 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="diet_reason" value="체형교정" />체형교정 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="diet_reason" value="상관없음" />상관없음
+					<td><input type="radio" name="dietReason" value="미모" />미모	&nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="dietReason" value="다이어트" />다이어트 &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio"	name="dietReason" value="건강" />건강 &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="dietReason" value="체형교정" />체형교정 &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="dietReason" value="상관없음" />상관없음
 					</td>
 				</tr>
 				<tr>
 					<td>선호운동유형</td>
-					<td><input type="checkbox" name="hope_exercise" value="요가" />요가 &nbsp;&nbsp; 
-						<input type="checkbox" name="hope_exercise"	value="필라테스" />필라테스 &nbsp;&nbsp; 
-						<input type="checkbox" name="hope_exercise" value="웨이트" />웨이트 &nbsp;&nbsp; 
-						<input type="checkbox" name="hope_exercise" value="맨몸운동" />맨몸운동 &nbsp;&nbsp; 
-						<input type="checkbox" name="hope_exercise"	value="상관없음" />상관없음
+					<td><input type="checkbox" name="hopeExercise" value="요가" />요가 &nbsp;&nbsp; 
+						<input type="checkbox" name="hopeExercise"	value="필라테스" />필라테스 &nbsp;&nbsp; 
+						<input type="checkbox" name="hopeExercise" value="웨이트" />웨이트 &nbsp;&nbsp; 
+						<input type="checkbox" name="hopeExercise" value="맨몸운동" />맨몸운동 &nbsp;&nbsp; 
+						<input type="checkbox" name="hopeExercise"	value="상관없음" />상관없음
 					</td>
 				</tr>
 				<tr>
 					<td>하루운동가능량</td>
-					<td><input type="radio" name="dat_exercise" value="1시간" />1시간
-						&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="dat_exercise"
-						value="2시간" />2시간 &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio"
-						name="dat_exercise" value="3~5시간" />3~5시간 &nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="radio" name="dat_exercise" value="상관없음" />상관없음</td>
+					<td><input type="radio" name="datExercise" value="1시간" />1시간 &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="datExercise" value="2시간" />2시간 &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio"	name="datExercise" value="3~5시간" />3~5시간 &nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="datExercise" value="상관없음" />상관없음</td>
 				</tr>
 				<tr>
 					<td>하루식사량</td>
-					<td><input type="radio" name="dat_food" value="1끼" />1끼 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="dat_food"	value="2끼" />2끼 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio"	name="dat_food" value="3끼" />3끼 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="dat_food" value="상관없음" />상관없음
+					<td><input type="radio" name="datFood" value="1끼" />1끼 &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="datFood"	value="2끼" />2끼 &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio"	name="datFood" value="3끼" />3끼 &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="datFood" value="상관없음" />상관없음
 					</td>
 				</tr>
 				<tr>
@@ -190,7 +189,7 @@ td {
 				<tr>
 					<td>일일운동시간</td>
 					<td>
-						<input type="text" placeholder="시간을 입력하세요" name="day_time" class="form-control" />
+						<input type="text" placeholder="시간을 입력하세요" name="dayTime" class="form-control" />
 					</td>
 				</tr>
 				<tr align="center">

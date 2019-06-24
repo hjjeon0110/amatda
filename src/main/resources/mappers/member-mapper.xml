@@ -83,5 +83,14 @@
    		WHERE ID = #{userId}
    		AND PWD = #{userPwd}
    </select>
+   
+   
+   <!-- 아이디 찾기 -->
+   <select id="selectId" resultMap="memberResultSet" parameterType="Member">
+   	SELECT ID
+	FROM MEMBER
+	WHERE NAME= #{name} 
+	AND EMAIL= #{email}
+   </select>
 </mapper>
 

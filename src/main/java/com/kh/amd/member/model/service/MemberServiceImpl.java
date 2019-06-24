@@ -87,7 +87,18 @@ public class MemberServiceImpl implements MemberService{
 			// 일치하면 로그인 유저 정보 조회
 		} else {*/
 			loginUser = md.selectMember(sqlSession, m);
+			System.out.println("서비스에서 조회 회원 정보 조회: " + loginUser);
 		/* } */
+		return loginUser;
+	}
+	
+	//아이디 찾기
+	@Override
+	public Member selectId(Member m) {
+		Member loginUser = null;
+		
+		loginUser = md.selectId(sqlSession, m);
+		
 		return loginUser;
 	}
 

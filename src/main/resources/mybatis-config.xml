@@ -8,6 +8,7 @@
   		<typeAlias type="com.kh.amd.member.model.vo.TrainerInfo" alias="TrainerInfo"/>
   		<typeAlias type="com.kh.amd.survey.model.vo.Survey" alias="Survey"/>
   		<typeAlias type="com.kh.amd.trainer.model.vo.Profile" alias="Profile"/>
+  		<typeAlias type="com.kh.amd.board.model.vo.Board" alias="Board"/>
   	</typeAliases>
   	
   	
@@ -15,6 +16,8 @@
   		<mapper resource="mappers/member-mapper.xml"/> <!-- 이 파일의 쿼리를 사용한다. -->
   		<mapper resource="mappers/survey-mapper.xml"/>
   		<mapper resource="mappers/trainer-mapper.xml"/>
+  		<mapper resource="mappers/board-mapper.xml"/>
+  		
   	</mappers>
 </configuration>
   

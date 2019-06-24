@@ -14,5 +14,7 @@ public interface MemberService {
 
 	Member loginMember(Member m);
 
+	Member selectId(Member m);
+
 	
 }
