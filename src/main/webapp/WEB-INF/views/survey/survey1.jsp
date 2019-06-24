@@ -74,7 +74,7 @@ td {
 				<tr>
 					<td>목표 몸무게(Kg)</td>
 					<td><input type="text" placeholder="숫자만 입력하세요"
-						name="hope_weight" class="form-control" /></td>
+						name="hopeWeight" class="form-control" /></td>
 				</tr>
 				<tr>
 					<td>나이 연령대</td>

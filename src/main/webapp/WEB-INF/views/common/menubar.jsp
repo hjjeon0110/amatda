@@ -87,6 +87,9 @@
 							href="showMyPagePrivacy.us">MY PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<li class="menubarLi6"><a class="menubarLi6" href="#">PT
 								PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						
+						<!-- 설문조사 임시/양상모 -->
+						<li class="menubarLi7"><a class="menubarLi7" href="survey1.su">설문조사</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					</ul>
 					<div class="dropdown">
 						<button class="btn btn-secondary dropdown-toggle" type="button"

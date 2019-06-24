@@ -6,4 +6,12 @@ public interface SurveyService {
 
 	int insertSurvey1(Survey s);
 
+	int insertSurvey2(Survey s);
+
+	int insertSurvey3(Survey s);
+
+	
+
+	
+
 }
