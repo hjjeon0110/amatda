@@ -15,6 +15,12 @@
 	font-size: 12px;
 }
 
+.miniMenu:hover {
+	font-size: 12px;
+	color: #ff0066;
+	cursor:pointer;
+}
+
 .miniMenubarLabel {
 	font-size: 12px;
 	color: gray;
@@ -46,4 +52,7 @@ ul {
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 16px;
 	cursor: pointer;
+}
+.menubarLi {
+	width:670px;
 }

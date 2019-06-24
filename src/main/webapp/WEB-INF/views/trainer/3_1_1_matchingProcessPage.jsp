@@ -10,6 +10,20 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <style>
+.btn {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 14px;
+	border-style: none;
+	background: #ff0066;
+	color: white;
+	border-radius:0 !important;
+}
+
+.btn btn-primary:hover {
+	background: white;
+	color: #ff0066;
+	border: 1px solid #ff0066;
+}
 
 label {
 	font-weight:100;

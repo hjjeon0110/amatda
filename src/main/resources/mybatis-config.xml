@@ -7,8 +7,8 @@
   		<typeAlias type="com.kh.amd.member.model.vo.Member" alias="Member"/>
   		<typeAlias type="com.kh.amd.member.model.vo.TrainerInfo" alias="TrainerInfo"/>
   		<typeAlias type="com.kh.amd.survey.model.vo.Survey" alias="Survey"/>
+  		<typeAlias type="com.kh.amd.trainer.model.vo.Profile" alias="Profile"/>
   		<typeAlias type="com.kh.amd.board.model.vo.Board" alias="Board"/>
-  		
   	</typeAliases>
   	
   	

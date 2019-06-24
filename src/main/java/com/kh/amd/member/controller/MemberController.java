@@ -76,6 +76,11 @@ public class MemberController {
 		return "common/selectJoinType";
 	}
 	
+	// 메인 페이지 이동
+	@RequestMapping("showMain.me")
+	public String showMain() {
+		return "main/main";
+	}
 	//사용자 약관동의
 	@RequestMapping("agree.me")
 	public String agree() {
