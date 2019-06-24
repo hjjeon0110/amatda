@@ -41,7 +41,7 @@ a:active {text-decoration: none; color: #333333;}
  }
  
  .csTable{
- height:1800px;
+ height:600px;
  
  }
  
@@ -160,66 +160,8 @@ margin-bottom:15px;
 	z-index: -1;
 }
 
-#searchicon{
-width:20px;
-}
+.
 
-#writeicon{
-width:20px;
-}
-
-#searchArea{
-width:300px;
-height:25px;
-}
-
-	
-	.bestReview h6{
-	display:inline;
-	padding: 20px;
-	}
-	
-	.bestReview{
-	float:right;
-	/* margin-bottom:30px; */
-	}
-	
-	.secondTableLine{
-	background:#ff0066; 
-	width:1200px; 
-	height:2px; 
-	margin-bottom:15px;
-	align:center;
-	}
-	
-	#bestReview h5{
-	float:left;
-	font-weight: bold;
-	}
-	
-	.firstbestReviewLine{
-	display:inline;
-	padding: 20px;
-	}
-	
-	#bestreviewpic1{
-	width:20%;
-	margin-right:50px;
-	/* align:center; */
-	}
-	
-	#bestreviewpic2{
-	width:20%;
-	}
-	
-	#bestreviewpic3{
-	width:20%;
-	}
-	
-	#normalReviewList h5{
-	float:left;
-	font-weight: bold;
-	}
 	
 </style>
 
@@ -239,6 +181,7 @@ height:25px;
       <h6><a href="selectNoticeCate.bo">공지사항 </a></h6>
       <h6><a href="selectEventCate.bo">이벤트</a></h6>
       
+      
      <div class="firstTableLine2"></div>
       <h6><a href="insertQna.bo">Q&A</a></h6>
       <div class="firstTableLine2"></div>
@@ -252,75 +195,102 @@ height:25px;
 		
 	
 		<div class="secondTable">
-			<h2>아맞다 후기리뷰</h2>
-			<br>
-			<div class="bestReview">
-			<a href ="insertReview.bo"><h6>후기리뷰 작성
-			<img id="writeicon"src="${ contextPath }/resources/images/writeicon.png"></h6></a>
-			<input type="text" id="searchArea" value="" placeholder="검색하실 내용을 입력하세요.">
-			<img id="searchicon"src="${ contextPath }/resources/images/searchicon.png">
-  			</div>
-  			<br>
-  			<br>
-  			<!-- <div class="secondTableLine"></div> -->
-  			<div id="bestReview">
-  			<h5>베스트 후기리뷰</h5> 
-  			</div>
-  			<br>
+		<h2>이벤트</h2>
+		<br>
+			<table class="table table-hover" color="pink">
+			    <thead>
+			      <tr>
+			        <th>글번호</th>
+			        <th>카테고리</th>
+			        <th>제목</th>
+			        <th>등록일</th>
+			        <th>조회수</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr onclick="location.href='selectOneNotice.bo'" >
+                  <td>10</td>
+                  <td>이벤트</td>
+                  <td>10번째 이벤트입니다.</td>
+                  <td>2019.6.10</td>
+                  <td>10</td>
+               </tr>
+               
+               <tr>
+                  <td>10</td>
+                  <td>이벤트</td>
+                  <td>10번째 이벤트입니다.</td>
+                  <td>2019.6.10</td>
+                  <td>10</td>
+               </tr>
+               
+               <tr>
+                  <td>10</td>
+                  <td>이벤트</td>
+                  <td>10번째 이벤트입니다.</td>
+                  <td>2019.6.10</td>
+                  <td>10</td>
+               </tr>
+               
+               <tr>
+                  <td>10</td>
+                  <td>이벤트</td>
+                  <td>10번째 이벤트입니다.</td>
+                  <td>2019.6.10</td>
+                  <td>10</td>
+               </tr>
+               
+               <tr>
+                  <td>10</td>
+                  <td>이벤트</td>
+                  <td>10번째 이벤트입니다.</td>
+                  <td>2019.6.10</td>
+                  <td>10</td>
+               </tr>
+               
+               <tr>
+                  <td>10</td>
+                  <td>이벤트</td>
+                  <td>10번째 이벤트입니다.</td>
+                  <td>2019.6.10</td>
+                  <td>10</td>
+               </tr>
+               
+               <tr>
+                  <td>10</td>
+                  <td>이벤트</td>
+                  <td>10번째 이벤트입니다.</td>
+                  <td>2019.6.10</td>
+                  <td>10</td>
+               </tr>
+               
+               <tr>
+                  <td>10</td>
+                  <td>이벤트</td>
+                  <td>10번째 이벤트입니다.</td>
+                  <td>2019.6.10</td>
+                  <td>10</td>
+               </tr>
+               
+               <tr>
+                  <td>10</td>
+                  <td>이벤트</td>
+                  <td>10번째 이벤트입니다.</td>
+                  <td>2019.6.10</td>
+                  <td>10</td>
+               </tr>
+               
+               <tr>
+                  <td>10</td>
+                  <td>이벤트</td>
+                  <td>10번째 이벤트입니다.</td>
+                  <td>2019.6.10</td>
+                  <td>10</td>
+               </tr>
+
+			    </tbody>
+  			</table>
   			
-  			<div class="secondTableLine"></div>
-  			
-		<br>
-		<div class="firstbestReviewLine">
-		<a href ="selectOneReview.bo"><img id="bestreviewpic1"src="${ contextPath }/resources/images/bestreviewpic1.JPG"></a>
-		<img id="bestreviewpic1"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic1"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic1"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		</div>
-		<br>
-		<br>
-		
-		<div id="normalReviewList">
-  			<h5>전체보기</h5> 
-  		</div><br>
-		<div class="secondTableLine"></div> 
-		
-		
-		<br>
-		<br>
-		<div class="firstbestReviewLine">
-		<a href ="selectOneReview.bo"><img id="bestreviewpic2"src="${ contextPath }/resources/images/bestreviewpic1.JPG"></a>
-		<img id="bestreviewpic2"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic2"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		</div>
-		<br>
-		<br>
-		<br>
-		
-		<div class="firstbestReviewLine">
-		<img id="bestreviewpic3"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic3"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic3"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		</div>
-		<br>
-		<br>
-		<br>
-		<div class="firstbestReviewLine">
-		<img id="bestreviewpic2"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic2"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic2"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		</div>
-		<br>
-		<br>
-		<br>
-		
-		<div class="firstbestReviewLine">
-		<img id="bestreviewpic3"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic3"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic3"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		</div>
-		
-		<br><br><br>
   			<div class="checkboxgroup">
 				<input type="checkbox" name="chk_info" value="title" checked="checked">제목
 				<input type="checkbox" name="chk_info" value="content">내용
@@ -363,6 +333,7 @@ height:25px;
 	<br>
 	<br>
 	<br>
+	
 	
 	
 

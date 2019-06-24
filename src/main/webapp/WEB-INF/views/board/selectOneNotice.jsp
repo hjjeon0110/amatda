@@ -32,6 +32,7 @@ border:1px solid black;
  
  .contentTable{
  	width:750px;
+ 	margin-left: 100px;
  }
  	.btn{
  	margin-right:10%;
@@ -78,7 +79,15 @@ border:1px solid black;
 	width:100%;
 	}
 
+ .bordered{
  
+ align:center;
+ 
+ }
+ 
+ .tr.bordered2 td{
+margin-left: 100px;
+ }
  
 </style>
 
@@ -86,10 +95,10 @@ border:1px solid black;
 <body>
 
 <jsp:include page="../common/menubar.jsp"/> 
-<img class="testImg" src="${ contextPath }/resources/images/testMain.jpg">
+<img class="testImg" src="${ contextPath }/resources/images/sstestMain.jpg">
 	<br>
 		<div class="selectOneTable">
-		<h1 align="left">공지사항/이벤트</h1>
+		<h2 align="left">공지사항/이벤트</h2>
 		<br><br><br>
 				
 		<table class="contentTable">

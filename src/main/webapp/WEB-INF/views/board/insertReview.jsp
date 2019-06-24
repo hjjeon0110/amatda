@@ -67,7 +67,7 @@
 	padding: 10px 20px;
 	margin-right: 20px;
 	border-radius : 5px; 
-	background-color:hsla(9, 100%, 64%, 0.6); color:#32435F; font-weight:bold; border:none;
+	background-color:#ff0066; color:white; font-weight:bold; border:none;
 	}
 	
 	.testImg {
@@ -76,21 +76,24 @@
 	}
 	
 	tbody th{
-	background-color:#FFC0CB;
+	background-color:#ffe6f3;
 	}
-
+.btnArea{
+align:center;
+display:inline;
+}
 	
 </style>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/> 
-	<img class="testImg" src="${ contextPath }/resources/images/testMain.jpg">
+	<img class="testImg" src="${ contextPath }/resources/images/sstestMain.jpg">
 	
 	<div class="outer"> 	
 		<br>
 		<h2 align="center">후기</h2>
-		<form action="<%=request.getContextPath() %>/insertReview.do" method="post"
-			encType="multipart/form-data">
+		<form action="<%=request.getContextPath() %>/selectReview.bo" method="post"
+			encType="multipart/form-data"> 
 			<!-- encType을 설정해야 파일을 폼에서 보낼 수 있다 -->
 			
 			
@@ -125,19 +128,19 @@
 					
 				</table>
 			
-			</div>
-			
 			<div id="fileArea">
 				<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)">
 				<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)">
 				
 			</div>
 			<br>
-			<div class="btnArea" align="center">
-	            <button onclick="location.href='<%=request.getContextPath()%>/selectReviewTotalList.do'">취소하기</button>
-	            <button onclick="location.href='<%=request.getContextPath()%>/insertReview.do'">작성하기</button>
+			<div class="btnArea">
+	            <button onclick="location.href='selectReview.bo'">취소하기</button>
+	            <button onclick="location.href='selectReview.bo'">작성하기</button>
             
          </div>
+			</div>
+			
 		</form>
 	</div>
 	
@@ -173,7 +176,7 @@
 		};
 	</script>
 	
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br>
 <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

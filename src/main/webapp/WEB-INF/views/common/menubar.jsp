@@ -27,7 +27,7 @@
 		<ul>
 			<li onclick="location.href='loginMember.me'">로그인 </li><label class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</label>
 			<li onclick="location.href='selectJoinType.me'"> 회원가입 </li><label class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</label>
-			<li><a href="#"> 고객센터 </a></li>
+			<li onclick="location.href='selectNotice.bo'"> 고객센터 </li><label class="miniMenubarLabel">&nbsp;&nbsp;|&nbsp;&nbsp;</label>
 			<li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </li>
 		</ul>
 	</div>
