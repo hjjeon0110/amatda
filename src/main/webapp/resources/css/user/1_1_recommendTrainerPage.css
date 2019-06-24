@@ -1,0 +1,178 @@
+@charset "UTF-8";
+
+.btn {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 14px;
+}
+
+.btn btn-primary:hover {
+	background: white;
+	color: #ff0066;
+	border: 1px solid #ff0066;
+}
+
+.menubarLi4 {
+	color: #ff0066;
+}
+
+.subMenuBar {
+	width: 100%;
+	height: 100%;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-top:1px solid lightgray;
+}
+
+.subMenuBar1 {
+	width: 49.8%;
+	height: 72px;
+	display: inline-block;
+	border-bottom: 2px solid #ff0066;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 22px;
+	background: #ff0066;
+	color: white;
+	margin-left: 2px;
+	margin-right: -4px;
+}
+
+.subMenuBar2 {
+	width: 49.8%;
+	height: 72px;
+	display: inline-block;
+	border-bottom: 2px solid #ff0066;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 22px;
+}
+
+.subMenuBar2:hover {
+	width: 49.8%;
+	height: 72px;
+	display: inline-block;
+	border-bottom: 2px solid #ff0066;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 22px;
+	color:#ff0066;
+	cursor:pointer;
+}
+
+.searchKeywordDiv {
+	width: 100%;
+	height: 200px;
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+	padding: 50px;
+}
+
+.searchKeywordLabel {
+	width:100%;
+	text-align:center;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.keywordDiv {
+	width:100%;
+	text-align:center;
+}
+
+.badge {
+	font-family: 'Noto Sans KR', sans-serif;
+	background: #ffe6f3;
+}
+
+.searchTrainerListDiv {
+	width: 100%;
+	height: 100%;
+	background: whitesmoke;
+}
+
+.trainerSelect {
+	width: 150px;
+	font-family: 'Noto Sans KR', sans-serif;
+	border: 1px solid darkgray;
+	margin-left: 50px;
+}
+
+.trainerListDiv {
+	width: 90%;
+	border: 1px solid darkgray;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	background: white;
+}
+
+.trainerListTable {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	background: white;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.profileImg {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	border: 2px solid white;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.profileImage {
+	width: 100%;
+	height: 100%;
+}
+
+.trainerListTable td {
+	padding: 5px;
+	font-size: 14px;
+}
+
+.trainerListTableTd1 {
+	width: 15%;
+	align: center;
+}
+
+.trainerListTableTd2 {
+	width: 70%;
+}
+
+.trainerName {
+	font-weight: bold;
+}
+
+.trainerGender {
+	color: darkgray;
+}
+
+.trainerKeyword {
+	color: #ff0066;
+}
+
+.simpleProfile {
+	font-size: 13px;
+}
+
+.goProfileDetail {
+	border-style: none;
+	background: #ff0066;
+	color: white;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100px;
+}
+
+.goProfileDetail:hover {
+	border:1px solid #ff0066;
+	background:white;
+	color:#ff0066;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100px;
+	cursor:pointer;
+}
