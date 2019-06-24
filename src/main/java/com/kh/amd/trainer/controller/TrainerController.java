@@ -12,36 +12,58 @@ public class TrainerController {
 	@Autowired
 	private TrainerService ts;
 	
-	@RequestMapping("goMyPageView.tr")
-	public String showTrainerMyPageView() {
-		return "trainer/trainerMyPageMain";
+	// 회원 찾기 페이지 이동 (전효정)
+	@RequestMapping("showUserFindPageView.tr")
+	public String showUserFindPageView() {
+		return "trainer/1_userFindPage";
 	}
 	
-	@RequestMapping("goMyPageProfile.tr")
+	// 트레이너 마이페이지_프로필관리 이동 (전효정)
+	@RequestMapping("showMyPageProfile.tr")
 	public String showTrainerMyPageProfileView() {
-		return "trainer/trainerMyPage_profile";
+		return "trainer/2_1_myPage_profile";
 	}
 	
-	@RequestMapping("goMyPageEstimate.tr")
+	// 트레이너 마이페이지_견적서관리 이동 (전효정)
+	@RequestMapping("showMyPageEstimate.tr")
 	public String showTrainerMyPageEstimateView() {
-		return "trainer/trainerMyPage_estimate";
+		return "trainer/2_2_myPage_estimate";
 	}
 	
-	@RequestMapping("goMyPageMatching.tr")
+	// 트레이너 마이페이지_매칭관리 이동 (전효정)
+	@RequestMapping("showMyPageMatching.tr")
 	public String showTrainerMyPageMatchingView() {
-		return "trainer/trainerMyPage_matching";
+		return "trainer/2_3_myPage_matching";
 	}
 	
-	@RequestMapping("goMyPageMembership.tr")
+	// 트레이너 마이페이지_멤버십관리 이동 (전효정)
+	@RequestMapping("showMyPageMembership.tr")
 	public String showTrainerMyPageMembershipView() {
-		return "trainer/trainerMyPage_membership";
+		return "trainer/2_4_myPage_membership";
 	}
 	
-	@RequestMapping("goMyPageMyWriting.tr")
+	// 트레이너 마이페이지_내글관리 이동 (전효정)
+	@RequestMapping("showMyPageMyWriting.tr")
 	public String showTrainerMyPageMyWritingView() {
-		return "trainer/trainerMyPage_myWriting";
+		return "trainer/2_5_myPage_myWriting";
 	}
 	
+	// 트레이너 PT관리페이지_매칭진행회원 이동 (전효정)
+	@RequestMapping("showMatchingInProgressPage.tr")
+	public String showMatchingInProgressView() {
+		return "trainer/3_1_matchingInProgressPage";
+	}
 	
+	// 트레이너 PT관리페이지_매칭완료회원 이동 (전효정)
+	@RequestMapping("showMatchingCompletePage.tr")
+	public String showMatchingCompleteView() {
+		return "trainer/3_2_matchingCompletePage";
+	}
+	
+	// 트레이너 매칭진행회원_매칭프로세스페이지 이동 (전효정)
+	@RequestMapping("showMatchingProcessPage.tr")
+	public String showMatchingProcessView() {
+		return "trainer/3_1_1_matchingProcessPage";
+	}
 
 }

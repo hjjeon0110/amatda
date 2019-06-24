@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+.menubarLi5 {
+	color: #ff0066;
+}
+
+#myPageMenu5 {
+	background: #ff0066;
+	color: white;
+}
+
+.reviewDiv, .qaDiv {
+	width: 100%;
+	height: 100%;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+.subTitle {
+	font-size: 18px;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+	color: black;
+}
+
+.reviewTable, .qaTable {
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+	font-family: 'Noto Sans KR', sans-serif;
+	text-align: center;
+	border-top: 2px solid darkgray;
+	border-bottom: 2px solid darkgray;
+}
+
+.reviewTable thead, .qaTable thead {
+	background: whitesmoke;
+	font-weight: bold;
+}
+
+.reviewTable tr, .qaTable tr {
+	height: 40px;
+	border-bottom: 1px solid gray;
+}
+
+.modification {
+	width: 80px;
+	height: 80%;
+	border-style: none;
+	background: #ff0066;
+	color: white;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 14px;
+}
+
+.modification:hover {
+	width: 80px;
+	height: 80%;
+	border: 1px solid #ff0066;
+	background: white;
+	color: #ff0066;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 14px;
+	cursor: pointer;
+}
