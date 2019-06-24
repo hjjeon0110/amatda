@@ -6,11 +6,13 @@
 	 <typeAliases>
   		<typeAlias type="com.kh.amd.member.model.vo.Member" alias="Member"/>
   		<typeAlias type="com.kh.amd.member.model.vo.TrainerInfo" alias="TrainerInfo"/>
+  		<typeAlias type="com.kh.amd.survey.model.vo.Survey" alias="Survey"/>
   	</typeAliases>
   	
   	
   	<mappers>
   		<mapper resource="mappers/member-mapper.xml"/> <!-- 이 파일의 쿼리를 사용한다. -->
+  		<mapper resource="mappers/survey-mapper.xml"/>
   	</mappers>
 </configuration>
   

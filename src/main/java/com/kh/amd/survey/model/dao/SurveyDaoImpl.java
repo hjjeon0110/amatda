@@ -1,5 +1,17 @@
 package com.kh.amd.survey.model.dao;
 
-public class SurveyDaoImpl {
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.kh.amd.survey.model.vo.Survey;
+
+@Repository
+public class SurveyDaoImpl implements SurveyDao{
+
+	@Override
+	public int insertSurvey1(SqlSessionTemplate sqlSession, Survey s) {
+		
+		return sqlSession.insert("Survey.insertSurvey1",s);
+	}
 
 }

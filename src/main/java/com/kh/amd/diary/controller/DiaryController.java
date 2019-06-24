@@ -6,17 +6,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class DiaryController {
 	
-	@RequestMapping("diaryDetail.di")
-	public String showDiaryDetail() {
+	@RequestMapping("selectDiaryDetail.di")
+	public String selectDiaryDetail() {
 		
-		return "diary/diaryDetail";
+		return "diary/selectDiaryDetail";
 		
 	}
 	
-	@RequestMapping("diaryDetail2.di")
-	public String showDiaryDetail2() {
+	@RequestMapping("insertDiary.di")
+	public String insertDiary() {
 		
-		return "diary/diaryDetail2";
+		return "diary/insertDiary";
+		
+	}
+	
+	@RequestMapping("selectDiary.di")
+	public String selectDiary() {
+		
+		return "diary/selectDiary";
+		
+	}
+	
+	@RequestMapping("updateDiary.di")
+	public String updateDiary() {
+		
+		return "diary/updateDiary";
+		
+	}
+	
+	@RequestMapping("deleteDiary.di")
+	public String deleteDiary() {
+		
+		return "diary/deleteDiary";
 		
 	}
 
