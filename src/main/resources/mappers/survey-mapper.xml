@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Survey">
+	<resultMap type="com.kh.amd.survey.model.vo.Survey" id="surveyResultSet">
+		<id property="surveyNo" column="SURVEY_NO"/>
+		<result property="hopePeriod" column="HOPE_PERIOD"/>
+		<result property="hopeBody" column="HOPE_BODY"/>
+		<result property="hopeMethod" column="HOPE_METHOD"/>
+		<result property="hopeGender" column="HOPE_GENDER"/>
+		<result property="hopeAge" column="HOPE_AGE"/>
+		<result property="dietFail" column="DIET_FAIL"/>
+		<result property="hopeStart" column="HOPE_START"/>
+		<result property="dietReason" column="DIET_REASON"/>
+		<result property="hopeExercise" column="HOPE_EXERCISE"/>
+		<result property="datExercise" column="DAT_EXERCISE"/>
+		<result property="datFood" column="DAT_FOOD"/>
+		<result property="disease" column="DISEASE"/>
+		<result property="dayTime" column="DAY_TIME"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
+		<result property="height" column="HEIGHT"/>
+		<result property="weight" column="WEIGHT"/>
+		<result property="hopeWeight" column="HOPE_WEIGHT"/>
+		<result property="uAge" column="UAGE"/>
+		<result property="uNo" column="UNO"/>
+	</resultMap>
+	
+	<insert id="insertSurvey1" parameterType="Survey">		
+		INSERT INTO SURVEY (SURVEY_NO, HEIGHT, WEIGHT, HOPE_WEIGHT, UAGE, UNO)
+		VALUES (SURVEY_NO_SEQ.NEXTVAL, #{height}, #{weight}, #{hopeWeight}, #{uAge}, 5)
+	</insert>
+	
+</mapper>
+
+
+
