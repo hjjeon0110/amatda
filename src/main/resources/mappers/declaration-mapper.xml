@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Declaration">
+
+	<resultMap id="declarationResultSet" type="com.kh.amd.board.model.vo.Declaration">
+		<id column="DECLARE_NO" property="decl_no"/>
+		<result column="DECL_CATEGORY" property="decl_category"/>
+		<result column="DECL_CLASSIFICATION" property="decl_classification"/>
+		<result column="WRITER" property="writer"/>
+		<result column="TARGET" property="target"/>
+		<result column="DECL_TITLE" property="decl_title"/>
+		<result column="DECL_CONTENT" property="decl_content"/>
+		<result column="WRITE_DATE" property="write_date"/>
+		<result column="STATUS" property="status"/>	
+	</resultMap>
+
+	<select id="declarationList" resultMap="declarationResultSet">
+	SELECT * 
+	FROM DECLARATION
+	</select>
+	
+</mapper>
+
