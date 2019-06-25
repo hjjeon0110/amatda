@@ -113,8 +113,8 @@ td{
 			data:{name:name, userId:userId, email:email},
 			success:function(data){
 				if(data == "ok"){
-				alert("변경폼 작성해주기");
-				document.location.href="updatePwd.me";
+				
+				document.location.href='updatePwd.me?name=' + name;  //폼으로 이동
 				}
 			},error:function(status){
 				console.log("다시");

@@ -21,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -107,9 +108,53 @@ public class MemberController {
 	}
 	//비밀번호 변경 폼으로 이동
 	@RequestMapping("updatePwd.me")
-	public String updatePwd() {
+	public String updatePwd(@RequestParam String name, HttpServletRequest request) {
+		System.out.println(name);
+		request.setAttribute("name", name);
+		
 		return "common/updatePwd";
 	}
+	
+	
+	//비밀번호 변경
+	@RequestMapping("updateMyPwd.me")
+	public void updateMyPwd(Model model, String userPwd, HttpServletResponse response,HttpServletRequest request) {
+		
+		String name = request.getParameter("name");
+		System.out.println("받아온 name: "+name);
+		
+		String updateEncPwd = passwordEncoder.encode(userPwd);
+		System.out.println(updateEncPwd);
+		System.out.println("서비스로 왔어요");
+		
+		Member m = new Member();
+		m.setUserPwd(updateEncPwd);
+		m.setName(name);
+		int result = ms.updateMyPwd(m);
+		
+		
+		
+	
+		
+		  if(result !=0) { 
+			  try { 
+				 
+				  response.getWriter().print("ok"); 
+		  } catch (IOException e) {
+		  
+		  e.printStackTrace(); } 
+			  
+		  }else { 
+			  try { response.getWriter().print("fail"); }
+		  catch (IOException e) {
+		  
+			  e.printStackTrace(); 
+		   } 
+	}
+		 
+		 
+	}
+	
 	@RequestMapping("selectJoinType.me")
 	public String joinType() {
 		return "common/selectJoinType";

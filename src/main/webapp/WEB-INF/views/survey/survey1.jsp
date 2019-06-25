@@ -57,6 +57,7 @@ td {
 		<br />
 		<form action="insert1.su" method="post">
 		<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" />
+
 			<table align="center" id="font">
 				<tr>
 					<td>개인 기초 정보 입력 사항</td>

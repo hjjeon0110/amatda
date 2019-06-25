@@ -21,5 +21,10 @@ public interface MemberService {
 
 	int findPwd(Member m) throws LoginException;
 
+	int updateMyPwd(Member m);
+
+	Member selectPwd(Member m);
+
+	
 	
 }

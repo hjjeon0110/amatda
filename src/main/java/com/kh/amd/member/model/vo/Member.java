@@ -16,6 +16,7 @@ public class Member implements java.io.Serializable{
 	private String emailYn;  //이메일 인증여부
 	private Date enrollDate;
 	private Date modifyDate;
+	private String completeSurvey;
 	
 	private int tno;
 	private String accountName;
@@ -28,8 +29,9 @@ public class Member implements java.io.Serializable{
 	public Member() {}
 
 	public Member(int mno, String name, String userId, String userPwd, String phone, String gender, String email,
-			String mtype, String status, int matchTime, String emailYn, Date enrollDate, Date modifyDate, int tno,
-			String accountName, String bankCode, String accountNo, String tage, String topen, int remainNum) {
+			String mtype, String status, int matchTime, String emailYn, Date enrollDate, Date modifyDate,
+			String completeSurvey, int tno, String accountName, String bankCode, String accountNo, String tage,
+			String topen, int remainNum) {
 		super();
 		this.mno = mno;
 		this.name = name;
@@ -44,6 +46,7 @@ public class Member implements java.io.Serializable{
 		this.emailYn = emailYn;
 		this.enrollDate = enrollDate;
 		this.modifyDate = modifyDate;
+		this.completeSurvey = completeSurvey;
 		this.tno = tno;
 		this.accountName = accountName;
 		this.bankCode = bankCode;
@@ -81,8 +84,8 @@ public class Member implements java.io.Serializable{
 		return userPwd;
 	}
 
-	public String setUserPwd(String userPwd) {
-		return this.userPwd = userPwd;
+	public void setUserPwd(String userPwd) {
+		this.userPwd = userPwd;
 	}
 
 	public String getPhone() {
@@ -157,6 +160,14 @@ public class Member implements java.io.Serializable{
 		this.modifyDate = modifyDate;
 	}
 
+	public String getCompleteSurvey() {
+		return completeSurvey;
+	}
+
+	public void setCompleteSurvey(String completeSurvey) {
+		this.completeSurvey = completeSurvey;
+	}
+
 	public int getTno() {
 		return tno;
 	}
@@ -218,10 +229,10 @@ public class Member implements java.io.Serializable{
 		return "Member [mno=" + mno + ", name=" + name + ", userId=" + userId + ", userPwd=" + userPwd + ", phone="
 				+ phone + ", gender=" + gender + ", email=" + email + ", mtype=" + mtype + ", status=" + status
 				+ ", matchTime=" + matchTime + ", emailYn=" + emailYn + ", enrollDate=" + enrollDate + ", modifyDate="
-				+ modifyDate + ", tno=" + tno + ", accountName=" + accountName + ", bankCode=" + bankCode
-				+ ", accountNo=" + accountNo + ", tage=" + tage + ", topen=" + topen + ", remainNum=" + remainNum + "]";
+				+ modifyDate + ", completeSurvey=" + completeSurvey + ", tno=" + tno + ", accountName=" + accountName
+				+ ", bankCode=" + bankCode + ", accountNo=" + accountNo + ", tage=" + tage + ", topen=" + topen
+				+ ", remainNum=" + remainNum + "]";
 	}
-
 
 	
 	
