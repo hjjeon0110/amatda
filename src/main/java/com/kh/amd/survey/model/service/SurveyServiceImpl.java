@@ -38,6 +38,12 @@ public class SurveyServiceImpl implements SurveyService{
 		return sd.insertSurvey3(sqlSession, s);
 	}
 
+	@Override
+	public int updateSurvey(Survey s) {
+		
+		return sd.updateSurvey(sqlSession, s);
+	}
+
 	
 
 	

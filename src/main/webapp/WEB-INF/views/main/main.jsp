@@ -44,6 +44,8 @@
 	<!-- 추천 신입 트레이너 ----------------------------------------------------------------------------------------------------- -->
 	<div class="recommendNewTrainer">
 		<label class="recommendNewTrainerLabel" data-aos="fade-up">추천 신입 트레이너</label>
+																						<a href="survey1.su">insertSurvey</a>
+																						<a href="updateSurvey.su">updateSurvey</a>
 		<section class="blog_section">
 			<div class="container">
 				<div class="blog_content">

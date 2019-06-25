@@ -34,12 +34,7 @@
 		VALUES (SURVEY_NO_SEQ.NEXTVAL, #{height}, #{weight}, #{hopeWeight}, #{uAge}, 5)
 	</insert>
 	
-	<!-- 두번째 설문조사 -->
-	<!-- <insert id="insertSurvey2" parameterType="Survey">		
-		INSERT INTO SURVEY (SURVEY_NO, HOPE_PERIOD, HOPE_BODY, HOPE_METHOD, HOPE_GENDER, HOPE_AGE)
-		VALUES (#{surveyNo}, #{hopePeriod}, #{hopeBody}, #{hopeMethod}, #{hopeGender}, #{hopeAge})
-		WHERE UNO = 5
-	</insert> -->
+	<!-- 두번째 설문조사 -->	
 	<update id="insertSurvey2" parameterType="Survey">
 		UPDATE SURVEY
 		SET HOPE_PERIOD = #{hopePeriod},
@@ -50,11 +45,7 @@
 		WHERE UNO = 5 
 	</update>
 	
-	<!-- 세번째 설문조사 -->
-	<!-- <insert id="insertSurvey3" parameterType="Survey">		
-		INSERT INTO SURVEY (SURVEY_NO, DIET_FAIL, HOPE_START, DIET_REASON, HOPE_EXERCISE, DAT_EXERCISE, DAT_FOOD, DISEASE, DAY_TIME, ENROLL_DATE, UNO)
-		VALUES (#{surveyNo}, #{dietFail}, #{hopeStart}, #{dietReason}, #{hopeExercise}, #{datExercise}, #{datFood}, #{disease}, #{dayTime}, sysdate, 5)
-	</insert> -->
+	<!-- 세번째 설문조사 -->	
 	<update id="insertSurvey3" parameterType="Survey">
 		UPDATE SURVEY
 		SET DIET_FAIL = #{dietFail},
@@ -69,6 +60,30 @@
 		WHERE UNO = 5 
 	</update>
 	
+	<!-- 설문조사 update -->
+	<update id="updateSurvey" parameterType="Survey">
+		UPDATE SURVEY
+		SET 
+			HOPE_PERIOD = #{hopePeriod},
+			HOPE_BODY = #{hopeBody},
+			HOPE_METHOD = #{hopeMethod},
+			HOPE_GENDER = #{hopeGender},
+			HOPE_AGE = #{hopeAge},
+			DIET_FAIL = #{dietFail},
+			HOPE_START = #{hopeStart},
+			DIET_REASON = #{dietReason},
+			HOPE_EXERCISE = #{hopeExercise},
+			DAT_EXERCISE = #{datExercise},
+			DAT_FOOD = #{datFood},
+			DISEASE = #{disease},
+			DAY_TIME = #{dayTime},			
+			MODIFY_DATE = sysdate,
+			HEIGHT = #{height},
+			WEIGHT = #{weight},
+			HOPE_WEIGHT = #{hopeWeight},
+			UAGE = #{uAge}
+		WHERE UNO = 5 
+	</update>
 	
 	
 </mapper>
