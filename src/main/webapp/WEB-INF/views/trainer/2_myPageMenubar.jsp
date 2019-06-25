@@ -53,7 +53,8 @@
 				<label class="myPageMenuLabel" id="myPageMenu1">프로필 관리</label>
 				
 			</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<div class="myPageMenu" id="myPageMenu2" onclick="location.href='showMyPageEstimate.tr?mno=${ sessionScope.loginUser.mno }'">
+			<div class="myPageMenu" id="myPageMenu2" 
+					onclick="location.href='showMyPageEstimate.tr?mno=${ sessionScope.loginUser.mno }?estType=1'">
 				<br><br><br>
 				<label class="myPageMenuLabel" id="myPageMenu2">견적서 관리</label>
 				

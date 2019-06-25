@@ -133,16 +133,13 @@ select {
 	
 	<!-- 견적서 값이 없을때 나올  견적서 영역 ------------------------------------------------------- -->
 	<c:if test="${empty estimate}">
-	<form action="train">
+	<form action="train.tr">
 	<div class="estimateDiv">
 	
 		<br><br><br>
 		<label class="subTitle">제목</label>
 		<br><br>
 		<input type="text" name="estTitle" placeholder=" 제목을 입력해주세요">
-		
-		<br><br><br>
-		<label class="subTitle">키워드</label>
 		
 		<br><br><br>
 		<label class="subTitle" >커리큘럼</label>
@@ -173,18 +170,18 @@ select {
 		<input type="text" placeholder=" 가격을 입력해주세요">
 		
 		<br><br><br>
-		<button class="modification"> 견적서 수정하기 </button>
+		<button class="modification"> 견적서 저장하기 </button>
 	</div>
 	</form>
 	</c:if>
 	<!-- 견적서 값이 있을때 나올 견적서 영역 ------------------------------------------------------- -->
 	<c:if test="${!empty estimate}">
 	<div class="estimateDiv">
-	
+		<input type="hidden" name="estType" value="1"/>
 		<br><br><br>
 		<label class="subTitle">제목</label>
 		<br><br>
-		<input type="text" name="estTitle" value="${ estimate.estName }" placeholder=" 제목을 입력해주세요">
+		<input type="text" id="estTitle" name="estTitle" value="${ estimate.estName }" placeholder=" 제목을 입력해주세요">
 		
 		<br><br><br>
 		<label class="subTitle" >커리큘럼</label>
@@ -213,9 +210,8 @@ select {
 		<label class="subTitle">가격</label>
 		<br><br>
 		<input type="text" placeholder=" 가격을 입력해주세요" value="${ estimate.estPrice }">
-		
-		<br><br><br>
-		<button class="modification"> 견적서 수정하기 </button>
+		<br><br>
+		<button class="modification"> 견적서 저장하기 </button>
 	</div>
 	</c:if>
 	
@@ -228,6 +224,37 @@ select {
 	<script>
 		$(function(){
 			$("#estDay").val(${estimate.estDay}).prop("selected", true);
+		})
+		$(function(){
+			$("#subMenuBar2").click(function(){
+				var estType = $(this).children().val();
+				var mno = ${sessionScope.loginUser.mno};
+				$(this).css({"background":"#ff0066", "color":"white"});
+				$("#subMenuBar1").css({"background":"white", "color":"black"});
+				
+				$.ajax({
+					url:"showMyPageEstimate.tr",
+					data: mno:mno, estType:estType,
+					type:"get",
+					success:function(data){
+						$("#estTitle").text(data.estTitle);
+						
+					}
+					
+				})
+
+			})
+		})
+		$(function(){
+			$("#subMenuBar1").click(function(){
+				var estType = $(this).children().val();
+				var mno = ${sessionScope.loginUser.mno};				
+				$(this).css({"background":"#ff0066", "color" : "white"});
+				$("#subMenuBar2").css({"background": "white", "color":"black"});
+				
+				
+
+			})
 		})
 		
 	</script>
