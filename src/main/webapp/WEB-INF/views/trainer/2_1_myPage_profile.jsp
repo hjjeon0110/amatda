@@ -34,7 +34,9 @@
 				<table class="traineProfileTable" >
 					<tr>
 						<td rowspan="3" class="traineProfileTableTd1">
-							<div class="profileImgDiv"><img class="profileImg" src="${ contextPath }/resources/images/profileImg3.PNG"></div>
+							<div class="profileImgDiv">
+								<img class="profileImg" src="${ contextPath }/resources/images/profileImg3.PNG">
+							</div>
 						</td>
 						<td class="traineProfileTableTd2"><br>
 							<label class="traineProfileTableTd2Label">${ sessionScope.loginUser.name } 트레이너님의 프로필</label>
@@ -125,6 +127,11 @@
 					<tr>
 						<td rowspan="3" class="traineProfileTableTd1">
 							<div class="profileImgDiv"><img class="profileImg" src="${ contextPath }/resources/images/profileImg3.PNG"></div>
+							<button class="test" style="position:absolute;margin-top:-105px;margin-left:-21px;">사진 수정</button>
+						    <form action="modifyProfileImg.tr" method="post" enctype="multipart/form-data">
+						    	<input type="file" class="modifyProfileImg" name="profileImgFile" onchange="loadProfileImg(this)">
+						        <input type="submit" class="modifyProfileImgSubmit" />
+						    </form>
 						</td>
 						<td class="traineProfileTableTd2"><br>
 							<c:if test="${ empty profile.proTitle }">
@@ -340,6 +347,41 @@
 			});
 
 		});
+		
+		// 프로필 사진 추가 -------------------------------------------------------------------------
+		$(".test").hide();
+		
+		$(".profileImgDiv").mouseenter(function(){
+			$(".test").show();
+		}).mouseout(function() {
+			$(".test").hide();
+		});  
+		
+		$(".test").mouseenter(function() {
+			$(".test").show();
+		});
+		
+		$(".modifyProfileImg").hide();
+		$(".modifyProfileImgSubmit").hide();
+		
+		$(".test").click(function() {
+			$(".modifyProfileImg").click();
+			//$(".modifyProfileImgSubmit").click();
+		});
+		
+		function loadProfileImg(value) {
+			if(value.files && value.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$(".profileImg").attr("src", e.target.result); 
+				}
+				reader.readAsDataURL(value.files[0]);
+			}
+		} 
+		
+		
+
+		
 	</script>
 </body>
 </html>

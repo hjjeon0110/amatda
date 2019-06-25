@@ -48,7 +48,7 @@
 	
 	<div class="myPageMenuBarArea">
 		<div class="myPageMenuBar">
-			<div class="myPageMenu" id="myPageMenu1" onclick="location.href='showMyPageProfile2.tr'">
+			<div class="myPageMenu" id="myPageMenu1" onclick="location.href='showMyPageProfile2.tr?mno=${sessionScope.loginUser.mno}'">
 				<br><br><br>
 				<label class="myPageMenuLabel" id="myPageMenu1">프로필 관리</label>
 				
