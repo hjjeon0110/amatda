@@ -97,7 +97,7 @@ body{
 <div class="container">
 <hr style="margin-top:100px;">
   <h2 align="center" class="eng" style="color:#ff0066; font-size:40px; margin-top:30px;">JOIN</h2>
-  <form action="insertMember.me" method="post" name="memberJoin">
+  
     <table align="center">
     	<tr>
     		<td class="bigName">이메일</td>
@@ -133,46 +133,54 @@ body{
     	</tr>
     	<tr>
     		<td class="bigName">휴대폰 번호</td>
-    		<td><input type="tel" name="phone" class="form-control" placeholder="000-0000-0000"></td>
+    		<td><input type="tel" name="phone" id="phone" class="form-control" placeholder="000-0000-0000"></td>
     	</tr>
     	<tr>
     		<td class="bigName">성별</td>
     		<td class="genderTd">
-    			<select name="gender"  class="form-control selectGender">
+    			<select name="gender" id="gender"  class="form-control selectGender">
     				<option value="남자">남자</option>
     				<option value="여자">여자</option>
     			</select>
     		</td>
     	</tr>
-    	<!-- <tr>
-    		<td colspan="3" class="bigName">이용약관</td>
-    	</tr>
-    	<tr class="trHeight">
-    		<td colspan="3"><textarea class="form-control" cols="67" rows="5"></textarea></td>
-    	</tr>
-    	<tr>
-    		<td colspan="3"><input type="checkbox" class="checkbox"><p>동의함</p></td>
-    	</tr>
-    	<tr>
-    		<td colspan="3" class="privateInfo">개인정보 처리 방침</td>
-    	</tr>
-    	<tr>
-    		<td colspan="3"><textarea class="form-control" cols="67" rows="5"></textarea></td>
-    	</tr>
-    	<tr>
-    		<td colspan="3"><input type="checkbox" class="checkbox"><p>동의함</p></td>
-    	</tr> -->
+    	
     	 <tr class="registerTr">
-    		<td colspan="3"><button type="submit" id="submit"class="form-control">가입하기</button></td>
+    		<td colspan="3"><button type="submit" id="submit"class="form-control" onclick="register()">가입하기</button></td>
     	</tr>
     </table>
-  </form>
-  
+
   
 </div>
 	
 </body>
 <script>
+
+function register(){
+    var email = $("#email").val();
+	var name = $("#name").val();
+	var userId = $("#userId").val();
+	var userPwd = $("#userPwd").val();
+	var phone = $("#phone").val();
+	var gender = $("#gender option:selected").text();
+	console.log(phone);
+	console.log(gender);
+	
+	$.ajax({
+		url:"insertMember.me",
+		type:"post",
+		data:{email:email, name:name, userId:userId, userPwd:userPwd, phone:phone, gender:gender},
+		success:function(data){
+			
+				alert("회원가입 완료! 설문조사 하러가기");
+				document.location.href="survey1.su";
+			
+		},error:function(status){
+			console.log(status);
+		}
+	})
+}
+
 $(function(){
 	$("button[type='submit']").attr("disabled", true);
 	$("#userPwd2").change(function(){
