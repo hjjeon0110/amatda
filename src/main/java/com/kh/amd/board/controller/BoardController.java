@@ -89,6 +89,7 @@ public class BoardController {
 		return "board/selectFaq";
 	}
 	
+	/////////////////////////////
 	//신고 입력 게시판(sr)
 	@RequestMapping("insertDeclaration.bo")
 	public String insertDeclaration() {

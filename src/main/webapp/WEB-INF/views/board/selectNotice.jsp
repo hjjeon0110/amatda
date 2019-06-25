@@ -205,7 +205,7 @@ margin-bottom:15px;
 		<h2>공지사항/이벤트</h2>
 		<br>
 			<table class="table table-hover" color="pink">
-			    <thead>
+			    
 			      <tr>
 			        <th>글번호</th>
 			        <th>카테고리</th>
@@ -213,89 +213,18 @@ margin-bottom:15px;
 			        <th>등록일</th>
 			        <th>조회수</th>
 			      </tr>
-			    </thead>
-			    <tbody>
-			      <tr onclick="location.href='selectOneNotice.bo'" >
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
+			    
+			 	
+			 	  <%for(int i = 0; i<bList.size(); i++){ %>
+			      <tr>
+                  <td><%=bList.get(i).getbNo() %></td>
+                  <td><%=bList.get(i).getbType() %></td>
+                  <td><%=bList.get(i).getbTitle() %></td>
+                  <td><%=bList.get(i).getbModifyDate() %></td>
+                  <td><%=bList.get(i).getbCount() %></td>
                </tr>
+               <%} %>
                
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>이벤트</td>
-                  <td>10번째 이벤트입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>이벤트</td>
-                  <td>10번째 이벤트입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>이벤트</td>
-                  <td>10번째 이벤트입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>이벤트</td>
-                  <td>10번째 이벤트입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>이벤트</td>
-                  <td>10번째 이벤트입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-
-			    </tbody>
   			</table>
   			
   			<div class="checkboxgroup">
@@ -307,11 +236,11 @@ margin-bottom:15px;
   			
 	  		<!-- 페이징 시작 -->
 	  		
-	  		<div class="paging">
+	  		<!-- <div class="paging">
 				<a href="#" class="direction fisrt"><span>처음</span></a>
 				<a href="#" class="direction prev"><span>이전</span></a>
-				<a href="#">1</a>
-				<a href="#">2</a>
+				<a href="#">1</a> -->
+				<!-- <a href="#">2</a>
 				<a href="#">3</a>
 				<a href="#">4</a>
 				<strong>5</strong>
@@ -321,7 +250,7 @@ margin-bottom:15px;
 				<a href="#">9</a>
 				<a href="#" class="direction next"><span>다음</span></a>
 				<a href="#" class="direction last"><span>끝</span></a>
-			</div>
+			</div> -->
 				
 		</div>
 	</div>
@@ -341,6 +270,12 @@ margin-bottom:15px;
 	<br>
 	<br>
 	
+	<script>
+	$(".table td").click(function(){
+		var num=$(this).parent().children().eq(0).text();
+		location.href="<%=request.getContextPath()%>/selectOneNotice.bo?num="+num;
+	});
+	</script>
 	
 	
 
