@@ -54,6 +54,7 @@ td {
 		<h1 id="font" align="center">설문조사</h1>
 		<br />
 		<form action="insert2.su" method="post">
+		<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" />
 			<table align="center" id="font">
 
 				<!-- <tr>

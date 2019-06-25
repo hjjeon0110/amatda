@@ -24,37 +24,9 @@ public class Survey implements java.io.Serializable{
 	private int weight;
 	private int hopeWeight;
 	private String uAge;
-	private int uNo;
+	private int mNo;
 	
 	public Survey() {}
-
-	public Survey(String hopePeriod, String hopeBody, String hopeMethod, String hopeGender, String hopeAge,
-			String dietFail, String hopeStart, String dietReason, String hopeExercise, String datExercise,
-			String datFood, String disease, String dayTime, int surveyNo, Date enrollDate, Date modifyDate, int height,
-			int weight, int hopeWeight, String uAge, int uNo) {
-		super();
-		this.hopePeriod = hopePeriod;
-		this.hopeBody = hopeBody;
-		this.hopeMethod = hopeMethod;
-		this.hopeGender = hopeGender;
-		this.hopeAge = hopeAge;
-		this.dietFail = dietFail;
-		this.hopeStart = hopeStart;
-		this.dietReason = dietReason;
-		this.hopeExercise = hopeExercise;
-		this.datExercise = datExercise;
-		this.datFood = datFood;
-		this.disease = disease;
-		this.dayTime = dayTime;
-		this.surveyNo = surveyNo;
-		this.enrollDate = enrollDate;
-		this.modifyDate = modifyDate;
-		this.height = height;
-		this.weight = weight;
-		this.hopeWeight = hopeWeight;
-		this.uAge = uAge;
-		this.uNo = uNo;
-	}
 
 	public String getHopePeriod() {
 		return hopePeriod;
@@ -216,12 +188,40 @@ public class Survey implements java.io.Serializable{
 		this.uAge = uAge;
 	}
 
-	public int getuNo() {
-		return uNo;
+	public int getmNo() {
+		return mNo;
 	}
 
-	public void setuNo(int uNo) {
-		this.uNo = uNo;
+	public void setmNo(int mNo) {
+		this.mNo = mNo;
+	}
+
+	public Survey(String hopePeriod, String hopeBody, String hopeMethod, String hopeGender, String hopeAge,
+			String dietFail, String hopeStart, String dietReason, String hopeExercise, String datExercise,
+			String datFood, String disease, String dayTime, int surveyNo, Date enrollDate, Date modifyDate, int height,
+			int weight, int hopeWeight, String uAge, int mNo) {
+		super();
+		this.hopePeriod = hopePeriod;
+		this.hopeBody = hopeBody;
+		this.hopeMethod = hopeMethod;
+		this.hopeGender = hopeGender;
+		this.hopeAge = hopeAge;
+		this.dietFail = dietFail;
+		this.hopeStart = hopeStart;
+		this.dietReason = dietReason;
+		this.hopeExercise = hopeExercise;
+		this.datExercise = datExercise;
+		this.datFood = datFood;
+		this.disease = disease;
+		this.dayTime = dayTime;
+		this.surveyNo = surveyNo;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.height = height;
+		this.weight = weight;
+		this.hopeWeight = hopeWeight;
+		this.uAge = uAge;
+		this.mNo = mNo;
 	}
 
 	@Override
@@ -231,10 +231,10 @@ public class Survey implements java.io.Serializable{
 				+ hopeStart + ", dietReason=" + dietReason + ", hopeExercise=" + hopeExercise + ", datExercise="
 				+ datExercise + ", datFood=" + datFood + ", disease=" + disease + ", dayTime=" + dayTime + ", surveyNo="
 				+ surveyNo + ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", height=" + height
-				+ ", weight=" + weight + ", hopeWeight=" + hopeWeight + ", uAge=" + uAge + ", uNo=" + uNo + "]";
+				+ ", weight=" + weight + ", hopeWeight=" + hopeWeight + ", uAge=" + uAge + ", mNo=" + mNo + "]";
 	}
-	
 
+	
 }
 
 
