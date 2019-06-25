@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"import="java.util.*, com.kh.amd.board.model.vo.*,com.kh.amd.member.model.vo.*"%>
+    
+    <% Board b = (Board) request.getAttribute("b"); %>
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,11 +106,11 @@ margin-left: 400px;
 				<td width="20%"><h6>2019-06-05</h6></td>
 				<td width="10%"><h6>100</h6></td>  -->
 				
-				<th width="10%">9</th>
-				<th width="10%">공지사항</th>
-				<th width="50%">공지사항입니다.</th>
-				<th width="20%">2019-06-05</th>
-				<th width="10%">100</th> 
+				<th width="10%"><%=b.getbNo()%></th>
+				<th width="10%"><%=b.getbType() %></th>
+				<th width="50%"><%=b.getbTitle() %></th>
+				<th width="20%"><%=b.getbModifyDate() %></th>
+				<th width="10%"><%=b.getbCount() %></th> 
 				
 			 <!-- <td width="100px">9</td>
 				<td width="100px">공지사항</td>
@@ -130,7 +134,7 @@ margin-left: 400px;
 			<tr class="bordered2">
 				<td colspan="5">
 					<div class="reviewPic">
-						<img id="reviewPic1"src="${ contextPath }/resources/images/selectOneReview2.JPG">
+						<%=b.getbContent() %>
 					</div><br>
 				</td>
 			</tr>
