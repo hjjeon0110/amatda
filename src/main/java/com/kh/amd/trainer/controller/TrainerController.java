@@ -42,10 +42,24 @@ public class TrainerController {
 	
 	// 트레이너 마이페이지_프로필관리 이동 (전효정)
 	@RequestMapping("showMyPageProfile2.tr")
-	public String showTrainerMyPageProfileView2() {
+	public String showTrainerMyPageProfileView2(Model model, int mno) {
+		
+		Profile profile;
+		
+		profile = ts.checkProfile(mno);
+		
+		System.out.println("컨트롤러 profile : " + profile);
+		
+		model.addAttribute("profile", profile);
 		
 		return "trainer/2_1_myPage_profile";
 		
+	}
+	
+	// 프로필 사진 변경 (전효정)
+	@RequestMapping("modifyProfileImg.tr")
+	public void modifyProfileImg() {
+		System.out.println("컨트롤러 왔음");
 	}
 	
 	// 트레이너 마이페이지_견적서관리 이동 (전효정)
@@ -60,7 +74,6 @@ public class TrainerController {
 		model.addAttribute("estimate", estimate);
 			
 		return "trainer/2_2_myPage_estimate";
-		
 		
 	}
 	
