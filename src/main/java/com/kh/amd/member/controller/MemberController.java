@@ -106,6 +106,7 @@ public class MemberController {
 			loginUser = ms.loginMember(m);
 			model.addAttribute("loginUser", loginUser);
 			
+			
 			System.out.println(loginUser);
 			return "redirect:index.jsp";
 		

@@ -9,6 +9,7 @@
   		<typeAlias type="com.kh.amd.survey.model.vo.Survey" alias="Survey"/>
   		<typeAlias type="com.kh.amd.trainer.model.vo.Profile" alias="Profile"/>
   		<typeAlias type="com.kh.amd.board.model.vo.Board" alias="Board"/>
+  		<typeAlias type="com.kh.amd.trainer.model.vo.Estimate" alias="Estimate"/>
   	</typeAliases>
   	
   	

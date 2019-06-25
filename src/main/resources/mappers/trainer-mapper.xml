@@ -23,6 +23,18 @@
 	<result property="certificate" column="CERTIPICATE"/>
 	<result property="keyword" column="KEYWORD"/>
 </resultMap>
+<resultMap type="Estimate" id="estimateResultSet">
+	<id property="estNo" column="EST_NO"/>
+	<result property="estName" column="EST_NAME"/>
+	<result property="estPrice" column="EST_COST"/>
+	<result property="estDay" column="TRAINING_DAYS"/>
+	<result property="estContents" column="EST_CONTENTS"/>
+	<result property="estType" column="EST_TYPE"/>
+	<result property="tno" column="TNO"/>
+	
+	
+
+</resultMap>
 	
    
    <!-- 트레이너 추가 정보 회원가입 -->
@@ -34,6 +46,15 @@
    <!-- 프로필 작성 여부 확인 (전효정) -->
    <select id="checkProfile" resultMap="profileResultSet" parameterType="Profile">
    		SELECT PROFILE_NO, LINE_PROFILE, PRO_TITLE, INTRO, MEDIA, CERTIPICATE, KEYWORD FROM PROFILE WHERE TNO IN (#{mno}) 
+   </select>
+   
+   <!-- 서브 메뉴바내에서 견적서를 클릭시 로그인한 회원의 1번 견적서 열람 -->
+   <select id="selectEstimate" resultMap="estimateResultSet" parameterType="_int">
+   		SELECT E.EST_NAME, E.EST_COST, E.EST_CONTENTS, E.EST_TYPE, E.EST_NO, E.TNO, E.TRAINING_DAYS
+		FROM ESTIMATE E
+		JOIN MEMBER M ON (E.TNO = M.MNO)
+		WHERE E.EST_TYPE = 1
+		AND TNO = #{mno}
    </select>
   
 </mapper>
