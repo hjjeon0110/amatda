@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.amd.board.model.vo.*,com.kh.amd.member.model.vo.*"%>
     
-<%
+<%-- <%
 	HashMap<String,Object> hmap = (HashMap<String,Object>) request.getAttribute("hmap");
 	ArrayList<Member> mList=(ArrayList<Member>)hmap.get("mList");
 	ArrayList<Board> bList=(ArrayList<Board>)hmap.get("bList");
 	
-%> 
+%>  --%>
     
  
 <!DOCTYPE html>
@@ -190,7 +190,7 @@ margin-bottom:15px;
       
       
      <div class="firstTableLine2"></div>
-      <h6><a href="insertQna.bo">Q&A</a></h6>
+      <h6><a href="insertQnaFormView.bo">Q&A</a></h6>
       <div class="firstTableLine2"></div>
       <h6><a href="selectReview.bo">아맞다 후기리뷰</a></h6>
       <div class="firstTableLine2"></div>
@@ -215,7 +215,7 @@ margin-bottom:15px;
 			      </tr>
 			    
 			 	
-			 	  <%for(int i = 0; i<bList.size(); i++){ %>
+			 	  <%-- <%for(int i = 0; i<bList.size(); i++){ %>
 			      <tr>
                   <td><%=bList.get(i).getbNo() %></td>
                   <td><%=bList.get(i).getbType() %></td>
@@ -223,7 +223,7 @@ margin-bottom:15px;
                   <td><%=bList.get(i).getbModifyDate() %></td>
                   <td><%=bList.get(i).getbCount() %></td>
                </tr>
-               <%} %>
+               <%} %> --%>
                
   			</table>
   			

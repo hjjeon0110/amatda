@@ -240,7 +240,7 @@ a:active {text-decoration: none; color: #333333;}
       <h6><a href="selectEventCate.bo">이벤트</a></h6>
       
      <div class="firstTableLine2"></div>
-      <h6><a href="insertQna.bo">Q&A</a></h6>
+      <h6><a href="insertQnaFormView.bo">Q&A</a></h6>
       <div class="firstTableLine2"></div>
       <h6><a href="selectReview.bo">아맞다 후기리뷰</a></h6>
       <div class="firstTableLine2"></div>
