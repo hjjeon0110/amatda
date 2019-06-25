@@ -23,8 +23,7 @@
 <body>
 
 
-	<c:set var="contextPath"
-		value="${ pageContext.servletContext.contextPath }"
+	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
 		scope="application" />
 
 

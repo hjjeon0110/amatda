@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>마이페이지-프로필관리</title>
 <link rel="stylesheet" href="${contextPath}/resources/fonts/fontawesome/css/font-awesome.min.css">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -13,298 +14,243 @@
 </head>
 <body>
 	
-	<c:if test="">
+	
+	<!-- 메뉴바 영역 ----------------------------------------------------------------------------------------------------- -->
+	<jsp:include page="../trainer/2_myPageMenubar.jsp"/>
+	
+	
+	<!-- 작성한 프로필 없을 때 ----------------------------------------------------------------------------------------------- -->
+	<c:if test="${ empty profile }">
+	
+		<div class="noProfileDiv">
+			<br>
+			<label><i class="fa fa-check"></i> 아직 프로필을 작성하지 않으셨군요! 프로필을 작성하고 회원에게 공개하면 PT 서비스를 시작할 수 있습니다.</label>
+			<label>(어떤 서비스를 제공해주시는지 상세하게 적을수록 매칭이 수월하게 이루어질 수 있습니다.)</label>
+		</div>
+		
+		<!-- 프로필 테이블 -->
+		<div class="profile1">
+			<div class="traineProfile">
+				<table class="traineProfileTable" >
+					<tr>
+						<td rowspan="3" class="traineProfileTableTd1">
+							<div class="profileImgDiv"><img class="profileImg" src="${ contextPath }/resources/images/profileImg3.PNG"></div>
+						</td>
+						<td class="traineProfileTableTd2"><br>
+							<label class="traineProfileTableTd2Label">${ sessionScope.loginUser.name } 트레이너님의 프로필</label>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><br>
+						<i class="fa fa-star"></i>&nbsp;&nbsp;평점 0&nbsp;&nbsp;l&nbsp;&nbsp;리뷰 0<br><br>
+						<i class="fa fa-heart"></i>&nbsp;&nbsp;0</td>
+						<td class="traineProfileTableTd1">
+							<br><br><br>
+							<button type="button" class="btn btn-primary" id="goProfileDetail" data-toggle="modal"
+							data-target="#exampleModalScrollable">프로필 작성하기</button>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+		<!-- 미디어 -->
+		<div class="mediaDiv">
+			<br><br>
+			<label class="subTitle">미디어</label><br>
+			<label class="contents">등록된 사진이 없습니다.</label><br>
+			<button class="addMediaBtn">추가하기</button>
+		</div>
+		
+		<div class="profile2">
+			<br><br>
+		
+			<!-- 서비스 키워드 -->
+			<div class="serviceKeywordDiv">
+				<label class="subTitle">서비스 키워드</label><br>
+				<label class="contents">등록된 서비스 키워드가 없습니다.</label><br>
+				<button class="addServiceKeywordBtn">추가하기</button>
+			</div>
+			
+			<br>
+			<!-- 트레이너 소개 -->
+			<div class="introDiv">
+				<label class="subTitle">트레이너 소개</label><br>
+				<label class="contents">등록된 소개가 없습니다.</label><br>
+				<button class="addIntroBtn">추가하기</button>
+			</div>
+			
+			<br>
+			<!-- 자격증 및 사업등록증 -->
+			<div class="certificationDiv">
+				<label class="subTitle">자격증 및 사업등록증</label><br>
+				<label class="contents">등록된 자격증 및 사업등록증이 없습니다.</label><br>
+				<button class="addCertificationBtn">추가하기</button>
+			</div>
+			
+			<br><br>
+			
+		</div>
+		
+		<!-- 리뷰 -->
+		<div class="reviewDiv">
+			<br><br>
+			<label class="subTitle">리뷰</label><br>
+			<label class="contents">작성된 리뷰가 없습니다.</label><br>
+		</div>
+	
+	
 	
 	</c:if>
 	
-	<jsp:include page="../trainer/2_myPageMenubar.jsp"/>
-			
-	<br><br><br>
 	
-	<label class="subTitle">트레이너3님의 프로필</label>
-	<br><br>
-	<div class="profile">
+	<!-- 작성한 프로필 있을 때 ----------------------------------------------------------------------------------------------- -->
+	<c:if test="${ !empty profile }">
+		
+		<div class="noProfileDiv">
+			<br>
+			<label><i class="fa fa-check"></i> 작성한 프로필이 있을 때</label><br>
+			<label>(작성한 프로필이 있을 때)</label>
+		</div>
 	
-		<div class="traineProfile">
-			<table class="traineProfileTable" >
-				<tr>
-					<td rowspan="3" class="traineProfileTableTd1">
-						<div class="profileImg"></div>
-					</td>
-					<td class="traineProfileTableTd2"><br><label class="traineProfileTableTd2Label">프로필 제목</label></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><br>
-					<i class="fa fa-star"></i>&nbsp;&nbsp;평점 5.0&nbsp;&nbsp;l&nbsp;&nbsp;리뷰 10<br><br>
-					<i class="fa fa-heart"></i>&nbsp;&nbsp;333</td>
-					<td class="traineProfileTableTd1">
-						<br><br><br>
-						<button type="button" class="btn btn-primary" id="goProfileDetail" data-toggle="modal"
-						data-target="#exampleModalScrollable">프로필 수정하기</button>
-					</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-				</tr>
-			</table>
+		<!-- 프로필 테이블 -->
+		<div class="profile1">
+			<div class="traineProfile">
+				<table class="traineProfileTable" >
+					<tr>
+						<td rowspan="3" class="traineProfileTableTd1">
+							<div class="profileImgDiv"><img class="profileImg" src="${ contextPath }/resources/images/profileImg3.PNG"></div>
+						</td>
+						<td class="traineProfileTableTd2"><br>
+							<c:if test="${ empty profile.proTitle }">
+								<label class="traineProfileTableTd2Label">${ sessionScope.loginUser.name } 트레이너님의 프로필</label>
+							</c:if>
+							<c:if test="${ !empty profile.proTitle }">
+								<label class="traineProfileTableTd2Label">${ profile.proTitle }</label>
+							</c:if>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><br>
+						<i class="fa fa-star"></i>&nbsp;&nbsp;평점 0&nbsp;&nbsp;l&nbsp;&nbsp;리뷰 0<br><br>
+						<i class="fa fa-heart"></i>&nbsp;&nbsp;0</td>
+						<td class="traineProfileTableTd1">
+							<br><br><br>
+							<button type="button" class="btn btn-primary" id="goProfileDetail" data-toggle="modal"
+							data-target="#exampleModalScrollable">프로필 수정하기</button>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
 		</div>
 		
-	</div>
-	
-	
-	<br><br><br>
-	<label class="subTitle">미디어</label>
-	<br><br>
-	<div class="container-fluid">
-	    <div id="carouselExample" class="carouselPrograms carousel slide" data-ride="carousel" data-interval="false">
-	        <div class="carousel-inner row w-100 mx-auto" role="listbox">
-	            <div class="carousel-item col-md-4  active">
-	               <div class="panel panel-default">
-	                  <div class="panel-thumbnail">
-	                    <a href="#" title="image 1" class="thumb">
-	                      <img class="img-fluid mx-auto d-block" src="${ contextPath }/resources/images/stretching.jpg" alt="slide 1">
-	                    </a>
-	                  </div>
-	                </div>
-	            </div>
-	            <div class="carousel-item col-md-4 ">
-	               <div class="panel panel-default">
-	                  <div class="panel-thumbnail">
-	                    <a href="#" title="image 3" class="thumb">
-	                     <img class="img-fluid mx-auto d-block" src="${ contextPath }/resources/images/stretching.jpg" alt="slide 2">
-	                    </a>
-	                  </div>
-	                </div>
-	            </div>
-	            <div class="carousel-item col-md-4 ">
-	               <div class="panel panel-default">
-	                  <div class="panel-thumbnail">
-	                    <a href="#" title="image 4" class="thumb">
-	                     <img class="img-fluid mx-auto d-block" src="${ contextPath }/resources/images/stretching.jpg" alt="slide 3">
-	                    </a>
-	                  </div>
-	                </div>
-	            </div>
-	            <div class="carousel-item col-md-4 ">
-	                <div class="panel panel-default">
-	                  <div class="panel-thumbnail">
-	                    <a href="#" title="image 5" class="thumb">
-	                     <img class="img-fluid mx-auto d-block" src="${ contextPath }/resources/images/stretching.jpg" alt="slide 4">
-	                    </a>
-	                  </div>
-	                </div>
-	            </div>
-	            <div class="carousel-item col-md-4 ">
-	              <div class="panel panel-default">
-	                  <div class="panel-thumbnail">
-	                    <a href="#" title="image 6" class="thumb">
-	                      <img class="img-fluid mx-auto d-block" src="${ contextPath }/resources/images/stretching.jpg" alt="slide 5">
-	                    </a>
-	                  </div>
-	                </div>
-	            </div>
-	            <div class="carousel-item col-md-4 ">
-	               <div class="panel panel-default">
-	                  <div class="panel-thumbnail">
-	                    <a href="#" title="image 7" class="thumb">
-	                      <img class="img-fluid mx-auto d-block" src="${ contextPath }/resources/images/stretching.jpg" alt="slide 6">
-	                    </a>
-	                  </div>
-	                </div>
-	            </div>
-	            <div class="carousel-item col-md-4 ">
-	               <div class="panel panel-default">
-	                  <div class="panel-thumbnail">
-	                    <a href="#" title="image 8" class="thumb">
-	                      <img class="img-fluid mx-auto d-block" src="${ contextPath }/resources/images/stretching.jpg" alt="slide 7">
-	                    </a>
-	                  </div>
-	                </div>
-	            </div>
-	             <div class="carousel-item col-md-4  ">
-	                <div class="panel panel-default">
-	                  <div class="panel-thumbnail">
-	                    <a href="#" title="image 2" class="thumb">
-	                     <img class="img-fluid mx-auto d-block" src="${ contextPath }/resources/images/stretching.jpg" alt="slide 8">
-	                    </a>
-	                  </div>
-	                  
-	                </div>
-	            </div>
-	        </div>
-	        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
-	            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	            <span class="sr-only">Previous</span>
-	        </a>
-	        <a class="carousel-control-next text-faded" href="#carouselExample" role="button" data-slide="next">
-	            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	            <span class="sr-only">Next</span>
-	        </a>
-	    </div>
-	</div>
-
-	
-	
-	<br><br><br>
-	<label class="subTitle">서비스 키워드</label><br>
-	<br>
-	<div class="keywordDiv">
-		<span class="badge badge-pill badge-danger"> #키워드1 </span>&nbsp;
-		<span class="badge badge-pill badge-danger"> #키워드2 </span>&nbsp;
-		<span class="badge badge-pill badge-danger"> #키워드3 </span>&nbsp;
-		<span class="badge badge-pill badge-danger"> #키워드4 </span>&nbsp;
-		<span class="badge badge-pill badge-danger"> #키워드5 </span>
-	</div>
-	
-	
-	<br><br><br>
-	<label class="subTitle">트레이너 소개</label>
-	<br><br>
-	<div class="trainerInfoDiv">	
-		<textarea class="trainerInfo">트레이너 소개 작성 영역입니다.</textarea>
-	</div>
-
-
-	<br><br><br>
-	<label class="subTitle">자격증 및 사업등록증</label>
-	<br><br>
-	<div class="container-fluid">
-	    <div id="carouselExample" class="carouselPrograms carousel slide" data-ride="carousel" data-interval="false">
-	        <div class="carousel-inner row w-100 mx-auto" role="listbox">
-	            <div class="carousel-item col-md-4  active">
-	               <div class="panel panel-default">
-	                  <div class="panel-thumbnail">
-	                    <a href="#" title="image 1" class="thumb">
-	                      <img class="img-fluid mx-auto d-block" src="${ contextPath }/resources/images/certification.PNG" alt="slide 1">
-	                    </a>
-	                  </div>
-	                </div>
-	            </div>
-	            <div class="carousel-item col-md-4 ">
-	               <div class="panel panel-default">
-	                  <div class="panel-thumbnail">
-	                    <a href="#" title="image 3" class="thumb">
-	                     <img class="img-fluid mx-auto d-block" src="${ contextPath }/resources/images/certification.PNG" alt="slide 2">
-	                    </a>
-	                  </div>
-	                </div>
-	            </div>
-	            <div class="carousel-item col-md-4 ">
-	               <div class="panel panel-default">
-	                  <div class="panel-thumbnail">
-	                    <a href="#" title="image 4" class="thumb">
-	                     <img class="img-fluid mx-auto d-block" src="${ contextPath }/resources/images/certification.PNG" alt="slide 3">
-	                    </a>
-	                  </div>
-	                </div>
-	            </div>
-	            <div class="carousel-item col-md-4 ">
-	                <div class="panel panel-default">
-	                  <div class="panel-thumbnail">
-	                    <a href="#" title="image 5" class="thumb">
-	                     <img class="img-fluid mx-auto d-block" src="${ contextPath }/resources/images/certification.PNG" alt="slide 4">
-	                    </a>
-	                  </div>
-	                </div>
-	            </div>
-	            <div class="carousel-item col-md-4 ">
-	              <div class="panel panel-default">
-	                  <div class="panel-thumbnail">
-	                    <a href="#" title="image 6" class="thumb">
-	                      <img class="img-fluid mx-auto d-block" src="${ contextPath }/resources/images/certification.PNG" alt="slide 5">
-	                    </a>
-	                  </div>
-	                </div>
-	            </div>
-	            <div class="carousel-item col-md-4 ">
-	               <div class="panel panel-default">
-	                  <div class="panel-thumbnail">
-	                    <a href="#" title="image 7" class="thumb">
-	                      <img class="img-fluid mx-auto d-block" src="${ contextPath }/resources/images/certification.PNG" alt="slide 6">
-	                    </a>
-	                  </div>
-	                </div>
-	            </div>
-	            <div class="carousel-item col-md-4 ">
-	               <div class="panel panel-default">
-	                  <div class="panel-thumbnail">
-	                    <a href="#" title="image 8" class="thumb">
-	                      <img class="img-fluid mx-auto d-block" src="${ contextPath }/resources/images/certification.PNG" alt="slide 7">
-	                    </a>
-	                  </div>
-	                </div>
-	            </div>
-	             <div class="carousel-item col-md-4  ">
-	                <div class="panel panel-default">
-	                  <div class="panel-thumbnail">
-	                    <a href="#" title="image 2" class="thumb">
-	                     <img class="img-fluid mx-auto d-block" src="${ contextPath }/resources/images/certification.PNG" alt="slide 8">
-	                    </a>
-	                  </div>
-	                  
-	                </div>
-	            </div>
-	        </div>
-	        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
-	            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	            <span class="sr-only">Previous</span>
-	        </a>
-	        <a class="carousel-control-next text-faded" href="#carouselExample" role="button" data-slide="next">
-	            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	            <span class="sr-only">Next</span>
-	        </a>
-	    </div>
-	</div>
-	
-	
-	<br><br><br>
-	<label class="subTitle">리뷰</label>
-	<br><br>
-	<div class="reviewDiv">
-		<table class="reviewTable">
-			<tr>
-				<td>
-					<label class="reviewWriter">전효정</label>&nbsp;&nbsp;
-					<label class="reviewWriteDate">19/06/22</label>&nbsp;&nbsp;
-					<label class="reviewStar"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></label>
-				</td>
-			</tr>
-			<tr>
-				<td><label class="review">리뷰 내용</label></td>
-			</tr>
-		</table>
 		
-		<table class="reviewTable">
-			<tr>
-				<td>
-					<label class="reviewWriter">전효정</label>&nbsp;&nbsp;
-					<label class="reviewWriteDate">19/06/22</label>&nbsp;&nbsp;
-					<label class="reviewStar"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></label>
-				</td>
-			</tr>
-			<tr>
-				<td><label class="review">리뷰 내용</label></td>
-			</tr>
-		</table>
+		<!-- 미디어 null일 때 --------------------------------------------------------------------------------------------- -->
+		<c:if test="${ empty profile.media }">
+			<div class="mediaDiv">
+				<br><br>
+				<label class="subTitle">미디어</label><br>
+				<label class="contents">등록된 사진이 없습니다.</label><br>
+				<button class="addMediaBtn">추가하기</button>
+			</div>
+		</c:if>
 		
-		<table class="reviewTable">
-			<tr>
-				<td>
-					<label class="reviewWriter">전효정</label>&nbsp;&nbsp;
-					<label class="reviewWriteDate">19/06/22</label>&nbsp;&nbsp;
-					<label class="reviewStar"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></label>
-				</td>
-			</tr>
-			<tr>
-				<td><label class="review">리뷰 내용</label></td>
-			</tr>
-		</table>
-	</div>
-
+		<!-- 미디어 null아닐 때 --------------------------------------------------------------------------------------------- -->
+		<c:if test="${ !empty profile.media }">
+			
+		</c:if>
+		
+		<div class="profile2">
+		
+			<br><br>
+			
+			<!-- 서비스 키워드 null일 때 ------------------------------------------------------------------------------------------ -->
+			<c:if test="${ empty profile.keyword }">
+				<div class="serviceKeywordDiv">
+					<label class="subTitle">서비스 키워드</label><br>
+					<label class="contents">등록된 서비스 키워드가 없습니다.</label><br>
+					<button class="addServiceKeywordBtn">추가하기</button>
+				</div>
+				<br>
+			</c:if>
+			
+			<!-- 서비스 키워드 null아닐 때 ----------------------------------------------------------------------------------------- -->
+			<c:if test="${ !empty profile.keyword }">
+				<div class="serviceKeywordDiv">
+					<label class="subTitle">서비스 키워드</label><br>
+					<div class="keywordDiv">
+						<span class="badge badge-pill badge-danger"> ${ profile.keyword } </span>&nbsp;
+						<button class="keywordDeleteBtn"><i class="fa fa-times-circle"></i></button>
+					</div>
+					<button class="addServiceKeywordBtn">수정하기</button>
+				</div>
+				<br>
+			</c:if>
+			
+			
+			<!-- 트레이너 소개 null일 때 ------------------------------------------------------------------------------------------- -->
+			<c:if test="${ empty profile.intro }">
+				<div class="introDiv">
+					<label class="subTitle">트레이너 소개</label><br>
+					<label class="contents">등록된 소개가 없습니다.</label><br>
+					<button class="addIntroBtn">추가하기</button>
+				</div>
+				<br>
+			</c:if>
+			
+			<!-- 트레이너 소개 null아닐 때 ----------------------------------------------------------------------------------------- -->
+			<c:if test="${ !empty profile.intro }">
+				<div class="introDiv">
+					<label class="subTitle">트레이너 소개</label><br>
+					<label class="contents">${ profile.intro }</label><br>
+					<button class="addIntroBtn">수정하기</button>
+				</div>
+				<br>
+			</c:if>
+			
+			
+			<!-- 자격증 및 사업등록증 null일 때 -------------------------------------------------------------------------------------- -->
+			<c:if test="${ empty profile.certificate }">
+				<div class="certificationDiv">
+					<label class="subTitle">자격증 및 사업등록증</label><br>
+					<label class="contents">등록된 자격증 및 사업등록증이 없습니다.</label><br>
+					<button class="addCertificationBtn">추가하기</button>
+				</div>
+				<br><br>
+			</c:if>
+			
+			<!-- 자격증 및 사업등록증 null아닐 때 -------------------------------------------------------------------------------------- -->
+			<c:if test="${ !empty profile.certificate }">
+				<div class="certificationDiv">
+					<label class="subTitle">자격증 및 사업등록증</label><br>
+					<label class="contents">${ profile.certificate }</label><br>
+					<button class="addCertificationBtn">수정하기</button>
+				</div>
+				<br><br>
+			</c:if>
+			
+		</div>
+		
+		<!-- 리뷰 -->
+		<div class="reviewDiv">
+			<br><br>
+			<label class="subTitle">리뷰</label><br>
+			<label class="contents">작성된 리뷰가 없습니다.</label><br>
+		</div>
+		
+	</c:if>
 	
-	<!-- footer ----------------------------------------------------------------------------------------------------- -->
+	<!-- footer 영역 ----------------------------------------------------------------------------------------------------- -->
 	<br><br><br><br><hr><br>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	
