@@ -12,6 +12,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
+import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -71,6 +72,44 @@ public class MemberController {
 	
 	}
 	
+	
+	//비밀번호 찾기
+	@RequestMapping("findPwd.me")
+	public void findPwd(Model model, Member m, HttpServletResponse response, HttpServletRequest request ) {
+		 
+		 System.out.println("서비스로 넘어가볼까");
+		 System.out.println("input창에서 입력한 정보들: " + m);
+		 int result = 0;
+			try {
+				 result = ms.findPwd(m);
+				 System.out.println("controller result:" + result);
+			} catch (LoginException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		
+		 
+		 if(result !=0) {
+				try {
+					response.getWriter().print("ok");
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
+			}else {
+				try {
+					response.getWriter().print("fail");
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
+			}
+	}
+	//비밀번호 변경 폼으로 이동
+	@RequestMapping("updatePwd.me")
+	public String updatePwd() {
+		return "common/updatePwd";
+	}
 	@RequestMapping("selectJoinType.me")
 	public String joinType() {
 		return "common/selectJoinType";
@@ -103,13 +142,17 @@ public class MemberController {
 	@RequestMapping("login.me")
 	public String login(Model model,Member m) {
 			Member loginUser;
-			loginUser = ms.loginMember(m);
-			model.addAttribute("loginUser", loginUser);
+			try {
+				loginUser = ms.loginMember(m);
+				model.addAttribute("loginUser", loginUser);
+				System.out.println(loginUser);
+				return "redirect:index.jsp";
+				
+			} catch (LoginException e) {
+				model.addAttribute("msg", e.getMessage());
+				return "common/errorPage";
+			}	
 			
-			
-			System.out.println(loginUser);
-			return "redirect:index.jsp";
-		
 	}
 	
 	//로그아웃
@@ -122,6 +165,7 @@ public class MemberController {
 		
 	}
 	
+	//로그인 뷰
 	@RequestMapping("loginMember.me")
 	public String loginMember() {
 		return "common/login";
@@ -133,18 +177,34 @@ public class MemberController {
 	}
 	
 	@RequestMapping("insertMember.me")
-	public String insertMember(Model model,Member m) {
+	public void insertMember(Model model,Member m, HttpServletResponse response) {
 		
 		
 		System.out.println("일반 회원가입: "+m);
 		
 		m.setUserPwd(passwordEncoder.encode(m.getUserPwd()));
 		
-		ms.insertMember(m);
+		int result =ms.insertMember(m);
 		
+		System.out.println("controller: " + result);
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			if(result > 0) {
+				
+				//jsp(ajax)로 보낼값
+				response.getWriter().print("FAIL");
+			}else {
+				
+				response.getWriter().print("GOOD");
+			}
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		
-		return "redirect:index.jsp";
 	}
 	
 	@RequestMapping("insertTrainer.me")

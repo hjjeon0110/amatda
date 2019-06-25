@@ -1,5 +1,7 @@
 package com.kh.amd.member.model.service;
 
+import javax.security.auth.login.LoginException;
+
 import com.kh.amd.member.model.vo.Member;
 
 public interface MemberService {
@@ -12,9 +14,12 @@ public interface MemberService {
 
 	int emailCheck(String email);
 
-	Member loginMember(Member m);
+	Member loginMember(Member m) throws LoginException;
 
 	Member selectId(Member m);
+
+
+	int findPwd(Member m) throws LoginException;
 
 	
 }

@@ -24,6 +24,10 @@ public interface MemberDao {
 
 	Member selectId(SqlSessionTemplate sqlSession, Member m);
 
+	int findPassword(SqlSessionTemplate sqlSession,Member m);
+
+	
+
 	
 
 	
