@@ -83,6 +83,24 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 
+	
+
+	//진짜 비밀번호 찾기
+	@Override
+	public Member selectPwd(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("Member.selectPwd",m);
+	}
+
+
+	
+
+
+	//비밀번호 수정
+		@Override
+		public int updateMyPwd(SqlSessionTemplate sqlSession, Member m) {
+			System.out.println("비밀번호 수정 Dao");
+			return sqlSession.update("Member.updateMyPwd",m);
+		}
 
 	
 

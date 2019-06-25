@@ -210,4 +210,28 @@ public class MemberServiceImpl implements MemberService{
 		return pwd;
 
 	}
+
+	
+
+	//비밀번호 찾기
+	@Override
+	public Member selectPwd(Member m) {
+		
+		Member loginUser;
+	    loginUser = md.selectPwd(sqlSession,m);
+		
+		return loginUser;
+	}
+	
+	
+	
+	//비밀번호 변경
+		@Override
+		public int updateMyPwd(Member m) {
+			int result = 0;
+			result = md.updateMyPwd(sqlSession,m);
+			
+			return result;
+		}
+	
 }

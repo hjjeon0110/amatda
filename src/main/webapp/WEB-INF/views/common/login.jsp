@@ -77,7 +77,7 @@
 			</div>
 
 			<div class="form-group">
-				<input type="text" name="userPwd" id="userPwd" class="form-control" placeholder="PASSWORD">
+				<input type="password" name="userPwd" id="userPwd" class="form-control" placeholder="PASSWORD">
 			</div>
 
 			<div class="findIdPwdDiv">

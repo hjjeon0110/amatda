@@ -21,6 +21,7 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<result column="EMAIL_YN" property="emailYn"/>
 	<result column="ENROLL_DATE" property="enrollDate"/>
 	<result column="MODIFY_DATE" property="modifyDate"/>
+	<result column="COMPLETE_SURVEY" property="completeSurvey"/>
 
 </resultMap>
 
@@ -28,7 +29,7 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 일반 사용자 회원가입용 -->
 <insert id="insertMember" parameterType="Member">
 INSERT INTO MEMBER
-VALUES (MNO_SEQ.NEXTVAL, #{name}, #{userId}, #{userPwd}, #{phone}, #{gender}, #{email}, 'U', 'Y', null,'Y', sysdate, null) 
+VALUES (MNO_SEQ.NEXTVAL, #{name}, #{userId}, #{userPwd}, #{phone}, #{gender}, #{email}, 'U', 'Y', null,'Y', sysdate, null, 'N') 
 </insert>
 
 
@@ -44,7 +45,7 @@ FROM DUAL
 <!-- 트레이너 회원가입용 -->
 <insert id="insertTrainer" parameterType="Member">
 INSERT INTO MEMBER
-VALUES (MNO_SEQ.NEXTVAL, #{name}, #{userId}, #{userPwd}, #{phone}, #{gender}, #{email}, 'T', 'Y', null,'Y', sysdate, null) 
+VALUES (MNO_SEQ.NEXTVAL, #{name}, #{userId}, #{userPwd}, #{phone}, #{gender}, #{email}, 'T', 'Y', null,'Y', sysdate, null,null) 
 </insert>
 
 
@@ -104,6 +105,22 @@ FROM MEMBER
 WHERE NAME= #{name}
 AND ID= #{userId}
 AND EMAIL= #{email} 
+</select>
+
+
+
+<update id="updateMyPwd" parameterType="Member">
+UPDATE MEMBER
+SET PWD = #{userPwd}
+WHERE NAME = #{name}
+
+</update>
+
+
+<select id="selectPwd" parameterType="Member" resultMap="memberResultSet">
+SELECT *
+FROM MEMBER
+WHERE NAME = #{name}
 </select>
 
 </mapper>

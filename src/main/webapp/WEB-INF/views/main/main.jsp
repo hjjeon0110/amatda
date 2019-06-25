@@ -318,6 +318,19 @@
 	    }
 	})
 	
+	$(function(){
+		console.log( ${sessionScope.loginUser.mtype =='U'});
+		if( ${sessionScope.loginUser.mtype =='U'}  && ${sessionScope.loginUser.completeSurvey=='N'}){
+			/* alert("설문조사하러가기");
+			location.href="survey1.su"; */
+			var result = confirm("설문조사를 하셔야 프로그램 이용이 가능합니다.");
+		    if(result){
+		    	location.href="survey1.su";
+		    }else{
+		    	location.href="showSearchTrainerPageView.us";
+		    }
+		}
+	})
 	
 	</script>
 </body>
