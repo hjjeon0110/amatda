@@ -9,7 +9,7 @@
   		<result property="bType" column="BTYPE"/>
   		<result property="blCategory" column="BL_CATEGORY"/>
   		<result property="bmCategory" column="BM_CATEGORY"/>
-  		<result property="bWrite" column="BWRITE_DATE"/>
+  		<result property="bWriteDate" column="BWRITE_DATE"/>
   		<result property="bModifyDate" column="BMODIFY_DATE"/>
   		<result property="bTitle" column="BTITLE"/>
   		<result property="bContent" column="BCONTENT"/>
@@ -20,59 +20,15 @@
   	</resultMap>
   	
   
-  	<!-- 공지사항/이벤트 전체 리스트 출력용 (sr)-->
-  	<select id="selectNotice" parameterType="Board">
-  	SELECT *
-  	FROM BOARD
-  	WHERE BSTATUS = 'Y'
-  	AND BTYPE=#{bType}
-  	</select>
+
   	
-  	<!-- 공지사항/이벤트 상세 페이지 출력용(sr) -->
-  	<select id="selectOneNotice" parameterType="Board">
-  	SELECT *
-  	FROM BOARD
-  	WHERE BSTATUS='Y'
-  	AND BNO=#{bNo}
-  	</select>
+  	<!-- Q&A 입력용(sr) -->
+  	<insert id="insertQna" parameterType="Board">
+	  	INSERT INTO BOARD(BNO,BTYPE,BWRITE_DATE,BTITLE,BCONTENT,BWRITER)
+	  	VALUES (BNO_SEQ.NEXTVAL, #{bType}, sysdate, #{bTitle}, #{bContent},51)
+  	</insert>
   	
-  	<!-- 공지사항 단독 전체 리스트 출력용(sr) -->
-  	<select id="selectNoticeCate" parameterType="Board">
-  	SELECT *
-  	WHERE BSTATUS='Y'
-  	AND BTYPE=#{bType}
-  	</select>
   	
-  	<!-- 이벤트 단독 전체 리스트 출력용(sr) -->
-  	<select id="selectEventCate" parameterType="Board">
-  	SELECT *
-  	WHERE BSTATUS='Y'
-  	AND BTYPE=#{bType}
-  	</select>
-  	
-  	<!-- 리뷰후기 전체 리스트 출력용(sr) -->
-  	<select id="selectReview" parameterType="Board">
-  	SELECT *
-  	FROM BOARD
-  	WHERE BSTATUS='Y'
-  	AND BTYPE=#{bType}
-  	</select>
-  	
-  	<!-- 리뷰후기 상세 페이지 출력용(sr) -->
-  	<select id="selectOneReview" parameterType="Board">
-  	SELECT *
-  	FROM BOARD
-  	WHERE BSTATUS='Y'
-  	AND BNO=#{bNo}
-  	</select>
-  	
-  	<!-- FAQ 전체 페이지 출력용(sr) -->
-  	<select id="selectFaq" parameterType="Board">
-  	SELECT *
-  	FROM BOARD
-  	WHERE BSTATUS='Y'
-  	AND BTYPE=#{bType}
-  	</select>
   	
   	
   

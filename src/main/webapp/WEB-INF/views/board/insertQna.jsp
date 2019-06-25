@@ -275,7 +275,7 @@ margin:0 auto;
       
       
      <div class="firstTableLine2"></div>
-      <h6><a href="insertQna.bo">Q&A</a></h6>
+      <h6><a href="insertQnaFormView.bo">Q&A</a></h6>
       <div class="firstTableLine2"></div>
       <h6><a href="selectReview.bo">아맞다 후기리뷰</a></h6>
       <div class="firstTableLine2"></div>
@@ -294,48 +294,45 @@ margin:0 auto;
 <p>저희 아맞다를 이용하시던 중 질문사항이 있으시면 언제든지 문의해주시기 바랍니다. 감사합니다.</p>
 <br>
 <div class="container1">
-  <form action="/action_page.php">
+  <form action="insertQna.bo" method="post">
   <div class="row">
     <div class="col-25">
       <label for="fname">문의 제목</label>
     </div>
     <div class="col-75">
-      <input type="text" id="fname" name="firstname" placeholder="문의 제목을 입력하세요.">
+      <input type="text" id="bTitle" name="bTitle" placeholder="문의 제목을 입력하세요.">
     </div>
   </div>
   
   
-  
+  <input type="hidden" name="bType" value="4"/>
   <div class="row">
     <div class="col-25">
       <label for="subject">문의 내용</label>
     </div>
     <div class="col-75">
-      <textarea id="subject" name="subject" placeholder="문의 내용을 입력하세요." style="height:200px"></textarea>
+      <textarea id="subject" name="bContent" placeholder="문의 내용을 입력하세요." style="height:200px"></textarea>
     </div>
   </div>
   
-  <div class="row">
+  
+  <!-- <div class="row">
   
   	<div class="col-25">
   		<label for="subject">파일 첨부</label>
-  	</div>
+  	</div> -->
   	
   	<!-- 파일첨부 시작 -->
-  	<div class="col-75">
+  	<!-- <div class="col-75">
   		<div class="filebox preview-image"> 
-  			<!-- <input class="upload-name" value="파일선택" disabled="disabled" >  -->
-  			<!-- <label for="input-file">업로드</label>  -->
+  			<input class="upload-name" value="파일선택" disabled="disabled" > 
+  			<label for="input-file">업로드</label> 
   			<input type="file" id="input-file" class="upload-hidden"> 
   		</div>
-
   	</div>
-  
+  </div> -->
   
   	<!-- 파일첨부 끝 -->
-  	
-  	
-  </div>
   <br>
  <!--  <div class="row">
     <input class="submitBtn" type="submit" value="전송" >
@@ -343,19 +340,21 @@ margin:0 auto;
   
   
     <br>
-        <button type="button" class="btn btn-primary" data-toggle="modal" 
+    	<input type="submit" value="전송" class="btn btn-primary">
+    	
+       <!--  <button type="button" class="btn btn-primary" data-toggle="modal" 
         data-target="#my80sizeCenterModal">
   전송
-</button>
+</button> -->
 
 
 
-<!-- 80%size Modal at Center -->
-<div class="modal modal-center fade" id="my80sizeCenterModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel">
+<!-- <!-- 80%size Modal at Center -->
+<!-- <div class="modal modal-center fade" id="my80sizeCenterModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel">
   <div class="modal-dialog modal-80size modal-center" role="document">
     <div class="modal-content modal-80size">
       <div class="modal-header">
-        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">질문해주셔서 감사합니다.</h4>
       </div>
       <div class="modal-body">
@@ -371,7 +370,7 @@ margin:0 auto;
       </div>
     </div>
   </div>
-</div>
+</div> --> 
        <!-- 80%size Modal at Center --> 
         
         
