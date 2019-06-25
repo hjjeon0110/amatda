@@ -21,7 +21,7 @@ public class SurveyServiceImpl implements SurveyService{
 	@Override
 	public int insertSurvey1(Survey s) {
 		
-		return sd.insertSurvey1(sqlSession, s);
+		return sd.insertSurvey1(sqlSession, s); 
 	
 	}
 

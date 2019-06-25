@@ -99,7 +99,7 @@ public class SurveyController {
 			
 		}		
 		
-	}
+	} 
 	
 	
 	//설문조사 update
