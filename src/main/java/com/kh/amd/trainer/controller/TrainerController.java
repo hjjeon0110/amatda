@@ -50,7 +50,7 @@ public class TrainerController {
 	
 	// 트레이너 마이페이지_견적서관리 이동 (전효정)
 	@RequestMapping("showMyPageEstimate.tr")
-	public String showTrainerMyPageEstimateView(Model model, int mno) {
+	public String showTrainerMyPageEstimateView(Model model, int mno, int estType) {
 		
 		
 		Estimate estimate = ts.selectEstimate(mno);
