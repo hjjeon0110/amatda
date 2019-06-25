@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.amd.survey.model.vo.Survey;
 
 @Repository
-public class SurveyDaoImpl implements SurveyDao{
+public class SurveyDaoImpl implements SurveyDao{ 
 
 	@Override
 	public int insertSurvey1(SqlSessionTemplate sqlSession, Survey s) {
@@ -26,6 +26,12 @@ public class SurveyDaoImpl implements SurveyDao{
 		
 		return sqlSession.insert("Survey.insertSurvey3", s);
 		
+	}
+
+	@Override
+	public int updateSurvey(SqlSessionTemplate sqlSession, Survey s) {
+		
+		return sqlSession.update("Survey.updateSurvey", s);
 	}
 	
 	

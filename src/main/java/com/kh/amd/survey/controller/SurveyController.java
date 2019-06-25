@@ -16,11 +16,20 @@ public class SurveyController {
 	@Autowired
 	private SurveyService ss;
 	
-	//설문조사 시작
+	//insert 설문조사 시작
 	@RequestMapping("survey1.su")
 	public String showSurvey1() {
 		
 		return "survey/survey1";
+		
+	}
+	
+	
+	//update 설문조사
+	@RequestMapping("updateSurvey.su")
+	public String updateSurvey() {
+		
+		return "survey/updateSurvey";
 		
 	}
 	
@@ -69,37 +78,54 @@ public class SurveyController {
 	
 	
 	//세번째 설문조사 insert
-		@RequestMapping(value="insert3.su")
-		public String insertSurvey3(Model model, Survey s, HttpServletRequest request) {
+	@RequestMapping(value="insert3.su")
+	public String insertSurvey3(Model model, Survey s, HttpServletRequest request) {
+		
+		System.out.println(s);
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		
+		try {
+			
+		ss.insertSurvey3(s);
+			
+			return "redirect:index.jsp";
+			
+		}catch(Exception e){
+			
+			model.addAttribute("msg","등록실패");
+			
+			return "common/errorPage";
+			
+		}		
+		
+	} 
+	
+	
+	//설문조사 update
+		@RequestMapping(value="update.su")
+		public String updateSurvey(Model model, Survey s, HttpServletRequest request) {
 			
 			System.out.println(s);
 			
 			String root = request.getSession().getServletContext().getRealPath("resources");
 			
-			try {
-				
-			ss.insertSurvey3(s);
+			int result = ss.updateSurvey(s);
+			
+			if(result > 0) {
 				
 				return "redirect:index.jsp";
 				
-			}catch(Exception e){
+			}else {
 				
 				model.addAttribute("msg","등록실패");
 				
 				return "common/errorPage";
-				
-			}		
+			}		 
 			
 		}
 	
 	
-	/*
-	 * @RequestMapping("survey3.su") public String insertSurvey3() {
-	 * 
-	 * return "survey/survey3";
-	 * 
-	 * }
-	 */
 	
 
-}
+}//class

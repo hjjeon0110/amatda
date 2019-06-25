@@ -10,6 +10,8 @@ public interface SurveyService {
 
 	int insertSurvey3(Survey s);
 
+	int updateSurvey(Survey s); 
+
 	
 
 	
