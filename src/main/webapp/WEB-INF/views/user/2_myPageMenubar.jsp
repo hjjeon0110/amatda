@@ -10,7 +10,7 @@
 .myPageMenuBarArea {
 	width: 100%;
 	height: 100%;
-	background: whitesmoke;
+	background: #F9F9F9;
 	padding-top: 50px;
 	padding-bottom: 50px;
 }

@@ -10,7 +10,7 @@
 .myPageMenuBarArea {
 	width: 100%;
 	height: 100%;
-	background: whitesmoke;
+	background: #F9F9F9;
 	padding-top: 50px;
 	padding-bottom: 50px;
 }
@@ -26,7 +26,7 @@
 	display: inline-block;
 	width: 150px;
 	height: 150px;
-	border: 1px solid gray;
+	border: 1px solid darkgray;
 	background: white;
 	font-family: 'Noto Sans KR', sans-serif;
 }
@@ -48,7 +48,7 @@
 	
 	<div class="myPageMenuBarArea">
 		<div class="myPageMenuBar">
-			<div class="myPageMenu" id="myPageMenu1" onclick="location.href='showMyPageProfile.tr'">
+			<div class="myPageMenu" id="myPageMenu1" onclick="location.href='showMyPageProfile2.tr'">
 				<br><br><br>
 				<label class="myPageMenuLabel" id="myPageMenu1">프로필 관리</label>
 				

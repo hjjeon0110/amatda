@@ -73,9 +73,9 @@ h1, h2, h3, h4, h5 {
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
   height: 50px;
-  border-width: 2px; }
+  border-width: 1px; }
   .form-control:active, .form-control:focus {
-    border-color: #ff0000; }
+    border-color: #ff0066; }
 
 textarea.form-control {
   height: inherit; }

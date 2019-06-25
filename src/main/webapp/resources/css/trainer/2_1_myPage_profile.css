@@ -24,10 +24,52 @@
 	color: white;
 }
 
-.profile {
+.noProfileDiv {
+	width: 100%;
+	height:120px;
+	font-family: 'Noto Sans KR', sans-serif;
+	color:#ff0066;
+	padding-left:50px;
+	vertical-align:middle;
+}
+
+.profile1 {
 	width: 100%;
 	height: 250px;
 	background: #ffe6f3;
+}
+
+.mediaDiv, .reviewDiv {
+	text-align:center;
+	width:100%;
+	height:230px;
+}
+
+.profile2 {
+	width: 100%;
+	height: 100%;
+	background: #F9F9F9;
+	
+}
+
+.serviceKeywordDiv, .introDiv {
+	width:90%;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+	padding:10px;
+	border:1px solid darkgray;
+	background:white;
+}
+
+.certificationDiv {
+	width:90%;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+	padding:10px;
+	border:1px solid darkgray;
+	background:white;
 }
 
 .subTitle {
@@ -35,7 +77,33 @@
 	font-weight: bold;
 	font-family: 'Noto Sans KR', sans-serif;
 	color: black;
-	margin-left: 50px;
+}
+
+.contents {
+	font-size: 14px;
+	font-family: 'Noto Sans KR', sans-serif;
+	color: gray;
+}
+
+.addMediaBtn, .addServiceKeywordBtn, .addIntroBtn, .addCertificationBtn {
+	width:70px;
+	height:24px;
+	font-size: 12px;
+	background:whitesmoke;
+	color:gray;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-style:none;
+}
+
+.addMediaBtn:hover, .addServiceKeywordBtn:hover, .addIntroBtn:hover, .addCertificationBtn:hover {
+	width:70px;
+	height:24px;
+	font-size: 12px;
+	background:white;
+	color:#ff0066;
+	font-family: 'Noto Sans KR', sans-serif;
+	border:1px solid #ff0066;
+	cursor:pointer;
 }
 
 .traineProfile {
@@ -88,13 +156,17 @@
 	cursor:pointer;
 }
 
-.profileImg {
+.profileImgDiv {
 	margin-left:70px;
-	width: 58%;
-	height: 70%;
+	width: 190PX;
+	height: 190PX;
 	border-radius: 50%;
 	background: white;
 	border: 2px solid white;
+}
+.profileImg {
+	width: 100%;
+	height: 100%;
 }
 
 .fa-star {
@@ -172,12 +244,22 @@
 
 .keywordDiv {
 	width:100%;
-	height:100%;
-	margin-left:50px;
+	height:45px;
 }
 .badge {
 	font-family: 'Noto Sans KR', sans-serif;
 	background: #ffe6f3;
+}
+.keywordDeleteBtn {
+	border-style:none;
+	background:white;
+	color:#ff0066;
+}
+.keywordDeleteBtn:hover {
+	border-style:none;
+	background:white;
+	color:#ff0066;
+	cursor:pointer;
 }
 
 .trainerInfoDiv {
