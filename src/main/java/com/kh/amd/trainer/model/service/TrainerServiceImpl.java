@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.dao.TrainerDao;
+import com.kh.amd.trainer.model.vo.Estimate;
 import com.kh.amd.trainer.model.vo.Profile;
 
 @Service
@@ -22,6 +23,12 @@ public class TrainerServiceImpl implements TrainerService {
 		
 		return td.checkProfile(sqlSession, mno);
 		
+	}
+
+	@Override
+	public Estimate selectEstimate(int mno) {
+		
+		return td.selectEstimate(sqlSession, mno);
 	}
 	
 }

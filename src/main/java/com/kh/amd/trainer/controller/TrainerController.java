@@ -1,16 +1,13 @@
 package com.kh.amd.trainer.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.service.TrainerService;
+import com.kh.amd.trainer.model.vo.Estimate;
 import com.kh.amd.trainer.model.vo.Profile;
 
 @SessionAttributes("loginUser")
@@ -45,8 +42,18 @@ public class TrainerController {
 	
 	// 트레이너 마이페이지_견적서관리 이동 (전효정)
 	@RequestMapping("showMyPageEstimate.tr")
-	public String showTrainerMyPageEstimateView() {
+	public String showTrainerMyPageEstimateView(Model model, int mno) {
+		
+		
+		Estimate estimate = ts.selectEstimate(mno);
+		
+		System.out.println("받아온 estimate객체 : " + estimate);
+	
+		model.addAttribute("estimate", estimate);
+			
 		return "trainer/2_2_myPage_estimate";
+		
+		
 	}
 	
 	// 트레이너 마이페이지_매칭관리 이동 (전효정)

@@ -3,6 +3,7 @@ package com.kh.amd.trainer.model.dao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.amd.trainer.model.vo.Estimate;
 import com.kh.amd.trainer.model.vo.Profile;
 
 @Repository
@@ -13,6 +14,13 @@ public class TrainerDaoImpl implements TrainerDao {
 	public Profile checkProfile(SqlSessionTemplate sqlSession, int mno) {
 	
 		return sqlSession.selectOne("Trainer.checkProfile", mno);
+	}
+
+	// 
+	@Override
+	public Estimate selectEstimate(SqlSessionTemplate sqlSession, int mno) {
+		
+		return sqlSession.selectOne("Trainer.selectEstimate", mno);
 	}
 
 }

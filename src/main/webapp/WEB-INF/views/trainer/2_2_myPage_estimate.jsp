@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,54 +125,46 @@ select {
 	
 	<!-- 트레이너 마이페이지 서브메뉴바  --------------------------------------------------------------------------------------------- -->
 	<div class="subMenuBar">
-		<div class="subMenuBar1">견적서1<input type="hidden" value="1"></div>
-		<div class="subMenuBar2">견적서2<input type="hidden" value="2"></div>
+		<div class="subMenuBar1" id="subMenuBar1">견적서1<input type="hidden" value="1"></div>
+		<div class="subMenuBar2" id="subMenuBar2">견적서2<input type="hidden" value="2"></div>
 	</div>
 	
 	
 	
-	<!-- 견적서 영역 ----------------------------------------------------------------------------------------------------------- -->
+	<!-- 견적서 값이 없을때 나올  견적서 영역 ------------------------------------------------------- -->
+	<c:if test="${empty estimate}">
+	<form action="train">
 	<div class="estimateDiv">
 	
 		<br><br><br>
 		<label class="subTitle">제목</label>
 		<br><br>
-		<input type="text" placeholder=" 제목을 입력해주세요">
+		<input type="text" name="estTitle" placeholder=" 제목을 입력해주세요">
 		
 		<br><br><br>
 		<label class="subTitle">키워드</label>
-		<br><br>
-		<input type="text" placeholder=" 키워드를 입력해주세요">&nbsp;&nbsp;&nbsp;<button class="addKeyword"> 추가하기 </button>
-		<br><br>
-		<div class="keywordDiv">
-			<span class="badge badge-pill badge-danger"> #키워드1 </span>&nbsp;
-			<span class="badge badge-pill badge-danger"> #키워드2 </span>&nbsp;
-			<span class="badge badge-pill badge-danger"> #키워드3 </span>&nbsp;
-			<span class="badge badge-pill badge-danger"> #키워드4 </span>&nbsp;
-			<span class="badge badge-pill badge-danger"> #키워드5 </span>
-		</div>
 		
 		<br><br><br>
-		<label class="subTitle">커리큘럼</label>
+		<label class="subTitle" >커리큘럼</label>
 		<br><br>
-		<textarea class="curriculum" placeholder=" 커리큘럼을 입력해주세요"></textarea>
+		<textarea class="curriculum" name="estContents" placeholder=" 커리큘럼을 입력해주세요"></textarea>
 		
 		<br><br><br>
 		<label class="subTitle">개월수</label>
 		<br><br>
-		<select>
-			<option>1개월</option>
-			<option>2개월</option>
-			<option>3개월</option>
-			<option>4개월</option>
-			<option>5개월</option>
-			<option>6개월</option>
-			<option>7개월</option>
-			<option>8개월</option>
-			<option>9개월</option>
-			<option>10개월</option>
-			<option>11개월</option>
-			<option>12개월</option>
+		<select name="estDay">
+			<option value="30">1개월</option>
+			<option value="60">2개월</option>
+			<option value="90">3개월</option>
+			<option value="120">4개월</option>
+			<option value="150">5개월</option>
+			<option value="180">6개월</option>
+			<option value="210">7개월</option>
+			<option value="240">8개월</option>
+			<option value="270">9개월</option>
+			<option value="300">10개월</option>
+			<option value="330">11개월</option>
+			<option value="360">12개월</option>
 		</select>
 		
 		<br><br><br>
@@ -182,6 +175,50 @@ select {
 		<br><br><br>
 		<button class="modification"> 견적서 수정하기 </button>
 	</div>
+	</form>
+	</c:if>
+	<!-- 견적서 값이 있을때 나올 견적서 영역 ------------------------------------------------------- -->
+	<c:if test="${!empty estimate}">
+	<div class="estimateDiv">
+	
+		<br><br><br>
+		<label class="subTitle">제목</label>
+		<br><br>
+		<input type="text" name="estTitle" value="${ estimate.estName }" placeholder=" 제목을 입력해주세요">
+		
+		<br><br><br>
+		<label class="subTitle" >커리큘럼</label>
+		<br><br>
+		<textarea class="curriculum" name="estContents" placeholder=" 커리큘럼을 입력해주세요">${ estimate.estContents }</textarea>
+		
+		<br><br><br>
+		<label class="subTitle" >개월수</label>
+		<br><br>
+		<select name="estDay" id="estDay">
+			<option value="30">1개월</option>
+			<option value="60">2개월</option>
+			<option value="90">3개월</option>
+			<option value="120">4개월</option>
+			<option value="150">5개월</option>
+			<option value="180">6개월</option>
+			<option value="210">7개월</option>
+			<option value="240">8개월</option>
+			<option value="270">9개월</option>
+			<option value="300">10개월</option>
+			<option value="330">11개월</option>
+			<option value="360">12개월</option>
+		</select>
+		
+		<br><br><br>
+		<label class="subTitle">가격</label>
+		<br><br>
+		<input type="text" placeholder=" 가격을 입력해주세요" value="${ estimate.estPrice }">
+		
+		<br><br><br>
+		<button class="modification"> 견적서 수정하기 </button>
+	</div>
+	</c:if>
+	
 	
 	
 	<!-- footer ----------------------------------------------------------------------------------------------------- -->
@@ -190,17 +227,9 @@ select {
 	
 	<script>
 		$(function(){
-			$(document).on("click",".subMenuBar1",function(){
-				var type = $(this).children().val();
-				console.log(type);
-			})
+			$("#estDay").val(${estimate.estDay}).prop("selected", true);
 		})
-		$(function(){
-			$(document).on("click",".subMenuBar2",function(){
-				var type = $(this).children().val();
-				console.log(type);
-			})
-		})
+		
 	</script>
 	
 </body>

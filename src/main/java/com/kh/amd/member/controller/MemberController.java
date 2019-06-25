@@ -151,14 +151,7 @@ public class MemberController {
 			} catch (LoginException e) {
 				model.addAttribute("msg", e.getMessage());
 				return "common/errorPage";
-			}
-			
-		
-			
-			
-			
-			
-			
+			}	
 			
 	}
 	
