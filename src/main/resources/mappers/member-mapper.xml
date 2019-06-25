@@ -1,96 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!DOCTYPE mapper 
+SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Member">
-   <resultMap type="com.kh.amd.member.model.vo.Member" id="memberResultSet">
-      <id property="mno" column="MNO"/>            <!-- DB 기본키 -->
-      <result property="name" column="NAME"/>
-      <result property="userId" column="ID"/>   <!-- 일반컬럼 -->
-      <result property="userPwd" column="PWD"/>
-      <result property="phone" column="PHONE"/>
-      <result property="gender" column="GENDER"/>
-      <result property="email" column="EMAIL"/>
- 	  <result property="mtype" column="MTYPE"/>
-      <result property="status" column="STATUS"/>
-      <result property="matchTime" column="MATCH_TIME"/>
-      <result property="emailYn" column="EMAIL_YN"/>
-      <result property="enrollDate" column="ENROLL_DATE"/>
-      <result property="modifyDate" column="MODIFY_DATE"/>
-      
-   </resultMap>
 
 
-	
+<resultMap id="memberResultSet" type="com.kh.amd.member.model.vo.Member">
 
-	
-   
-   <!-- 일반 사용자 회원가입용 -->
-   <insert id="insertMember" parameterType="Member">
-		INSERT INTO MEMBER
-		VALUES (MNO_SEQ.NEXTVAL, #{name}, #{userId}, #{userPwd}, #{phone}, #{gender}, #{email}, 'U', 'Y', null,'Y', sysdate, null)	
-   </insert>
-   
-   <!-- 트레이너 회원가입을 위한 mno조회용 -->
-   <select id="selectMno" parameterType="_int" resultType="int">
-		SELECT MNO_SEQ.CURRVAL
-		FROM DUAL
-	</select>
-   
-   <!-- 트레이너 회원가입용 -->
-   <insert id="insertTrainer" parameterType="Member">
-		INSERT INTO MEMBER
-		VALUES (MNO_SEQ.NEXTVAL, #{name}, #{userId}, #{userPwd}, #{phone}, #{gender}, #{email}, 'T', 'Y', null,'Y', sysdate, null)	
-   </insert>
-   
-  
-   
-  	<!-- 아이디 중복체크용 -->
-  	<!-- 반환 타입 : resultType 즉 COUNT는 숫자를 반환하므로 int / 넘어온 파라미터 타입 : parameterType 즉 userId -->
-  	<select id="idCheck" parameterType="java.lang.String" resultType="int">
-  		SELECT COUNT(*) 
-  		FROM MEMBER
-  		WHERE ID= #{userId}
-  		
-  	</select>
-  	
-  	
-  	<!-- 이메일 중복확인 -->
-  	<select id="emailCheck"  parameterType="java.lang.String" resultType="int">
-  		SELECT COUNT(*)
-  		FROM MEMBER
-  		WHERE EMAIL= #{email}
-  	</select>
-  	
-  	
-  	
-  	<!-- 암호화된 비밀번호 조회용 메소드 -->
-   <select id="selectPwd" resultType="java.lang.String" parameterType="java.lang.String">
-   	SELECT PWD
-   	FROM MEMBER
-   	WHERE ID = #{userId}
-   	
-   </select>
-  	
-  	
-  	
-  	
-  	<!-- 로그인 정보 조회 -->
-  	 <select id="selectLoginUser" resultMap="memberResultSet" parameterType="Member">
-   		SELECT *
-   		FROM MEMBER
-   		WHERE ID = #{userId}
-   		AND PWD = #{userPwd}
-   </select>
-   
-   
-   <!-- 아이디 찾기 -->
-   <select id="selectId" resultMap="memberResultSet" parameterType="Member">
-   	SELECT ID
-	FROM MEMBER
-	WHERE NAME= #{name} 
-	AND EMAIL= #{email}
-   </select>
+	<id column="MNO" property="mno"/> <!-- DB 기본키 -->
+	<result column="NAME" property="name"/><!-- 일반컬럼 -->
+	<result column="ID" property="userId"/>
+	<result column="PWD" property="userPwd"/>
+	<result column="PHONE" property="phone"/>
+	<result column="GENDER" property="gender"/>
+	<result column="EMAIL" property="email"/>
+	<result column="MTYPE" property="mtype"/>
+	<result column="STATUS" property="status"/>
+	<result column="MATCH_TIME" property="matchTime"/>
+	<result column="EMAIL_YN" property="emailYn"/>
+	<result column="ENROLL_DATE" property="enrollDate"/>
+	<result column="MODIFY_DATE" property="modifyDate"/>
+
+</resultMap>
+
+
+<!-- 일반 사용자 회원가입용 -->
+<insert id="insertMember" parameterType="Member">
+INSERT INTO MEMBER
+VALUES (MNO_SEQ.NEXTVAL, #{name}, #{userId}, #{userPwd}, #{phone}, #{gender}, #{email}, 'U', 'Y', null,'Y', sysdate, null) 
+</insert>
+
+
+
+<!-- 트레이너 회원가입을 위한 mno조회용 -->
+<select id="selectMno" parameterType="_int" resultType="int">
+SELECT MNO_SEQ.CURRVAL
+FROM DUAL 
+</select>
+
+
+
+<!-- 트레이너 회원가입용 -->
+<insert id="insertTrainer" parameterType="Member">
+INSERT INTO MEMBER
+VALUES (MNO_SEQ.NEXTVAL, #{name}, #{userId}, #{userPwd}, #{phone}, #{gender}, #{email}, 'T', 'Y', null,'Y', sysdate, null) 
+</insert>
+
+
+<!-- 아이디 중복체크용 -->
+<!-- 반환 타입 : resultType 즉 COUNT는 숫자를 반환하므로 int / 넘어온 파라미터 타입 : parameterType 즉 userId -->
+
+<select id="idCheck" parameterType="java.lang.String" resultType="int">
+SELECT COUNT(*)
+FROM MEMBER
+WHERE ID= #{userId} 
+</select>
+
+
+
+
+<!-- 이메일 중복확인 -->
+<select id="emailCheck" parameterType="java.lang.String" resultType="int">
+SELECT COUNT(*)
+FROM MEMBER
+WHERE EMAIL= #{email} 
+</select>
+
+
+
+<!-- 암호화된 비밀번호 조회용 메소드 -->
+<select id="selectSecPwd" parameterType="java.lang.String" resultType="java.lang.String">
+SELECT PWD
+FROM MEMBER
+WHERE ID = #{userId} 
+</select>
+
+
+
+<!-- 로그인 정보 조회 -->
+<select id="selectLoginUser" parameterType="Member" resultMap="memberResultSet">
+SELECT *
+FROM MEMBER
+WHERE ID = #{userId} 
+</select>
+
+
+
+<!-- 아이디 찾기 -->
+<select id="selectId" parameterType="Member" resultMap="memberResultSet">
+SELECT ID
+FROM MEMBER
+WHERE NAME= #{name}
+AND EMAIL= #{email} 
+</select>
+
+
+
+<!-- 아이디, 비밀번호 찾기에서 비밀번호 찾기 -->
+<select id="selectMyPwd" parameterType="Member" resultType="int">
+SELECT COUNT(*)
+FROM MEMBER
+WHERE NAME= #{name}
+AND ID= #{userId}
+AND EMAIL= #{email} 
+</select>
+
 </mapper>
-

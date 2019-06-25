@@ -14,7 +14,7 @@
 .eng{
 	font-family: 'Montserrat', sans-serif;
 }
-#registerBtn{
+#findIdBtn{
 	width:400px; 
 	background:#ff0066;  
 	border:1px solid #ff0066; 
@@ -40,14 +40,14 @@ td{
 		
 			<tr>
 				<td style=""><label >이름</label></td>
-				<td style=""><input type="text" name="name" id="name" class="form-control"></td>
+				<td style=""><input type="text" name="name" id="myName" class="form-control"></td>
 			</tr>
 			<tr>
 				<td style=""><label>이메일</label></td>
-				<td style=""><input type="email" name="email" id="email" class="form-control"></td>
+				<td style=""><input type="email" name="email" id="myEmail" class="form-control"></td>
 			</tr>
 			<tr>
-				<td colspan="2"><button type="submit" class="form-control" onclick="registerBtn()" id="registerBtn">찾기</button></td>
+				<td colspan="2"><button type="button" class="form-control" onclick="findIdBtn()" id="findIdBtn">찾기</button></td>
 			</tr>
 		</table>
 	
@@ -58,32 +58,30 @@ td{
 		<table align="center">
 			<tr>
 				<td style=""><label >이름</label></td>
-				<td style=""><input type="text" name="name" id="name"class="form-control"></td>
+				<td style=""><input type="text" name="name" id="myName2"class="form-control"></td>
 			</tr>
 			<tr>
 				<td style=""><label >아이디</label></td>
-				<td style=""><input type="text" name="id" id="id" class="form-control"></td>
+				<td style=""><input type="text" name="userId" id="userId2" class="form-control"></td>
 			</tr>
 			<tr>
 				<td style=""><label>이메일</label></td>
-				<td style=""><input type="email" name="email" id="email" class="form-control"></td>
+				<td style=""><input type="email" name="email" id="myEmail2" class="form-control"></td>
 			</tr>
 			<tr>
-				<td colspan="2"><button type="submit" class="form-control" id="registerBtn">찾기</button></td>
+				<td colspan="2"><button type="button" class="form-control" id="findPwdBtn" onclick="findPwdBtn()">찾기</button></td>
 			</tr>
 		</table>
 	
 	</div>
 </body>
 <script>
-	function registerBtn(){
+	function findIdBtn(){
 		
-		var name = $("#name").val();
-		var email = $("#email").val();
+		var name = $("#myName").val();
+		var email = $("#myEmail").val();
 		
 		
-		console.log(name);
-		console.log(email);
 		$.ajax({
 			url:"findId.me",
 			type:"post",
@@ -91,11 +89,37 @@ td{
 			success:function(data){
 				
 					alert("회원님의 아이디는 "+data + "입니다.");
+					location.href="loginMember.me";
 				
 			},error:function(status){
 				console.log("다시해라..");
 			}
 		});
+	}
+	
+	function findPwdBtn(){
+		
+		var name = $("#myName2").val();
+		var userId = $("#userId2").val();
+		var email = $("#myEmail2").val();
+		
+		console.log("name: "+name);
+		console.log(userId);
+		console.log("email: "+email);
+		
+		$.ajax({
+			url:"findPwd.me",
+			type:"post",
+			data:{name:name, userId:userId, email:email},
+			success:function(data){
+				if(data == "ok"){
+				alert("변경폼 작성해주기");
+				document.location.href="updatePwd.me";
+				}
+			},error:function(status){
+				console.log("다시");
+			}
+		})
 	}
 </script>
 </html>

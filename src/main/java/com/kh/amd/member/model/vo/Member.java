@@ -81,8 +81,8 @@ public class Member implements java.io.Serializable{
 		return userPwd;
 	}
 
-	public void setUserPwd(String userPwd) {
-		this.userPwd = userPwd;
+	public String setUserPwd(String userPwd) {
+		return this.userPwd = userPwd;
 	}
 
 	public String getPhone() {

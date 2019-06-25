@@ -52,10 +52,10 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectOne("Member.emailCheck", email);
 	}
 
-
+	//암호화된 비밀번호 조회
 	@Override
 	public String selectEncPassword(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.selectOne("Member.selectPwd", m.getUserId());
+		return sqlSession.selectOne("Member.selectSecPwd", m.getUserId());
 	}
 
 	
@@ -72,7 +72,17 @@ public class MemberDaoImpl implements MemberDao{
 	public Member selectId(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("Member.selectId", m);
 	}
+
+
+	//아이디, 비밀번호 찾기에서 비밀번호 찾기
+	@Override
+	public int findPassword(SqlSessionTemplate sqlSession,Member m) {
+		System.out.println("dao까지는 왔어..");
+		return sqlSession.selectOne("Member.selectMyPwd",m);
 	
+	}
+
+
 
 	
 
