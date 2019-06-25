@@ -13,6 +13,7 @@
   		<typeAlias type="com.kh.amd.trainer.model.vo.Profile" alias="Profile"/>
   		<typeAlias type="com.kh.amd.board.model.vo.Board" alias="Board"/>
   		<typeAlias type="com.kh.amd.trainer.model.vo.Estimate" alias="Estimate"/>
+  		<typeAlias type="com.kh.amd.board.model.vo.Declaration" alias="Declaration"/>
   	</typeAliases>
   	
   	
@@ -21,7 +22,7 @@
   		<mapper resource="mappers/survey-mapper.xml"/>
   		<mapper resource="mappers/trainer-mapper.xml"/>
   		<mapper resource="mappers/board-mapper.xml"/>
-  		
+  		<mapper resource="mappers/declaration-mapper.xml"/>
   	</mappers>
 </configuration>
   

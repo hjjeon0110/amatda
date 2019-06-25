@@ -1,10 +1,22 @@
 package com.kh.amd.admin.controller;
 
+
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.kh.amd.board.model.vo.Declaration;
+import com.kh.amd.board.service.DeclarationService;
 
 @Controller
 public class AdminController {
+
+	@Autowired
+	private DeclarationService ds;
 
 	//관리자 페이지 메인
 	@RequestMapping("main.ad")
@@ -102,7 +114,17 @@ public class AdminController {
 
 	//신고관리 페이지
 	@RequestMapping("declaration.ad")
-	public String declarationList(){
+	public String declarationList(Model model){
+
+		List<Declaration> declarationList = ds.declarationList();
+		System.out.println(declarationList);
+		model.addAttribute("list", declarationList);
+
+
+		//		ds.declarationList(decl);
+
+		// System.out.println("신고게시물 목록조회 : " + declarationList);
+
 
 		return "admin/declarationList";
 
