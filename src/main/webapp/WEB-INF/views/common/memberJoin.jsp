@@ -172,8 +172,8 @@ function register(){
 		data:{email:email, name:name, userId:userId, userPwd:userPwd, phone:phone, gender:gender},
 		success:function(data){
 			
-				alert("회원가입 완료! 설문조사 하러가기");
-				document.location.href="survey1.su";
+				
+				document.location.href="index.jsp";
 			
 		},error:function(status){
 			console.log(status);

@@ -56,6 +56,7 @@ td {
 		<h1 id="font" align="center">설문조사</h1>
 		<br />
 		<form action="insert1.su" method="post">
+		
 			<table align="center" id="font">
 
 				<tr>
