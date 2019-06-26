@@ -1,14 +1,22 @@
 package com.kh.amd.trainer.controller;
 
+import java.io.File;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.service.TrainerService;
 import com.kh.amd.trainer.model.vo.Estimate;
 import com.kh.amd.trainer.model.vo.Profile;
+import com.kh.tsp.common.CommonUtils;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -31,9 +39,7 @@ public class TrainerController {
 		Profile profile;
 		
 		profile = ts.checkProfile(mno);
-		
-		System.out.println("컨트롤러 profile : " + profile);
-		
+				
 		model.addAttribute("profile", profile);
 		
 		return "trainer/2_1_myPage_profile";
@@ -47,9 +53,7 @@ public class TrainerController {
 		Profile profile;
 		
 		profile = ts.checkProfile(mno);
-		
-		System.out.println("컨트롤러 profile : " + profile);
-		
+				
 		model.addAttribute("profile", profile);
 		
 		return "trainer/2_1_myPage_profile";
@@ -58,9 +62,47 @@ public class TrainerController {
 	
 	// 프로필 사진 변경 (전효정)
 	@RequestMapping("modifyProfileImg.tr")
-	public void modifyProfileImg() {
-		System.out.println("컨트롤러 왔음");
+	public void modifyProfileImg(Model model, Member m, HttpServletRequest request, @RequestParam(name="profileImgFile", required=false) MultipartFile profileImgFile) {
+		
+		System.out.println("profileImgFile : " + profileImgFile);
+		System.out.println("Member : " + m);
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		
+		String filePath = root + "\\uploadFiles";
+		
+		System.out.println("filePath : " + filePath);
+		
+		// 파일 이름 변경
+		String originalFilename = profileImgFile.getOriginalFilename();
+		String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); // 확장자명 따로 저장
+		//String changeName = CommonUtils.getRandomString();
+		
+		try {
+			profileImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
+
+			
+			ms.insertMember(m);
+				
+			return "redirect:index.jsp";
+			
+		} catch (Exception e) {
+			
+			// 실패 시 파일 삭제 처리
+			new File(filePath + "\\" + changeName + ext).delete();
+			
+			model.addAttribute("msg", "회원가입 실패!");
+			
+			return "common/errorPage";
+			
+		} 
+		
+		
+		
+		
+		
 	}
+	
 	
 	// 트레이너 마이페이지_견적서관리 이동 (전효정)
 	@RequestMapping("showMyPageEstimate.tr")
