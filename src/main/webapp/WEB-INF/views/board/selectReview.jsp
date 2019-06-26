@@ -246,7 +246,7 @@ a:active {text-decoration: none; color: #333333;}
       <div class="firstTableLine2"></div>
       <h6><a href="selectFaq.bo">FAQ</a></h6>
       <div class="firstTableLine2"></div>
-      <h6><a href="insertDeclaration.bo">신고</a></h6>
+      <h6><a href="insertDeclarationFormView.bo">신고</a></h6>
     <div class="firstTableLine1"></div>
       </div>
 		

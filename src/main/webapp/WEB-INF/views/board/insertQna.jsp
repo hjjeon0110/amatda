@@ -281,7 +281,7 @@ margin:0 auto;
       <div class="firstTableLine2"></div>
       <h6><a href="selectFaq.bo">FAQ</a></h6>
       <div class="firstTableLine2"></div>
-      <h6><a href="insertDeclaration.bo">신고</a></h6>
+      <h6><a href="insertDeclarationFormView.bo">신고</a></h6>
     <div class="firstTableLine1"></div>
       </div>
    
@@ -315,6 +315,8 @@ margin:0 auto;
     </div>
   </div>
   
+   <input type="submit" value="전송" class="btn btn-primary">
+  
   
   <!-- <div class="row">
   
@@ -340,7 +342,7 @@ margin:0 auto;
   
   
     <br>
-    	<input type="submit" value="전송" class="btn btn-primary">
+    	<!-- <input type="submit" value="전송" class="btn btn-primary"> -->
     	
        <!--  <button type="button" class="btn btn-primary" data-toggle="modal" 
         data-target="#my80sizeCenterModal">
@@ -373,14 +375,8 @@ margin:0 auto;
 </div> --> 
        <!-- 80%size Modal at Center --> 
         
-        
-  
-  
-  
-  
-  
-  
   </form>
+ 
 </div>
    
    

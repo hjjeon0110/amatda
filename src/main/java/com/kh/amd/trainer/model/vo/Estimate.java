@@ -3,11 +3,11 @@ package com.kh.amd.trainer.model.vo;
 public class Estimate implements java.io.Serializable{
 	private int estNo; //견적서 번호
 	private int estPrice; //견적서가격
-	private int estDay; //견적서일자(월단위)
+	private int estDay; //견적서일자(일단위)
 	private String estContents; //견적서 커리큘럼(내용)
-	private int estType; //
+	private int estType; // 견적서 타입
 	private int tno; //견적서 트레이너 번호
-	private String estName; //견적서 이름
+	private String estName; //견적서 제목
 	
 	public Estimate() {
 		

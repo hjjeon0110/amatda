@@ -14,4 +14,9 @@ public interface DeclarationDao {
 	Object declarationSelectOne(SqlSessionTemplate sqlSession, int decl_no);
 
 
+	int insertDeclaration(SqlSessionTemplate sqlSession, Declaration d);
+
+	//List<Declaration> declarationList(SqlSessionTemplate sqlSession, Declaration decl);
+
+
 }

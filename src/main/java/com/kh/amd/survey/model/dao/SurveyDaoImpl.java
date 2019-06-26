@@ -1,5 +1,8 @@
 package com.kh.amd.survey.model.dao;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -9,9 +12,13 @@ import com.kh.amd.survey.model.vo.Survey;
 public class SurveyDaoImpl implements SurveyDao{ 
 
 	@Override
-	public int insertSurvey1(SqlSessionTemplate sqlSession, Survey s) {
+	public int insertSurvey1(SqlSessionTemplate sqlSession, Survey s, String mno) {
 		
-		return sqlSession.insert("Survey.insertSurvey1", s);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("s", s);
+		map.put("mno", mno);
+		
+		return sqlSession.insert("Survey.insertSurvey1", map);
 	}
 
 	@Override
@@ -32,6 +39,14 @@ public class SurveyDaoImpl implements SurveyDao{
 	public int updateSurvey(SqlSessionTemplate sqlSession, Survey s) {
 		
 		return sqlSession.update("Survey.updateSurvey", s);
+	}
+
+	@Override
+	public List<Survey> surveyList(SqlSessionTemplate sqlSession, int mno) {
+		
+		System.out.println("dao mno : " + mno);
+		
+		return sqlSession.selectList("Survey.listSurvey", mno);
 	}
 	
 	

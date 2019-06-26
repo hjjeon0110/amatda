@@ -44,5 +44,18 @@ public class DeclarationServiceImpl implements DeclarationService{
 		return dd.declarationSelectOne(sqlSession, decl_no);
 	}
 	
+	@Override
+	public int insertDeclaration(Declaration d) {
+	
+		return dd.insertDeclaration(sqlSession, d);
+	}
+
+	//신고 게시물 목록
+	/*
+	 * @Override public List<Declaration> declarationList(Declaration decl) {
+	 * 
+	 * return dd.declarationList(sqlSession, decl); }
+	 */
+
 
 }

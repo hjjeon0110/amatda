@@ -11,6 +11,7 @@ import com.kh.amd.board.model.service.BoardService;
 import com.kh.amd.board.model.vo.Board;
 
 
+
 @Controller
 public class BoardController {
 	@Autowired
@@ -19,9 +20,12 @@ public class BoardController {
 	
 	  //공지사항/이벤트 통합 리스트(sr)
 	  
-	  @RequestMapping("selectNotice.bo") public String selectNotice() {
+	  @RequestMapping("selectNotice.bo") 
+	  public String selectNotice() {
 	  
-	  return "board/selectNotice"; }
+	  return "board/selectNotice"; 
+	  
+	  }
 	  
 	  //공지사항 상세페이지(sr)
 	/*
@@ -103,6 +107,8 @@ public class BoardController {
 	 * "board/insertQna"; }
 	 */
 	 
+	  
+	  //Q&A 게시판 그냥 단순 페이지 출력 (SR)
 	 @RequestMapping("insertQnaFormView.bo")
 	 public String insertQnaFormView() {
 		 
@@ -110,18 +116,17 @@ public class BoardController {
 		 return "board/insertQna";
 	 }
 	
+	 //Q&A 게시판 입력 (SR)
 	  @RequestMapping("insertQna.bo") 
 	  public String insertQna1(Model model, Board b) {
 	  System.out.println("내가 호출됐어요!!!");
 	  System.out.println(b);
 	  bs.insertQna(b); 
 	  
-
-	  
 	  return "board/insertQna"; 
-	  
 	  }
 	 
+	
 	 
 	
 	

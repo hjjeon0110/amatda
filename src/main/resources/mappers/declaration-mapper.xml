@@ -42,11 +42,20 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		JOIN MEMBER M ON(WRITER = MNO)
 	</select>
 	
+
 	<select id="declarationSelectOne" resultMap="declarationResultSet">
 		SELECT *
 		FROM DECLARATION
 		WHERE DECLARE_NO = #{decl_no}
 	</select>
+
+
+	<!-- 신고게시판 입력용(sr) -->
+	<insert id="insertDeclaration" parameterType="Declaration">
+	INSERT INTO DECLARATION(DECLARE_NO,DECL_CATEGORY,DECL_CLASSIFICATION,DECL_TITLE,DECL_CONTENT,WRITE_DATE,WRITER)
+	VALUES (DECL_SEQ.NEXTVAL,#{decl_category},#{decl_classification},#{decl_title},#{decl_content},sysdate,#{writer})
+	</insert>
+	
 
 </mapper>
 
