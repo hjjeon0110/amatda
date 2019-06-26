@@ -26,9 +26,15 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public Estimate selectEstimate(int mno) {
+	public Estimate selectEstimate(int mno, int iestType) {
 		
-		return td.selectEstimate(sqlSession, mno);
+		return td.selectEstimate(sqlSession, mno, iestType);
+	}
+
+	@Override
+	public int insertEstimate(Estimate tEst) {
+		
+		return td.insertEstimate(sqlSession, tEst);
 	}
 	
 }

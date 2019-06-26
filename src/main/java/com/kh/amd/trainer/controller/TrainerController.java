@@ -50,11 +50,14 @@ public class TrainerController {
 	
 	// 트레이너 마이페이지_견적서관리 이동 (전효정)
 	@RequestMapping("showMyPageEstimate.tr")
-	public String showTrainerMyPageEstimateView(Model model, int mno, int estType) {
+	public String showTrainerMyPageEstimateView(Model model, int mno, String estType) {
+		
+		int iestType = Integer.parseInt(estType);
+		
+		Estimate estimate = ts.selectEstimate(mno, iestType);
 		
 		
-		Estimate estimate = ts.selectEstimate(mno);
-		
+		System.out.println("받아온 iestType의 값? " + iestType);
 		System.out.println("받아온 estimate객체 : " + estimate);
 	
 		model.addAttribute("estimate", estimate);
@@ -63,6 +66,20 @@ public class TrainerController {
 		
 		
 	}
+	@RequestMapping("insertEstimate.tr")
+	public String insertEstimate(Model model, Estimate tEst) {
+		
+		
+		int result = ts.insertEstimate(tEst);
+		
+		
+		
+		return "trainer/2_2_myPage_estimate";
+	}
+	
+	
+	
+	
 	
 	// 트레이너 마이페이지_매칭관리 이동 (전효정)
 	@RequestMapping("showMyPageMatching.tr")
