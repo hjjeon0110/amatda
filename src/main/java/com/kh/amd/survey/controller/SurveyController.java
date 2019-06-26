@@ -1,6 +1,9 @@
 package com.kh.amd.survey.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.service.SurveyService;
 import com.kh.amd.survey.model.vo.Survey;
 
@@ -42,12 +46,15 @@ public class SurveyController {
 		
 		System.out.println(s);
 		
+		
+		String mno = request.getParameter("mNo");
+		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
 		//System.out.println("survey" + s); 
 		
 		
-		int result = ss.insertSurvey1(s);
+		int result = ss.insertSurvey1(s, mno);
 		
 		  if(result > 0) {
 		  
@@ -163,6 +170,21 @@ public class SurveyController {
 			}		 
 			
 		}
+		
+		//설문조사 조회
+		@RequestMapping("list.su")
+		public String surveyList(Model model, Member m) {
+			
+			int mno = m.getMno();
+			List<Survey> surveyList = ss.surveyList(mno);
+			
+			System.out.println("surveyList : " + surveyList);
+			
+			model.addAttribute("list", surveyList);
+			
+			return "survey/surveyList";
+		}
+		
 	
 	
 	

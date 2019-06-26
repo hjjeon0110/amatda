@@ -24,7 +24,7 @@ public class Survey implements java.io.Serializable{
 	private int weight;
 	private int hopeWeight;
 	private String uAge;
-	private int mNo;
+	private int uNo;
 	
 	public Survey() {}
 
@@ -188,18 +188,18 @@ public class Survey implements java.io.Serializable{
 		this.uAge = uAge;
 	}
 
-	public int getmNo() {
-		return mNo;
+	public int getuNo() {
+		return uNo;
 	}
 
-	public void setmNo(int mNo) {
-		this.mNo = mNo;
+	public void setuNo(int uNo) {
+		this.uNo = uNo;
 	}
 
 	public Survey(String hopePeriod, String hopeBody, String hopeMethod, String hopeGender, String hopeAge,
 			String dietFail, String hopeStart, String dietReason, String hopeExercise, String datExercise,
 			String datFood, String disease, String dayTime, int surveyNo, Date enrollDate, Date modifyDate, int height,
-			int weight, int hopeWeight, String uAge, int mNo) {
+			int weight, int hopeWeight, String uAge, int uNo) {
 		super();
 		this.hopePeriod = hopePeriod;
 		this.hopeBody = hopeBody;
@@ -221,7 +221,7 @@ public class Survey implements java.io.Serializable{
 		this.weight = weight;
 		this.hopeWeight = hopeWeight;
 		this.uAge = uAge;
-		this.mNo = mNo;
+		this.uNo = uNo;
 	}
 
 	@Override
@@ -231,7 +231,7 @@ public class Survey implements java.io.Serializable{
 				+ hopeStart + ", dietReason=" + dietReason + ", hopeExercise=" + hopeExercise + ", datExercise="
 				+ datExercise + ", datFood=" + datFood + ", disease=" + disease + ", dayTime=" + dayTime + ", surveyNo="
 				+ surveyNo + ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", height=" + height
-				+ ", weight=" + weight + ", hopeWeight=" + hopeWeight + ", uAge=" + uAge + ", mNo=" + mNo + "]";
+				+ ", weight=" + weight + ", hopeWeight=" + hopeWeight + ", uAge=" + uAge + ", uNo=" + uNo + "]";
 	}
 
 	
