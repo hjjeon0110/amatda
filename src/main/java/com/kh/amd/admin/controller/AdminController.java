@@ -9,8 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kh.amd.board.model.service.DeclarationService;
 import com.kh.amd.board.model.vo.Declaration;
-import com.kh.amd.board.service.DeclarationService;
+
 
 @Controller
 public class AdminController {

@@ -19,6 +19,11 @@ public class DeclarationDaoImpl implements DeclarationDao{
 
 		return sqlSession.selectList("Declaration.declarationList");
 	}
+
+	@Override
+	public int insertDeclaration(SqlSessionTemplate sqlSession, Declaration d) {
+		return sqlSession.insert("Declaration.insertDeclaration",d);
+	}
 	
 	
 

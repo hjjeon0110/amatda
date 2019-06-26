@@ -10,6 +10,8 @@ public interface DeclarationDao {
 
 	List<Declaration> declarationList(SqlSessionTemplate sqlSession);
 
+	int insertDeclaration(SqlSessionTemplate sqlSession, Declaration d);
+
 	//List<Declaration> declarationList(SqlSessionTemplate sqlSession, Declaration decl);
 
 }

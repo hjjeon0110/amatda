@@ -1,4 +1,4 @@
-package com.kh.amd.board.service;
+package com.kh.amd.board.model.service;
 
 import java.util.List;
 
@@ -23,6 +23,12 @@ public class DeclarationServiceImpl implements DeclarationService{
 		
 		return dd.declarationList(sqlSession);
 		
+	}
+
+	@Override
+	public int insertDeclaration(Declaration d) {
+	
+		return dd.insertDeclaration(sqlSession, d);
 	}
 
 	//신고 게시물 목록
