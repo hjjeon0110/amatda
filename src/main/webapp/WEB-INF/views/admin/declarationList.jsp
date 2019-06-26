@@ -121,8 +121,10 @@
 				<div
 					class="tm-bg-primary-dark tm-block tm-block-taller">
 					<h2 class="tm-block-title">신고게시판</h2>
-
+	
+					
 					<table class="table" id="declarationArea">
+					
 						<thead>
 							<tr>
 								<th scope="col">번호</th>
@@ -134,12 +136,13 @@
 
 						<tbody>
 
-							<c:forEach var="list" items="${ requestScope.list }">
+							<c:forEach var="declarationlist" items="${ requestScope.list }" varStatus="status">
 								<tr>
-									<th scope="row"><b>1</b></th>
-									<td>${ list.decl_title }</td>
-									<td>user01</td>
-									<td>2019-06-05</td>
+									<th scope="row"><b>${status.count }</b>
+									<input type="hidden" id="decl_no" value="${declarationlist.decl_no }"></th>
+									<td>${ declarationlist.decl_title }</td>
+									<td>${ declarationlist.member.userId }</td>
+									<td>${ declarationlist.write_date }</td>
 								</tr>
 							</c:forEach>
 
@@ -181,7 +184,7 @@
 						<c:if test="${pi.currentPage >= pi.maxPage }">
 			 		&nbsp; [다음]
 			 	</c:if>
-
+   
 						<c:if test="${pi.currentPage < pi.maxPage }">
 							<c:url var="blistEnd" value="selectList.bo">
 								<c:param name="currentPage" value="${pi.currentPage + 1 }" />
@@ -193,6 +196,9 @@
 					<script>
 					
 			$(function(){
+				
+				
+				
 				$("#declarationArea").find("td").mouseenter(function(){					
 					$(this).parents("tr").css({"background":"#f8585b","cursor":"pointer"});		
 				}).mouseout(function(){
@@ -201,7 +207,13 @@
 					/* var bid = $(this).parents().children("td").eq(0).text();
 					
 					location.href="selectOne.bo?bid="+ bid; */
-					location.href="declarationSelectOne.ad";
+				
+					/* var no=$("#decl_no").val();
+					console.log(no); */
+					
+					/* $(this).parents("tr").children("th").eq(1).val(); */
+					console.log($(this).parents("tr").children("th").children().eq(1).val());
+					/* location.href="declarationSelectOne.ad"; */
 				})
 				
 			})

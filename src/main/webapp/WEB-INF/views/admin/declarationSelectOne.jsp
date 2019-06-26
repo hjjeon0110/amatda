@@ -124,7 +124,7 @@
 					<table class="table" id="declarationArea">
 						<thead>
 							<tr>
-								<th scope="col">사용자 - 서비스불만</th>
+								<th scope="col">${ list.decl_category }-</th>
 								<th scope="col">트레이너 관리가 소홀합니다.</th>
 								<th scope="col">user01</th>
 								<th scope="col">2019-06-23</th>

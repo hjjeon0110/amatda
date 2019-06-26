@@ -1,4 +1,4 @@
-package com.kh.amd.board.service;
+package com.kh.amd.board.model.service;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
