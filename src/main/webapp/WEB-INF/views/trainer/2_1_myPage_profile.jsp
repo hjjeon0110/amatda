@@ -126,8 +126,8 @@
 				<table class="traineProfileTable" >
 					<tr>
 						<td rowspan="3" class="traineProfileTableTd1">
-							<div class="profileImgDiv"><img class="profileImg" src="${ contextPath }/resources/images/profileImg3.PNG"></div>
-							<button class="test" style="position:absolute;margin-top:-105px;margin-left:-21px;">사진 수정</button>
+							<div class="profileImgDiv"><img id="profileImg" src="${ contextPath }/resources/images/profileImg3.PNG"></div>
+							<button class="modifyProfileImgBtn">사진 수정</button>
 						    <form action="modifyProfileImg.tr" method="post" enctype="multipart/form-data">
 						    	<input type="file" class="modifyProfileImg" name="profileImgFile" onchange="loadProfileImg(this)">
 						        <input type="submit" class="modifyProfileImgSubmit" />
@@ -349,31 +349,31 @@
 		});
 		
 		// 프로필 사진 추가 -------------------------------------------------------------------------
-		$(".test").hide();
+		$(".modifyProfileImgBtn").hide();
 		
 		$(".profileImgDiv").mouseenter(function(){
-			$(".test").show();
+			$(".modifyProfileImgBtn").show();
 		}).mouseout(function() {
-			$(".test").hide();
+			$(".modifyProfileImgBtn").hide();
 		});  
 		
-		$(".test").mouseenter(function() {
-			$(".test").show();
+		$(".modifyProfileImgBtn").mouseenter(function() {
+			$(".modifyProfileImgBtn").show();
 		});
 		
 		$(".modifyProfileImg").hide();
 		$(".modifyProfileImgSubmit").hide();
 		
-		$(".test").click(function() {
+		$(".modifyProfileImgBtn").click(function() {
 			$(".modifyProfileImg").click();
-			//$(".modifyProfileImgSubmit").click();
+			$(".modifyProfileImgSubmit").click();
 		});
 		
 		function loadProfileImg(value) {
 			if(value.files && value.files[0]) {
 				var reader = new FileReader();
 				reader.onload = function(e) {
-					$(".profileImg").attr("src", e.target.result); 
+					$("#profileImg").attr("src", e.target.result); 
 				}
 				reader.readAsDataURL(value.files[0]);
 			}
