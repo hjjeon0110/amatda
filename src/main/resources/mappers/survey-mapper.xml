@@ -29,9 +29,9 @@
 	</resultMap>
 	
 	<!-- 첫번째 설문조사 -->
-	<insert id="insertSurvey1" parameterType="Survey">		
+	<insert id="insertSurvey1" parameterType="java.util.Map">		
 		INSERT INTO SURVEY (SURVEY_NO, HEIGHT, WEIGHT, HOPE_WEIGHT, UAGE, UNO)
-		VALUES (SURVEY_NO_SEQ.NEXTVAL, #{height}, #{weight}, #{hopeWeight}, #{uAge}, #{mNo})
+		VALUES (SURVEY_NO_SEQ.NEXTVAL, #{s.height}, #{s.weight}, #{s.hopeWeight}, #{s.uAge}, #{mno})
 	</insert>
 	
 	<!-- 두번째 설문조사 -->	
@@ -42,7 +42,7 @@
 			HOPE_METHOD = #{hopeMethod},
 			HOPE_GENDER = #{hopeGender},
 			HOPE_AGE = #{hopeAge}		
-		WHERE UNO = #{mNo}
+		WHERE UNO = #{uNo}
 	</update>
 	
 	<!-- 세번째 설문조사 -->	
@@ -57,7 +57,7 @@
 			DISEASE = #{disease},
 			DAY_TIME = #{dayTime},
 			ENROLL_DATE = sysdate			
-		WHERE UNO = #{mNo}
+		WHERE UNO = #{uNo}
 	</update>
 	
 	<!-- 설문조사 update -->
@@ -82,9 +82,17 @@
 			WEIGHT = #{weight},
 			HOPE_WEIGHT = #{hopeWeight},
 			UAGE = #{uAge}
-		WHERE UNO = #{mNo}
+		WHERE UNO = #{uNo}
 		
 	</update>
+	
+	<select id="listSurvey" resultMap="surveyResultSet">
+		SELECT *
+		FROM SURVEY, MEMBER
+		WHERE UNO = MNO
+		AND UNO = #{mNo}		
+
+	</select>
 	
 	
 	
