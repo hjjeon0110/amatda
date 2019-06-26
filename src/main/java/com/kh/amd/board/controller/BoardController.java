@@ -7,8 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.board.model.service.BoardService;
+import com.kh.amd.board.model.vo.Board;
+
 
 
 @Controller

@@ -4,29 +4,58 @@
 SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Declaration">
+	<resultMap id="member" type="com.kh.amd.member.model.vo.Member">
+		<id column="MNO" property="mno"/> <!-- DB 기본키 -->
+		<result column="NAME" property="name"/><!-- 일반컬럼 -->
+		<result column="ID" property="userId"/>
+		<result column="PWD" property="userPwd"/>
+		<result column="PHONE" property="phone"/>
+		<result column="GENDER" property="gender"/>
+		<result column="EMAIL" property="email"/>
+		<result column="MTYPE" property="mtype"/>
+		<result column="STATUS" property="status"/>
+		<result column="MATCH_TIME" property="matchTime"/>
+		<result column="EMAIL_YN" property="emailYn"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="COMPLETE_SURVEY" property="completeSurvey"/>
+	</resultMap>
 
-	<resultMap id="declarationResultSet" type="com.kh.amd.board.model.vo.Declaration">
-		<id column="DECLARE_NO" property="decl_no"/>
-		<result column="DECL_CATEGORY" property="decl_category"/>
-		<result column="DECL_CLASSIFICATION" property="decl_classification"/>
-		<result column="WRITER" property="writer"/>
-		<result column="TARGET" property="target"/>
-		<result column="DECL_TITLE" property="decl_title"/>
-		<result column="DECL_CONTENT" property="decl_content"/>
-		<result column="WRITE_DATE" property="write_date"/>
-		<result column="STATUS" property="status"/>	
+	<resultMap id="declarationResultSet"
+		type="com.kh.amd.board.model.vo.Declaration">
+		<id column="DECLARE_NO" property="decl_no" />
+		<result column="DECL_CATEGORY" property="decl_category" />
+		<result column="DECL_CLASSIFICATION"
+			property="decl_classification" />
+		<result column="WRITER" property="writer" />
+		<result column="TARGET" property="target" />
+		<result column="DECL_TITLE" property="decl_title" />
+		<result column="DECL_CONTENT" property="decl_content" />
+		<result column="WRITE_DATE" property="write_date" />
+		<result column="STATUS" property="status" />
+		<collection property="member" resultMap="member"/>		
 	</resultMap>
 
 	<select id="declarationList" resultMap="declarationResultSet">
-	SELECT * 
-	FROM DECLARATION
+		SELECT ROWNUM, D.*, M.ID
+		FROM DECLARATION D
+		JOIN MEMBER M ON(WRITER = MNO)
 	</select>
 	
+
+	<select id="declarationSelectOne" resultMap="declarationResultSet">
+		SELECT *
+		FROM DECLARATION
+		WHERE DECLARE_NO = #{decl_no}
+	</select>
+
+
 	<!-- 신고게시판 입력용(sr) -->
 	<insert id="insertDeclaration" parameterType="Declaration">
 	INSERT INTO DECLARATION(DECLARE_NO,DECL_CATEGORY,DECL_CLASSIFICATION,DECL_TITLE,DECL_CONTENT,WRITE_DATE,WRITER)
 	VALUES (DECL_SEQ.NEXTVAL,#{decl_category},#{decl_classification},#{decl_title},#{decl_content},sysdate,#{writer})
 	</insert>
 	
+
 </mapper>
 
