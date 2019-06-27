@@ -233,15 +233,30 @@ td {
 			});
 		});
 		
-		//신체부위
-		$(function(){
+		 //신체부위
+		/* $(function(){
+			var i
 			$("input:checkbox[name='hopeBody']").each(function(){
 				if($(this).val() == "${requestScope.list[0].hopeBody}"){
 					console.log("오키");
 					$(this).attr("checked", true);
 				}
 			});
+		});  */
+		
+		//신체부위
+		$(function(){
+			var i = 0;
+			
+			$("input[name='hopeBody']").each(function(){
+				if($(this).val() == "${requestScope.list[i].hopeBody}"){
+					console.log("오키~");
+					$(this).attr("checked", true);
+				}
+				i++;
+			});
 		});
+				
 		
 		//선호하는 다이어트 방법
 		$(function(){				

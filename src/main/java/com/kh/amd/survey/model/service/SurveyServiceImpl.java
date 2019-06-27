@@ -28,22 +28,22 @@ public class SurveyServiceImpl implements SurveyService{
 	}
 
 	@Override
-	public int insertSurvey2(Survey s) {
+	public int insertSurvey2(Survey s, String mno) {
 		
-		return sd.insertSurvey2(sqlSession, s);
+		return sd.insertSurvey2(sqlSession, s, mno);
 		
 	}
 
 	@Override
-	public int insertSurvey3(Survey s) {
+	public int insertSurvey3(Survey s, String mno) {
 		
-		return sd.insertSurvey3(sqlSession, s);
+		return sd.insertSurvey3(sqlSession, s, mno);
 	}
 
 	@Override
-	public int updateSurvey(Survey s) {
+	public int updateSurvey(Survey s, String mno) {
 		
-		return sd.updateSurvey(sqlSession, s);
+		return sd.updateSurvey(sqlSession, s, mno);
 	}
 
 	@Override

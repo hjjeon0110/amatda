@@ -37,52 +37,52 @@
 	<!-- 두번째 설문조사 -->	
 	<update id="insertSurvey2" parameterType="Survey">
 		UPDATE SURVEY
-		SET HOPE_PERIOD = #{hopePeriod},
-			HOPE_BODY = #{hopeBody},
-			HOPE_METHOD = #{hopeMethod},
-			HOPE_GENDER = #{hopeGender},
-			HOPE_AGE = #{hopeAge}		
-		WHERE UNO = #{uNo}
+		SET HOPE_PERIOD = #{s.hopePeriod},
+			HOPE_BODY = #{s.hopeBody},
+			HOPE_METHOD = #{s.hopeMethod},
+			HOPE_GENDER = #{s.hopeGender},
+			HOPE_AGE = #{s.hopeAge}		
+		WHERE UNO = #{mno}
 	</update>
 	
 	<!-- 세번째 설문조사 -->	
 	<update id="insertSurvey3" parameterType="Survey">
 		UPDATE SURVEY
-		SET DIET_FAIL = #{dietFail},
-			HOPE_START = #{hopeStart},
-			DIET_REASON = #{dietReason},
-			HOPE_EXERCISE = #{hopeExercise},
-			DAT_EXERCISE = #{datExercise},
-			DAT_FOOD = #{datFood},
-			DISEASE = #{disease},
-			DAY_TIME = #{dayTime},
+		SET DIET_FAIL = #{s.dietFail},
+			HOPE_START = #{s.hopeStart},
+			DIET_REASON = #{s.dietReason},
+			HOPE_EXERCISE = #{s.hopeExercise},
+			DAT_EXERCISE = #{s.datExercise},
+			DAT_FOOD = #{s.datFood},
+			DISEASE = #{s.disease},
+			DAY_TIME = #{s.dayTime},
 			ENROLL_DATE = sysdate			
-		WHERE UNO = #{uNo}
+		WHERE UNO = #{mno}
 	</update>
 	
 	<!-- 설문조사 update -->
 	<update id="updateSurvey" parameterType="Survey">
 		UPDATE SURVEY
 		SET 
-			HOPE_PERIOD = #{hopePeriod},
-			HOPE_BODY = #{hopeBody},
-			HOPE_METHOD = #{hopeMethod},
-			HOPE_GENDER = #{hopeGender},
-			HOPE_AGE = #{hopeAge},
-			DIET_FAIL = #{dietFail},
-			HOPE_START = #{hopeStart},
-			DIET_REASON = #{dietReason},
-			HOPE_EXERCISE = #{hopeExercise},
-			DAT_EXERCISE = #{datExercise},
-			DAT_FOOD = #{datFood},
-			DISEASE = #{disease},
-			DAY_TIME = #{dayTime},			
+			HOPE_PERIOD = #{s.hopePeriod},
+			HOPE_BODY = #{s.hopeBody},
+			HOPE_METHOD = #{s.hopeMethod},
+			HOPE_GENDER = #{s.hopeGender},
+			HOPE_AGE = #{s.hopeAge},
+			DIET_FAIL = #{s.dietFail},
+			HOPE_START = #{s.hopeStart},
+			DIET_REASON = #{s.dietReason},
+			HOPE_EXERCISE = #{s.hopeExercise},
+			DAT_EXERCISE = #{s.datExercise},
+			DAT_FOOD = #{s.datFood},
+			DISEASE = #{s.disease},
+			DAY_TIME = #{s.dayTime},			
 			MODIFY_DATE = sysdate,
-			HEIGHT = #{height},
-			WEIGHT = #{weight},
-			HOPE_WEIGHT = #{hopeWeight},
-			UAGE = #{uAge}
-		WHERE UNO = #{uNo}
+			HEIGHT = #{s.height},
+			WEIGHT = #{s.weight},
+			HOPE_WEIGHT = #{s.hopeWeight},
+			UAGE = #{s.uAge}
+		WHERE UNO = #{mno}
 		
 	</update>
 	
@@ -90,7 +90,7 @@
 		SELECT *
 		FROM SURVEY, MEMBER
 		WHERE UNO = MNO
-		AND UNO = #{mNo}		
+		AND UNO = #{mno}		
 
 	</select>
 	
