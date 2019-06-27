@@ -353,8 +353,11 @@
 }
 
 .modalMenubar td {
-	width:25%;
-	border:1px solid white;
+	width:20%;
+	padding-top:15px;
+	padding-bottom:15px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:14px;
 }
 
 

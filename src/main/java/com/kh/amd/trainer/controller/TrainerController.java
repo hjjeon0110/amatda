@@ -36,13 +36,16 @@ public class TrainerController {
 	@Autowired
 	private TrainerService ts;
 
-	// 회원 찾기 페이지 이동 (전효정)
+	
+	// 회원 찾기 페이지 이동 (전효정) ---------------------------------------------------------------------------------------------------------------------------------------------
+
 	@RequestMapping("showUserFindPageView.tr")
 	public String showUserFindPageView() {
 		return "trainer/1_userFindPage";
 	}
 
-	// 트레이너 마이페이지_프로필관리 이동 (전효정)
+	
+	// 트레이너 마이페이지_프로필관리 이동 (전효정) ------------------------------------------------------------------------------------------------------------------------------------
 	@RequestMapping("showMyPageProfile.tr")
 	public String showTrainerMyPageProfileView(Model model, int mno) {
 
@@ -52,120 +55,98 @@ public class TrainerController {
 
 		// 프로필 사진 존재 여부 확인 (전효정)
 		Attachment attachment = ts.checkProfileImg(mno);
-		model.addAttribute("attachment", attachment);
-		String pic = attachment.getModiName() + ".jpg";
-		model.addAttribute("pic", pic);
+		System.out.println(attachment);
+		
+		if(attachment != null) {
+			model.addAttribute("attachment", attachment);
+			String pic = attachment.getModiName() + attachment.getExtension();
+			model.addAttribute("pic", pic);		
+		}else {
+			model.addAttribute("attachment", attachment);
+		}
 
 		return "trainer/2_1_myPage_profile";
 
 	}
 
-	// 트레이너 마이페이지_프로필관리 이동 (전효정)
+	// 트레이너 마이페이지_프로필관리 이동 (전효정) ------------------------------------------------------------------------------------------------------------------------------------
 	@RequestMapping("showMyPageProfile2.tr")
 	public String showTrainerMyPageProfileView2(Model model, int mno) {
 
 		// 프로필 작성 여부 확인 메소드 (전효정)
 		Profile profile = ts.checkProfile(mno);
 		model.addAttribute("profile", profile);
-
+		
 		// 프로필 사진 존재 여부 확인 (전효정)
 		Attachment attachment = ts.checkProfileImg(mno);
 		model.addAttribute("attachment", attachment);
-		String pic = attachment.getModiName() + ".jpg";
-		model.addAttribute("pic", pic);
+		String pic = attachment.getModiName() + attachment.getExtension();
+		model.addAttribute("pic", pic);			
 
 		return "trainer/2_1_myPage_profile";
 
 	}
 
-	// 프로필 사진 변경 (전효정)
-	@RequestMapping("modifyProfileImg1.tr")
-	public void modifyProfileImg1(Model model, Member m, HttpServletRequest request,
-			@RequestParam(name = "profileImgFile", required = false) MultipartFile profileImgFile) {
-		System.out.println("인서트 = 버튼 실행");
+	
+	// 프로필 사진 추가 (전효정) ------------------------------------------------------------------------------------------------------------------------------------
+	@RequestMapping("insertProfileImg.tr")
+	public String modifyProfileImg1(Model model, Member m, HttpServletRequest request, @RequestParam(name="profileImgFile", required=false) MultipartFile profileImgFile) {
 
 		String mno = request.getParameter("mno");
-
+		String root = request.getSession().getServletContext().getRealPath("resources");
 		String filePath = root + "\\uploadFiles";
 
 		// 파일 이름 변경
 		String originalFilename = profileImgFile.getOriginalFilename();
-		String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); // 확장자명 따로 저장
+		String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
 		String changeName = CommonUtils.getRandomString();
 
 		try {
 
 			profileImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
-
-			ts.insertProfileImg(mno, filePath, originalFilename, changeName);
+			
+			ts.insertProfileImg(mno, filePath, originalFilename, changeName, ext);
+			
+			int mno2 = Integer.parseInt(mno);
+						
+			// 프로필 작성 여부 확인 메소드 (전효정)
+			Profile profile = ts.checkProfile(mno2);
+			model.addAttribute("profile", profile);
+			
+			// 프로필 사진 존재 여부 확인 (전효정)
+			Attachment attachment = ts.checkProfileImg(mno2);
+			model.addAttribute("attachment", attachment);
+			String pic = attachment.getModiName() + attachment.getExtension();
+			model.addAttribute("pic", pic);		
 
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 			System.out.println("에러발생");
 		}
 
+		return "trainer/2_1_myPage_profile";
+		
 	}
-
-	// 프로필 사진 변경 (전효정)
-
-	/*
-	 * @RequestMapping("modifyProfileImg2.tr") public void modifyProfileImg2(Model
-	 * model, Member m, HttpServletRequest
-	 * request, @RequestParam(name="profileImgFile", required=false) MultipartFile
-	 * profileImgFile) { System.out.println("업데이트 폼 실행");
-	 * 
-	 * String mno = request.getParameter("mno");
-	 * 
-	 * String root =
-	 * request.getSession().getServletContext().getRealPath("resources");
-	 * 
-	 * String filePath = root + "\\uploadFiles";
-	 * 
-	 * // 파일 이름 변경 String originalFilename = profileImgFile.getOriginalFilename();
-	 * String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
-	 * // 확장자명 따로 저장 String changeName = CommonUtils.getRandomString();
-	 * 
-	 * try {
-	 * 
-	 * profileImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
-	 * 
-	 * 
-	 * ts.modifyProfileImg(mno, filePath, originalFilename, changeName);
-	 * 
-	 * 
-	 * } catch (IllegalStateException | IOException e) { e.printStackTrace();
-	 * System.out.println("에러발생"); }
-	 * 
-	 * String path = "trainer/2_1_myPage_profile" + "?mno=" + mno;
-	 * 
-	 * System.out.println("보내줄 경로 : " + path);
-	 * 
-	 * //return "trainer/2_1_myPage_profile";
-	 * 
-	 * }
-	 */
-
-	@RequestMapping("modifyProfileImg2.tr")
-	public String modifyProfileImg2(Model model, Member m, HttpServletRequest request,
-			@RequestParam(name = "profileImgFile", required = false) MultipartFile profileImgFile) {
-		System.out.println("업데이트 폼 실행");
-
+	
+	// 프로필 사진 수정 (전효정) ------------------------------------------------------------------------------------------------------------------------------------
+	@RequestMapping("modifyProfileImg.tr")
+	public String modifyProfileImg2(Model model, Member m, HttpServletRequest request, @RequestParam(name="profileImgFile", required=false) MultipartFile profileImgFile) {
+		
 		String mno = request.getParameter("mno");
-
 		String root = request.getSession().getServletContext().getRealPath("resources");
 
 		String filePath = root + "\\uploadFiles";
 
 		// 파일 이름 변경
 		String originalFilename = profileImgFile.getOriginalFilename();
-		String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); // 확장자명 따로 저장
+		String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
 		String changeName = CommonUtils.getRandomString();
 
 		try {
 
 			profileImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
-
-			ts.modifyProfileImg(mno, filePath, originalFilename, changeName);
+		
+			ts.modifyProfileImg(mno, filePath, originalFilename, changeName, ext);
 
 			int mno2 = Integer.parseInt(mno);
 
@@ -176,8 +157,8 @@ public class TrainerController {
 			// 프로필 사진 존재 여부 확인 (전효정)
 			Attachment attachment = ts.checkProfileImg(mno2);
 			model.addAttribute("attachment", attachment);
-			String pic = attachment.getModiName() + ".jpg";
-			model.addAttribute("pic", pic);
+			String pic = attachment.getModiName() + attachment.getExtension();
+			model.addAttribute("pic", pic);			
 
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
@@ -187,31 +168,7 @@ public class TrainerController {
 		return "trainer/2_1_myPage_profile";
 	}
 
-	
-	/*
-	 * @RequestMapping("ajaxshowMyPageEstimate.tr") public ModelAndView
-	 * ajaxshowMyPageEstimate(ModelAndView mv, int mno, String estType) {
-	 * 
-	 * int iestType = Integer.parseInt(estType); Estimate estimate =
-	 * ts.selectEstimate(mno, iestType);
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * System.out.println("받아온 estimate객체 : " + estimate);
-	 * 
-	 * 
-	 * mv.addObject("estimate", estimate); mv.setViewName("jsonView");
-	 * 
-	 * return mv;
-	 * 
-	 * 
-	 * }
-	 */
-	 
-	
-	
+
 	/*
 	 * @RequestMapping(value = "ajaxshowMyPageEstimate.tr") public void
 	 * ajaxshowMyPageEstimate(HttpServletResponse response, int mno, String estType)
@@ -233,6 +190,7 @@ public class TrainerController {
 	 * 
 	 * }
 	 */
+  
 	@RequestMapping("ajaxshowMyPageEstimate.tr")
 	public void ajaxshowMyPageEstimate(HttpServletResponse response, int mno, String estType) {
 		int iestType = Integer.parseInt(estType); 
@@ -241,7 +199,6 @@ public class TrainerController {
 		
 		JSONObject estiMateJson = new JSONObject();
 		
-
 		try {
 			String EncodeestContents = URLEncoder.encode(estimate.getEstContents(), "UTF-8");
 			String EncodeestContent = EncodeestContents.replaceAll("\\+", "%20");

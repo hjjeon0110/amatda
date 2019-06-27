@@ -39,6 +39,7 @@
 	<result property="link" column="LINK"/>
 	<result property="oriName" column="ORI_NAME"/>
 	<result property="modiName" column="MODI_NAME"/>
+	<result property="extension" column="EXTENSION"/>
 	<result property="fileLevel" column="FILE_LEVEL"/>
 	<result property="uploadDate" column="UPLOAD_DATE"/>
 	<result property="aType" column="ATYPE"/>
@@ -70,18 +71,18 @@
    
    <!-- 프로필 이미지 존재 여부 확인 (전효정) -->
    <select id="checkProfileImg" resultMap="attachmentResultSet" parameterType="Attachment">
-   		SELECT FILE_NO, PNO, ORI_NAME, MODI_NAME, FILE_LEVEL, UPLOAD_DATE, A_STATUS, FILE_PATH  FROM ATTACHMENT WHERE PNO IN (#{mno}) 
+   		SELECT FILE_NO, PNO, ORI_NAME, MODI_NAME, EXTENSION, FILE_LEVEL, UPLOAD_DATE, A_STATUS, FILE_PATH  FROM ATTACHMENT WHERE PNO IN (#{mno}) 
    </select>
    
    <!-- 프로필 사진 insert (전효정) -->
    <insert id="insertProfileImg" parameterType="Attachment">
-   		INSERT INTO ATTACHMENT VALUES(FILE_SEQ.NEXTVAL, NULL, #{mno}, NULL, #{originalFilename}, #{changeName}, 0, SYSDATE, 0, 'Y', #{filePath})
+   		INSERT INTO ATTACHMENT VALUES(FILE_SEQ.NEXTVAL, NULL, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 0, 'Y', #{filePath})
    </insert>
    
    <!-- 프로필 사진 수정 (전효정) -->
    <update id="modifyProfileImg" parameterType="Attachment">
-   		UPDATE ATTACHMENT SET ORI_NAME = #{originalFilename}, MODI_NAME = #{changeName}, FILE_PATH = #{filePath}, UPLOAD_DATE = SYSDATE
-   	</update>
+   		UPDATE ATTACHMENT SET ORI_NAME = #{originalFilename}, MODI_NAME = #{changeName}, EXTENSION = #{ext}, FILE_PATH = #{filePath}, UPLOAD_DATE = SYSDATE
+   </update>
 
 
    <insert id="insertEstimate" parameterType="Estimate">

@@ -34,9 +34,27 @@
 				<table class="traineProfileTable" >
 					<tr>
 						<td rowspan="3" class="traineProfileTableTd1">
-							<div class="profileImgDiv">
-								<img class="profileImg" src="${ contextPath }/resources/images/profileImg3.PNG">
-							</div>
+							<!-- 프로필 사진이 null일 때 ----------------------------------------------------------------------------------------------------- -->
+							<c:if test="${ empty attachment }">
+								<div class="profileImgDiv"><img id="profileImg" src="${contextPath}/resources/images/profileImg3.PNG"></div>
+								<button class="modifyProfileImgBtn">사진 추가</button>
+							    <form action="insertProfileImg.tr" method="post" enctype="multipart/form-data">
+							    	<input type="file" class="modifyProfileImg" name="profileImgFile" onchange="loadProfileImg(this)">
+							    	<input type="hidden" name="mno" value="${ sessionScope.loginUser.mno }"/>
+							        <input type="submit" class="modifyProfileImgSubmit" />
+							    </form>
+							</c:if>
+						    
+						    <!-- 프로필 사진이 null아닐 때 ---------------------------------------------------------------------------------------------------- -->
+						    <c:if test="${ !empty attachment }">
+							    <div class="profileImgDiv"><img id="profileImg" src="${contextPath}/resources/uploadFiles/${ pic }"></div>
+								<button class="modifyProfileImgBtn">사진 수정</button>
+							    <form action="modifyProfileImg.tr" method="post" enctype="multipart/form-data">
+							    	<input type="file" class="modifyProfileImg" name="profileImgFile" onchange="loadProfileImg(this)">
+							    	<input type="hidden" name="mno" value="${ sessionScope.loginUser.mno }"/>
+							        <input type="submit" class="modifyProfileImgSubmit" />
+							    </form>
+						    </c:if>
 						</td>
 						<td class="traineProfileTableTd2"><br>
 							<label class="traineProfileTableTd2Label">${ sessionScope.loginUser.name } 트레이너님의 프로필</label>
@@ -130,7 +148,7 @@
 							<c:if test="${ empty attachment }">
 								<div class="profileImgDiv"><img id="profileImg" src="${contextPath}/resources/images/profileImg3.PNG"></div>
 								<button class="modifyProfileImgBtn">사진 추가</button>
-							    <form action="modifyProfileImg1.tr" method="post" enctype="multipart/form-data">
+							    <form action="insertProfileImg.tr" method="post" enctype="multipart/form-data">
 							    	<input type="file" class="modifyProfileImg" name="profileImgFile" onchange="loadProfileImg(this)">
 							    	<input type="hidden" name="mno" value="${ sessionScope.loginUser.mno }"/>
 							        <input type="submit" class="modifyProfileImgSubmit" />
@@ -141,7 +159,7 @@
 						    <c:if test="${ !empty attachment }">
 							    <div class="profileImgDiv"><img id="profileImg" src="${contextPath}/resources/uploadFiles/${ pic }"></div>
 								<button class="modifyProfileImgBtn">사진 수정</button>
-							    <form action="modifyProfileImg2.tr" method="post" enctype="multipart/form-data">
+							    <form action="modifyProfileImg.tr" method="post" enctype="multipart/form-data">
 							    	<input type="file" class="modifyProfileImg" name="profileImgFile" onchange="loadProfileImg(this)">
 							    	<input type="hidden" name="mno" value="${ sessionScope.loginUser.mno }"/>
 							        <input type="submit" class="modifyProfileImgSubmit" />
@@ -293,14 +311,20 @@
 					<table class="modalMenubar">
 						<thead>
 							<tr>
-								<td><br><br></td>
-								<td><br><br></td>
-								<td><br><br></td>
-								<td><br><br></td>
+								<!-- <td><i class="fa fa-id-card fa-3x"></i></td>
+								<td><i class="fa fa-image fa-3x"></i></td>
+								<td><i class="fa fa-hashtag fa-3x"></i></td>
+								<td><i class="fa fa-running fa-2x"></i></td>
+								<td><i class="fa fa-certificate fa-3x"></i></td> -->
+								<td class="modalMenubarTd1">내 정보</td>
+								<td class="modalMenubarTd1">미디어</td>
+								<td class="modalMenubarTd1">키워드</td>
+								<td class="modalMenubarTd1">소개</td>
+								<td class="modalMenubarTd1">자격증</td>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+							<!-- <tr>
 								<td colspan="4">
 								<br>
 									<label class="modalHeader">내 정보 수정하기</label>
@@ -312,7 +336,7 @@
 									<br><br><br><br><br>
 									<br><br><br><br><br>
 								</td>
-							</tr>
+							</tr> -->
 						</tbody>
 					</table>
 					
@@ -400,6 +424,12 @@
 				
 			}
 		} 
+		
+		// 모달 메뉴 1 - 내 정보 수정하기
+		$(".modalMenubarTd1").click(function() {
+			$(".modalMenubar tbody").css("background:red, color:white");
+			$(".modalMenubar tbody").append("성공");
+		});
 		
 		
 

@@ -269,32 +269,33 @@
 				</div>
 				<!-- END menu-toggle -->
 
-				<div class="collapse navbar-collapse" id="templateux-navbar-nav">
-					<ul class="menubarLi">
-						<li class="menubarLi1"><a class="menubarLi1"
-							href="showUserFindPageView.tr">회원 찾기</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<li class="menubarLi2"><a class="menubarLi2"
-							href="showMyPageProfile.tr?mno=${sessionScope.loginUser.mno}">MY PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<li class="menubarLi3"><a class="menubarLi3"
-							href="showMatchingInProgressPage.tr">PT 관리</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					</ul>
-					<div class="as">
-					<div class="dropdown">
-						<button class="btn btn-secondary dropdown-toggle" type="button"
-							id="dropdownMenuButton" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">${ sessionScope.loginUser.name } 트레이너님</button>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<a class="dropdown-item" href="#">공개설정</a><p class="table-on-off">
-  <input type="checkbox" id="switch" checked switch="none" />
-  <label for="switch"></label>
-</p> <a
-								class="dropdown-item" href="selectNotice.bo">고객센터</a> <a class="dropdown-item"
-								href="logout.me">로그아웃</a>
+					<div class="collapse navbar-collapse" id="templateux-navbar-nav">
+						<ul class="menubarLi">
+							<li class="menubarLi1"><a class="menubarLi1" href="showUserFindPageView.tr">회원 찾기</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li class="menubarLi2"><a class="menubarLi2" href="showMyPageProfile.tr?mno=${sessionScope.loginUser.mno}">MY PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li class="menubarLi3"><a class="menubarLi3" href="showMatchingInProgressPage.tr">PT 관리</a></li>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li class="menuberLi4">[ 멤버십 이름 ] 남은 횟수</li>
+						</ul>
+						
+						<div class="as">
+							<div class="dropdown">
+								<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">${ sessionScope.loginUser.name } 트레이너님</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<a class="dropdown-item" href="#">공개설정</a>
+									<p class="table-on-off">
+										<input type="checkbox" id="switch" checked switch="none" />
+											<label for="switch"></label>
+									</p>
+									<a class="dropdown-item" href="selectNotice.bo">고객센터</a> 
+									<a class="dropdown-item" href="logout.me">로그아웃</a>
+								</div>
+							</div>
 						</div>
 					</div>
-					</div>
 				</div>
-			</div>
 		</nav>
 
 		<!-- 		
