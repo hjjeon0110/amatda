@@ -204,16 +204,11 @@
 				}).mouseout(function(){
 					$(this).parents("tr").css({"background":"#567086"});
 				}).click(function(){
-					/* var bid = $(this).parents().children("td").eq(0).text();
+	
+					var no = $(this).parents("tr").children("th").children().eq(1).val();
+					//console.log(no);
 					
-					location.href="selectOne.bo?bid="+ bid; */
-				
-					/* var no=$("#decl_no").val();
-					console.log(no); */
-					
-					/* $(this).parents("tr").children("th").eq(1).val(); */
-					console.log($(this).parents("tr").children("th").children().eq(1).val());
-					/* location.href="declarationSelectOne.ad"; */
+					location.href="declarationSelectOne.ad?decl_no=" + no;
 				})
 				
 			})
