@@ -126,12 +126,28 @@
 				<table class="traineProfileTable" >
 					<tr>
 						<td rowspan="3" class="traineProfileTableTd1">
-							<div class="profileImgDiv"><img id="profileImg" src="${ contextPath }/resources/images/profileImg3.PNG"></div>
-							<button class="modifyProfileImgBtn">사진 수정</button>
-						    <form action="modifyProfileImg.tr" method="post" enctype="multipart/form-data">
-						    	<input type="file" class="modifyProfileImg" name="profileImgFile" onchange="loadProfileImg(this)">
-						        <input type="submit" class="modifyProfileImgSubmit" />
-						    </form>
+							<!-- 프로필 사진이 null일 때 ----------------------------------------------------------------------------------------------------- -->
+							<c:if test="${ empty attachment }">
+								<div class="profileImgDiv"><img id="profileImg" src="${contextPath}/resources/images/profileImg3.PNG"></div>
+								<button class="modifyProfileImgBtn">사진 추가</button>
+							    <form action="modifyProfileImg1.tr" method="post" enctype="multipart/form-data">
+							    	<input type="file" class="modifyProfileImg" name="profileImgFile" onchange="loadProfileImg(this)">
+							    	<input type="hidden" name="mno" value="${ sessionScope.loginUser.mno }"/>
+							        <input type="submit" class="modifyProfileImgSubmit" />
+							    </form>
+							</c:if>
+						    
+						    <!-- 프로필 사진이 null아닐 때 ---------------------------------------------------------------------------------------------------- -->
+						    <c:if test="${ !empty attachment }">
+							    <div class="profileImgDiv"><img id="profileImg" src="${contextPath}/resources/uploadFiles/${ pic }"></div>
+								<button class="modifyProfileImgBtn">사진 수정</button>
+							    <form action="modifyProfileImg2.tr" method="post" enctype="multipart/form-data">
+							    	<input type="file" class="modifyProfileImg" name="profileImgFile" onchange="loadProfileImg(this)">
+							    	<input type="hidden" name="mno" value="${ sessionScope.loginUser.mno }"/>
+							        <input type="submit" class="modifyProfileImgSubmit" />
+							    </form>
+						    </c:if>
+						    
 						</td>
 						<td class="traineProfileTableTd2"><br>
 							<c:if test="${ empty profile.proTitle }">
@@ -365,7 +381,12 @@
 		$(".modifyProfileImgSubmit").hide();
 		
 		$(".modifyProfileImgBtn").click(function() {
+			
 			$(".modifyProfileImg").click();
+			//$(".modifyProfileImgSubmit").click();
+		});
+		
+		$(".modifyProfileImg").on("change", function() {
 			$(".modifyProfileImgSubmit").click();
 		});
 		
@@ -376,6 +397,7 @@
 					$("#profileImg").attr("src", e.target.result); 
 				}
 				reader.readAsDataURL(value.files[0]);
+				
 			}
 		} 
 		

@@ -1,6 +1,7 @@
 package com.kh.amd.trainer.controller;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,11 +14,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.common.CommonUtils;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.service.TrainerService;
 import com.kh.amd.trainer.model.vo.Estimate;
 import com.kh.amd.trainer.model.vo.Profile;
-
 
 @SessionAttributes("loginUser")
 @Controller
@@ -37,11 +39,14 @@ public class TrainerController {
 	public String showTrainerMyPageProfileView(Model model, int mno) {
 		
 		// 프로필 작성 여부 확인 메소드 (전효정)
-		Profile profile;
-		
-		profile = ts.checkProfile(mno);
-				
+		Profile profile = ts.checkProfile(mno);
 		model.addAttribute("profile", profile);
+		
+		// 프로필 사진 존재 여부 확인 (전효정)
+		Attachment attachment = ts.checkProfileImg(mno);
+		model.addAttribute("attachment", attachment);
+		String pic = attachment.getModiName() + ".jpg";
+		model.addAttribute("pic", pic);		
 		
 		return "trainer/2_1_myPage_profile";
 		
@@ -51,81 +56,137 @@ public class TrainerController {
 	@RequestMapping("showMyPageProfile2.tr")
 	public String showTrainerMyPageProfileView2(Model model, int mno) {
 		
-		Profile profile;
-		
-		profile = ts.checkProfile(mno);
+		// 프로필 작성 여부 확인 메소드 (전효정)
+				Profile profile = ts.checkProfile(mno);
+				model.addAttribute("profile", profile);
 				
-		model.addAttribute("profile", profile);
+				// 프로필 사진 존재 여부 확인 (전효정)
+				Attachment attachment = ts.checkProfileImg(mno);
+				model.addAttribute("attachment", attachment);
+				String pic = attachment.getModiName() + ".jpg";
+				model.addAttribute("pic", pic);		
 		
 		return "trainer/2_1_myPage_profile";
 		
 	}
 	
+	// 프로필 사진 변경 (전효정)
+	@RequestMapping("modifyProfileImg1.tr")
+	public void modifyProfileImg1(Model model, Member m, HttpServletRequest request, @RequestParam(name="profileImgFile", required=false) MultipartFile profileImgFile) {
+		System.out.println("인서트 = 버튼 실행");
+
+		String mno = request.getParameter("mno");
+
+
+		String filePath = root + "\\uploadFiles";
+				
+		// 파일 이름 변경
+		String originalFilename = profileImgFile.getOriginalFilename();
+		String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); // 확장자명 따로 저장
+		String changeName = CommonUtils.getRandomString();
+		
+		try {
+			
+			profileImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
+			
+			ts.insertProfileImg(mno, filePath, originalFilename, changeName);
+
+			
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+			System.out.println("에러발생");
+		}
+		
+		
+	}
+	
+	
+	// 프로필 사진 변경 (전효정)
+	
 	/*
-	 * // 프로필 사진 변경 (전효정)
-	 * 
-	 * @RequestMapping("modifyProfileImg.tr") public void modifyProfileImg(Model
+	 * @RequestMapping("modifyProfileImg2.tr") public void modifyProfileImg2(Model
 	 * model, Member m, HttpServletRequest
 	 * request, @RequestParam(name="profileImgFile", required=false) MultipartFile
-	 * profileImgFile) {
+	 * profileImgFile) { System.out.println("업데이트 폼 실행");
 	 * 
-	 * System.out.println("profileImgFile : " + profileImgFile);
-	 * System.out.println("Member : " + m);
+	 * String mno = request.getParameter("mno");
 	 * 
 	 * String root =
 	 * request.getSession().getServletContext().getRealPath("resources");
 	 * 
 	 * String filePath = root + "\\uploadFiles";
 	 * 
-	 * System.out.println("filePath : " + filePath);
-	 * 
 	 * // 파일 이름 변경 String originalFilename = profileImgFile.getOriginalFilename();
 	 * String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
 	 * // 확장자명 따로 저장 String changeName = CommonUtils.getRandomString();
 	 * 
-	 * try { profileImgFile.transferTo(new File(filePath + "\\" + changeName +
-	 * ext));
+	 * try {
+	 * 
+	 * profileImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
 	 * 
 	 * 
-	 * ms.insertMember(m);
-	 * 
-	 * return "redirect:index.jsp";
-	 * 
-	 * } catch (Exception e) {
-	 * 
-	 * // 실패 시 파일 삭제 처리 new File(filePath + "\\" + changeName + ext).delete();
-	 * 
-	 * model.addAttribute("msg", "회원가입 실패!");
-	 * 
-	 * return "common/errorPage";
-	 * 
-	 * }
+	 * ts.modifyProfileImg(mno, filePath, originalFilename, changeName);
 	 * 
 	 * 
+	 * } catch (IllegalStateException | IOException e) { e.printStackTrace();
+	 * System.out.println("에러발생"); }
 	 * 
+	 * String path = "trainer/2_1_myPage_profile" + "?mno=" + mno;
 	 * 
+	 * System.out.println("보내줄 경로 : " + path);
+	 * 
+	 * //return "trainer/2_1_myPage_profile";
 	 * 
 	 * }
 	 */
+	 
 	
-	
-	// 트레이너 마이페이지_견적서관리 이동 (김진환)
-	@RequestMapping("showMyPageEstimate.tr")
-	public String showTrainerMyPageEstimateView(Model model, int mno, String estType) {
+	@RequestMapping("modifyProfileImg2.tr")
+	public String modifyProfileImg2(Model model, Member m, HttpServletRequest request, @RequestParam(name="profileImgFile", required=false) MultipartFile profileImgFile) {
+		System.out.println("업데이트 폼 실행");
 		
-		int iestType = Integer.parseInt(estType);
-		
-		Estimate estimate = ts.selectEstimate(mno, iestType);
+		String mno = request.getParameter("mno");
 		
 		
-		System.out.println("받아온 iestType의 값? " + iestType);
-		System.out.println("받아온 estimate객체 : " + estimate);
-	
-		model.addAttribute("estimate", estimate);
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		
+		String filePath = root + "\\uploadFiles";
+				
+		// 파일 이름 변경
+		String originalFilename = profileImgFile.getOriginalFilename();
+		String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); // 확장자명 따로 저장
+		String changeName = CommonUtils.getRandomString();
+		
+		try {
 			
-		return "trainer/2_2_myPage_estimate";
+			profileImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
+			
+
+			ts.modifyProfileImg(mno, filePath, originalFilename, changeName);
+			
+			int mno2 = Integer.parseInt(mno);
+			
+			// 프로필 작성 여부 확인 메소드 (전효정)
+			Profile profile = ts.checkProfile(mno2);
+			model.addAttribute("profile", profile);
+			
+			// 프로필 사진 존재 여부 확인 (전효정)
+			Attachment attachment = ts.checkProfileImg(mno2);
+			model.addAttribute("attachment", attachment);
+			String pic = attachment.getModiName() + ".jpg";
+			model.addAttribute("pic", pic);	
+							
+			
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+			System.out.println("에러발생");
+		}
 		
-	}
+		return "trainer/2_1_myPage_profile";
+  }
+
+		
+	
 	
 	@RequestMapping("ajaxshowMyPageEstimate.tr")
 	public ModelAndView ajaxshowMyPageEstimate(ModelAndView mv, int mno, String estType) {
@@ -143,6 +204,7 @@ public class TrainerController {
 		mv.setViewName("jsonView");
 		
 		return mv;
+
 	}
 	
 	// 트레이너 견적서 삽입 서블릿(김진환)
@@ -169,6 +231,24 @@ public class TrainerController {
 		
 		return "trainer/2_2_myPage_estimate";
 		
+		
+	}
+    
+    	// 트레이너 마이페이지_견적서관리 이동 (김진환)
+	@RequestMapping("showMyPageEstimate.tr")
+	public String showTrainerMyPageEstimateView(Model model, int mno, String estType) {
+		
+		int iestType = Integer.parseInt(estType);
+
+		
+		Estimate estimate = ts.selectEstimate(mno, iestType);
+    
+    	System.out.println("받아온 iestType의 값? " + iestType);
+		System.out.println("받아온 estimate객체 : " + estimate);
+	
+		model.addAttribute("estimate", estimate);
+			
+		return "trainer/2_2_myPage_estimate";
 		
 	}
 	
