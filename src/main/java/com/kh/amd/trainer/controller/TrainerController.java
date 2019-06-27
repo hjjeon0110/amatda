@@ -1,6 +1,7 @@
 package com.kh.amd.trainer.controller;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.common.CommonUtils;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.service.TrainerService;
 import com.kh.amd.trainer.model.vo.Estimate;
 import com.kh.amd.trainer.model.vo.Profile;
-import com.kh.tsp.common.CommonUtils;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -36,11 +38,14 @@ public class TrainerController {
 	public String showTrainerMyPageProfileView(Model model, int mno) {
 		
 		// 프로필 작성 여부 확인 메소드 (전효정)
-		Profile profile;
-		
-		profile = ts.checkProfile(mno);
-				
+		Profile profile = ts.checkProfile(mno);
 		model.addAttribute("profile", profile);
+		
+		// 프로필 사진 존재 여부 확인 (전효정)
+		Attachment attachment = ts.checkProfileImg(mno);
+		model.addAttribute("attachment", attachment);
+		String pic = attachment.getModiName() + ".jpg";
+		model.addAttribute("pic", pic);		
 		
 		return "trainer/2_1_myPage_profile";
 		
@@ -50,57 +55,153 @@ public class TrainerController {
 	@RequestMapping("showMyPageProfile2.tr")
 	public String showTrainerMyPageProfileView2(Model model, int mno) {
 		
-		Profile profile;
-		
-		profile = ts.checkProfile(mno);
+		// 프로필 작성 여부 확인 메소드 (전효정)
+				Profile profile = ts.checkProfile(mno);
+				model.addAttribute("profile", profile);
 				
-		model.addAttribute("profile", profile);
+				// 프로필 사진 존재 여부 확인 (전효정)
+				Attachment attachment = ts.checkProfileImg(mno);
+				model.addAttribute("attachment", attachment);
+				String pic = attachment.getModiName() + ".jpg";
+				model.addAttribute("pic", pic);		
 		
 		return "trainer/2_1_myPage_profile";
 		
 	}
 	
+	// 프로필 사진 존재 여부 확인 (전효정)
+	/*
+	 * @RequestMapping("modifyProfileImg.tr") public String checkProfileImg(Model
+	 * model, Member m, HttpServletRequest
+	 * request, @RequestParam(name="profileImgFile", required=false) MultipartFile
+	 * profileImgFile) {
+	 * 
+	 * String mno = request.getParameter("mno");
+	 * 
+	 * Attachment attachment = ts.checkProfileImg(mno);
+	 * model.addAttribute("attachment", attachment); String pic =
+	 * attachment.getFilePath() + attachment.getModiName() + "jpg";
+	 * model.addAttribute("pic", pic); System.out.println("pic : " + pic);
+	 * 
+	 * return "trainer/2_1_myPage_profile";
+	 * 
+	 * }
+	 */
+	
 	// 프로필 사진 변경 (전효정)
-	@RequestMapping("modifyProfileImg.tr")
-	public void modifyProfileImg(Model model, Member m, HttpServletRequest request, @RequestParam(name="profileImgFile", required=false) MultipartFile profileImgFile) {
-		
-		System.out.println("profileImgFile : " + profileImgFile);
-		System.out.println("Member : " + m);
+	@RequestMapping("modifyProfileImg1.tr")
+	public void modifyProfileImg1(Model model, Member m, HttpServletRequest request, @RequestParam(name="profileImgFile", required=false) MultipartFile profileImgFile) {
+		System.out.println("인서트 = 버튼 실행");
+
+		String mno = request.getParameter("mno");
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
 		String filePath = root + "\\uploadFiles";
-		
-		System.out.println("filePath : " + filePath);
-		
+				
 		// 파일 이름 변경
 		String originalFilename = profileImgFile.getOriginalFilename();
 		String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); // 확장자명 따로 저장
-		//String changeName = CommonUtils.getRandomString();
+		String changeName = CommonUtils.getRandomString();
 		
 		try {
+			
 			profileImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
+			
+			ts.insertProfileImg(mno, filePath, originalFilename, changeName);
 
 			
-			ms.insertMember(m);
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+			System.out.println("에러발생");
+		}
+		
+		
+	}
+	
+	
+	// 프로필 사진 변경 (전효정)
+	
+	/*
+	 * @RequestMapping("modifyProfileImg2.tr") public void modifyProfileImg2(Model
+	 * model, Member m, HttpServletRequest
+	 * request, @RequestParam(name="profileImgFile", required=false) MultipartFile
+	 * profileImgFile) { System.out.println("업데이트 폼 실행");
+	 * 
+	 * String mno = request.getParameter("mno");
+	 * 
+	 * String root =
+	 * request.getSession().getServletContext().getRealPath("resources");
+	 * 
+	 * String filePath = root + "\\uploadFiles";
+	 * 
+	 * // 파일 이름 변경 String originalFilename = profileImgFile.getOriginalFilename();
+	 * String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+	 * // 확장자명 따로 저장 String changeName = CommonUtils.getRandomString();
+	 * 
+	 * try {
+	 * 
+	 * profileImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
+	 * 
+	 * 
+	 * ts.modifyProfileImg(mno, filePath, originalFilename, changeName);
+	 * 
+	 * 
+	 * } catch (IllegalStateException | IOException e) { e.printStackTrace();
+	 * System.out.println("에러발생"); }
+	 * 
+	 * String path = "trainer/2_1_myPage_profile" + "?mno=" + mno;
+	 * 
+	 * System.out.println("보내줄 경로 : " + path);
+	 * 
+	 * //return "trainer/2_1_myPage_profile";
+	 * 
+	 * }
+	 */
+	 
+	
+	@RequestMapping("modifyProfileImg2.tr")
+	public String modifyProfileImg2(Model model, Member m, HttpServletRequest request, @RequestParam(name="profileImgFile", required=false) MultipartFile profileImgFile) {
+		System.out.println("업데이트 폼 실행");
+		
+		String mno = request.getParameter("mno");
+		
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		
+		String filePath = root + "\\uploadFiles";
 				
-			return "redirect:index.jsp";
-			
-		} catch (Exception e) {
-			
-			// 실패 시 파일 삭제 처리
-			new File(filePath + "\\" + changeName + ext).delete();
-			
-			model.addAttribute("msg", "회원가입 실패!");
-			
-			return "common/errorPage";
-			
-		} 
+		// 파일 이름 변경
+		String originalFilename = profileImgFile.getOriginalFilename();
+		String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); // 확장자명 따로 저장
+		String changeName = CommonUtils.getRandomString();
 		
+		try {
+			
+			profileImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
+			
+
+			ts.modifyProfileImg(mno, filePath, originalFilename, changeName);
+			
+			int mno2 = Integer.parseInt(mno);
+			
+			// 프로필 작성 여부 확인 메소드 (전효정)
+			Profile profile = ts.checkProfile(mno2);
+			model.addAttribute("profile", profile);
+			
+			// 프로필 사진 존재 여부 확인 (전효정)
+			Attachment attachment = ts.checkProfileImg(mno2);
+			model.addAttribute("attachment", attachment);
+			String pic = attachment.getModiName() + ".jpg";
+			model.addAttribute("pic", pic);	
+							
+			
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+			System.out.println("에러발생");
+		}
 		
-		
-		
-		
+		return "trainer/2_1_myPage_profile";
 	}
 	
 	

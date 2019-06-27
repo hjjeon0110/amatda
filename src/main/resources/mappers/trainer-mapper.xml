@@ -31,11 +31,20 @@
 	<result property="estContents" column="EST_CONTENTS"/>
 	<result property="estType" column="EST_TYPE"/>
 	<result property="tno" column="TNO"/>
-	
-	
-
 </resultMap>
-	
+<resultMap type="Attachment" id="attachmentResultSet">
+	<id property="fileNo" column="FILE_NO"/>
+	<result property="bno" column="BNO"/>
+	<result property="pno" column="PNO"/>
+	<result property="link" column="LINK"/>
+	<result property="oriName" column="ORI_NAME"/>
+	<result property="modiName" column="MODI_NAME"/>
+	<result property="fileLevel" column="FILE_LEVEL"/>
+	<result property="uploadDate" column="UPLOAD_DATE"/>
+	<result property="aType" column="ATYPE"/>
+	<result property="aStatus" column="A_STATUS"/>
+	<result property="filePath" column="FILE_PATH"/>
+</resultMap>
    
    <!-- 트레이너 추가 정보 회원가입 -->
    <insert id="insertTrainerInfo" parameterType="TrainerInfo">
@@ -56,6 +65,21 @@
 		WHERE E.EST_TYPE = 1
 		AND TNO = #{mno}
    </select>
+   
+   <!-- 프로필 이미지 존재 여부 확인 (전효정) -->
+   <select id="checkProfileImg" resultMap="attachmentResultSet" parameterType="Attachment">
+   		SELECT FILE_NO, PNO, ORI_NAME, MODI_NAME, FILE_LEVEL, UPLOAD_DATE, A_STATUS, FILE_PATH  FROM ATTACHMENT WHERE PNO IN (#{mno}) 
+   </select>
+   
+   <!-- 프로필 사진 insert (전효정) -->
+   <insert id="insertProfileImg" parameterType="Attachment">
+   		INSERT INTO ATTACHMENT VALUES(FILE_SEQ.NEXTVAL, NULL, #{mno}, NULL, #{originalFilename}, #{changeName}, 0, SYSDATE, 0, 'Y', #{filePath})
+   </insert>
+   
+   <!-- 프로필 사진 수정 (전효정) -->
+   <update id="modifyProfileImg" parameterType="Attachment">
+   		UPDATE ATTACHMENT SET ORI_NAME = #{originalFilename}, MODI_NAME = #{changeName}, FILE_PATH = #{filePath}, UPLOAD_DATE = SYSDATE
+   </update>
   
 </mapper>
 
