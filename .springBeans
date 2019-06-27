@@ -7,9 +7,19 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
+		<config>src/main/webapp/WEB-INF/config/tmission-servlet.xml</config>
 	</configs>
 	<autoconfigs>
-		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
+		<config>src/main/webapp/WEB-INF/config/survey-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/trainer-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/declaration-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/member-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/spring-security.xml</config>
+		<config>src/main/resources/root-context.xml</config>
+		<config>src/main/webapp/WEB-INF/config/board-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/admin-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/diary-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/user-servlet.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

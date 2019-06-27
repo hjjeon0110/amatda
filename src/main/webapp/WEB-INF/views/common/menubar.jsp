@@ -209,7 +209,8 @@
 				</div>
 			</div>
 		</nav>
-
+		
+		
 		<!-- 		
 			<section class="site-hero overlay" style="background:#ffe6f3;" data-stellar-background-ratio="0.5" id="section-home">
 				<div class="container">
@@ -239,7 +240,16 @@
 	</div>
 		
 	</c:if>
-
+	
+	
+	<!-- 관리자 로그인 -->
+		<c:if test="${!empty sessionScope.loginUser && sessionScope.loginUser.mtype.equals('A')}">
+			
+			<div class="container">
+				<jsp:forward page="../admin/main.jsp"/>
+			</div>
+		</c:if>
+	
 	<!-- 트레이너 로그인 --------------------------------------------------------------------------------------------------------------------- -->
 	<c:if
 		test="${!empty sessionScope.loginUser && sessionScope.loginUser.mtype.equals('T')}">
