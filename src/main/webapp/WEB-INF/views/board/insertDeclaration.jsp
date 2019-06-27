@@ -446,6 +446,7 @@ a#login_pop:hover, a#join_pop:hover {
         <form action="insertDeclaration.de" method="post">
         
         <input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.mno }" />
+       
         
         
        <!--  <input type="hidden" name="" value="로그인한 아이디의 mno"/> -->

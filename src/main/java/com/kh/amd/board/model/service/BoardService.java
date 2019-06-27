@@ -20,7 +20,13 @@ public interface BoardService {
 	 * void selectFaq(Board b);
 	 */
 
+	//int insertQna(Board b);
+
+	int insertReview(Board b);
+
 	int insertQna(Board b);
+
+	
 
 	/* int selectReview(Board b); */
 
