@@ -20,42 +20,38 @@ public class DeclarationServiceImpl implements DeclarationService{
 	@Autowired
 	DeclarationDao dd;
 
-	//신고 목록 조회
+	//신고 목록 조회(김선아)
 	@Override
-	public List<Declaration> declarationList() {
-		
-		return dd.declarationList(sqlSession);
-		
+	public List<Declaration> declarationList() {		
+		return dd.declarationList(sqlSession);	
 	}
 
-	//조회수 증가
-	@Override
-	public void increaseViewcnt(int decl_no, HttpSession session) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	//게시물 상세보기
+	//게시물 상세보기(김선아)
 	@Override
 	public Object declarationSelectOne(int decl_no) {
-		
-		System.out.println("게시물 상세보기 서비스");
-		
+		//System.out.println("sevice no : " + decl_no);
 		return dd.declarationSelectOne(sqlSession, decl_no);
 	}
 	
-	@Override
+
+	//사용자페이지 신고입력 페이지(SR)
+  	@Override
 	public int insertDeclaration(Declaration d) {
 	
 		return dd.insertDeclaration(sqlSession, d);
 	}
 
-	//신고 게시물 목록
-	/*
-	 * @Override public List<Declaration> declarationList(Declaration decl) {
-	 * 
-	 * return dd.declarationList(sqlSession, decl); }
-	 */
+	//게시물 삭제(김선아)
+	@Override
+	public void deleteDeclaration(int decl_no) {
+		//System.out.println("sevice no : " + decl_no);
+		dd.deleteDeclaration(sqlSession, decl_no);
+	}
+	
+	
+
+
+
 
 
 }

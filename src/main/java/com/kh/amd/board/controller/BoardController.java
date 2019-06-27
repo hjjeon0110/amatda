@@ -50,12 +50,7 @@ public class BoardController {
 	 * return "board/selectEventCate"; }
 	 * 
 	 * 
-	 * //리뷰게시판 리스트(sr)
-	 * 
-	 * @RequestMapping("selectReview.bo") public String selectReview() {
-	 * 
-	 * 
-	 * return "board/selectReview"; }
+	
 	 * 
 	 * //리뷰게시판 상세페이지(sr)
 	 * 
@@ -126,6 +121,25 @@ public class BoardController {
 	  return "board/insertQna"; 
 	  }
 	 
+	  //리뷰게시판 그냥 단순 페이지 출력(sr)
+	/*
+	 * @RequestMapping("selectReviewFormView.bo") public String
+	 * selectReviewFormView() { return "board/selectReview";
+	 * 
+	 * }
+	 */
+	  
+	  
+	 //리뷰게시판 리스트(sr)
+	/*
+	 * @RequestMapping("selectReview.bo")
+	 * 
+	 * public String selectReview(Model model,Board b ) { int result =
+	 * bs.selectReview(b); return "board/selectReview"; }
+	 */
+	 
+	 
+		 
 	
 	 
 	

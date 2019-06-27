@@ -161,7 +161,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<!-- 게시판/육소라 -->
+	<!-- 그냥게시판/육소라 -->
 	<servlet>
 		<servlet-name>board</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -173,6 +173,21 @@
 	<servlet-mapping>
 		<servlet-name>board</servlet-name>
 		<url-pattern>*.bo</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- 신고게시판/육소라 -->
+	<servlet>
+		<servlet-name>declaration</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/declaration-servlet.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>declaration</servlet-name>
+		<url-pattern>*.de</url-pattern>
 	</servlet-mapping>
 	
 	

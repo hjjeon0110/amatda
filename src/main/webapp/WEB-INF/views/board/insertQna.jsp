@@ -263,7 +263,12 @@ margin:0 auto;
 <body>
 
    <jsp:include page="../common/menubar.jsp"/> 
+   
+   
+   
    <img class="testImg" src="${ contextPath }/resources/images/sstestMain.jpg">
+   
+   
    <div class="csTable">
       <div class="firstTable">
       
@@ -281,7 +286,7 @@ margin:0 auto;
       <div class="firstTableLine2"></div>
       <h6><a href="selectFaq.bo">FAQ</a></h6>
       <div class="firstTableLine2"></div>
-      <h6><a href="insertDeclarationFormView.bo">신고</a></h6>
+      <h6><a href="insertDeclarationFormView.de">신고</a></h6>
     <div class="firstTableLine1"></div>
       </div>
    
@@ -293,8 +298,12 @@ margin:0 auto;
    
 <p>저희 아맞다를 이용하시던 중 질문사항이 있으시면 언제든지 문의해주시기 바랍니다. 감사합니다.</p>
 <br>
+
+
 <div class="container1">
   <form action="insertQna.bo" method="post">
+   <input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.mno }" />
+  
   <div class="row">
     <div class="col-25">
       <label for="fname">문의 제목</label>
@@ -415,6 +424,25 @@ margin:0 auto;
    <br>
 
 <script>
+$(function(){
+	var mno = $("#mNo").val();
+	if(mno > 0){
+		/* alert("로그인이 됐다는것") */
+		
+	
+		
+	}else{
+		alert("로그인을 하셔야 작성이 가능합니다.")
+		/* location.href="http://www.naver.com"; */
+		location.href="selectNotice.bo";
+	}
+	
+			
+	})
+
+
+
+
 //preview image 
 var imgTarget = $('.preview-image .upload-hidden'); 
 imgTarget.on('change', function(){
