@@ -100,16 +100,16 @@
       dateClick:function (date, allDay, jsEvent, view){
     	/*  var moment = $('#calendar').fullCalendar('getDate');
     	console.log(moment); */
-    	var myDate = new Date(date); 
-    	var date = $("")
-    	console.log($("#calendar"));
- 		console.log("myDate: " + myDate);
-    	 alert("후");
-    	 
-    	 
-     }
+    	console.log("date: " + date.dateStr);
+    	$("#missionDate").val(date.dateStr);
+    	alert("후");
+    	/* $("#dialog").modal(); */
+    	$("#myModal").modal();	
+     },
     
-   
+    
+     
+     
     });
 	
    
@@ -138,7 +138,21 @@
     margin: 0 auto;
   }
 
+	tr{
+		height:50px;
+		
+	}
+	hr{
+		width:300px;
+	}
 	
+	td{
+		width:100px;
+	}
+	
+	#name{
+		width:50px;
+	}
 }
 
 
@@ -150,7 +164,98 @@
   <jsp:include page="../common/menubar.jsp"/>
   <div id='calendar' style="margin-top:30px"></div>
 	
+	<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        <h4 class="modal-title">미션등록</h4>
+      </div>
+      <div class="modal-body">
+ 
+        <table align="center">
+        	<tr>
+        		<td>날짜 <input type="text" id="missionDate"></td>
+        	</tr>
+        	<tr style="height:50px;">
+        		<td><label style="margin-left:80px; margin-top:40px">오늘의 식단</label><hr></td>
+        	</tr>
+        	<tr>
+        		<td><label id="name">아침</label><input type="text" id="breakfast"></td>
+        	</tr>
+        	<tr>
+        		<td><label id="name">점심</label><input type="text" id="lunch"></td>
+        	</tr>
+        	<tr>
+        		<td><label id="name">저녁</label><input type="text" id="dinner"></td>
+        	</tr>
+        	
+        	
+        	<tr>
+        		<td><label style="margin-left:80px; margin-top:40px">오늘의 운동</label><hr></td>
+        	</tr>
+        	<tr>
+        		<td><label id="name">아침</label><input type="text" id="breakEx"></td>
+        	</tr>
+        	
+        	<tr>
+        		<td><input type="text" id="breakExLink" style="margin-left:50px"></td>
+        	</tr>
+        	<tr>
+        		<td><label id="name">점심</label><input type="text" id="lunchEx"></td>
+        	</tr>
+        	<tr>	
+        		<td><input type="text" id="lunchExLink" style="margin-left:50px"></td>
+        	</tr>
+        	<tr>
+        		<td><label id="name">저녁</label><input type="text" id="dinnerEx"></td>
+        	</tr>
+        	<tr>
+        		<td><input type="text" id="dinnerExLink" style="margin-left:50px"></td>
+        	</tr>
+        	<tr>
+        		<td><input type="submit" value="등록하기" style="margin-left:80px" onclick="registerMission()"></td>
+        	</tr>
+        </table>
+     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 </body>
+<script>
+	function registerMission(){
+		var mDate=$("#mDate").val();
+		var breakfast=$("#breakfast").val();
+		var lunch=$("#lunch").val();
+		var dinner=$("#dinner").val();
+		
+		var breakEx = $("#breakEx").val();
+		var lunchEx = $("#lunchEx").val();
+		var dinnerEx = $("#dinnerEx").val();
+		
+		
+		var breakExLink=$("#breakExLink").val();
+		var lunchExLink=$("#lunchExLink").val();
+		var dinnerExLink=$("#dinnerExLink").val();
+		var everything={mDate:mDate,breakfast:breakfast, lunch:lunch, dinner:dinner, breakEx:breakEx, lunchEx:lunchEx, dinnerEx:dinnerEx , breakExLink:breakExLink, lunchExLink:lunchExLink, dinnerExLink:dinnerExLink}
+		$.ajax({
+			url:"insert.ca",
+			type:"post",
+			data:everything, 
+			success:function(data){
+				alert("미션등록 성공");
+			},error:function(status){
+				alert("미션등록 실패");
+			}
+		})
+	}
+</script>
 
 </html>
