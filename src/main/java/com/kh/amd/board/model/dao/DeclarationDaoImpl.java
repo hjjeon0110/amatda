@@ -27,7 +27,7 @@ public class DeclarationDaoImpl implements DeclarationDao{
 		System.out.println("게시물 상세보기 dao");
 		
 		return sqlSession.selectOne("Declaration.declarationSelectOne");
-
+	}
 	@Override
 	public int insertDeclaration(SqlSessionTemplate sqlSession, Declaration d) {
 		return sqlSession.insert("Declaration.insertDeclaration",d);

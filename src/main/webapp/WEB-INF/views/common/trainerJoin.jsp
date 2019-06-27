@@ -111,7 +111,7 @@ table{
     	</tr>
     	<tr>
     		<td class="bigName">비밀번호</td>
-    		<td style="width:80px;"><input type="text" name="userPwd" id="userPwd" class="form-control input"></td>
+    		<td style="width:80px;"><input type="password" name="userPwd" id="userPwd" class="form-control input"></td>
     	</tr>
     	<tr>
     		<td class="bigName">비밀번호 확인</td>
