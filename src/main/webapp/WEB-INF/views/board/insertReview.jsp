@@ -92,35 +92,35 @@ display:inline;
 	<div class="outer"> 	
 		<br>
 		<h2 align="center">후기</h2>
-		<form action="<%=request.getContextPath() %>/selectReview.bo" method="post"
-			encType="multipart/form-data"> 
+		<form action="insertReview.bo" method="post"> 
+			<!-- encType="multipart/form-data" -->
 			<!-- encType을 설정해야 파일을 폼에서 보낼 수 있다 -->
-			
+			 <input type="hidden" name="bType" value="5"/>
 			
 			<!-- 자가코딩 시작 -->
-			<div class = "container" align="center" style="width:900px";>
+			<div class = "container" align="center" style="width:900px;">
 				<table class = "table table-bordered">
 					<thead></thead>
 					<tbody>
 						<tr>
 							<th>제목</th>
-							<td><input type="text" placeholder="제목을 입력하세요" name="title" style="width:700px;"></td>
+							<td><input type="text" placeholder="제목을 입력하세요" name="bTitle" style="width:700px;"></td>
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><input type="text" placeholder="내용을 입력하세요" name="content" style="width:700px; height:600px";></td>
+							<td><input type="text" placeholder="내용을 입력하세요" name="bContent" style="width:700px; height:600px;"></td>
 						</tr>
 						<tr>
 							<th>첨부파일</th>
 							<td>
-								<div id="titleImgArea" style="float:left; margin-right:10%;" >
+								<!-- <div id="titleImgArea" style="float:left; margin-right:10%;" >
 									<img id="titleImg1" width="350" height="250">
 								</div>
 								
 								<div id="contentImgArea11">
 									<img id="titleImg2" width="350" height="250">
 								
-								</div>
+								</div> -->
 							</td>							
 						</tr> 
 						
@@ -134,12 +134,15 @@ display:inline;
 				
 			</div>
 			<br>
-			<div class="btnArea">
+			<!-- <div class="btnArea">
 	            <button onclick="location.href='selectReview.bo'">취소하기</button>
 	            <button onclick="location.href='selectReview.bo'">작성하기</button>
             
-         </div>
+         </div> -->
 			</div>
+			
+			<input type="submit" value="작성하기" class="btn btn-primary">
+			<button onclick="location.href='selectReview.bo'" class="btn btn-primary">목록으로</button>
 			
 		</form>
 	</div>
