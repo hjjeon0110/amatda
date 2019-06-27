@@ -13,6 +13,8 @@ public interface TrainerService {
 
 	int insertEstimate(Estimate tEst);
 
+	int updateEstimate(Estimate estimate);
+
 	
 
 }

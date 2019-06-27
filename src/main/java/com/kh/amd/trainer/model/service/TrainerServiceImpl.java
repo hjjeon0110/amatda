@@ -36,5 +36,11 @@ public class TrainerServiceImpl implements TrainerService {
 		
 		return td.insertEstimate(sqlSession, tEst);
 	}
+
+	@Override
+	public int updateEstimate(Estimate estimate) {
+		
+		return td.updateEstimate(sqlSession, estimate);
+	}
 	
 }
