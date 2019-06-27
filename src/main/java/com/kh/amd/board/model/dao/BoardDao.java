@@ -26,6 +26,8 @@ public interface BoardDao {
 
 	int insertQna(SqlSessionTemplate sqlSession, Board b);
 
+	/* int selectReview(SqlSessionTemplate sqlSession, Board b); */
+
 
 
 }

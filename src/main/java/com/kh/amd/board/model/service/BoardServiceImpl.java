@@ -39,11 +39,17 @@ public class BoardServiceImpl implements BoardService{
 	 * @Override public void selectFaq(Board b) { bd.selectFaq(sqlSession,b); }
 	 */
 
+	//사용자페이지 Q&A 입력페이지(SR)
 	@Override
 	public int insertQna(Board b) {
 		return bd.insertQna(sqlSession,b);
 	}
-	
+
+	//REVIEW 후기 페이지 (SR)
+	/*
+	 * @Override public int selectReview(Board b) { return
+	 * bd.selectReview(sqlSession,b); }
+	 */
 	
 	
 	

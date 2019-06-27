@@ -44,6 +44,7 @@ public class DeclarationServiceImpl implements DeclarationService{
 		return dd.declarationSelectOne(sqlSession, decl_no);
 	}
 	
+	//사용자페이지 신고입력 페이지(SR)
 	@Override
 	public int insertDeclaration(Declaration d) {
 	
