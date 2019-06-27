@@ -51,26 +51,28 @@ public class TrainerDaoImpl implements TrainerDao {
 	
 	// 프로필 이미지 insert 메소드 (전효정)
 	@Override
-	public void insertProfileImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename, String changeName) {
+	public void insertProfileImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename, String changeName, String ext) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("mno", mno);
 		map.put("filePath", filePath);
 		map.put("originalFilename", originalFilename);
 		map.put("changeName", changeName);
+		map.put("ext", ext);
 		
 		sqlSession.insert("Trainer.insertProfileImg", map);
 	}
 
 	// 프로필 이미지 수정 메소드 (전효정)
 	@Override
-	public void modifyProfileImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename, String changeName) {
+	public void modifyProfileImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename, String changeName, String ext) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("mno", mno);
 		map.put("filePath", filePath);
 		map.put("originalFilename", originalFilename);
 		map.put("changeName", changeName);
+		map.put("ext", ext);
 		
 		sqlSession.update("Trainer.modifyProfileImg", map);
 		

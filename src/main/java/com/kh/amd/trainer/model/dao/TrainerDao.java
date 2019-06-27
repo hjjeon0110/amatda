@@ -22,10 +22,10 @@ public interface TrainerDao {
 	Attachment checkProfileImg(SqlSessionTemplate sqlSession, int mno);
 	
 	// 프로필 이미지 insert 메소드 (전효정)
-	void insertProfileImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename, String changeName);
+	void insertProfileImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename, String changeName, String ext);
 	
 	// 프로필 이미지 수정 메소드 (전효정)
-	void modifyProfileImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename, String changeName);
+	void modifyProfileImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename, String changeName, String ext);
 
 
 

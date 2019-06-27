@@ -14,7 +14,10 @@
 	display: inline;
 	font-size: 12px;
 }
-
+.menuberLi4 {
+	font-size: 12px !important;
+	color:#ff0066 !important;
+}
 .miniMenu:hover {
 	font-size: 12px;
 	color: #ff0066;

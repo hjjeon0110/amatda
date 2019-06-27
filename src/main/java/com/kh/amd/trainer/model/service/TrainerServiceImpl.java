@@ -51,14 +51,14 @@ public class TrainerServiceImpl implements TrainerService {
 	
 	// 프로필 이미지 insert 메소드 (전효정)
 	@Override
-	public void insertProfileImg(String mno, String filePath, String originalFilename, String changeName) {
-		td.insertProfileImg(sqlSession, mno, filePath, originalFilename, changeName);
+	public void insertProfileImg(String mno, String filePath, String originalFilename, String changeName, String ext) {
+		td.insertProfileImg(sqlSession, mno, filePath, originalFilename, changeName, ext);
 	}
 	
 	// 프로필 이미지 수정 메소드 (전효정)
 	@Override
-	public void modifyProfileImg(String mno, String filePath, String originalFilename, String changeName) {
-		td.modifyProfileImg(sqlSession, mno, filePath, originalFilename, changeName);
+	public void modifyProfileImg(String mno, String filePath, String originalFilename, String changeName, String ext) {
+		td.modifyProfileImg(sqlSession, mno, filePath, originalFilename, changeName, ext);
 	}
 	
 

@@ -20,10 +20,10 @@ public interface TrainerService {
 	Attachment checkProfileImg(int mno);
 	
 	// 프로필 이미지 insert 메소드 (전효정)
-	void insertProfileImg(String mno, String filePath, String originalFilename, String changeName);
+	void insertProfileImg(String mno, String filePath, String originalFilename, String changeName, String ext);
 	
 	// 프로필 이미지 수정 메소드 (전효정)
-	void modifyProfileImg(String mno, String filePath, String originalFilename, String changeName);
+	void modifyProfileImg(String mno, String filePath, String originalFilename, String changeName, String ext);
 
 
 
