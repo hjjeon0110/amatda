@@ -22,4 +22,6 @@ public interface BoardService {
 
 	int insertQna(Board b);
 
+	/* int selectReview(Board b); */
+
 }

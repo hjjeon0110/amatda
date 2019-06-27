@@ -33,6 +33,14 @@ public class DeclarationServiceImpl implements DeclarationService{
 		return dd.declarationSelectOne(sqlSession, decl_no);
 	}
 	
+
+	//사용자페이지 신고입력 페이지(SR)
+  	@Override
+	public int insertDeclaration(Declaration d) {
+	
+		return dd.insertDeclaration(sqlSession, d);
+	}
+
 	//게시물 삭제(김선아)
 	@Override
 	public void deleteDeclaration(int decl_no) {
@@ -41,11 +49,8 @@ public class DeclarationServiceImpl implements DeclarationService{
 	}
 	
 	
-	@Override
-	public int insertDeclaration(Declaration d) {
-	
-		return dd.insertDeclaration(sqlSession, d);
-	}
+
+
 
 
 

@@ -31,11 +31,19 @@ public class BoardDaoImpl implements BoardDao {
 	 * return sqlSession.selectOne("Board.selectFaq",b); }
 	 */
 
+	//사용자페이지 Q&A 질문게시판 입력(SR)
 	@Override
 	public int insertQna(SqlSessionTemplate sqlSession, Board b) {
 		return sqlSession.insert("Board.insertQna",b);
 	
 	}
+
+	/*
+	 * @Override public int selectReview(SqlSessionTemplate sqlSession, Board b) {
+	 * return sqlSession.selectOne("Board.selectReview",b);
+	 * 
+	 * }
+	 */
 
 	
 }
