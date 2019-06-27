@@ -45,6 +45,7 @@
 	<result property="aStatus" column="A_STATUS"/>
 	<result property="filePath" column="FILE_PATH"/>
 </resultMap>
+
    
    <!-- 트레이너 추가 정보 회원가입 -->
    <insert id="insertTrainerInfo" parameterType="TrainerInfo">
@@ -58,13 +59,14 @@
    </select>
    
    <!-- 서브 메뉴바내에서 견적서를 클릭시 로그인한 회원의 1번 견적서 열람 -->
-   <select id="selectEstimate" resultMap="estimateResultSet" parameterType="_int">
+   <select id="selectEstimate" resultMap="estimateResultSet" parameterType="java.util.Map">
    		SELECT E.EST_NAME, E.EST_COST, E.EST_CONTENTS, E.EST_TYPE, E.EST_NO, E.TNO, E.TRAINING_DAYS
 		FROM ESTIMATE E
 		JOIN MEMBER M ON (E.TNO = M.MNO)
-		WHERE E.EST_TYPE = 1
-		AND TNO = #{mno}
+		WHERE E.EST_TYPE = #{iestType}
+		AND TNO = #{MNO}
    </select>
+
    
    <!-- 프로필 이미지 존재 여부 확인 (전효정) -->
    <select id="checkProfileImg" resultMap="attachmentResultSet" parameterType="Attachment">
@@ -79,6 +81,21 @@
    <!-- 프로필 사진 수정 (전효정) -->
    <update id="modifyProfileImg" parameterType="Attachment">
    		UPDATE ATTACHMENT SET ORI_NAME = #{originalFilename}, MODI_NAME = #{changeName}, FILE_PATH = #{filePath}, UPLOAD_DATE = SYSDATE
+
+   <insert id="insertEstimate" parameterType="Estimate">
+   		INSERT INTO ESTIMATE
+   		VALUES(EST_SEQ.NEXTVAL, #{tno}, #{estName}, #{estPrice}, #{estDay}, #{estContents}, #{estType})
+   
+   </insert>
+   <update id="updateEstimate" parameterType="Estimate">
+   		UPDATE ESTIMATE
+  		SET EST_NAME = #{estName},
+  			EST_COST = #{estPrice},
+  			TRAINING_DAYS = #{estDay},
+  			EST_CONTENTS = #{estContents}
+  		WHERE TNO = #{tno}
+  		AND EST_TYPE = #{estType}
+
    </update>
   
 </mapper>

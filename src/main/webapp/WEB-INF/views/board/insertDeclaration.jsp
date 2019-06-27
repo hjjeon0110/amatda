@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -432,7 +433,7 @@ a#login_pop:hover, a#join_pop:hover {
       <div class="firstTableLine2"></div>
       <h6><a href="selectFaq.bo">FAQ</a></h6>
       <div class="firstTableLine2"></div>
-      <h6><a href="insertDeclaration.bo">신고</a></h6>
+      <h6><a href="insertDeclarationFormView.de">신고</a></h6>
     <div class="firstTableLine1"></div>
       </div>
    
@@ -442,18 +443,21 @@ a#login_pop:hover, a#join_pop:hover {
       <p>저희 아맞다를 이용하시는 도중 불편한 사항이 있으시면 언제든지 신고해주십시요. 보내주신 사항은 검토후 시정하도록 하겠습니다. 감사합니다. </p>
       
       <div class="container1">
-        <form action="/action_page.php">
+        <form action="insertDeclaration.de" method="post">
+        
+        <input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.mno }" />
         
         
+       <!--  <input type="hidden" name="" value="로그인한 아이디의 mno"/> -->
         <div class="row">
           <div class="col-25">
             <label for="alldeclaration">신고대상</label>
           </div>
           <div class="col-75">
-            <select id="declaration1" name="declaration1">
-              <option value="pt">PT</option>
-              <option value="user">사용자</option>
-              <option value="etc">기타</option>
+            <select id="declaration1" name="decl_category">
+              <option value="트레이너">트레이너</option>
+              <option value="회원">회원</option>
+              <option value="기타">기타</option>
             </select>
           </div>
         </div>
@@ -463,22 +467,24 @@ a#login_pop:hover, a#join_pop:hover {
             <label for="declaration2">신고분류</label>
           </div>
           <div class="col-75">
-            <select id="declaration2" name="declaration2">
-              <option value="declaration1">욕설/비매너</option>
-              <option value="declaration2">부적절한 행위</option>
-              <option value="etc">기타</option>
+            <select id="declaration2" name="decl_classification">
+              <option value="욕설/비매너">욕설/비매너</option>
+              <option value="부적절한 행위">부적절한 행위</option>
+              <option value="기타">기타</option>
             </select>
           </div>
         </div>
         
-        <div class="row">
+        
+        <!-- 신고대상자 id검색란  -->
+        <!-- <div class="row">
         	<div class="col-25">
         		<label for="declaration3">신고대상자</label>
         	</div>
-			<div class="col-75">
+			<div class="col-75"> -->
 			
 			
-			
+			<!-- 
 			 <div class="panel">
                 <a href="#login_form" id="login_pop">아이디 검색 : 여기를 클릭하세요.</a>
                 
@@ -488,36 +494,28 @@ a#login_pop:hover, a#join_pop:hover {
 		            <h2>신고대상자 검색</h2>
 		            <p>신고할 대상의 아이디를 조회하세요.</p>
 		            <div>
-		                <!-- <label for="login">아이디 입력란</label> -->
+		                <label for="login">아이디 입력란</label>
 		                <input type="text" id="login" value="" placeholder="아이디를 입력하세요." />
 		            </div>
-		           <!--  <div>
+		            <div>
 		                <label for="password">Password</label>
 		                <input type="password" id="password" value="" />
-		            </div> -->
+		            </div>
 		            <input type="button" value="검색" />
 		
 		            <a class="close" href="#close"></a>
 		        </div>
-                
-                
-                
-                
-                
-                
-                
-            </div>
+            </div> -->
 			
 				<!-- <button onclick="location.href='#'">아이디 검색</button>  -->
-			</div>        	
-        </div>
+			
         
         <div class="row">
           <div class="col-25">
             <label for="fname">신고 제목</label>
           </div>
           <div class="col-75">
-            <input type="text" id="fname" name="firstname" placeholder="신고 제목을 입력하세요.">
+            <input type="text" id="bTitle" name="decl_title" placeholder="신고 제목을 입력하세요.">
           </div>
         </div>
         
@@ -526,22 +524,31 @@ a#login_pop:hover, a#join_pop:hover {
             <label for="subject">신고 내용</label>
           </div>
           <div class="col-75">
-            <textarea id="subject" name="subject" placeholder="신고 내용을 입력하세요."></textarea>
+            <textarea id="bContent" name="decl_content" placeholder="신고 내용을 입력하세요."></textarea>
           </div>
         </div>
         
-        <div class="col-25">
+        <input type="submit" value="신고" class="btn btn-primary">
+        </form>
+         
+           </div>
+         </div>
+       </div>
+          
+        
+        <!-- 파일첨부 -->
+       <!--  <div class="col-25">
   			<label for="subject">파일 첨부</label>
-  		</div>
+  		</div> -->
   	
         	<!-- 파일첨부 시작 -->
-	  	<div class="col-75">
+	  	<!-- <div class="col-75">
 	  		<div class="filebox preview-image"> 
-	  			<!-- <input class="upload-name" value="파일선택" disabled="disabled" >  -->
-	  			<!-- <label for="input-file">업로드</label>  -->
+	  			<input class="upload-name" value="파일선택" disabled="disabled" > 
+	  			<label for="input-file">업로드</label> 
 	  			<input type="file" id="input-file" class="upload-hidden"> 
 	  		</div>
-	  	</div>
+	  	</div> -->
   		<!-- 파일첨부 끝 -->
         
         
@@ -551,19 +558,21 @@ a#login_pop:hover, a#join_pop:hover {
         </div> -->
         
         <br>
-        <button type="button" class="btn btn-primary" data-toggle="modal" 
+        
+        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" 
         data-target="#my80sizeCenterModal">
   신고
-</button>
+</button> -->
 
 
 
+<!-- 신고버튼 클릭 후 뜨는 모달창--> 
 <!-- 80%size Modal at Center -->
-<div class="modal modal-center fade" id="my80sizeCenterModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel">
+<!-- <div class="modal modal-center fade" id="my80sizeCenterModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel">
   <div class="modal-dialog modal-80size modal-center" role="document">
     <div class="modal-content modal-80size">
       <div class="modal-header">
-        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">신고해주셔서 감사합니다.</h4>
       </div>
       <div class="modal-body">
@@ -579,18 +588,15 @@ a#login_pop:hover, a#join_pop:hover {
       </div>
     </div>
   </div>
-</div>
+</div> -->
        <!-- 80%size Modal at Center --> 
         
         
-        </form>
-      </div>
+       
+    
    
    
-   
-   </div>   
-   
-   </div>
+
    
     <br>
    <br>
@@ -610,8 +616,23 @@ a#login_pop:hover, a#join_pop:hover {
 
 
 <script>
+$(function(){
+	var mno = $("#mNo").val();
+	if(mno > 0){
+		/* alert("로그인이 됐다는것") */
+		
+	
+		
+	}else{
+		alert("로그인을 하셔야 작성이 가능합니다.")
+		/* location.href="http://www.naver.com"; */
+		location.href="selectNotice.bo";
+	}
+	
+			
+	})
 //preview image 
-var imgTarget = $('.preview-image .upload-hidden'); 
+/* var imgTarget = $('.preview-image .upload-hidden'); 
 imgTarget.on('change', function(){
 	var parent = $(this).parent(); 
 	parent.children('.upload-display').remove(); 
@@ -641,6 +662,9 @@ imgTarget.on('change', function(){
 	} 
 	
 	});
+	
+		
+	}) */
 
 
 

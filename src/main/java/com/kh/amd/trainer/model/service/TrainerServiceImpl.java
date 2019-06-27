@@ -26,8 +26,21 @@ public class TrainerServiceImpl implements TrainerService {
 
 	// 견적서 (김진환)
 	@Override
-	public Estimate selectEstimate(int mno) {
-		return td.selectEstimate(sqlSession, mno);
+	public Estimate selectEstimate(int mno, int iestType) {
+		
+		return td.selectEstimate(sqlSession, mno, iestType);
+	}
+
+	@Override
+	public int insertEstimate(Estimate tEst) {
+		
+		return td.insertEstimate(sqlSession, tEst);
+	}
+
+	@Override
+	public int updateEstimate(Estimate estimate) {
+		
+		return td.updateEstimate(sqlSession, estimate);
 	}
 	
 	// 프로필 이미지 존재 여부 확인 메소드 (전효정)

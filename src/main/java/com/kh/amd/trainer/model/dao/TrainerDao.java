@@ -12,8 +12,11 @@ public interface TrainerDao {
 	// 프로필 작성 여부 확인 메소드 (전효정)
 	Profile checkProfile(SqlSessionTemplate sqlSession, int mno);
 
-	// 견적서 (김진환)
-	Estimate selectEstimate(SqlSessionTemplate sqlSession, int mno);
+	Estimate selectEstimate(SqlSessionTemplate sqlSession, int mno, int iestType);
+
+	int insertEstimate(SqlSessionTemplate sqlSession, Estimate tEst);
+
+	int updateEstimate(SqlSessionTemplate sqlSession, Estimate estimate);
 
 	// 프로필 이미지 존재 여부 확인 메소드 (전효정)
 	Attachment checkProfileImg(SqlSessionTemplate sqlSession, int mno);

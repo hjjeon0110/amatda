@@ -246,7 +246,7 @@ a:active {text-decoration: none; color: #333333;}
       <div class="firstTableLine2"></div>
       <h6><a href="selectFaq.bo">FAQ</a></h6>
       <div class="firstTableLine2"></div>
-      <h6><a href="insertDeclaration.bo">신고</a></h6>
+      <h6><a href="insertDeclarationFormView.de">신고</a></h6>
     <div class="firstTableLine1"></div>
       </div>
 		
@@ -271,12 +271,25 @@ a:active {text-decoration: none; color: #333333;}
   			<div class="secondTableLine"></div>
   			
 		<br>
-		<div class="firstbestReviewLine">
-		<a href ="selectOneReview.bo"><img id="bestreviewpic1"src="${ contextPath }/resources/images/bestreviewpic1.JPG"></a>
+				<div class="firstbestReviewLine">
+				<%-- 	<table class="review">
+						<tr>
+							<td><%= %></td>
+							<td></td>
+							<td></td>
+							
+						</tr>
+					
+					</table> --%>
+		
+		
+		
+		
+		<%-- <a href ="selectOneReview.bo"><img id="bestreviewpic1"src="${ contextPath }/resources/images/bestreviewpic1.JPG"></a>
 		<img id="bestreviewpic1"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
 		<img id="bestreviewpic1"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic1"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		</div>
+		<img id="bestreviewpic1"src="${ contextPath }/resources/images/bestreviewpic1.JPG"> --%>
+				</div>
 		<br>
 		<br>
 		

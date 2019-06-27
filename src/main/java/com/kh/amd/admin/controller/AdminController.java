@@ -4,13 +4,19 @@ package com.kh.amd.admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.amd.board.model.service.DeclarationService;
 import com.kh.amd.board.model.vo.Declaration;
-import com.kh.amd.board.service.DeclarationService;
+
 
 @Controller
 public class AdminController {
@@ -120,22 +126,31 @@ public class AdminController {
 		System.out.println(declarationList);
 		model.addAttribute("list", declarationList);
 
-
-		//		ds.declarationList(decl);
-
-		// System.out.println("신고게시물 목록조회 : " + declarationList);
-
-
 		return "admin/declarationList";
 
 	}
 
 	//신고게시물 상세보기
-	@RequestMapping("declarationSelectOne.ad")
-	public String declarationSelectOne(){
-
-		return "admin/declarationSelectOne";
-
+	@RequestMapping(value="declarationSelectOne.ad", method=RequestMethod.GET)
+	public ModelAndView declarationSelectOne(@RequestParam int decl_no, HttpSession session){
+		
+		//데이터와 화면을 함께 전달하는 객체
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("admin/declarationSelectOne");
+		mav.addObject("decl", ds.declarationSelectOne(decl_no));
+		
+		//System.out.println(ds.declarationSelectOne(decl_no));
+	
+		return mav;
+	}
+	
+	//신고게시물 삭제
+	@RequestMapping("deleteDeclaration.ad")
+	public String deleteDeclaration(@RequestParam int decl_no) {
+		ds.deleteDeclaration(decl_no);
+		
+		return "redirect:declaration.ad";
+		
 	}
 
 	//통계관리 페이지

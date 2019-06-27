@@ -133,13 +133,14 @@ select {
 	
 	<!-- 견적서 값이 없을때 나올  견적서 영역 ------------------------------------------------------- -->
 	<c:if test="${empty estimate}">
-	<form action="train.tr">
+	<form action="insertEstimate.tr">
 	<div class="estimateDiv">
-	
+		<input type="hidden" name="tno" value="${ sessionScope.loginUser.mno }"/>
+		<input type="hidden" name="estType" id="estType" value="1"/>
 		<br><br><br>
 		<label class="subTitle">제목</label>
 		<br><br>
-		<input type="text" name="estTitle" placeholder=" 제목을 입력해주세요">
+		<input type="text" id="estName" name="estName" value="${ estimate.estName }" placeholder=" 제목을 입력해주세요">
 		
 		<br><br><br>
 		<label class="subTitle" >커리큘럼</label>
@@ -167,7 +168,7 @@ select {
 		<br><br><br>
 		<label class="subTitle">가격</label>
 		<br><br>
-		<input type="text" placeholder=" 가격을 입력해주세요">
+		<input type="text" name="estPrice" placeholder=" 가격을 입력해주세요">
 		
 		<br><br><br>
 		<button class="modification"> 견적서 저장하기 </button>
@@ -176,12 +177,14 @@ select {
 	</c:if>
 	<!-- 견적서 값이 있을때 나올 견적서 영역 ------------------------------------------------------- -->
 	<c:if test="${!empty estimate}">
+	<form action="insertEstimate.tr">
 	<div class="estimateDiv">
-		<input type="hidden" name="estType" value="1"/>
+		<input type="hidden" name="tno" id="tno"value="${ sessionScope.loginUser.mno }"/>
+		<input type="hidden" name="estType" id="estType" value="1"/>
 		<br><br><br>
 		<label class="subTitle">제목</label>
 		<br><br>
-		<input type="text" id="estTitle" name="estTitle" value="${ estimate.estName }" placeholder=" 제목을 입력해주세요">
+		<input type="text" id="estName" name="estName" value="${ estimate.estName }" placeholder=" 제목을 입력해주세요">
 		
 		<br><br><br>
 		<label class="subTitle" >커리큘럼</label>
@@ -209,35 +212,42 @@ select {
 		<br><br><br>
 		<label class="subTitle">가격</label>
 		<br><br>
-		<input type="text" placeholder=" 가격을 입력해주세요" value="${ estimate.estPrice }">
+		<input type="text" name="estPrice" placeholder="가격을 입력해주세요" value="${ estimate.estPrice }">
 		<br><br>
 		<button class="modification"> 견적서 저장하기 </button>
 	</div>
+	</form>
 	</c:if>
-	
-	
 	
 	<!-- footer ----------------------------------------------------------------------------------------------------- -->
 	<br><br><hr><br>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
+
+	
+	
 	
 	<script>
 		$(function(){
 			$("#estDay").val(${estimate.estDay}).prop("selected", true);
-		})
+		});
 		$(function(){
-			$("#subMenuBar2").click(function(){
+			$("#subMenuBar2").mouseenter(function(){
+				$(this).css({"cursor":"pointer"});
+			}).click(function(){
 				var estType = $(this).children().val();
 				var mno = ${sessionScope.loginUser.mno};
 				$(this).css({"background":"#ff0066", "color":"white"});
 				$("#subMenuBar1").css({"background":"white", "color":"black"});
 				
+				
 				$.ajax({
-					url:"showMyPageEstimate.tr",
-					data: mno:mno, estType:estType,
+					url:"ajaxshowMyPageEstimate.tr",
+					data: {mno:mno, estType:estType},
 					type:"get",
 					success:function(data){
-						$("#estTitle").text(data.estTitle);
+						console.log(data);
+						$("#estName").attr("value", data.estName);
+						$("#estType").attr("value", "2");
 						
 					}
 					
@@ -246,11 +256,26 @@ select {
 			})
 		})
 		$(function(){
-			$("#subMenuBar1").click(function(){
+			$("#subMenuBar1").mouseenter(function(){
+				$(this).css({"cursor":"pointer"});
+			}).click(function(){
 				var estType = $(this).children().val();
 				var mno = ${sessionScope.loginUser.mno};				
 				$(this).css({"background":"#ff0066", "color" : "white"});
 				$("#subMenuBar2").css({"background": "white", "color":"black"});
+				
+				
+				$.ajax({
+					url:"ajaxshowMyPageEstimate.tr",
+					data: {mno:mno, estType:estType},
+					type:"get",
+					success:function(data){
+						console.log(data);
+						$("#estName").attr("value", data.estName);
+						$("#estType").attr("value", "1");
+					}
+					
+				})
 				
 				
 

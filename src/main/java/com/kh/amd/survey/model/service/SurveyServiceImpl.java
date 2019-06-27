@@ -1,5 +1,7 @@
 package com.kh.amd.survey.model.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -19,30 +21,38 @@ public class SurveyServiceImpl implements SurveyService{
 	private DataSourceTransactionManager transactionManager;
 
 	@Override
-	public int insertSurvey1(Survey s) {
+	public int insertSurvey1(Survey s, String mno) {
 		
-		return sd.insertSurvey1(sqlSession, s); 
+		return sd.insertSurvey1(sqlSession, s, mno); 
 	
 	}
 
 	@Override
-	public int insertSurvey2(Survey s) {
+	public int insertSurvey2(Survey s, String mno) {
 		
-		return sd.insertSurvey2(sqlSession, s);
+		return sd.insertSurvey2(sqlSession, s, mno);
 		
 	}
 
 	@Override
-	public int insertSurvey3(Survey s) {
+	public int insertSurvey3(Survey s, String mno) {
 		
-		return sd.insertSurvey3(sqlSession, s);
+		return sd.insertSurvey3(sqlSession, s, mno);
 	}
 
 	@Override
-	public int updateSurvey(Survey s) {
+	public int updateSurvey(Survey s, String mno) {
 		
-		return sd.updateSurvey(sqlSession, s);
+		return sd.updateSurvey(sqlSession, s, mno);
 	}
+
+	@Override
+	public List<Survey> surveyList(int mno) {
+				
+		return sd.surveyList(sqlSession, mno);
+	}
+
+	
 
 	
 

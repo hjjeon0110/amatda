@@ -24,6 +24,14 @@
 td{
 	 height:60px;
 }
+
+#findIdBtn2{
+	width:400px; 
+	background:#ff0066;  
+	border:1px solid #ff0066; 
+	color:white; 
+	font-size:17px;
+}
 </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -69,7 +77,7 @@ td{
 				<td style=""><input type="email" name="email" id="myEmail2" class="form-control"></td>
 			</tr>
 			<tr>
-				<td colspan="2"><button type="button" class="form-control" id="findPwdBtn" onclick="findPwdBtn()">찾기</button></td>
+				<td colspan="2"><button type="button" style="width:400px; background:#ff0066;  border:1px solid #ff0066; color:white; font-size:17px;" class="form-control" id="findPwdBtn2" onclick="findPwdBtn()">찾기</button></td>
 			</tr>
 		</table>
 	
@@ -87,10 +95,12 @@ td{
 			type:"post",
 			data:{name:name,email:email},
 			success:function(data){
-				
+				if(data =='FAIL'){
+					alert("일치하는 정보가 없습니다.");
+				}else{
 					alert("회원님의 아이디는 "+data + "입니다.");
 					location.href="loginMember.me";
-				
+				}
 			},error:function(status){
 				console.log("다시해라..");
 			}

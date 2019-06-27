@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.common.CommonUtils;
@@ -69,34 +70,14 @@ public class TrainerController {
 		
 	}
 	
-	// 프로필 사진 존재 여부 확인 (전효정)
-	/*
-	 * @RequestMapping("modifyProfileImg.tr") public String checkProfileImg(Model
-	 * model, Member m, HttpServletRequest
-	 * request, @RequestParam(name="profileImgFile", required=false) MultipartFile
-	 * profileImgFile) {
-	 * 
-	 * String mno = request.getParameter("mno");
-	 * 
-	 * Attachment attachment = ts.checkProfileImg(mno);
-	 * model.addAttribute("attachment", attachment); String pic =
-	 * attachment.getFilePath() + attachment.getModiName() + "jpg";
-	 * model.addAttribute("pic", pic); System.out.println("pic : " + pic);
-	 * 
-	 * return "trainer/2_1_myPage_profile";
-	 * 
-	 * }
-	 */
-	
 	// 프로필 사진 변경 (전효정)
 	@RequestMapping("modifyProfileImg1.tr")
 	public void modifyProfileImg1(Model model, Member m, HttpServletRequest request, @RequestParam(name="profileImgFile", required=false) MultipartFile profileImgFile) {
 		System.out.println("인서트 = 버튼 실행");
 
 		String mno = request.getParameter("mno");
-		
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		
+
+
 		String filePath = root + "\\uploadFiles";
 				
 		// 파일 이름 변경
@@ -202,16 +183,67 @@ public class TrainerController {
 		}
 		
 		return "trainer/2_1_myPage_profile";
+  }
+
+		
+	
+	
+	@RequestMapping("ajaxshowMyPageEstimate.tr")
+	public ModelAndView ajaxshowMyPageEstimate(ModelAndView mv, int mno, String estType) {
+		
+		int iestType = Integer.parseInt(estType);
+		
+		
+		Estimate estimate = ts.selectEstimate(mno, iestType);
+		
+		
+		System.out.println("받아온 estimate객체 : " + estimate);
+		
+		
+		mv.addObject(estimate);
+		mv.setViewName("jsonView");
+		
+		return mv;
+
 	}
 	
-	
-	// 트레이너 마이페이지_견적서관리 이동 (전효정)
+	// 트레이너 견적서 삽입 서블릿(김진환)
+	@RequestMapping("insertEstimate.tr")
+	public String insertEstimate(Model model, Estimate tEst) {
+		
+		
+		//견적서 값을 넘겨서 있으면 update, 없으면 insert를 해줌
+		
+		
+		Estimate estimate = ts.selectEstimate(tEst.getTno(), tEst.getEstType());
+		
+		System.out.println("insert에서 받아온 estimate의 값 : " + estimate);
+		
+		if(estimate != null) {
+			int updateResult = ts.updateEstimate(tEst);
+			
+		}else {
+			int insertResult = ts.insertEstimate(tEst);
+			
+		}
+		
+		
+		
+		return "trainer/2_2_myPage_estimate";
+		
+		
+	}
+    
+    	// 트레이너 마이페이지_견적서관리 이동 (김진환)
 	@RequestMapping("showMyPageEstimate.tr")
-	public String showTrainerMyPageEstimateView(Model model, int mno, int estType) {
+	public String showTrainerMyPageEstimateView(Model model, int mno, String estType) {
 		
+		int iestType = Integer.parseInt(estType);
+
 		
-		Estimate estimate = ts.selectEstimate(mno);
-		
+		Estimate estimate = ts.selectEstimate(mno, iestType);
+    
+    	System.out.println("받아온 iestType의 값? " + iestType);
 		System.out.println("받아온 estimate객체 : " + estimate);
 	
 		model.addAttribute("estimate", estimate);
@@ -219,6 +251,10 @@ public class TrainerController {
 		return "trainer/2_2_myPage_estimate";
 		
 	}
+	
+	
+	
+	
 	
 	// 트레이너 마이페이지_매칭관리 이동 (전효정)
 	@RequestMapping("showMyPageMatching.tr")

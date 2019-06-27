@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,10 +40,13 @@ td {
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 
 	<jsp:include page="../common/menubar.jsp"></jsp:include>
+	
+	
 
 	<!-- <div class="progress" style=" height:30px">
     <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width:33%; background:pink;">
@@ -56,7 +60,11 @@ td {
 		<h1 id="font" align="center">설문조사 조회</h1>
 		<br />
 		<form action="update.su" method="post">
+			<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" />
 			<table align="center" id="font">
+			<tbody>
+			
+			<c:forEach var="list" items="${ requestScope.list }">
 
 				<tr>
 					<td>
@@ -65,15 +73,18 @@ td {
 				</tr>
 				<tr>
 					<td>키(Cm)</td>
-					<td><input type="text" placeholder="숫자만 입력하세요" name="height" class="form-control" autofocus /></td>
+					<td><input type="text" placeholder="숫자만 입력하세요" name="height" class="form-control" value="${ list.height }"/></td>
+					
 				</tr>
 				<tr>
 					<td>몸무게(Kg)</td>
-					<td><input type="text" placeholder="숫자만 입력하세요" name="weight" class="form-control" /></td>
+					<td><input type="text" placeholder="숫자만 입력하세요" name="weight" class="form-control" value="${ list.weight }"/></td>
+					
 				</tr>
 				<tr>
 					<td>목표 몸무게(Kg)</td>
-					<td><input type="text" placeholder="숫자만 입력하세요" name="hopeWeight" class="form-control" /></td>
+					<td><input type="text" placeholder="숫자만 입력하세요" name="hopeWeight" class="form-control" value="${ list.hopeWeight }"/></td>
+					
 				</tr>
 				<tr>
 					<td>나이 연령대</td>
@@ -96,7 +107,7 @@ td {
 						<input type="radio" name="hopePeriod" value="6개월" />6개월 &nbsp;&nbsp;&nbsp;&nbsp; 
 						<input type="radio" name="hopePeriod" value="1년이상" />1년 이상
 					</td>
-				</tr>
+				</tr>				
 				<tr>
 					<td>가장빼고싶은신체부위</td>
 					<td><input type="checkbox" name="hopeBody" value="팔부위" />팔 부위 &nbsp;&nbsp;&nbsp;&nbsp; 
@@ -142,7 +153,7 @@ td {
 				</tr>
 				<tr>
 					<td>운동시작희망일자</td>
-					<td><input type="date" name="hopeStart" class="form-control" /></td>
+					<td><input type="date" name="hopeStart" class="form-control" value="${ list.hopeStart }"/></td>
 				</tr>
 				<tr>
 					<td>다이어트를하고싶은이유</td>
@@ -180,15 +191,19 @@ td {
 				</tr>
 				<tr>
 					<td>장애및질병여유</td>
-					<td><input type="text" placeholder="장애 및 병명을 입력하세요" name="disease" class="form-control" /></td>
+					<td><input type="text" placeholder="장애 및 병명을 입력하세요" name="disease" class="form-control" value="${ list.disease }"/></td>
 				</tr>
 				<tr>
 					<td>일일운동시간</td>
-					<td><input type="text" placeholder="시간을 입력하세요" name="dayTime" class="form-control" /></td>
+					<td><input type="text" placeholder="시간을 입력하세요" name="dayTime" class="form-control" value="${ list.dayTime }"/></td>
 				</tr>
+				</c:forEach>
+				<%-- </c:forEach> --%>
+				</tbody>
 				<tr align="center">
 					<td><input type="submit" value="수 정" /></td>
 				</tr>
+				
 			</table>
 		</form>
 	</div>
@@ -196,5 +211,135 @@ td {
 	
 	
 	<jsp:include page="../common/footer.jsp"></jsp:include>
+	
+	<script>
+		//나이 연령대
+		$(function(){
+			$("input[name='uAge']").each(function(){
+				if($(this).val() == "${requestScope.list[0].uAge}"){
+					console.log("성공!");
+					$(this).attr("checked", true);
+				}
+			});
+		});
+		
+		//희망기간
+		$(function(){
+			$("input[name='hopePeriod']").each(function(){
+				if($(this).val() == "${requestScope.list[0].hopePeriod}"){
+					console.log("오키");
+					$(this).attr("checked", true);
+				}
+			});
+		});
+		
+		 //신체부위
+		/* $(function(){
+			var i
+			$("input:checkbox[name='hopeBody']").each(function(){
+				if($(this).val() == "${requestScope.list[0].hopeBody}"){
+					console.log("오키");
+					$(this).attr("checked", true);
+				}
+			});
+		});  */
+		
+		//신체부위
+		$(function(){
+			var i = 0;
+			
+			$("input[name='hopeBody']").each(function(){
+				if($(this).val() == "${requestScope.list[i].hopeBody}"){
+					console.log("오키~");
+					$(this).attr("checked", true);
+				}
+				i++;
+			});
+		});
+				
+		
+		//선호하는 다이어트 방법
+		$(function(){				
+			$("input[name='hopeMethod']").each(function(){
+				if($(this).val() == "${requestScope.list[0].hopeMethod}") {
+					console.log("성공2");
+					$(this).attr("checked", true);
+				} 
+			});						
+		});
+		
+	
+		//선호하는 트레이너 성별
+		$(function(){				
+			$("input[name='hopeGender']").each(function(){
+				if($(this).val() == "${requestScope.list[0].hopeGender}") {
+					console.log("성공2");
+					$(this).attr("checked", true);
+				} 
+			});						
+		});
+		
+		//선호하는 트레이너 나이
+		$(function(){				
+			$("input[name='hopeAge']").each(function(){
+				if($(this).val() == "${requestScope.list[0].hopeAge}") {
+					console.log("성공2");
+					$(this).attr("checked", true);
+				} 
+			});						
+		});
+		
+		//실패원인
+		$(function(){				
+			$("input[name='dietFail']").each(function(){
+				if($(this).val() == "${requestScope.list[0].dietFail}") {
+					console.log("성공2");
+					$(this).attr("checked", true);
+				} 
+			});						
+		});
+		
+		//다이어트 이유
+		$(function(){				
+			$("input[name='dietReason']").each(function(){
+				if($(this).val() == "${requestScope.list[0].dietReason}") {
+					console.log("성공2");
+					$(this).attr("checked", true);
+				} 
+			});						
+		});
+		
+		//선호하는 운동 유형
+		$(function(){				
+			$("input[name='hopeExercise']").each(function(){
+				if($(this).val() == "${requestScope.list[0].hopeExercise}") {
+					console.log("성공2");
+					$(this).attr("checked", true);
+				} 
+			});						
+		});
+		
+		//하루 운동 가능량
+		$(function(){				
+			$("input[name='datExercise']").each(function(){
+				if($(this).val() == "${requestScope.list[0].datExercise}") {
+					console.log("성공2");
+					$(this).attr("checked", true);
+				} 
+			});						
+		});
+		
+		//하루식사량
+		$(function(){				
+			$("input[name='datFood']").each(function(){
+				if($(this).val() == "${requestScope.list[0].datFood}") {
+					console.log("성공2");
+					$(this).attr("checked", true);
+				} 
+			});						
+		});
+		
+		
+	</script>
 </body>
 </html>

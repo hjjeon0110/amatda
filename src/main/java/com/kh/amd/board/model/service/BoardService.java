@@ -1,4 +1,4 @@
-package com.kh.amd.board.service;
+package com.kh.amd.board.model.service;
 
 import com.kh.amd.board.model.vo.Board;
 
@@ -21,5 +21,7 @@ public interface BoardService {
 	 */
 
 	int insertQna(Board b);
+
+	/* int selectReview(Board b); */
 
 }
