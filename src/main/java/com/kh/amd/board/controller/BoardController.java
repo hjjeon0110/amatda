@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.amd.board.model.service.BoardService;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.member.model.vo.Member;
 
 
 
@@ -20,13 +21,40 @@ public class BoardController {
 	
 	  //공지사항/이벤트 통합 리스트(sr)
 	  
-	  @RequestMapping("selectNotice.bo") 
+	 @RequestMapping("selectNotice.bo") 
 	  public String selectNotice() {
 	  
 	  return "board/selectNotice"; 
 	  
 	  }
 	  
+	  
+	  
+	  /*@RequestMapping("communityPostList.co")
+	   public String CommunityPostList(Model model ,int bno ) 
+	   {
+	      
+
+	      System.out.println("bno 값:"+bno);  
+	      
+	      ArrayList<CommunityPost> list = cs.CommunityPostList(bno);
+	      model.addAttribute("list",list); 
+	      
+	      System.out.println("CommunityPost="+list);
+	      
+	      
+	      return "community/communityPostList";
+	   } */
+	
+	  
+	/*
+	 * @RequestMapping("selectNotice.bo") public String selectNotice(Model model,int
+	 * bNo) { System.out.println("bNo의 값: " + bNo); ArrayList<> }
+	 */
+	 
+	  
+	  
+	  //-------------------------------------------//
 	  //공지사항 상세페이지(sr)
 	/*
 	 * @RequestMapping("selectOneNotice.bo") public String selectOneNotice(Model
@@ -59,10 +87,7 @@ public class BoardController {
 	 * return "board/selectOneReview"; }
 	 * 
 	 * 
-	 * //리뷰게시판 작성페이지 (sr)
-	 * 
-	 * @RequestMapping("insertReview.bo") public String insertReview() { return
-	 * "board/insertReview"; }
+	 *
 	 * 
 	 * //신고 입력 게시판(sr)
 	 * 
@@ -111,37 +136,66 @@ public class BoardController {
 		 return "board/insertQna";
 	 }
 	
+	 
 	 //Q&A 게시판 입력 (SR)
 	  @RequestMapping("insertQna.bo") 
-	  public String insertQna1(Model model, Board b) {
+	  public String insertQna(Model model, Board b,HttpServletRequest request) {
 	  System.out.println("내가 호출됐어요!!!");
 	  System.out.println(b);
-	  bs.insertQna(b); 
+	 
+	  Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+	  b.setbWriter(loginUser.getMno());
 	  
-	  return "board/insertQna"; 
+	  int result = bs.insertQna(b);
+	  if(result >0) {
+		  return "board/insertQna"; 
+	  }else {
+		  model.addAttribute("msg","등록실패");
+		  return "common/errorPage";
+	  }
+	
 	  }
 	 
 	  //리뷰게시판 그냥 단순 페이지 출력(sr)
-	/*
-	 * @RequestMapping("selectReviewFormView.bo") public String
-	 * selectReviewFormView() { return "board/selectReview";
-	 * 
-	 * }
-	 */
+	
+	 /* @RequestMapping("selectReviewFormView.bo") 
+	  public String
+	  selectReviewFormView() { 
+		  return "board/selectReview";
+	  
+	  }
+	 
 	  
 	  
 	 //리뷰게시판 리스트(sr)
-	/*
-	 * @RequestMapping("selectReview.bo")
-	 * 
-	 * public String selectReview(Model model,Board b ) { int result =
-	 * bs.selectReview(b); return "board/selectReview"; }
-	 */
-	 
-	 
-		 
 	
+	  @RequestMapping("selectReview.bo")
+	  
+	  public String selectReview(Model model,Board b ) {
+		  int result =bs.selectReview(b); 
+		  return "board/selectReview"; 
+		  } */
 	 
+	 
+	  //리뷰게시판 그냥 단순 페이지 출력 (sr)
+		  
+		 @RequestMapping("insertReviewFormView.bo") 
+		 public String insertReviewFormView() { 
+			System.out.println("나는 단순하게 입력양식만 호출했어요!");
+			 return "board/insertReview"; 
+			 
+		 }
+		 
+		 //리뷰게시판 입력(sr)
+		 @RequestMapping("insertReview.bo")
+		 public String insertReview(Model model,Board b) {
+			 System.out.println("진짜인 내가 호출됐어요!!");
+			 
+			 int result = bs.insertReview(b);
+			 
+			 return "board/insertReview";
+		 }
+	
 	
 	
 }

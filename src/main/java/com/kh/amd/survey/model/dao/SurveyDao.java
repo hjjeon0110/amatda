@@ -18,7 +18,11 @@ public interface SurveyDao {
 
 	int updateSurvey(SqlSessionTemplate sqlSession, Survey s, String mno);
 
-	List<Survey> surveyList(SqlSessionTemplate sqlSession, int mno); 
+	List<Survey> surveyList(SqlSessionTemplate sqlSession, int mno);
+
+	int updateMember(SqlSessionTemplate sqlSession, String mno);
+
+	
 
 	
 

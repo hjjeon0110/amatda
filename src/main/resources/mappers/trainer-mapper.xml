@@ -81,8 +81,8 @@
    <!-- 프로필 사진 수정 (전효정) -->
    <update id="modifyProfileImg" parameterType="Attachment">
    		UPDATE ATTACHMENT SET ORI_NAME = #{originalFilename}, MODI_NAME = #{changeName}, FILE_PATH = #{filePath}, UPLOAD_DATE = SYSDATE
-	
    </update>
+
    <insert id="insertEstimate" parameterType="Estimate">
    		INSERT INTO ESTIMATE
    		VALUES(EST_SEQ.NEXTVAL, #{tno}, #{estName}, #{estPrice}, #{estDay}, #{estContents}, #{estType})
