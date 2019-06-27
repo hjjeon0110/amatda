@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TMISSION">
+
+
+<resultMap id="tmissionResultSet" type="com.kh.amd.mission.model.vo.Mission">
+
+	<id column="MTRAINER_NO" property="mno"/> <!-- DB 기본키 -->
+	<result column="SCHEDULE_NO" property="sno"/><!-- 일반컬럼 -->
+	<result column="TNO" property="tno"/>
+	<result column="MCONTENT" property="mcontent"/>
+	<result column="REGISTER" property="register"/>
+	
+
+</resultMap>
+
+
+<!-- <!-- 아침식사 미션등록 -->
+<insert id="insertMission" parameterType="Mission">
+INSERT INTO T_MISSION
+VALUES (TMISSION_SEQ.NEXTVAL, ) 
+</insert> -->
+
+
+
+
+
+</mapper>

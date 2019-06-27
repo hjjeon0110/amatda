@@ -43,10 +43,24 @@ public class BoardServiceImpl implements BoardService{
 	 * @Override public void selectFaq(Board b) { bd.selectFaq(sqlSession,b); }
 	 */
 
-	//사용자페이지 Q&A 입력페이지(SR)
+	/*
+	 * //사용자페이지 Q&A 입력페이지(SR)
+	 * 
+	 * @Override public int insertQna(Board b) { return bd.insertQna(sqlSession,b);
+	 * }
+	 */
+	
+	//사용자페이지 리뷰후기 입력페이지(sr)
+	@Override
+	public int insertReview(Board b) {
+		return bd.insertReview(sqlSession,b);
+	
+	}
+
 	@Override
 	public int insertQna(Board b) {
-		return bd.insertQna(sqlSession,b);
+		
+		return bd.insertQna(sqlSession, b);
 	}
 
 	//공지사항 리스트(김선아)

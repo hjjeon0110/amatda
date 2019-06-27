@@ -35,15 +35,15 @@
 	
 	<!-- 캘린더/우리나 -->
 	<servlet>
-		<servlet-name>calendar</servlet-name>
+		<servlet-name>schedule</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/config/calendar-servlet.xml</param-value>
+			<param-value>/WEB-INF/config/schedule-servlet.xml</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>calendar</servlet-name>
+		<servlet-name>schedule</servlet-name>
 		<url-pattern>*.ca</url-pattern>
 	</servlet-mapping>
 	

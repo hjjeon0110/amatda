@@ -1,6 +1,7 @@
 package com.kh.amd.board.model.dao;
 
 import java.util.List;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -34,9 +35,26 @@ public class BoardDaoImpl implements BoardDao {
 	 */
 
 	//사용자페이지 Q&A 질문게시판 입력(SR)
+	/*
+	 * @Override public int insertQna(SqlSessionTemplate sqlSession, Board b) {
+	 * return sqlSession.insert("Board.insertQna",b);
+	 * 
+	 * }
+	 */
+
+	//사용자페이지 리뷰후기 게시판 입력(sr)
+	@Override
+	public int insertReview(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("Board.insertReview",b);
+	}
+
+	//사용자페이지 Q&A 질문게시판 입력(SR)
 	@Override
 	public int insertQna(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.insert("Board.insertQna",b);
+		
+		
+	return sqlSession.insert("Board.insertQna", b);
+	
 	
 	}
 
@@ -57,6 +75,7 @@ public class BoardDaoImpl implements BoardDao {
 	public void increaseViewcnt(SqlSessionTemplate sqlSession, int bNo) {
 		sqlSession.update("Board.increaseViewcnt", bNo);
 	}
+
 
 	/*
 	 * @Override public int selectReview(SqlSessionTemplate sqlSession, Board b) {

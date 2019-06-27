@@ -24,6 +24,10 @@ public interface BoardService {
 	 * void selectFaq(Board b);
 	 */
 
+	//int insertQna(Board b);
+
+	int insertReview(Board b);
+
 	int insertQna(Board b);
 	
 	//공지사항 리스트(김선아)
@@ -35,6 +39,8 @@ public interface BoardService {
 	//공지사항 조회수 증가(김선아)
 	void increaseViewcnt(int bNo, HttpSession session);
 
+
+	
 
 	/* int selectReview(Board b); */
 

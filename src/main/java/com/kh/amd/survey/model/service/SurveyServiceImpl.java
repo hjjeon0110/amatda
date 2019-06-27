@@ -23,7 +23,29 @@ public class SurveyServiceImpl implements SurveyService{
 	@Override
 	public int insertSurvey1(Survey s, String mno) {
 		
-		return sd.insertSurvey1(sqlSession, s, mno); 
+		 int result = 0;
+		  
+		  int result1 = sd.insertSurvey1(sqlSession, s, mno);
+		  
+		  System.out.println(result1);
+		  
+		  int result2 = sd.updateMember(sqlSession, mno);
+		  
+		  System.out.println(result2);
+		  
+		  if(result1 > 0 && result2 > 0) {
+			  
+			  result = 1;
+			  
+		}else { 
+			
+			  result = 0; 
+			  
+		}
+		  
+		  return result;
+		
+		//return sd.insertSurvey1(sqlSession, s, mno); 
 	
 	}
 

@@ -16,6 +16,7 @@ import com.kh.amd.survey.model.service.SurveyService;
 import com.kh.amd.survey.model.vo.Survey;
 
 @SessionAttributes("loginUser")
+
 @Controller
 public class SurveyController {
 	

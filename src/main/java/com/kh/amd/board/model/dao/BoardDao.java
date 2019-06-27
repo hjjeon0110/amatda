@@ -26,7 +26,12 @@ public interface BoardDao {
 	 * Board selectFaq(SqlSessionTemplate sqlSession, Board b);
 	 */
 
+	//int insertQna(SqlSessionTemplate sqlSession, Board b);
+
+	int insertReview(SqlSessionTemplate sqlSession, Board b);
+
 	int insertQna(SqlSessionTemplate sqlSession, Board b);
+
 
 	//공지사항 리스트(김선아)
 	List<Board> noticeList(SqlSessionTemplate sqlSession);
@@ -36,6 +41,9 @@ public interface BoardDao {
 
 	//공지사항 조회수증가(김선아)
 	void increaseViewcnt(SqlSessionTemplate sqlSession, int bNo);
+
+	//int insertQna(SqlSessionTemplate sqlSession, Board b, String mno);
+
 
 	/* int selectReview(SqlSessionTemplate sqlSession, Board b); */
 

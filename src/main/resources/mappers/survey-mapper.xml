@@ -90,10 +90,14 @@
 		SELECT *
 		FROM SURVEY, MEMBER
 		WHERE UNO = MNO
-		AND UNO = #{mno}		
-
+		AND UNO = #{mno}
 	</select>
 	
+	<update id="updateMember" parameterType="java.lang.String">
+		UPDATE MEMBER
+		SET COMPLETE_SURVEY = 'Y'
+		WHERE MNO = #{mno}   		
+   </update>
 	
 	
 	
