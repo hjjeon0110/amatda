@@ -2,12 +2,15 @@ package com.kh.amd.board.model.vo;
 
 import java.util.Date;
 
+import com.kh.amd.member.model.vo.Member;
+
 public class Board implements java.io.Serializable{
 	
 	public int bNo;
 	public int bType;
 	public String blCategory;
 	public String bmCategory;
+	public String bsCategory;
 	public Date bWriteDate;
 	public Date bModifyDate;
 	public String bTitle;
@@ -17,15 +20,18 @@ public class Board implements java.io.Serializable{
 	public String bStatus;
 	public int bWriter;
 	
+	private Member member;
+	
 	public Board() {}
 
-	public Board(int bNo, int bType, String blCategory, String bmCategory, Date bWriteDate, Date bModifyDate,
+	public Board(int bNo, int bType, String blCategory, String bmCategory, String bsCategory, Date bWriteDate, Date bModifyDate,
 			String bTitle, String bContent, int bCount, int bLike, String bStatus, int bWriter) {
 		super();
 		this.bNo = bNo;
 		this.bType = bType;
 		this.blCategory = blCategory;
 		this.bmCategory = bmCategory;
+		this.bsCategory = bsCategory;
 		this.bWriteDate = bWriteDate;
 		this.bModifyDate = bModifyDate;
 		this.bTitle = bTitle;
@@ -132,13 +138,24 @@ public class Board implements java.io.Serializable{
 		this.bWriter = bWriter;
 	}
 
+	public String getBsCategory() {
+		return bsCategory;
+	}
+
+	public void setBsCategory(String bsCategory) {
+		this.bsCategory = bsCategory;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [bNo=" + bNo + ", bType=" + bType + ", blCategory=" + blCategory + ", bmCategory=" + bmCategory
-				+ ", bWriteDate=" + bWriteDate + ", bModifyDate=" + bModifyDate + ", bTitle=" + bTitle + ", bContent="
-				+ bContent + ", bCount=" + bCount + ", bLike=" + bLike + ", bStatus=" + bStatus + ", bWriter=" + bWriter
-				+ "]";
+				+ ", bsCategory=" + bsCategory + ", bWriteDate=" + bWriteDate + ", bModifyDate=" + bModifyDate
+				+ ", bTitle=" + bTitle + ", bContent=" + bContent + ", bCount=" + bCount + ", bLike=" + bLike
+				+ ", bStatus=" + bStatus + ", bWriter=" + bWriter + ", member=" + member + "]";
 	}
+
+	
+
 
 	
 	

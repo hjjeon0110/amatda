@@ -2,60 +2,66 @@
 
 
 .miniMenubar {
-	width: 100%;
-	height: 45px;
-	font-family: 나눔고딕;
-	text-align: right;
-	border-bottom: 1px solid lightgray;
-	margin-top: 15px;
+   width: 100%;
+   height: 45px;
+   font-family: 나눔고딕;
+   text-align: right;
+   border-bottom: 1px solid lightgray;
+   margin-top: 15px;
 }
 
 .miniMenubar ul li {
-	display: inline;
-	font-size: 12px;
+   display: inline;
+   font-size: 12px;
 }
+.menuberLi4 {
+   font-size: 12px !important;
+   color:#ff0066 !important;
+}
+
 .menuberLi4 {
 	font-size: 12px !important;
 	color:#ff0066 !important;
 }
+
 .miniMenu:hover {
-	font-size: 12px;
-	color: #ff0066;
-	cursor:pointer;
+   font-size: 12px;
+   color: #ff0066;
+   cursor:pointer;
 }
 
 .miniMenubarLabel {
-	font-size: 12px;
-	color: gray;
+   font-size: 12px;
+   color: gray;
 }
 
 .menubarDiv {
-	width: 100%;
-	height: 80px;
+   width: 100%;
+   height: 80px;
 }
 
 .text-danger {
-	font-family: 'Black Han Sans', sans-serif;
-	font-size: 40px;
+   font-family: 'Black Han Sans', sans-serif;
+   font-size: 40px;
 }
 
 ul {
-	margin: 0px;
+   margin: 0px;
 }
 
 .menubarLi li {
-	display: inline;
-	font-family: 'Noto Sans KR', sans-serif;
-	font-size: 16px;
+   display: inline;
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size: 16px;
 }
 
 .menubarLi li:hover {
-	display: inline;
-	color: #ff0066;
-	font-family: 'Noto Sans KR', sans-serif;
-	font-size: 16px;
-	cursor: pointer;
+   display: inline;
+   color: #ff0066;
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size: 16px;
+   cursor: pointer;
 }
 .menubarLi {
-	width:670px;
+   width:670px;
 }

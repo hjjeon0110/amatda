@@ -1,5 +1,8 @@
 package com.kh.amd.board.model.dao;
 
+import java.util.List;
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -32,11 +35,47 @@ public class BoardDaoImpl implements BoardDao {
 	 */
 
 	//사용자페이지 Q&A 질문게시판 입력(SR)
+	/*
+	 * @Override public int insertQna(SqlSessionTemplate sqlSession, Board b) {
+	 * return sqlSession.insert("Board.insertQna",b);
+	 * 
+	 * }
+	 */
+
+	//사용자페이지 리뷰후기 게시판 입력(sr)
+	@Override
+	public int insertReview(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("Board.insertReview",b);
+	}
+
+	//사용자페이지 Q&A 질문게시판 입력(SR)
 	@Override
 	public int insertQna(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.insert("Board.insertQna",b);
+		
+		
+	return sqlSession.insert("Board.insertQna", b);
+	
 	
 	}
+
+	//공지사항 리스트(김선아)
+	@Override
+	public List<Board> noticeList(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Board.noticeList");
+	}
+	
+	//공지사항 상세보기(김선아)
+	@Override
+	public Object noticeSelectOne(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.selectOne("Board.noticeSelectOne", bNo);
+	}
+
+	//공지사항 조회수 증가(김선아)
+	@Override
+	public void increaseViewcnt(SqlSessionTemplate sqlSession, int bNo) {
+		sqlSession.update("Board.increaseViewcnt", bNo);
+	}
+
 
 	/*
 	 * @Override public int selectReview(SqlSessionTemplate sqlSession, Board b) {

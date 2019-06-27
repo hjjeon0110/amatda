@@ -217,6 +217,7 @@ td {
 		$(function(){
 			$("input[name='uAge']").each(function(){
 				if($(this).val() == "${requestScope.list[0].uAge}"){
+					console.log("${requestScope.list[0].uAge}");
 					console.log("성공!");
 					$(this).attr("checked", true);
 				}
@@ -231,29 +232,27 @@ td {
 					$(this).attr("checked", true);
 				}
 			});
-		});
+		});		
 		
-		 //신체부위
-		/* $(function(){
-			var i
-			$("input:checkbox[name='hopeBody']").each(function(){
-				if($(this).val() == "${requestScope.list[0].hopeBody}"){
-					console.log("오키");
-					$(this).attr("checked", true);
-				}
-			});
-		});  */
 		
 		//신체부위
 		$(function(){
-			var i = 0;
 			
-			$("input[name='hopeBody']").each(function(){
-				if($(this).val() == "${requestScope.list[i].hopeBody}"){
-					console.log("오키~");
-					$(this).attr("checked", true);
-				}
-				i++;
+			$("input[name='hopeBody']").each(function(index){
+			
+				//console.log("each문 실행");
+				//console.log("지금 : " + $(this).val());
+				
+				var hopeBody = "${requestScope.list[0].hopeBody}".split(',');
+				
+				for(var i = 0; i < hopeBody.length; i++) {
+					
+					if($(this).val() == hopeBody[i]){
+						console.log("체크체크");
+						$(this).attr("checked", true);
+					}
+				}				
+				
 			});
 		});
 				
@@ -288,16 +287,27 @@ td {
 				} 
 			});						
 		});
-		
-		//실패원인
-		$(function(){				
-			$("input[name='dietFail']").each(function(){
-				if($(this).val() == "${requestScope.list[0].dietFail}") {
-					console.log("성공2");
-					$(this).attr("checked", true);
-				} 
-			});						
+				
+		//다이어트 실패원인
+		$(function(){			
+			$("input[name='dietFail']").each(function(index){
+			
+				//console.log("each문 실행");
+				//console.log("지금 : " + $(this).val());
+				
+				var dietFail = "${requestScope.list[0].dietFail}".split(',');
+				
+				for(var i = 0; i < dietFail.length; i++) {
+					
+					if($(this).val() == dietFail[i]){
+						console.log("성공~");
+						$(this).attr("checked", true);
+					}
+				}				
+				
+			});
 		});
+		
 		
 		//다이어트 이유
 		$(function(){				
@@ -309,14 +319,24 @@ td {
 			});						
 		});
 		
-		//선호하는 운동 유형
-		$(function(){				
-			$("input[name='hopeExercise']").each(function(){
-				if($(this).val() == "${requestScope.list[0].hopeExercise}") {
-					console.log("성공2");
-					$(this).attr("checked", true);
-				} 
-			});						
+		//선호하는 운동 유형		
+		$(function(){			
+			$("input[name='hopeExercise']").each(function(index){
+			
+				//console.log("each문 실행");
+				//console.log("지금 : " + $(this).val());
+				
+				var hopeExercise = "${requestScope.list[0].hopeExercise}".split(',');
+				
+				for(var i = 0; i < hopeExercise.length; i++) {
+					
+					if($(this).val() == hopeExercise[i]){
+						console.log("성공~");
+						$(this).attr("checked", true);
+					}
+				}				
+				
+			});
 		});
 		
 		//하루 운동 가능량

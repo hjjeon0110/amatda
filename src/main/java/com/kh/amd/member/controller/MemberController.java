@@ -145,7 +145,9 @@ public class MemberController {
 		  e.printStackTrace(); } 
 			  
 		  }else { 
-			  try { response.getWriter().print("fail"); }
+			  try { 
+				  response.getWriter().print("fail"); 
+				  }
 		  catch (IOException e) {
 		  
 			  e.printStackTrace(); 
