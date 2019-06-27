@@ -19,23 +19,34 @@
   		<result property="bWriter" column="BWRITER"/>
   	</resultMap>
   	
-  
 
   	
+  
   	<!-- Q&A 입력용(sr) -->
   	<insert id="insertQna" parameterType="Board">
 	  	INSERT INTO BOARD(BNO,BTYPE,BWRITE_DATE,BTITLE,BCONTENT,BWRITER)
-	  	VALUES (BNO_SEQ.NEXTVAL, #{bType}, sysdate, #{bTitle}, #{bContent},51)
+	  	VALUES (BNO_SEQ.NEXTVAL, #{bType}, sysdate, #{bTitle}, #{bContent},#{bWriter})
   	</insert>
   	
   	<!-- REVIEW 후기  리스트 출력용(SR) -->
-  	<select id="selectReview" parameterType="Board">
+  	<!-- <select id="selectReview" parameterType="Board">
   		SELECT*
 		FROM BOARD
 		WHERE BTYPE='5'
 		AND BSTATUS='Y'
   	</select>
+ -->  	
+  	<!-- review 후기 입력용(sr) -->
+  	<insert id="insertReview" parameterType="Board">
+  	INSERT INTO BOARD(BNO,BTYPE,BWRITE_DATE,BTITLE,BCONTENT,BWRITER)
+  	VALUES (BNO_SEQ.NEXTVAL,#{bType}, sysdate, #{bTitle},#{bContent},51)
+  	</insert> 
   	
+  <!-- 	<insert id="insertReview" parameterType="Board">
+  	INSERT INTO BOARD(BNO,BTYPE,BWRITE_DATE,BTITLE,BCONTENT,MNO)
+  	VALUES (BNO_SEQ.NEXTVAL,#{bType}, sysdate, #{bTitle},#{bContent},#{mno})
+  	</insert> -->
   	
-  
   </mapper>
+  
+  

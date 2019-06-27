@@ -303,6 +303,8 @@ margin:0 auto;
 <div class="container1">
   <form action="insertQna.bo" method="post">
    <input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.mno }" />
+    <input type="hidden" name="bType" value="4"/>
+   
   
   <div class="row">
     <div class="col-25">
