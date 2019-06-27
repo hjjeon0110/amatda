@@ -4,11 +4,30 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="Board">
+    <!-- 작성자 아이디 가지고 오기 위함 -->
+  	<resultMap id="member" type="com.kh.amd.member.model.vo.Member">
+		<id column="MNO" property="mno"/> <!-- DB 기본키 -->
+		<result column="NAME" property="name"/><!-- 일반컬럼 -->
+		<result column="ID" property="userId"/>
+		<result column="PWD" property="userPwd"/>
+		<result column="PHONE" property="phone"/>
+		<result column="GENDER" property="gender"/>
+		<result column="EMAIL" property="email"/>
+		<result column="MTYPE" property="mtype"/>
+		<result column="STATUS" property="status"/>
+		<result column="MATCH_TIME" property="matchTime"/>
+		<result column="EMAIL_YN" property="emailYn"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="COMPLETE_SURVEY" property="completeSurvey"/>
+	</resultMap>
+	
   	<resultMap type="com.kh.amd.board.model.vo.Board" id="boardResultSet">
   		<id property="bNo" column="BNO"/>
   		<result property="bType" column="BTYPE"/>
   		<result property="blCategory" column="BL_CATEGORY"/>
   		<result property="bmCategory" column="BM_CATEGORY"/>
+  		<result property="bsCategory" column="BS_CATEGORY"/>
   		<result property="bWriteDate" column="BWRITE_DATE"/>
   		<result property="bModifyDate" column="BMODIFY_DATE"/>
   		<result property="bTitle" column="BTITLE"/>
@@ -17,11 +36,10 @@
   		<result property="bLike" column="BLIKE"/>
   		<result property="bStatus" column="BSTATUS"/>
   		<result property="bWriter" column="BWRITER"/>
+  		<collection property="member" resultMap="member"/>
   	</resultMap>
   	
 
-  	
-  
   	<!-- Q&A 입력용(sr) -->
   	<insert id="insertQna" parameterType="Board">
 	  	INSERT INTO BOARD(BNO,BTYPE,BWRITE_DATE,BTITLE,BCONTENT,BWRITER)
@@ -42,10 +60,32 @@
   	VALUES (BNO_SEQ.NEXTVAL,#{bType}, sysdate, #{bTitle},#{bContent},51)
   	</insert> 
   	
+
+  	<!-- 공지사항 리스트 조회(김선아) -->
+  	<select id="noticeList" resultMap="boardResultSet">
+  		SELECT *
+		FROM BOARD
+		WHERE BTYPE = 1 OR BTYPE=2
+  	</select>
+  	
+  	<!-- 공지사항 상세조회(김선아) -->
+  	<select id="noticeSelectOne" resultMap="boardResultSet">
+  		SELECT *
+        FROM (SELECT *FROM BOARD WHERE BTYPE = 1 OR BTYPE=2)
+        WHERE BNO = #{bNo}
+  	</select>
+  	 
+  	<!-- 공지사항 조회수 증가(김선아) -->
+  	<update id="increaseViewcnt">
+  		UPDATE BOARD SET BCOUNT = BCOUNT + 1
+  		WHERE BNO = #{bNo}
+  	</update>
+
   <!-- 	<insert id="insertReview" parameterType="Board">
   	INSERT INTO BOARD(BNO,BTYPE,BWRITE_DATE,BTITLE,BCONTENT,MNO)
   	VALUES (BNO_SEQ.NEXTVAL,#{bType}, sysdate, #{bTitle},#{bContent},#{mno})
   	</insert> -->
+
   	
   </mapper>
   

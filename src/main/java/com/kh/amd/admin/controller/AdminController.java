@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.amd.board.model.service.BoardService;
 import com.kh.amd.board.model.service.DeclarationService;
+import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.board.model.vo.Declaration;
 
 
@@ -23,6 +25,9 @@ public class AdminController {
 
 	@Autowired
 	private DeclarationService ds;
+
+	@Autowired
+	private BoardService bs;
 
 	//관리자 페이지 메인
 	@RequestMapping("main.ad")
@@ -45,20 +50,35 @@ public class AdminController {
 		return "admin/matchingList";
 	}
 
-	//공지사항
+
+	//공지사항 리스트
 	@RequestMapping("notice.ad")
-	public String noticeList(){
+	public String noticeList(Model model){
+
+		List<Board> noticeList = bs.noticeList();
+		System.out.println(noticeList);
+		model.addAttribute("list", noticeList);		
 
 		return "admin/noticeList";
 	}
 
-	//공지사항 상세보기
-	@RequestMapping("noticeSelectOne.ad")
-	public String noticeSelectOne(){
 
-		return "admin/noticeSelectOne";
+	//공지사항 상세보기
+
+	@RequestMapping(value="noticeSelectOne.ad", method=RequestMethod.GET) 
+	public ModelAndView noticeSelectOne(@RequestParam int bNo, HttpSession session){
+
+		//조회수 증가
+		bs.increaseViewcnt(bNo, session);		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("admin/noticeSelectOne"); 
+		mav.addObject("notice",bs.noticeSelectOne(bNo));
+
+		return mav;
 
 	}
+
+
 
 	//공지사항 글 등록
 	@RequestMapping("noticeInsert.ad")
@@ -133,24 +153,24 @@ public class AdminController {
 	//신고게시물 상세보기
 	@RequestMapping(value="declarationSelectOne.ad", method=RequestMethod.GET)
 	public ModelAndView declarationSelectOne(@RequestParam int decl_no, HttpSession session){
-		
+
 		//데이터와 화면을 함께 전달하는 객체
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("admin/declarationSelectOne");
 		mav.addObject("decl", ds.declarationSelectOne(decl_no));
-		
+
 		//System.out.println(ds.declarationSelectOne(decl_no));
-	
+
 		return mav;
 	}
-	
+
 	//신고게시물 삭제
 	@RequestMapping("deleteDeclaration.ad")
 	public String deleteDeclaration(@RequestParam int decl_no) {
 		ds.deleteDeclaration(decl_no);
-		
+
 		return "redirect:declaration.ad";
-		
+
 	}
 
 	//통계관리 페이지

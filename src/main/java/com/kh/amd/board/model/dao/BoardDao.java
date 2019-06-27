@@ -1,5 +1,7 @@
 package com.kh.amd.board.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 
@@ -30,7 +32,18 @@ public interface BoardDao {
 
 	int insertQna(SqlSessionTemplate sqlSession, Board b);
 
+
+	//공지사항 리스트(김선아)
+	List<Board> noticeList(SqlSessionTemplate sqlSession);
+
+	//공지사항 상세보기(김선아)
+	Object noticeSelectOne(SqlSessionTemplate sqlSession, int bNo);
+
+	//공지사항 조회수증가(김선아)
+	void increaseViewcnt(SqlSessionTemplate sqlSession, int bNo);
+
 	//int insertQna(SqlSessionTemplate sqlSession, Board b, String mno);
+
 
 	/* int selectReview(SqlSessionTemplate sqlSession, Board b); */
 

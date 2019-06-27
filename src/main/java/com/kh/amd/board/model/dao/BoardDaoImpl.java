@@ -1,5 +1,6 @@
 package com.kh.amd.board.model.dao;
 
+import java.util.List;
 import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -55,6 +56,24 @@ public class BoardDaoImpl implements BoardDao {
 	return sqlSession.insert("Board.insertQna", b);
 	
 	
+	}
+
+	//공지사항 리스트(김선아)
+	@Override
+	public List<Board> noticeList(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Board.noticeList");
+	}
+	
+	//공지사항 상세보기(김선아)
+	@Override
+	public Object noticeSelectOne(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.selectOne("Board.noticeSelectOne", bNo);
+	}
+
+	//공지사항 조회수 증가(김선아)
+	@Override
+	public void increaseViewcnt(SqlSessionTemplate sqlSession, int bNo) {
+		sqlSession.update("Board.increaseViewcnt", bNo);
 	}
 
 
