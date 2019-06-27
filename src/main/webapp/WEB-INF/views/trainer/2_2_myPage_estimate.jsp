@@ -179,7 +179,7 @@ select {
 	<c:if test="${!empty estimate}">
 	<form action="insertEstimate.tr">
 	<div class="estimateDiv">
-		<input type="hidden" name="tno" id="tno"value="${ sessionScope.loginUser.mno }"/>
+		<input type="hidden" name="tno" id="tno" value="${ sessionScope.loginUser.mno }"/>
 		<input type="hidden" name="estType" id="estType" value="1"/>
 		<br><br><br>
 		<label class="subTitle">제목</label>
@@ -189,7 +189,7 @@ select {
 		<br><br><br>
 		<label class="subTitle" >커리큘럼</label>
 		<br><br>
-		<textarea class="curriculum" name="estContents" placeholder=" 커리큘럼을 입력해주세요">${ estimate.estContents }</textarea>
+		<textarea class="curriculum" id="estContents" name="estContents" placeholder=" 커리큘럼을 입력해주세요">${ estimate.estContents }</textarea>
 		
 		<br><br><br>
 		<label class="subTitle" >개월수</label>
@@ -212,7 +212,7 @@ select {
 		<br><br><br>
 		<label class="subTitle">가격</label>
 		<br><br>
-		<input type="text" name="estPrice" placeholder="가격을 입력해주세요" value="${ estimate.estPrice }">
+		<input type="text" name="estPrice" id="estPrice" placeholder="가격을 입력해주세요" value="${ estimate.estPrice }">
 		<br><br>
 		<button class="modification"> 견적서 저장하기 </button>
 	</div>
@@ -244,11 +244,16 @@ select {
 					url:"ajaxshowMyPageEstimate.tr",
 					data: {mno:mno, estType:estType},
 					type:"get",
+					dataType:"json",
 					success:function(data){
-						console.log(data);
-						$("#estName").attr("value", data.estName);
-						$("#estType").attr("value", "2");
-						
+						var estName = decodeURIComponent(data.estName);
+						var estContents = decodeURIComponent(data.estContents);	
+						console.log(estName);
+						$("#estName").val(estName);
+						$("#estContents").val(estContents);
+						$("#estDay").val(data.estDay);
+						$("#estPrice").val(data.estPrice);
+						$("#estType").attr("value", "2"); 
 					}
 					
 				})
@@ -269,10 +274,17 @@ select {
 					url:"ajaxshowMyPageEstimate.tr",
 					data: {mno:mno, estType:estType},
 					type:"get",
+					dataType:"json",
 					success:function(data){
-						console.log(data);
-						$("#estName").attr("value", data.estName);
-						$("#estType").attr("value", "1");
+						
+						var estName = decodeURIComponent(data.estName);
+						var estContents = decodeURIComponent(data.estContents);	
+						console.log(estName);
+						$("#estName").val(estName);
+						$("#estContents").val(estContents);
+						$("#estDay").val(data.estDay);
+						$("#estPrice").val(data.estPrice);
+						$("#estType").attr("value", "1"); 
 					}
 					
 				})

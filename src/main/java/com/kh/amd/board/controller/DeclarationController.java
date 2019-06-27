@@ -22,17 +22,7 @@ public class DeclarationController {
 				
 		return "board/insertDeclaration";
 	}
-	
-	//신고게시판 입력(sr)
-	/*@RequestMapping("insertDeclaration.bo")
-	public String insertDeclaration(Model model,Declaration d) {
-		System.out.println("신고게시판인 내가 호출됐어요!!!");
-		System.out.println(d);
-		
-		int result = ds.insertDeclaration(d);
-		return "board/insertDeclaration";
-	}*/
-	
+
 	
 	//신고게시판 입력(sr)
 		@RequestMapping("insertDeclaration.de")

@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.amd.board.model.vo.*,com.kh.amd.member.model.vo.*"%>
     
-<%
+    
+<%-- <%
 	HashMap<String,Object> hmap = (HashMap<String,Object>) request.getAttribute("hmap");
 	ArrayList<Member> mList=(ArrayList<Member>)hmap.get("mList");
 	ArrayList<Board> bList=(ArrayList<Board>)hmap.get("bList");
 	
-%>  
+%>   --%>
     
  
 <!DOCTYPE html>
@@ -214,7 +215,7 @@ margin-bottom:15px;
 			        <th>조회수</th>
 			      </tr>
 			    
-			 	
+			 	<%-- 
 			 	  <%for(int i = 0; i<bList.size(); i++){ %>
 			      <tr>
                   <td><%=bList.get(i).getbNo() %></td>
@@ -223,7 +224,7 @@ margin-bottom:15px;
                   <td><%=bList.get(i).getbModifyDate() %></td>
                   <td><%=bList.get(i).getbCount() %></td>
                </tr>
-               <%} %> 
+               <%} %>  --%>
   			</table>
   			
   			<div class="checkboxgroup">

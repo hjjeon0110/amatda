@@ -2,9 +2,15 @@ package com.kh.amd.trainer.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +20,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.common.CommonUtils;
 import com.kh.amd.member.model.vo.Member;
@@ -24,85 +32,82 @@ import com.kh.amd.trainer.model.vo.Profile;
 @SessionAttributes("loginUser")
 @Controller
 public class TrainerController {
-	
+
 	@Autowired
 	private TrainerService ts;
-	
+
 	// 회원 찾기 페이지 이동 (전효정)
 	@RequestMapping("showUserFindPageView.tr")
 	public String showUserFindPageView() {
 		return "trainer/1_userFindPage";
 	}
-	
+
 	// 트레이너 마이페이지_프로필관리 이동 (전효정)
 	@RequestMapping("showMyPageProfile.tr")
 	public String showTrainerMyPageProfileView(Model model, int mno) {
-		
+
 		// 프로필 작성 여부 확인 메소드 (전효정)
 		Profile profile = ts.checkProfile(mno);
 		model.addAttribute("profile", profile);
-		
+
 		// 프로필 사진 존재 여부 확인 (전효정)
 		Attachment attachment = ts.checkProfileImg(mno);
 		model.addAttribute("attachment", attachment);
 		String pic = attachment.getModiName() + ".jpg";
-		model.addAttribute("pic", pic);		
-		
+		model.addAttribute("pic", pic);
+
 		return "trainer/2_1_myPage_profile";
-		
+
 	}
-	
+
 	// 트레이너 마이페이지_프로필관리 이동 (전효정)
 	@RequestMapping("showMyPageProfile2.tr")
 	public String showTrainerMyPageProfileView2(Model model, int mno) {
-		
+
 		// 프로필 작성 여부 확인 메소드 (전효정)
-				Profile profile = ts.checkProfile(mno);
-				model.addAttribute("profile", profile);
-				
-				// 프로필 사진 존재 여부 확인 (전효정)
-				Attachment attachment = ts.checkProfileImg(mno);
-				model.addAttribute("attachment", attachment);
-				String pic = attachment.getModiName() + ".jpg";
-				model.addAttribute("pic", pic);		
-		
+		Profile profile = ts.checkProfile(mno);
+		model.addAttribute("profile", profile);
+
+		// 프로필 사진 존재 여부 확인 (전효정)
+		Attachment attachment = ts.checkProfileImg(mno);
+		model.addAttribute("attachment", attachment);
+		String pic = attachment.getModiName() + ".jpg";
+		model.addAttribute("pic", pic);
+
 		return "trainer/2_1_myPage_profile";
-		
+
 	}
-	
+
 	// 프로필 사진 변경 (전효정)
 	@RequestMapping("modifyProfileImg1.tr")
-	public void modifyProfileImg1(Model model, Member m, HttpServletRequest request, @RequestParam(name="profileImgFile", required=false) MultipartFile profileImgFile) {
+	public void modifyProfileImg1(Model model, Member m, HttpServletRequest request,
+			@RequestParam(name = "profileImgFile", required = false) MultipartFile profileImgFile) {
 		System.out.println("인서트 = 버튼 실행");
 
 		String mno = request.getParameter("mno");
 
-
 		String filePath = root + "\\uploadFiles";
-				
+
 		// 파일 이름 변경
 		String originalFilename = profileImgFile.getOriginalFilename();
 		String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); // 확장자명 따로 저장
 		String changeName = CommonUtils.getRandomString();
-		
+
 		try {
-			
+
 			profileImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
-			
+
 			ts.insertProfileImg(mno, filePath, originalFilename, changeName);
 
-			
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 			System.out.println("에러발생");
 		}
-		
-		
+
 	}
-	
-	
+
 	// 프로필 사진 변경 (전효정)
-	
+
 	/*
 	 * @RequestMapping("modifyProfileImg2.tr") public void modifyProfileImg2(Model
 	 * model, Member m, HttpServletRequest
@@ -139,153 +144,199 @@ public class TrainerController {
 	 * 
 	 * }
 	 */
-	 
-	
+
 	@RequestMapping("modifyProfileImg2.tr")
-	public String modifyProfileImg2(Model model, Member m, HttpServletRequest request, @RequestParam(name="profileImgFile", required=false) MultipartFile profileImgFile) {
+	public String modifyProfileImg2(Model model, Member m, HttpServletRequest request,
+			@RequestParam(name = "profileImgFile", required = false) MultipartFile profileImgFile) {
 		System.out.println("업데이트 폼 실행");
-		
+
 		String mno = request.getParameter("mno");
-		
-		
+
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		
+
 		String filePath = root + "\\uploadFiles";
-				
+
 		// 파일 이름 변경
 		String originalFilename = profileImgFile.getOriginalFilename();
 		String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); // 확장자명 따로 저장
 		String changeName = CommonUtils.getRandomString();
-		
+
 		try {
-			
+
 			profileImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
-			
 
 			ts.modifyProfileImg(mno, filePath, originalFilename, changeName);
-			
+
 			int mno2 = Integer.parseInt(mno);
-			
+
 			// 프로필 작성 여부 확인 메소드 (전효정)
 			Profile profile = ts.checkProfile(mno2);
 			model.addAttribute("profile", profile);
-			
+
 			// 프로필 사진 존재 여부 확인 (전효정)
 			Attachment attachment = ts.checkProfileImg(mno2);
 			model.addAttribute("attachment", attachment);
 			String pic = attachment.getModiName() + ".jpg";
-			model.addAttribute("pic", pic);	
-							
-			
+			model.addAttribute("pic", pic);
+
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 			System.out.println("에러발생");
 		}
-		
+
 		return "trainer/2_1_myPage_profile";
-  }
+	}
 
-		
+	
+	/*
+	 * @RequestMapping("ajaxshowMyPageEstimate.tr") public ModelAndView
+	 * ajaxshowMyPageEstimate(ModelAndView mv, int mno, String estType) {
+	 * 
+	 * int iestType = Integer.parseInt(estType); Estimate estimate =
+	 * ts.selectEstimate(mno, iestType);
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * System.out.println("받아온 estimate객체 : " + estimate);
+	 * 
+	 * 
+	 * mv.addObject("estimate", estimate); mv.setViewName("jsonView");
+	 * 
+	 * return mv;
+	 * 
+	 * 
+	 * }
+	 */
+	 
 	
 	
+	/*
+	 * @RequestMapping(value = "ajaxshowMyPageEstimate.tr") public void
+	 * ajaxshowMyPageEstimate(HttpServletResponse response, int mno, String estType)
+	 * { int iestType = Integer.parseInt(estType); Estimate estimate =
+	 * ts.selectEstimate(mno, iestType);
+	 * 
+	 * 
+	 * ObjectMapper mapper = new ObjectMapper();
+	 * 
+	 * try { response.getWriter().print(mapper.writeValueAsString(estimate)); }
+	 * catch (JsonGenerationException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); } catch (JsonMappingException e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); } catch (IOException e) { //
+	 * TODO Auto-generated catch block e.printStackTrace(); }
+	 * 
+	 * 
+	 * System.out.println("받아온 estimate객체 : " + estimate);
+	 * 
+	 * 
+	 * }
+	 */
 	@RequestMapping("ajaxshowMyPageEstimate.tr")
-	public ModelAndView ajaxshowMyPageEstimate(ModelAndView mv, int mno, String estType) {
-		
-		int iestType = Integer.parseInt(estType);
-		
-		
+	public void ajaxshowMyPageEstimate(HttpServletResponse response, int mno, String estType) {
+		int iestType = Integer.parseInt(estType); 
 		Estimate estimate = ts.selectEstimate(mno, iestType);
+		System.out.println("ajax로 보낼 객체 : " + estimate);
 		
+		JSONObject estiMateJson = new JSONObject();
 		
-		System.out.println("받아온 estimate객체 : " + estimate);
-		
-		
-		mv.addObject(estimate);
-		mv.setViewName("jsonView");
-		
-		return mv;
 
+		try {
+			String EncodeestContents = URLEncoder.encode(estimate.getEstContents(), "UTF-8");
+			String EncodeestContent = EncodeestContents.replaceAll("\\+", "%20");
+			String EncodeestName = URLEncoder.encode(estimate.getEstName(), "UTF-8");
+			String EncestName = EncodeestName.replaceAll("\\+", "%20");
+			
+			estiMateJson.put("estContents", EncodeestContent);
+			estiMateJson.put("estDay", estimate.getEstDay());
+			estiMateJson.put("estName", EncestName);
+			estiMateJson.put("estPrice", estimate.getEstPrice());
+			estiMateJson.get("estContets");
+			response.setContentType("application/json");
+			new Gson().toJson(estiMateJson, response.getWriter());
+		} catch (JsonIOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
+	
+	 
+	
+
 	// 트레이너 견적서 삽입 서블릿(김진환)
 	@RequestMapping("insertEstimate.tr")
 	public String insertEstimate(Model model, Estimate tEst) {
-		
-		
-		//견적서 값을 넘겨서 있으면 update, 없으면 insert를 해줌
-		
-		
+
+		// 견적서 값을 넘겨서 있으면 update, 없으면 insert를 해줌
+
 		Estimate estimate = ts.selectEstimate(tEst.getTno(), tEst.getEstType());
-		
+
 		System.out.println("insert에서 받아온 estimate의 값 : " + estimate);
-		
-		if(estimate != null) {
+
+		if (estimate != null) {
 			int updateResult = ts.updateEstimate(tEst);
-			
-		}else {
+
+		} else {
 			int insertResult = ts.insertEstimate(tEst);
-			
+
 		}
-		
-		
-		
+
 		return "trainer/2_2_myPage_estimate";
-		
-		
+
 	}
-    
-    	// 트레이너 마이페이지_견적서관리 이동 (김진환)
+
+	// 트레이너 마이페이지_견적서관리 이동 (김진환)
 	@RequestMapping("showMyPageEstimate.tr")
 	public String showTrainerMyPageEstimateView(Model model, int mno, String estType) {
-		
+
 		int iestType = Integer.parseInt(estType);
 
-		
 		Estimate estimate = ts.selectEstimate(mno, iestType);
-    
-    	System.out.println("받아온 iestType의 값? " + iestType);
+
+		System.out.println("받아온 iestType의 값? " + iestType);
 		System.out.println("받아온 estimate객체 : " + estimate);
-	
+
 		model.addAttribute("estimate", estimate);
-			
+
 		return "trainer/2_2_myPage_estimate";
-		
+
 	}
-	
-	
-	
-	
-	
+
 	// 트레이너 마이페이지_매칭관리 이동 (전효정)
 	@RequestMapping("showMyPageMatching.tr")
 	public String showTrainerMyPageMatchingView() {
 		return "trainer/2_3_myPage_matching";
 	}
-	
+
 	// 트레이너 마이페이지_멤버십관리 이동 (전효정)
 	@RequestMapping("showMyPageMembership.tr")
 	public String showTrainerMyPageMembershipView() {
 		return "trainer/2_4_myPage_membership";
 	}
-	
+
 	// 트레이너 마이페이지_내글관리 이동 (전효정)
 	@RequestMapping("showMyPageMyWriting.tr")
 	public String showTrainerMyPageMyWritingView() {
 		return "trainer/2_5_myPage_myWriting";
 	}
-	
+
 	// 트레이너 PT관리페이지_매칭진행회원 이동 (전효정)
 	@RequestMapping("showMatchingInProgressPage.tr")
 	public String showMatchingInProgressView() {
 		return "trainer/3_1_matchingInProgressPage";
 	}
-	
+
 	// 트레이너 PT관리페이지_매칭완료회원 이동 (전효정)
 	@RequestMapping("showMatchingCompletePage.tr")
 	public String showMatchingCompleteView() {
 		return "trainer/3_2_matchingCompletePage";
 	}
-	
+
 	// 트레이너 매칭진행회원_매칭프로세스페이지 이동 (전효정)
 	@RequestMapping("showMatchingProcessPage.tr")
 	public String showMatchingProcessView() {
