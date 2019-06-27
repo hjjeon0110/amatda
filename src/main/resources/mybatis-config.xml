@@ -15,7 +15,6 @@
   		<typeAlias type="com.kh.amd.trainer.model.vo.Estimate" alias="Estimate"/>
   		<typeAlias type="com.kh.amd.board.model.vo.Declaration" alias="Declaration"/>
   		<typeAlias type="com.kh.amd.attachment.model.vo.Attachment" alias="Attachment"/>
-  		<typeAlias type="com.kh.amd.schedule.model.vo.Schedule" alias="Schedule"/>
   		<typeAlias type="com.kh.amd.mission.model.vo.Mission" alias="Mission"/>
   	</typeAliases>
 
@@ -27,7 +26,7 @@
   		<mapper resource="mappers/trainer-mapper.xml"/>
   		<mapper resource="mappers/board-mapper.xml"/>
   		<mapper resource="mappers/declaration-mapper.xml"/>
-  		<mapper resource="mappers/schedule-mapper.xml"/>
+  		<mapper resource="mappers/mission-mapper.xml"/>
   	</mappers>
 </configuration>
   
