@@ -22,23 +22,35 @@ public class SurveyDaoImpl implements SurveyDao{
 	}
 
 	@Override
-	public int insertSurvey2(SqlSessionTemplate sqlSession, Survey s) {
+	public int insertSurvey2(SqlSessionTemplate sqlSession, Survey s, String mno) {
 		
-		return sqlSession.insert("Survey.insertSurvey2", s);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("s", s);
+		map.put("mno", mno);
 		
-	}
-
-	@Override
-	public int insertSurvey3(SqlSessionTemplate sqlSession, Survey s) {
-		
-		return sqlSession.insert("Survey.insertSurvey3", s);
+		return sqlSession.insert("Survey.insertSurvey2", map);
 		
 	}
 
 	@Override
-	public int updateSurvey(SqlSessionTemplate sqlSession, Survey s) {
+	public int insertSurvey3(SqlSessionTemplate sqlSession, Survey s, String mno) {
 		
-		return sqlSession.update("Survey.updateSurvey", s);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("s", s);
+		map.put("mno", mno);
+		
+		return sqlSession.insert("Survey.insertSurvey3", map);
+		
+	}
+
+	@Override
+	public int updateSurvey(SqlSessionTemplate sqlSession, Survey s, String mno) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("s", s);
+		map.put("mno", mno);
+		
+		return sqlSession.update("Survey.updateSurvey", map);
 	}
 
 	@Override

@@ -79,7 +79,7 @@ tr {
 		<br />
 		<br />
 		<div class="tableArea">
-			<form action="" method="post" encType="multipart/form-data">
+			<form action="insert.di" method="post" encType="multipart/form-data">
 				<table>
 					<tr>
 						<td id="font">제 목</td>

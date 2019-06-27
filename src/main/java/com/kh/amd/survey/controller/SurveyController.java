@@ -68,21 +68,7 @@ public class SurveyController {
 			
 		}
 	}
-		/*
-		 * try { ss.insertSurvey1(s);
-		 * 
-		 * return "survey/survey2";
-		 * 
-		 * }catch(Exception e){
-		 * 
-		 * model.addAttribute("msg","등록실패");
-		 * 
-		 * return "common/errorPage";
-		 * 
-		 * }
-		 */	
 		
-	//}
 		
 	//두번째 설문조사 insert
 	@RequestMapping(value="insert2.su")
@@ -90,9 +76,11 @@ public class SurveyController {
 		
 		System.out.println(s);
 		
+		String mno = request.getParameter("mNo");
+		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
-		int result = ss.insertSurvey2(s);
+		int result = ss.insertSurvey2(s, mno);
 		
 		if(result > 0) {
 			
@@ -114,9 +102,11 @@ public class SurveyController {
 		
 		System.out.println(s);
 		
+		String mno = request.getParameter("mNo");
+		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
-		int result = ss.insertSurvey3(s);
+		int result = ss.insertSurvey3(s, mno);
 		
 		if(result > 0) {
 			
@@ -127,23 +117,7 @@ public class SurveyController {
 			model.addAttribute("msg","등록실패");
 			return "common/errorPage";
 			
-		}
-		
-		/*
-		 * try {
-		 * 
-		 * ss.insertSurvey3(s);
-		 * 
-		 * return "redirect:index.jsp";
-		 * 
-		 * }catch(Exception e){
-		 * 
-		 * model.addAttribute("msg","등록실패");
-		 * 
-		 * return "common/errorPage";
-		 * 
-		 * }
-		 */		
+		}			
 		
 	} 
 	
@@ -154,9 +128,11 @@ public class SurveyController {
 			
 			System.out.println(s);
 			
+			String mno = request.getParameter("mNo");
+			
 			String root = request.getSession().getServletContext().getRealPath("resources");
 			
-			int result = ss.updateSurvey(s);
+			int result = ss.updateSurvey(s, mno);
 			
 			if(result > 0) {
 				

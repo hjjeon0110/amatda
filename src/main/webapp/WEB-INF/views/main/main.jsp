@@ -45,7 +45,8 @@
 	<div class="recommendNewTrainer">
 		<label class="recommendNewTrainerLabel" data-aos="fade-up">추천 신입 트레이너</label>
 																						<a href="survey1.su">insertSurvey</a>
-																						<a href="list.su?mno=${sessionScope.loginUser.mno}">updateSurvey</a> 
+																						<a href="list.su?mno=${sessionScope.loginUser.mno}">updateSurvey</a>
+																						<a href="insert.di?mno=${sessionScope.loginUser.mno}">showDiary</a>
 		<section class="blog_section">
 			<div class="container">
 				<div class="blog_content">
