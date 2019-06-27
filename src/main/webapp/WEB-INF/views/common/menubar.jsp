@@ -19,6 +19,67 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Montserrat|Nanum+Gothic|Noto+Sans+KR:300|Open+Sans&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/menubar.css">
+<style>
+	.table-on-off {
+  width: 50px;
+  height: 20px;
+  margin: 0 auto;
+  font-weight: bold;
+  font-size: 9px;
+  }
+  input[switch] {
+    display: none;
+  }
+  input[switch]+label {
+    width: 100%;
+    height: 100%;
+    background-color: #ddd;
+    border-radius: 20px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+  }
+  input[switch]+label:before,
+  input[switch]+label:after {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.2s ease-in-out;
+    width: 20px;
+  }
+  input[switch]+label:before {
+    content: 'OFF';
+    color: #b7b7b7;
+    right: 15%;
+    text-align: center;
+  }
+  input[switch]+label:after {
+    content: '';
+    height: 20px;
+    left: 3%;
+    border-radius: 20px;
+    background-color: #f7f7f7;
+  }
+  input[switch]:checked+label {
+    background-color: #ff0066;
+   
+    
+  }
+  input[switch]:checked+label:before {
+    content: 'ON';
+    color: #fff;
+    right: auto;
+    left: 15%;
+  }
+  input[switch]:checked+label:after {
+    left: 63%;
+    background-color: #f7f7f7;
+   
+  }
+
+</style>
 </head>
 <body>
 
@@ -213,7 +274,10 @@
 							id="dropdownMenuButton" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false">${ sessionScope.loginUser.name } 트레이너님</button>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<a class="dropdown-item" href="#">공개설정</a> <a
+							<a class="dropdown-item" href="#">공개설정</a><p class="table-on-off">
+  <input type="checkbox" id="switch" checked switch="none" />
+  <label for="switch"></label>
+</p> <a
 								class="dropdown-item" href="selectNotice.bo">고객센터</a> <a class="dropdown-item"
 								href="logout.me">로그아웃</a>
 						</div>

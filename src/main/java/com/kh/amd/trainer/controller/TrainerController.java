@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.service.TrainerService;
 import com.kh.amd.trainer.model.vo.Estimate;
 import com.kh.amd.trainer.model.vo.Profile;
-import com.kh.tsp.common.CommonUtils;
+
 
 @SessionAttributes("loginUser")
 @Controller
@@ -60,51 +61,55 @@ public class TrainerController {
 		
 	}
 	
-	// 프로필 사진 변경 (전효정)
-	@RequestMapping("modifyProfileImg.tr")
-	public void modifyProfileImg(Model model, Member m, HttpServletRequest request, @RequestParam(name="profileImgFile", required=false) MultipartFile profileImgFile) {
-		
-		System.out.println("profileImgFile : " + profileImgFile);
-		System.out.println("Member : " + m);
-		
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		
-		String filePath = root + "\\uploadFiles";
-		
-		System.out.println("filePath : " + filePath);
-		
-		// 파일 이름 변경
-		String originalFilename = profileImgFile.getOriginalFilename();
-		String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); // 확장자명 따로 저장
-		//String changeName = CommonUtils.getRandomString();
-		
-		try {
-			profileImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
-
-			
-			ms.insertMember(m);
-				
-			return "redirect:index.jsp";
-			
-		} catch (Exception e) {
-			
-			// 실패 시 파일 삭제 처리
-			new File(filePath + "\\" + changeName + ext).delete();
-			
-			model.addAttribute("msg", "회원가입 실패!");
-			
-			return "common/errorPage";
-			
-		} 
-		
-		
-		
-		
-		
-	}
+	/*
+	 * // 프로필 사진 변경 (전효정)
+	 * 
+	 * @RequestMapping("modifyProfileImg.tr") public void modifyProfileImg(Model
+	 * model, Member m, HttpServletRequest
+	 * request, @RequestParam(name="profileImgFile", required=false) MultipartFile
+	 * profileImgFile) {
+	 * 
+	 * System.out.println("profileImgFile : " + profileImgFile);
+	 * System.out.println("Member : " + m);
+	 * 
+	 * String root =
+	 * request.getSession().getServletContext().getRealPath("resources");
+	 * 
+	 * String filePath = root + "\\uploadFiles";
+	 * 
+	 * System.out.println("filePath : " + filePath);
+	 * 
+	 * // 파일 이름 변경 String originalFilename = profileImgFile.getOriginalFilename();
+	 * String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+	 * // 확장자명 따로 저장 String changeName = CommonUtils.getRandomString();
+	 * 
+	 * try { profileImgFile.transferTo(new File(filePath + "\\" + changeName +
+	 * ext));
+	 * 
+	 * 
+	 * ms.insertMember(m);
+	 * 
+	 * return "redirect:index.jsp";
+	 * 
+	 * } catch (Exception e) {
+	 * 
+	 * // 실패 시 파일 삭제 처리 new File(filePath + "\\" + changeName + ext).delete();
+	 * 
+	 * model.addAttribute("msg", "회원가입 실패!");
+	 * 
+	 * return "common/errorPage";
+	 * 
+	 * }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * }
+	 */
 	
 	
-	// 트레이너 마이페이지_견적서관리 이동 (전효정)
+	// 트레이너 마이페이지_견적서관리 이동 (김진환)
 	@RequestMapping("showMyPageEstimate.tr")
 	public String showTrainerMyPageEstimateView(Model model, int mno, String estType) {
 		
@@ -121,15 +126,50 @@ public class TrainerController {
 		return "trainer/2_2_myPage_estimate";
 		
 	}
+	
+	@RequestMapping("ajaxshowMyPageEstimate.tr")
+	public ModelAndView ajaxshowMyPageEstimate(ModelAndView mv, int mno, String estType) {
+		
+		int iestType = Integer.parseInt(estType);
+		
+		
+		Estimate estimate = ts.selectEstimate(mno, iestType);
+		
+		
+		System.out.println("받아온 estimate객체 : " + estimate);
+		
+		
+		mv.addObject(estimate);
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
+	
+	// 트레이너 견적서 삽입 서블릿(김진환)
 	@RequestMapping("insertEstimate.tr")
 	public String insertEstimate(Model model, Estimate tEst) {
 		
 		
-		int result = ts.insertEstimate(tEst);
+		//견적서 값을 넘겨서 있으면 update, 없으면 insert를 해줌
+		
+		
+		Estimate estimate = ts.selectEstimate(tEst.getTno(), tEst.getEstType());
+		
+		System.out.println("insert에서 받아온 estimate의 값 : " + estimate);
+		
+		if(estimate != null) {
+			int updateResult = ts.updateEstimate(tEst);
+			
+		}else {
+			int insertResult = ts.insertEstimate(tEst);
+			
+		}
 		
 		
 		
 		return "trainer/2_2_myPage_estimate";
+		
+		
 	}
 	
 	
