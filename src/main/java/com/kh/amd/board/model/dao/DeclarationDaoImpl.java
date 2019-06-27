@@ -19,6 +19,7 @@ public class DeclarationDaoImpl implements DeclarationDao{
 		return sqlSession.selectList("Declaration.declarationList");
 	}
 
+
 	//사용자 페이지 신고게시판 (sr)
   @Override
 	public int insertDeclaration(SqlSessionTemplate sqlSession, Declaration d) {

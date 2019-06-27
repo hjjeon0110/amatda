@@ -75,7 +75,7 @@ body{
 			method:"post",
 			success:function(data){
 				if(data =='ok'){
-				alert("비밀번호 변경 완료!");
+				alert("비밀번호 변경 완료! 새로운 비밀번호로 로그인 해주세요!");
 				document.location.href="loginMember.me";
 				}
 			},error:function(status){
