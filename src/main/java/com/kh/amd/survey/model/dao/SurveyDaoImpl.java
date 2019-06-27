@@ -60,6 +60,14 @@ public class SurveyDaoImpl implements SurveyDao{
 		
 		return sqlSession.selectList("Survey.listSurvey", mno);
 	}
+
+	@Override
+	public int updateMember(SqlSessionTemplate sqlSession, String mno) {		
+		
+		return sqlSession.update("Survey.updateMember", mno);
+	}
+
+	
 	
 	
 
