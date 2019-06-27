@@ -134,17 +134,23 @@ public class AdminController {
 	@RequestMapping(value="declarationSelectOne.ad", method=RequestMethod.GET)
 	public ModelAndView declarationSelectOne(@RequestParam int decl_no, HttpSession session){
 		
-		//조회수 증가 처리
-		ds.increaseViewcnt(decl_no, session);
 		//데이터와 화면을 함께 전달하는 객체
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("admin/declarationSelectOne");
-		mav.addObject("selectOne", ds.declarationSelectOne(decl_no));
+		mav.addObject("decl", ds.declarationSelectOne(decl_no));
 		
-		System.out.println("게시물 상세보기");
-		
+		//System.out.println(ds.declarationSelectOne(decl_no));
+	
 		return mav;
-
+	}
+	
+	//신고게시물 삭제
+	@RequestMapping("deleteDeclaration.ad")
+	public String deleteDeclaration(@RequestParam int decl_no) {
+		ds.deleteDeclaration(decl_no);
+		
+		return "redirect:declaration.ad";
+		
 	}
 
 	//통계관리 페이지
