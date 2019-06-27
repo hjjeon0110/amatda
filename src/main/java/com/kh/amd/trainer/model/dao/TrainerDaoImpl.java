@@ -36,4 +36,10 @@ public class TrainerDaoImpl implements TrainerDao {
 		return sqlSession.insert("Trainer.insertEstimate", tEst);
 	}
 
+	@Override
+	public int updateEstimate(SqlSessionTemplate sqlSession, Estimate estimate) {
+		
+		return sqlSession.update("Trainer.updateEstimate", estimate);
+	}
+
 }

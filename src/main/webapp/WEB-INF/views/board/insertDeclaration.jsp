@@ -433,7 +433,7 @@ a#login_pop:hover, a#join_pop:hover {
       <div class="firstTableLine2"></div>
       <h6><a href="selectFaq.bo">FAQ</a></h6>
       <div class="firstTableLine2"></div>
-      <h6><a href="insertDeclarationFormView.bo">신고</a></h6>
+      <h6><a href="insertDeclarationFormView.de">신고</a></h6>
     <div class="firstTableLine1"></div>
       </div>
    
@@ -443,7 +443,7 @@ a#login_pop:hover, a#join_pop:hover {
       <p>저희 아맞다를 이용하시는 도중 불편한 사항이 있으시면 언제든지 신고해주십시요. 보내주신 사항은 검토후 시정하도록 하겠습니다. 감사합니다. </p>
       
       <div class="container1">
-        <form action="insertDeclaration.bo" method="post">
+        <form action="insertDeclaration.de" method="post">
         
         <input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.mno }" />
         
@@ -619,13 +619,14 @@ a#login_pop:hover, a#join_pop:hover {
 $(function(){
 	var mno = $("#mNo").val();
 	if(mno > 0){
-		alert("로그인이 됐다는것")
+		/* alert("로그인이 됐다는것") */
 		
 	
 		
 	}else{
-		alert("로그인 안함")
-		location.href="http://www.naver.com";
+		alert("로그인을 하셔야 작성이 가능합니다.")
+		/* location.href="http://www.naver.com"; */
+		location.href="selectNotice.bo";
 	}
 	
 			

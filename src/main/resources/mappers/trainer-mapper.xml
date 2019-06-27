@@ -60,6 +60,16 @@
    		VALUES(EST_SEQ.NEXTVAL, #{tno}, #{estName}, #{estPrice}, #{estDay}, #{estContents}, #{estType})
    
    </insert>
+   <update id="updateEstimate" parameterType="Estimate">
+   		UPDATE ESTIMATE
+  		SET EST_NAME = #{estName},
+  			EST_COST = #{estPrice},
+  			TRAINING_DAYS = #{estDay},
+  			EST_CONTENTS = #{estContents}
+  		WHERE TNO = #{tno}
+  		AND EST_TYPE = #{estType}
+   
+   </update>
   
 </mapper>
 

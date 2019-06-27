@@ -179,7 +179,7 @@ select {
 	<c:if test="${!empty estimate}">
 	<form action="insertEstimate.tr">
 	<div class="estimateDiv">
-		<input type="hidden" name="tno" value="${ sessionScope.loginUser.mno }"/>
+		<input type="hidden" name="tno" id="tno"value="${ sessionScope.loginUser.mno }"/>
 		<input type="hidden" name="estType" id="estType" value="1"/>
 		<br><br><br>
 		<label class="subTitle">제목</label>
@@ -231,7 +231,9 @@ select {
 			$("#estDay").val(${estimate.estDay}).prop("selected", true);
 		});
 		$(function(){
-			$("#subMenuBar2").click(function(){
+			$("#subMenuBar2").mouseenter(function(){
+				$(this).css({"cursor":"pointer"});
+			}).click(function(){
 				var estType = $(this).children().val();
 				var mno = ${sessionScope.loginUser.mno};
 				$(this).css({"background":"#ff0066", "color":"white"});
@@ -239,11 +241,12 @@ select {
 				
 				
 				$.ajax({
-					url:"showMyPageEstimate.tr",
+					url:"ajaxshowMyPageEstimate.tr",
 					data: {mno:mno, estType:estType},
 					type:"get",
 					success:function(data){
-						$("#estName").attr("value", data.estimate.estName);
+						console.log(data);
+						$("#estName").attr("value", data.estName);
 						$("#estType").attr("value", "2");
 						
 					}
@@ -253,7 +256,9 @@ select {
 			})
 		})
 		$(function(){
-			$("#subMenuBar1").click(function(){
+			$("#subMenuBar1").mouseenter(function(){
+				$(this).css({"cursor":"pointer"});
+			}).click(function(){
 				var estType = $(this).children().val();
 				var mno = ${sessionScope.loginUser.mno};				
 				$(this).css({"background":"#ff0066", "color" : "white"});
@@ -261,11 +266,12 @@ select {
 				
 				
 				$.ajax({
-					url:"showMyPageEstimate.tr",
+					url:"ajaxshowMyPageEstimate.tr",
 					data: {mno:mno, estType:estType},
 					type:"get",
 					success:function(data){
-						$("#estName").attr("value", data.estimate.estName);
+						console.log(data);
+						$("#estName").attr("value", data.estName);
 						$("#estType").attr("value", "1");
 					}
 					

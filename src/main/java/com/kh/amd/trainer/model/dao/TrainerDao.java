@@ -15,6 +15,8 @@ public interface TrainerDao {
 
 	int insertEstimate(SqlSessionTemplate sqlSession, Estimate tEst);
 
+	int updateEstimate(SqlSessionTemplate sqlSession, Estimate estimate);
+
 	
 
 }
