@@ -30,15 +30,10 @@ public interface TrainerDao {
 	// 프로필 이미지 수정 메소드 (전효정)
 	void modifyProfileImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename, String changeName, String ext);
 
-	// 프로필 - 내 정보 수정하기 insert 메소드 (전효정)
-	void insertProfile1(SqlSessionTemplate sqlSession, String mno, String proTitle, String lineProfile);
-
-	// 프로필 - 내 정보 수정하기 update 메소드 (전효정)
-	void updateProfile1(SqlSessionTemplate sqlSession, String mno, String proTitle, String lineProfile);
-
 	// 공개설정 업데이트 메소드(김진환)
 	void updateTopen(SqlSessionTemplate sqlSession, String mno, String open);
 
+	String checkMemberShip(SqlSessionTemplate sqlSession, String mno);
 
 
 
