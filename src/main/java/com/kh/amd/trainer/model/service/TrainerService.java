@@ -16,7 +16,7 @@ public interface TrainerService {
 	// 견적서 insert 메소드(김진환)
 	int insertEstimate(Estimate tEst);
 	
-	// 견적서 update 메소드(김진환)
+	// 견적서 update 메소드  (김진환)
 	int updateEstimate(Estimate estimate);
 
 	// 프로필 이미지 존재 여부 확인 메소드 (전효정)

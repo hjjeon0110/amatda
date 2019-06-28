@@ -312,7 +312,7 @@ public class TrainerController {
 		return "trainer/2_4_myPage_membership";
 	}
 
-	// 트레이너 마이페이지_내글관리 이동 (전효정)
+	// 트레이너 마이페이지_내글관리 이동  (전효정)
 	@RequestMapping("showMyPageMyWriting.tr")
 	public String showTrainerMyPageMyWritingView() {
 		return "trainer/2_5_myPage_myWriting";

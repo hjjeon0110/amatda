@@ -256,7 +256,7 @@ select {
 				url:"memberShipPayment.tr",
 				data: {tno:tno, memberShipName:memberShipName},
 				type:"get",
-				dataType:"json",
+				dataType:"json"
 				
 			})
 		})

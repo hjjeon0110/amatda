@@ -9,7 +9,7 @@ import com.kh.amd.trainer.model.vo.Profile;
 
 public interface TrainerDao {
 
-	// 프로필 작성 여부 확인 메소드 (전효정)
+	// 프로필 작성 여부 확인 메소드  (전효정)
 	Profile checkProfile(SqlSessionTemplate sqlSession, int mno);
 	
 	// 견적서 select(보기) 메소드(김진환)

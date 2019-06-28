@@ -18,7 +18,7 @@ public class TrainerServiceImpl implements TrainerService {
 	@Autowired
 	private TrainerDao td;
 	
-	// 프로필 작성 여부 확인 메소드 (전효정)
+	// 프로필 작성 여부 확인 메소드  (전효정)
 	@Override
 	public Profile checkProfile(int mno) {
 		return td.checkProfile(sqlSession, mno);
