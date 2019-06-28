@@ -239,15 +239,31 @@ select {
 	<!-- 멤버십 메뉴 영역 ------------------------------------------------------------------------------------------------------- -->
 	<div class="selectMembershipDiv">
 		<br><br>
-		<select>
-			<option> 멤버십S</option>
-			<option> 멤버십A</option>
-			<option> 멤버십B</option>
+		<select name="memberShipName" id="memberShipName">
+			<option value="S"> 멤버십S</option>
+			<option value="A"> 멤버십A</option>
+			<option value="B"> 멤버십B</option>
 		</select>
-		<button class="payment">결제하기</button>
+		<button class="payment" id="payment">결제하기</button>
 	</div>
 	
-	
+	<script>
+	$(function(){
+		$("#payment").click(function(){
+			var memberShipName = $("#memberShipName option:selected").val();
+			var tno = ${ sessionScope.loginUser.mno}
+			$.ajax({
+				url:"memberShipPayment.tr",
+				data: {tno:tno, memberShipName:memberShipName},
+				type:"get",
+				dataType:"json"
+				
+			})
+		})
+		
+	})
+		
+	</script>
 	
 	
 	<!-- footer ------------------------------------------------------------------------------------------------------------ -->
