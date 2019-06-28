@@ -342,7 +342,7 @@
 		</div>
 	</div>
 
-
+<!-- 상모야 요기 주목하자 -->
 	<script>
 		$('#carouselExample').on('slide.bs.carousel', function(e) {
 

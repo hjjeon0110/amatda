@@ -1,30 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, com.kh.amd.board.model.vo.*,com.kh.amd.member.model.vo.*"%>
+    pageEncoding="UTF-8"%>
     
-    
-<%-- <%
-	HashMap<String,Object> hmap = (HashMap<String,Object>) request.getAttribute("hmap");
-	ArrayList<Member> mList=(ArrayList<Member>)hmap.get("mList");
-	ArrayList<Board> bList=(ArrayList<Board>)hmap.get("bList");
-	
-%>   --%>
-    
- 
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
- -->
+
 <style type="text/css">
-
-/* table{
-border:1px solid black; 
-} */
-
 
 a:link {text-decoration: none; color:black;}
 a:visited {text-decoration: none; color: black;}
@@ -168,7 +153,7 @@ margin-bottom:15px;
 	z-index: -1;
 }
 
-.
+
 
 	
 </style>
@@ -205,33 +190,45 @@ margin-bottom:15px;
 		<div class="secondTable">
 		<h2>공지사항/이벤트</h2>
 		<br>
+		
 			<table class="table table-hover" color="pink">
-			    
+			   <thead> 
 			      <tr>
-			        <th>글번호</th>
-			        <th>카테고리</th>
-			        <th>제목</th>
-			        <th>등록일</th>
-			        <th>조회수</th>
+			        <th scope="col">글번호 </th>
+			        <th scope="col">카테고리</th>
+			        <th scope="col">제목</th>
+			        <th scope="col">등록일</th>
+			        <th scope="col">조회수</th>
 			      </tr>
+			    </thead>
+			    <tbody>
 			    
-			 	<%-- 
-			 	  <%for(int i = 0; i<bList.size(); i++){ %>
-			      <tr>
-                  <td><%=bList.get(i).getbNo() %></td>
-                  <td><%=bList.get(i).getbType() %></td>
-                  <td><%=bList.get(i).getbTitle() %></td>
-                  <td><%=bList.get(i).getbModifyDate() %></td>
-                  <td><%=bList.get(i).getbCount() %></td>
-               </tr>
-               <%} %>  --%>
+		<c:forEach var="selectNotice" items="${ requestScope.selectNotice }" varStatus="status">
+			    <tr>
+			    	<td scope="row">${ status.count }
+			    	<input type="hidden" id="bNo" value="${selectNotice.bNo }">
+			    	</td>
+			    	<td>${selectNotice.bsCategory }</td>
+			    	
+			    	<td>${selectNotice.bTitle }</td>
+			    	<td><fmt:formatDate pattern="yyyy-MM-dd" value="${selectNotice.bWriteDate }"/></td>
+			    	<%-- <td>${selectNotice.bWriteDate }</td> --%>
+			    	<td>${selectNotice.bCount }</td>
+			    </tr>
+			    </c:forEach> 
+			    </tbody>
   			</table>
+  			<br><br><br>
   			
   			<div class="checkboxgroup">
+  				<select id="selectType">
+  					<option value="content">내용</option>
+  					<option value="title">제목</option>
+  				</select>
 				<input type="checkbox" name="chk_info" value="title" checked="checked">제목
 				<input type="checkbox" name="chk_info" value="content">내용
-				<input type="text">&nbsp;
-				<button onclick="location.href='selectNotice.bo'">검색</button> 
+				<input type="text" name="searchCon">&nbsp;
+				<button id="noticeSearch">검색</button> 
 			</div>
   			
 	  		<!-- 페이징 시작 -->
@@ -275,6 +272,24 @@ margin-bottom:15px;
 		var num=$(this).parent().children().eq(0).text();
 		location.href="<%=request.getContextPath()%>/selectOneNotice.bo?num="+num;
 	});
+	 $("#noticeSearch").click(function(){
+		var selectType = $("#selectType").val();
+		var searchCon = $("input[name=searchCon]").val();
+		
+		$.ajax({
+			url:"searchNotice.tr",
+			data:{selectType:selectType, searchCon:searchCon},
+			type:"get",
+			success:function(data){
+				alert("ddd");
+			}
+			
+			
+		})
+		
+	})
+	 
+	
 	</script>
 	
 	

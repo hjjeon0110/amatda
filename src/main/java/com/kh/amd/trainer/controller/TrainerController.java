@@ -57,6 +57,7 @@ public class TrainerController {
 
 		// 프로필 사진 존재 여부 확인 (전효정)
 		Attachment attachment = ts.checkProfileImg(mno);
+		System.out.println(attachment);
 		
 		if(attachment != null) {
 			model.addAttribute("attachment", attachment);
@@ -81,16 +82,17 @@ public class TrainerController {
 		
 		// 프로필 사진 존재 여부 확인 (전효정)
 		Attachment attachment = ts.checkProfileImg(mno);
-		
 		if(attachment != null) {
 			model.addAttribute("attachment", attachment);
 			String pic = attachment.getModiName() + attachment.getExtension();
 			model.addAttribute("pic", pic);		
 		}else {
 			model.addAttribute("attachment", attachment);
-		}	
+		}
 
 		return "trainer/2_1_myPage_profile";
+
+
 
 	}
 
@@ -251,7 +253,7 @@ public class TrainerController {
 		
 		return "trainer/2_1_myPage_profile";
 	}
-	
+
 
 
 	/*
@@ -379,6 +381,20 @@ public class TrainerController {
 		System.out.println("멤버쉽 서블릿 들어옴");
 		System.out.println("받아온값  mno : " + tno + "멤버쉽이름 : " + memberShipName);
 		
+	}
+	
+	//트레이너 잔여 횟수 리스트(김진환)
+	@RequestMapping("checkMembership.tr")
+	public void checkMembership(String mno, HttpServletResponse response) {
+		String remainNum = ts.checkMemberShip(mno);
+		System.out.println("멤버쉽체크 서블릿을 들어옴");
+		
+		
+		try {
+			response.getWriter().print(remainNum);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

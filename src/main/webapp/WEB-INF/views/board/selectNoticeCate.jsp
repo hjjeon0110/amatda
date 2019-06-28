@@ -1,22 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
- 
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
- -->
+
 <style type="text/css">
-
-/* table{
-border:1px solid black; 
-} */
-
 
 a:link {text-decoration: none; color:black;}
 a:visited {text-decoration: none; color: black;}
@@ -195,101 +189,39 @@ margin-bottom:15px;
 		
 	
 		<div class="secondTable">
-		<h2>공지사항</h2>
+		<h2>공지사항/이벤트</h2>
 		<br>
+		
 			<table class="table table-hover" color="pink">
-			    <thead>
+			   <thead> 
+			    	
 			      <tr>
-			        <th>글번호</th>
-			        <th>카테고리</th>
-			        <th>제목</th>
-			        <th>등록일</th>
-			        <th>조회수</th>
+			        <th scope="col">글번호 </th>
+			        <th scope="col">카테고리</th>
+			        <th scope="col">제목</th>
+			        <th scope="col">등록일</th>
+			        <th scope="col">조회수</th>
 			      </tr>
+			    
 			    </thead>
 			    <tbody>
-			      <tr onclick="location.href='selectOneNotice.bo'" >
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-               
-               <tr>
-                  <td>10</td>
-                  <td>공지사항</td>
-                  <td>10번째 공지사항입니다.</td>
-                  <td>2019.6.10</td>
-                  <td>10</td>
-               </tr>
-
+			    
+		<c:forEach var="selectNoticeCate" items="${ requestScope.selectNoticeCate }" varStatus="status">
+			    <tr>
+			    	<td scope="row">${ status.count }
+			    	<input type="hidden" id="bNo" value="${selectNoticeCate.bNo }">
+			    	</td>
+			    	<td>${selectNoticeCate.bsCategory }</td>
+			    	
+			    	<td>${selectNoticeCate.bTitle }</td>
+			    	<td><fmt:formatDate pattern="yyyy-MM-dd" value="${selectNoticeCate.bWriteDate }"/></td>
+			    	<%-- <td>${selectNotice.bWriteDate }</td> --%>
+			    	<td>${selectNoticeCate.bCount }</td>
+			    </tr>
+			    </c:forEach> 
 			    </tbody>
   			</table>
+  			<br><br><br>
   			
   			<div class="checkboxgroup">
 				<input type="checkbox" name="chk_info" value="title" checked="checked">제목
@@ -300,11 +232,11 @@ margin-bottom:15px;
   			
 	  		<!-- 페이징 시작 -->
 	  		
-	  		<div class="paging">
+	  		<!-- <div class="paging">
 				<a href="#" class="direction fisrt"><span>처음</span></a>
 				<a href="#" class="direction prev"><span>이전</span></a>
-				<a href="#">1</a>
-				<a href="#">2</a>
+				<a href="#">1</a> -->
+				<!-- <a href="#">2</a>
 				<a href="#">3</a>
 				<a href="#">4</a>
 				<strong>5</strong>
@@ -314,7 +246,7 @@ margin-bottom:15px;
 				<a href="#">9</a>
 				<a href="#" class="direction next"><span>다음</span></a>
 				<a href="#" class="direction last"><span>끝</span></a>
-			</div>
+			</div> -->
 				
 		</div>
 	</div>
@@ -334,6 +266,12 @@ margin-bottom:15px;
 	<br>
 	<br>
 	
+	<script>
+	$(".table td").click(function(){
+		var num=$(this).parent().children().eq(0).text();
+		location.href="<%=request.getContextPath()%>/selectOneNotice.bo?num="+num;
+	});
+	</script>
 	
 	
 

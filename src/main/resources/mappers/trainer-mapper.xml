@@ -120,12 +120,19 @@
   		WHERE TNO = #{tno}
   		AND EST_TYPE = #{estType}
 	</update>
-	
+
 	<update id="updateTopen" parameterType="java.util.Map">
 		UPDATE TUSER_INFO
 		SET TOPEN = #{open}
 		WHERE TNO = #{mno}
+	
 	</update>
+	<select id="checkRemainNum" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT REMAIN_NUM
+		FROM TUSER_INFO T
+		JOIN MEMBER M ON(T.TNO = M.MNO)
+		WHERE T.TNO = #{mno}
+	</select>
 </mapper>
 
 
