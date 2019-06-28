@@ -13,13 +13,13 @@ import com.kh.amd.trainer.model.vo.Profile;
 @Repository
 public class TrainerDaoImpl implements TrainerDao {
 
-	// 프로필 작성 여부 확인 메소드 (전효정)
+	// 프로필 작성 여부 확인 메소드  (전효정)
 	@Override
 	public Profile checkProfile(SqlSessionTemplate sqlSession, int mno) {
 		return sqlSession.selectOne("Trainer.checkProfile", mno);
 	}
 
-	// 견적서 (김진환)
+	// 견적서  보기 selecy 메소드(김진환)
 	@Override
 	public Estimate selectEstimate(SqlSessionTemplate sqlSession, int mno, int iestType) {
 		
@@ -29,12 +29,13 @@ public class TrainerDaoImpl implements TrainerDao {
 		
 		return sqlSession.selectOne("Trainer.selectEstimate", map);
 	}
-
+	// 견적서 insert 메소드(김진환)
 	@Override
 	public int insertEstimate(SqlSessionTemplate sqlSession, Estimate tEst) {
 		return sqlSession.insert("Trainer.insertEstimate", tEst);
 	}
-
+	
+	// 견적서 update 메소드(김진환)
 	@Override
 	public int updateEstimate(SqlSessionTemplate sqlSession, Estimate estimate) {
 		return sqlSession.update("Trainer.updateEstimate", estimate);
@@ -71,6 +72,17 @@ public class TrainerDaoImpl implements TrainerDao {
 		
 		sqlSession.update("Trainer.modifyProfileImg", map);
 		
+	}
+	
+	// 트레이너 공개설정 update 메소드(김진환)
+	@Override
+	public void updateTopen(SqlSessionTemplate sqlSession, String mno, String open) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mno", mno);
+		map.put("open", open);
+		
+		sqlSession.update("Trainer.updateTopen", map);
 	}
 
 	// 프로필 - 내 정보 수정하기 insert 메소드 (전효정)

@@ -35,16 +35,16 @@
 	
 	<!-- 캘린더/우리나 -->
 	<servlet>
-		<servlet-name>schedule</servlet-name>
+		<servlet-name>mission</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/config/schedule-servlet.xml</param-value>
+			<param-value>/WEB-INF/config/mission-servlet.xml</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>schedule</servlet-name>
-		<url-pattern>*.ca</url-pattern>
+		<servlet-name>mission</servlet-name>
+		<url-pattern>*.ms</url-pattern>
 	</servlet-mapping>
 	
 	

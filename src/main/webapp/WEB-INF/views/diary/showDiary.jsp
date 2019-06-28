@@ -80,10 +80,11 @@ tr {
 		<br />
 		<div class="tableArea">
 			<form action="insert.di" method="post" encType="multipart/form-data">
+			<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" />
 				<table>
 					<tr>
 						<td id="font">제 목</td>
-						<td colspan="3"><input type="text" size="40" name="title"
+						<td colspan="3"><input type="text" size="40" name="bTitle"
 							autofocus></td>
 					</tr>
 					<tr></tr>
@@ -104,8 +105,8 @@ tr {
 						<td></td>
 					</tr>
 					<tr>
-						<td colspan="4"><textarea name="content" cols="30" rows="15"
-								placeholder="자유롭게 작성하세요" id="dContent"></textarea></td>
+						<td colspan="4"><textarea name="bContent" cols="30" rows="15"
+								placeholder="자유롭게 작성하세요" id="bContent"></textarea></td>
 					</tr>
 				</table>
 				<div align="center">

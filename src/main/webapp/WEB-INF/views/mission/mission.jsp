@@ -101,14 +101,18 @@
     	/*  var moment = $('#calendar').fullCalendar('getDate');
     	console.log(moment); */
     	console.log("date: " + date.dateStr);
-    	$("#missionDate").val(date.dateStr);
+    	$("#mDate").val(date.dateStr);
     	alert("후");
     	/* $("#dialog").modal(); */
     	$("#myModal").modal();	
+    	
+    	
+    	
      },
     
     
-     
+
+    
      
     });
 	
@@ -121,7 +125,27 @@
    
 
   });
-  
+  $(function(){
+	  var date2 = new Date();
+	  if(date2.getMonth()<12){
+		var result = '0'+  (date2.getMonth()+1);
+		console.log(result);
+	  }else{
+		var result = date2.getMonth()+1
+	  }
+ 	  var today = $('#month').text(date2.getFullYear()).append("-").append(result).append("-").append(date2.getDate());
+   	 console.log(date2.getMonth()+1);
+   	 console.log(date2.getDate());
+   	 console.log(date2.getFullYear());
+   	  /* var now = new Date();
+	  DateFormat format2 = DateFormat.getDateInstance(DateFormat.LONG);
+	  console.log(format2.format(now)); */
+	  
+	 /*  var now = new Date();
+
+	  SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+	  console.log(format.format(now));  */
+  })
   
 </script>
 <style>
@@ -162,9 +186,40 @@
 </head>
 <body>
   <jsp:include page="../common/menubar.jsp"/>
-  <div id='calendar' style="margin-top:30px"></div>
-	
-	<div id="myModal" class="modal fade" role="dialog">
+  <div id="container">
+  	<div id='calendar' style="margin-top:30px; float:left; width:70%; height:550px"></div>
+  	<div id="selectToday" style="float:right; border:1px solid pink; width:30%; height:700px">
+  		<div id="month" align="center"></div>
+  		<label>오늘의 식단</label><hr>
+  		<table>
+  		<tr>
+  		<td><label>아침</label><br><label id="breakfast"></label></td>
+  		</tr>
+  		<tr>
+  		<td><label>점심</label><br><label id="lunch"></label></td>
+  		</tr>
+  		<tr>
+  		<td><label>저녁</label><br><label id="dinner"></label></td>
+  		</tr>
+  		</table>
+  		
+  		
+  		<label style="margin-top:30px">오늘의 운동</label><hr>
+  		<table>
+  		<tr>
+  		<td><label>아침</label><br><label id="breakEx" style="width:300px;"></label><a href="" id="breakExLink"></a></td>
+  		</tr>
+  		<tr>
+  		<td><label>점심</label><br><label id="lunchEx"></label></td>
+  		</tr>
+  		<tr>
+  		<td><label>저녁</label><br><label id="dinnerEx"></label></td>
+  		</tr>
+  		</table>
+  	</div>
+  </div>
+  
+<div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -177,7 +232,7 @@
  
         <table align="center">
         	<tr>
-        		<td>날짜 <input type="text" id="missionDate"></td>
+        		<td>날짜 <input type="text" id="mDate"></td>
         	</tr>
         	<tr style="height:50px;">
         		<td><label style="margin-left:80px; margin-top:40px">오늘의 식단</label><hr></td>
@@ -197,7 +252,7 @@
         		<td><label style="margin-left:80px; margin-top:40px">오늘의 운동</label><hr></td>
         	</tr>
         	<tr>
-        		<td><label id="name">아침</label><input type="text" id="breakEx"></td>
+        		<td><label id="name">아침</label><a id="breakEx"></a></td>
         	</tr>
         	
         	<tr>
@@ -231,8 +286,11 @@
 </body>
 <script>
 	function registerMission(){
+		var mno = ${sessionScope.loginUser.mno};
 		var mDate=$("#mDate").val();
+		console.log("mDate: " + mDate);
 		var breakfast=$("#breakfast").val();
+		console.log("breakfast: "+ breakfast);
 		var lunch=$("#lunch").val();
 		var dinner=$("#dinner").val();
 		
@@ -244,18 +302,70 @@
 		var breakExLink=$("#breakExLink").val();
 		var lunchExLink=$("#lunchExLink").val();
 		var dinnerExLink=$("#dinnerExLink").val();
-		var everything={mDate:mDate,breakfast:breakfast, lunch:lunch, dinner:dinner, breakEx:breakEx, lunchEx:lunchEx, dinnerEx:dinnerEx , breakExLink:breakExLink, lunchExLink:lunchExLink, dinnerExLink:dinnerExLink}
+		var everything={mno:mno,mDate:mDate,breakfast:breakfast, lunch:lunch, dinner:dinner, breakEx:breakEx, lunchEx:lunchEx, dinnerEx:dinnerEx , breakExLink:breakExLink, lunchExLink:lunchExLink, dinnerExLink:dinnerExLink}
 		$.ajax({
-			url:"insert.ca",
+			url:"insert.ms",
 			type:"post",
 			data:everything, 
 			success:function(data){
-				alert("미션등록 성공");
+				alert("미션등록 완료");
+				location.href="matching.ms";
 			},error:function(status){
 				alert("미션등록 실패");
 			}
 		})
 	}
+	
+	$(function(){
+		var today = $("#month").text();
+		$.ajax({
+			url:"select.ms",
+			type:"post",
+			data:{today:today},
+			success:function(data){
+				alert("조회성공");
+				var mContent = decodeURIComponent(data.mContent);
+				console.log("data: " + mContent);
+				 $("#breakEx").append(mContent); 
+				var mLink = data.mLink;
+				console.log("mLink: " + mLink);
+				
+				var rLink= mLink.split(",");
+				console.log(rLink);
+				
+				
+				var $link;
+				
+				rLink.forEach(function(element){
+					  /* $link = $("<a href>").text(rLink[0]);
+					
+					  $("#breakEx").append($link);  이건 링크가 안넘어감*/
+					
+					  
+					/*  $link = $("<a href='onclick'>").text(rLink[0]);
+						
+					  $("#breakEx").append($link);  이것도 될것같은데 안됨*/
+					  
+					  //$("#breakEx").attr("href", rLink[]);
+					  
+					/*   
+					var real = $link.attr("href",rLink);
+					console.log(real);  */
+					
+					/* var real = $("#breakEx").attr("href", rLink); */
+					
+				})
+				
+				
+				
+				
+				 
+				
+			},error:function(stauts){
+				alert("조회실패");
+			}
+		})
+	})
 </script>
 
 </html>

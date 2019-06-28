@@ -18,23 +18,24 @@ public class TrainerServiceImpl implements TrainerService {
 	@Autowired
 	private TrainerDao td;
 	
-	// 프로필 작성 여부 확인 메소드 (전효정)
+	// 프로필 작성 여부 확인 메소드  (전효정)
 	@Override
 	public Profile checkProfile(int mno) {
 		return td.checkProfile(sqlSession, mno);
 	}
 
-	// 견적서 (김진환)
+	// 견적서 select(보기) 메소드 (김진환)
 	@Override
 	public Estimate selectEstimate(int mno, int iestType) {
 		return td.selectEstimate(sqlSession, mno, iestType);
 	}
 
+	// 견적서 insert 메소드(김진환)
 	@Override
 	public int insertEstimate(Estimate tEst) {
 		return td.insertEstimate(sqlSession, tEst);
 	}
-
+	// 견적서 update 메소드(김진환)
 	@Override
 	public int updateEstimate(Estimate estimate) {
 		return td.updateEstimate(sqlSession, estimate);
@@ -68,6 +69,14 @@ public class TrainerServiceImpl implements TrainerService {
 	@Override
 	public void updateProfile1(String mno, String proTitle, String lineProfile) {
 		td.updateProfile1(sqlSession, mno, proTitle, lineProfile);
+	}
+	
+	//공개설정업데이트 메소드(김진환)
+	@Override
+	public void updateTopen(String mno, String open) {
+		
+		td.updateTopen(sqlSession, mno, open);
+		
 	}
 	
 
