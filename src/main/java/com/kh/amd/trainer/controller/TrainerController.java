@@ -2,8 +2,10 @@ package com.kh.amd.trainer.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -190,45 +192,60 @@ public class TrainerController {
 	 * 
 	 * }
 	 */
-  
+	
+	//견적소 select 보기 메소드(김진환)
 	@RequestMapping("ajaxshowMyPageEstimate.tr")
-	public void ajaxshowMyPageEstimate(HttpServletResponse response, int mno, String estType) {
+	public void ajaxshowMyPageEstimate(HttpServletRequest request, HttpServletResponse response, int mno, String estType) {
 		int iestType = Integer.parseInt(estType); 
 		Estimate estimate = ts.selectEstimate(mno, iestType);
-		System.out.println("ajax로 보낼 객체 : " + estimate);
+		System.out.println("estimate값 : " + estimate);
 		
+		System.out.println("ajax로 보낼 객체 : " + estimate);
+		System.out.println("받아온estType : " + estType);
 		JSONObject estiMateJson = new JSONObject();
 		
-		try {
-			String EncodeestContents = URLEncoder.encode(estimate.getEstContents(), "UTF-8");
-			String EncodeestContent = EncodeestContents.replaceAll("\\+", "%20");
-			String EncodeestName = URLEncoder.encode(estimate.getEstName(), "UTF-8");
-			String EncestName = EncodeestName.replaceAll("\\+", "%20");
-			
-			estiMateJson.put("estContents", EncodeestContent);
-			estiMateJson.put("estDay", estimate.getEstDay());
-			estiMateJson.put("estName", EncestName);
-			estiMateJson.put("estPrice", estimate.getEstPrice());
-			estiMateJson.get("estContets");
-			response.setContentType("application/json");
-			new Gson().toJson(estiMateJson, response.getWriter());
-		} catch (JsonIOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+			if(estimate != null) {
+
+				try {
+					String EncodeestContents = URLEncoder.encode(estimate.getEstContents(), "UTF-8");
+					String EncodeestContent = EncodeestContents.replaceAll("\\+", "%20");
+					String EncodeestName = URLEncoder.encode(estimate.getEstName(), "UTF-8");
+					String EncestName = EncodeestName.replaceAll("\\+", "%20");
+					estiMateJson.put("estName", EncestName);
+					estiMateJson.put("estContents", EncodeestContent);
+					estiMateJson.put("estDay", estimate.getEstDay());
+					estiMateJson.put("estPrice", estimate.getEstPrice());
+					
+					response.setContentType("application/json");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+			}else {
+				response.setContentType("application/json");
+				
+			}
+				try {
+					new Gson().toJson(estiMateJson, response.getWriter());
+				} catch (JsonIOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}		
+		
 	}
 	
-	
-	 
 	
 
 	// 트레이너 견적서 삽입 서블릿(김진환)
 	@RequestMapping("insertEstimate.tr")
 	public String insertEstimate(Model model, Estimate tEst) {
-
+	
 		// 견적서 값을 넘겨서 있으면 update, 없으면 insert를 해줌
 
 		Estimate estimate = ts.selectEstimate(tEst.getTno(), tEst.getEstType());
@@ -263,6 +280,25 @@ public class TrainerController {
 		return "trainer/2_2_myPage_estimate";
 
 	}
+	
+	//트레이너 공개설정 메소드(김진환)
+	@RequestMapping("tOpenChange.tr")
+	public void tOpenChange(String mno, String open) {
+		
+		ts.updateTopen(mno, open);
+
+		
+	}
+	
+	//트레이너 멤버쉽 결제 메소드(김진환)
+	@RequestMapping("memberShipPayment.tr")
+	public void memberShipPayment(String tno, String memberShipName) {
+		System.out.println("멤버쉽 서블릿 들어옴");
+		System.out.println("받아온값  mno : " + tno + "멤버쉽이름 : " + memberShipName);
+		
+		
+	}
+	
 
 	// 트레이너 마이페이지_매칭관리 이동 (전효정)
 	@RequestMapping("showMyPageMatching.tr")

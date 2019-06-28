@@ -284,7 +284,7 @@
 								<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
 									aria-haspopup="true" aria-expanded="false">${ sessionScope.loginUser.name } 트레이너님</button>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<a class="dropdown-item" href="#">공개설정</a>
+									<a class="dropdown-item">공개설정</a>
 									<p class="table-on-off">
 										<input type="checkbox" id="switch" checked switch="none" />
 											<label for="switch"></label>
@@ -327,6 +327,38 @@
 	</div>
 		
 	</c:if>
+	
+	<script>
+		$("#switch").change(function(){
+			var checked = $(this).prop('checked');
+			if(checked){
+				alert("체크를 함");
+				var mno = ${sessionScope.loginUser.mno};
+				var open = "Y";
+				$.ajax({
+					url:"tOpenChange.tr",
+					data : {mno:mno, open:open },
+					success:function(data){
+						
+					}
+				})
+				
+				
+			}else{
+				alert("체크해체함");
+				var mno = ${sessionScope.loginUser.mno};
+				var open = "N";
+				$.ajax({
+					url:"tOpenChange.tr",
+					data : {mno:mno, open:open },
+					success:function(data){
+						
+					}
+				})
+			}
+			
+		})
+	</script>
 
 
 

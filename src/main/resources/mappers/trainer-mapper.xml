@@ -90,7 +90,7 @@
    		VALUES(EST_SEQ.NEXTVAL, #{tno}, #{estName}, #{estPrice}, #{estDay}, #{estContents}, #{estType})
    
    </insert>
-   <update id="updateEstimate" parameterType="Estimate">
+ 	 <update id="updateEstimate" parameterType="Estimate">
    		UPDATE ESTIMATE
   		SET EST_NAME = #{estName},
   			EST_COST = #{estPrice},
@@ -98,10 +98,13 @@
   			EST_CONTENTS = #{estContents}
   		WHERE TNO = #{tno}
   		AND EST_TYPE = #{estType}
-
-
-  
-</update>
+	</update>
+	<update id="updateTopen" parameterType="java.util.Map">
+		UPDATE TUSER_INFO
+		SET TOPEN = #{open}
+		WHERE TNO = #{mno}
+	
+	</update>
 </mapper>
 
 

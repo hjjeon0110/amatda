@@ -230,6 +230,7 @@ select {
 		$(function(){
 			$("#estDay").val(${estimate.estDay}).prop("selected", true);
 		});
+		
 		$(function(){
 			$("#subMenuBar2").mouseenter(function(){
 				$(this).css({"cursor":"pointer"});
@@ -237,8 +238,7 @@ select {
 				var estType = $(this).children().val();
 				var mno = ${sessionScope.loginUser.mno};
 				$(this).css({"background":"#ff0066", "color":"white"});
-				$("#subMenuBar1").css({"background":"white", "color":"black"});
-				
+				$("#subMenuBar1").css({"background":"white", "color":"black"});				
 				
 				$.ajax({
 					url:"ajaxshowMyPageEstimate.tr",
@@ -246,17 +246,31 @@ select {
 					type:"get",
 					dataType:"json",
 					success:function(data){
-						var estName = decodeURIComponent(data.estName);
-						var estContents = decodeURIComponent(data.estContents);	
-						console.log(estName);
-						$("#estName").val(estName);
-						$("#estContents").val(estContents);
-						$("#estDay").val(data.estDay);
-						$("#estPrice").val(data.estPrice);
-						$("#estType").attr("value", "2"); 
+
+						if(data == null) {
+							alert("값이 없다!");
+							$("#estName").val("");
+							$("#estContents").val("");
+							$("#estDay").val(30);
+							$("#estPrice").val("");
+							$("#estType").attr("value", "2"); 
+							
+						}else {
+							var estName = decodeURIComponent(data.estName);
+							var estContents = decodeURIComponent(data.estContents);	
+							console.log(data);
+							$("#estName").val(estName);
+							$("#estContents").val(estContents);
+							$("#estDay").val(data.estDay);
+							$("#estPrice").val("18000");
+							$("#estType").attr("value", "2"); 
+							
+						}
+						
 					}
 					
 				})
+				
 
 			})
 		})
@@ -279,13 +293,13 @@ select {
 						
 						var estName = decodeURIComponent(data.estName);
 						var estContents = decodeURIComponent(data.estContents);	
-						console.log(estName);
 						$("#estName").val(estName);
 						$("#estContents").val(estContents);
 						$("#estDay").val(data.estDay);
 						$("#estPrice").val(data.estPrice);
 						$("#estType").attr("value", "1"); 
-					}
+					},
+					
 					
 				})
 				
