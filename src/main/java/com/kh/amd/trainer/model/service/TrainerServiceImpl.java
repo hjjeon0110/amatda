@@ -74,9 +74,13 @@ public class TrainerServiceImpl implements TrainerService {
 	//공개설정업데이트 메소드(김진환)
 	@Override
 	public void updateTopen(String mno, String open) {
-		
 		td.updateTopen(sqlSession, mno, open);
-		
+	}
+
+	// 프로필 - 미디어 수정하기 insert 메소드 (전효정)
+	@Override
+	public void insertMediaImg(String mno, String filePath, String originalFilename, String changeName, String ext) {
+		td.insertMediaImg(sqlSession, mno, filePath, originalFilename, changeName, ext);
 	}
 	
 

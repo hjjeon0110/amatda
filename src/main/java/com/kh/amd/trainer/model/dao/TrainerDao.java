@@ -39,6 +39,9 @@ public interface TrainerDao {
 	// 공개설정 업데이트 메소드(김진환)
 	void updateTopen(SqlSessionTemplate sqlSession, String mno, String open);
 
+	// 프로필 - 미디어 수정하기 insert 메소드 (전효정)
+	void insertMediaImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename, String changeName, String ext);
+
 
 
 

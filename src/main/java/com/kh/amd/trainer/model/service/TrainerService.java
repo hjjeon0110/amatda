@@ -37,6 +37,9 @@ public interface TrainerService {
 	// 트레이너 공개설정 메소드(김진환)
 	void updateTopen(String mno, String open);
 
+	// 프로필 - 미디어 수정하기 insert 메소드 (전효정)
+	void insertMediaImg(String mno, String filePath, String originalFilename, String changeName, String ext);
+
 
 
 

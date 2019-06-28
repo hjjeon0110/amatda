@@ -160,12 +160,14 @@
 	margin-left:70px;
 	width: 190PX;
 	height: 190PX;
+	overflow:hidden;
 	border-radius: 50%;
 	background: white;
 }
 #profileImg {
 	width: 190PX;
-	height: 190PX;
+	height: 190px;
+	overflow:hidden;
 	border-radius: 50%;
 }
 .modifyProfileImgBtn {
@@ -363,6 +365,47 @@
 .form-control {
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 14px;
+}
+
+.addBtnDiv {
+	width:100%;
+	text-align:center !important;
+}
+
+.addMediaImgBtn, .addMediaVideoBtn {
+	width:270px;
+	height:40px;
+	background:#ff0066;
+	color:white;
+	font-size: 14px;
+	border-style:none;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.addMediaImgBtn:hover, .addMediaVideoBtn:hover {
+	width:270px;
+	height:40px;
+	background:white;
+	color:#ff0066;
+	font-size: 14px;
+	border:1px solid #ff0066;
+	border-radius:5px;
+	font-family: 'Noto Sans KR', sans-serif;
+	cursor:pointer;
+}
+
+.addMediaImgDiv {
+	width:100%;
+	text-align:center !important;
+}
+
+.addMediaImgTable {
+	width:90%;
+	text-align:center !important;
+	margin-left:auto;
+	margin-right:auto;
+	background:whitesmoke;
 }
 
 
