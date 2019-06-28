@@ -301,21 +301,9 @@
 		<div class="modal-dialog modal-dialog-scrollable" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<label class="modalHeader">프로필 수정하기</label>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
 					<table class="modalMenubar">
 						<thead>
 							<tr>
-								<!-- <td><i class="fa fa-id-card fa-3x"></i></td>
-								<td><i class="fa fa-image fa-3x"></i></td>
-								<td><i class="fa fa-hashtag fa-3x"></i></td>
-								<td><i class="fa fa-running fa-2x"></i></td>
-								<td><i class="fa fa-certificate fa-3x"></i></td> -->
 								<td class="modalMenubarTd1">내 정보</td>
 								<td class="modalMenubarTd1">미디어</td>
 								<td class="modalMenubarTd1">키워드</td>
@@ -323,28 +311,22 @@
 								<td class="modalMenubarTd1">자격증</td>
 							</tr>
 						</thead>
-						<tbody>
-							<!-- <tr>
-								<td colspan="4">
-								<br>
-									<label class="modalHeader">내 정보 수정하기</label>
-									<br><br>
-									<label class="index">I</label>&nbsp;&nbsp;<label>PT 제목 / 서비스 제목</label><br>
-									&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value="" readonly><br><br>
-									<label class="index">I</label>&nbsp;&nbsp;<label>한 줄 프로필</label><br>
-									&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value="" readonly>
-									<br><br><br><br><br>
-									<br><br><br><br><br>
-								</td>
-							</tr> -->
-						</tbody>
 					</table>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="modalBody">
+
+					</div>
 					
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-primary">저장 후 다음</button>
+					<button type="button" class="btn btn-primary" id="modifyProfileBtn" value="modifyProfileBtn">수정하기</button>
 				</div>
 			</div>
 		</div>
@@ -388,7 +370,7 @@
 
 		});
 		
-		// 프로필 사진 추가 -------------------------------------------------------------------------
+		// 프로필 사진 추가 ------------------------------------------------------------------------------------
 		$(".modifyProfileImgBtn").hide();
 		
 		$(".profileImgDiv").mouseenter(function(){
@@ -425,13 +407,173 @@
 			}
 		} 
 		
-		// 모달 메뉴 1 - 내 정보 수정하기
-		$(".modalMenubarTd1").click(function() {
-			$(".modalMenubar tbody").css("background:red, color:white");
-			$(".modalMenubar tbody").append("성공");
+		
+		// 모달 메뉴 1 - 내 정보 수정하기 -------------------------------------------------------------------------------
+		$(".modalMenubarTd1").eq(0).click(function() {
+			$(".modalBody").children().remove();
+			modalMenu1();
 		});
 		
+		function modalMenu1() {
+			$($(".modalMenubarTd1").eq(0)).css({'background':'#ff0066', 'color':'white'});
+			$($(".modalMenubarTd1").eq(1)).css({'background':'#ffe6f3', 'color':'black'});
+			$($(".modalMenubarTd1").eq(2)).css({'background':'#ffe6f3', 'color':'black'});
+			$($(".modalMenubarTd1").eq(3)).css({'background':'#ffe6f3', 'color':'black'});
+			$($(".modalMenubarTd1").eq(4)).css({'background':'#ffe6f3', 'color':'black'});
+			
+			$("#modifyProfileBtn").attr("value", "modalMenu1");
+			
+			var proTitle = "${ profile.proTitle }";
+			var lineProfile = "${ profile.lineProfile }";
+			
+			$br = $("<br>");
+			$proTitle = $("<label class='modalMenu'>").text("프로필 제목");
+			$proTitleInput = $("<input class='form-control' id='proTitleInput' placeholder='프로필 제목을 입력해주세요'>").val(proTitle);
+			$LineProfile = $("<label class='modalMenu'>").text("한 줄 프로필");
+			$LineProfileInput = $("<input class='form-control' id='LineProfileInput' placeholder='트레이너님을 소개할 수 있는 간단한 자기소개를 적어주세요'>").val(lineProfile);
+			
+			$(".modalBody").append($proTitle);
+			$(".modalBody").append($proTitleInput);
+			$(".modalBody").append($br);
+			$(".modalBody").append($LineProfile);
+			$(".modalBody").append($LineProfileInput);
+		}
 		
+		
+		// 모달 메뉴 2 - 미디어 수정하기 -------------------------------------------------------------------------------
+		$(".modalMenubarTd1").eq(1).click(function() {
+			$(".modalBody").children().remove();
+			modalMenu2();
+		});
+		
+		function modalMenu2() {
+			$($(".modalMenubarTd1").eq(0)).css({'background':'#ffe6f3', 'color':'black'});
+			$($(".modalMenubarTd1").eq(1)).css({'background':'#ff0066', 'color':'white'});
+			$($(".modalMenubarTd1").eq(2)).css({'background':'#ffe6f3', 'color':'black'});
+			$($(".modalMenubarTd1").eq(3)).css({'background':'#ffe6f3', 'color':'black'});
+			$($(".modalMenubarTd1").eq(4)).css({'background':'#ffe6f3', 'color':'black'});
+			
+			$("#modifyProfileBtn").attr("value", "modalMenu2");
+			
+		}
+		
+		
+		// 모달 메뉴 3 - 서비스 키워드 수정하기 -------------------------------------------------------------------------------
+		$(".modalMenubarTd1").eq(2).click(function() {
+			$(".modalBody").children().remove();
+			modalMenu3();
+		});
+		
+		function modalMenu3() {
+			$($(".modalMenubarTd1").eq(0)).css({'background':'#ffe6f3', 'color':'black'});
+			$($(".modalMenubarTd1").eq(1)).css({'background':'#ffe6f3', 'color':'black'});
+			$($(".modalMenubarTd1").eq(2)).css({'background':'#ff0066', 'color':'white'});
+			$($(".modalMenubarTd1").eq(3)).css({'background':'#ffe6f3', 'color':'black'});
+			$($(".modalMenubarTd1").eq(4)).css({'background':'#ffe6f3', 'color':'black'});
+			
+			$("#modifyProfileBtn").attr("value", "modalMenu3");
+			
+		}
+		
+		
+		// 모달 메뉴 4 - 트레이너 소개 수정하기 -------------------------------------------------------------------------------
+		$(".modalMenubarTd1").eq(3).click(function() {
+			$(".modalBody").children().remove();
+			modalMenu4();
+		});
+		
+		function modalMenu4() {
+			$($(".modalMenubarTd1").eq(0)).css({'background':'#ffe6f3', 'color':'black'});
+			$($(".modalMenubarTd1").eq(1)).css({'background':'#ffe6f3', 'color':'black'});
+			$($(".modalMenubarTd1").eq(2)).css({'background':'#ffe6f3', 'color':'black'});
+			$($(".modalMenubarTd1").eq(3)).css({'background':'#ff0066', 'color':'white'});
+			$($(".modalMenubarTd1").eq(4)).css({'background':'#ffe6f3', 'color':'black'});
+			
+			$("#modifyProfileBtn").attr("value", "modalMenu4");
+			
+		}
+		
+		
+		// 모달 메뉴 5 - 자격증 및 사업등록증 수정하기 -------------------------------------------------------------------------------
+		$(".modalMenubarTd1").eq(4).click(function() {
+			$(".modalBody").children().remove();
+			modalMenu5();
+		});
+		
+		function modalMenu5() {
+			$($(".modalMenubarTd1").eq(0)).css({'background':'#ffe6f3', 'color':'black'});
+			$($(".modalMenubarTd1").eq(1)).css({'background':'#ffe6f3', 'color':'black'});
+			$($(".modalMenubarTd1").eq(2)).css({'background':'#ffe6f3', 'color':'black'});
+			$($(".modalMenubarTd1").eq(3)).css({'background':'#ffe6f3', 'color':'black'});
+			$($(".modalMenubarTd1").eq(4)).css({'background':'#ff0066', 'color':'white'});
+			
+			$("#modifyProfileBtn").attr("value", "modalMenu5");
+			
+		}
+		
+		
+		// 모달 메뉴 수정하기 버튼 클릭 시 ----------------------------------------------------------------------------------
+		$("#modifyProfileBtn").click(function() {
+			
+			if($("#modifyProfileBtn").val() == "modalMenu1") {
+								
+				var mno = ${ sessionScope.loginUser.mno };
+				var proTitle = $("#proTitleInput").val();
+				var lineProfile = $("#LineProfileInput").val();
+				
+				$.ajax({
+					url:"modifyProfile1.tr",
+					data:{mno:mno, proTitle:proTitle, lineProfile:lineProfile},
+					success:function(data) {
+						$("#goProfileDetail").click();
+					},
+					complete:function(data) {
+						$('.modal').modal({
+						    remote: url,
+						    refresh: true
+						});
+						
+					}
+				})
+				
+			}else if($("#modifyProfileBtn").val() == "modalMenu2") {
+				$.ajax({
+					url:"modifyProfile2.tr",
+					data:{mno:mno},
+					success:function(data) {
+						alert("2수정완료");
+					}
+				})
+				
+			}else if($("#modifyProfileBtn").val() == "modalMenu3") {
+				$.ajax({
+					url:"modifyProfile3.tr",
+					data:{mno:mno},
+					success:function(data) {
+						alert("3수정완료");
+					}
+				})	
+				
+			}else if($("#modifyProfileBtn").val() == "modalMenu4") {
+				$.ajax({
+					url:"modifyProfile4.tr",
+					data:{mno:mno},
+					success:function(data) {
+						alert("4수정완료");
+					}
+				})	
+				
+			}else if($("#modifyProfileBtn").val() == "modalMenu5") {
+				$.ajax({
+					url:"modifyProfile5.tr",
+					data:{mno:mno},
+					success:function(data) {
+						alert("5수정완료");
+					}
+				})
+			}
+				
+		});
 
 		
 	</script>

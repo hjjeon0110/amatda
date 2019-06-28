@@ -57,7 +57,6 @@ public class TrainerController {
 
 		// 프로필 사진 존재 여부 확인 (전효정)
 		Attachment attachment = ts.checkProfileImg(mno);
-		System.out.println(attachment);
 		
 		if(attachment != null) {
 			model.addAttribute("attachment", attachment);
@@ -81,9 +80,14 @@ public class TrainerController {
 		
 		// 프로필 사진 존재 여부 확인 (전효정)
 		Attachment attachment = ts.checkProfileImg(mno);
-		model.addAttribute("attachment", attachment);
-		String pic = attachment.getModiName() + attachment.getExtension();
-		model.addAttribute("pic", pic);			
+		
+		if(attachment != null) {
+			model.addAttribute("attachment", attachment);
+			String pic = attachment.getModiName() + attachment.getExtension();
+			model.addAttribute("pic", pic);		
+		}else {
+			model.addAttribute("attachment", attachment);
+		}	
 
 		return "trainer/2_1_myPage_profile";
 
@@ -169,6 +173,38 @@ public class TrainerController {
 
 		return "trainer/2_1_myPage_profile";
 	}
+	
+	
+	// 프로필 - 내 정보 수정하기 (전효정) ------------------------------------------------------------------------------------------------------------------------------------
+	@RequestMapping("modifyProfile1.tr")
+	public void modifyProfile1(String mno, String proTitle, String lineProfile, HttpServletResponse response) {
+		
+		System.out.println("내 정보 수정하기 서블릿 실행");
+		
+		int mno2 = Integer.parseInt(mno);
+
+		// 프로필 작성 여부 확인 메소드 (전효정)
+		Profile profile = ts.checkProfile(mno2);
+		
+		if(profile == null) {
+			ts.insertProfile1(mno, proTitle, lineProfile);
+			try {
+				response.getWriter().print("insert");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {
+			ts.updateProfile1(mno, proTitle, lineProfile);
+			try {
+				response.getWriter().print("insert");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 
 
 	/*
