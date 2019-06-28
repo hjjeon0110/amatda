@@ -1,5 +1,8 @@
 package com.kh.amd.board.controller;
 
+
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,115 +22,6 @@ public class BoardController {
 	private BoardService bs;
 	
 	
-	  //공지사항/이벤트 통합 리스트(sr)
-	  
-	 @RequestMapping("selectNotice.bo") 
-	  public String selectNotice() {
-	  
-	  return "board/selectNotice"; 
-	  
-	  }
-	  
-	  
-	  
-	  /*@RequestMapping("communityPostList.co")
-	   public String CommunityPostList(Model model ,int bno ) 
-	   {
-	      
-
-	      System.out.println("bno 값:"+bno);  
-	      
-	      ArrayList<CommunityPost> list = cs.CommunityPostList(bno);
-	      model.addAttribute("list",list); 
-	      
-	      System.out.println("CommunityPost="+list);
-	      
-	      
-	      return "community/communityPostList";
-	   } */
-	
-	  
-	/*
-	 * @RequestMapping("selectNotice.bo") public String selectNotice(Model model,int
-	 * bNo) { System.out.println("bNo의 값: " + bNo); ArrayList<> }
-	 */
-	 
-	  
-	  
-	  //-------------------------------------------//
-	  //공지사항 상세페이지(sr)
-	/*
-	 * @RequestMapping("selectOneNotice.bo") public String selectOneNotice(Model
-	 * model, Board b) {
-	 * 
-	 * bs.selectOneNotice(b);
-	 * 
-	 * return "board/selectOneNotice"; }
-	 * 
-	 * //공지사항 카테고리 리스트
-	 * 
-	 * @RequestMapping("selectNoticeCate.bo") public String selectNoticeCate() {
-	 * 
-	 * return "board/selectNoticeCate"; }
-	 * 
-	 * //이벤트 카테고리 리스트
-	 * 
-	 * @RequestMapping("selectEventCate.bo") public String selectEventCate() {
-	 * 
-	 * 
-	 * return "board/selectEventCate"; }
-	 * 
-	 * 
-	
-	 * 
-	 * //리뷰게시판 상세페이지(sr)
-	 * 
-	 * @RequestMapping("selectOneReview.bo") public String selectOneReview() {
-	 * 
-	 * return "board/selectOneReview"; }
-	 * 
-	 * 
-	 *
-	 * 
-	 * //신고 입력 게시판(sr)
-	 * 
-	 * @RequestMapping("insertDeclaration.bo") public String insertDeclaration() {
-	 * return "board/insertDeclaration"; }
-	 * 
-	 * 
-	 * //FAQ 게시판(sr)
-	 * 
-	 * @RequestMapping("selectFaq.bo") public String selectFaq() {
-	 * return"board/selectFaq"; }
-	 */
-	 
-	
-	//qna 입력게시판(sr)
-		/*@RequestMapping("insertQna.bo")
-		public String insertQna() {
-			return "board/insertQna";
-		} */
-	
-	/*@RequestMapping(value="insertQna.bo")
-	public String insertQna(Model model,Board b,HttpServletRequest request) {
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		int result=bs.insertQna(b);
-		if(result>0) {
-			return "board/insertQna";
-		}else {
-			model.addAttribute("msg","등록실패");
-			return "common/errorPage";
-		}
-		
-	}*/
-	
-	
-	/*
-	 * @RequestMapping("insertQna.bo") public String insertQna() { return
-	 * "board/insertQna"; }
-	 */
-	 
-	  
 	  //Q&A 게시판 그냥 단순 페이지 출력 (SR)
 	 @RequestMapping("insertQnaFormView.bo")
 	 public String insertQnaFormView() {
@@ -154,30 +48,9 @@ public class BoardController {
 		  return "common/errorPage";
 	  }
 	
-	  }
+	 }
 	 
-	  //리뷰게시판 그냥 단순 페이지 출력(sr)
-	
-	 /* @RequestMapping("selectReviewFormView.bo") 
-	  public String
-	  selectReviewFormView() { 
-		  return "board/selectReview";
-	  
-	  }
-	 
-	  
-	  
-	 //리뷰게시판 리스트(sr)
-	
-	  @RequestMapping("selectReview.bo")
-	  
-	  public String selectReview(Model model,Board b ) {
-		  int result =bs.selectReview(b); 
-		  return "board/selectReview"; 
-		  } */
-	 
-	 
-	  //리뷰게시판 그냥 단순 페이지 출력 (sr)
+	  //리뷰게시판 그냥 단순 페이지 출력 (SR)
 		  
 		 @RequestMapping("insertReviewFormView.bo") 
 		 public String insertReviewFormView() { 
@@ -186,7 +59,7 @@ public class BoardController {
 			 
 		 }
 		 
-		 //리뷰게시판 입력(sr)
+		 //리뷰게시판 입력(SR)
 		 @RequestMapping("insertReview.bo")
 		 public String insertReview(Model model,Board b) {
 			 System.out.println("진짜인 내가 호출됐어요!!");
@@ -196,8 +69,58 @@ public class BoardController {
 			 return "board/insertReview";
 		 }
 	
+		 //공지사항/이벤트 리스트 출력(SR)
+		 @RequestMapping("selectNotice.bo")
+		 public String selectNotice(Model model) {
+			 List<Board> selectNotice = bs.selectNotice();
+			 model.addAttribute("selectNotice",selectNotice);
+			 System.out.println("selectNotice in controller : " + selectNotice);
+			 return "board/selectNotice";
+		 }
 	
-	
+		 //공지사항 CATEGORY만의 리스트 출력(SR)
+		 @RequestMapping("selectNoticeCate.bo")
+		 public String selectNoticeCate(Model model) {
+			 List<Board> selectNoticeCate = bs.selectNoticeCate();
+			 model.addAttribute("selectNoticeCate",selectNoticeCate);
+			 System.out.println("selectNoticeCate in controller : " + selectNoticeCate );
+			 return "board/selectNoticeCate";
+		 }
+		 
+		 //이벤트 CATEGORY만의 리스트 출력(SR)
+		 @RequestMapping("selectEventCate.bo")
+		 public String selectEventCate(Model model) {
+			 List<Board> selectEventCate = bs.selectEventCate();
+			 model.addAttribute("selectEventCate",selectEventCate);
+			 return "board/selectEventCate";
+		 }
+		 
+		 
+		  //리뷰게시판 그냥 단순 페이지 출력(sr)
+		
+		 /* @RequestMapping("selectReviewFormView.bo") 
+		  public String
+		  selectReviewFormView() { 
+			  return "board/selectReview";
+		  }
+		  
+		 //리뷰게시판 리스트(sr)
+		
+		  @RequestMapping("selectReview.bo")
+		  
+		  public String selectReview(Model model,Board b ) {
+			  int result =bs.selectReview(b); 
+			  return "board/selectReview"; 
+			  } */
+		 @RequestMapping("searchNotice")
+		 public String searchNotice(Model model, String searchCon, String selectType) {
+			 //검색할 내용 = searchCon
+			 //검색할 타입 = selectType
+			 System.out.println("받아온값 두개 : " + searchCon + ";;;;;" + selectType);
+			 
+			 return "";
+		 }
+		 
 }
 
 
