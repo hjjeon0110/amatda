@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"import="java.util.*, com.kh.amd.board.model.vo.*,com.kh.amd.member.model.vo.*"%>
     
-    <% Board b = (Board) request.getAttribute("b"); %>
+
     
     
 <!DOCTYPE html>
