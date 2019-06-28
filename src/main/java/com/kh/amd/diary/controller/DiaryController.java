@@ -1,16 +1,25 @@
 package com.kh.amd.diary.controller;
 
+import java.io.File;
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.common.CommonUtils;
 import com.kh.amd.diary.model.service.DiaryService;
 import com.kh.amd.diary.model.vo.Diary;
+import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
+import com.kh.amd.trainer.model.vo.Profile;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -63,6 +72,86 @@ public class DiaryController {
 	}
 	
 	
+	
+	// 프로필 사진 추가 (전효정) ------------------------------------------------------------------------------------------------------------------------------------
+		@RequestMapping("insertDiaryImg.di")
+		public String modifyDiaryImg1(Model model, Member m, HttpServletRequest request, @RequestParam(name="diaryImgFile", required=false) MultipartFile diaryImgFile) {
+
+			String mno = request.getParameter("mno");
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String filePath = root + "\\uploadFiles";
+
+			// 파일 이름 변경
+			System.out.println(diaryImgFile);
+			String originalFilename = diaryImgFile.getOriginalFilename();
+			String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
+			String changeName = CommonUtils.getRandomString();
+
+			try {
+
+				diaryImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				ds.insertDiaryImg(mno, filePath, originalFilename, changeName, ext);
+				
+				int mno2 = Integer.parseInt(mno);
+							
+								
+				// 프로필 사진 존재 여부 확인 (전효정)
+				Attachment attachment = ds.checkDiaryImg(mno2);
+				
+				if(attachment != null) {
+					model.addAttribute("attachment", attachment);
+					String pic = attachment.getModiName() + attachment.getExtension();
+					model.addAttribute("pic", pic);		
+				}else {
+					model.addAttribute("attachment", attachment);
+				}	
+
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+				System.out.println("에러발생");
+			}
+
+			return "diary/showDiary";
+			
+		}
+		
+		// 프로필 사진 수정 (전효정) ------------------------------------------------------------------------------------------------------------------------------------
+		@RequestMapping("modifyDiaryImg.di")
+		public String modifyDiaryImg2(Model model, Member m, HttpServletRequest request, @RequestParam(name="diaryImgFile", required=false) MultipartFile diaryImgFile) {
+			
+			String mno = request.getParameter("mno");
+			String root = request.getSession().getServletContext().getRealPath("resources");
+
+			String filePath = root + "\\uploadFiles";
+
+			// 파일 이름 변경
+			String originalFilename = diaryImgFile.getOriginalFilename();
+			String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
+			String changeName = CommonUtils.getRandomString();
+
+			try {
+
+				diaryImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
+			
+				ds.modifyDiaryImg(mno, filePath, originalFilename, changeName, ext);
+
+				int mno2 = Integer.parseInt(mno);
+				
+
+				// 프로필 사진 존재 여부 확인 (전효정)
+				Attachment attachment = ds.checkDiaryImg(mno2);
+				model.addAttribute("attachment", attachment);
+				String pic = attachment.getModiName() + attachment.getExtension();
+				model.addAttribute("pic", pic);			
+
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+				System.out.println("에러발생");
+			}
+
+			return "diary/showDiary";
+		}
 		
 		
 		

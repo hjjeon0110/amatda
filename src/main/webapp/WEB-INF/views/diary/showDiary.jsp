@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,6 +72,42 @@ tr {
 <body>
 
 	<jsp:include page="../common/menubar.jsp"></jsp:include>
+	
+	
+		
+			
+				
+					<tr>
+						<td rowspan="3" class="diaryTableTd1">
+							<!-- 프로필 사진이 null일 때 ----------------------------------------------------------------------------------------------------- -->
+							<c:if test="${ empty attachment }">
+								<div class="diaryImgDiv"><img id="diaryImg" src="${contextPath}/resources/images/profileImg3.PNG"></div>
+								<button class="modifydiaryImgBtn">사진 추가</button>
+							    <form action="insertDiaryImg.di" method="post" enctype="multipart/form-data">
+							    	<input type="file" class="modifydiaryImg" name="diaryImgFile" onchange="loaddiaryImg(this)">
+							    	<input type="hidden" name="mno" value="${ sessionScope.loginUser.mno }"/>
+							        <input type="submit" class="modifydiaryImgSubmit" />
+							    </form>
+							</c:if>
+						    
+						    <!-- 프로필 사진이 null아닐 때 ---------------------------------------------------------------------------------------------------- -->
+						    <c:if test="${ !empty attachment }">
+							    <div class="diaryImgDiv"><img id="diaryImg" src="${contextPath}/resources/uploadFiles/${ pic }"></div>
+								<button class="modifydiaryImgBtn">사진 수정</button>
+							    <form action="modifyDiaryImg.di" method="post" enctype="multipart/form-data">
+							    	<input type="file" class="modifydiaryImg" name="diaryImgFile" onchange="loaddiaryImg(this)">
+							    	<input type="hidden" name="mno" value="${ sessionScope.loginUser.mno }"/>
+							        <input type="submit" class="modifydiaryImgSubmit" />
+							    </form>
+						    </c:if>
+						</td>
+						
+					</tr>
+					
+					
+				
+			
+		
 
 	<div class="outer">
 		<br>
@@ -132,6 +169,44 @@ tr {
 	</div>
 	<br />
 	<br />
+	
+	<script>
+	$(".modifydiaryImgBtn").hide();
+	
+	$(".diaryImgDiv").mouseenter(function(){
+		$(".modifydiaryImgBtn").show();
+	}).mouseout(function() {
+		$(".modifydiaryImgBtn").hide();
+	});  
+	
+	$(".modifydiaryImgBtn").mouseenter(function() {
+		$(".modifydiaryImgBtn").show();
+	});
+	
+	$(".modifydiaryImg").hide();
+	$(".modifydiaryImgSubmit").hide();
+	
+	$(".modifydiaryImgBtn").click(function() {
+		
+		$(".modifydiaryImg").click();
+		//$(".modifydiaryImgSubmit").click();
+	});
+	
+	$(".modifydiaryImg").on("change", function() {
+		$(".modifydiaryImgSubmit").click();
+	});
+	
+	function loaddiaryImg(value) {
+		if(value.files && value.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$("#diaryImg").attr("src", e.target.result); 
+			}
+			reader.readAsDataURL(value.files[0]);
+			
+		}
+	} 
+	</script>
 
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 
