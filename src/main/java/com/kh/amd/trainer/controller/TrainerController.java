@@ -71,6 +71,7 @@ public class TrainerController {
 
 	}
 
+	
 	// 트레이너 마이페이지_프로필관리 이동 (전효정) ------------------------------------------------------------------------------------------------------------------------------------
 	@RequestMapping("showMyPageProfile2.tr")
 	public String showTrainerMyPageProfileView2(Model model, int mno) {
@@ -98,7 +99,7 @@ public class TrainerController {
 	
 	// 프로필 사진 추가 (전효정) ------------------------------------------------------------------------------------------------------------------------------------
 	@RequestMapping("insertProfileImg.tr")
-	public String modifyProfileImg1(Model model, Member m, HttpServletRequest request, @RequestParam(name="profileImgFile", required=false) MultipartFile profileImgFile) {
+	public String insertProfileImg(Model model, Member m, HttpServletRequest request, @RequestParam(name="profileImgFile", required=false) MultipartFile profileImgFile) {
 
 		String mno = request.getParameter("mno");
 		String root = request.getSession().getServletContext().getRealPath("resources");
@@ -136,9 +137,10 @@ public class TrainerController {
 		
 	}
 	
+	
 	// 프로필 사진 수정 (전효정) ------------------------------------------------------------------------------------------------------------------------------------
 	@RequestMapping("modifyProfileImg.tr")
-	public String modifyProfileImg2(Model model, Member m, HttpServletRequest request, @RequestParam(name="profileImgFile", required=false) MultipartFile profileImgFile) {
+	public String modifyProfileImg(Model model, Member m, HttpServletRequest request, @RequestParam(name="profileImgFile", required=false) MultipartFile profileImgFile) {
 		
 		String mno = request.getParameter("mno");
 		String root = request.getSession().getServletContext().getRealPath("resources");
@@ -175,6 +177,83 @@ public class TrainerController {
 
 		return "trainer/2_1_myPage_profile";
 	}
+	
+	
+	// 프로필 - 내 정보 수정하기 (전효정) ------------------------------------------------------------------------------------------------------------------------------------
+	@RequestMapping("modifyProfile1.tr")
+	public void modifyProfile1(String mno, String proTitle, String lineProfile, HttpServletResponse response) {
+		
+		System.out.println("내 정보 수정하기 서블릿 실행");
+		
+		int mno2 = Integer.parseInt(mno);
+
+		// 프로필 작성 여부 확인 메소드 (전효정)
+		Profile profile = ts.checkProfile(mno2);
+		
+		if(profile == null) {
+			ts.insertProfile1(mno, proTitle, lineProfile);
+			try {
+				response.getWriter().print("insert");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {
+			ts.updateProfile1(mno, proTitle, lineProfile);
+			try {
+				response.getWriter().print("insert");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	// 프로필 - 미디어 수정하기 (전효정) ------------------------------------------------------------------------------------------------------------------------------------
+	@RequestMapping("insertMediaImg.tr")
+	public String insertMediaImg(Model model, Member m, HttpServletRequest request, @RequestParam(name="insertMediaImg", required=false) MultipartFile insertMediaImg) {
+		
+		String mno = request.getParameter("mno");
+		String root = request.getSession().getServletContext().getRealPath("resources");
+
+		String filePath = root + "\\uploadFiles";
+
+		// 파일 이름 변경
+		String originalFilename = insertMediaImg.getOriginalFilename();
+		String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
+		String changeName = CommonUtils.getRandomString();
+
+		try {
+
+			insertMediaImg.transferTo(new File(filePath + "\\" + changeName + ext));
+		
+			ts.insertMediaImg(mno, filePath, originalFilename, changeName, ext);
+
+			
+			int mno2 = Integer.parseInt(mno);
+			  
+			/*
+			 * // 프로필 작성 여부 확인 메소드 (전효정) Profile profile = ts.checkProfile(mno2);
+			 * model.addAttribute("profile", profile);
+			 * 
+			 * // 프로필 사진 존재 여부 확인 (전효정) Attachment attachment = ts.checkProfileImg(mno2);
+			 * 
+			 * if(attachment != null) { model.addAttribute("attachment", attachment); String
+			 * pic = attachment.getModiName() + attachment.getExtension();
+			 * model.addAttribute("pic", pic); }else { model.addAttribute("attachment",
+			 * attachment); }
+			 */
+			 	
+
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+			System.out.println("에러발생");
+		}
+		
+		return "trainer/2_1_myPage_profile";
+	}
+
 
 
 	/*

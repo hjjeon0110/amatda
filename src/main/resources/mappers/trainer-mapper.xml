@@ -47,43 +47,64 @@
 	<result property="filePath" column="FILE_PATH"/>
 </resultMap>
 
-   
-   <!-- 트레이너 추가 정보 회원가입 -->
-   <insert id="insertTrainerInfo" parameterType="TrainerInfo">
-   		INSERT INTO TUSER_INFO
-   		VALUES(#{mno}, #{accountName}, #{bankCode}, #{accountNo}, null, 'Y', null)
-   </insert>
-   
-   <!-- 프로필 작성 여부 확인 (전효정) -->
-   <select id="checkProfile" resultMap="profileResultSet" parameterType="Profile">
-   		SELECT PROFILE_NO, LINE_PROFILE, PRO_TITLE, INTRO, MEDIA, CERTIPICATE, KEYWORD FROM PROFILE WHERE TNO IN (#{mno}) 
-   </select>
-   
-   <!-- 서브 메뉴바내에서 견적서를 클릭시 로그인한 회원의 1번 견적서 열람 -->
-   <select id="selectEstimate" resultMap="estimateResultSet" parameterType="java.util.Map">
-   		SELECT E.EST_NAME, E.EST_COST, E.EST_CONTENTS, E.EST_TYPE, E.EST_NO, E.TNO, E.TRAINING_DAYS
+
+	<!-- 트레이너 추가 정보 회원가입 -->
+	<insert id="insertTrainerInfo" parameterType="TrainerInfo">
+		INSERT INTO TUSER_INFO
+		VALUES(#{mno}, #{accountName}, #{bankCode}, #{accountNo}, null, 'Y', null)
+	</insert>
+
+	<!-- 프로필 작성 여부 확인 (전효정) -->
+	<select id="checkProfile" resultMap="profileResultSet"
+		parameterType="Profile">
+		SELECT PROFILE_NO, LINE_PROFILE, PRO_TITLE, INTRO, MEDIA, CERTIPICATE, KEYWORD FROM PROFILE WHERE TNO IN (#{mno})
+	</select>
+
+	<!-- 서브 메뉴바내에서 견적서를 클릭시 로그인한 회원의 1번 견적서 열람 -->
+	<select id="selectEstimate" resultMap="estimateResultSet"
+		parameterType="java.util.Map">
+		SELECT E.EST_NAME, E.EST_COST, E.EST_CONTENTS, E.EST_TYPE, E.EST_NO, E.TNO,
+		E.TRAINING_DAYS
 		FROM ESTIMATE E
 		JOIN MEMBER M ON (E.TNO = M.MNO)
-		WHERE E.EST_TYPE = #{iestType}
+		WHERE
+		E.EST_TYPE = #{iestType}
 		AND TNO = #{MNO}
-   </select>
+	</select>
 
-   
-   <!-- 프로필 이미지 존재 여부 확인 (전효정) -->
-   <select id="checkProfileImg" resultMap="attachmentResultSet" parameterType="Attachment">
-   		SELECT FILE_NO, PNO, ORI_NAME, MODI_NAME, EXTENSION, FILE_LEVEL, UPLOAD_DATE, A_STATUS, FILE_PATH  FROM ATTACHMENT WHERE PNO IN (#{mno}) 
-   </select>
-   
-   <!-- 프로필 사진 insert (전효정) -->
-   <insert id="insertProfileImg" parameterType="Attachment">
-   		INSERT INTO ATTACHMENT VALUES(FILE_SEQ.NEXTVAL, NULL, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 0, 'Y', #{filePath})
-   </insert>
-   
-   <!-- 프로필 사진 수정 (전효정) -->
-   <update id="modifyProfileImg" parameterType="Attachment">
-   		UPDATE ATTACHMENT SET ORI_NAME = #{originalFilename}, MODI_NAME = #{changeName}, EXTENSION = #{ext}, FILE_PATH = #{filePath}, UPLOAD_DATE = SYSDATE
-   </update>
+	<!-- 프로필 이미지 존재 여부 확인 (전효정) -->
+	<select id="checkProfileImg" resultMap="attachmentResultSet"
+		parameterType="Attachment">
+		SELECT FILE_NO, PNO, ORI_NAME, MODI_NAME, EXTENSION, FILE_LEVEL, UPLOAD_DATE, A_STATUS, FILE_PATH FROM ATTACHMENT WHERE PNO IN (#{mno}) AND ATYPE = 0
+	</select>
 
+	<!-- 프로필 사진 insert (전효정) -->
+	<insert id="insertProfileImg" parameterType="Attachment">
+		INSERT INTO ATTACHMENT VALUES(FILE_SEQ.NEXTVAL, NULL, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 0, 'Y', #{filePath})
+	</insert>
+
+	<!-- 프로필 사진 수정 (전효정) -->
+	<update id="modifyProfileImg" parameterType="Attachment">
+		UPDATE ATTACHMENT SET ORI_NAME = #{originalFilename}, MODI_NAME = #{changeName}, EXTENSION = #{ext}, FILE_PATH = #{filePath}, UPLOAD_DATE = SYSDATE
+	</update>
+
+	<!-- 프로필 - 내 정보 수정하기 insert (전효정) -->
+	<insert id="insertProfile1" parameterType="Profile">
+		INSERT INTO PROFILE
+		VALUES(PROFILE_SEQ.NEXTVAL, #{mno}, #{lineProfile},
+		#{proTitle}, null, null, null, null)
+	</insert>
+	
+	<!-- 프로필 - 내 정보 수정하기 update (전효정) -->
+	<update id="updatetProfile1" parameterType="Profile">
+		UPDATE PROFILE SET LINE_PROFILE = #{lineProfile}, PRO_TITLE = #{proTitle}
+	</update>
+	
+	<!-- 프로필 - 미디어 수정하기 insert (전효정) -->
+	<insert id="insertMediaImg" parameterType="Attachment">
+		INSERT INTO ATTACHMENT VALUES(FILE_SEQ.NEXTVAL, NULL, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 1, 'Y', #{filePath})
+	</insert>
+ 
 
    <insert id="insertEstimate" parameterType="Estimate">
    		INSERT INTO ESTIMATE
@@ -99,6 +120,7 @@
   		WHERE TNO = #{tno}
   		AND EST_TYPE = #{estType}
 	</update>
+
 	<update id="updateTopen" parameterType="java.util.Map">
 		UPDATE TUSER_INFO
 		SET TOPEN = #{open}

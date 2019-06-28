@@ -291,9 +291,18 @@
 		
 	</c:if>
 	
+	
 	<!-- footer 영역 ----------------------------------------------------------------------------------------------------- -->
 	<br><br><br><br><hr><br>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
+	
+	
+	<!-- 미디어 사진 등록 ----------------------------------------------------------------------------------------------------- -->
+	<form action="insertMediaImg.tr" method="post" enctype="multipart/form-data">
+    	<input type="file" class="insertMediaImg" name="insertMediaImg"/>
+    	<input type="hidden" name="mno" value="${ sessionScope.loginUser.mno }"/>
+        <input type="submit" class="insertMediaImgSubmit" />
+    </form>
 	
 	
 	<!-- Modal ---------------------------------------------------------------------------------------------------------- -->
@@ -319,13 +328,14 @@
 				</div>
 				<div class="modal-body">
 					<div class="modalBody">
+					
+						
 
 					</div>
 					
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">닫기</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
 					<button type="button" class="btn btn-primary" id="modifyProfileBtn" value="modifyProfileBtn">수정하기</button>
 				</div>
 			</div>
@@ -387,9 +397,7 @@
 		$(".modifyProfileImgSubmit").hide();
 		
 		$(".modifyProfileImgBtn").click(function() {
-			
 			$(".modifyProfileImg").click();
-			//$(".modifyProfileImgSubmit").click();
 		});
 		
 		$(".modifyProfileImg").on("change", function() {
@@ -403,7 +411,6 @@
 					$("#profileImg").attr("src", e.target.result); 
 				}
 				reader.readAsDataURL(value.files[0]);
-				
 			}
 		} 
 		
@@ -440,11 +447,15 @@
 		}
 		
 		
+		
 		// 모달 메뉴 2 - 미디어 수정하기 -------------------------------------------------------------------------------
 		$(".modalMenubarTd1").eq(1).click(function() {
 			$(".modalBody").children().remove();
 			modalMenu2();
 		});
+		
+		$(".insertMediaImg").hide();
+		$(".insertMediaImgSubmit").hide();
 		
 		function modalMenu2() {
 			$($(".modalMenubarTd1").eq(0)).css({'background':'#ffe6f3', 'color':'black'});
@@ -455,6 +466,55 @@
 			
 			$("#modifyProfileBtn").attr("value", "modalMenu2");
 			
+			$addBtnDiv = $("<div class='addBtnDiv'>");
+			$addMediaImgBtn = $("<button class='addMediaImgBtn'>").text("사진 업로드");
+			$nbsp = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+			$addMediaVideoBtn = $("<button class='addMediaVideoBtn'>").text("동영상 등록");
+			
+			$(".modalBody").append($addBtnDiv);
+			$addBtnDiv.append($addMediaImgBtn);
+			$addMediaImgBtn.after($nbsp);
+			$addBtnDiv.append($addMediaVideoBtn);
+			
+			$(".addMediaImgBtn").click(function() {
+				$(".insertMediaImg").click();
+			});
+			
+			$(".insertMediaImg").on("change", function() {
+				loadMediaImg(this);
+				$br = $("<br>");
+				$addMediaImgDiv = $("<div class='addMediaImgDiv'>");
+				$addMediaImgTable = $("<table class='addMediaImgTable'>");
+				$addMediaImgTableTr = $("<tr>");
+				$addMediaImgTableTd1 = $("<td>");
+				$addMediaImgTableTdDiv = $("<div>");
+				$addMediaImgTableTd1.css({"width":"150px", "height":"150px"});
+				$addMediaImgTableTdDiv.css({"width":"150px", "height":"150px", "overflow":"hidden"});
+				$mediaImg = $("<img src='' class='mediaImg'>");
+				$mediaImg.css({"width":"150px", "height":"auto", "vertical-align":"middle", "border-radius":"5px"});
+				
+				$(".modalBody").append($br);
+				$(".modalBody").append($addMediaImgDiv);
+				$addMediaImgDiv.append($addMediaImgTable);
+				$addMediaImgTable.append($addMediaImgTableTr);
+				$addMediaImgTableTr.append($addMediaImgTableTd1);
+				$addMediaImgTableTd1.append($addMediaImgTableTdDiv);
+				$addMediaImgTableTdDiv.append($mediaImg);
+				
+				$(".insertMediaImgSubmit").click();
+			});
+			
+			function loadMediaImg(value) {
+				if(value.files && value.files[0]) {
+					var reader = new FileReader();
+					reader.onload = function(e) {
+						$mediaImg.attr("src", e.target.result); 
+					}
+					reader.readAsDataURL(value.files[0]);
+				}
+			} 
+
+		
 		}
 		
 		
@@ -524,15 +584,8 @@
 				$.ajax({
 					url:"modifyProfile1.tr",
 					data:{mno:mno, proTitle:proTitle, lineProfile:lineProfile},
-					success:function(data) {
-						$("#goProfileDetail").click();
-					},
 					complete:function(data) {
-						$('.modal').modal({
-						    remote: url,
-						    refresh: true
-						});
-						
+						location.reload();
 					}
 				})
 				
