@@ -27,19 +27,16 @@ public class TrainerServiceImpl implements TrainerService {
 	// 견적서 (김진환)
 	@Override
 	public Estimate selectEstimate(int mno, int iestType) {
-		
 		return td.selectEstimate(sqlSession, mno, iestType);
 	}
 
 	@Override
 	public int insertEstimate(Estimate tEst) {
-		
 		return td.insertEstimate(sqlSession, tEst);
 	}
 
 	@Override
 	public int updateEstimate(Estimate estimate) {
-		
 		return td.updateEstimate(sqlSession, estimate);
 	}
 	
@@ -59,6 +56,18 @@ public class TrainerServiceImpl implements TrainerService {
 	@Override
 	public void modifyProfileImg(String mno, String filePath, String originalFilename, String changeName, String ext) {
 		td.modifyProfileImg(sqlSession, mno, filePath, originalFilename, changeName, ext);
+	}
+
+	// 프로필 - 내 정보 수정하기 insert 메소드 (전효정)
+	@Override
+	public void insertProfile1(String mno, String proTitle, String lineProfile) {
+		td.insertProfile1(sqlSession, mno, proTitle, lineProfile);
+	}
+	
+	// 프로필 - 내 정보 수정하기 update 메소드 (전효정)
+	@Override
+	public void updateProfile1(String mno, String proTitle, String lineProfile) {
+		td.updateProfile1(sqlSession, mno, proTitle, lineProfile);
 	}
 	
 

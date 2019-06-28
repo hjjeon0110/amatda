@@ -98,10 +98,21 @@
   			EST_CONTENTS = #{estContents}
   		WHERE TNO = #{tno}
   		AND EST_TYPE = #{estType}
+	</update>
+	
+	<insert id="insertProfile1" parameterType="Profile">
+		INSERT INTO PROFILE
+		VALUES(PROFILE_SEQ.NEXTVAL, #{mno}, #{lineProfile}, #{proTitle}, null, null, null, null)
+	</insert>
+	
+	<update id="updatetProfile1" parameterType="Profile">
+		UPDATE PROFILE SET LINE_PROFILE = #{lineProfile}, PRO_TITLE = #{proTitle}
+	</update>
 
 
-  
-</update>
+
+
+
 </mapper>
 
 

@@ -25,6 +25,12 @@ public interface TrainerService {
 	// 프로필 이미지 수정 메소드 (전효정)
 	void modifyProfileImg(String mno, String filePath, String originalFilename, String changeName, String ext);
 
+	// 프로필 - 내 정보 수정하기 insert 메소드 (전효정)
+	void insertProfile1(String mno, String proTitle, String lineProfile);
+
+	// 프로필 - 내 정보 수정하기 update 메소드 (전효정)
+	void updateProfile1(String mno, String proTitle, String lineProfile);
+
 
 
 	
