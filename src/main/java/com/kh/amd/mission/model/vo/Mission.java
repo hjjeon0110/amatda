@@ -1,38 +1,41 @@
 package com.kh.amd.mission.model.vo;
 
-public class Mission {
+import java.sql.Date;
+
+public class Mission implements java.io.Serializable{
 	
-	private int mtrainerNo;
-	private int schNo;
+	private int missionNo;
 	private int tno;
-	private String mcontent;
-	private String register;
+	private int uno;
+	private String mDate;
+	private String mTime;
+	private String mType;
+	private String mContent;
+	private String mLink;
+	private String completeYN;
 	
 	public Mission() {}
 
-	public Mission(int mtrainerNo, int schNo, int tno, String mcontent, String register) {
+	public Mission(int missionNo, int tno, int uno, String mDate, String mTime, String mType, String mContent,
+			String mLink, String completeYN) {
 		super();
-		this.mtrainerNo = mtrainerNo;
-		this.schNo = schNo;
+		this.missionNo = missionNo;
 		this.tno = tno;
-		this.mcontent = mcontent;
-		this.register = register;
+		this.uno = uno;
+		this.mDate = mDate;
+		this.mTime = mTime;
+		this.mType = mType;
+		this.mContent = mContent;
+		this.mLink = mLink;
+		this.completeYN = completeYN;
 	}
 
-	public int getMtrainerNo() {
-		return mtrainerNo;
+	public int getMissionNo() {
+		return missionNo;
 	}
 
-	public void setMtrainerNo(int mtrainerNo) {
-		this.mtrainerNo = mtrainerNo;
-	}
-
-	public int getSchNo() {
-		return schNo;
-	}
-
-	public void setSchNo(int schNo) {
-		this.schNo = schNo;
+	public void setMissionNo(int missionNo) {
+		this.missionNo = missionNo;
 	}
 
 	public int getTno() {
@@ -43,27 +46,71 @@ public class Mission {
 		this.tno = tno;
 	}
 
-	public String getMcontent() {
-		return mcontent;
+	public int getUno() {
+		return uno;
 	}
 
-	public void setMcontent(String mcontent) {
-		this.mcontent = mcontent;
+	public void setUno(int uno) {
+		this.uno = uno;
 	}
 
-	public String getRegister() {
-		return register;
+	public String getmDate() {
+		return mDate;
 	}
 
-	public void setRegister(String register) {
-		this.register = register;
+	public void setmDate(String mDate) {
+		this.mDate = mDate;
+	}
+
+	public String getmTime() {
+		return mTime;
+	}
+
+	public void setmTime(String mTime) {
+		this.mTime = mTime;
+	}
+
+	public String getmType() {
+		return mType;
+	}
+
+	public void setmType(String mType) {
+		this.mType = mType;
+	}
+
+	public String getmContent() {
+		return mContent;
+	}
+
+	public void setmContent(String mContent) {
+		this.mContent = mContent;
+	}
+
+	public String getmLink() {
+		return mLink;
+	}
+
+	public void setmLink(String mLink) {
+		this.mLink = mLink;
+	}
+
+	public String getCompleteYN() {
+		return completeYN;
+	}
+
+	public void setCompleteYN(String completeYN) {
+		this.completeYN = completeYN;
 	}
 
 	@Override
 	public String toString() {
-		return "Mission [mtrainerNo=" + mtrainerNo + ", schNo=" + schNo + ", tno=" + tno + ", mcontent=" + mcontent
-				+ ", register=" + register + "]";
+		return "Mission [missionNo=" + missionNo + ", tno=" + tno + ", uno=" + uno + ", mDate=" + mDate + ", mTime="
+				+ mTime + ", mType=" + mType + ", mContent=" + mContent + ", mLink=" + mLink + ", completeYN="
+				+ completeYN + "]";
 	}
+	
+	
+	
 	
 	
 
