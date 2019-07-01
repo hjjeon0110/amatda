@@ -2,6 +2,7 @@ package com.kh.amd.diary.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,7 +29,7 @@ public class DiaryController {
 	@Autowired
 	private DiaryService ds;
 	
-	//다이어리 show
+	//다이어리 인서트 시작하자
 	@RequestMapping("show.di")
 	public String showDiary() {
 		
@@ -50,7 +51,7 @@ public class DiaryController {
 		
 			if(result > 0) {
 				
-				return "diary/diaryList";
+				return "redirect:index.jsp";
 				
 			}else {
 				
@@ -187,10 +188,19 @@ public class DiaryController {
 	 * } }
 	 */
 	
-	@RequestMapping("selectDiary.di")
-	public String selectDiary() {
+	//다이어리 리스트
+	@RequestMapping("list.di")
+	public String selectDiary(Model model, Member m) {
 		
-		return "diary/selectDiary";
+		int mno = m.getMno();
+		
+		List<Diary> diaryList = ds.diaryList(mno);
+		
+		System.out.println("diaryList: " + diaryList);
+		
+		model.addAttribute("list", diaryList);
+		
+		return "diary/diaryList";
 		
 	}
 	

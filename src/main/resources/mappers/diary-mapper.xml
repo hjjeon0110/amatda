@@ -21,25 +21,86 @@
 	<result property="filePath" column="FILE_PATH"/>
 </resultMap>
 
+<resultMap id="member" type="com.kh.amd.member.model.vo.Member">
+		<id column="MNO" property="mno"/> <!-- DB 기본키 -->
+		<result column="NAME" property="name"/><!-- 일반컬럼 -->
+		<result column="ID" property="userId"/>
+		<result column="PWD" property="userPwd"/>
+		<result column="PHONE" property="phone"/>
+		<result column="GENDER" property="gender"/>
+		<result column="EMAIL" property="email"/>
+		<result column="MTYPE" property="mtype"/>
+		<result column="STATUS" property="status"/>
+		<result column="MATCH_TIME" property="matchTime"/>
+		<result column="EMAIL_YN" property="emailYn"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="COMPLETE_SURVEY" property="completeSurvey"/>
+	</resultMap>
+
+<resultMap type="com.kh.amd.diary.model.vo.Diary" id="diaryResultSet">
+  		<id property="bNo" column="BNO"/>
+  		<result property="bType" column="BTYPE"/>
+  		<result property="blCategory" column="BL_CATEGORY"/>
+  		<result property="bmCategory" column="BM_CATEGORY"/>
+  		<result property="bsCategory" column="BS_CATEGORY"/>
+  		<result property="bWriteDate" column="BWRITE_DATE"/>
+  		<result property="bModifyDate" column="BMODIFY_DATE"/>
+  		<result property="bTitle" column="BTITLE"/>
+  		<result property="bContent" column="BCONTENT"/>
+  		<result property="bCount" column="BCOUNT"/>
+  		<result property="bLike" column="BLIKE"/>
+  		<result property="bStatus" column="BSTATUS"/>
+  		<result property="bWriter" column="BWRITER"/>
+  		<collection property="member" resultMap="member"/>
+  	</resultMap>
+
    <!-- 프로필 사진 insert (전효정) -->
    <insert id="insertDiaryImg" parameterType="Attachment">
-   		INSERT INTO ATTACHMENT VALUES(FILE_SEQ.NEXTVAL, NULL, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 0, 'Y', #{filePath})
+   		INSERT INTO ATTACHMENT 
+   		VALUES(FILE_SEQ.NEXTVAL, NULL, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 0, 'Y', #{filePath})
    </insert>
    
    <!-- 프로필 사진 수정 (전효정) -->
    <update id="modifyDiaryImg" parameterType="Attachment">
-   		UPDATE ATTACHMENT SET ORI_NAME = #{originalFilename}, MODI_NAME = #{changeName}, EXTENSION = #{ext}, FILE_PATH = #{filePath}, UPLOAD_DATE = SYSDATE
+   		UPDATE ATTACHMENT 
+   		SET ORI_NAME = #{originalFilename}, 
+   			MODI_NAME = #{changeName}, 
+   			EXTENSION = #{ext}, 
+   			FILE_PATH = #{filePath}, 
+   			UPLOAD_DATE = SYSDATE
    </update>  
    
    <!-- 프로필 이미지 존재 여부 확인 (전효정) -->
    <select id="checkDiaryImg" resultMap="attachmentResultSet" parameterType="Attachment">
-   		SELECT FILE_NO, PNO, ORI_NAME, MODI_NAME, EXTENSION, FILE_LEVEL, UPLOAD_DATE, A_STATUS, FILE_PATH  FROM ATTACHMENT WHERE PNO IN (#{mno}) 
+   		SELECT FILE_NO, PNO, ORI_NAME, MODI_NAME, EXTENSION, FILE_LEVEL, UPLOAD_DATE, A_STATUS, FILE_PATH  
+   		FROM ATTACHMENT 
+   		WHERE PNO IN (#{mno}) 
    </select>
  	 	
    <!-- 프로필 사진 수정 (전효정) -->
    <update id="modifyProfileImg" parameterType="Attachment">
-   		UPDATE ATTACHMENT SET ORI_NAME = #{originalFilename}, MODI_NAME = #{changeName}, EXTENSION = #{ext}, FILE_PATH = #{filePath}, UPLOAD_DATE = SYSDATE
+   		UPDATE ATTACHMENT 
+   		SET ORI_NAME = #{originalFilename}, 
+   			MODI_NAME = #{changeName}, 
+   			EXTENSION = #{ext}, 
+   			FILE_PATH = #{filePath}, 
+   			UPLOAD_DATE = SYSDATE
    </update>
+   
+   <!-- 다이어리 내용 insert -->
+   <insert id="insertDiary" parameterType="java.util.Map">
+	  	INSERT INTO BOARD(BNO, BTYPE, BWRITE_DATE, BTITLE, BCONTENT, BWRITER)
+	  	VALUES (BNO_SEQ.NEXTVAL, 6, sysdate, #{d.bTitle}, #{d.bContent}, #{mno})
+  	</insert>
+  	
+  	<!-- 다이어리 list -->
+  	<select id="diaryList" resultMap="diaryResultSet">
+  		SELECT *
+		FROM BOARD
+		WHERE BTYPE = 6
+		AND BWRITER = #{mno}
+  	</select>
 
 	
 </mapper>
