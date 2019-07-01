@@ -26,7 +26,7 @@
 	display: inline-block;
 	width: 150px;
 	height: 150px;
-	border: 1px solid darkgray;
+	border: 0.5px solid darkgray;
 	background: white;
 	font-family: 'Noto Sans KR', sans-serif;
 }

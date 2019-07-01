@@ -12,7 +12,25 @@
 .btn btn-primary:hover {
 	background: white;
 	color: #ff0066;
-	border: 1px solid #ff0066;
+	border: 0.5px solid #ff0066 !important;
+}
+
+#goProfileDetail {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 14px;
+	border-style: none;
+	background: #ff0066;
+	color: white;
+	border-radius:0 !important;
+}
+
+#goProfileDetail:hover {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 14px;
+	border-style: none;
+	background: white;
+	color: #ff0066;
+	border: 0.5px solid #ff0066 !important;
 }
 
 .menubarLi2 {
@@ -45,11 +63,54 @@
 	height:230px;
 }
 
+.mediaDivNotNull {
+	text-align:center;
+	width:100%;
+	height:100%;
+}
+
+.mediaImgDiv {
+	width:1024px;
+	height:100%;
+	padding-left:50px;
+	padding-right:50px;
+	text-align:left;
+}
+
+.mediaImgListDiv {
+	width:225px;
+	height:225px;
+	overflow:hidden;
+	display:inline-block;
+	border-radius:5px;
+}
+
+#mediaImgList {
+	width:225px;
+	min-height:225px;
+	height:auto;
+	border-radius:5px;
+}
+
+.certificationImgListDiv {
+	width:175px;
+	height:225px;
+	overflow:hidden;
+	display:inline-block;
+	border-radius:5px;
+}
+
+#certificationImgList {
+	width:175px;
+	min-height:225px;
+	height:auto;
+	border-radius:5px;
+}
+
 .profile2 {
 	width: 100%;
 	height: 100%;
 	background: #F9F9F9;
-	
 }
 
 .serviceKeywordDiv, .introDiv {
@@ -58,7 +119,17 @@
 	margin-left:auto;
 	margin-right:auto;
 	padding:10px;
-	border:1px solid darkgray;
+	border:0.5px solid darkgray;
+	background:white;
+}
+
+.serviceKeywordDivNotNull, .introDivNotNull {
+	width:90%;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+	padding:10px;
+	border:0.5px solid darkgray;
 	background:white;
 }
 
@@ -68,8 +139,73 @@
 	margin-left:auto;
 	margin-right:auto;
 	padding:10px;
-	border:1px solid darkgray;
+	border:0.5px solid darkgray;
 	background:white;
+}
+
+.keywordDiv {
+	width:100%;
+	height:100%;
+	padding-bottom:15px;
+}
+
+.badge {
+	font-family: 'Noto Sans KR', sans-serif;
+	background: #ffe6f3;
+}
+
+.keywordDeleteBtn {
+	border-style:none;
+	background:white;
+	color:#ff0066;
+}
+
+.keywordDeleteBtn:hover {
+	border-style:none;
+	background:white;
+	color:#ff0066;
+	cursor:pointer;
+}
+
+.trainerInfoDiv {
+	width:90%;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.trainerInfo {
+	width:100%;
+	background:whitesmoke;
+	border-style:none;
+	font-size:14px;
+	font-family: 'Nanum Gothic', sans-serif;
+	padding:12px;
+}
+
+.reviewDiv {
+	width:90%;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.reviewTable {
+	width:100%;
+	height:100%;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-bottom:0.5px solid lightgray;
+}
+
+.reviewWriter, .reviewWriteDate {
+	font-size:14px;
+	font-weight:bold;
+}
+
+.review {
+	width:100%;
+	font-size:12px;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 
 .subTitle {
@@ -102,7 +238,7 @@
 	background:white;
 	color:#ff0066;
 	font-family: 'Noto Sans KR', sans-serif;
-	border:1px solid #ff0066;
+	border:0.5px solid #ff0066;
 	cursor:pointer;
 }
 
@@ -158,34 +294,98 @@
 
 .profileImgDiv {
 	margin-left:70px;
-	width: 190PX;
-	height: 190PX;
+	width: 180px;
+	height: 180px;
 	overflow:hidden;
 	border-radius: 50%;
 	background: white;
 }
+
 #profileImg {
-	width: 190PX;
-	height: 190px;
-	overflow:hidden;
+	width: 180px;
+	height:180px;
 	border-radius: 50%;
 }
+
 .modifyProfileImgBtn {
 	background:#ff0066;
 	color:white;
 	border-style:none;
 	position:absolute;
 	margin-top:-105px;
-	margin-left:-19px;
+	margin-left:-24px;
 }
+
 .modifyProfileImgBtn:hover {
 	background:#ff0066;
 	color:white;
 	border-style:none;
 	position:absolute;
 	margin-top:-105px;
-	margin-left:-19px;
+	margin-left:-24px;
 	cursor:pointer;
+}
+
+.deleteMediaImgBtn {
+	background:#ff0066;
+	color:white;
+	border-style:none;
+	position:absolute;
+	margin-top:99px;
+	margin-left:81px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:14px;
+}
+
+.deleteMediaImgBtn:hover {
+	background:#ff0066;
+	color:white;
+	border-style:none;
+	position:absolute;
+	margin-top:99px;
+	margin-left:81px;
+	cursor:pointer;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:14px;
+}
+
+.deleteMediaImgDiv {
+	background:rgba(0, 0, 0, 0.3);
+	width:225px;
+	height:225px;
+	position:absolute;
+	border-radius:5px;
+}
+
+.deleteCertificationBtn {
+	background:#ff0066;
+	color:white;
+	border-style:none;
+	position:absolute;
+	margin-top:99px;
+	margin-left:56px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:14px;
+}
+
+.deleteCertificationBtn:hover {
+	background:#ff0066;
+	color:white;
+	border-style:none;
+	position:absolute;
+	margin-top:99px;
+	margin-left:56px;
+	cursor:pointer;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:14px;
+}
+
+.deleteCertificationDiv {
+	background:rgba(0, 0, 0, 0.3);
+	width:175px;
+	height:225px;
+	position:absolute;
+	border-radius:5px;
 }
 
 .fa-star {
@@ -261,67 +461,6 @@
     }
 }
 
-.keywordDiv {
-	width:100%;
-	height:45px;
-}
-.badge {
-	font-family: 'Noto Sans KR', sans-serif;
-	background: #ffe6f3;
-}
-.keywordDeleteBtn {
-	border-style:none;
-	background:white;
-	color:#ff0066;
-}
-.keywordDeleteBtn:hover {
-	border-style:none;
-	background:white;
-	color:#ff0066;
-	cursor:pointer;
-}
-
-.trainerInfoDiv {
-	width:90%;
-	height:100%;
-	margin-left:auto;
-	margin-right:auto;
-}
-
-.trainerInfo {
-	width:100%;
-	background:whitesmoke;
-	border-style:none;
-	font-size:14px;
-	font-family: 'Nanum Gothic', sans-serif;
-	padding:12px;
-}
-
-.reviewDiv {
-	width:90%;
-	height:100%;
-	margin-left:auto;
-	margin-right:auto;
-}
-
-.reviewTable {
-	width:100%;
-	height:100%;
-	font-family: 'Noto Sans KR', sans-serif;
-	border-bottom:1px solid lightgray;
-}
-
-.reviewWriter, .reviewWriteDate {
-	font-size:14px;
-	font-weight:bold;
-}
-
-.review {
-	width:100%;
-	font-size:12px;
-	font-family: 'Nanum Gothic', sans-serif;
-}
-
 .modal {
 	font-family: 'Noto Sans KR', sans-serif;
 }
@@ -338,11 +477,9 @@
 }
 
 .modalMenubar thead {
-	background:#ffe6f3;
 	text-align:center;
 	font-weight:bold;
 }
-
 
 .modalMenubar td {
 	width:20%;
@@ -362,6 +499,7 @@
 	font-weight:bold;
 	font-family: 'Noto Sans KR', sans-serif;
 }
+
 .form-control {
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 14px;
@@ -372,7 +510,7 @@
 	text-align:center !important;
 }
 
-.addMediaImgBtn, .addMediaVideoBtn {
+.addMediaImgBtn, .addMediaVideoBtn, .addCertification1ImgBtn, .addCertification2ImgBtn {
 	width:270px;
 	height:40px;
 	background:#ff0066;
@@ -383,7 +521,7 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-.addMediaImgBtn:hover, .addMediaVideoBtn:hover {
+.addMediaImgBtn:hover, .addMediaVideoBtn:hover, .addCertification1ImgBtn:hover, .addCertification2ImgBtn:hover {
 	width:270px;
 	height:40px;
 	background:white;
@@ -406,6 +544,17 @@
 	margin-left:auto;
 	margin-right:auto;
 	background:whitesmoke;
+}
+
+#introTextarea {
+	height:150px;
+	resize:none;
+}
+
+#exampleTextarea {
+	background:whitesmoke;
+	height:150px;
+	resize:none;
 }
 
 
