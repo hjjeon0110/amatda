@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <script
@@ -72,8 +73,8 @@
 						</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item" href="notice.ad">공지사항</a> <a
-									class="dropdown-item" href="#">자주 묻는 질문</a> <a
-									class="dropdown-item" href="#">1:1문의</a>
+									class="dropdown-item" href="FAQ.ad">자주 묻는 질문</a> <a
+									class="dropdown-item" href="QNA.ad">1:1문의</a>
 							</div></li>
 
 						<li class="nav-item dropdown"><a
@@ -134,13 +135,14 @@
 
 						<tbody>
 
-							<c:forEach var="member" begin="1" end="5">
+							<c:forEach var="QNAlist" items="${ requestScope.list }" varStatus="status">
 								<tr>
-									<th scope="row"><b>1</b></th>
-									<td>회원 탈퇴 어떻게 해요?</td>
-									<td>user01</td>
-									<td>2019-06-05</td>
-									<td>165</td>
+									<th scope="row"><b>${ status.count }</b>
+									<input type="hidden" id="decl_no" value="${QNAlist.bNo }"></th>
+									<td>${ QNAlist.bTitle }</td>
+									<td></td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd" value="${ QNAlist.bWriteDate }"/></td>
+									
 								</tr>
 							</c:forEach>
 
