@@ -56,8 +56,8 @@
  -->  	
   	<!-- review 후기 입력용(sr) -->
   	<insert id="insertReview" parameterType="Board">
-  	INSERT INTO BOARD(BNO,BTYPE,BWRITE_DATE,BTITLE,BCONTENT,BWRITER)
-  	VALUES (BNO_SEQ.NEXTVAL,#{bType}, sysdate, #{bTitle},#{bContent},51)
+  	INSERT INTO BOARD(BNO,BTYPE,BWRITE_DATE,BTITLE,BCONTENT)
+  	VALUES (BNO_SEQ.NEXTVAL,#{bType}, sysdate, #{bTitle},#{bContent})
   	</insert> 
   	
 
@@ -109,6 +109,42 @@
 	  WHERE BTYPE=2
 	  AND BSTATUS='Y'
   </select>
+  
+  <!-- 공지사항/이벤트 게시판 검색 (SR) -->
+  <select id="searchNotice" resultMap="boardResultSet">
+  	SELECT *
+  	FROM BOARD
+  	WHERE (BTYPE=1 OR BTYPE=2)
+  	AND BSTATUS='Y'
+  	AND (BTITLE || BCONTENT) LIKE '%'||'searchCon'||'%' 
+  </select>
+  
+  
+<!-- 공지사항/이벤트 게시물 상세조회(SR) -->
+  	<select id="selectOneNotice" resultMap="boardResultSet">
+  		SELECT *
+        FROM (SELECT * FROM BOARD WHERE BTYPE = 1 OR BTYPE=2)
+        WHERE BNO = #{bNo}
+  	</select>
+  	
+  	<!-- 사용자 FAQ 리스트 출력(sr) -->
+  <select id="selectFaq" resultMap="boardResultSet">
+  	SELECT * 
+  	FROM BOARD
+  	WHERE BTYPE=3
+  	AND BSTATUS = 'Y'
+  </select>	
+  
+  <!-- 사용자 후기리뷰 게시판 리뷰 출력(SR) -->
+  <select id="selectReview" resultMap="boardResultSet">
+  	SELECT * 
+  	FROM BOARD
+  	WHERE BTYPE=5 
+  	AND BSTATUS = 'Y'
+  </select>
+  
+  
+  
   
   </mapper>
   

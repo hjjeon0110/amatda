@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"import="java.util.*, com.kh.amd.board.model.vo.*,com.kh.amd.member.model.vo.*"%>
     
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
     
 <!DOCTYPE html>
@@ -99,45 +100,38 @@ margin-left: 400px;
 				
 		<table class="contentTable">
 		  	<tr></tr>
+		  	
+		  	<c:forEach var="selectOneNotice" items="${ requestScope.selectOneNotice }" varStatus="status">
 			<tr class="bordered" >
-				<!-- <td width="10%"><h6>9</h6></td>
-				<td width="10%"><h6>공지사항</h6></td>
-				<td width="50%"><h6>공지사항입니다.</h6></td>
-				<td width="20%"><h6>2019-06-05</h6></td>
-				<td width="10%"><h6>100</h6></td>  -->
 				
-				<th width="10%"><%=b.getbNo()%></th>
+				<td scope="row">${ status.count }
+			    	<input type="hidden" id="bNo" value="${selectOneNotice.bNo }">
+			    	</td>
+			    	<td>${selectOneNotice.bsCategory }</td>
+			    	
+			    	<td>${selectOneNotice.bTitle }</td>
+			    	<td><fmt:formatDate pattern="yyyy-MM-dd" value="${selectOneNotice.bWriteDate }"/></td>
+			    	<%-- <td>${selectNotice.bWriteDate }</td> --%>
+			    	<td>${selectOneNotice.bCount }</td>
+				
+				
+				<%-- <th width="10%"><%=b.getbNo()%></th>
 				<th width="10%"><%=b.getbType() %></th>
 				<th width="50%"><%=b.getbTitle() %></th>
 				<th width="20%"><%=b.getbModifyDate() %></th>
-				<th width="10%"><%=b.getbCount() %></th> 
-				
-			 <!-- <td width="100px">9</td>
-				<td width="100px">공지사항</td>
-				<td width="500px">공지사항입니다.</td>
-				<td width="200px">2019-06-05</td>
-				<td width="100">100</td> -->
-				
-			 	<!-- <td><h6 width="100px">9</h6></td>
-				<td><h6 width="100px">공지사항</h6></td>
-				<td><h6 width="500px">공지사항입니다.</h6></td>
-				<td><h6 width="200px">2019-06-05</h6></td>
-				<td><h6 width="100px">100</h6></td> -->
-				
-				<!-- <td><h6 width="10%">9</h6></td>
-				<td><h6 width="10%">공지사항</h6></td>
-				<td><h6 width="50%">공지사항입니다.</h6></td>
-				<td><h6 width="20%">2019-06-05</h6></td>
-				<td><h6 width="10%">100</h6></td> -->
+				<th width="10%"><%=b.getbCount() %></th>  --%>
 				
 			</tr>
+			
+			
+			 
 			<tr class="bordered2">
 				<td colspan="5">
-					<div class="reviewPic">
-						<%=b.getbContent() %>
-					</div><br>
+					${selectOneNotice.bContent }
 				</td>
 			</tr>
+			
+			 </c:forEach>
 			</table>
 			
 			<br><br><br>
