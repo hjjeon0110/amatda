@@ -27,11 +27,7 @@
 	border-spacing: 10px;
 }
 
-#titleImgArea {
-	width: 506px;
-	height: 406px;
-	border: 3px solid #ff0066;
-}
+
 
 table #dContent {
 	width: 100%;
@@ -76,7 +72,7 @@ tr {
 	
 		
 			
-				
+				<%-- 
 					<tr>
 						<td rowspan="3" class="diaryTableTd1">
 							<!-- 프로필 사진이 null일 때 ----------------------------------------------------------------------------------------------------- -->
@@ -104,7 +100,7 @@ tr {
 						
 					</tr>
 					
-					
+					 --%>
 				
 			
 		
@@ -116,7 +112,8 @@ tr {
 		<br />
 		<br />
 		<div class="tableArea">
-			<form action="insert.di" method="post" encType="multipart/form-data">
+			<!-- <form action="insert.di" method="post" encType="multipart/form-data"> -->
+			<form action="insert.di" method="post">
 			<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" />
 				<table>
 					<tr>
@@ -145,11 +142,12 @@ tr {
 						<td colspan="4"><textarea name="bContent" cols="30" rows="15"
 								placeholder="자유롭게 작성하세요" id="bContent"></textarea></td>
 					</tr>
-				</table>
-				<div align="center">
+				<tr align="center">
 					<!-- <button type="reset">취소하기</button> -->
-					<button type="submit">등록하기</button>
-				</div>
+					<!-- <td><button type="submit">등록</button></td> -->
+					<td><input type="submit" value="등 록"/></td>
+			</tr>
+				</table>
 			</form>
 			<br />
 			<div class="replyArea">
@@ -170,7 +168,7 @@ tr {
 	<br />
 	<br />
 	
-	<script>
+	<!-- <script>
 	$(".modifydiaryImgBtn").hide();
 	
 	$(".diaryImgDiv").mouseenter(function(){
@@ -207,7 +205,7 @@ tr {
 		}
 	} 
 	</script>
-
+ -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 
 </body>

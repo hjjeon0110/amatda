@@ -1,5 +1,7 @@
 package com.kh.amd.diary.model.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -19,6 +21,7 @@ public class DiaryServiceImpl implements DiaryService{
 	@Autowired
 	private DataSourceTransactionManager transactionManager;
 
+	//다이어리 내용 insert
 	@Override
 	public int insertDiary(Diary d, String mno) {
 		
@@ -46,5 +49,14 @@ public class DiaryServiceImpl implements DiaryService{
 		dd.modifyDiaryImg(sqlSession, mno, filePath, originalFilename, changeName, ext);
 		
 	}
+
+	//다이어리 list
+	@Override
+	public List<Diary> diaryList(int mno) {
+		
+		return dd.diaryList(sqlSession, mno);
+	}
+
+	
 
 }
