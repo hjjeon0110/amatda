@@ -70,7 +70,7 @@ public class BoardDaoImpl implements BoardDao {
 
 	//공지사항/이벤트 게시물 상세페이지(SR)
 	@Override
-	public Object selectOneNotice(SqlSessionTemplate sqlSession, int bNo) {
+	public Board selectOneNotice(SqlSessionTemplate sqlSession, int bNo) {
 		return sqlSession.selectOne("Board.selectOneNotice", bNo);
 	}
 
@@ -88,6 +88,15 @@ public class BoardDaoImpl implements BoardDao {
 		List<Board> list = (List) sqlSession.selectList("Board.selectReview");
 		return sqlSession.selectList("Board.selectReview");
 	}
+
+	//리뷰게시판 상세페이지 (SR)
+	@Override
+	public Object selectOneReview(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Board.selectOneReview");
+	}
+
+	
+	
 
 	//공지사항/이벤트 게시판 페이징 (SR)
 	/*

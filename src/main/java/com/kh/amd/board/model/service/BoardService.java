@@ -35,7 +35,7 @@ public interface BoardService {
 	List<Board> selectEventCate();
 
 	//공지사항/이벤트 게시물 상세페이지(SR)
-	Object selectOneNotice(int bNo);
+	Board selectOneNotice(int bNo);
 
 	//FAQ게시판 아코디언 리스트 출력(SR)
 	List<Board> selectFaq();
@@ -46,6 +46,11 @@ public interface BoardService {
 	
 	//후기리뷰 입력(SR)
 		int insertReview(Board b);
+
+		//리뷰게시판 상세페이지 (SR)
+		Object selectOneReview(int bNo);
+
+		
 
 
 	//공지사항/이벤트 게시판 페이징 (SR)

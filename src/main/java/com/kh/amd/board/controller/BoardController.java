@@ -90,17 +90,27 @@ public class BoardController {
 		 }
 		 
 		 //★공지사항/이벤트 게시물 상세페이지(SR)
+	/*
+	 * @RequestMapping(value="selectOneNotice.bo", method=RequestMethod.GET) public
+	 * ModelAndView selectOneNotice(@RequestParam int bNo, HttpSession session) {
+	 * System.out.println("모델엔 뷰를 왜쓰셨죠?"); bs.increaseViewcnt(bNo, session);
+	 * ModelAndView mav = new ModelAndView();
+	 * mav.setViewName("board/selectOneNotice"); mav.addObject("selectOneNotice",
+	 * bs.selectOneNotice(bNo));
+	 * 
+	 * System.out.println("bNo in controller : " + bNo);
+	 * 
+	 * return mav; }
+	 */
 		@RequestMapping(value="selectOneNotice.bo", method=RequestMethod.GET)
-		 public ModelAndView selectOneNotice(@RequestParam int bNo,HttpSession session) {
+		 public String selectOneNotice(Model model, int bNo) {
+			 
+			Board b = bs.selectOneNotice(bNo);
 			
-			 bs.increaseViewcnt(bNo, session);
-			 ModelAndView mav = new ModelAndView();
-			 mav.setViewName("board/selectOneNotice");
-			 mav.addObject("selectOneNotice", bs.selectOneNotice(bNo));
-			 
-			 System.out.println("bNo in controller : " + bNo);
-			 
-			 return mav;
+			System.out.println("디비로부터 받아온 Board" + b);
+			
+			model.addAttribute("Board", b);		
+			return "board/selectOneNotice";
 		 } 
 		
 		 //★FAQ게시판 아코디언 리스트 출력(SR)
@@ -120,13 +130,14 @@ public class BoardController {
 		 }
 		  //리뷰게시판 그냥 단순 페이지 출력 (SR)
 		  
-		 @RequestMapping("insertReviewFormView.bo") 
+		 /*@RequestMapping("insertReviewFormView.bo") 
 		 public String insertReviewFormView() { 
 			System.out.println("나는 단순하게 입력양식만 호출했어요!");
 			 return "board/insertReview"; 
 		 }
+		  */
+		 
 		 //리뷰게시판 리스트(sr)
-		
 		  @RequestMapping("selectReview.bo")
 		  public String selectReview(Model model ) {
 			  List <Board> selectReview = bs.selectReview();
@@ -135,6 +146,16 @@ public class BoardController {
 			  
 			  return "board/selectReview"; 
 			  } 
+		  
+		  
+		  //리뷰게시판 상세페이지 (SR)
+		 @RequestMapping("selectOneReview.bo")
+		  public String selectOneReview(Model model,int bNo) {
+			 System.out.println("bno in controller : " + bNo);
+			 bs.selectOneReview(bNo);
+			 return "board/selectOneReview";
+			 
+		 }
 		 
 		 //★리뷰게시판 입력(SR)
 		 @RequestMapping("insertReview.bo")
@@ -145,10 +166,34 @@ public class BoardController {
 			 
 			 return "board/insertReview";
 		 }
-	
+		  
 		 
-		
-		
+		  //리뷰 게시판 그냥 단순 페이지 출력 (SR)
+		 @RequestMapping("insertReviewFormView.bo")
+		 public String insertReviewFormView() {
+			 
+			 System.out.println("나는 단순하게 입력양식만 호출했어요!");
+			 return "board/insertReview";
+		 }
+		  
+		  
+		  //-----------------------------
+		  /*
+		//★공지사항/이벤트 게시물 상세페이지(SR)
+			@RequestMapping(value="selectOneNotice.bo", method=RequestMethod.GET)
+			 public ModelAndView selectOneNotice(@RequestParam int bNo,HttpSession session) {
+				
+				 bs.increaseViewcnt(bNo, session);
+				 ModelAndView mav = new ModelAndView();
+				 mav.setViewName("board/selectOneNotice");
+				 mav.addObject("selectOneNotice", bs.selectOneNotice(bNo));
+				 
+				 System.out.println("bNo in controller : " + bNo);
+				 
+				 return mav;
+			 } 
+		  
+		  
 		
 		 //★공지사항/이벤트 게시판 검색 (SR)
 		/* @RequestMapping("searchNotice.bo")

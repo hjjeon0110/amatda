@@ -39,13 +39,18 @@ public interface BoardDao {
 	List<Board> selectEventCate(SqlSessionTemplate sqlSession);
 
 	//공지사항/이벤트 게시물 상세페이지(SR)
-	Object selectOneNotice(SqlSessionTemplate sqlSession, int bNo);
+	Board selectOneNotice(SqlSessionTemplate sqlSession, int bNo);
 
 	//FAQ게시판 아코디언 리스트 출력(SR)
 	List<Board> selectFaq(SqlSessionTemplate sqlSession);
 
 	//후기리뷰 게시판 리스트 출력(SR)
 	List<Board> selectReview(SqlSessionTemplate sqlSession);
+
+	//리뷰게시판 상세페이지 (SR)
+	Object selectOneReview(SqlSessionTemplate sqlSession);
+
+	
 
 	//공지사항/이벤트 게시판 페이징 (SR)
 	//List<Map<String, Object>> selectBoardList(Criteria cri);
