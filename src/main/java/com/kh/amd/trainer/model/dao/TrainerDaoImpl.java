@@ -1,6 +1,8 @@
 package com.kh.amd.trainer.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,45 +14,76 @@ import com.kh.amd.trainer.model.vo.Profile;
 
 @Repository
 public class TrainerDaoImpl implements TrainerDao {
+	
+	
+	
+	// 진환 메소드 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// 프로필 작성 여부 확인 메소드  (전효정)
+	
+	// 견적서  보기 select 메소드 (김진환)
+	@Override
+	public Estimate selectEstimate(SqlSessionTemplate sqlSession, int mno, int iestType) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("MNO", mno);
+		map.put("iestType", iestType);
+		
+		return sqlSession.selectOne("Trainer.selectEstimate", map);
+	}
+	
+	
+	// 견적서 insert 메소드 (김진환)
+	@Override
+	public int insertEstimate(SqlSessionTemplate sqlSession, Estimate tEst) {
+		return sqlSession.insert("Trainer.insertEstimate", tEst);
+	}
+	
+	
+	// 견적서 update 메소드 (김진환)
+	@Override
+	public int updateEstimate(SqlSessionTemplate sqlSession, Estimate estimate) {
+		return sqlSession.update("Trainer.updateEstimate", estimate);
+	}
+	
+	
+	// 트레이너 공개설정 update 메소드 (김진환)
+	@Override
+	public void updateTopen(SqlSessionTemplate sqlSession, String mno, String open) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mno", mno);
+		map.put("open", open);
+		
+		sqlSession.update("Trainer.updateTopen", map);
+	}
+	
+	
+	// 멤버십 (김진환)
+	@Override
+	public String checkMemberShip(SqlSessionTemplate sqlSession, String mno) {
+		return sqlSession.selectOne("Trainer.checkRemainNum", mno);
+	}
+	
+	
+	
+	// 효정 메소드 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	// 1. 프로필 작성 여부 확인 메소드  (전효정)
 	@Override
 	public Profile checkProfile(SqlSessionTemplate sqlSession, int mno) {
 		return sqlSession.selectOne("Trainer.checkProfile", mno);
 	}
 
-	// 견적서  보기 selecy 메소드(김진환)
-	@Override
-	public Estimate selectEstimate(SqlSessionTemplate sqlSession, int mno, int iestType) {
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-			map.put("MNO", mno);
-			map.put("iestType", iestType);
-		
-		return sqlSession.selectOne("Trainer.selectEstimate", map);
-	}
-	// 견적서 insert 메소드(김진환)
-	@Override
-	public int insertEstimate(SqlSessionTemplate sqlSession, Estimate tEst) {
-		
-		return sqlSession.insert("Trainer.insertEstimate", tEst);
-	}
 	
-	// 견적서 update 메소드(김진환)
-	@Override
-	public int updateEstimate(SqlSessionTemplate sqlSession, Estimate estimate) {
-		
-		return sqlSession.update("Trainer.updateEstimate", estimate);
-	}
-	
-	// 프로필 이미지 존재 여부 확인 메소드 (전효정)
+	// 2. 프로필 이미지 존재 여부 확인 메소드 (전효정)
 	@Override
 	public Attachment checkProfileImg(SqlSessionTemplate sqlSession, int mno) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("Trainer.checkProfileImg", mno);
 	}
 	
-	// 프로필 이미지 insert 메소드 (전효정)
+	
+	// 3. 프로필 이미지 insert 메소드 (전효정)
 	@Override
 	public void insertProfileImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename, String changeName, String ext) {
 		
@@ -64,7 +97,8 @@ public class TrainerDaoImpl implements TrainerDao {
 		sqlSession.insert("Trainer.insertProfileImg", map);
 	}
 
-	// 프로필 이미지 수정 메소드 (전효정)
+	
+	// 4. 프로필 이미지 수정 메소드 (전효정)
 	@Override
 	public void modifyProfileImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename, String changeName, String ext) {
 		
@@ -76,29 +110,40 @@ public class TrainerDaoImpl implements TrainerDao {
 		map.put("ext", ext);
 		
 		sqlSession.update("Trainer.modifyProfileImg", map);
-		
 	}
 	
-	// 트레이너 공개설정 update 메소드(김진환)
+
+	// 5. 프로필 - 내 정보 수정하기 insert 메소드 (전효정)
 	@Override
-	public void updateTopen(SqlSessionTemplate sqlSession, String mno, String open) {
+	public void insertProfile1(SqlSessionTemplate sqlSession, String mno, String proTitle, String lineProfile) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("mno", mno);
-		map.put("open", open);
+		map.put("proTitle", proTitle);
+		map.put("lineProfile", lineProfile);
 		
-		sqlSession.update("Trainer.updateTopen", map);
+		sqlSession.insert("Trainer.insertProfile1", map);
 	}
-
+	
+	
+	// 6. 프로필 - 내 정보 수정하기 update 메소드 (전효정)
 	@Override
-	public String checkMemberShip(SqlSessionTemplate sqlSession, String mno) {
+	public void updateProfile1(SqlSessionTemplate sqlSession, String mno, String proTitle, String lineProfile) {
+	
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mno", mno);
+		map.put("proTitle", proTitle);
+		map.put("lineProfile", lineProfile);
 		
-		return sqlSession.selectOne("Trainer.checkRemainNum", mno);
-	}
+		sqlSession.update("Trainer.updateProfile1", map);
 
-	// 프로필 - 미디어 수정하기 insert 메소드 (전효정)
+	}
+	
+	
+	// 7. 프로필 - 미디어 수정하기 insert 메소드 (전효정)
 	@Override
 	public void insertMediaImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename, String changeName, String ext) {
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("mno", mno);
 		map.put("filePath", filePath);
@@ -108,6 +153,98 @@ public class TrainerDaoImpl implements TrainerDao {
 		
 		sqlSession.insert("Trainer.insertMediaImg", map);
 	}
+
+
+	// 8. 미디어 존재 여부 확인 메소드 (전효정)
+	@Override
+	public List<Attachment> checkMediaAttachment(SqlSessionTemplate sqlSession, int mno) {
+		return sqlSession.selectList("Trainer.checkMediaAttachment", mno);
+	}
+
+	
+	// 9. 프로필 - 트레이너 소개 insert 메소드 (전효정)
+	@Override
+	public void insertProfile4(SqlSessionTemplate sqlSession, String mno, String intro) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mno", mno);
+		map.put("intro", intro);
+		
+		sqlSession.insert("Trainer.insertProfile4", map);
+	}
+
+	
+	// 10. 프로필 - 트레이너 소개 update 메소드 (전효정)
+	@Override
+	public void updateProfile4(SqlSessionTemplate sqlSession, String mno, String intro) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mno", mno);
+		map.put("intro", intro);
+		
+		sqlSession.update("Trainer.updateProfile4", map);
+	}
+
+	
+	// 11. 프로필 - 서비스 키워드 insert 메소드 (전효정)
+	@Override
+	public void insertProfile3(SqlSessionTemplate sqlSession, String mno, String keyword) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mno", mno);
+		map.put("keyword", keyword);
+		
+		sqlSession.insert("Trainer.insertProfile3", map);
+	}
+
+	
+	// 12. 프로필 - 서비스 키워드 update 메소드 (전효정)
+	@Override
+	public void updateProfile3(SqlSessionTemplate sqlSession, String mno, String keyword) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mno", mno);
+		map.put("keyword", keyword);
+		
+		sqlSession.update("Trainer.updateProfile3", map);
+	}
+
+	
+	// 13. 프로필 - 자격증 수정하기 insert 메소드 (전효정)
+	@Override
+	public void insertCertificationImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename, String changeName, String ext) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mno", mno);
+		map.put("filePath", filePath);
+		map.put("originalFilename", originalFilename);
+		map.put("changeName", changeName);
+		map.put("ext", ext);
+		
+		sqlSession.insert("Trainer.insertCertificationImg", map);
+	}
+
+
+	// 14. 자격증 존재 여부 확인 메소드 (전효정)
+	@Override
+	public List<Attachment> checkCertificationAttachment(SqlSessionTemplate sqlSession, int mno) {
+		return sqlSession.selectList("Trainer.checkCertificationAttachment", mno);
+	}
+
+
+	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
+	@Override
+	public void deleteMidea(SqlSessionTemplate sqlSession, String mno, String thisModiName) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mno", mno);
+		map.put("thisModiName", thisModiName);
+		
+		sqlSession.update("Trainer.deleteMedia", map);
+	}
+
+	
+
 
 
 }

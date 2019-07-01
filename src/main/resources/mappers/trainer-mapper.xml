@@ -4,48 +4,50 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Trainer">
-  
-<resultMap type="com.kh.amd.member.model.vo.TrainerInfo" id="trainerResultSet">
-      <id property="mno" column="TNO"/>            <!-- DB 기본키 -->
-      <result property="accountName" column="ACCOUNT_NAME"/>
-      <result property="bankCode" column="BANKCODE"/>   <!-- 일 반컬럼 -->
-      <result property="accountNo" column="ACCOUNT_NO"/>
-      <result property="tage" column="TAGE"/>
-      <result property="topen" column="TOPEN"/>
-      <result property="remainNum" column="REMAIN_NUM"/>
-</resultMap>
-<resultMap type="com.kh.amd.trainer.model.vo.Profile" id="profileResultSet">
-	<id property="profileno" column="PROFILE_NO"/>
-	<result property="lineProfile" column="LINE_PROFILE"/>
-	<result property="proTitle" column="PRO_TITLE"/>
-	<result property="intro" column="INTRO"/>
-	<result property="media" column="MEDIA"/>
-	<result property="certificate" column="CERTIPICATE"/>
-	<result property="keyword" column="KEYWORD"/>
-</resultMap>
-<resultMap type="Estimate" id="estimateResultSet">
-	<id property="estNo" column="EST_NO"/>
-	<result property="estName" column="EST_NAME"/>
-	<result property="estPrice" column="EST_COST"/>
-	<result property="estDay" column="TRAINING_DAYS"/>
-	<result property="estContents" column="EST_CONTENTS"/>
-	<result property="estType" column="EST_TYPE"/>
-	<result property="tno" column="TNO"/>
-</resultMap>
-<resultMap type="Attachment" id="attachmentResultSet">
-	<id property="fileNo" column="FILE_NO"/>
-	<result property="bno" column="BNO"/>
-	<result property="pno" column="PNO"/>
-	<result property="link" column="LINK"/>
-	<result property="oriName" column="ORI_NAME"/>
-	<result property="modiName" column="MODI_NAME"/>
-	<result property="extension" column="EXTENSION"/>
-	<result property="fileLevel" column="FILE_LEVEL"/>
-	<result property="uploadDate" column="UPLOAD_DATE"/>
-	<result property="aType" column="ATYPE"/>
-	<result property="aStatus" column="A_STATUS"/>
-	<result property="filePath" column="FILE_PATH"/>
-</resultMap>
+
+	<resultMap type="com.kh.amd.member.model.vo.TrainerInfo" id="trainerResultSet">
+		<id property="mno" column="TNO" /><!-- DB 기본키 -->
+		<result property="accountName" column="ACCOUNT_NAME" />
+		<result property="bankCode" column="BANKCODE" />
+		<result property="accountNo" column="ACCOUNT_NO" />
+		<result property="tage" column="TAGE" />
+		<result property="topen" column="TOPEN" />
+		<result property="remainNum" column="REMAIN_NUM" />
+	</resultMap>
+	<resultMap type="com.kh.amd.trainer.model.vo.Profile" id="profileResultSet">
+		<id property="profileno" column="PROFILE_NO" />
+		<result property="tno" column="TNO" />
+		<result property="lineProfile" column="LINE_PROFILE" />
+		<result property="proTitle" column="PRO_TITLE" />
+		<result property="intro" column="INTRO" />
+		<result property="media" column="MEDIA" />
+		<result property="certificate" column="CERTIPICATE" />
+		<result property="keyword" column="KEYWORD" />
+	</resultMap>
+	<resultMap type="Estimate" id="estimateResultSet">
+		<id property="estNo" column="EST_NO" />
+		<result property="estName" column="EST_NAME" />
+		<result property="estPrice" column="EST_COST" />
+		<result property="estDay" column="TRAINING_DAYS" />
+		<result property="estContents" column="EST_CONTENTS" />
+		<result property="estType" column="EST_TYPE" />
+		<result property="tno" column="TNO" />
+	</resultMap>
+	<resultMap type="Attachment" id="attachmentResultSet">
+		<id property="fileNo" column="FILE_NO" />
+		<result property="bno" column="BNO" />
+		<result property="pno" column="PNO" />
+		<result property="link" column="LINK" />
+		<result property="oriName" column="ORI_NAME" />
+		<result property="modiName" column="MODI_NAME" />
+		<result property="extension" column="EXTENSION" />
+		<result property="fileLevel" column="FILE_LEVEL" />
+		<result property="uploadDate" column="UPLOAD_DATE" />
+		<result property="aType" column="ATYPE" />
+		<result property="aStatus" column="A_STATUS" />
+		<result property="filePath" column="FILE_PATH" />
+	</resultMap>
+
 
 
 	<!-- 트레이너 추가 정보 회원가입 -->
@@ -54,98 +56,128 @@
 		VALUES(#{mno}, #{accountName}, #{bankCode}, #{accountNo}, null, 'Y', null)
 	</insert>
 
-	<!-- 프로필 작성 여부 확인 (전효정) -->
-	<select id="checkProfile" resultMap="profileResultSet"
-		parameterType="Profile">
-		SELECT PROFILE_NO, LINE_PROFILE, PRO_TITLE, INTRO, MEDIA, CERTIPICATE, KEYWORD FROM PROFILE WHERE TNO IN (#{mno})
-	</select>
+
+
+	<!-- 진환 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 	<!-- 서브 메뉴바내에서 견적서를 클릭시 로그인한 회원의 1번 견적서 열람 -->
 	<select id="selectEstimate" resultMap="estimateResultSet"
 		parameterType="java.util.Map">
-		SELECT E.EST_NAME, E.EST_COST, E.EST_CONTENTS, E.EST_TYPE, E.EST_NO, E.TNO,
-		E.TRAINING_DAYS
+		SELECT E.EST_NAME, E.EST_COST, E.EST_CONTENTS, E.EST_TYPE, E.EST_NO, E.TNO, E.TRAINING_DAYS
 		FROM ESTIMATE E
 		JOIN MEMBER M ON (E.TNO = M.MNO)
-		WHERE
-		E.EST_TYPE = #{iestType}
+		WHERE E.EST_TYPE = #{iestType}
 		AND TNO = #{MNO}
 	</select>
 
-	<!-- 프로필 이미지 존재 여부 확인 (전효정) -->
-	<select id="checkProfileImg" resultMap="attachmentResultSet"
-		parameterType="Attachment">
-		SELECT FILE_NO, PNO, ORI_NAME, MODI_NAME, EXTENSION, FILE_LEVEL, UPLOAD_DATE, A_STATUS, FILE_PATH FROM ATTACHMENT WHERE PNO IN (#{mno}) AND ATYPE = 0
-	</select>
-
-	<!-- 프로필 사진 insert (전효정) -->
-	<insert id="insertProfileImg" parameterType="Attachment">
-		INSERT INTO ATTACHMENT VALUES(FILE_SEQ.NEXTVAL, NULL, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 0, 'Y', #{filePath})
-	</insert>
-
-	<!-- 프로필 사진 수정 (전효정) -->
-	<update id="modifyProfileImg" parameterType="Attachment">
-		UPDATE ATTACHMENT SET ORI_NAME = #{originalFilename}, MODI_NAME = #{changeName}, EXTENSION = #{ext}, FILE_PATH = #{filePath}, UPLOAD_DATE = SYSDATE
-	</update>
-
-	<!-- 프로필 - 내 정보 수정하기 insert (전효정) -->
-	<insert id="insertProfile1" parameterType="Profile">
-		INSERT INTO PROFILE
-		VALUES(PROFILE_SEQ.NEXTVAL, #{mno}, #{lineProfile},
-		#{proTitle}, null, null, null, null)
+	<insert id="insertEstimate" parameterType="Estimate">
+		INSERT INTO ESTIMATE
+		VALUES(EST_SEQ.NEXTVAL, #{tno}, #{estName}, #{estPrice}, #{estDay}, #{estContents}, #{estType})
 	</insert>
 	
-	<!-- 프로필 - 내 정보 수정하기 update (전효정) -->
-	<update id="updatetProfile1" parameterType="Profile">
-		UPDATE PROFILE SET LINE_PROFILE = #{lineProfile}, PRO_TITLE = #{proTitle}
-	</update>
-	
-	<!-- 프로필 - 미디어 수정하기 insert (전효정) -->
-	<insert id="insertMediaImg" parameterType="Attachment">
-		INSERT INTO ATTACHMENT VALUES(FILE_SEQ.NEXTVAL, NULL, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 1, 'Y', #{filePath})
-	</insert>
- 
-
-   <insert id="insertEstimate" parameterType="Estimate">
-   		INSERT INTO ESTIMATE
-   		VALUES(EST_SEQ.NEXTVAL, #{tno}, #{estName}, #{estPrice}, #{estDay}, #{estContents}, #{estType})
-   
-   </insert>
- 	 <update id="updateEstimate" parameterType="Estimate">
-   		UPDATE ESTIMATE
-  		SET EST_NAME = #{estName},
-  			EST_COST = #{estPrice},
-  			TRAINING_DAYS = #{estDay},
-  			EST_CONTENTS = #{estContents}
-  		WHERE TNO = #{tno}
-  		AND EST_TYPE = #{estType}
+	<update id="updateEstimate" parameterType="Estimate">
+		UPDATE ESTIMATE
+		SET EST_NAME = #{estName},
+		EST_COST = #{estPrice},
+		TRAINING_DAYS = #{estDay},
+		EST_CONTENTS = #{estContents}
+		WHERE TNO = #{tno}
+		AND EST_TYPE = #{estType}
 	</update>
 
 	<update id="updateTopen" parameterType="java.util.Map">
 		UPDATE TUSER_INFO
 		SET TOPEN = #{open}
 		WHERE TNO = #{mno}
-	
 	</update>
-	<select id="checkRemainNum" parameterType="java.lang.String" resultType="java.lang.String">
+	
+	<select id="checkRemainNum" parameterType="java.lang.String"
+		resultType="java.lang.String">
 		SELECT REMAIN_NUM
 		FROM TUSER_INFO T
 		JOIN MEMBER M ON(T.TNO = M.MNO)
 		WHERE T.TNO = #{mno}
 	</select>
-</mapper>
 
 
+
+	<!-- 효정 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+	<!-- 1. 프로필 작성 여부 확인 (전효정) -->
+	<select id="checkProfile" resultMap="profileResultSet" parameterType="Profile">
+		SELECT PROFILE_NO, LINE_PROFILE, PRO_TITLE, INTRO, MEDIA, CERTIPICATE, KEYWORD FROM PROFILE WHERE TNO IN (#{mno})
+	</select>
+
+	<!-- 2. 프로필 이미지 존재 여부 확인 (전효정) -->
+	<select id="checkProfileImg" resultMap="attachmentResultSet" parameterType="Attachment">
+		SELECT FILE_NO, PNO, ORI_NAME, MODI_NAME, EXTENSION, FILE_LEVEL, UPLOAD_DATE, A_STATUS, FILE_PATH FROM ATTACHMENT WHERE PNO IN (#{mno}) AND ATYPE = 0
+	</select>
+
+	<!-- 3. 프로필 사진 insert (전효정) -->
+	<insert id="insertProfileImg" parameterType="Attachment">
+		INSERT INTO ATTACHMENT VALUES(FILE_SEQ.NEXTVAL, NULL, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 0, 'Y', #{filePath})
+	</insert>
+
+	<!-- 4. 프로필 사진 수정 (전효정) -->
+	<update id="modifyProfileImg" parameterType="Attachment">
+		UPDATE ATTACHMENT SET ORI_NAME = #{originalFilename}, MODI_NAME = #{changeName}, EXTENSION = #{ext}, FILE_PATH = #{filePath}, UPLOAD_DATE = SYSDATE WHERE ATYPE = 0 AND PNO = #{mno}
+	</update>
+
+	<!-- 5. 프로필 - 내 정보 수정하기 insert (전효정) -->
+	<insert id="insertProfile1" parameterType="Profile">
+		INSERT INTO PROFILE VALUES(PROFILE_SEQ.NEXTVAL, #{mno}, #{lineProfile}, #{proTitle}, null, null, null, null)
+	</insert>
+
+	<!-- 6. 프로필 - 내 정보 수정하기 update (전효정) -->
+	<update id="updateProfile1" parameterType="Profile">
+		UPDATE PROFILE SET LINE_PROFILE = #{lineProfile}, PRO_TITLE = #{proTitle} WHERE TNO = #{mno}
+	</update>
+
+	<!-- 7. 프로필 - 미디어 수정하기 insert (전효정) -->
+	<insert id="insertMediaImg" parameterType="Attachment">
+		INSERT INTO ATTACHMENT VALUES(FILE_SEQ.NEXTVAL, NULL, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 1, 'Y', #{filePath})
+	</insert>
+
+	<!-- 8. 미디어 존재 여부 확인 (전효정) -->
+	<select id="checkMediaAttachment" resultMap="attachmentResultSet" parameterType="Attachment">
+		SELECT * FROM ATTACHMENT WHERE PNO = #{mno} AND ATYPE = 1 AND A_STATUS = 'Y' ORDER BY FILE_NO ASC
+	</select>
+	
+	<!-- 9. 프로필 - 트레이너 소개 insert (전효정) -->
+	<insert id="insertProfile4" parameterType="Profile">
+		INSERT INTO PROFILE VALUES(PROFILE_SEQ.NEXTVAL, #{mno}, null, null, #{intro}, null, null, null)
+	</insert>
+
+	<!-- 10. 프로필 - 트레이너 소개 update (전효정) -->
+	<update id="updateProfile4" parameterType="Profile">
+		UPDATE PROFILE SET INTRO = #{intro} WHERE TNO = #{mno}
+	</update>
+	
+	<!-- 11. 프로필 - 서비스 키워드 insert (전효정) -->
+	<insert id="insertProfile3" parameterType="Profile">
+		INSERT INTO PROFILE VALUES(PROFILE_SEQ.NEXTVAL, #{mno}, null, null, null, null, null, #{keyword})
+	</insert>
+
+	<!-- 12. 프로필 - 서비스 키워드 update (전효정) -->
+	<update id="updateProfile3" parameterType="Profile">
+		UPDATE PROFILE SET KEYWORD = #{keyword} WHERE TNO = #{mno}
+	</update>
+	
+	<!-- 13. 프로필 - 자격증 수정하기 insert (전효정) -->
+	<insert id="insertCertificationImg" parameterType="Attachment">
+		INSERT INTO ATTACHMENT VALUES(FILE_SEQ.NEXTVAL, NULL, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 2, 'Y', #{filePath})
+	</insert>
+	
+	<!-- 14. 자격증 존재 여부 확인 (전효정) -->
+	<select id="checkCertificationAttachment" resultMap="attachmentResultSet" parameterType="Attachment">
+		SELECT * FROM ATTACHMENT WHERE PNO = #{mno} AND ATYPE = 2 AND A_STATUS = 'Y' ORDER BY FILE_NO ASC
+	</select>
+	
+	<!-- 15. 프로필 - 미디어/자격증 삭제하기 (전효정) -->
+	<update id="deleteMedia" parameterType="Attachment">
+		UPDATE ATTACHMENT SET A_STATUS = 'N' WHERE PNO = #{mno} AND MODI_NAME = #{thisModiName}
+	</update>
 	
 
-
-
-
-
-
-
-
-
-
-
+</mapper>
 
