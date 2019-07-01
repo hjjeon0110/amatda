@@ -54,6 +54,233 @@ public class MissionController {
 		return "mission/tmissionInsert";
 	}
 	
+	//미션수정 - 아침 식단 내용
+	@RequestMapping("updateBreakEat.ms")
+	public void updateBreakEat(HttpServletRequest request, HttpServletResponse response) {
+		String mno = request.getParameter("mno");
+		int mno2 = Integer.parseInt(mno);
+		String mDate2 = request.getParameter("mDate2");
+		String breakfast2 = request.getParameter("breakfast2");
+		String eating = request.getParameter("eating");  //식단
+		String breakf = request.getParameter("breakf");  //아침
+		
+		Mission m = new Mission();
+		m.setTno(mno2);
+		m.setmDate(mDate2);
+		m.setmContent(breakfast2);
+		m.setmType(eating);
+		m.setmTime(breakf);
+		
+		System.out.println("진짜 미션 수정 (아침 식단 내용) : " + m);
+		
+		int result = ms.updateBreakEat(m);
+		
+		System.out.println("미션수정 db갔다옴: " + result);
+		
+		
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+	
+	
+	//진짜 스프링을 이용한 ajax & controller
+	//미션수정 - 점심 식단 내용
+	@RequestMapping("updateLunchEat.ms")
+	public void updateLunchEat(String mno, String mDate2, String lunch2, String eating, String lun, HttpServletResponse response) {
+		/*
+		 * String mno = request.getParameter("mno"); int mno2 = Integer.parseInt(mno);
+		 * String mDate2 = request.getParameter("mDate2"); String lunch2 =
+		 * request.getParameter("lunch2"); String eating =
+		 * request.getParameter("eating"); //식단 String lun =
+		 * request.getParameter("lun"); //아침
+		 */		
+		int mno2 = Integer.parseInt(mno);
+		Mission m = new Mission();
+		m.setTno(mno2);
+		m.setmDate(mDate2);
+		m.setmContent(lunch2);
+		m.setmType(eating);
+		m.setmTime(lun);
+			
+		System.out.println("진짜 미션 수정 (점심 식단 내용) : " + m);
+			
+		int result = ms.updateLunchEat(m);
+		
+		if(result>0) {
+			try {
+				response.getWriter().print("success");
+			} catch (IOException e) {
+				try {
+					response.getWriter().print("fail");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+		}
+			
+		System.out.println("미션수정 db갔다옴: " + result);
+	}
+	
+	
+	//미션수정 - 저녁 식단 내용
+	@RequestMapping("updateDinnerEat.ms")
+	public void updateDinnerEat(String mno, String mDate2, String dinner2, String eating, String din, HttpServletResponse response) {
+		
+		int mno2 = Integer.parseInt(mno);
+		Mission m = new Mission();
+		m.setTno(mno2);
+		m.setmDate(mDate2);
+		m.setmContent(dinner2);
+		m.setmType(eating);
+		m.setmTime(din);
+			
+		System.out.println("진짜 미션 수정 (저녁 식단 내용) : " + m);
+			
+		int result = ms.updateDinnerEat(m);
+			
+		System.out.println("미션수정 db갔다옴: " + result);
+			
+		if(result>0) {
+			try {
+				response.getWriter().print("success");
+			} catch (IOException e) {
+				try {
+					response.getWriter().print("fail");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+		}
+		
+	}
+	
+	
+	
+	
+	//미션수정 - 아침운동 내용 & 아침운동 링크
+	@RequestMapping("updateBreakEx.ms")
+	public void updateBreakEx(String mno, String mDate2, String breakE, String breakEx2, String exercise, String breakExLink2, HttpServletResponse response) {
+		
+		int mno2 = Integer.parseInt(mno);
+		Mission m = new Mission();
+		m.setTno(mno2);
+		m.setmDate(mDate2);
+		m.setmContent(breakEx2);
+		m.setmType(exercise);
+		m.setmTime(breakE);
+		m.setmLink(breakExLink2);
+			
+		System.out.println("진짜 미션 수정 (아침 운동 내용 & 링크) : " + m);
+			
+		int result = ms.updateBreakEx(m);
+			
+		System.out.println("미션수정 db갔다옴: " + result);
+			
+		if(result>0) {
+			try {
+				response.getWriter().print("success");
+			} catch (IOException e) {
+				try {
+					response.getWriter().print("fail");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+		}
+		
+	}
+	
+	
+	
+	
+	
+	//미션수정 - 점심운동 내용 & 점심운동 링크
+		@RequestMapping("updateLunchEx.ms")
+		public void updateLunchEx(String mno, String mDate2, String lunE, String lunchEx2,String exercise, String lunchExLink2, HttpServletResponse response) {
+			
+			int mno2 = Integer.parseInt(mno);
+			Mission m = new Mission();
+			m.setTno(mno2);
+			m.setmDate(mDate2);
+			m.setmContent(lunchEx2);
+			m.setmType(exercise);
+			m.setmTime(lunE);
+			m.setmLink(lunchExLink2);
+				
+			System.out.println("진짜 미션 수정 (점심 운동 내용 & 링크) : " + m);
+				
+			int result = ms.updateLunchEx(m);
+				
+			System.out.println("미션수정 db갔다옴: " + result);
+				
+			if(result>0) {
+				try {
+					response.getWriter().print("success");
+				} catch (IOException e) {
+					try {
+						response.getWriter().print("fail");
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				
+			}
+			
+		}
+		
+	
+	
+	
+		//미션수정 - 저녁운동 내용 & 저녁운동 링크
+				@RequestMapping("updateDinnerEx.ms")
+				public void updateDinnerEx(String mno, String mDate2, String dinE, String dinnerEx2, String exercise, String dinnerExLink2, HttpServletResponse response) {
+					
+					int mno2 = Integer.parseInt(mno);
+					Mission m = new Mission();
+					m.setTno(mno2);
+					m.setmDate(mDate2);
+					m.setmContent(dinnerEx2);
+					m.setmType(exercise);
+					m.setmTime(dinE);
+					m.setmLink(dinnerExLink2);
+						
+					System.out.println("진짜 미션 수정 (저녁 운동 내용 & 링크) : " + m);
+						
+					int result = ms.updateDinnerEx(m);
+						
+					System.out.println("미션수정 db갔다옴: " + result);
+						
+					if(result>0) {
+						try {
+							response.getWriter().print("success");
+						} catch (IOException e) {
+							try {
+								response.getWriter().print("fail");
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+						
+					}
+					
+				}
+				
+	
+	
 	
 	
 	//트레이너용 미션수정하기 컨트롤러
@@ -101,6 +328,8 @@ public class MissionController {
 		System.out.println("Controller Mission m : " + m);
 		int result = ms.updateBreakExLink(m);
 		System.out.println("DB에서 잘 update했니: " + result);
+		
+		
 		PrintWriter out;
 		try {
 			out = response.getWriter();
@@ -111,10 +340,74 @@ public class MissionController {
 	}
 	
 	
+	
+	
+	
+	
+	
+	//점심운동링크
+		@RequestMapping("updateLunchExLink.ms")
+		public void updateLunchExLink(HttpServletRequest request, HttpServletResponse response) {
+			String mno = request.getParameter("mno");
+			int mno2 = Integer.parseInt(mno);
+			String mDate2 = request.getParameter("mDate2");
+			String breakfast2 = request.getParameter("breakfast2");
+			String lunch2 = request.getParameter("lunch2");
+			String dinner2 = request.getParameter("dinner2");
+			String breakEx2 = request.getParameter("breakEx2");
+			String lunchEx2 = request.getParameter("lunchEx2");
+			String dinnerEx2 = request.getParameter("dinnerEx2");
+			String breakExLink2 = request.getParameter("breakExLink2");
+			String lunchExLink2 = request.getParameter("lunchExLink2");
+			String dinnerExLink2 = request.getParameter("dinnerExLink2");
+			String eating = request.getParameter("eating");
+			String exercise = request.getParameter("exercise");
+			
+			String breakf = request.getParameter("breakf");
+			String lun = request.getParameter("lun");
+			String din = request.getParameter("din");
+			
+			String breakE = request.getParameter("breakE");
+			String lunE = request.getParameter("lunE");
+			String dinE = request.getParameter("dinE");
+			
+			System.out.println("mno2: " + mno);
+			System.out.println("mDate2: " + mDate2);
+			System.out.println("breakfast2: " + breakfast2);
+			System.out.println("lunch2: " + lunch2);
+			System.out.println("eating: " + eating);
+			System.out.println("exercise: " + exercise);
+			System.out.println("breakf: " + breakf);
+			System.out.println("dinE: " + dinE);
+			
+			Mission m = new Mission();
+			m.setTno(mno2);
+			m.setmDate(mDate2);
+			m.setmType(exercise);
+			m.setmTime(lunE);
+			m.setmLink(lunchExLink2);
+			System.out.println("Controller Mission m : " + m);
+			int result = ms.updateBreakExLink(m);
+			System.out.println("DB에서 잘 update했니: " + result);
+			
+			
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
+	
 
 	//미션수정전, 아침식단 내용 조회
 	@RequestMapping("selectMissionList.ms")
-	public void selectMissionList(String mDate0, HttpServletResponse response) {
+	public void selectMissionList(HttpServletRequest request, HttpServletResponse response) {
+		String mno = request.getParameter("mno"); 
+		int mno2 = Integer.parseInt(mno);
+		String mDate0 = request.getParameter("mDate0");
 	
 		response.setContentType("text/html; charset=utf-8");
 		
@@ -122,8 +415,9 @@ public class MissionController {
 	
 		Mission m = new Mission();
 		m.setmDate(mDate0);
+		m.setTno(mno2);
 		//System.out.println("미션수정전 아침식단 내용 조회 m : " + m);
-		m = ms.selectMissionList(mDate0);
+		m = ms.selectMissionList(m);
 		//System.out.println("미션수정전 아침식단 내용 조회 후  m : " + m);
 		
 		
@@ -142,7 +436,9 @@ public class MissionController {
 			
 			
 			try {
-				new Gson().toJson(estiMateJson,response.getWriter());
+			
+					new Gson().toJson(estiMateJson,response.getWriter());
+			
 			} catch (JsonIOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -160,15 +456,21 @@ public class MissionController {
 	
 	//미션수정전, 점심식단 조회
 	@RequestMapping("selectMissionLunchList.ms")
-	public void selectMissionLunchList(String mDate0, HttpServletResponse response) {
+	public void selectMissionLunchList(HttpServletRequest request, HttpServletResponse response) {
+		
+		String mno = request.getParameter("mno"); 
+		int mno2 = Integer.parseInt(mno);
+		String mDate0 = request.getParameter("mDate0");
+		
 		response.setContentType("text/html; charset=utf-8");
 		
 		System.out.println("select에서 mDate2: " + mDate0);
 	
 		Mission m = new Mission();
 		m.setmDate(mDate0);
+		m.setTno(mno2);
 		//System.out.println("미션수정전 점심식단 내용 조회 m : " + m);
-		m = ms.selectMissionLunchList(mDate0);
+		m = ms.selectMissionLunchList(m);
 		//System.out.println("미션수정전 점심식단 내용  조회 후  m : " + m);
 		
 		
@@ -208,15 +510,20 @@ public class MissionController {
 	
 	//미션수정전, 저녁식단 조회
 		@RequestMapping("selectMissionDinnerList.ms")
-		public void selectMissionDinnerList(String mDate0, HttpServletResponse response) {
+		public void selectMissionDinnerList(HttpServletRequest request, HttpServletResponse response) {
+			String mno = request.getParameter("mno"); 
+			int mno2 = Integer.parseInt(mno);
+			String mDate0 = request.getParameter("mDate0");
+			
 			response.setContentType("text/html; charset=utf-8");
 			
 			//System.out.println("select에서 mDate2: " + mDate0);
 		
 			Mission m = new Mission();
 			m.setmDate(mDate0);
+			m.setTno(mno2);
 			//System.out.println("미션수정전 저녁 식단 내용  조회 m : " + m);
-			m = ms.selectMissionDinnerList(mDate0);
+			m = ms.selectMissionDinnerList(m);
 			//System.out.println("미션수정전 저녁 식단 내용 조회 후  m : " + m);
 			
 			
@@ -254,15 +561,19 @@ public class MissionController {
 	
 	//미션수정전, 아침운동 내용 조회
 	@RequestMapping("selectBreakEx.ms")	
-	public void selectBreakEx(String mDate0, HttpServletResponse response) {
+	public void selectBreakEx(HttpServletRequest request, HttpServletResponse response) {
+		String mno = request.getParameter("mno"); 
+		int mno2 = Integer.parseInt(mno);
+		String mDate0 = request.getParameter("mDate0");
 		response.setContentType("text/html; charset=utf-8");
 		
 		//System.out.println("select에서 mDate2: " + mDate0);
 	
 		Mission m = new Mission();
 		m.setmDate(mDate0);
+		m.setTno(mno2);
 		//System.out.println("미션수정전 아침운동 내용 조회 m : " + m);
-		m = ms.selectBreakEx(mDate0);
+		m = ms.selectBreakEx(m);
 		//System.out.println("미션수정전 아침운동 내용 조회 후  m : " + m);
 		
 		
@@ -300,58 +611,125 @@ public class MissionController {
 	
 	
 	//미션수정전, 점심운동 내용 조회
-	/*
-	 * @RequestMapping("selectLunchEx.ms") public void
-	 * selectLunchEx(HttpServletRequest request, HttpServletResponse response) {
-	 * String mno = request.getParameter("mno"); int mno2 = Integer.parseInt(mno);
-	 * String mDate0 = request.getParameter("mDate0");
-	 * response.setContentType("text/html; charset=utf-8");
-	 * 
-	 * System.out.println("select에서 mDate0: " + mDate0);
-	 * 
-	 * Mission m = new Mission(); m.setmDate(mDate0); m.setTno(mno2);
-	 * System.out.println("미션수정전 점심운동 내용 조회 m : " + m);
-	 * 
-	 * 
-	 * m = ms.selectLunchEx(m);
-	 * 
-	 * System.out.println("미션수정전 점심운동 내용 조회 후 m : " + m);
-	 * 
-	 * try { String mContent = URLEncoder.encode(m.getmContent(), "UTF-8"); mContent
-	 * = mContent.replaceAll("\\+", "%20"); System.out.println("인코딩된 : "+mContent);
-	 * 
-	 * 
-	 * 
-	 * JSONObject estiMateJson = new JSONObject(); estiMateJson.put("mContent",
-	 * mContent);
-	 * 
-	 * 
-	 * response.setContentType("application/json");
-	 * 
-	 * 
-	 * try { new Gson().toJson(estiMateJson,response.getWriter()); } catch
-	 * (JsonIOException e1) { // TODO Auto-generated catch block
-	 * e1.printStackTrace(); } catch (IOException e1) { // TODO Auto-generated catch
-	 * block e1.printStackTrace(); }
-	 * 
-	 * } catch (UnsupportedEncodingException e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); } }
-	 */
 	
+	  @RequestMapping("selectLunchEx.ms") 
+	  public void selectLunchEx(HttpServletRequest request, HttpServletResponse response) {
+	  String mno = request.getParameter("mno"); 
+	  int mno2 = Integer.parseInt(mno);
+	  String mDate0 = request.getParameter("mDate0");
+	  response.setContentType("text/html; charset=utf-8");
+	  
+	  System.out.println("받아온  mDate0: " + mDate0);
+	  
+	  Mission m = new Mission(); 
+	  m.setmDate(mDate0); 
+	  m.setTno(mno2);
+	  System.out.println("미션수정전 점심운동 내용 조회 m : " + m);
+	  
+	  
+	  m = ms.selectLunchEx(m);
+	  
+	  System.out.println("미션수정전 점심운동 내용 조회 후 m : " + m);
+	  
+	  try {
+			String mContent = URLEncoder.encode(m.getmContent(), "UTF-8");
+			mContent = mContent.replaceAll("\\+", "%20");
+			//System.out.println("인코딩된 : "+mContent);
+			
+			
+			
+			JSONObject estiMateJson = new JSONObject();
+			estiMateJson.put("mContent", mContent);
+
+			
+			response.setContentType("application/json");
+			
+			
+			try {
+				new Gson().toJson(estiMateJson,response.getWriter());
+			} catch (JsonIOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
+	  }
 	
+	  
+	//미션수정전, 저녁운동 내용 조회
+	    @RequestMapping("selectDinnerEx.ms") 
+	    public void selectDinnerEx(HttpServletRequest request, HttpServletResponse response) {
+	  	  String mno = request.getParameter("mno"); 
+	  	  int mno2 = Integer.parseInt(mno);
+	  	  String mDate0 = request.getParameter("mDate0");
+	  	  response.setContentType("text/html; charset=utf-8");
+	  	  
+	  	  System.out.println("받아온  mDate0: " + mDate0);
+	  	  
+	  	  Mission m = new Mission(); 
+	  	  m.setmDate(mDate0); 
+	  	  m.setTno(mno2);
+	  	  System.out.println("미션수정전 점심운동 내용 조회 m : " + m);
+	  	  
+	  	  
+	  	  m = ms.selectDinnerEx(m);
+	  	  
+	  	  System.out.println("미션수정전 점심운동 내용 조회 후 m : " + m);
+	  	  
+	  	  try {
+	  			String mContent = URLEncoder.encode(m.getmContent(), "UTF-8");
+	  			mContent = mContent.replaceAll("\\+", "%20");
+	  			//System.out.println("인코딩된 : "+mContent);
+	  			
+	  			
+	  			
+	  			JSONObject estiMateJson = new JSONObject();
+	  			estiMateJson.put("mContent", mContent);
+
+	  			
+	  			response.setContentType("application/json");
+	  			
+	  			
+	  			try {
+	  				new Gson().toJson(estiMateJson,response.getWriter());
+	  			} catch (JsonIOException e1) {
+	  				// TODO Auto-generated catch block
+	  				e1.printStackTrace();
+	  			} catch (IOException e1) {
+	  				// TODO Auto-generated catch block
+	  				e1.printStackTrace();
+	  			}
+	  			
+	  		} catch (UnsupportedEncodingException e) {
+	  			// TODO Auto-generated catch block
+	  			e.printStackTrace();
+	  		}
+	  	
+	  	  }
+	  
 	//미션수정전, 아침운동 링크 조회
 		@RequestMapping("selectMissionExList.ms")
-		public void selectMissionExList(String mDate0, HttpServletResponse response) {
-		
+		public void selectMissionExList(HttpServletRequest request, HttpServletResponse response) {
+			String mno = request.getParameter("mno"); 
+			int mno2 = Integer.parseInt(mno);
+			String mDate0 = request.getParameter("mDate0");
+			
 			response.setContentType("text/html; charset=utf-8");
 			
 			//System.out.println("select에서 mDate2: " + mDate0);
 		
 			Mission m = new Mission();
 			m.setmDate(mDate0);
+			m.setTno(mno2);
 			//System.out.println("미션수정전 아침운동 링크 조회 m : " + m);
-			m = ms.selectMissionExList(mDate0);
+			m = ms.selectMissionExList(m);
 			//System.out.println("미션수정전 아침운동 링크 조회 후  m : " + m);
 			
 			
@@ -389,16 +767,20 @@ public class MissionController {
 		
 		//미션수정전, 점심운동 링크 조회
 		@RequestMapping("selectMissionExLunchList.ms")
-		public void selectMissionExLunchList(String mDate0, HttpServletResponse response) {
-				
+		public void selectMissionExLunchList(HttpServletRequest request, HttpServletResponse response) {
+			String mno = request.getParameter("mno"); 
+			int mno2 = Integer.parseInt(mno);
+			String mDate0 = request.getParameter("mDate0");
+			
 			response.setContentType("text/html; charset=utf-8");
 					
 			//System.out.println("select에서 mDate2: " + mDate0);
 				
 			Mission m = new Mission();
 			m.setmDate(mDate0);
+			m.setTno(mno2);
 			//System.out.println("미션수정전 점심운동 링크  조회 m : " + m);
-			m = ms.selectMissionExLunchList(mDate0);
+			m = ms.selectMissionExLunchList(m);
 			//System.out.println("미션수정전   점심운동 링크 조회 후  m : " + m);
 					
 					
@@ -440,16 +822,20 @@ public class MissionController {
 	
 	//미션수정전, 저녁운동 링크 조회
 			@RequestMapping("selectMissionExDinnerList.ms")
-			public void selectMissionExDinnerList(String mDate0, HttpServletResponse response) {
-					
+			public void selectMissionExDinnerList(HttpServletRequest request, HttpServletResponse response) {
+				String mno = request.getParameter("mno"); 
+				int mno2 = Integer.parseInt(mno);
+				String mDate0 = request.getParameter("mDate0");
+				
 				response.setContentType("text/html; charset=utf-8");
 						
 				//System.out.println("select에서 mDate2: " + mDate0);
 					
 				Mission m = new Mission();
 				m.setmDate(mDate0);
+				m.setTno(mno2);
 				//System.out.println("미션수정전  저녁운동 링크 조회 m : " + m);
-				m = ms.selectMissionExDinnerList(mDate0);
+				m = ms.selectMissionExDinnerList(m);
 				//System.out.println("미션수정전 저녁운동 링크 조회 후  m : " + m);
 						
 						
@@ -483,7 +869,12 @@ public class MissionController {
 						}
 						
 					}
+	
 			
+			
+			
+	
+	
 		
 	@RequestMapping("updateMissionPage.ms")
 	public String updateMissionPage() {
