@@ -105,7 +105,7 @@
     	$("#mDate").val(date.dateStr);
     	alert("후");
     	/* $("#dialog").modal(); */
-    	$("#myModal").modal();	
+    	$("#insertModal").modal();	
     	
     	
     	
@@ -126,6 +126,10 @@
    
 
   });
+  
+ 
+
+
   $(function(){
 	  var date2 = new Date();
 	  console.log("date: " + date2.getDate());
@@ -149,21 +153,19 @@
 			  var result2 = date2.getDate();
 		}
 	  } 
-	  var today = $('#month').text(date2.getFullYear()).append("-").append(result).append("-").append(result2);
+	  
+ 	  var today = $('#month').text(date2.getFullYear()).append("-").append(result).append("-").append(result2);
+   	 console.log(date2.getMonth()+1);
+   	 console.log(date2.getDate());
+   	 console.log(date2.getFullYear());
+   	 console.log("날짜0 : " + cfSetAddZero(date2.getDate()));
    	 var event = {
    			 title:'오늘의 식단',
    			start: '2019-06-12T10:30:00',
             end: '2019-06-12T12:30:00'
    	 }
    	 calendar.addEvent(event);
-   	  /* var now = new Date();
-	  DateFormat format2 = DateFormat.getDateInstance(DateFormat.LONG);
-	  console.log(format2.format(now)); */
-	  
-	 /*  var now = new Date();
-
-	  SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-	  console.log(format.format(now));  */
+   	 
   })
   
 </script>
@@ -244,10 +246,8 @@
   		<tr>
   		<td><label>저녁</label><br><label id="seldinnerEx"></label><a href="" id="seldinnerExLink"></a></td>
   		</tr>
-  		<tr>
-  		</tr>
-  		</table>
   		
+  		</table>
   		
   		
   	
@@ -255,122 +255,16 @@
   	</c:if>
   	
   	
-  	<!-- 사용자 미션 수행여부 체크 (체크박스o)-->
-  	<c:if test="${sessionScope.loginUser.mtype =='U'}">   
-  	<div id='calendar' style="margin-top:30px; float:left; width:70%; height:550px"></div>
-  	<div id="selectToday" style="float:right; border:1px solid pink; width:30%; height:700px">
-  		<div id="month" align="center"></div>
-
-  		<label>오늘의 식단</label><hr>
-  		<table>
-  		<tr>
-  		<td><label>아침</label><br><label id="selbreakfast" style=""></label></td>
-  		<td><input type="checkbox" id="breakCheck" name="breakCheck" style="margin-top:40px" value="N"></td>
-  		</tr>
-  		<tr>
-  		<td><label>점심</label><br><label id="sellunch"></label></td>
-  		<td><input type="checkbox" id="lunchCheck" style="margin-top:40px"></td>
-  		</tr>
-  		<tr>
-  		<td><label>저녁</label><br><label id="seldinner"></label></td>
-  		<td><input type="checkbox" id="dinnerCheck" style="margin-top:40px"></td>
-  		</tr>
-  		</table>
-  	
-  		<label style="margin-top:30px">오늘의 운동</label><hr>
-  		<table>
-  		<tr>
-  		<td><label>아침</label><br><label id="selbreakEx" style="width:300px;"></label><a href="" id="selbreakExLink"></a></td>
-  		<td><input type="checkbox" id="breakExCheck" style="margin-left:-50px"></td>
-  		</tr>
-  		<tr>
-  		<td><label>점심</label><br><label id="sellunchEx"></label><a href="" id="sellunchExLink"></a></td>
-  		<td><input type="checkbox" id="lunchExCheck" style="margin-left:-50px"></td>
-  		</tr>
-  		<tr>
-  		<td><label>저녁</label><br><label id="seldinnerEx"></label><a href="" id="seldinnerExLink"></a></td>
-  		<td><input type="checkbox" id="dinnerExCheck" style="margin-left:-50px"></td>
-  		</tr>
-  		<tr>
-  		<td><input type="button" id="checkMission" value="기록하기"></td>
-  		</tr>
-  		</table>
-  
-  	</div>
-  	</c:if>
   </div>
   
   
   
   
-<!-- 트레이너 미션수정 모달-->  
-<c:if test="${sessionScope.loginUser.mtype =='T'}">   
-  <div id="updateModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        
-        <h4 class="modal-title">미션수정</h4>
-      </div>
-      <div class="modal-body">
-       <table align="center">
-        	<tr>
-        		<td>날짜 <input type="text" id="mDate2"></td>
-        	</tr>
-        	<tr style="height:50px;">
-        		<td><label style="margin-left:80px; margin-top:40px">오늘의 식단</label><hr></td>
-        	</tr>
-        	<tr>
-        		<td><label id="break">아침</label><input type="text" id="breakfast2"></td>
-        	</tr>
-        	<tr>
-        		<td><label id="lun">점심</label><input type="text" id="lunch2"></td>
-        	</tr>
-        	<tr>
-        		<td><label id="din">저녁</label><input type="text" id="dinner2"></td>
-        	</tr>
-        	
-        	
-        	<tr>
-        		<td><label style="margin-left:80px; margin-top:40px">오늘의 운동</label><hr></td>
-        	</tr>
-        	<tr>
-        		<td><label id="breakE">아침</label><input type="text" id="breakEx2" ></td>
-        	</tr>
-        	
-        	<tr>
-        		<td><input type="text" id="breakExLink2" style="margin-left:50px"></td>
-        	</tr>
-        	<tr>
-        		<td><label id="lunE">점심</label><input type="text" id="lunchEx2"></td>
-        	</tr>
-        	<tr>	
-        		<td><input type="text" id="lunchExLink2" style="margin-left:50px"></td>
-        	</tr>
-        	<tr>
-        		<td><label id="dinE">저녁</label><input type="text" id="dinnerEx2"></td>
-        	</tr>
-        	<tr>
-        		<td><input type="text" id="dinnerExLink2" style="margin-left:50px"></td>
-        	</tr>
-        	<tr>
-        		<td><input type="submit" value="등록하기" style="margin-left:80px" onclick="updateMission()"></td>
-        	</tr>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
   
 
-<!-- 트레이너 미션등록 --> 
-<div id="myModal" class="modal fade" role="dialog">
+<!-- 트레이너 미션등록 모달 --> 
+<div id="insertModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -434,82 +328,11 @@
 
   </div>
 </div>
-</c:if>
+
 </body>
 <script>
-console.log("mno: "+${sessionScope.loginUser.mno});
 
 
-
-
-$("#breakCheck").on('change', function() {
-    breakCheck();
- });
-
-
-
-function breakCheck() {
-	if($("input:checkbox[id='breakCheck']").is(":checked")){
-		 $("#breakcheck").attr('value', 'Y');
-	alert("Y로 바뀜");
- }
-}
-
-
-
-
- $("#checkMission").click(function(){
-	 alert("기록버튼");
-	 
-	
-	 
-	 var breakCheck = $("#breakCheck").val();
-	 $.ajax({
-		
-		url:"checkBreak.ms",
-		type:"post",
-		data:{breakCheck:breakCheck},
-		success:function(data){
-			alert("성공");
-		},error:function(status){
-			alert("실패!");
-		}
-	})  
-});
-
-
-
-/*  var breakCheck;
-
-	function breakCheck(){
-		alert("눌림");
-		
-		 }
-	} 
-
-
-	//사용자->미션체크
-	$("#breakCheck").on('change', function() { 
-	
-	    var breakCheck = $("#breakCheck").val();
-		console.log("breakCheck if문 전 : " + breakCheck); 
-		
-		breakCheck();
-		 
-			/* location.href="checkBreak.ms?breakCheck="+breakCheck.val();
-			$.ajax({
-			
-				url:"checkBreak.ms",
-				type:"post",
-				data:{breakCheck:breakCheck},
-				success:function(data){
-					alert("성공");
-				},error:function(status){
-					alert("실패!");
-				}
-			}) 
-
-	}) */
 
 	//트레이너->미션등록
 	function registerMission(){
@@ -539,7 +362,7 @@ function breakCheck() {
 			data:everything, 
 			success:function(data){
 				alert("미션등록 완료");
-				location.href="matching.ms";
+				location.href="goInsertMission.ms";
 			},error:function(status){
 				alert("미션등록 실패");
 			}

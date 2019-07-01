@@ -233,5 +233,10 @@ public class MemberServiceImpl implements MemberService{
 			
 			return result;
 		}
+
+		@Override
+		public Member loginUserReturn(String mno) {
+			return md.loginUserReturn(sqlSession, mno);
+		}
 	
 }

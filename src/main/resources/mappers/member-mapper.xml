@@ -123,4 +123,9 @@ FROM MEMBER
 WHERE NAME = #{name}
 </select>
 
+<select id="loginUserReturn" parameterType="_int" resultMap="memberResultSet">
+SELECT *
+FROM MEMBER
+WHERE MNO = #{mno2}
+</select>
 </mapper>
