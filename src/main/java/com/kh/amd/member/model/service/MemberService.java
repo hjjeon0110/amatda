@@ -25,6 +25,8 @@ public interface MemberService {
 
 	Member selectPwd(Member m);
 
+	Member loginUserReturn(String mno);
+
 	
 	
 }

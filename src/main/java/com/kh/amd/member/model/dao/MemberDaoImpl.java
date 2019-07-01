@@ -102,6 +102,14 @@ public class MemberDaoImpl implements MemberDao{
 			return sqlSession.update("Member.updateMyPwd",m);
 		}
 
+
+		@Override
+		public Member loginUserReturn(SqlSessionTemplate sqlSession, String mno) {
+			int mno2 = Integer.parseInt(mno);
+			
+			return sqlSession.selectOne("Member.loginUserReturn", mno2);
+		}
+
 	
 
 

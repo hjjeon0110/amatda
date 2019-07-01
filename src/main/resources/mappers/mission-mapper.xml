@@ -1,62 +1,174 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!DOCTYPE mapper 
-SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Mission">
 
 
-<resultMap id="missionResultSet" type="com.kh.amd.mission.model.vo.Mission">
+<resultMap type="com.kh.amd.mission.model.vo.Mission" id="missionResultSet">
 
-	<id column="MISSION_NO" property="missionNo"/> <!-- DB 기본키 -->
-	<result column="TNO" property="tno"/><!-- 일반컬럼 -->
-	<result column="UNO" property="uno"/>
-	<result column="MDATE" property="mDate"/>
-	<result column="MTIME" property="mTime"/>
-	<result column="MTYPE" property="mType"/>
-	<result column="MCONTENT" property="mContent"/>
-	<result column="MLINK" property="mLink"/>
-	<result column="COMPLETEYN" property="completeYN"/>
+<id property="missionNo" column="MISSION_NO"/>
+
+<!-- DB 기본키 -->
+
+
+<result property="tno" column="TNO"/>
+
+<!-- 일반컬럼 -->
+
+
+<result property="uno" column="UNO"/>
+
+<result property="mDate" column="MDATE"/>
+
+<result property="mTime" column="MTIME"/>
+
+<result property="mType" column="MTYPE"/>
+
+<result property="mContent" column="MCONTENT"/>
+
+<result property="mLink" column="MLINK"/>
+
+<result property="completeYN" column="COMPLETEYN"/>
+
 </resultMap>
 
-
 <!-- 아침식사 미션등록 -->
-<insert id="insertBreakfast" parameterType="Mission">
-INSERT INTO MISSION
-VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '아침', '식단', #{mContent} , null, 'N') 
-</insert> 
-
-<insert id="insertLunch" parameterType="Mission">
-INSERT INTO MISSION
-VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '점심', '식단', #{mContent} , null, 'N') 
-</insert> 
-
-<insert id="insertDinner" parameterType="Mission">
-INSERT INTO MISSION
-VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '저녁', '식단', #{mContent} , null, 'N') 
-</insert> 
 
 
-<insert id="insertBreakEx" parameterType="Mission">
-INSERT INTO MISSION
-VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '아침', '운동', #{mContent} ,#{mLink}, 'N') 
-</insert> 
+<insert id="insertBreakfast" parameterType="Mission"> 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '아침', '식단', #{mContent} , null, 'N') 
+</insert>
 
-<insert id="insertLunchEx" parameterType="Mission">
-INSERT INTO MISSION
-VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '점심', '운동', #{mContent} ,#{mLink}, 'N') 
-</insert> 
+<insert id="insertLunch" parameterType="Mission"> 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '점심', '식단', #{mContent} , null, 'N') 
+</insert>
 
-<insert id="insertDinnerEx" parameterType="Mission">
-INSERT INTO MISSION
-VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '저녁', '운동', #{mContent} ,#{mLink}, 'N') 
-</insert> 
+<insert id="insertDinner" parameterType="Mission"> 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '저녁', '식단', #{mContent} , null, 'N') 
+</insert>
+
+<insert id="insertBreakEx" parameterType="Mission"> 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '아침', '운동', #{mContent} ,#{mLink}, 'N') 
+</insert>
+
+<insert id="insertLunchEx" parameterType="Mission"> 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '점심', '운동', #{mContent} ,#{mLink}, 'N') 
+</insert>
+
+<insert id="insertDinnerEx" parameterType="Mission"> 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '저녁', '운동', #{mContent} ,#{mLink}, 'N') 
+</insert>
 
 <select id="selectMission" parameterType="Mission" resultType="Mission">
-SELECT MCONTENT,MLINK
-FROM MISSION
-WHERE MDATE= #{mDate} 
-AND MTYPE='운동'
-AND MTIME='아침'
+SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='운동' AND MTIME='아침' 
 </select>
+
+<select id="selectLunctMission" parameterType="Mission" resultType="Mission"> 
+SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='운동' AND MTIME='점심' 
+</select>
+
+<select id="selectDinnerMission" parameterType="Mission" resultType="Mission"> 
+SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='운동' AND MTIME='저녁' 
+</select>
+
+<select id="selectEatBreakMission" parameterType="Mission" resultType="Mission"> 
+SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='식단' AND MTIME='아침' 
+</select>
+
+<select id="selectEatLunchMission" parameterType="Mission" resultType="Mission"> 
+SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='식단' AND MTIME='점심' 
+</select>
+
+<select id="selectEatDinnerMission" parameterType="Mission" resultType="Mission"> 
+SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='식단' AND MTIME='저녁' 
+</select>
+
+
+<!-- 미션 수정전, 값 가져오기 ( 아침식단 )  -->
+<select id="selectMissionList" parameterType="java.lang.String" resultMap="missionResultSet">
+SELECT *
+FROM MISSION
+WHERE MDATE = #{mDate0}
+AND MTIME = '아침'
+AND MTYPE = '식단' 
+</select>
+
+
+<select id="selectMissionLunchList" parameterType="java.lang.String" resultMap="missionResultSet">
+SELECT *
+FROM MISSION
+WHERE MDATE = #{mDate0}
+AND MTIME = '점심'
+AND MTYPE = '식단'
+</select>
+
+
+
+<select id="selectMissionDinnerList" parameterType="java.lang.String" resultMap="missionResultSet">
+SELECT *
+FROM MISSION
+WHERE MDATE = #{mDate0}
+AND MTIME = '저녁'
+AND MTYPE = '식단'
+</select>
+
+<!-- 미션 수정전, 값 가져오기( 아침 운동 내용 ) -->
+<select id="selectBreakEx" parameterType="java.lang.String" resultMap="missionResultSet">
+SELECT *
+FROM MISSION
+WHERE MDATE = #{mDate0}
+AND MTIME = '아침'
+AND MTYPE = '운동' 
+</select>
+
+<!-- <select id="selectLunchEx" parameterType="Mission" resultMap="missionResultSet">
+SELECT *
+FROM MISSION
+WHERE MDATE = #{mDate0}
+AND MTIME = '아침'
+AND MTYPE = '운동'
+AND TNO=#{tno}
+AND UNO=1
+</select> -->
+
+<!-- 미션 수정전, 값 가져오기 ( 아침운동 링크 ) -->
+<select id="selectMissionExList" parameterType="java.lang.String" resultMap="missionResultSet">
+SELECT *
+FROM MISSION
+WHERE MDATE = #{mDate0}
+AND MTIME = '아침'
+AND MTYPE = '운동' 
+</select>
+
+
+<select id="selectMissionExLunchList" parameterType="java.lang.String" resultMap="missionResultSet">
+SELECT *
+FROM MISSION
+WHERE MDATE = #{mDate0}
+AND MTIME = '점심'
+AND MTYPE = '운동' 
+</select>
+
+
+<select id="selectMissionExDinnerList" parameterType="java.lang.String" resultMap="missionResultSet">
+SELECT *
+FROM MISSION
+WHERE MDATE = #{mDate0}
+AND MTIME = '저녁'
+AND MTYPE = '운동' 
+</select>
+
+
+
+<update id="updateBreakExLink" parameterType="Mission">
+UPDATE MISSION
+SET MLINK = #{mLink}
+WHERE TNO=#{tno}
+AND UNO=1
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+</update> 
+
 </mapper>
