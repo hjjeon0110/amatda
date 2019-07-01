@@ -32,6 +32,10 @@ public interface TrainerDao {
 	// 멤버십 (김진환)
 	String checkMemberShip(SqlSessionTemplate sqlSession, String mno);
 	
+	// 멤버쉽 결제 인서트(김진환)
+	int insertmemberShipPayment(SqlSessionTemplate sqlSession, String tno, int memberShipNo, String memberShipUsage);
+
+	
 	
 	
 	// 효정 메소드 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -81,6 +85,9 @@ public interface TrainerDao {
 
 	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 	void deleteMidea(SqlSessionTemplate sqlSession, String mno, String thisModiName);
+
+	
+	
 	
 	
 

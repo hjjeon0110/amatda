@@ -29,6 +29,9 @@ public interface TrainerService {
 	// 멤버십 (김진환)
 	String checkMemberShip(String mno);
 	
+	// 멤버십결제 인서트 (김진환)
+	int insertmemberShipPayment(String tno, int memberShipNo, String memberShipUsage);
+	
 	
 	
 	// 효정 메소드 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,5 +81,9 @@ public interface TrainerService {
 
 	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 	void deleteMidea(String mno, String thisModiName);
+
+	
+
+	
 
 }

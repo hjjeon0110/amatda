@@ -58,6 +58,14 @@ public class TrainerServiceImpl implements TrainerService {
 		return td.checkMemberShip(sqlSession, mno);
 	}
 	
+	// 멤버십 결제 인서트 서블릿(김진환)
+	@Override
+	public int insertmemberShipPayment(String tno, int memberShipNo, String memberShipUsage) {
+		
+		return td.insertmemberShipPayment(sqlSession, tno, memberShipNo, memberShipUsage);
+	}
+
+	
 	
 	// 효정 메소드 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -165,6 +173,11 @@ public class TrainerServiceImpl implements TrainerService {
 	public void deleteMidea(String mno, String thisModiName) {
 		td.deleteMidea(sqlSession, mno, thisModiName);
 	}
+
+
+	
+
+	
 
 
 	
