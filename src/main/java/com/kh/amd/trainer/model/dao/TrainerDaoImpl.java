@@ -64,6 +64,26 @@ public class TrainerDaoImpl implements TrainerDao {
 		return sqlSession.selectOne("Trainer.checkRemainNum", mno);
 	}
 	
+	//멤버쉽 결제 인서트 서블릿(김진환)
+	@Override
+	public int insertmemberShipPayment(SqlSessionTemplate sqlSession, String tno, int memberShipNo, String memberShipUsage) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int mno = Integer.parseInt(tno);
+		int iMemberShipUsage =  Integer.parseInt(memberShipUsage);
+		
+		
+		map.put("mno", mno);
+		map.put("memberShipNo", memberShipNo);
+		map.put("iMemberShipUsage", iMemberShipUsage);
+		
+		System.out.println(map);
+			
+		//sqlSession.update("Trainer.updateRemainNum", map);
+		
+		return sqlSession.insert("Trainer.insertmemberShipPayment", map);
+	}
+
+	
 	
 	
 	// 효정 메소드 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -243,6 +263,10 @@ public class TrainerDaoImpl implements TrainerDao {
 		sqlSession.update("Trainer.deleteMedia", map);
 	}
 
+
+	
+
+	
 	
 
 

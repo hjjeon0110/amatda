@@ -16,9 +16,7 @@ public interface DeclarationService {
 	Object declarationSelectOne(int decl_no);
 	//신고게시물 삭제(김선아)
 	void deleteDeclaration(int decl_no);
-	
-	
-	
+
 	int insertDeclaration(Declaration d);
 
 

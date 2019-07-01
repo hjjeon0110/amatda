@@ -120,36 +120,41 @@
 								<h2 class="tm-block-title d-inline-block">공지사항</h2>
 							</div>
 						</div>
-
-						<select class="custom-select tm-select-accounts" id="category">
-							<option selected>전체</option>
-							<option value="1">회원</option>
-							<option value="2">트레이너</option>
-						</select> <select class="custom-select tm-select-accounts" id="category">
-							<option selected>서비스</option>
-							<option value="1">결제</option>
-							<option value="2">환불</option>
-							<option value="3">기타</option>
-						</select> <br> <br>
-
 						
-							
-								<form action="">
+						<form name="notice" method="post" action="noticeInsert.ad">
+
+								<select class="custom-select tm-select-accounts" name="blCategory">
+									<option value="전체">전체</option>
+									<option value="회원">회원</option>
+									<option value="트레이너">트레이너</option>
+								</select> 
+								<select class="custom-select tm-select-accounts" name="bmCategory">
+									<option value="서비스">서비스</option>
+									<option value="결제">결제</option>
+									<option value="환불">환불</option>
+									<option value="기타">기타</option>
+								</select>
+								<select class="custom-select tm-select-accounts" name="bsCategory">
+									<option value="공지사항">공지사항</option>
+									<option value="이벤트">이벤트</option>
+								</select> <br> <br>
+
 									<div class="form-group">
-										<label for="name">글 제목 </label> <input id="name" name="name"
-											type="text" class="form-control validate" />
+										<label for="name">글 제목 </label> 
+										<input id="name" name="bTitle" type="text" class="form-control validate" />
 									</div>
 									<div class="form-group">
 										<label for="description">글 내용</label>
-										<textarea class="form-control validate" rows="10"></textarea>
+										<textarea class="form-control validate" rows="10"
+										name="bContent"></textarea>
 									</div>
-
-								</form>
 						
 									<div id="button">
 										<a href="notice.ad" class="button">목록</a>
-										<button class="button">등록</button>
+										<input type="submit" value="등록" class="button">
 									</div>
+									
+									</form>
 							</div>
 
 						</div>
