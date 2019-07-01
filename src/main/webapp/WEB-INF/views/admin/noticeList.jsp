@@ -123,7 +123,7 @@
 					class="tm-bg-primary-dark tm-block tm-block-taller">
 					<h2 class="tm-block-title">공지사항</h2>
 
-					<a href="noticeInsert.ad" class="button" id="list">글 등록</a>
+					<a href="noticeWrite.ad" class="button" id="list">글 등록</a>
 					<table class="table" id="declarationArea">
 						<thead>
 							<tr>

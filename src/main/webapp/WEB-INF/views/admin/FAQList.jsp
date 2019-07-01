@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <script
@@ -127,7 +128,7 @@
 							<tr>
 								<th scope="col">번호</th>
 								<th scope="col">제목</th>
-								<th scope="col">작성자</th>
+								<th>작성자</th>
 								<th scope="col">작성일</th>
 								<th scope="col">조회수</th>
 							</tr>
@@ -135,13 +136,15 @@
 
 						<tbody>
 
-							<c:forEach var="member" begin="1" end="5">
+							<c:forEach var="FAQlist" items="${ requestScope.list }" varStatus="status">
 								<tr>
-									<th scope="row"><b>1</b></th>
-									<td>Q.멤버쉽 가입은 어떻게 해요?</td>
+									<th scope="row"><b>${ status.count }</b>
+									<input type="hidden" id="bNo" value="${FAQlist.bNo }">
+									</th>
+									<td>${FAQlist.bTitle }</td>
 									<td>admin</td>
-									<td>2019-06-05</td>
-									<td>165</td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd" value="${FAQlist.bWriteDate }"/></td>
+									<td>${FAQlist.bCount }</td>
 								</tr>
 							</c:forEach>
 
@@ -200,10 +203,8 @@
 				}).mouseout(function(){
 					$(this).parents("tr").css({"background":"#567086"});
 				}).click(function(){
-					/* var bid = $(this).parents().children("td").eq(0).text();
-					
-					location.href="selectOne.bo?bid="+ bid; */
-					location.href="FAQSelectOne.ad";
+					var bNo = $(this).parents("tr").children("th").children().eq(1).val();
+					location.href="FAQSelectOne.ad?bNo=" + bNo;
 				})
 				
 			})

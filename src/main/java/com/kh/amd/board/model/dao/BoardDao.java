@@ -37,10 +37,28 @@ public interface BoardDao {
 	List<Board> noticeList(SqlSessionTemplate sqlSession);
 
 	//공지사항 상세보기(김선아)
-	Object noticeSelectOne(SqlSessionTemplate sqlSession, int bNo);
+	Board noticeSelectOne(SqlSessionTemplate sqlSession, int bNo);
 
 	//공지사항 조회수증가(김선아)
 	void increaseViewcnt(SqlSessionTemplate sqlSession, int bNo);
+
+	//공지사항 글등록(김선아)
+	void insertNotice(SqlSessionTemplate sqlSession, Board board);
+
+	//공지사항 삭제(김선아)
+	void deleteNotice(SqlSessionTemplate sqlSession, int bNo);
+
+	//공지사항 수정(김선아)
+	int updateNotice(SqlSessionTemplate sqlSession, Board board);
+
+	//1:1문의 리스트(김선아)
+	List<Board> QNAlist(SqlSessionTemplate sqlSession);
+
+	//자주묻는질문 리스트(김선아)
+	List<Board> FAQlist(SqlSessionTemplate sqlSession);
+
+	//자주묻는질문 상세보기(김선아)
+	Board FAQSelectOne(SqlSessionTemplate sqlSession, int bNo);
 
 	//int insertQna(SqlSessionTemplate sqlSession, Board b, String mno);
 
