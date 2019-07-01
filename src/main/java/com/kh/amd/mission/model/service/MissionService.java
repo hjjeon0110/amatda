@@ -68,4 +68,18 @@ public interface MissionService {
 
 	int updateDinnerEx(Mission m);
 	
+	
+	//사용자 미션 수행 여부 체크
+	int insertCheckBreak(Mission m);
+
+	int insertCheckLunch(Mission m);
+
+	int insertCheckDinner(Mission m);
+
+	int insertCheckBreakEx(Mission m);
+
+	int insertCheckLunchEx(Mission m);
+
+	int insertCheckDinnerEx(Mission m);
+	
 }

@@ -178,6 +178,36 @@ public class MissionDaoImpl implements MissionDao{
 	public int updateDinnerEx(SqlSessionTemplate sqlSession, Mission m) {
 		return sqlSession.update("Mission.updateDinnerEx",m);
 	}
+
+	@Override
+	public int insertCheckBreak(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateCheckBreak",m);
+	}
+
+	@Override
+	public int insertCheckLunch(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateCheckLunch",m);
+	}
+
+	@Override
+	public int insertCheckDinner(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateCheckDinner",m);
+	}
+
+	@Override
+	public int insertCheckBreakEx(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateCheckBreakEx",m);
+	}
+
+	@Override
+	public int insertCheckLunchEx(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateCheckLunchEx",m);
+	}
+
+	@Override
+	public int insertCheckDinnerEx(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateCheckDinnerEx",m);
+	}
 	 
 
 	

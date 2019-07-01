@@ -70,4 +70,16 @@ public interface MissionDao {
 
 	int updateDinnerEx(SqlSessionTemplate sqlSession, Mission m);
 
+	int insertCheckBreak(SqlSessionTemplate sqlSession, Mission m);
+
+	int insertCheckLunch(SqlSessionTemplate sqlSession, Mission m);
+
+	int insertCheckDinner(SqlSessionTemplate sqlSession, Mission m);
+
+	int insertCheckBreakEx(SqlSessionTemplate sqlSession, Mission m);
+
+	int insertCheckLunchEx(SqlSessionTemplate sqlSession, Mission m);
+
+	int insertCheckDinnerEx(SqlSessionTemplate sqlSession, Mission m);
+
 }

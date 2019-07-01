@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -29,7 +29,9 @@ public class MissionController {
 	
 	//사용자용 캘린더 폼으로 이동
 	@RequestMapping("matching.ms")
-	public String goCalendar() {
+	public String goCalendar(Model model, String mno) {
+		
+
 		return "mission/mission";
 	}
 	
@@ -772,7 +774,7 @@ public class MissionController {
 			int mno2 = Integer.parseInt(mno);
 			String mDate0 = request.getParameter("mDate0");
 			
-			response.setContentType("text/html; charset=utf-8");
+			
 					
 			//System.out.println("select에서 mDate2: " + mDate0);
 				
@@ -783,7 +785,7 @@ public class MissionController {
 			m = ms.selectMissionExLunchList(m);
 			//System.out.println("미션수정전   점심운동 링크 조회 후  m : " + m);
 					
-					
+				
 					try {
 						String mLink = URLEncoder.encode(m.getmLink(), "UTF-8");
 						mLink = mLink.replaceAll("\\+", "%20");
@@ -827,7 +829,7 @@ public class MissionController {
 				int mno2 = Integer.parseInt(mno);
 				String mDate0 = request.getParameter("mDate0");
 				
-				response.setContentType("text/html; charset=utf-8");
+				
 						
 				//System.out.println("select에서 mDate2: " + mDate0);
 					
@@ -837,7 +839,8 @@ public class MissionController {
 				//System.out.println("미션수정전  저녁운동 링크 조회 m : " + m);
 				m = ms.selectMissionExDinnerList(m);
 				//System.out.println("미션수정전 저녁운동 링크 조회 후  m : " + m);
-						
+				
+				
 						
 						try {
 							String mLink = URLEncoder.encode(m.getmLink(), "UTF-8");
@@ -882,18 +885,241 @@ public class MissionController {
 	}
 	
 	
+	 
 	
 	//사용자-> 미션수행여부 체크
+	//아침식단
 	@RequestMapping("checkBreak.ms")
-	public void checkBreak(HttpServletRequest request) {
+	public void checkBreak(Model model,String breakCheck, int mno, String month, String morning, String selbreakfast, String eating, HttpServletResponse response) {
 		System.out.println("오니");
-		String breakCheck = request.getParameter("breakCheck");
+		
 		System.out.println("breakCheck: "+breakCheck);
+		System.out.println("mno: " + mno);
+		Mission m = new Mission();
+		m.setUno(mno);
+		m.setmDate(month);
+		m.setmTime(morning);
+		m.setmType(eating);
+		m.setmContent(selbreakfast);
+		m.setCompleteYN(breakCheck);
+		
+		System.out.println("아침미션수행체크: " +  m);
+		int result = ms.insertCheckBreak(m); 
 		
 		
-		/* int result = ms.insertCheckBreak(breakCheck); */
+		if(result>0) {
+			try {
+				response.getWriter().print("success");
+				
+				
+			} catch (IOException e) {
+				try {
+					response.getWriter().print("fail");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+		}
 	}
 	
+	
+	
+	
+	
+	//점심식단
+		@RequestMapping("checkLunch.ms")
+		public void checkLunch(String lunchCheck, int mno, String month, String lunch, String sellunch, String eating, HttpServletResponse response) {
+			System.out.println("오니");
+			
+			System.out.println("lunchCheck: "+lunchCheck);
+			System.out.println("mno: " + mno);
+			Mission m = new Mission();
+			m.setUno(mno);
+			m.setmDate(month);
+			m.setmTime(lunch);
+			m.setmType(eating);
+			m.setmContent(sellunch);
+			m.setCompleteYN(lunchCheck);
+			
+			System.out.println("점심미션수행체크: " +  m);
+			int result = ms.insertCheckLunch(m); 
+			
+			
+			if(result>0) {
+				try {
+					response.getWriter().print("success");
+					
+				} catch (IOException e) {
+					try {
+						response.getWriter().print("fail");
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				
+			}
+		}
+	
+		
+		
+		
+		//저녁식단
+				@RequestMapping("checkDinner.ms")
+				public void checkDinner(String dinnerCheck, int mno, String month, String dinner, String seldinner, String eating, HttpServletResponse response) {
+					System.out.println("오니");
+					
+					System.out.println("dinnerCheck: "+ dinnerCheck);
+					System.out.println("mno: " + mno);
+					Mission m = new Mission();
+					m.setUno(mno);
+					m.setmDate(month);
+					m.setmTime(dinner);
+					m.setmType(eating);
+					m.setmContent(seldinner);
+					m.setCompleteYN(dinnerCheck);
+					
+					System.out.println("저녁미션수행체크: " +  m);
+					int result = ms.insertCheckDinner(m); 
+					
+					
+					if(result>0) {
+						try {
+							response.getWriter().print("success");
+							
+						} catch (IOException e) {
+							try {
+								response.getWriter().print("fail");
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+						
+					}
+				}
+	
+	
+		
+		//아침운동
+				@RequestMapping("checkBreakEx.ms")
+				public void checkBreakEx(String breakExCheck, int mno, String month, String morning2, String selbreakEx, String exercising, String selbreakExLink, HttpServletResponse response) {
+					System.out.println("오니");
+					
+					System.out.println("dinnerCheck: "+ breakExCheck);
+					System.out.println("mno: " + mno);
+					Mission m = new Mission();
+					m.setUno(mno);
+					m.setmDate(month);
+					m.setmTime(morning2);
+					m.setmType(exercising);
+					m.setmContent(selbreakEx);
+					m.setCompleteYN(breakExCheck);
+					m.setmLink(selbreakExLink);
+					
+					System.out.println("아침운동 체크: " +  m);
+					int result = ms.insertCheckBreakEx(m); 
+					
+					
+					if(result>0) {
+						try {
+							response.getWriter().print("success");
+							
+						} catch (IOException e) {
+							try {
+								response.getWriter().print("fail");
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+						
+					}
+				}			
+				
+	
+				
+				
+		//점심운동
+				@RequestMapping("checkLunchEx.ms")
+				public void checkLunchEx(String lunchExCheck, int mno, String month, String lunch2, String sellunchEx, String exercising, String sellunchExLink, HttpServletResponse response) {
+					System.out.println("오니");
+					
+					System.out.println("lunchCheck: "+ lunchExCheck);
+					System.out.println("mno: " + mno);
+					Mission m = new Mission();
+					m.setUno(mno);
+					m.setmDate(month);
+					m.setmTime(lunch2);
+					m.setmType(exercising);
+					m.setmContent(sellunchEx);
+					m.setCompleteYN(lunchExCheck);
+					m.setmLink(sellunchExLink);
+					
+					System.out.println("점심운동 체크: " +  m);
+					int result = ms.insertCheckLunchEx(m); 
+					
+					
+					if(result>0) {
+						try {
+							response.getWriter().print("success");
+							
+						} catch (IOException e) {
+							try {
+								response.getWriter().print("fail");
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+						
+					}
+				}			
+								
+
+				//점심운동
+				@RequestMapping("checkDinnerEx.ms")
+				public void checkDinnerEx(String dinnerExCheck, int mno, String month, String dinner2, String seldinnerEx, String exercising, String seldinnerExLink, HttpServletResponse response) {
+					System.out.println("오니");
+					
+					System.out.println("lunchCheck: "+ dinnerExCheck);
+					System.out.println("mno: " + mno);
+					Mission m = new Mission();
+					m.setUno(mno);
+					m.setmDate(month);
+					m.setmTime(dinner2);
+					m.setmType(exercising);
+					m.setmContent(seldinnerEx);
+					m.setCompleteYN(dinnerExCheck);
+					m.setmLink(seldinnerExLink);
+					
+					System.out.println("저녁운동 체크: " +  m);
+					int result = ms.insertCheckDinnerEx(m); 
+					
+					
+					if(result>0) {
+						try {
+							response.getWriter().print("success");
+							
+						} catch (IOException e) {
+							try {
+								response.getWriter().print("fail");
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+						
+					}
+				}
+				
+				
+				
+				
+	
+	//트레이너 ->  미션등록
 	@RequestMapping("insert.ms")
 	public void insertBreakfast(HttpServletRequest request, HttpServletResponse response, int mno) {
 		

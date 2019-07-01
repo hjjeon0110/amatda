@@ -375,7 +375,7 @@
 <c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
 		scope="application" />
   <jsp:include page="../common/menubar.jsp"/>
-  
+ <c:if test="${sessionScope.loginUser.mtype =='T'}">   
   <div id="container">
  <div id='calendar' style="margin-top:30px; width:70%; height:550px"></div> 
  <%--  <!-- 트레이너만 보이는 오늘의 미션(체크박스x) -->
@@ -420,7 +420,7 @@
   	 --%>
   	
   </div>
-  
+</c:if>  
   
   
   
@@ -622,7 +622,7 @@ function updateBreakEx(){
 		data:{mno:mno, mDate2:mDate2, breakE:breakE, breakEx2:breakEx2, exercise:exercise, breakExLink2:breakExLink2},
 		success:function(data){
 			if(data=="success"){
-				alert("저녁 식단 수정 완료!");
+				alert("아침 운동 수정 완료!");
 			}
 	},error:function(data){
 		if(data=="fail"){

@@ -61,27 +61,27 @@ INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '저녁
 </insert>
 
 <select id="selectMission" parameterType="Mission" resultType="Mission">
-SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='운동' AND MTIME='아침' 
+SELECT MCONTENT,MLINK,COMPLETEYN FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='운동' AND MTIME='아침' 
 </select>
 
 <select id="selectLunctMission" parameterType="Mission" resultType="Mission"> 
-SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='운동' AND MTIME='점심' 
+SELECT MCONTENT,MLINK,COMPLETEYN FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='운동' AND MTIME='점심' 
 </select>
 
 <select id="selectDinnerMission" parameterType="Mission" resultType="Mission"> 
-SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='운동' AND MTIME='저녁' 
+SELECT MCONTENT,MLINK,COMPLETEYN FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='운동' AND MTIME='저녁' 
 </select>
 
 <select id="selectEatBreakMission" parameterType="Mission" resultType="Mission"> 
-SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='식단' AND MTIME='아침' 
+SELECT MCONTENT,MLINK,COMPLETEYN FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='식단' AND MTIME='아침' 
 </select>
 
 <select id="selectEatLunchMission" parameterType="Mission" resultType="Mission"> 
-SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='식단' AND MTIME='점심' 
+SELECT MCONTENT,MLINK,COMPLETEYN FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='식단' AND MTIME='점심' 
 </select>
 
 <select id="selectEatDinnerMission" parameterType="Mission" resultType="Mission"> 
-SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='식단' AND MTIME='저녁' 
+SELECT MCONTENT,MLINK,COMPLETEYN FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='식단' AND MTIME='저녁' 
 </select>
 
 
@@ -286,5 +286,89 @@ AND UNO=1
 AND MDATE=#{mDate}
 AND MTIME=#{mTime}
 AND MTYPE=#{mType}
+</update>
+
+
+
+
+<update id="updateCheckBreak" parameterType="Mission">  <!-- update는 resulType을 적지않는다! -->
+UPDATE MISSION
+SET COMPLETEYN = #{completeYN}
+WHERE UNO=#{uno}
+AND TNO=2
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+AND MCONTENT=#{mContent}
+</update>
+
+
+
+
+<update id="updateCheckLunch" parameterType="Mission">
+UPDATE MISSION
+SET COMPLETEYN = #{completeYN}
+WHERE UNO=#{uno}
+AND TNO=2
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+AND MCONTENT=#{mContent}
+</update>
+
+
+
+<update id="updateCheckDinner" parameterType="Mission">
+UPDATE MISSION
+SET COMPLETEYN = #{completeYN}
+WHERE UNO=#{uno}
+AND TNO=2
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+AND MCONTENT=#{mContent}
+</update>
+
+
+
+<update id="updateCheckBreakEx" parameterType="Mission">
+UPDATE MISSION
+SET COMPLETEYN = #{completeYN}
+WHERE UNO=#{uno}
+AND TNO=2
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+AND MCONTENT=#{mContent}
+AND MLINK=#{mLink}
+</update>
+
+
+<update id="updateCheckLunchEx" parameterType="Mission">
+UPDATE MISSION
+SET COMPLETEYN = #{completeYN}
+WHERE UNO=#{uno}
+AND TNO=2
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+AND MCONTENT=#{mContent}
+AND MLINK=#{mLink}
+
+</update>
+
+
+
+
+<update id="updateCheckDinnerEx" parameterType="Mission">
+UPDATE MISSION
+SET COMPLETEYN = #{completeYN}
+WHERE UNO=#{uno}
+AND TNO=2
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+AND MCONTENT=#{mContent}
+AND MLINK=#{mLink}
 </update>
 </mapper>
