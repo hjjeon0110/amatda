@@ -96,6 +96,8 @@ display:inline;
 			<!-- encType="multipart/form-data" -->
 			<!-- encType을 설정해야 파일을 폼에서 보낼 수 있다 -->
 			 <input type="hidden" name="bType" value="5"/>
+			<input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.mno }" />
+			
 			
 			<!-- 자가코딩 시작 -->
 			<div class = "container" align="center" style="width:900px;">
@@ -105,6 +107,8 @@ display:inline;
 						<tr>
 							<th>제목</th>
 							<td><input type="text" placeholder="제목을 입력하세요" name="bTitle" style="width:700px;"></td>
+							
+							
 						</tr>
 						<tr>
 							<th>내용</th>
@@ -148,7 +152,27 @@ display:inline;
 	</div>
 	
 	<script>
-		$(function(){
+		
+	$(function(){
+		var mno = $("#mNo").val();
+		if(mno > 0){
+			/* alert("로그인이 됐다는것") */
+			
+		
+			
+		}else{
+			alert("로그인을 하셔야 작성이 가능합니다.")
+			/* location.href="http://www.naver.com"; */
+			location.href="selectReviewFormView.bo";
+		}
+		
+				
+		})
+	
+	
+	
+	
+	$(function(){
 			$("#fileArea").hide();
 			
 			$("#titleImgArea").click(function(){

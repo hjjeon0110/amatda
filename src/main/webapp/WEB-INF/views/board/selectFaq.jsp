@@ -1,9 +1,8 @@
-
-
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -236,9 +235,9 @@ width:400px;
      <div class="firstTableLine2"></div>
       <h6><a href="insertQnaFormView.bo">Q&A</a></h6>
       <div class="firstTableLine2"></div>
-      <h6><a href="selectReview.bo">아맞다 후기리뷰</a></h6>
+      <h6><a href="selectReviewFormView.bo">아맞다 후기리뷰</a></h6>
       <div class="firstTableLine2"></div>
-      <h6><a href="selectFaq.bo">FAQ</a></h6>
+      <h6><a href="selectFaqFormView.bo">FAQ</a></h6>
       <div class="firstTableLine2"></div>
       <h6><a href="insertDeclarationFormView.de">신고</a></h6>
     <div class="firstTableLine1"></div>
@@ -286,24 +285,20 @@ width:400px;
 		
 
          
+         <div>
          
+         <c:forEach var="selectFaq" items="${ requestScope.selectFaq }" varStatus="status">
 
-         <button class="accordion">Q. 회원가입은 어떻게 하나요?</button>
+		<input type="hidden" id="bNo" value="${selectFaq.bNo }">
+		<input type="hidden" id="bmCategory" value="${selectFaq.bmCategory }">
+		
+		
+         <button class="accordion">${selectFaq.bTitle }</button>
          <div class="panel">
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+           <p>${selectFaq.bContent }</p>
          </div>
          
-         <button class="accordion">Q. 지불은 어떻게 하나요?</button>
-         <div class="panel">
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-         </div>
-         
-         <button class="accordion">Q. 탈퇴는 어떻게 하나요?</button>
-         <div class="panel">
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-         </div>
-         
-         <button class="accordion">Q. 탈퇴는 어떻게 하나요?</button>
+        <!--  <button class="accordion">Q. 지불은 어떻게 하나요?</button>
          <div class="panel">
            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
          </div>
@@ -338,6 +333,16 @@ width:400px;
            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
          </div>
          
+         <button class="accordion">Q. 탈퇴는 어떻게 하나요?</button>
+         <div class="panel">
+           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+         </div>
+         
+         <button class="accordion">Q. 탈퇴는 어떻게 하나요?</button>
+         <div class="panel">
+           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+         </div> -->
+         </c:forEach>
       </div>
    </div>
    

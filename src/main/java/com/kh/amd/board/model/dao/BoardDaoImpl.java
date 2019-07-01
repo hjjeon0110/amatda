@@ -1,9 +1,11 @@
 package com.kh.amd.board.model.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -64,19 +66,49 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Board> selectEventCate(SqlSessionTemplate sqlSession) {
 		List<Board> list = (List) sqlSession.selectList("Board.selectEventCate");
 		return sqlSession.selectList("Board.selectEventCate");
-		
-		
 	}
 
+	//공지사항/이벤트 게시물 상세페이지(SR)
+	@Override
+	public Object selectOneNotice(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.selectOne("Board.selectOneNotice", bNo);
+	}
+
+	//FAQ게시판 아코디언 리스트 출력(SR)
+	@Override
+	public List<Board> selectFaq(SqlSessionTemplate sqlSession) {
+		List<Board> list = (List) sqlSession.selectList("Board.selectFaq");
+		return sqlSession.selectList("Board.selectFaq");
 	
+	}
+
+	//후기리뷰 게시판 리스트 출력(SR)
+	@Override
+	public List<Board> selectReview(SqlSessionTemplate sqlSession) {
+		List<Board> list = (List) sqlSession.selectList("Board.selectReview");
+		return sqlSession.selectList("Board.selectReview");
+	}
+
+	//공지사항/이벤트 게시판 페이징 (SR)
 	/*
-	 * //HashMap<String, Object> map = new HashMap<String, Object>(); 
-	 * map.put("mno", mno); 
-	 * map.put("proTitle", proTitle); 
-	 * map.put("lineProfile", lineProfile);
+	 * @Override public List<Map<String, Object>> selectBoardList(Criteria cri) { //
+	 * TODO Auto-generated method stub
 	 * 
-	 * sqlSession.insert("Trainer.insertProfile1", map);
+	 * return (List<Map<String,Object>>).selectList("board.selectBoardList", cri);
+	 * 
+	 * }
 	 */
+
+	
+
+	//공지사항/이벤트 게시판 검색 (SR)
+	/*@Override
+	public List<Board> searchNotice(SqlSessionTemplate sqlSession) {
+		List<Board> list = (List) sqlSession.selectList("Board.searchNotice");
+		return sqlSession.selectList("Board.searchNotice");
+	}
+
+
 
 
 	/*

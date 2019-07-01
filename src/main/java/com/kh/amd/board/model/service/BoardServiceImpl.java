@@ -2,6 +2,7 @@ package com.kh.amd.board.model.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -89,13 +90,49 @@ public class BoardServiceImpl implements BoardService{
 		return bd.selectEventCate(sqlSession);
 	}
 
+	//공지사항/이벤트 게시물 상세페이지(SR)
+	@Override
+	public Object selectOneNotice(int bNo) {
+		
+		 System.out.println("bNo in serviceImpl : " + bNo);
+		return bd.selectOneNotice(sqlSession, bNo);
+	}
+
+	//FAQ게시판 아코디언 리스트 출력(SR)
+	@Override
+	public List<Board> selectFaq() {
+		return bd.selectFaq(sqlSession);
 	
+	}
+
+	//후기리뷰 게시판 리스트 출력(SR)
+	@Override
+	public List<Board> selectReview() {
+		return bd.selectReview(sqlSession);
+	}
+
+	
+
+	//공지사항/이벤트 게시판 페이징 (SR)
+	/*
+	 * @Override public List<Map<String, Object>> selectBoardList(Criteria cri) {
+	 * return bd.selectBoardList(cri); }
+	 */
+
+	//공지사항/이벤트 게시판 검색 (SR)
+	/*@Override
+	public List<Board> searchNotice() {
+		return bd.searchNotice(sqlSession);
+	}*/
+
 
 	//REVIEW 후기 페이지 (SR)
 	/*
 	 * @Override public int selectReview(Board b) { return
 	 * bd.selectReview(sqlSession,b); }
 	 */
+	
+	
 	
 	
 	

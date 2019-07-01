@@ -178,9 +178,9 @@ margin-bottom:15px;
      <div class="firstTableLine2"></div>
       <h6><a href="insertQnaFormView.bo">Q&A</a></h6>
       <div class="firstTableLine2"></div>
-      <h6><a href="selectReview.bo">아맞다 후기리뷰</a></h6>
+      <h6><a href="selectReviewFormView.bo">아맞다 후기리뷰</a></h6>
       <div class="firstTableLine2"></div>
-      <h6><a href="selectFaq.bo">FAQ</a></h6>
+      <h6><a href="selectFaqFormView.bo">FAQ</a></h6>
       <div class="firstTableLine2"></div>
       <h6><a href="insertDeclarationFormView.de">신고</a></h6>
     <div class="firstTableLine1"></div>
@@ -225,13 +225,19 @@ margin-bottom:15px;
   					<option value="content">내용</option>
   					<option value="title">제목</option>
   				</select>
-				<input type="checkbox" name="chk_info" value="title" checked="checked">제목
-				<input type="checkbox" name="chk_info" value="content">내용
+				<!-- <input type="checkbox" name="chk_info" value="title" checked="checked">제목
+				<input type="checkbox" name="chk_info" value="content">내용 -->
 				<input type="text" name="searchCon">&nbsp;
 				<button id="noticeSearch">검색</button> 
 			</div>
   			
-	  		<!-- 페이징 시작 -->
+	  		<!-- 페이징 시작----------------------------------------------------------------- -->
+	  
+	  		
+	  		<!-- 페이징 끝----------------------------------------------------------------- -->
+	  		
+	  		
+	  		
 	  		
 	  		<!-- <div class="paging">
 				<a href="#" class="direction fisrt"><span>처음</span></a>
@@ -270,26 +276,27 @@ margin-bottom:15px;
 	<script>
 	$(".table td").click(function(){
 		var num=$(this).parent().children().eq(0).text();
-		location.href="<%=request.getContextPath()%>/selectOneNotice.bo?num="+num;
+		location.href="<%=request.getContextPath()%>/selectOneNotice.bo?bNo="+bNo;
 	});
+	
+	
 	 $("#noticeSearch").click(function(){
 		var selectType = $("#selectType").val();
 		var searchCon = $("input[name=searchCon]").val();
 		
 		$.ajax({
-			url:"searchNotice.tr",
+			url:"searchNotice.bo",
 			data:{selectType:selectType, searchCon:searchCon},
 			type:"get",
 			success:function(data){
 				alert("ddd");
 			}
-			
-			
 		})
-		
 	})
-	 
 	
+	 ///////////////////////////////////////////////////////////////////
+
+ 
 	</script>
 	
 	
