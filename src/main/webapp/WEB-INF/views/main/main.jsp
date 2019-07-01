@@ -15,6 +15,7 @@
 	<jsp:include page="../common/menubar.jsp"></jsp:include>
 	
 	<a href="matching.ms">캘린더</a>
+	<a href="trainerMatching.ms">트레이너용 캘린더</a>
 
 	<!-- 캐러셀 영역 ---------------------------------------------------------------------------------------------------------- -->
 	<div id="carouselExampleControls" class="carousel slide"
@@ -45,9 +46,11 @@
 	<!-- 추천 신입 트레이너 ----------------------------------------------------------------------------------------------------- -->
 	<div class="recommendNewTrainer">
 		<label class="recommendNewTrainerLabel" data-aos="fade-up">추천 신입 트레이너</label>
-																						<a href="survey1.su">insertSurvey</a>
-																						<a href="list.su?mno=${sessionScope.loginUser.mno}">updateSurvey</a>
-																						<a href="insert.di?mno=${sessionScope.loginUser.mno}">showDiary</a>
+																						<a href="survey1.su">설문조사 insert</a>&nbsp;&nbsp;
+																						<a href="list.su?mno=${sessionScope.loginUser.mno}">설문조사 update</a>&nbsp;&nbsp;
+																						<a href="show.di?mno=${sessionScope.loginUser.mno}">다이어리 insert</a>&nbsp;&nbsp;
+																						<a href="list.di?mno=${sessionScope.loginUser.mno}">다이어리 list</a>&nbsp;&nbsp;
+																						<!-- <a href="show.di">showDiary</a> -->
 		<section class="blog_section">
 			<div class="container">
 				<div class="blog_content">
@@ -321,16 +324,22 @@
 	})
 	
 	$(function(){
-		console.log( ${sessionScope.loginUser.mtype =='U'});
-		if( ${sessionScope.loginUser.mtype =='U'}  && ${sessionScope.loginUser.completeSurvey=='N'}){
+		console.log(${sessionScope.loginUser.mtype =='U'});
+		console.log(${sessionScope.loginUser.completeSurvey =='Y'});
+		if(${sessionScope.loginUser.mtype =='U'}  && ${sessionScope.loginUser.completeSurvey=='N'}){
 			/* alert("설문조사하러가기");
 			location.href="survey1.su"; */
-			var result = confirm("설문조사를 하셔야 프로그램 이용이 가능합니다.");
-		    if(result){
-		    	location.href="survey1.su";
-		    }else{
-		    	location.href="showSearchTrainerPageView.us";
-		    }
+			
+			var result = confirm("설문조사 완료후, 다시 로그인해주세요!");
+		    	if(result){ //확인버튼
+		    		location.href="survey1.su";
+		    
+		    	}else{ //취소버튼
+		    		location.href="showSearchTrainerPageView.us";
+		    	}
+		}else if(${sessionScope.loginUser.mtype =='U'}  && ${sessionScope.loginUser.completeSurvey=='Y'}){
+			
+
 		}
 	})
 	

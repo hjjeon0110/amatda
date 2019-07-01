@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +40,7 @@
 		<br>
 		<h1 id="fontEng" align="center">Diary Insert</h1>
 		<br /> <br /> <br />
-
+<%-- <input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" /> --%>
 		<div class="listArea">
 			<table class="table table-hover">
 				<thead>
@@ -51,40 +53,99 @@
 					</tr>
 				</thead>
 				<tbody>
+				
+				<c:forEach var="diaryList" items="${ requestScope.list }" varStatus="status">
+				
 					<tr>
 						<td><input type="checkbox" name="checkList" value="" /></td>
-						<td>10</td>
-						<td>10일째 다이어트</td>
-						<td>2019/06/23</td>
-						<td></td>
+						<td scope="row"><b>${status.count }</b></td>
+						<!-- <td>10</td> -->
+						<td>${ diaryList.bTitle }</td>											
+						<td><fmt:formatDate value="${ diaryList.bWriteDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>						
 					</tr>
-					<tr>
-						<td><input type="checkbox" name="checkList" value="" /></td>
-						<td>10</td>
-						<td>9일째 다이어트</td>
-						<td>2019/06/22</td>
-						<td>0</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" name="checkList" value="" /></td>
-						<td>10</td>
-						<td>8일째 다이어트</td>
-						<td>2019/06/21</td>
-						<td>0</td>
-					</tr>
+					
+					</c:forEach>
+				
 				</tbody>
 			</table>
-		</div>
-		<!-- <div class="paging" align="center">
-			<ul class="pagination">
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-			</ul>
-		</div> -->
-	</div>
+		
+		<!-- 페이징처리 -->
+					<div id="paginaArea" align="center">
+						<!-- 첫 페이지를 보고 있는 경우 -->
+						<c:if test="${pi.currentPage <= 1}">
+				[이전] &nbsp;
+			</c:if>
+
+						<!-- 첫 페이지가 아닌 다른페이지를 보고있는 경우 -->
+						<c:if test="${pi.currentPage > 1 }">
+							<c:url var="blistBack" value="/selectList.bo">
+								<c:param name="currnetPage" value="${pi.currentPage - 1 }" />
+							</c:url>
+							<a href="${blistBack}">[이전]</a> &nbsp;
+			</c:if>
+
+						<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
+							<c:if test="${p == pi.currentPage }">
+								<font color="red" size="4"> <b>[${p }]</b>
+								</font>
+							</c:if>
+
+							<c:if test="${p != pi.currentPage }">
+								<c:url var="blistCheck" value="selectList.bo">
+									<c:param name="currentPage" value="${p }" />
+								</c:url>
+								<a href="${blistCheck }">${p }</a>
+							</c:if>
+						</c:forEach>
+
+						<!-- 마지막페이지를 보고있는 경우 -->
+						<c:if test="${pi.currentPage >= pi.maxPage }">
+			 		&nbsp; [다음]
+			 	</c:if>
+   
+						<c:if test="${pi.currentPage < pi.maxPage }">
+							<c:url var="blistEnd" value="selectList.bo">
+								<c:param name="currentPage" value="${pi.currentPage + 1 }" />
+							</c:url>
+							<a href="${blistEnd }">&nbsp; [다음]</a>
+						</c:if>
+					</div>
+					
+					
+					<script>
+					
+			$(function(){
+				
+				
+				
+				$("#declarationArea").find("td").mouseenter(function(){					
+					$(this).parents("tr").css({"background":"#f8585b","cursor":"pointer"});		
+				}).mouseout(function(){
+					$(this).parents("tr").css({"background":"#567086"});
+				}).click(function(){
+	
+					var no = $(this).parents("tr").children("th").children().eq(1).val();
+					//console.log(no);
+					
+					location.href="declarationSelectOne.ad?decl_no=" + no;
+				})
+				
+			})
+		</script>
+</div>
+</div>
+
+
+
+<script src="<c:url value="/resources/ad-js/jquery-3.3.1.min.js" />"></script>
+	<!-- https://jquery.com/download/ -->
+	<script src="<c:url value="/resources/ad-js/moment.min.js" />"></script>
+	<!-- https://momentjs.com/ -->
+	<script src="<c:url value="/resources/ad-js/Chart.min.js" />"></script>
+	<!-- http://www.chartjs.org/docs/latest/ -->
+	<script src="<c:url value="/resources/ad-js/bootstrap.min.js" />"></script>
+	<!-- https://getbootstrap.com/ -->
+	<script src="<c:url value="/resources/ad-js/tooplate-scripts.js" />"></script>
 
 
 	<jsp:include page="../common/footer.jsp"></jsp:include>

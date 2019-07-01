@@ -1,8 +1,11 @@
 package com.kh.amd.board.model.dao;
 
 import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -11,38 +14,7 @@ import com.kh.amd.board.model.vo.Board;
 @Repository
 public class BoardDaoImpl implements BoardDao {
 
-	/*
-	 * @Override public Board selectNotice(SqlSessionTemplate sqlSession, Board b) {
-	 * return sqlSession.selectOne("Board.selectNotice",b); }
-	 * 
-	 * @Override public Board selectOneNotice(SqlSessionTemplate sqlSession, Board
-	 * b) { return sqlSession.selectOne("Board.selectOneNotice",b); }
-	 * 
-	 * @Override public Board selectNoticeCate(SqlSessionTemplate sqlSession, Board
-	 * b) { return sqlSession.selectOne("Board.selectNoticeCate", b); }
-	 * 
-	 * @Override public Board selectEventCate(SqlSessionTemplate sqlSession, Board
-	 * b) { return sqlSession.selectOne("Board.selectEventCate",b); }
-	 * 
-	 * @Override public Board selectReview(SqlSessionTemplate sqlSession, Board b) {
-	 * return sqlSession.selectOne("Board.selectReview",b); }
-	 * 
-	 * @Override public Board selectOneReview(SqlSessionTemplate sqlSession, Board
-	 * b) { return sqlSession.selectOne("Board.selectOneReview",b); }
-	 * 
-	 * @Override public Board selectFaq(SqlSessionTemplate sqlSession, Board b) {
-	 * return sqlSession.selectOne("Board.selectFaq",b); }
-	 */
-
-	//사용자페이지 Q&A 질문게시판 입력(SR)
-	/*
-	 * @Override public int insertQna(SqlSessionTemplate sqlSession, Board b) {
-	 * return sqlSession.insert("Board.insertQna",b);
-	 * 
-	 * }
-	 */
-
-	//사용자페이지 리뷰후기 게시판 입력(sr)
+	//사용자페이지 리뷰후기 게시판 입력(SR)
 	@Override
 	public int insertReview(SqlSessionTemplate sqlSession, Board b) {
 		return sqlSession.insert("Board.insertReview",b);
@@ -51,11 +23,7 @@ public class BoardDaoImpl implements BoardDao {
 	//사용자페이지 Q&A 질문게시판 입력(SR)
 	@Override
 	public int insertQna(SqlSessionTemplate sqlSession, Board b) {
-		
-		
-	return sqlSession.insert("Board.insertQna", b);
-	
-	
+			return sqlSession.insert("Board.insertQna", b);
 	}
 
 	//공지사항 리스트(김선아)
@@ -112,6 +80,73 @@ public class BoardDaoImpl implements BoardDao {
 		return sqlSession.selectOne("Board.FAQSelectOne", bNo);
 	}
 	
+
+	//공지사항/이벤트 리스트 출력(SR)
+	@Override
+	public List<Board> selectNotice(SqlSessionTemplate sqlSession) {
+		
+		List<Board> list = (List) sqlSession.selectList("Board.selectNotice");
+		System.out.println("list : " + list);
+		
+		return sqlSession.selectList("Board.selectNotice");
+	}
+
+	//공지사항 CATEGORY만의 리스트 출력(SR)
+	@Override
+	public List<Board> selectNoticeCate(SqlSessionTemplate sqlSession) {
+		List<Board> list = (List) sqlSession.selectList("Board.selectNoticeCate");
+		return sqlSession.selectList("Board.selectNoticeCate");
+	}
+
+	//이벤트 CATEGORY만의 리스트 출력(SR)
+	@Override
+	public List<Board> selectEventCate(SqlSessionTemplate sqlSession) {
+		List<Board> list = (List) sqlSession.selectList("Board.selectEventCate");
+		return sqlSession.selectList("Board.selectEventCate");
+	}
+
+	//공지사항/이벤트 게시물 상세페이지(SR)
+	@Override
+	public Object selectOneNotice(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.selectOne("Board.selectOneNotice", bNo);
+	}
+
+	//FAQ게시판 아코디언 리스트 출력(SR)
+	@Override
+	public List<Board> selectFaq(SqlSessionTemplate sqlSession) {
+		List<Board> list = (List) sqlSession.selectList("Board.selectFaq");
+		return sqlSession.selectList("Board.selectFaq");
+	
+	}
+
+	//후기리뷰 게시판 리스트 출력(SR)
+	@Override
+	public List<Board> selectReview(SqlSessionTemplate sqlSession) {
+		List<Board> list = (List) sqlSession.selectList("Board.selectReview");
+		return sqlSession.selectList("Board.selectReview");
+	}
+
+	//공지사항/이벤트 게시판 페이징 (SR)
+	/*
+	 * @Override public List<Map<String, Object>> selectBoardList(Criteria cri) { //
+	 * TODO Auto-generated method stub
+	 * 
+	 * return (List<Map<String,Object>>).selectList("board.selectBoardList", cri);
+	 * 
+	 * }
+	 */
+
+	
+
+	//공지사항/이벤트 게시판 검색 (SR)
+	/*@Override
+	public List<Board> searchNotice(SqlSessionTemplate sqlSession) {
+		List<Board> list = (List) sqlSession.selectList("Board.searchNotice");
+		return sqlSession.selectList("Board.searchNotice");
+	}
+
+
+
 
 	/*
 	 * @Override public int selectReview(SqlSessionTemplate sqlSession, Board b) {

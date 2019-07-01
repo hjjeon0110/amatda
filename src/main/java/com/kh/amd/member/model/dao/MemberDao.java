@@ -30,6 +30,8 @@ public interface MemberDao {
 
 	Member selectPwd(SqlSessionTemplate sqlSession,Member m);
 
+	Member loginUserReturn(SqlSessionTemplate sqlSession, String mno);
+
 	
 
 	

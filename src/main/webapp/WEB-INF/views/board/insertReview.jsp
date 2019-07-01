@@ -96,6 +96,8 @@ display:inline;
 			<!-- encType="multipart/form-data" -->
 			<!-- encType을 설정해야 파일을 폼에서 보낼 수 있다 -->
 			 <input type="hidden" name="bType" value="5"/>
+			<input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.mno }" />
+			
 			
 			<!-- 자가코딩 시작 -->
 			<div class = "container" align="center" style="width:900px;">
@@ -105,13 +107,15 @@ display:inline;
 						<tr>
 							<th>제목</th>
 							<td><input type="text" placeholder="제목을 입력하세요" name="bTitle" style="width:700px;"></td>
+							
+							
 						</tr>
 						<tr>
 							<th>내용</th>
 							<td><input type="text" placeholder="내용을 입력하세요" name="bContent" style="width:700px; height:600px;"></td>
 						</tr>
 						<tr>
-							<th>첨부파일</th>
+							<th>첨부파일   (썸네일)</th>
 							<td>
 								<!-- <div id="titleImgArea" style="float:left; margin-right:10%;" >
 									<img id="titleImg1" width="350" height="250">
@@ -139,16 +143,36 @@ display:inline;
 	            <button onclick="location.href='selectReview.bo'">작성하기</button>
             
          </div> -->
-			</div>
 			
 			<input type="submit" value="작성하기" class="btn btn-primary">
 			<button onclick="location.href='selectReview.bo'" class="btn btn-primary">목록으로</button>
+			</div>
 			
 		</form>
 	</div>
 	
 	<script>
-		$(function(){
+		
+	$(function(){
+		var mno = $("#mNo").val();
+		if(mno > 0){
+			/* alert("로그인이 됐다는것") */
+			
+		
+			
+		}else{
+			alert("로그인을 하셔야 작성이 가능합니다.")
+			/* location.href="http://www.naver.com"; */
+			location.href="selectReviewFormView.bo";
+		}
+		
+				
+		})
+	
+	
+	
+	
+	$(function(){
 			$("#fileArea").hide();
 			
 			$("#titleImgArea").click(function(){

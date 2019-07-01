@@ -276,7 +276,7 @@
 							<li class="menubarLi3"><a class="menubarLi3" href="showMatchingInProgressPage.tr">PT 관리</a></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<li class="menuberLi4">[ 멤버십 이름 ] 남은 횟수</li>
+							<li class="menuberLi4" id="remainNum">남은 멤버쉽 횟수 : ${ sessionScope.remainNum.name }</li>
 						</ul>
 						
 						<div class="as">
@@ -329,6 +329,28 @@
 	</c:if>
 	
 	<script>
+		//멤버쉽잔여횟수 체크
+		$(function(){
+			var checkType = ${ sessionScope.loginUser.mtype };
+			var loginUserMno = ${sessionScope.loginUser.mno};
+			
+			console.log("checkType : " + checkType);
+			if(checkType.equals("T")){
+				$.ajax({
+					url:"checkMembership.tr",
+					data : {mno:mno },
+					success:function(data){
+						alert(data);
+						$("#remainNum").text(data);
+						location.reload();
+						
+					}
+					
+				})			
+			}
+
+			
+		});
 		$("#switch").change(function(){
 			var checked = $(this).prop('checked');
 			if(checked){

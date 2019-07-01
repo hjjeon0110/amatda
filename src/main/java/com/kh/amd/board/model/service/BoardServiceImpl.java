@@ -1,6 +1,8 @@
 package com.kh.amd.board.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,36 +22,6 @@ public class BoardServiceImpl implements BoardService{
 	@Autowired
 	BoardDao bd;
 
-	/*
-	 * @Override public void selectNotice(Board b) { bd.selectNotice(sqlSession,b);
-	 * }
-	 * 
-	 * @Override public void selectOneNotice(Board b) {
-	 * bd.selectOneNotice(sqlSession,b); }
-	 * 
-	 * @Override public void selectNoticeCate(Board b) {
-	 * System.out.println("나는 서비스에서 있는 출력문이에여"); bd.selectNoticeCate(sqlSession,b);
-	 * }
-	 * 
-	 * @Override public void selectEventCate(Board b) {
-	 * bd.selectEventCate(sqlSession,b); }
-	 * 
-	 * @Override public void selectReview(Board b) { bd.selectReview(sqlSession,b);
-	 * }
-	 * 
-	 * @Override public void selectOneReview(Board b) {
-	 * bd.selectOneReview(sqlSession,b); }
-	 * 
-	 * @Override public void selectFaq(Board b) { bd.selectFaq(sqlSession,b); }
-	 */
-
-	/*
-	 * //사용자페이지 Q&A 입력페이지(SR)
-	 * 
-	 * @Override public int insertQna(Board b) { return bd.insertQna(sqlSession,b);
-	 * }
-	 */
-	
 	//사용자페이지 리뷰후기 입력페이지(sr)
 	@Override
 	public int insertReview(Board b) {
@@ -114,6 +86,61 @@ public class BoardServiceImpl implements BoardService{
 	public int updateNotice(Board board) {
 		return bd.updateNotice(sqlSession, board);
 	}
+	//공지사항/이벤트 리스트 출력(SR)
+	@Override
+	public List<Board> selectNotice() {
+
+		return bd.selectNotice(sqlSession);
+	}
+
+	
+	 //공지사항 CATEGORY만의 리스트 출력(SR)
+	@Override
+	public List<Board> selectNoticeCate() {
+		return bd.selectNoticeCate(sqlSession);
+	}
+
+	//이벤트 CATEGORY만의 리스트 출력(SR)
+	@Override
+	public List<Board> selectEventCate() {
+		return bd.selectEventCate(sqlSession);
+	}
+
+	//공지사항/이벤트 게시물 상세페이지(SR)
+	@Override
+	public Object selectOneNotice(int bNo) {
+		
+		 System.out.println("bNo in serviceImpl : " + bNo);
+		return bd.selectOneNotice(sqlSession, bNo);
+	}
+
+	//FAQ게시판 아코디언 리스트 출력(SR)
+	@Override
+	public List<Board> selectFaq() {
+		return bd.selectFaq(sqlSession);
+	
+	}
+
+	//후기리뷰 게시판 리스트 출력(SR)
+	@Override
+	public List<Board> selectReview() {
+		return bd.selectReview(sqlSession);
+	}
+
+	
+
+	//공지사항/이벤트 게시판 페이징 (SR)
+	/*
+	 * @Override public List<Map<String, Object>> selectBoardList(Criteria cri) {
+	 * return bd.selectBoardList(cri); }
+	 */
+
+	//공지사항/이벤트 게시판 검색 (SR)
+	/*@Override
+	public List<Board> searchNotice() {
+		return bd.searchNotice(sqlSession);
+	}*/
+
 
 	//1:1문의 리스트(김선아)
 	@Override
@@ -140,6 +167,8 @@ public class BoardServiceImpl implements BoardService{
 	 * @Override public int selectReview(Board b) { return
 	 * bd.selectReview(sqlSession,b); }
 	 */
+	
+	
 	
 	
 	

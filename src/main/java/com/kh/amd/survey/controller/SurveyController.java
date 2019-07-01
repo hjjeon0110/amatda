@@ -3,7 +3,6 @@ package com.kh.amd.survey.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kh.amd.member.model.service.MemberService;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.service.SurveyService;
 import com.kh.amd.survey.model.vo.Survey;
@@ -22,6 +22,10 @@ public class SurveyController {
 	
 	@Autowired
 	private SurveyService ss;
+	
+	@Autowired
+	private MemberService ms;
+	
 	
 	//insert 설문조사 시작
 	@RequestMapping("survey1.su")
@@ -97,7 +101,7 @@ public class SurveyController {
 	}
 	
 	
-	//세번째 설문조사 insert
+	//세번째 설문조사 insert   --우리나 손댐
 	@RequestMapping(value="insert3.su")
 	public String insertSurvey3(Model model, Survey s, HttpServletRequest request) {
 		
@@ -108,10 +112,16 @@ public class SurveyController {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
 		int result = ss.insertSurvey3(s, mno);
+				
 		
 		if(result > 0) {
 			
-			return "redirect:index.jsp";
+			
+			Member loginUser = ms.loginUserReturn(mno);
+			System.out.println("받아온 설문조사 mno의 결과 : " + loginUser.getCompleteSurvey());
+			model.addAttribute("loginUser", loginUser);
+			
+			return "main/main";
 			
 		}else {
 			
@@ -119,6 +129,7 @@ public class SurveyController {
 			return "common/errorPage";
 			
 		}			
+		
 		
 	} 
 	

@@ -1,6 +1,8 @@
 package com.kh.amd.board.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,26 +10,10 @@ import com.kh.amd.board.model.vo.Board;
 
 public interface BoardService {
 
-	/*
-	 * void selectNotice(Board b);
-	 * 
-	 * void selectOneNotice(Board b);
-	 * 
-	 * void selectNoticeCate(Board b);
-	 * 
-	 * void selectEventCate(Board b);
-	 * 
-	 * void selectReview(Board b);
-	 * 
-	 * void selectOneReview(Board b);
-	 * 
-	 * void selectFaq(Board b);
-	 */
 
-	//int insertQna(Board b);
+	
 
-	int insertReview(Board b);
-
+	//질문작성 입력(SR)
 	int insertQna(Board b);
 	
 	//공지사항 리스트(김선아)
@@ -58,8 +44,36 @@ public interface BoardService {
 	Object FAQSelectOne(int bNo);
 
 
+	//공지사항/이벤트 리스트 출력(SR)
+	List<Board> selectNotice();
+
+	 //공지사항 CATEGORY만의 리스트 출력(SR)
+	List<Board> selectNoticeCate();
+
+	//이벤트 CATEGORY만의 리스트 출력(SR)
+	List<Board> selectEventCate();
+
+	//공지사항/이벤트 게시물 상세페이지(SR)
+	Object selectOneNotice(int bNo);
+
+	//FAQ게시판 아코디언 리스트 출력(SR)
+	List<Board> selectFaq();
+
+	//후기리뷰 출력(SR)
+	List<Board> selectReview();
+
+	
+	//후기리뷰 입력(SR)
+		int insertReview(Board b);
+
+
+	//공지사항/이벤트 게시판 페이징 (SR)
+	//List<Map<String, Object>> selectBoardList(Criteria cri);
+
+	//공지사항/이벤트 게시판 검색 (SR)
+	//List<Board> searchNotice();
+
 	
 
-	/* int selectReview(Board b); */
 
 }

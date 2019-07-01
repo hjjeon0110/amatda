@@ -1,20 +1,22 @@
 package com.kh.amd.trainer.model.vo;
 
 public class Profile implements java.io.Serializable {
-	private int profileno; // 프로필번호
-	private String lineProfile; // 한줄프로필
-	private String proTitle; // 제목
-	private String intro; // 트레이너소개
-	private String media; // 미디어
-	private String certificate; // 자격증
-	private String keyword; // 키워드
+	private int profileno; 			// 프로필번호
+	private String tno;				// 트레이너번호
+	private String lineProfile; 	// 한줄프로필
+	private String proTitle; 		// 제목
+	private String intro; 			// 트레이너소개
+	private String media; 			// 미디어
+	private String certificate; 	// 자격증
+	private String keyword; 		// 키워드
 
 	public Profile() {}
 
-	public Profile(int profileno, String lineProfile, String proTitle, String intro, String media, String certificate,
-			String keyword) {
+	public Profile(int profileno, String tno, String lineProfile, String proTitle, String intro, String media,
+			String certificate, String keyword) {
 		super();
 		this.profileno = profileno;
+		this.tno = tno;
 		this.lineProfile = lineProfile;
 		this.proTitle = proTitle;
 		this.intro = intro;
@@ -25,6 +27,10 @@ public class Profile implements java.io.Serializable {
 
 	public int getProfileno() {
 		return profileno;
+	}
+
+	public String getTno() {
+		return tno;
 	}
 
 	public String getLineProfile() {
@@ -55,6 +61,10 @@ public class Profile implements java.io.Serializable {
 		this.profileno = profileno;
 	}
 
+	public void setTno(String tno) {
+		this.tno = tno;
+	}
+
 	public void setLineProfile(String lineProfile) {
 		this.lineProfile = lineProfile;
 	}
@@ -81,10 +91,12 @@ public class Profile implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "Profile [profileno=" + profileno + ", lineProfile=" + lineProfile + ", proTitle=" + proTitle
-				+ ", intro=" + intro + ", media=" + media + ", certificate=" + certificate + ", keyword=" + keyword
-				+ "]";
+		return "Profile [profileno=" + profileno + ", tno=" + tno + ", lineProfile=" + lineProfile + ", proTitle="
+				+ proTitle + ", intro=" + intro + ", media=" + media + ", certificate=" + certificate + ", keyword="
+				+ keyword + "]";
 	}
+
+	
 	
 
 }
