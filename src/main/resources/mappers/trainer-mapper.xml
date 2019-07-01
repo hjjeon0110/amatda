@@ -98,6 +98,16 @@
 		JOIN MEMBER M ON(T.TNO = M.MNO)
 		WHERE T.TNO = #{mno}
 	</select>
+	<insert id="insertmemberShipPayment" parameterType="java.util.Map">
+		INSERT INTO PAYMENT 
+		VALUES(PAY_SEQ.NEXTVAL, #{memberShipNo}, #{mno}, '결제완료', 'card', sysdate, null)
+	
+	</insert>
+	<update id="updateRemainNum" parameterType="java.util.Map">
+		UPDATE TUSER_INFO
+		SET REMAIN_NUM = (REMAIN_NUM + #{iMemberShipUsage})
+		WHERE TNO = #{mno}
+	</update>
 
 
 

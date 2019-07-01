@@ -166,9 +166,25 @@ public class TrainerController {
 	   
 	   //트레이너 멤버쉽 결제 메소드(김진환)
 	   @RequestMapping("memberShipPayment.tr")
-	   public void memberShipPayment(String tno, String memberShipName) {
+	   public void memberShipPayment(String tno, String memberShipName, String memberShipUsage) {
 	      System.out.println("멤버쉽 서블릿 들어옴");
 	      System.out.println("받아온값  mno : " + tno + "멤버쉽이름 : " + memberShipName);
+	      int memberShipNo = 0;
+	      if(memberShipName.equals("S")) {
+	    	  memberShipNo = 1;
+	      }else if(memberShipName.equals("A")) {
+	    	  memberShipNo = 2;
+	      }else {
+	    	  memberShipNo = 3;
+	      }
+	      
+	      //멤버쉽 결제 후 인서트 서비스 이동
+	      int result = ts.insertmemberShipPayment(tno, memberShipNo, memberShipUsage);
+	      
+	      
+	      
+	      
+	      
 	      
 	   }
 	   
