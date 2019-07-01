@@ -88,6 +88,8 @@ tr {
 						    
 						    <!-- 프로필 사진이 null아닐 때 ---------------------------------------------------------------------------------------------------- -->
 						    <c:if test="${ !empty attachment }">
+						    
+						    
 							    <div class="diaryImgDiv"><img id="diaryImg" src="${contextPath}/resources/uploadFiles/${ pic }"></div>
 								<button class="modifydiaryImgBtn">사진 수정</button>
 							    <form action="modifyDiaryImg.di" method="post" enctype="multipart/form-data">
@@ -95,6 +97,8 @@ tr {
 							    	<input type="hidden" name="mno" value="${ sessionScope.loginUser.mno }"/>
 							        <input type="submit" class="modifydiaryImgSubmit" />
 							    </form>
+							    
+							    
 						    </c:if>
 						</td>
 						
@@ -112,8 +116,8 @@ tr {
 		<br />
 		<br />
 		<div class="tableArea">
-			<!-- <form action="insert.di" method="post" encType="multipart/form-data"> -->
-			<form action="insert.di" method="post">
+			<form action="insert.di" method="post" encType="multipart/form-data">
+			<!-- <form action="insert.di" method="post"> -->
 			<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" />
 				<table>
 					<tr>
@@ -123,7 +127,9 @@ tr {
 					</tr>
 					<tr></tr>
 					<tr>
-						<td id="font">사진을 등록하세요</td>
+						<td id="font">사진을 등록하세요
+							<input type="file" name="diaryImgFile" />
+						</td>
 					</tr>
 					<tr>
 						<td colspan="3">
@@ -168,7 +174,7 @@ tr {
 	<br />
 	<br />
 	
-	<!-- <script>
+	<script>
 	$(".modifydiaryImgBtn").hide();
 	
 	$(".diaryImgDiv").mouseenter(function(){
@@ -205,7 +211,6 @@ tr {
 		}
 	} 
 	</script>
- -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 
 </body>

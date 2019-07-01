@@ -22,11 +22,11 @@ public class DiaryServiceImpl implements DiaryService{
 	private DataSourceTransactionManager transactionManager;
 
 	//다이어리 내용 insert
-	@Override
-	public int insertDiary(Diary d, String mno) {
-		
-		return dd.insertDiary(sqlSession, d, mno);
-	}
+//	@Override
+//	public int insertDiary(Diary d, String mno) {
+//		
+//		return dd.insertDiary(sqlSession, d, mno);
+//	}
 
 	//다이어리 이미지 insert
 	@Override
@@ -55,6 +55,28 @@ public class DiaryServiceImpl implements DiaryService{
 	public List<Diary> diaryList(int mno) {
 		
 		return dd.diaryList(sqlSession, mno);
+	}
+
+	
+	//다이어리 insert 190701
+	@Override
+	public int insertDiary(Diary d, String mno, String filePath, String originalFilename, String changeName,
+			String ext) {
+		
+		int result = 0;
+		
+		int result1 = dd.insertDiary(sqlSession, d, mno);
+		
+		int result2 = dd.insertDiaryImg(sqlSession, mno, filePath, originalFilename, changeName, ext);
+		
+		if(result1 > 0 && result2 > 0) {
+			result = 1;
+		}else {
+			result = 0;
+		}
+		return result;
+		
+		
 	}
 
 	
