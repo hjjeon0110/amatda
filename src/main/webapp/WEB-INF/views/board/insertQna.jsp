@@ -282,7 +282,7 @@ margin:0 auto;
      <div class="firstTableLine2"></div>
       <h6><a href="insertQnaFormView.bo">Q&A</a></h6>
       <div class="firstTableLine2"></div>
-      <h6><a href="selectReviewFormView.bo">아맞다 후기리뷰</a></h6>
+      <h6><a href="selectReview.bo">아맞다 후기리뷰</a></h6>
       <div class="firstTableLine2"></div>
       <h6><a href="selectFaqFormView.bo">FAQ</a></h6>
       <div class="firstTableLine2"></div>

@@ -178,7 +178,7 @@ margin-bottom:15px;
      <div class="firstTableLine2"></div>
       <h6><a href="insertQnaFormView.bo">Q&A</a></h6>
       <div class="firstTableLine2"></div>
-      <h6><a href="selectReviewFormView.bo">아맞다 후기리뷰</a></h6>
+      <h6><a href="selectReview.bo">아맞다 후기리뷰</a></h6>
       <div class="firstTableLine2"></div>
       <h6><a href="selectFaqFormView.bo">FAQ</a></h6>
       <div class="firstTableLine2"></div>
@@ -206,10 +206,9 @@ margin-bottom:15px;
 		<c:forEach var="selectNotice" items="${ requestScope.selectNotice }" varStatus="status">
 			    <tr>
 			    	<td scope="row">${ status.count }
-			    	<input type="hidden" id="bNo" value="${selectNotice.bNo }">
+			    		<input type="hidden" id="bNo" value="${ selectNotice.bNo }">
 			    	</td>
-			    	<td>${selectNotice.bsCategory }</td>
-			    	
+			    	<td>${selectNotice.bsCategory }</td>		    	
 			    	<td>${selectNotice.bTitle }</td>
 			    	<td><fmt:formatDate pattern="yyyy-MM-dd" value="${selectNotice.bWriteDate }"/></td>
 			    	<%-- <td>${selectNotice.bWriteDate }</td> --%>
@@ -274,9 +273,12 @@ margin-bottom:15px;
 	<br>
 	
 	<script>
-	$(".table td").click(function(){
-		var num=$(this).parent().children().eq(0).text();
-		location.href="<%=request.getContextPath()%>/selectOneNotice.bo?bNo="+bNo;
+	$(".table td").mouseenter(function(){
+		$(this).css("cursor", "pointer")
+	}).click(function(){
+		var bNo= $(this).parent().children().children().eq(0).val();
+		console.log(bNo);
+		location.href="selectOneNotice.bo?bNo=" + bNo;
 	});
 	
 	

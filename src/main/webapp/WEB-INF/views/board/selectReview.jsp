@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
- 
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -242,7 +243,7 @@ a:active {text-decoration: none; color: #333333;}
      <div class="firstTableLine2"></div>
       <h6><a href="insertQnaFormView.bo">Q&A</a></h6>
       <div class="firstTableLine2"></div>
-      <h6><a href="selectReviewFormView.bo">아맞다 후기리뷰</a></h6>
+      <h6><a href="selectReview.bo">아맞다 후기리뷰</a></h6>
       <div class="firstTableLine2"></div>
       <h6><a href="selectFaqFormView.bo">FAQ</a></h6>
       <div class="firstTableLine2"></div>
@@ -255,7 +256,7 @@ a:active {text-decoration: none; color: #333333;}
 			<h2>아맞다 후기리뷰</h2>
 			<br>
 			<div class="bestReview">
-			<a href ="insertReview.bo"><h6>후기리뷰 작성
+			<a href ="insertReviewFormView.bo"><h6>후기리뷰 작성
 			<img id="writeicon"src="${ contextPath }/resources/images/writeicon.png"></h6></a>
 			<input type="text" id="searchArea" value="" placeholder="검색하실 내용을 입력하세요.">
 			<img id="searchicon"src="${ contextPath }/resources/images/searchicon.png">
@@ -272,26 +273,11 @@ a:active {text-decoration: none; color: #333333;}
   			
 		<br>
 				<div class="firstbestReviewLine">
-				<%-- 	<table class="review">
-						<tr>
-							<td><%= %></td>
-							<td></td>
-							<td></td>
-							
-						</tr>
-					
-					</table> --%>
-		
-		
-		
-		
-		<%-- <a href ="selectOneReview.bo"><img id="bestreviewpic1"src="${ contextPath }/resources/images/bestreviewpic1.JPG"></a>
-		<img id="bestreviewpic1"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic1"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic1"src="${ contextPath }/resources/images/bestreviewpic1.JPG"> --%>
+				
 				</div>
 		<br>
 		<br>
+		<table class = "3reviewTable" border="1" align="center">
 		
 		<div id="normalReviewList">
   			<h5>전체보기</h5> 
@@ -301,37 +287,36 @@ a:active {text-decoration: none; color: #333333;}
 		
 		<br>
 		<br>
-		<div class="firstbestReviewLine">
-		<a href ="selectOneReview.bo"><img id="bestreviewpic2"src="${ contextPath }/resources/images/bestreviewpic1.JPG"></a>
-		<img id="bestreviewpic2"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic2"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		</div>
-		<br>
-		<br>
-		<br>
+		
+		
+		<c:set var="i" value="0"/>
+		<c:set var="j" value="3"/>
+		
+		<c:forEach var="selectReview" items="${ requestScope.selectReview }" varStatus="status">
+		<c:if test="${i%j == 0 }">
+		
+		<tr>
+			</c:if>
+				<td width="1000px;" align="center"><p>${status.count }</p> <input type="hidden" id="bNo" value="${selectReview.bNo }">
+				<a href="selectOneReview.bo"><p>${selectReview.bTitle }</p></a>
+				<%-- <a href="${selectOneReview.bo}"><p>${selectReview.bTitle }</p></a> --%>
+				<p><fmt:formatDate pattern="MM월 dd일" value="${selectReview.bWriteDate }"/></p></td>
+			<c:if test="${i%j==j-1 }">
+				</tr>
+			</c:if>
+		
+			<c:set var = "i" value="${i+1 }"/>
+		
+		</c:forEach>
 		
 		<div class="firstbestReviewLine">
-		<img id="bestreviewpic3"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic3"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic3"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
 		</div>
-		<br>
-		<br>
-		<br>
-		<div class="firstbestReviewLine">
-		<img id="bestreviewpic2"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic2"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic2"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		</div>
-		<br>
-		<br>
-		<br>
 		
-		<div class="firstbestReviewLine">
-		<img id="bestreviewpic3"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic3"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		<img id="bestreviewpic3"src="${ contextPath }/resources/images/bestreviewpic1.JPG">
-		</div>
+		
+		</table>
+		
+		
+		
 		
 		<br><br><br>
   			<div class="checkboxgroup">
@@ -343,7 +328,7 @@ a:active {text-decoration: none; color: #333333;}
   			
 	  		<!-- 페이징 시작 -->
 	  		
-	  		<div class="paging">
+	  		<!-- <div class="paging">
 				<a href="#" class="direction fisrt"><span>처음</span></a>
 				<a href="#" class="direction prev"><span>이전</span></a>
 				<a href="#">1</a>
@@ -357,7 +342,7 @@ a:active {text-decoration: none; color: #333333;}
 				<a href="#">9</a>
 				<a href="#" class="direction next"><span>다음</span></a>
 				<a href="#" class="direction last"><span>끝</span></a>
-			</div>
+			</div> -->
 				
 		</div>
 	</div>
@@ -376,7 +361,21 @@ a:active {text-decoration: none; color: #333333;}
 	<br>
 	<br>
 	<br>
+	<script>
+	$(function(){
+		
+		$(".3reviewTable").find("td").mouseenter(function(){					
+			$(this).parents("tr").css({"background":"white","cursor":"pointer"});		
+		}).click(function(){
+
+			var no = $(this).parents("tr").children("td").children().eq(1).val();
+			
+			location.href="selectOneReview.bo?bNo=" + no;
+		})
+		
+	})
 	
+	</script>
 	
 
 </body>

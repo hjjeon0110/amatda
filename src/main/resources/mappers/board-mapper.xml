@@ -165,7 +165,7 @@
   
   
 <!-- 공지사항/이벤트 게시물 상세조회(SR) -->
-  	<select id="selectOneNotice" resultMap="boardResultSet">
+  	<select id="selectOneNotice" resultMap="boardResultSet" parameterType="_int">
   		SELECT *
         FROM (SELECT * FROM BOARD WHERE BTYPE = 1 OR BTYPE=2)
         WHERE BNO = #{bNo}
@@ -187,6 +187,12 @@
   	AND BSTATUS = 'Y'
   </select>
   
+  <!-- 사용자 후기리뷰 상세 게시물 출력(SR) -->
+  <select id="selectOneReview" resultMap="boardResultSet">
+  SELECT *
+  FROM (SELECT * FROM BOARD WHERE BTYPE = 5)
+  WHERE BNO=#{bNo}
+  </select>
   
   
   

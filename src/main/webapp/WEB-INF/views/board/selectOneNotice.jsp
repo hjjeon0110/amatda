@@ -100,19 +100,18 @@ margin-left: 400px;
 				
 		<table class="contentTable">
 		  	<tr></tr>
-		  	
-		  	<c:forEach var="selectOneNotice" items="${ requestScope.selectOneNotice }" varStatus="status">
+		  <%-- 	<c:forEach var="selectOneNotice" items="${ requestScope.selectOneNotice }" varStatus="status"> --%>
 			<tr class="bordered" >
 				
-				<td scope="row">${ status.count }
-			    	<input type="hidden" id="bNo" value="${selectOneNotice.bNo }">
+				<td scope="row">
+			    	<input type="hidden" id="bNo" value="${ Board.bNo }">
 			    	</td>
-			    	<td>${selectOneNotice.bsCategory }</td>
+			    	<td>${ Board.bsCategory }</td>
 			    	
-			    	<td>${selectOneNotice.bTitle }</td>
-			    	<td><fmt:formatDate pattern="yyyy-MM-dd" value="${selectOneNotice.bWriteDate }"/></td>
+			    	<td>${ Board.bTitle }</td>
+			    	<td><fmt:formatDate pattern="yyyy-MM-dd" value="${ Board.bWriteDate }"/></td>
 			    	<%-- <td>${selectNotice.bWriteDate }</td> --%>
-			    	<td>${selectOneNotice.bCount }</td>
+			    	<td>${ Board.bCount }</td>
 				
 				
 				<%-- <th width="10%"><%=b.getbNo()%></th>
@@ -127,11 +126,11 @@ margin-left: 400px;
 			 
 			<tr class="bordered2">
 				<td colspan="5">
-					${selectOneNotice.bContent }
+					${ Board.bContent }
 				</td>
 			</tr>
 			
-			 </c:forEach>
+			<%--  </c:forEach> --%>
 			</table>
 			
 			<br><br><br>
