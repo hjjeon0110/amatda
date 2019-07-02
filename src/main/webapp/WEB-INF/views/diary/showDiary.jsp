@@ -67,8 +67,7 @@ tr {
 		<br /> <br /> <br />
 		<div class="tableArea">
 			<form action="insert.di" method="post" encType="multipart/form-data">
-				<input type="hidden" name="mNo"
-					value="${ sessionScope.loginUser.mno }" />
+				<input type="hidden" name="mNo"	value="${ sessionScope.loginUser.mno }" />
 				<table>
 					<tr>
 						<td id="font">제 목 <input type="text" size="40" name="bTitle" autofocus>

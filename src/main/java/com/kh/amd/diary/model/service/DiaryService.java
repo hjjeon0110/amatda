@@ -22,7 +22,9 @@ public interface DiaryService {
 	//다이어리 list
 	List<Diary> diaryList(int mno);
 
-	Object selectDetailDiary(int bNo);
+	Diary selectDetailDiary(int bno);
+
+	Attachment selectAttachmentOne(int bno);
 
 	
 

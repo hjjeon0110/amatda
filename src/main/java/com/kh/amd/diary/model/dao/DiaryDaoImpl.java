@@ -74,9 +74,16 @@ public class DiaryDaoImpl implements DiaryDao{
 
 	//다이어리 상세보기
 	@Override
-	public Object selectDetailDiary(SqlSessionTemplate sqlSession, int bNo) {
+	public Diary selectDetailDiary(SqlSessionTemplate sqlSession, int bno) {
 		
-		return sqlSession.selectOne("Diary.selectDetailDiary", bNo);
+		return sqlSession.selectOne("Diary.selectDetailDiary", bno);
+	}
+
+	//다이어리 이미지 상세
+	@Override
+	public Attachment selectAttachmentOne(SqlSessionTemplate sqlSession, int bno) {
+		
+		return sqlSession.selectOne("Diary.selectAttachmentOne",bno);
 	}
 
 	

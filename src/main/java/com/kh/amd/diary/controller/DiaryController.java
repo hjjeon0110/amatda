@@ -226,11 +226,13 @@ public class DiaryController {
 		
 		int mno = m.getMno();
 		
+		
 		List<Diary> diaryList = ds.diaryList(mno);
+		
 		
 		System.out.println("diaryList: " + diaryList);
 		
-		model.addAttribute("list", diaryList);
+		model.addAttribute("diaryList", diaryList);
 		
 		return "diary/diaryList";
 		
@@ -238,11 +240,22 @@ public class DiaryController {
 	
 	//다이어리 상세보기
 	@RequestMapping(value="selectDetailDiary.di", method=RequestMethod.GET)
-	public ModelAndView selectDetailDiary(@RequestParam int bNo, HttpSession session) {
+	public ModelAndView selectDetailDiary(@RequestParam int bno, HttpSession session) {
 		
+		System.out.println("컨트롤러 bno : " + bno);
+		
+		Diary d = ds.selectDetailDiary(bno);
+		Attachment a = ds.selectAttachmentOne(bno);
+		
+		System.out.println("다이어리 : " + d);
+		System.out.println("다이어리 이미지 : " + a);
+				
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("diary/selectDetailDiary");
-		mav.addObject("diary", ds.selectDetailDiary(bNo));
+		mav.addObject("diary", ds.selectDetailDiary(bno));
+		
+		mav.addObject("d", d);
+		mav.addObject("a", a);
 		
 		return mav;
 		

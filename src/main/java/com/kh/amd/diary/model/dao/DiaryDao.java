@@ -26,6 +26,9 @@ public interface DiaryDao {
 	//다이어리 list
 	List<Diary> diaryList(SqlSessionTemplate sqlSession, int mno);
 
-	Object selectDetailDiary(SqlSessionTemplate sqlSession, int bNo);
+	//다이어리 상세보기
+	Diary selectDetailDiary(SqlSessionTemplate sqlSession, int bno);
+
+	Attachment selectAttachmentOne(SqlSessionTemplate sqlSession, int bno);
 
 }
