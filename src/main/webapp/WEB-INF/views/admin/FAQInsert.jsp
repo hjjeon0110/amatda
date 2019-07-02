@@ -26,9 +26,9 @@
 	https://templatemo.com/tm-524-product-admin
 	-->
 <style>
-	#button{
-		margin-left:550px;
-	}
+#button {
+	margin-left: 550px;
+}
 </style>
 </head>
 
@@ -88,8 +88,9 @@
 									class="dropdown-item" href="refund.ad">환불</a>
 							</div></li>
 
-						<li class="nav-item"><a class="nav-link" href="declaration.ad"> <i
-								class="fas fa-cog"></i> 신고관리 <span class="sr-only">(current)</span>
+						<li class="nav-item"><a class="nav-link"
+							href="declaration.ad"> <i class="fas fa-cog"></i> 신고관리 <span
+								class="sr-only">(current)</span>
 						</a></li>
 
 						<li class="nav-item"><a class="nav-link" href="statistics.ad">
@@ -121,57 +122,59 @@
 							</div>
 						</div>
 
-						<select class="custom-select tm-select-accounts" id="category">
-							<option selected>전체</option>
-							<option value="1">회원</option>
-							<option value="2">트레이너</option>
-						</select> <select class="custom-select tm-select-accounts" id="category">
-							<option selected>서비스</option>
-							<option value="1">결제</option>
-							<option value="2">환불</option>
-							<option value="3">기타</option>
-						</select> <br> <br>
-
+						<form method="post" action="FAQInsert.ad ">
 						
-							
-								<form action="">
-									<div class="form-group">
-										<label for="name">글 제목 </label> <input id="name" name="name"
-											type="text" class="form-control validate" />
-									</div>
-									<div class="form-group">
-										<label for="description">글 내용</label>
-										<textarea class="form-control validate" rows="10"></textarea>
-									</div>
+							<select class="custom-select tm-select-accounts" name="blCategory">
+								<option value="전체">전체</option>
+								<option value="회원">회원</option>
+								<option value="트레이너">트레이너</option>
+							</select> 
+							<select class="custom-select tm-select-accounts" name="bmCategory">
+								<option value="서비스">서비스</option>
+								<option value="결제">결제</option>
+								<option value="환불">환불</option>
+								<option value="기타">기타</option>
+							</select> <br> <br>
 
-								</form>
-						
-									<div id="button">
-										<a href="FAQ.ad" class="button">목록</a>
-										<button class="button">등록</button>
-									</div>
+							<div class="form-group">
+								<label for="name">글 제목 </label> 
+								<input id="name" name="bTitle"
+									type="text" class="form-control validate" />
+							</div>
+							<div class="form-group">
+								<label for="description">글 내용</label>
+								<textarea class="form-control validate" rows="10"
+								name="bContent"></textarea>
 							</div>
 
-						</div>
+							<div id="button">
+								<a href="FAQ.ad" class="button">목록</a>
+								<button type="submit" class="button">등록</button>
+							</div>
 
+						</form>
 					</div>
 
 				</div>
 
 			</div>
 
+		</div>
+
+	</div>
 
 
 
-		<script src="<c:url value="/resources/ad-js/jquery-3.3.1.min.js" />"></script>
-		<!-- https://jquery.com/download/ -->
-		<script src="<c:url value="/resources/ad-js/moment.min.js" />"></script>
-		<!-- https://momentjs.com/ -->
-		<script src="<c:url value="/resources/ad-js/Chart.min.js" />"></script>
-		<!-- http://www.chartjs.org/docs/latest/ -->
-		<script src="<c:url value="/resources/ad-js/bootstrap.min.js" />"></script>
-		<!-- https://getbootstrap.com/ -->
-		<script src="<c:url value="/resources/ad-js/tooplate-scripts.js" />"></script>
+
+	<script src="<c:url value="/resources/ad-js/jquery-3.3.1.min.js" />"></script>
+	<!-- https://jquery.com/download/ -->
+	<script src="<c:url value="/resources/ad-js/moment.min.js" />"></script>
+	<!-- https://momentjs.com/ -->
+	<script src="<c:url value="/resources/ad-js/Chart.min.js" />"></script>
+	<!-- http://www.chartjs.org/docs/latest/ -->
+	<script src="<c:url value="/resources/ad-js/bootstrap.min.js" />"></script>
+	<!-- https://getbootstrap.com/ -->
+	<script src="<c:url value="/resources/ad-js/tooplate-scripts.js" />"></script>
 </body>
 
 </html>
