@@ -47,6 +47,18 @@
 		<result property="aStatus" column="A_STATUS" />
 		<result property="filePath" column="FILE_PATH" />
 	</resultMap>
+	<resultMap id="paymentResultSet" type="Payment">
+		<id column="PAY_NO" property="payNo"/>		
+		<result column="MEMBERSHIP_NO" property="membershipNo"/>		
+		<result column="TNO" property="tno"/>		
+		<result column="PROCESS" property="process"/>		
+		<result column="PAY_TYPE" property="payType"/>		
+		<result column="PAY_DATE" property="payDate"/>		
+		<result column="REFUND_REASON" property="refundReason"/>		
+		<result column="MEMBERSHIP_TYPE" property="membershipType"/>		
+		<result column="MEMBERSHIP_COUNT" property="membershipCount"/>		
+		<result column="MEMBERSHIP_PRICE" property="membershipPrice"/>	
+	</resultMap>
 
 
 
