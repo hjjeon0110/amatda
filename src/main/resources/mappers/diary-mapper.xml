@@ -101,6 +101,13 @@
 		WHERE BTYPE = 6
 		AND BWRITER = #{mno}
   	</select>
+  	
+  	<!-- 다이어리 상세조회 -->
+  	<select id="selectDetailDiary" resultMap="diaryResultSet">
+  		SELECT *
+		FROM BOARD
+		WHERE BNO = #{bNo}
+  	</select>
 
 	
 </mapper>

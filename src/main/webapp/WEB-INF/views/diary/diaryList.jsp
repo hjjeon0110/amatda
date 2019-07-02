@@ -118,19 +118,19 @@
 				
 				
 				
-				$("#declarationArea").find("td").mouseenter(function(){					
+				$(".listArea").find("td").mouseenter(function(){					
 					$(this).parents("tr").css({"background":"#f8585b","cursor":"pointer"});		
 				}).mouseout(function(){
 					$(this).parents("tr").css({"background":"#567086"});
 				}).click(function(){
 	
-					var no = $(this).parents("tr").children("th").children().eq(1).val();
+					var no = $(this).parents("tr").children("th").children().eq(0).val();
 					//console.log(no);
 					
-					location.href="declarationSelectOne.ad?decl_no=" + no;
-				})
+					location.href="selectDetailDiary?bNo=" + no;
+				});
 				
-			})
+			});
 		</script>
 </div>
 </div>
