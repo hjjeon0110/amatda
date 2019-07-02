@@ -1,5 +1,6 @@
 package com.kh.amd.survey.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -104,15 +105,21 @@ public class SurveyController {
 	//세번째 설문조사 insert   --우리나 손댐
 	@RequestMapping(value="insert3.su")
 	public String insertSurvey3(Model model, Survey s, HttpServletRequest request) {
+				
+		String[] hopeExercise = s.getHopeExercise().split(",");
 		
-		System.out.println(s);
+		String hopeExercise2 = "";
+		
+		for(int i = 0; i < hopeExercise.length; i++) {
+			System.out.println(hopeExercise[i]);
+			hopeExercise2 += "#" + hopeExercise[i];
+		}
+		System.out.println(hopeExercise2);
 		
 		String mno = request.getParameter("mNo");
-		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
 		int result = ss.insertSurvey3(s, mno);
-				
 		
 		if(result > 0) {
 			
