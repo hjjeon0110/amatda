@@ -117,7 +117,7 @@
     	$.ajax({
     		url:"selectMissionList.ms",
     		type:"post",
-    		data:{mDate0:mDate0},
+    		data:{mDate0:mDate0,mno:mno},
     		
     		success:function(data){
     			var mContent = decodeURIComponent(data.mContent);
@@ -126,6 +126,7 @@
     			$("#breakfast2").val(mContent);
     		},error:function(status){
     			alert("조회실패");
+    			$("#breakfast2").val("");
     		}
     	})
     	
@@ -133,7 +134,7 @@
     	$.ajax({
     		url:"selectMissionLunchList.ms",
     		type:"post",
-    		data:{mDate0:mDate0},
+    		data:{mDate0:mDate0,mno:mno},
     		
     		success:function(data){
     			var mContent = decodeURIComponent(data.mContent);
@@ -142,6 +143,7 @@
     			$("#lunch2").val(mContent);
     		},error:function(status){
     			alert("조회실패");
+    			$("#lunch2").val("");
     		}
     	})
     	
@@ -149,7 +151,7 @@
     	$.ajax({
     		url:"selectMissionDinnerList.ms",
     		type:"post",
-    		data:{mDate0:mDate0},
+    		data:{mDate0:mDate0,mno:mno},
     		
     		success:function(data){
     			var mContent = decodeURIComponent(data.mContent);
@@ -158,6 +160,7 @@
     			$("#dinner2").val(mContent);
     		},error:function(status){
     			alert("조회실패");
+    			$("#dinner2").val("");
     		}
     	})
     	
@@ -166,7 +169,7 @@
     	$.ajax({
     		url:"selectBreakEx.ms",
     		type:"post",
-    		data:{mDate0:mDate0},
+    		data:{mDate0:mDate0,mno:mno},
     		
     		success:function(data){
     			var mContent = decodeURIComponent(data.mContent);
@@ -175,6 +178,7 @@
     			$("#breakEx2").val(mContent);
     		},error:function(status){
     			alert("조회실패");
+    			$("#breakEx2").val("");
     		}
     	})
     	
@@ -186,7 +190,7 @@
     	
     	
     	//점심 운동조회
-    	/* $.ajax({
+    	 $.ajax({
     		url:"selectLunchEx.ms",
     		type:"post",
     		data:{mDate0:mDate0, mno:mno},
@@ -198,8 +202,28 @@
     			$("#lunchEx2").val(mContent);
     		},error:function(status){
     			alert("조회실패");
+    			$("#lunchEx2").val("");
     		}
-    	}) */
+    	}) 
+    	
+    	
+    	
+    	//저녁 운동조회
+    	$.ajax({
+    		url:"selectDinnerEx.ms",
+    		type:"post",
+    		data:{mDate0:mDate0, mno:mno},
+    		
+    		success:function(data){
+    			var mContent = decodeURIComponent(data.mContent);
+    			console.log(data.mContent);
+    			alert("조회성공");
+    			$("#dinnerEx2").val(mContent);
+    		},error:function(status){
+    			alert("조회실패");
+    			$("#dinnerEx2").val("");
+    		}
+    	}) 
     	
     	
     	
@@ -207,13 +231,14 @@
     	$.ajax({
     		url:"selectMissionExList.ms",
     		type:"post",
-    		data:{mDate0:mDate0},
+    		data:{mDate0:mDate0,mno:mno},
     		success:function(data){
-    			
+    			var mLink = decodeURIComponent(data.mLink);
     			alert("조회성공");
-    			$("#breakExLink2").val(data.mLink);
+    			$("#breakExLink2").val(mLink);
     		},error:function(status){
     			alert("조회실패");
+    			$("#breakExLink2").val("");
     		}
     	})
     	
@@ -222,15 +247,16 @@
     	$.ajax({
     		url:"selectMissionExLunchList.ms",
     		type:"post",
-    		data:{mDate0:mDate0},
+    		data:{mDate0:mDate0,mno:mno},
     		
     		success:function(data){
     			var mLink = decodeURIComponent(data.mLink);
     			console.log(data.mLink);
     			alert("조회성공");
-    			$("#lunchExLink2").val(data.mLink);
+    			$("#lunchExLink2").val(mLink);
     		},error:function(status){
     			alert("조회실패");
+    			$("#lunchExLink2").val("");
     		}
     	})
     	
@@ -241,15 +267,16 @@
     	$.ajax({
     		url:"selectMissionExDinnerList.ms",
     		type:"post",
-    		data:{mDate0:mDate0},
+    		data:{mDate0:mDate0,mno:mno},
     		
     		success:function(data){
     			var mLink = decodeURIComponent(data.mLink);
     			console.log(data.mLink);
     			alert("조회성공");
-    			$("#dinnerExLink2").val(data.mLink);
+    			$("#dinnerExLink2").val(mLink);
     		},error:function(status){
     			alert("조회실패");
+    			$("#dinnerExLink2").val("");
     		}
     	})
     	
@@ -268,6 +295,12 @@
    
 
   });
+  
+  
+ 
+  
+  
+  
   $(function(){
 	  var date2 = new Date();
 	  if(date2.getMonth()<12){
@@ -342,7 +375,7 @@
 <c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
 		scope="application" />
   <jsp:include page="../common/menubar.jsp"/>
-  
+ <c:if test="${sessionScope.loginUser.mtype =='T'}">   
   <div id="container">
  <div id='calendar' style="margin-top:30px; width:70%; height:550px"></div> 
  <%--  <!-- 트레이너만 보이는 오늘의 미션(체크박스x) -->
@@ -387,7 +420,7 @@
   	 --%>
   	
   </div>
-  
+</c:if>  
   
   
   
@@ -411,13 +444,13 @@
         		<td><label style="margin-left:80px; margin-top:40px" id="eating">식단</label><hr></td>
         	</tr>
         	<tr>
-        		<td><label id="breakf">아침</label><input type="text" id="breakfast2"></td>
+        		<td><label id="breakf">아침</label><input type="text" id="breakfast2"><button type="button" onclick="updateBreakEat()" style="margin-left:10px">수정하기</button></td>
         	</tr>
         	<tr>
-        		<td><label id="lun">점심</label><input type="text" id="lunch2"></td>
+        		<td><label id="lun">점심</label><input type="text" id="lunch2"><button type="button" onclick="updateLunchEat()" style="margin-left:10px">수정하기</button></td>
         	</tr>
         	<tr>
-        		<td><label id="din">저녁</label><input type="text" id="dinner2"></td>
+        		<td><label id="din">저녁</label><input type="text" id="dinner2"><button type="button" onclick="updateDinnerEat()" style="margin-left:10px">수정하기</button></td>
         	</tr>
         	
         	
@@ -426,6 +459,7 @@
         	</tr>
         	<tr>
         		<td><label id="breakE">아침</label><input type="text" id="breakEx2" ></td>
+        		<td rowspan="2"><button type="button" onclick="updateBreakEx()" style="margin-left:10px; width:50px; height:50px;">수정하기</button></td>
         	</tr>
         	
         	<tr>
@@ -433,19 +467,21 @@
         	</tr>
         	<tr>
         		<td><label id="lunE">점심</label><input type="text" id="lunchEx2"></td>
+        		<td rowspan="2"><button type="button" onclick="updateLunchEx()" style="margin-left:10px; width:50px; height:50px;">수정하기</button></td>
         	</tr>
         	<tr>	
         		<td><input type="text" id="lunchExLink2" style="margin-left:50px"></td>
         	</tr>
         	<tr>
         		<td><label id="dinE">저녁</label><input type="text" id="dinnerEx2"></td>
+        		<td rowspan="2"><button type="button" onclick="updateDinnerEx()" style="margin-left:10px; width:50px; height:50px;">수정하기</button></td>
         	</tr>
         	<tr>
         		<td><input type="text" id="dinnerExLink2" style="margin-left:50px"></td>
         	</tr>
-        	<tr>
+        	<!-- <tr>
         		<td><input type="submit" value="수정하기" style="margin-left:80px" onclick="updateMission()"></td>
-        	</tr>
+        	</tr> -->
         </table>
       </div>
       <div class="modal-footer">
@@ -463,10 +499,214 @@
 
 
 
+function updateBreakEat(){
+	var mno =  ${sessionScope.loginUser.mno};
+	var mDate2 = $("#mDate2").val();
+	var breakf = $("#breakf").text();
+	var breakfast2 = $("#breakfast2").val();
+	var eating = $("#eating").text();
+	
+	console.log("breakf: " + breakf); //아침
+	console.log("breakfast2: " + breakfast2); //내용
+	console.log("update 아침 내용 날짜: " + mDate2);
+	console.log("mno: " + mno);
+	console.log("eating: " + eating);  // 식단
+	
+	
+	$.ajax({
+		url: "updateBreakEat.ms",
+		type: "post",
+		data:{mno:mno, mDate2:mDate2, breakf:breakf, breakfast2:breakfast2, eating:eating},
+		success:function(data){
+			alert("아침 식단 수정 완료!");
+		},error:function(status){
+			alert("미션 수정 실패");
+		}
+	})
+	
+	
+}
+
+//리얼 정석 스프링 ajax & Controller!!! 코드 리뷰는 이걸로
+function updateLunchEat(){
+	var mno =  ${sessionScope.loginUser.mno};
+	var mDate2 = $("#mDate2").val();
+	var lun = $("#lun").text();
+	var lunch2 = $("#lunch2").val();
+	var eating = $("#eating").text();
+	
+	console.log("lun: " + lun); //점심
+	console.log("lunch2: " + lunch2); //내용
+	console.log("update 점심 내용 날짜: " + mDate2);
+	console.log("mno: " + mno);
+	console.log("eating: " + eating);  // 식단
+	
+	
+	$.ajax({
+		url: "updateLunchEat.ms",
+		type: "post",
+		data:{mno:mno, mDate2:mDate2, lun:lun, lunch2:lunch2, eating:eating},
+		success:function(data){
+			if(data=="success"){
+				alert("점심 식단 수정 완료!");
+			}
+		},error:function(data){
+			if(data=="fail"){
+				alert("미션 수정 실패");
+			}
+		}
+	})
+	
+	
+}
 
 
 
 
+
+function updateDinnerEat(){
+
+
+	var mno =  ${sessionScope.loginUser.mno};
+	var mDate2 = $("#mDate2").val();
+	var din = $("#din").text();
+	var dinner2 = $("#dinner2").val();
+	var eating = $("#eating").text();
+	
+	console.log("din: " + din); //저녁
+	console.log("dinner2: " + lunch2); //내용
+	console.log("update 점심 내용 날짜: " + mDate2);
+	console.log("mno: " + mno);
+	console.log("eating: " + eating);  // 식단
+	
+	
+	$.ajax({
+		url: "updateDinnerEat.ms",
+		type: "post",
+		data:{mno:mno, mDate2:mDate2, din:din, dinner2:dinner2, eating:eating},
+		success:function(data){
+			if(data=="success"){
+				alert("저녁 식단 수정 완료!");
+			}
+		},error:function(data){
+			if(data=="fail"){
+				alert("미션 수정 실패");
+			}
+		}
+	})
+
+}
+
+
+
+//미션수정 - 아침운동 내용 & 아침운동 링크
+function updateBreakEx(){
+	var mno = ${sessionScope.loginUser.mno};
+	var mDate2 = $("#mDate2").val();
+	
+	var breakE = $("#breakE").text();  
+	console.log("breakE: " + breakE);  //아침
+	
+	var breakEx2 = $("#breakEx2").val();   
+	console.log("breakEx2: " + breakEx2);  //내용
+	
+	var exercise = $("#exercise").text();
+	console.log("exercise: " + exercise);  //운동
+	
+	var breakExLink2 = $("#breakExLink2").val(); //링크
+	console.log("breakExLink2: " + breakExLink2);
+	
+	$.ajax({
+		url:"updateBreakEx.ms",
+		type:"post",
+		data:{mno:mno, mDate2:mDate2, breakE:breakE, breakEx2:breakEx2, exercise:exercise, breakExLink2:breakExLink2},
+		success:function(data){
+			if(data=="success"){
+				alert("아침 운동 수정 완료!");
+			}
+	},error:function(data){
+		if(data=="fail"){
+			alert("미션 수정 실패");
+		}
+	}
+	})
+}
+
+
+
+
+//미션수정 - 점심운동 내용 & 점심운동 링크
+function updateLunchEx(){
+	var mno = ${sessionScope.loginUser.mno};
+	var mDate2 = $("#mDate2").val();
+	
+	var lunE = $("#lunE").text();  
+	console.log("lunE: " + lunE);  //아침
+	
+	var lunchEx2 = $("#lunchEx2").val();   
+	console.log("lunchEx2: " + lunchEx2);  //내용
+	
+	var exercise = $("#exercise").text();
+	console.log("exercise: " + exercise);  //운동
+	
+	var lunchExLink2 = $("#lunchExLink2").val(); //링크
+	console.log("lunchExLink2: " + lunchExLink2);
+	
+	$.ajax({
+		url:"updateLunchEx.ms",
+		type:"post",
+		data:{mno:mno, mDate2:mDate2, lunE:lunE, lunchEx2:lunchEx2, exercise:exercise, lunchExLink2:lunchExLink2},
+		success:function(data){
+			if(data=="success"){
+				alert("점심 운동 수정 완료!");
+			}
+		},error:function(data){
+			if(data=="fail"){
+				alert("미션 수정 실패");
+			}
+		}
+	
+	})
+
+}
+
+
+
+
+//미션수정 - 저녁운동 내용 & 저녁운동 링크
+function updateDinnerEx(){
+	var mno = ${sessionScope.loginUser.mno};
+	var mDate2 = $("#mDate2").val();
+	
+	var dinE = $("#dinE").text();  
+	console.log("dinE: " + dinE);  //아침
+	
+	var dinnerEx2 = $("#dinnerEx2").val();   
+	console.log("dinnerEx2: " + dinnerEx2);  //내용
+	
+	var exercise = $("#exercise").text();
+	console.log("exercise: " + exercise);  //운동
+	
+	var dinnerExLink2 = $("#dinnerExLink2").val(); //링크
+	console.log("dinExLink2: " + dinnerExLink2);
+	
+	$.ajax({
+		url:"updateDinnerEx.ms",
+		type:"post",
+		data:{mno:mno, mDate2:mDate2, dinE:dinE, dinnerEx2:dinnerEx2, exercise:exercise, dinnerExLink2:dinnerExLink2},
+		success:function(data){
+			if(data=="success"){
+				alert("저녁 운동 수정 완료!");
+			}
+		},error:function(data){
+			if(data=="fail"){
+				alert("미션 수정 실패");
+			}
+		}
+	
+	})
+
+}
 
 
 
@@ -478,7 +718,7 @@ function updateMission(){
 	var mDate2 = $("#mDate2").val();
 	console.log("mDate2: " + mDate2);
 	
-	var exercise = $("#exercise").text();
+	var exercise = $("#exercise").val();
 	console.log("exercise: " + exercise);
 	
 	var eating = $("#eating").text();
@@ -532,6 +772,10 @@ function updateMission(){
 			alert("미션 수정 실패");
 		}
 	})
+	
+	
+	
+	
 
 }
 

@@ -43,7 +43,7 @@ public class BoardServiceImpl implements BoardService{
 
 	//공지사항 상세보기(김선아)
 	@Override
-	public Object noticeSelectOne(int bNo) {
+	public Board noticeSelectOne(int bNo) {
 		return bd.noticeSelectOne(sqlSession, bNo);
 	}
 
@@ -66,10 +66,30 @@ public class BoardServiceImpl implements BoardService{
 			bd.increaseViewcnt(sqlSession, bNo);
 			//세션에 시간 저장
 			session.setAttribute("update_time_" + bNo, current_time);
-		}
-		
-		
+		}	
 	}
+
+	//공지사항 글등록(김선아)
+	@Override
+	public void insertNotice(Board board) {
+		bd.insertNotice(sqlSession, board);		
+	}
+
+	//공지사항 삭제(김선아)
+	@Override
+	public void deleteNotice(int bNo) {
+		bd.deleteNotice(sqlSession, bNo);		
+	}
+
+	//공지사항 수정(김선아)
+	@Override
+	public int updateNotice(Board board) {
+		return bd.updateNotice(sqlSession, board);
+	}
+	
+	
+	
+	
 	//공지사항/이벤트 리스트 출력(SR)
 	@Override
 	public List<Board> selectNotice() {
@@ -92,10 +112,9 @@ public class BoardServiceImpl implements BoardService{
 
 	//공지사항/이벤트 게시물 상세페이지(SR)
 	@Override
-	public Object selectOneNotice(int bNo) {
-		
-		 System.out.println("bNo in serviceImpl : " + bNo);
-		return bd.selectOneNotice(sqlSession, bNo);
+	public Board selectOneNotice(int bNo) {
+		Board b = bd.selectOneNotice(sqlSession, bNo);
+		return b;
 	}
 
 	//FAQ게시판 아코디언 리스트 출력(SR)
@@ -111,6 +130,13 @@ public class BoardServiceImpl implements BoardService{
 		return bd.selectReview(sqlSession);
 	}
 
+	//리뷰게시판 상세페이지 (SR)
+	@Override
+	public Object selectOneReview(int bNo) {
+
+		return bd.selectOneReview(sqlSession);
+
+	}
 	
 
 	//공지사항/이벤트 게시판 페이징 (SR)
@@ -124,6 +150,45 @@ public class BoardServiceImpl implements BoardService{
 	public List<Board> searchNotice() {
 		return bd.searchNotice(sqlSession);
 	}*/
+
+	
+	
+
+	//1:1문의 리스트(김선아)
+	@Override
+	public List<Board> QNAList() {
+		return bd.QNAlist(sqlSession);
+	}
+
+	//자주묻는질문 리스트(김선아)
+	@Override
+	public List<Board> FAQList() {
+		return bd.FAQlist(sqlSession);
+	}
+
+	//자주묻는질문 상세보기(김선아)
+	@Override
+	public Board FAQSelectOne(int bNo) {
+		return bd.FAQSelectOne(sqlSession, bNo);
+	}
+
+
+	
+	
+	//공지사항 카테고리 게시물 상세페이지(SR)
+	@Override
+	public Board selectOneNoticeCate(int bNo) {
+		Board b = bd.selectOneNoticeCate(sqlSession, bNo);
+		return b;	
+		}
+
+	//★이벤트 카테고리 게시물 상세페이지(SR)
+	@Override
+	public Board selectOneEventCate(int bNo) {
+		Board b = bd.selectOneEventCate(sqlSession, bNo);
+		return b;
+	}
+	
 
 
 	//REVIEW 후기 페이지 (SR)

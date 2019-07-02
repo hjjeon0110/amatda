@@ -30,26 +30,56 @@ public interface MissionService {
 
 	Mission selectEatDinnerMission(Mission m);
 
-	Mission selectMissionList(String mDate0);
+	Mission selectMissionList(Mission m);
 
-	Mission selectMissionExList(String mDate0);
+	Mission selectMissionExList(Mission m);
 
-	Mission selectMissionExLunchList(String mDate0);
+	Mission selectMissionExLunchList(Mission m);
 
-	Mission selectMissionExDinnerList(String mDate0);
+	Mission selectMissionExDinnerList(Mission m);
 
+	Mission selectMissionLunchList(Mission m);
+
+	Mission selectMissionDinnerList(Mission m);
+
+	Mission selectBreakEx(Mission m);
+
+	Mission selectLunchEx(Mission m);
+
+	Mission selectDinnerEx(Mission m); 
+
+	
+	
 	int updateBreakExLink(Mission m);
 
-	Mission selectMissionLunchList(String mDate0);
-
-	Mission selectMissionDinnerList(String mDate0);
-
-	Mission selectBreakEx(String mDate0);
+	int updateLunchExLink(Mission m);
 
 	
+	//진짜 미션 수정
+	int updateBreakEat(Mission m);
 
-	/* Mission selectLunchEx(Mission m); */
+	int updateLunchEat(Mission m);
 
+	int updateDinnerEat(Mission m);
+
+	int updateBreakEx(Mission m);
+
+	int updateLunchEx(Mission m);
+
+	int updateDinnerEx(Mission m);
 	
+	
+	//사용자 미션 수행 여부 체크
+	int insertCheckBreak(Mission m);
+
+	int insertCheckLunch(Mission m);
+
+	int insertCheckDinner(Mission m);
+
+	int insertCheckBreakEx(Mission m);
+
+	int insertCheckLunchEx(Mission m);
+
+	int insertCheckDinnerEx(Mission m);
 	
 }

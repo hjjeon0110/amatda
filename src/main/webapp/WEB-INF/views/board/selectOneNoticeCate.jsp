@@ -139,7 +139,7 @@ margin-left: 400px;
 		
 	       <div class="boardBtn">
 	         <button type="button" class="btn btn-primary" data-toggle="modal" 
-		        data-target="#my80sizeCenterModal" onclick="location.href='selectNotice.bo'">목록</button>
+		        data-target="#my80sizeCenterModal" onclick="location.href='selectNoticeCate.bo'">목록</button>
 	        </div>
 		</div>
 		

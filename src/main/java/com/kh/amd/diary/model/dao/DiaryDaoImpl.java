@@ -25,7 +25,7 @@ public class DiaryDaoImpl implements DiaryDao{
 
 	//다이어리 이미지 insert
 	@Override
-	public void insertDiaryImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename,
+	public int insertDiaryImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename,
 			String changeName, String ext) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -35,7 +35,7 @@ public class DiaryDaoImpl implements DiaryDao{
 		map.put("changeName", changeName);
 		map.put("ext", ext);
 		
-		sqlSession.insert("Diary.insertDiaryImg", map);
+		return sqlSession.insert("Diary.insertDiaryImg", map);
 		
 	}
 
@@ -71,5 +71,30 @@ public class DiaryDaoImpl implements DiaryDao{
 		
 		return sqlSession.selectList("Diary.diaryList", mno);
 	}
+
+	//다이어리 상세보기
+	@Override
+	public Object selectDetailDiary(SqlSessionTemplate sqlSession, int bNo) {
+		
+		return sqlSession.selectOne("Diary.selectDetailDiary", bNo);
+	}
+
+	
+	
+	
+	//다이어리 insert 190701
+//	@Override
+//	public int insertDiary(SqlSessionTemplate sqlSession, Diary d, String mno, String filePath, String originalFilename, String changeName, String ext) {
+//		
+//		HashMap<String, Object> map = new HashMap<String, Object>();
+//		map.put("d", d);
+//		map.put("mno", mno);
+//		map.put("filePath", filePath);
+//		map.put("originalFilename", originalFilename);
+//		map.put("changeName", changeName);
+//		map.put("ext", ext);
+//		
+//		return sqlSession.insert("Diary.insertDiary", map);
+//	}
 
 }

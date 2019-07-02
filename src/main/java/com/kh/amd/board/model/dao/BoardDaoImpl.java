@@ -34,7 +34,7 @@ public class BoardDaoImpl implements BoardDao {
 	
 	//공지사항 상세보기(김선아)
 	@Override
-	public Object noticeSelectOne(SqlSessionTemplate sqlSession, int bNo) {
+	public Board noticeSelectOne(SqlSessionTemplate sqlSession, int bNo) {
 		return sqlSession.selectOne("Board.noticeSelectOne", bNo);
 	}
 
@@ -43,6 +43,43 @@ public class BoardDaoImpl implements BoardDao {
 	public void increaseViewcnt(SqlSessionTemplate sqlSession, int bNo) {
 		sqlSession.update("Board.increaseViewcnt", bNo);
 	}
+
+	//공지사항 글등록(김선아)
+	@Override
+	public void insertNotice(SqlSessionTemplate sqlSession, Board board) {
+		sqlSession.update("Board.insertNotice", board);		
+	}
+
+	//공지사항 삭제(김선아)
+	@Override
+	public void deleteNotice(SqlSessionTemplate sqlSession, int bNo) {
+		sqlSession.delete("Board.deleteNotice", bNo);	
+	}
+
+	//공지사항 수정(김선아)
+	@Override
+	public int updateNotice(SqlSessionTemplate sqlSession, Board board) {
+		return sqlSession.update("Board.updateNotice", board);
+	}
+
+	//1:1문의 리스트(김선아)
+	@Override
+	public List<Board> QNAlist(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Board.QNAlist");
+	}
+
+	//자주묻는질문 리스트(김선아)
+	@Override
+	public List<Board> FAQlist(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Board.FAQlist");
+	}
+
+	//자주묻는질문 상세보기(김선아)
+	@Override
+	public Board FAQSelectOne(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.selectOne("Board.FAQSelectOne", bNo);
+	}
+	
 
 	//공지사항/이벤트 리스트 출력(SR)
 	@Override
@@ -70,8 +107,14 @@ public class BoardDaoImpl implements BoardDao {
 
 	//공지사항/이벤트 게시물 상세페이지(SR)
 	@Override
-	public Object selectOneNotice(SqlSessionTemplate sqlSession, int bNo) {
+	public Board selectOneNotice(SqlSessionTemplate sqlSession, int bNo) {
 		return sqlSession.selectOne("Board.selectOneNotice", bNo);
+	}
+	
+	//공지사항 카테고리 게시물 상세페이지(SR)
+	@Override
+	public Board selectOneNoticeCate(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.selectOne("Board.selectOneNoticeCate", bNo);
 	}
 
 	//FAQ게시판 아코디언 리스트 출력(SR)
@@ -88,6 +131,23 @@ public class BoardDaoImpl implements BoardDao {
 		List<Board> list = (List) sqlSession.selectList("Board.selectReview");
 		return sqlSession.selectList("Board.selectReview");
 	}
+
+	//리뷰게시판 상세페이지 (SR)
+	@Override
+	public Object selectOneReview(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Board.selectOneReview");
+	}
+
+	//이벤트 카테고리 게시물 상세페이지(SR)
+	@Override
+	public Board selectOneEventCate(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.selectOne("Board.selectOneEventCate", bNo);
+	}
+
+	
+
+	
+	
 
 	//공지사항/이벤트 게시판 페이징 (SR)
 	/*

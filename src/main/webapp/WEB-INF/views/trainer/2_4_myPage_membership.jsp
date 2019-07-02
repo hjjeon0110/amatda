@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/fontawesome/css/font-awesome.min.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style>
 .menubarLi2 {
 	color:#ff0066;
@@ -155,8 +157,8 @@ select {
 	
 	<!-- 트레이너 마이페이지 서브메뉴바  --------------------------------------------------------------------------------------------- -->
 	<div class="subMenuBar">
-		<div class="subMenuBar1">멤버십 신청하기</div>
-		<div class="subMenuBar2">결제내역</div>
+		<div class="subMenuBar1" id="memberShipPay">멤버십 신청하기</div>
+		<div class="subMenuBar2" id="paymentList">결제내역</div>
 	</div>
 	
 	
@@ -240,28 +242,78 @@ select {
 	<div class="selectMembershipDiv">
 		<br><br>
 		<select name="memberShipName" id="memberShipName">
-			<option value="S"> 멤버십S</option>
-			<option value="A"> 멤버십A</option>
-			<option value="B"> 멤버십B</option>
+			<option value="S" value2="40000" value3="30"> 멤버십S</option>
+			<option value="A" value2="30000" value3="20"> 멤버십A</option>
+			<option value="B" value2="18000" value3="10"> 멤버십B</option>
 		</select>
 		<button class="payment" id="payment">결제하기</button>
 	</div>
 	
 	<script>
 	$(function(){
+		var tno = ${ sessionScope.loginUser.mno};
+		$("#memberShipPay").mouseenter(function(){
+			$(this).css("cursor", "pointer");
+		}).click(function(){
+			location.href="showMyPageMembership.tr";
+		})
+		$("#paymentList").mouseenter(function(){
+			$(this).css("cursor", "pointer");
+		}).click(function(){
+			location.href="paymentList.tr?tno=" + tno;
+		})
+	})
+	
+	//var IMP = window.IMP; // 생략가능
+	IMP.init("imp60214973"); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+	
+	$(function(){
 		$("#payment").click(function(){
-			var memberShipName = $("#memberShipName option:selected").val();
-			var tno = ${ sessionScope.loginUser.mno}
-			$.ajax({
-				url:"memberShipPayment.tr",
-				data: {tno:tno, memberShipName:memberShipName},
-				type:"get",
-				dataType:"json"
+			var memberShipName = $("#memberShipName option:selected").val();			
+			var memberShipCost = $("#memberShipName option:selected").attr("value2");
+			var memberShipUsage = $("#memberShipName option:selected").attr("value3");
+			var tno = ${ sessionScope.loginUser.mno};
+			var email = "${ sessionScope.loginUser.email}";
+			var name = "${ sessionScope.loginUser.name}";
+			
+			IMP.request_pay({
+				pg : 'inicis',
+				amount : 100,
+				buyer_name : name,
+				buyer_email : email,
+				name : memberShipName,
+			}, function(response) {
+				//결제 후 호출되는 callback함수
+				if ( response.success ) { //결제 성공
+					var msg = '결제가 완료되었습니다.';
 				
+					alert('멤버쉽' + memberShipName + '의' + msg)
+					$.ajax({
+						url:"memberShipPayment.tr",
+						data: {tno:tno, memberShipName:memberShipName, memberShipCost:memberShipCost, memberShipUsage:memberShipUsage},
+						type:"post",
+						success:function(data){
+							console.log(data)
+							
+						},
+						error:function(data){
+							console.log(data);
+						},
+						complete:function(){
+							location.href = "paymentList.tr?tno=" + tno;
+						}
+					})
+				} else {
+					 var msg = 'ajax빠져 나온 메시지 : 결제에 실패하였습니다.\n';
+				     alert(msg);
+				}
 			})
+			
+			
 		})
 		
-	})
+	});
+	
 		
 	</script>
 	

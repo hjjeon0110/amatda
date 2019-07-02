@@ -225,26 +225,26 @@
   		<label>오늘의 식단</label><hr>
   		<table>
   		<tr>
-  		<td><label>아침</label><br><label id="selbreakfast" style=""></label></td>
+  		<td><label>아침</label><br><label id="selbreakfast" style="margin-left:20px"></label></td>
   		</tr>
   		<tr>
-  		<td><label>점심</label><br><label id="sellunch"></label></td>
+  		<td><label>점심</label><br><label id="sellunch" style="margin-left:20px"></label></td>
   		</tr>
   		<tr>
-  		<td><label>저녁</label><br><label id="seldinner"></label></td>
+  		<td><label>저녁</label><br><label id="seldinner" style="margin-left:20px"></label></td>
   		</tr>
   		</table>
   	
   		<label style="margin-top:30px">오늘의 운동</label><hr>
   		<table>
   		<tr>
-  		<td><label>아침</label><br><label id="selbreakEx" style="width:300px;"></label><a href="" id="selbreakExLink"></a></td>
+  		<td><label>아침</label><br><label id="selbreakEx" style="margin-left:20px;"></label><a href="" id="selbreakExLink" style="margin-left:20px;"></a></td>
   		</tr>
   		<tr>
-  		<td><label>점심</label><br><label id="sellunchEx"></label><a href="" id="sellunchExLink"></a></td>
+  		<td><label>점심</label><br><label id="sellunchEx" style="margin-left:20px"></label><a href="" id="sellunchExLink" style="margin-left:20px;"></a></td>
   		</tr>
   		<tr>
-  		<td><label>저녁</label><br><label id="seldinnerEx"></label><a href="" id="seldinnerExLink"></a></td>
+  		<td><label>저녁</label><br><label id="seldinnerEx" style="margin-left:20px"></label><a href="" id="seldinnerExLink" style="margin-left:20px;"></a></td>
   		</tr>
   		
   		</table>

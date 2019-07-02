@@ -61,106 +61,130 @@ INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '저녁
 </insert>
 
 <select id="selectMission" parameterType="Mission" resultType="Mission">
-SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='운동' AND MTIME='아침' 
+SELECT MCONTENT,MLINK,COMPLETEYN FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='운동' AND MTIME='아침' 
 </select>
 
 <select id="selectLunctMission" parameterType="Mission" resultType="Mission"> 
-SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='운동' AND MTIME='점심' 
+SELECT MCONTENT,MLINK,COMPLETEYN FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='운동' AND MTIME='점심' 
 </select>
 
 <select id="selectDinnerMission" parameterType="Mission" resultType="Mission"> 
-SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='운동' AND MTIME='저녁' 
+SELECT MCONTENT,MLINK,COMPLETEYN FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='운동' AND MTIME='저녁' 
 </select>
 
 <select id="selectEatBreakMission" parameterType="Mission" resultType="Mission"> 
-SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='식단' AND MTIME='아침' 
+SELECT MCONTENT,MLINK,COMPLETEYN FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='식단' AND MTIME='아침' 
 </select>
 
 <select id="selectEatLunchMission" parameterType="Mission" resultType="Mission"> 
-SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='식단' AND MTIME='점심' 
+SELECT MCONTENT,MLINK,COMPLETEYN FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='식단' AND MTIME='점심' 
 </select>
 
 <select id="selectEatDinnerMission" parameterType="Mission" resultType="Mission"> 
-SELECT MCONTENT,MLINK FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='식단' AND MTIME='저녁' 
+SELECT MCONTENT,MLINK,COMPLETEYN FROM MISSION WHERE MDATE= #{mDate} AND MTYPE='식단' AND MTIME='저녁' 
 </select>
 
 
 <!-- 미션 수정전, 값 가져오기 ( 아침식단 )  -->
-<select id="selectMissionList" parameterType="java.lang.String" resultMap="missionResultSet">
+<select id="selectMissionList" parameterType="Mission" resultMap="missionResultSet">
 SELECT *
 FROM MISSION
-WHERE MDATE = #{mDate0}
+WHERE MDATE = #{mDate}
 AND MTIME = '아침'
-AND MTYPE = '식단' 
+AND MTYPE = '식단'
+AND TNO=#{tno}
+AND UNO=1 
 </select>
 
 
-<select id="selectMissionLunchList" parameterType="java.lang.String" resultMap="missionResultSet">
+<select id="selectMissionLunchList" parameterType="Mission" resultMap="missionResultSet">
 SELECT *
 FROM MISSION
-WHERE MDATE = #{mDate0}
+WHERE MDATE = #{mDate}
 AND MTIME = '점심'
 AND MTYPE = '식단'
+AND TNO=#{tno}
+AND UNO=1
 </select>
 
 
 
-<select id="selectMissionDinnerList" parameterType="java.lang.String" resultMap="missionResultSet">
+<select id="selectMissionDinnerList" parameterType="Mission" resultMap="missionResultSet">
 SELECT *
 FROM MISSION
-WHERE MDATE = #{mDate0}
+WHERE MDATE = #{mDate}
 AND MTIME = '저녁'
 AND MTYPE = '식단'
+AND TNO=#{tno}
+AND UNO=1
 </select>
 
 <!-- 미션 수정전, 값 가져오기( 아침 운동 내용 ) -->
-<select id="selectBreakEx" parameterType="java.lang.String" resultMap="missionResultSet">
+<select id="selectBreakEx" parameterType="Mission" resultMap="missionResultSet">
 SELECT *
 FROM MISSION
-WHERE MDATE = #{mDate0}
-AND MTIME = '아침'
-AND MTYPE = '운동' 
-</select>
-
-<!-- <select id="selectLunchEx" parameterType="Mission" resultMap="missionResultSet">
-SELECT *
-FROM MISSION
-WHERE MDATE = #{mDate0}
+WHERE MDATE = #{mDate}
 AND MTIME = '아침'
 AND MTYPE = '운동'
 AND TNO=#{tno}
+AND UNO=1 
+</select>
+
+<select id="selectLunchEx" parameterType="Mission" resultMap="missionResultSet">
+SELECT *
+FROM MISSION
+WHERE MDATE = #{mDate}
+AND MTIME = '점심'
+AND MTYPE = '운동'
+AND TNO=#{tno}
 AND UNO=1
-</select> -->
+</select> 
+
+<select id="selectDinnerEx" parameterType="Mission" resultMap="missionResultSet"> 
+SELECT *
+FROM MISSION
+WHERE MDATE = #{mDate}
+AND MTIME = '저녁'
+AND MTYPE = '운동'
+AND TNO=#{tno}
+AND UNO=1
+</select>
 
 <!-- 미션 수정전, 값 가져오기 ( 아침운동 링크 ) -->
-<select id="selectMissionExList" parameterType="java.lang.String" resultMap="missionResultSet">
+<select id="selectMissionExList" parameterType="Mission" resultMap="missionResultSet">
 SELECT *
 FROM MISSION
-WHERE MDATE = #{mDate0}
+WHERE MDATE = #{mDate}
 AND MTIME = '아침'
-AND MTYPE = '운동' 
+AND MTYPE = '운동'
+AND TNO=#{tno}
+AND UNO=1 
 </select>
 
 
-<select id="selectMissionExLunchList" parameterType="java.lang.String" resultMap="missionResultSet">
+<select id="selectMissionExLunchList" parameterType="Mission" resultMap="missionResultSet">
 SELECT *
 FROM MISSION
-WHERE MDATE = #{mDate0}
+WHERE MDATE = #{mDate}
 AND MTIME = '점심'
-AND MTYPE = '운동' 
+AND MTYPE = '운동'
+AND TNO=#{tno}
+AND UNO=1 
 </select>
 
 
-<select id="selectMissionExDinnerList" parameterType="java.lang.String" resultMap="missionResultSet">
+<select id="selectMissionExDinnerList" parameterType="Mission" resultMap="missionResultSet">
 SELECT *
 FROM MISSION
-WHERE MDATE = #{mDate0}
+WHERE MDATE = #{mDate}
 AND MTIME = '저녁'
 AND MTYPE = '운동' 
+AND TNO=#{tno}
+AND UNO=1
 </select>
 
 
-
+<!-- 아침 운동링크 수정 -->
 <update id="updateBreakExLink" parameterType="Mission">
 UPDATE MISSION
 SET MLINK = #{mLink}
@@ -171,4 +195,180 @@ AND MTIME=#{mTime}
 AND MTYPE=#{mType}
 </update> 
 
+
+
+
+<update id="updateLunchExLink" parameterType="Mission">
+UPDATE MISSION
+SET MLINK = #{mLink}
+WHERE TNO=#{tno}
+AND UNO=1
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+</update>
+
+
+
+<update id="updateDinnerExLink" parameterType="Mission">
+UPDATE MISSION
+SET MLINK = #{mLink}
+WHERE TNO=#{tno}
+AND UNO=1
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+</update>
+
+
+<!-- 정말 미션 수정 ( 아침 식단 내용 ) -->
+<update id="updateBreakEat" parameterType="Mission">
+UPDATE MISSION
+SET MCONTENT = #{mContent}
+WHERE TNO=#{tno}
+AND UNO=1
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+</update>
+
+<update id="updateLunchEat" parameterType="Mission"> 
+UPDATE MISSION
+SET MCONTENT = #{mContent}
+WHERE TNO=#{tno}
+AND UNO=1
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+</update>
+
+<update id="updateDinnerEat" parameterType="Mission"> 
+UPDATE MISSION
+SET MCONTENT = #{mContent}
+WHERE TNO=#{tno}
+AND UNO=1
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+</update>
+
+
+<update id="updateBreakEx" parameterType="Mission"> 
+UPDATE MISSION
+SET MCONTENT = #{mContent},
+    MLINK = #{mLink}
+WHERE TNO=#{tno}
+AND UNO=1
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+</update>
+
+
+<update id="updateLunchEx" parameterType="Mission"> 
+UPDATE MISSION
+SET MCONTENT = #{mContent},
+    MLINK = #{mLink}
+WHERE TNO=#{tno}
+AND UNO=1
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+</update>
+
+
+<update id="updateDinnerEx" parameterType="Mission"> 
+UPDATE MISSION
+SET MCONTENT = #{mContent},
+    MLINK = #{mLink}
+WHERE TNO=#{tno}
+AND UNO=1
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+</update>
+
+
+
+
+<update id="updateCheckBreak" parameterType="Mission">  <!-- update는 resulType을 적지않는다! -->
+UPDATE MISSION
+SET COMPLETEYN = #{completeYN}
+WHERE UNO=#{uno}
+AND TNO=2
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+AND MCONTENT=#{mContent}
+</update>
+
+
+
+
+<update id="updateCheckLunch" parameterType="Mission">
+UPDATE MISSION
+SET COMPLETEYN = #{completeYN}
+WHERE UNO=#{uno}
+AND TNO=2
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+AND MCONTENT=#{mContent}
+</update>
+
+
+
+<update id="updateCheckDinner" parameterType="Mission">
+UPDATE MISSION
+SET COMPLETEYN = #{completeYN}
+WHERE UNO=#{uno}
+AND TNO=2
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+AND MCONTENT=#{mContent}
+</update>
+
+
+
+<update id="updateCheckBreakEx" parameterType="Mission">
+UPDATE MISSION
+SET COMPLETEYN = #{completeYN}
+WHERE UNO=#{uno}
+AND TNO=2
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+AND MCONTENT=#{mContent}
+AND MLINK=#{mLink}
+</update>
+
+
+<update id="updateCheckLunchEx" parameterType="Mission">
+UPDATE MISSION
+SET COMPLETEYN = #{completeYN}
+WHERE UNO=#{uno}
+AND TNO=2
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+AND MCONTENT=#{mContent}
+AND MLINK=#{mLink}
+
+</update>
+
+
+
+
+<update id="updateCheckDinnerEx" parameterType="Mission">
+UPDATE MISSION
+SET COMPLETEYN = #{completeYN}
+WHERE UNO=#{uno}
+AND TNO=2
+AND MDATE=#{mDate}
+AND MTIME=#{mTime}
+AND MTYPE=#{mType}
+AND MCONTENT=#{mContent}
+AND MLINK=#{mLink}
+</update>
 </mapper>

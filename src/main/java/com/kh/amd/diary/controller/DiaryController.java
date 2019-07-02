@@ -5,14 +5,17 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.common.CommonUtils;
@@ -39,26 +42,52 @@ public class DiaryController {
 	
 	//다이어리 insert
 	@RequestMapping(value="insert.di")
-	public String insertDiary(Model model, Diary d, HttpServletRequest request){
+	public String insertDiary(Model model, Diary d, Member m, HttpServletRequest request, @RequestParam(name="diaryImgFile", required=false) MultipartFile diaryImgFile){
+		
 		
 		System.out.println(d);
 		
-		String mno = request.getParameter("mNo");
-		
 		String root = request.getSession().getServletContext().getRealPath("resources");
+
+		String mno = request.getParameter("mNo");		
 		
-		int result = ds.insertDiary(d, mno);
+		String filePath = root + "\\uploadFiles";		
+		String originalFilename = diaryImgFile.getOriginalFilename();
+		String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
+		String changeName = CommonUtils.getRandomString();
 		
-			if(result > 0) {
 				
-				return "redirect:index.jsp";
-				
-			}else {
-				
-				model.addAttribute("msg","등록실패");
-				
-				return "common/errorPage";
-			}
+		
+		try {
+			
+			diaryImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
+		
+			ds.insertDiary(d, mno, filePath, originalFilename, changeName, ext);
+			
+			return "redirect:list.di?mno=" + mno;
+			
+		}catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+			System.out.println("에러발생");
+		}
+
+		return "diary/showDiary";
+
+		
+		
+		
+//		int result = ds.insertDiary(d, mno);
+//		
+//			if(result > 0) {
+//				
+//				return "redirect:index.jsp";
+//				
+//			}else {
+//				
+//				model.addAttribute("msg","등록실패");
+//				
+//				return "common/errorPage";
+//			}
 		
 		
 		//return "redirect:index.jsp";
@@ -85,33 +114,36 @@ public class DiaryController {
 			// 파일 이름 변경
 			System.out.println(diaryImgFile);
 			String originalFilename = diaryImgFile.getOriginalFilename();
+			
+			
+			
 			String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
 			String changeName = CommonUtils.getRandomString();
 
-			try {
-
-				diaryImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
-				
-				ds.insertDiaryImg(mno, filePath, originalFilename, changeName, ext);
-				
-				int mno2 = Integer.parseInt(mno);
-							
-								
-				// 프로필 사진 존재 여부 확인 (전효정)
-				Attachment attachment = ds.checkDiaryImg(mno2);
-				
-				if(attachment != null) {
-					model.addAttribute("attachment", attachment);
-					String pic = attachment.getModiName() + attachment.getExtension();
-					model.addAttribute("pic", pic);		
-				}else {
-					model.addAttribute("attachment", attachment);
-				}	
-
-			} catch (IllegalStateException | IOException e) {
-				e.printStackTrace();
-				System.out.println("에러발생");
-			}
+//			try {
+//
+//				diaryImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
+//				
+//				ds.insertDiaryImg(mno, filePath, originalFilename, changeName, ext);
+//				
+//				int mno2 = Integer.parseInt(mno);
+//							
+//								
+//				// 프로필 사진 존재 여부 확인 (전효정)
+//				Attachment attachment = ds.checkDiaryImg(mno2);
+//				
+//				if(attachment != null) {
+//					model.addAttribute("attachment", attachment);
+//					String pic = attachment.getModiName() + attachment.getExtension();
+//					model.addAttribute("pic", pic);		
+//				}else {
+//					model.addAttribute("attachment", attachment);
+//				}	
+//
+//			} catch (IllegalStateException | IOException e) {
+//				e.printStackTrace();
+//				System.out.println("에러발생");
+//			}
 
 			return "diary/showDiary";
 			
@@ -204,12 +236,25 @@ public class DiaryController {
 		
 	}
 	
-	@RequestMapping("updateDiary.di")
-	public String updateDiary() {
+	//다이어리 상세보기
+	@RequestMapping(value="selectDetailDiary.di", method=RequestMethod.GET)
+	public ModelAndView selectDetailDiary(@RequestParam int bNo, HttpSession session) {
 		
-		return "diary/updateDiary";
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("diary/selectDetailDiary");
+		mav.addObject("diary", ds.selectDetailDiary(bNo));
+		
+		return mav;
 		
 	}
+	
+	//다이어리 update
+		@RequestMapping("updateDiary.di")
+		public String updateDiary() {
+			
+			return "diary/updateDiary";
+			
+		}
 	
 	@RequestMapping("deleteDiary.di")
 	public String deleteDiary() {

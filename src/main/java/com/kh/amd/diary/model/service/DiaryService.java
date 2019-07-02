@@ -8,7 +8,7 @@ import com.kh.amd.diary.model.vo.Diary;
 public interface DiaryService {
 
 	//다이어리 내용 insert
-	int insertDiary(Diary d, String mno);
+	int insertDiary(Diary d, String mno, String filePath, String originalFilename, String changeName, String ext);
 
 	//다이어리 이미지 insert
 	void insertDiaryImg(String mno, String filePath, String originalFilename, String changeName, String ext);
@@ -21,6 +21,8 @@ public interface DiaryService {
 
 	//다이어리 list
 	List<Diary> diaryList(int mno);
+
+	Object selectDetailDiary(int bNo);
 
 	
 

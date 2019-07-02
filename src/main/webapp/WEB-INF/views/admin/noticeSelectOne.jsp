@@ -123,14 +123,16 @@
 				<div class="tm-bg-primary-dark tm-block tm-block-taller">
 					<h2 class="tm-block-title">공지사항</h2>
 
-					<table class="table" id="declarationArea">
+					<table class="table" id="noticeArea">
 						<thead>
 							<tr>
 								<th scope="col">${notice.bsCategory }</th>
 								<th scope="col">${notice.blCategory }-${notice.bmCategory }</th>								
 								<th scope="col">${notice.bTitle }</th>
 								<th scope="col"><fmt:formatDate pattern="yyyy-MM-dd" value="${notice.bWriteDate }"/></th>
-								<th scope="col">${notice.bCount }</th>
+								<th scope="col">${notice.bCount }
+								<input type="hidden" id="bNo" value="${notice.bNo }">
+								</th>
 							</tr>
 						</thead>
 
@@ -142,8 +144,10 @@
 						<a href="notice.ad" class="button" id="list">목록</a>
 					</div>
 					<div id="button" class="button2">
-						<button class="button">수정</button>
-						<button class="button">삭제</button>
+						<!-- <button type="submit" formaction="noticeUpdate" formmethod="get"
+						class="button">수정</button> -->
+						<a href="noticeUpdate.ad?bNo=${notice.bNo}" class="button" id="update">수정</a>
+						<button class="button" id="deleteBtn">삭제</button>
 					</div>
 
 				</div>
@@ -160,6 +164,35 @@
 	<script src="<c:url value="/resources/ad-js/bootstrap.min.js" />"></script>
 	<!-- https://getbootstrap.com/ -->
 	<script src="<c:url value="/resources/ad-js/tooplate-scripts.js" />"></script>
+
+	
+	<!-- 모달창 -->
+	<script>
+		$(document).ready(function(){
+			$("#deleteBtn").click(function(){
+				
+				if(confirm("삭제하시겠습니까?")){
+					//console.log("성공");
+					var no = $("#noticeArea").find("input").val();
+					location.href="deleteNotice.ad?bNo=" + no;
+			
+				}
+			})
+		})
+		
+		/*    $("#updateBtn").click(function(){	
+			var no = $("#noticeArea").find("input").val();
+			console.log(no);
+			location.href="noticeUpdate.ad";
+		})  */
+		
+		
+	</script>
+			
+
+		
+
+
 
 
 </body>

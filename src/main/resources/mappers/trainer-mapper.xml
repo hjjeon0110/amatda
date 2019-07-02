@@ -47,6 +47,19 @@
 		<result property="aStatus" column="A_STATUS" />
 		<result property="filePath" column="FILE_PATH" />
 	</resultMap>
+	<resultMap type="Payment" id="paymentResultSet">
+		<id property="payNo" column="PAY_NO"/>
+		<result property="membershipNo" column="MEMBERSHIP_NO"/>
+		<result property="tno" column="TNO"/>
+		<result property="process" column="PROCESS"/>
+		<result property="payType" column="PAY_TYPE"/>
+		<result property="payDate" column="PAY_DATE"/>
+		<result property="refundReason" column="REFUND_REASON"/>
+		<result property="membershipType" column="MEMBERSHIP_TYPE"/>
+		<result property="membershipCount" column="MEMBERSHIP_COUNT"/>
+		<result property="membershipPrice" column="MEMBERSHIP_PRICE"/>
+	</resultMap>
+	
 
 
 
@@ -97,6 +110,28 @@
 		JOIN MEMBER M ON(T.TNO = M.MNO)
 		WHERE T.TNO = #{mno}
 	</select>
+	<insert id="insertmemberShipPayment" parameterType="java.util.Map">
+		INSERT INTO PAYMENT 
+		VALUES(PAY_SEQ.NEXTVAL, #{memberShipNo}, #{mno}, '결제완료', 'card', sysdate, null)
+	
+	</insert>
+	<update id="updateRemainNum" parameterType="java.util.Map">
+		UPDATE TUSER_INFO
+		SET REMAIN_NUM = (REMAIN_NUM + #{iMemberShipUsage})
+		WHERE TNO = #{mno}
+	</update>
+	<select id="getPaymentListCount" resultType="_int">
+		SELECT COUNT(*)
+  		FROM PAYMENT
+  		WHERE TNO = #{tno}
+	</select>
+	<select id="paymentList" resultMap="paymentResultSet" parameterType="_int">
+		SELECT *
+		FROM PAYMENT P
+		JOIN MEMBERSHIP M ON(P.MEMBERSHIP_NO = M.MEMBERSHIP_NO)
+		WHERE TNO = #{tno2}
+	</select>
+	
 
 
 

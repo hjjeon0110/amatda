@@ -80,7 +80,51 @@
   		UPDATE BOARD SET BCOUNT = BCOUNT + 1
   		WHERE BNO = #{bNo}
   	</update>
+  	
+  	<!-- 공지사항 글등록(김선아) -->
+  	<insert id="insertNotice">
+  		INSERT INTO BOARD 
+  		VALUES(BNO_SEQ.NEXTVAL, 1, #{blCategory}, #{bmCategory}, #{bsCategory}, SYSDATE, NULL, #{bTitle}, 1, #{bContent}, 0, NULL, DEFAULT)
+  	</insert>
+  	
+  	<!-- 공지사항 삭제(김선아) -->
+  	<delete id="deleteNotice">
+		DELETE FROM BOARD
+		WHERE BNO = #{bNo}
+	</delete>
+	
+	<!-- 공지사항 수정(김선아) -->
+	<update id="updateNotice" parameterType="Board">
+		UPDATE BOARD 
+		SET BTITLE = #{bTitle},
+			BCONTENT = #{bContent}
+		WHERE BNO = #{bNo}
+	</update>
 
+	<!-- 1:1문의 리스트 조회(김선아) -->
+  	<select id="QNAlist" resultMap="boardResultSet">
+  		SELECT B.*, M.ID
+		FROM BOARD B
+		JOIN MEMBER M ON(BWRITER = MNO)
+		WHERE BTYPE = 4
+  	</select>
+  	
+  	<!-- 자주 묻는 질문 리스트 조회(김선아) -->
+  	<select id="FAQlist" resultMap="boardResultSet">
+  		SELECT B.*, M.ID
+		FROM BOARD B
+		JOIN MEMBER M ON(BWRITER = MNO)
+		WHERE BTYPE = 3
+  	</select>
+  	
+  	<!-- 자주 묻는 질문 상세조회(김선아) -->
+  	<select id="FAQSelectOne" resultMap="boardResultSet">
+  		SELECT *
+        FROM (SELECT * FROM BOARD WHERE BTYPE = 3)
+        WHERE BNO = #{bNo}
+  	</select>
+  	
+  	
   <!-- 	<insert id="insertReview" parameterType="Board">
   	INSERT INTO BOARD(BNO,BTYPE,BWRITE_DATE,BTITLE,BCONTENT,MNO)
   	VALUES (BNO_SEQ.NEXTVAL,#{bType}, sysdate, #{bTitle},#{bContent},#{mno})
@@ -121,7 +165,7 @@
   
   
 <!-- 공지사항/이벤트 게시물 상세조회(SR) -->
-  	<select id="selectOneNotice" resultMap="boardResultSet">
+  	<select id="selectOneNotice" resultMap="boardResultSet" parameterType="_int">
   		SELECT *
         FROM (SELECT * FROM BOARD WHERE BTYPE = 1 OR BTYPE=2)
         WHERE BNO = #{bNo}
@@ -143,7 +187,28 @@
   	AND BSTATUS = 'Y'
   </select>
   
+  <!-- 사용자 후기리뷰 상세 게시물 출력(SR) -->
+  <select id="selectOneReview" resultMap="boardResultSet">
+  SELECT *
+  FROM (SELECT * FROM BOARD WHERE BTYPE = 5)
+  WHERE BNO=#{bNo}
+  </select>
   
+  
+  <!-- 공지사항 카테고리 게시물 상세조회(SR) -->
+  	<select id="selectOneNoticeCate" resultMap="boardResultSet" parameterType="_int">
+  		SELECT *
+        FROM (SELECT * FROM BOARD WHERE BTYPE = 1)
+        WHERE BNO = #{bNo}
+  	</select>
+  	
+  	
+  	 <!-- 이벤트 카테고리 게시물 상세조회(SR) -->
+  	<select id="selectOneEventCate" resultMap="boardResultSet" parameterType="_int">
+  		SELECT *
+        FROM (SELECT * FROM BOARD WHERE BTYPE = 2)
+        WHERE BNO = #{bNo}
+  	</select>
   
   
   </mapper>

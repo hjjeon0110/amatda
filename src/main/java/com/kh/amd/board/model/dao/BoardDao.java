@@ -23,7 +23,7 @@ public interface BoardDao {
 	List<Board> noticeList(SqlSessionTemplate sqlSession);
 
 	//공지사항 상세보기(김선아)
-	Object noticeSelectOne(SqlSessionTemplate sqlSession, int bNo);
+	Board noticeSelectOne(SqlSessionTemplate sqlSession, int bNo);
 
 	//공지사항 조회수증가(김선아)
 	void increaseViewcnt(SqlSessionTemplate sqlSession, int bNo);
@@ -39,7 +39,7 @@ public interface BoardDao {
 	List<Board> selectEventCate(SqlSessionTemplate sqlSession);
 
 	//공지사항/이벤트 게시물 상세페이지(SR)
-	Object selectOneNotice(SqlSessionTemplate sqlSession, int bNo);
+	Board selectOneNotice(SqlSessionTemplate sqlSession, int bNo);
 
 	//FAQ게시판 아코디언 리스트 출력(SR)
 	List<Board> selectFaq(SqlSessionTemplate sqlSession);
@@ -47,12 +47,41 @@ public interface BoardDao {
 	//후기리뷰 게시판 리스트 출력(SR)
 	List<Board> selectReview(SqlSessionTemplate sqlSession);
 
+	//리뷰게시판 상세페이지 (SR)
+	Object selectOneReview(SqlSessionTemplate sqlSession);
+
+	
+
 	//공지사항/이벤트 게시판 페이징 (SR)
 	//List<Map<String, Object>> selectBoardList(Criteria cri);
 
 	//공지사항/이벤트 게시판 검색 (SR)
 	//List<Board> searchNotice(SqlSessionTemplate sqlSession);
 
+
+	//공지사항 글등록(김선아)
+	void insertNotice(SqlSessionTemplate sqlSession, Board board);
+
+	//공지사항 삭제(김선아)
+	void deleteNotice(SqlSessionTemplate sqlSession, int bNo);
+
+	//공지사항 수정(김선아)
+	int updateNotice(SqlSessionTemplate sqlSession, Board board);
+
+	//1:1문의 리스트(김선아)
+	List<Board> QNAlist(SqlSessionTemplate sqlSession);
+
+	//자주묻는질문 리스트(김선아)
+	List<Board> FAQlist(SqlSessionTemplate sqlSession);
+
+	//자주묻는질문 상세보기(김선아)
+	Board FAQSelectOne(SqlSessionTemplate sqlSession, int bNo);
+
+	//공지사항 카테고리 게시물 상세페이지(SR)
+	Board selectOneNoticeCate(SqlSessionTemplate sqlSession, int bNo);
+
+	//이벤트 카테고리 게시물 상세페이지(SR)
+	Board selectOneEventCate(SqlSessionTemplate sqlSession, int bNo);
 
 	//int insertQna(SqlSessionTemplate sqlSession, Board b, String mno);
 

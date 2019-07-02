@@ -5,11 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.trainer.model.vo.Estimate;
+import com.kh.amd.trainer.model.vo.Payment;
 import com.kh.amd.trainer.model.vo.Profile;
 
 @Repository
@@ -63,6 +66,52 @@ public class TrainerDaoImpl implements TrainerDao {
 	public String checkMemberShip(SqlSessionTemplate sqlSession, String mno) {
 		return sqlSession.selectOne("Trainer.checkRemainNum", mno);
 	}
+	
+	//멤버쉽 결제 인서트 서블릿(김진환)
+	@Override
+	public int insertmemberShipPayment(SqlSessionTemplate sqlSession, String tno, int memberShipNo, String memberShipUsage) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int mno = Integer.parseInt(tno);
+		int iMemberShipUsage =  Integer.parseInt(memberShipUsage);
+		
+		
+		map.put("mno", mno);
+		map.put("memberShipNo", memberShipNo);
+		map.put("iMemberShipUsage", iMemberShipUsage);
+		
+		System.out.println(map);
+			
+		sqlSession.update("Trainer.updateRemainNum", map);
+		
+		return sqlSession.insert("Trainer.insertmemberShipPayment", map);
+	}
+	
+	//내 결제내역 리스트 갯수 조회용 메소드(김진환)
+	@Override
+	public int getPaymentListCount(SqlSessionTemplate sqlSession, String tno) {
+		
+		
+		return sqlSession.selectOne("Trainer.getPaymentListCount", tno);
+	}
+	
+	//내 결제내역 리스트 조회용 메소드(김진환)
+	@Override
+	public List<Payment> paymentList(SqlSessionTemplate sqlSession, String tno, PageInfo pi) {
+		
+		int tno2 = Integer.parseInt(tno);
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		List<Payment> list = null;
+		list = (List) sqlSession.selectList("Trainer.paymentList", tno2, rowBounds);
+		
+		return list;
+	}
+
+
+
 	
 	
 	
@@ -243,6 +292,12 @@ public class TrainerDaoImpl implements TrainerDao {
 		sqlSession.update("Trainer.deleteMedia", map);
 	}
 
+
+
+
+	
+
+	
 	
 
 

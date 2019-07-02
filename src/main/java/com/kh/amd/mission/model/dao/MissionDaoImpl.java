@@ -85,26 +85,59 @@ public class MissionDaoImpl implements MissionDao{
 	}
 
 	@Override
-	public Mission selectMissionList(SqlSessionTemplate sqlSession, String mDate0) {
-		System.out.println("Dao에서 mDate0: " + mDate0);
-		return sqlSession.selectOne("Mission.selectMissionList",mDate0);
+	public Mission selectMissionList(SqlSessionTemplate sqlSession, Mission m) {
+		System.out.println("Dao에서 mDate0: " + m);
+		return sqlSession.selectOne("Mission.selectMissionList",m);
 	}
 
 	@Override
-	public Mission selectMissionExList(SqlSessionTemplate sqlSession, String mDate0) {
-		return sqlSession.selectOne("Mission.selectMissionExList",mDate0);
+	public Mission selectMissionExList(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.selectOne("Mission.selectMissionExList",m);
 	}
 
 	@Override
-	public Mission selectMissionExLunchList(SqlSessionTemplate sqlSession, String mDate0) {
-		return sqlSession.selectOne("Mission.selectMissionExLunchList",mDate0);
+	public Mission selectMissionExLunchList(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.selectOne("Mission.selectMissionExLunchList",m);
 	}
 
 	@Override
-	public Mission selectMissionExDinnerList(SqlSessionTemplate sqlSession, String mDate0) {
-		return sqlSession.selectOne("Mission.selectMissionExDinnerList",mDate0);
+	public Mission selectMissionExDinnerList(SqlSessionTemplate sqlSession,Mission m) {
+		return sqlSession.selectOne("Mission.selectMissionExDinnerList",m);
 	}
 
+
+	@Override
+	public Mission selectMissionLunchList(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.selectOne("Mission.selectMissionLunchList",m);
+	}
+
+	@Override
+	public Mission sselectMissionDinnerList(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.selectOne("Mission.selectMissionDinnerList",m);
+	}
+
+	@Override
+	public Mission selectBreakEx(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.selectOne("Mission.selectBreakEx",m);
+	}
+
+	
+	
+	@Override 
+	public Mission selectLunchEx(SqlSessionTemplate sqlSession, Mission m) { 
+		return sqlSession.selectOne("Mission.selectLunchEx",m); 
+	}
+
+	@Override
+	public Mission selectDinnerEx(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.selectOne("Mission.selectDinnerEx",m); 
+	}
+	
+	
+	
+	//운동링크 수정
+	
+	
 	@Override
 	public int updateBreakExLink(SqlSessionTemplate sqlSession, Mission m) {
 		System.out.println("Dao m: "  + m);
@@ -112,29 +145,70 @@ public class MissionDaoImpl implements MissionDao{
 	}
 
 	@Override
-	public Mission selectMissionLunchList(SqlSessionTemplate sqlSession, String mDate0) {
-		return sqlSession.selectOne("Mission.selectMissionLunchList",mDate0);
+	public int updateLunchExLink(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateLunchExLink",m);
 	}
 
 	@Override
-	public Mission sselectMissionDinnerList(SqlSessionTemplate sqlSession, String mDate0) {
-		return sqlSession.selectOne("Mission.selectMissionDinnerList",mDate0);
+	public int updateBreakEat(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateBreakEat",m);
 	}
 
 	@Override
-	public Mission selectBreakEx(SqlSessionTemplate sqlSession, String mDate0) {
-		return sqlSession.selectOne("Mission.selectBreakEx",mDate0);
+	public int updateLunchEat(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateLunchEat",m);
 	}
 
-	/*
-	 * @Override public Mission selectLunchEx(SqlSessionTemplate sqlSession, String
-	 * mDate0) { return sqlSession.selectOne("Mission.selectLunchEx",mDate0); }
-	 */
+	@Override
+	public int updateDinnerEat(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateDinnerEat",m);
+	}
 
-	/*
-	 * @Override public Mission selectLunchEx(SqlSessionTemplate sqlSession, Mission
-	 * m) { return sqlSession.selectOne("Mission.selectLunchEx",m); }
-	 */
+	@Override
+	public int updateBreakEx(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateBreakEx",m);
+	}
+
+	@Override
+	public int updateLunchEx(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateLunchEx",m);
+	}
+
+	@Override
+	public int updateDinnerEx(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateDinnerEx",m);
+	}
+
+	@Override
+	public int insertCheckBreak(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateCheckBreak",m);
+	}
+
+	@Override
+	public int insertCheckLunch(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateCheckLunch",m);
+	}
+
+	@Override
+	public int insertCheckDinner(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateCheckDinner",m);
+	}
+
+	@Override
+	public int insertCheckBreakEx(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateCheckBreakEx",m);
+	}
+
+	@Override
+	public int insertCheckLunchEx(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateCheckLunchEx",m);
+	}
+
+	@Override
+	public int insertCheckDinnerEx(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.update("Mission.updateCheckDinnerEx",m);
+	}
+	 
 
 	
 

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,26 +120,29 @@
 	<jsp:include page="../common/menubar.jsp"/> 
 	<img class="testImg" src="${ contextPath }/resources/images/sstestMain.jpg">
 	
-	<div class="outerform" align="center"> 	
-		<br>
-		<div class="contentTitle">
+	<div class="outerform" align="center"> 
+	<form action="insertOneReview.bo" method="post">	
+		<table class="selectOneReview">
+		<c:forEach var="selectOneReview" items="${ requestScope.selectOneReview }" varStatus="status"><br>
+		<tr class="contentTitle">
 		<h2>아맞다 후기리뷰</h2>
 		<br><br>
-		<h3><b>-30kg 하기까지..</b></h3>
-		<p>다이어트는 더이상 스트레스가 아니예요.</p>
-		<p>by 딸기는 맛있어</p>
+		<%-- <td>${selectOneReview.bTitle }</td> --%>
+		
+		<input type="hidden" id="bNo" value="${selectReview.bNo }">
+		<input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.userId }" />
+		<p>${selectOneReview.bTitle }</p>
+		<p></p>
+		<p></p>
 		
 		<div class="secondTableLine"></div>
 			<div class="likecount">
 				<a href ="selectOneReview.bo"><h6>1111<img id="likeicon"src="${ contextPath }/resources/images/likeicon.png"></h6></a>
 			</div>
-		</div>
+		</tr>
 			
 			<div class="reviewPic">
-		<img id="reviewPic1"src="${ contextPath }/resources/images/selectOneReview.JPG">
-		<br><br>
-		<img id="reviewPic1"src="${ contextPath }/resources/images/selectOneReview2.JPG">
-		</div><br>
+		<p>${selectOneReview.bContent }</p>
 			
 		 <button type="button" class="btn btn-primary" data-toggle="modal" 
 		        data-target="#my80sizeCenterModal">수정</button>
@@ -145,9 +151,12 @@
 		 <button type="button" class="btn btn-primary" data-toggle="modal" 
 		        data-target="#my80sizeCenterModal" onclick="location.href='selectReview.bo'"> 목록</button>
 		<br><br><br><br>
-		<input type="text" id="replybox" placeholder="내용을 입력하세요.">
+		<!-- <input type="text" id="replybox" placeholder="내용을 입력하세요.">
 		<button type="button" class="btn btn-primary" data-toggle="modal" 
-        data-target="#my80sizeCenterModal">작성</button>
+        data-target="#my80sizeCenterModal">작성</button> -->
+	</c:forEach>
+	</form>
+	</table>
 	</div>
 	
 	<br><br><br><br><br><br><br><br><br>

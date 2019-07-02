@@ -429,7 +429,7 @@ a#login_pop:hover, a#join_pop:hover {
      <div class="firstTableLine2"></div>
       <h6><a href="insertQnaFormView.bo">Q&A</a></h6>
       <div class="firstTableLine2"></div>
-      <h6><a href="selectReviewFormView.bo">아맞다 후기리뷰</a></h6>
+      <h6><a href="selectReview.bo">아맞다 후기리뷰</a></h6>
       <div class="firstTableLine2"></div>
       <h6><a href="selectFaqFormView.bo">FAQ</a></h6>
       <div class="firstTableLine2"></div>
@@ -627,7 +627,7 @@ $(function(){
 	}else{
 		alert("로그인을 하셔야 작성이 가능합니다.")
 		/* location.href="http://www.naver.com"; */
-		location.href="selectNotice.bo";
+		location.href="loginMember.me";
 	}
 	
 			

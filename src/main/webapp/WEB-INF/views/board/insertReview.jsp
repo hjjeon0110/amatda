@@ -163,7 +163,7 @@ display:inline;
 		}else{
 			alert("로그인을 하셔야 작성이 가능합니다.")
 			/* location.href="http://www.naver.com"; */
-			location.href="selectReviewFormView.bo";
+			location.href="loginMember.me";
 		}
 		
 				
