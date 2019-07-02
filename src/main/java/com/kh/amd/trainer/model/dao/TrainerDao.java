@@ -2,15 +2,12 @@ package com.kh.amd.trainer.model.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.amd.attachment.model.vo.Attachment;
-import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.vo.Estimate;
-import com.kh.amd.trainer.model.vo.Payment;
 import com.kh.amd.trainer.model.vo.Profile;
 
 public interface TrainerDao {
@@ -37,14 +34,6 @@ public interface TrainerDao {
 	
 	// 멤버쉽 결제 인서트(김진환)
 	int insertmemberShipPayment(SqlSessionTemplate sqlSession, String tno, int memberShipNo, String memberShipUsage);
-	
-	// 내 결제내역 리스트 갯수 조회용 메소드(김진환)
-	int getPaymentListCount(SqlSessionTemplate sqlSession, String tno);
-	
-	// 내 결제내역 리스트 조회용 메소드(김진환)
-	List<Payment> paymentList(SqlSessionTemplate sqlSession, String tno, PageInfo pi);
-
-
 
 	
 	
@@ -97,8 +86,6 @@ public interface TrainerDao {
 	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 	void deleteMidea(SqlSessionTemplate sqlSession, String mno, String thisModiName);
 
-	
-	
 	
 	
 	
