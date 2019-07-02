@@ -82,4 +82,6 @@ public interface MissionDao {
 
 	int insertCheckDinnerEx(SqlSessionTemplate sqlSession, Mission m);
 
+	List<Mission> selectMissionResult(SqlSessionTemplate sqlSession, Mission m);
+
 }

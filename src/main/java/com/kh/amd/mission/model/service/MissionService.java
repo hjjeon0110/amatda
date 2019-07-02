@@ -81,5 +81,7 @@ public interface MissionService {
 	int insertCheckLunchEx(Mission m);
 
 	int insertCheckDinnerEx(Mission m);
+
+	List<Mission> selectMissionResult(Mission m);
 	
 }
