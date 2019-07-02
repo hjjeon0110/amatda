@@ -250,6 +250,20 @@ select {
 	</div>
 	
 	<script>
+	$(function(){
+		var tno = ${ sessionScope.loginUser.mno};
+		$("#memberShipPay").mouseenter(function(){
+			$(this).css("cursor", "pointer");
+		}).click(function(){
+			location.href="showMyPageMembership.tr";
+		})
+		$("#paymentList").mouseenter(function(){
+			$(this).css("cursor", "pointer");
+		}).click(function(){
+			location.href="paymentList.tr?tno=" + tno;
+		})
+	})
+	
 	//var IMP = window.IMP; // 생략가능
 	IMP.init("imp60214973"); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 	
@@ -271,7 +285,7 @@ select {
 			}, function(response) {
 				//결제 후 호출되는 callback함수
 				if ( response.success ) { //결제 성공
-					 var msg = '결제가 완료되었습니다.';
+					var msg = '결제가 완료되었습니다.';
 				
 					alert('멤버쉽' + memberShipName + '의' + msg)
 					$.ajax({
@@ -279,16 +293,19 @@ select {
 						data: {tno:tno, memberShipName:memberShipName, memberShipCost:memberShipCost, memberShipUsage:memberShipUsage},
 						type:"post",
 						success:function(data){
-							alert(msg);
-							//location.href = ${index.jsp}
+							console.log(data)
+							
 						},
-						error:function(){
-							alert("결제에 실패했습니다, 다시 시도해주세요");
+						error:function(data){
+							console.log(data);
+						},
+						complete:function(){
+							location.href = "paymentList.tr?tno=" + tno;
 						}
 					})
 				} else {
-					 var msg = '결제에 실패하였습니다.\n';
-				     msg += '에러내용 : ' + rsp.error_msg;
+					 var msg = 'ajax빠져 나온 메시지 : 결제에 실패하였습니다.\n';
+				     alert(msg);
 				}
 			})
 			

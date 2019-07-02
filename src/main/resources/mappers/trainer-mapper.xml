@@ -72,7 +72,7 @@
 
 	<!-- 진환 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-	<!-- 서브 메뉴바내에서 견적서를 클릭시 로그인한 회원의 1번 견적서 열람 -->
+	<!-- 1. 서브 메뉴바내에서 견적서를 클릭시 로그인한 회원의 1번 견적서 열람 -->
 	<select id="selectEstimate" resultMap="estimateResultSet"
 		parameterType="java.util.Map">
 		SELECT E.EST_NAME, E.EST_COST, E.EST_CONTENTS, E.EST_TYPE, E.EST_NO, E.TNO, E.TRAINING_DAYS
@@ -81,12 +81,13 @@
 		WHERE E.EST_TYPE = #{iestType}
 		AND TNO = #{MNO}
 	</select>
-
+	<!-- 2. 견적서를 객체로 값을 전달받아 insert -->
 	<insert id="insertEstimate" parameterType="Estimate">
 		INSERT INTO ESTIMATE
 		VALUES(EST_SEQ.NEXTVAL, #{tno}, #{estName}, #{estPrice}, #{estDay}, #{estContents}, #{estType})
 	</insert>
 	
+	<!-- 3. 견적서를 객체로 값을 전달받아 update -->
 	<update id="updateEstimate" parameterType="Estimate">
 		UPDATE ESTIMATE
 		SET EST_NAME = #{estName},
@@ -97,33 +98,42 @@
 		AND EST_TYPE = #{estType}
 	</update>
 
+	<!-- 4. 트레이너 공개 설정 변경 update -->
 	<update id="updateTopen" parameterType="java.util.Map">
 		UPDATE TUSER_INFO
 		SET TOPEN = #{open}
 		WHERE TNO = #{mno}
 	</update>
 	
+	<!-- 5. 메인 메뉴바에 트레이너 멤버쉽 이용가능 횟수 표시 select -->
 	<select id="checkRemainNum" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT REMAIN_NUM
 		FROM TUSER_INFO T
 		JOIN MEMBER M ON(T.TNO = M.MNO)
 		WHERE T.TNO = #{mno}
 	</select>
+	
+	<!-- 6.멤버쉽 결제시 Payment 테이블의 값 Insert -->
 	<insert id="insertmemberShipPayment" parameterType="java.util.Map">
 		INSERT INTO PAYMENT 
 		VALUES(PAY_SEQ.NEXTVAL, #{memberShipNo}, #{mno}, '결제완료', 'card', sysdate, null)
-	
 	</insert>
+	
+	<!-- 7.결제완료시 멤버쉽 이용횟수를 추가 update -->
 	<update id="updateRemainNum" parameterType="java.util.Map">
 		UPDATE TUSER_INFO
 		SET REMAIN_NUM = (REMAIN_NUM + #{iMemberShipUsage})
 		WHERE TNO = #{mno}
 	</update>
+	
+	<!-- 8. 결제내역 조회한 항목을 Count해서 반환(페이징처리) -->
 	<select id="getPaymentListCount" resultType="_int">
 		SELECT COUNT(*)
   		FROM PAYMENT
   		WHERE TNO = #{tno}
 	</select>
+	
+	<!-- 9. 결제내역 조회해서 List로 반환해주는 쿼리 -->
 	<select id="paymentList" resultMap="paymentResultSet" parameterType="_int">
 		SELECT *
 		FROM PAYMENT P
@@ -131,7 +141,22 @@
 		WHERE TNO = #{tno2}
 		ORDER BY PAY_DATE DESC
 	</select>
-
+	
+	<!-- 10. 환불요청신청시 Payment 테이블 update -->
+	<update id="refundRequest" parameterType="java.util.Map">
+		UPDATE PAYMENT
+		SET PROCESS = '환불요청',
+		PAY_DATE = SYSDATE,
+		REFUND_REASON = #{refundReason}
+		WHERE PAY_NO = #{refundId}
+	</update>
+	
+	<!-- 11. 환불요청시 바로 멤버쉽의 횟수를 차감하는 쿼리 update-->
+	<update id="minusRemainNum" parameterType="java.util.Map">
+		UPDATE TUSER_INFO
+		SET REMAIN_NUM = (REMAIN_NUM - #{refundCountI})
+		WHERE TNO = #{mno}
+	</update>
 
 
 

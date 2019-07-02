@@ -2,15 +2,18 @@ package com.kh.amd.trainer.model.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.dao.TrainerDao;
 import com.kh.amd.trainer.model.vo.Estimate;
+import com.kh.amd.trainer.model.vo.Payment;
 import com.kh.amd.trainer.model.vo.Profile;
 
 @Service
@@ -58,13 +61,37 @@ public class TrainerServiceImpl implements TrainerService {
 		return td.checkMemberShip(sqlSession, mno);
 	}
 	
-	// 멤버십 결제 인서트 서블릿(김진환)
+	// 멤버십 결제 인서트 김진환(김진환)
 	@Override
 	public int insertmemberShipPayment(String tno, int memberShipNo, String memberShipUsage) {
 		
 		return td.insertmemberShipPayment(sqlSession, tno, memberShipNo, memberShipUsage);
 	}
+	
+	//내 결제내역 리스트 갯수 조회용 메소드(김진환)
+	@Override
+	public int getPaymentListCount(String tno) {
 
+		return td.getPaymentListCount(sqlSession, tno);
+	}
+	
+	//내 결제내역 리스트 조회용 메소드(김진환)
+	@Override
+	public List<Payment> paymentList(String tno, PageInfo pi) {
+		
+		return td.paymentList(sqlSession, tno, pi);
+	}
+	
+	//환불 요청 메소드(김진환)
+	@Override
+	public int refundRequest(String refundId, String refundReason, int mno, int refundCountI) {
+	
+		
+		return td.refundRequest(sqlSession, refundId, refundReason, mno, refundCountI);
+	}
+
+
+	
 	
 	
 	// 효정 메소드 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -173,6 +200,18 @@ public class TrainerServiceImpl implements TrainerService {
 	public void deleteMidea(String mno, String thisModiName) {
 		td.deleteMidea(sqlSession, mno, thisModiName);
 	}
+
+
+	
+
+	
+
+	
+
+	
+
+
+	
 
 
 	

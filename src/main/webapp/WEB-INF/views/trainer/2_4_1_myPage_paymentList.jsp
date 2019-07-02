@@ -91,6 +91,17 @@
 	font-size: 14px;
 }
 
+#modification2 {
+	width: 80px;
+	height: 80%;
+	border: 1px solid #ff0066;
+	background: white;
+	color: #ff0066;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 14px;
+	cursor:auto;
+}
+
 .modification:hover {
 	width: 80px;
 	height: 80%;
@@ -127,7 +138,7 @@
 					<th>멤버쉽이름</th>
 					<th>결제금액</th>
 					<th>획득횟수</th>
-					<th>결제일</th>
+					<th>요청일</th>
 					<th>결제상태</th>
 					<th>환불요청</th>
 				</tr>
@@ -142,11 +153,28 @@
 			    	<td>${Payment.membershipPrice }</td>
 			    	<td>${Payment.membershipCount }</td>
 			    	<td><fmt:formatDate pattern="yyyy-MM-dd" value="${Payment.payDate}"/></td>
-			    	<td>${Payment.process }</td>
+			    	<c:if test="${Payment.process == '환불요청'}">
+				    	<td style="color:#ff0066">${Payment.process }</td>
+			    	</c:if>
+			    	<c:if test="${Payment.process == '결제완료'}">
+				    	<td>${Payment.process }</td>
+			    	</c:if>
+			    	<c:if test="${Payment.process == '환불완료'}">
+				    	<td>${Payment.process }</td>
+			    	</c:if>
 			    	<!-- <td><button class="modification" name="refundBtn">환불요청</button></td>	 -->
+			    	<c:if test="${Payment.process == '결제완료'}">
 			    	<td><button type="button" class="btn btn-primary modification" id="goProfileDetail" name="refundBtn" data-toggle="modal"
-							data-target="#exampleModalScrollable">환불요청</button></td>   	
+							data-target="#exampleModalScrollable">환불요청</button></td>   		    		
+			    	</c:if>
+			    	<c:if test="${Payment.process == '환불요청'}">
+			    		<td><button type="button" class="btn btn-primary" id="modification2">요청대기</button></td> 
+			    	</c:if>
+			    	<c:if test="${Payment.process == '환불완료'}">
+				    	<td><button type="button" class="btn btn-primary" id="modification2">환불완료</button></td> 
+			    	</c:if>
 			    </tr>
+				
 			</c:forEach>
 				
 		</table>
@@ -198,12 +226,12 @@
 	<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static">
 		<div class="modal-dialog modal-dialog-scrollable" role="document">
 			<div class="modal-content">
-				<div class="modal-header">
-					
-					알려드립니다! 환불요청 신청시 회원님이 소유하신 멤버쉽 횟수가 즉시 차감 되오니 유의바랍니다!!
+				<div class="modal-header">		
+				<label class="subTitle">			
+					알려드립니다! <br>
+					환불요청 신청시 회원님이 소유하신 멤버쉽 횟수가 즉시 차감 되오니 유의바랍니다!!<br>
 					단 사유의 부적절로인한 환불 실패, 취소시 다시 횟수를 돌려받으실수 있습니다.
-					
-					
+				</label>
 				</div>
 				<div class="modal-body">
 					<div class="modalBody">
@@ -238,7 +266,7 @@
 		});
 	
 		$(function(){
-			var tno = ${ sessionScope.loginUser.mno};
+			
 			$("#memberShipPay").mouseenter(function(){
 				$(this).css("cursor", "pointer");
 			}).click(function(){
@@ -254,11 +282,16 @@
 			}).mouseout(function(){
 				$(this).parent().css("background", "white");
 			})
+				
+			
 			//환불요청하기 버튼 클릭시 사용되는 함수
 			
 			$("button[name=refundBtn]").click(function(){
 				var refundId = $(this).parent().parent().children().children().eq(0).val();
+				var refundCount = $(this).parent().parent().children().eq(3).text();
+				console.log(refundCount)
 				$("#modifyProfileBtn").click(function() {
+					var tno = ${ sessionScope.loginUser.mno};
 					var refundReason = $("#refundReason").val();
 					console.log(refundId);
 					 if(refundReason == "" || refundReason == null){
@@ -266,6 +299,18 @@
 			               $($("#refundReason").focus());
 			               return false;   
 		            }
+					$.ajax({
+						url:"refundRequest.tr",
+						data:{refundId:refundId, refundReason:refundReason, tno:tno, refundCount:refundCount},
+						type:"get",
+						success:function(){
+							alert("환불요청완료!");
+							location.reload();
+						},
+						error:function(){
+							alert("환불실패?");
+						}
+					})
 					
 				})
 			})
