@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -237,25 +237,26 @@ width:400px;
       <div class="firstTableLine2"></div>
       <h6><a href="selectReview.bo">아맞다 후기리뷰</a></h6>
       <div class="firstTableLine2"></div>
-      <h6><a href="selectFaqFormView.bo">FAQ</a></h6>
+      <h6><a href="selectFaq.bo">FAQ</a></h6>
       <div class="firstTableLine2"></div>
       <h6><a href="insertDeclarationFormView.de">신고</a></h6>
     <div class="firstTableLine1"></div>
       </div>
       
    
+     
       <div class="secondTable">
+      
          <h2>FAQ</h2>
          <br>
         
         
         <div class="faqcategory">
-        	<h6><a href="selectFaq('회원가입')">회원가입</a></h6>
-        	<h6><a href="selectFaq('개인정보')">개인정보</a></h6>
-        	<h6><a href="selectFaq('결제')">결제</a></h6>
-        	<h6><a href="selectFaq('서비스이용')">서비스이용</a></h6>
-        	<h6><a href="selectFaq('연기/환불')">연기/환불</a></h6>
-        	<h6><a href="selectFaq('기타')">기타</a></h6>
+        	<h6><a href="#">회원가입</a></h6>
+        	<h6><a href="#">결제/환불</a></h6>
+        	<h6><a href="#">서비스이용</a></h6>
+        	<h6><a href="#">서비스이용</a></h6>
+        	<h6><a href="#">서비스이용</a></h6>
         	
         </div>
         <br>
@@ -284,65 +285,21 @@ width:400px;
 		<br>
 				
 		
+         
+        
+     	 <c:forEach var="selectFaq" items="${ requestScope.selectFaq }" varStatus="status">
+         
+         <div class = "accordionTable">
 
-         
-         <div>
-         
-         <c:forEach var="selectFaq" items="${ requestScope.selectFaq }" varStatus="status">
-
-		<input type="hidden" id="bNo" value="${selectFaq.bNo }">
-		<input type="hidden" id="bmCategory" value="${selectFaq.bmCategory }">
-		
-		
-         <button class="accordion">${selectFaq.bTitle }</button>
+			<input type="hidden" id="bNo" value="${ selectFaq.bNo }">
+			
+			
+         <button class="accordion"><b>${selectFaq.bTitle }</b></button>
          <div class="panel">
-           <p>${selectFaq.bContent }</p>
+           <br><br><p>${selectFaq.bContent }</p><br><br>
          </div>
          
-        <!--  <button class="accordion">Q. 지불은 어떻게 하나요?</button>
-         <div class="panel">
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-         </div>
-         
-         <button class="accordion">Q. 탈퇴는 어떻게 하나요?</button>
-         <div class="panel">
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-         </div>
-         
-         <button class="accordion">Q. 탈퇴는 어떻게 하나요?</button>
-         <div class="panel">
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-         </div>
-         
-         <button class="accordion">Q. 탈퇴는 어떻게 하나요?</button>
-         <div class="panel">
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-         </div>
-         
-         <button class="accordion">Q. 탈퇴는 어떻게 하나요?</button>
-         <div class="panel">
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-         </div>
-         
-         <button class="accordion">Q. 탈퇴는 어떻게 하나요?</button>
-         <div class="panel">
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-         </div>
-         
-         <button class="accordion">Q. 탈퇴는 어떻게 하나요?</button>
-         <div class="panel">
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-         </div>
-         
-         <button class="accordion">Q. 탈퇴는 어떻게 하나요?</button>
-         <div class="panel">
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-         </div>
-         
-         <button class="accordion">Q. 탈퇴는 어떻게 하나요?</button>
-         <div class="panel">
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-         </div> -->
+       		</div>
          </c:forEach>
       </div>
    </div>
@@ -364,22 +321,6 @@ for (i = 0; i < acc.length; i++) {
     } 
   });
 }
-
-
-/*---------- 카테고리 Ajax-------------------  */
-/*function selectFaq(fCategory){
-	console.log(fCategory);
-	$.ajax({
-		type:"POST",
-		url:"selectFaq.bo"
-		data:{fCategory:fCategory},
-		success:function(data){
-			$tableBody = $("selectFaq")
-		}
-	})
-}*/
-
-
 </script>
 
  <br>

@@ -143,11 +143,12 @@ public class BoardServiceImpl implements BoardService{
 	 * return bd.selectBoardList(cri); }
 	 */
 
-	//공지사항/이벤트 게시판 검색 (SR)
-	/*@Override
-	public List<Board> searchNotice() {
-		return bd.searchNotice(sqlSession);
-	}*/
+	//공지사항/이벤트 게시판 검색 !!!! (SR)
+	@Override
+	public List<Board> searchNotice(String searchCon) {
+		System.out.println("Service: " + searchCon);
+		return bd.searchNotice(sqlSession,searchCon);
+	}
 
 	//자주묻는질문 리스트(김선아)
 	@Override
