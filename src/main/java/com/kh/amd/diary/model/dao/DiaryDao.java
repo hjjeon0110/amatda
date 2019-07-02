@@ -26,4 +26,6 @@ public interface DiaryDao {
 	//다이어리 list
 	List<Diary> diaryList(SqlSessionTemplate sqlSession, int mno);
 
+	Object selectDetailDiary(SqlSessionTemplate sqlSession, int bNo);
+
 }

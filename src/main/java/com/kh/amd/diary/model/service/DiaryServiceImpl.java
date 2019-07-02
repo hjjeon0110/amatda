@@ -79,6 +79,14 @@ public class DiaryServiceImpl implements DiaryService{
 		
 	}
 
+	//다이어리 상세보기
+	@Override
+	public Object selectDetailDiary(int bNo) {
+		
+				
+		return dd.selectDetailDiary(sqlSession, bNo);
+	}
+
 	
 
 }

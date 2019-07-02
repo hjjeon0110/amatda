@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.common.CommonUtils;
@@ -234,12 +236,25 @@ public class DiaryController {
 		
 	}
 	
-	@RequestMapping("updateDiary.di")
-	public String updateDiary() {
+	//다이어리 상세보기
+	@RequestMapping(value="selectDetailDiary.di", method=RequestMethod.GET)
+	public ModelAndView selectDetailDiary(@RequestParam int bNo, HttpSession session) {
 		
-		return "diary/updateDiary";
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("diary/selectDetailDiary");
+		mav.addObject("diary", ds.selectDetailDiary(bNo));
+		
+		return mav;
 		
 	}
+	
+	//다이어리 update
+		@RequestMapping("updateDiary.di")
+		public String updateDiary() {
+			
+			return "diary/updateDiary";
+			
+		}
 	
 	@RequestMapping("deleteDiary.di")
 	public String deleteDiary() {
