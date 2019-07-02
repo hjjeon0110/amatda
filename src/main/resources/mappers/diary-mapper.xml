@@ -53,6 +53,7 @@
   		<result property="bStatus" column="BSTATUS"/>
   		<result property="bWriter" column="BWRITER"/>
   		<collection property="member" resultMap="member"/>
+  		
   	</resultMap>
 
    <!-- 프로필 사진 insert (전효정) -->
@@ -106,7 +107,13 @@
   	<select id="selectDetailDiary" resultMap="diaryResultSet">
   		SELECT *
 		FROM BOARD
-		WHERE BNO = #{bNo}
+		WHERE BNO = #{bno}
+  	</select>
+  	
+  	<select id="selectAttachmentOne" resultMap="attachmentResultSet">
+  		SELECT *
+  		FROM ATTACHMENT
+  		WHERE BNO = #{bno}
   	</select>
 
 	

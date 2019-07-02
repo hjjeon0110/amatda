@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,11 +40,12 @@
 
 	<div class="outer">
 		<br>
-		<h1 id="fontEng" align="center">Diary Insert</h1>
+		<h1 id="fontEng" align="center">Diary List</h1>
 		<br /> <br /> <br />
 <%-- <input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" /> --%>
 		<div class="listArea">
-			<table class="table table-hover">
+			<table class="table table-hover" id="listTable">
+			<%-- <input type="hidden" name="bno"	value="${ requestScope.list.bNo }" /> --%>
 				<thead>
 					<tr>
 						<th></th>
@@ -54,14 +57,16 @@
 				</thead>
 				<tbody>
 				
-				<c:forEach var="diaryList" items="${ requestScope.list }" varStatus="status">
+				<%-- <c:forEach var="diaryList" items="${ diaryList }" varStatus="status"> --%>
 				
+				<c:forEach var="i" begin="0" end="${fn:length(diaryList)-1}" varStatus="st">
 					<tr>
+						<input type="hidden" value="${ diaryList[i].bNo }" id="dListBno"/>
 						<td><input type="checkbox" name="checkList" value="" /></td>
-						<td scope="row"><b>${status.count }</b></td>
-						<!-- <td>10</td> -->
-						<td>${ diaryList.bTitle }</td>											
-						<td><fmt:formatDate value="${ diaryList.bWriteDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>						
+						<td scope="row"><b>${st.count }</b></td>						
+						<td>${ diaryList[i].bTitle }</td>											
+						<td><fmt:formatDate value="${ diaryList[i].bWriteDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+						<td></td>					
 					</tr>
 					
 					</c:forEach>
@@ -119,16 +124,19 @@
 				
 				
 				$(".listArea").find("td").mouseenter(function(){					
-					$(this).parents("tr").css({"background":"#f8585b","cursor":"pointer"});		
-				}).mouseout(function(){
-					$(this).parents("tr").css({"background":"#567086"});
+							
 				}).click(function(){
 	
-					var no = $(this).parents("tr").children("th").children().eq(0).val();
+					//var no = $(this).parents("tr").children("td").children().eq(1).val();
 					//console.log(no);
+					// var bno = $("#dListBno").val();
+					var bno = $(this).parent().children().children().eq(0).val();
+					console.log(bno);
 					
-					location.href="selectDetailDiary?bNo=" + no;
+					//location.href="selectDetailDiary.di?bno=" + bno;
 				});
+				
+				
 				
 			});
 		</script>

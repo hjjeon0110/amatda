@@ -79,13 +79,22 @@ public class DiaryServiceImpl implements DiaryService{
 		
 	}
 
+
+	//다이어리 이미지 상세
+	@Override
+	public Attachment selectAttachmentOne(int bno) {
+		
+		return dd.selectAttachmentOne(sqlSession, bno);
+	}
+
 	//다이어리 상세보기
 	@Override
-	public Object selectDetailDiary(int bNo) {
+	public Diary selectDetailDiary(int bno) {
 		
-				
-		return dd.selectDetailDiary(sqlSession, bNo);
+		return dd.selectDetailDiary(sqlSession, bno);
 	}
+	
+	
 
 	
 
