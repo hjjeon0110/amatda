@@ -156,13 +156,22 @@ public class BoardController {
 			 System.out.println("selectFaq in controller : " + selectFaq);
 			 return "board/selectFaq";
 		 }
+		 
+		 
+		 
 		//FAQ게시판 그냥 단순 뷰(SR)
-		 @RequestMapping("selectFaqFormView.bo")
+		/* @RequestMapping("selectFaqFormView.bo")
 		 public String selectFaqFormView() {
 			 
 			 System.out.println("나는 단순하게 입력양식만 호출했어요!");
 			 return "board/selectFaq";
 		 }
+		 */
+		 
+		 //--------------------------------------------------------------------
+		 
+		 
+		 
 		  //리뷰게시판 그냥 단순 페이지 출력 (SR)
 		  
 		 /*@RequestMapping("insertReviewFormView.bo") 
@@ -227,21 +236,23 @@ public class BoardController {
 				 
 				 return mav;
 			 } 
-		  
+		  */
 		  
 		
-		 //★공지사항/이벤트 게시판 검색 (SR)
-		/* @RequestMapping("searchNotice.bo")
+		 //★공지사항/이벤트 게시판 검색  !!! (SR)
+		 @RequestMapping("searchNotice.bo")
 		 public String searchNotice(Model model, String searchCon, String selectType) {
 			 //검색할 내용 = searchCon
 			 //검색할 타입 = selectType
 			 System.out.println("받아온값 두개 : " + searchCon + ";;;;;" + selectType);
-			 
-			 List<Board> searchNotice = bs.searchNotice();
+			 List<Board> searchNotice = bs.searchNotice(searchCon);
+			 if(searchNotice!=null) {
+				 System.out.println("잘 넘어옴");
+			 }
 			 model.addAttribute("searchNotice",searchNotice);
 			 return "board/searchNotice";
 		 }
-		 */
+		 
 		 
 		
 		 

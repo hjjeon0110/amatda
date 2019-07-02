@@ -55,8 +55,8 @@ public interface BoardDao {
 	//공지사항/이벤트 게시판 페이징 (SR)
 	//List<Map<String, Object>> selectBoardList(Criteria cri);
 
-	//공지사항/이벤트 게시판 검색 (SR)
-	//List<Board> searchNotice(SqlSessionTemplate sqlSession);
+	//공지사항/이벤트 게시판 검색 !!! (SR)
+	List<Board> searchNotice(SqlSessionTemplate sqlSession,String searchCon);
 
 
 	//공지사항 글등록(김선아)

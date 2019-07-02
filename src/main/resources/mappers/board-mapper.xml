@@ -154,7 +154,7 @@
 	  AND BSTATUS='Y'
   </select>
   
-  <!-- 공지사항/이벤트 게시판 검색 (SR) -->
+  <!-- 공지사항/이벤트 게시판 검색 !!!!!! (SR) -->
   <select id="searchNotice" resultMap="boardResultSet">
   	SELECT *
   	FROM BOARD

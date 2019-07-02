@@ -64,8 +64,8 @@ public interface BoardService {
 	//공지사항/이벤트 게시판 페이징 (SR)
 	//List<Map<String, Object>> selectBoardList(Criteria cri);
 
-	//공지사항/이벤트 게시판 검색 (SR)
-	//List<Board> searchNotice();
+	//공지사항/이벤트 게시판 검색  !! (SR)
+	List<Board> searchNotice(String searchCon);
 
 	
 
