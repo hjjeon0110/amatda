@@ -77,6 +77,12 @@ public interface BoardDao {
 	//자주묻는질문 상세보기(김선아)
 	Board FAQSelectOne(SqlSessionTemplate sqlSession, int bNo);
 
+	//공지사항 카테고리 게시물 상세페이지(SR)
+	Board selectOneNoticeCate(SqlSessionTemplate sqlSession, int bNo);
+
+	//이벤트 카테고리 게시물 상세페이지(SR)
+	Board selectOneEventCate(SqlSessionTemplate sqlSession, int bNo);
+
 	//int insertQna(SqlSessionTemplate sqlSession, Board b, String mno);
 
 

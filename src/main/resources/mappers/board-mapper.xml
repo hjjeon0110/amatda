@@ -195,6 +195,21 @@
   </select>
   
   
+  <!-- 공지사항 카테고리 게시물 상세조회(SR) -->
+  	<select id="selectOneNoticeCate" resultMap="boardResultSet" parameterType="_int">
+  		SELECT *
+        FROM (SELECT * FROM BOARD WHERE BTYPE = 1)
+        WHERE BNO = #{bNo}
+  	</select>
+  	
+  	
+  	 <!-- 이벤트 카테고리 게시물 상세조회(SR) -->
+  	<select id="selectOneEventCate" resultMap="boardResultSet" parameterType="_int">
+  		SELECT *
+        FROM (SELECT * FROM BOARD WHERE BTYPE = 2)
+        WHERE BNO = #{bNo}
+  	</select>
+  
   
   </mapper>
   

@@ -250,11 +250,12 @@ width:400px;
         
         
         <div class="faqcategory">
-        	<h6><a href="#">회원가입</a></h6>
-        	<h6><a href="#">결제/환불</a></h6>
-        	<h6><a href="#">서비스이용</a></h6>
-        	<h6><a href="#">서비스이용</a></h6>
-        	<h6><a href="#">서비스이용</a></h6>
+        	<h6><a href="selectFaq('회원가입')">회원가입</a></h6>
+        	<h6><a href="selectFaq('개인정보')">개인정보</a></h6>
+        	<h6><a href="selectFaq('결제')">결제</a></h6>
+        	<h6><a href="selectFaq('서비스이용')">서비스이용</a></h6>
+        	<h6><a href="selectFaq('연기/환불')">연기/환불</a></h6>
+        	<h6><a href="selectFaq('기타')">기타</a></h6>
         	
         </div>
         <br>
@@ -363,6 +364,22 @@ for (i = 0; i < acc.length; i++) {
     } 
   });
 }
+
+
+/*---------- 카테고리 Ajax-------------------  */
+/*function selectFaq(fCategory){
+	console.log(fCategory);
+	$.ajax({
+		type:"POST",
+		url:"selectFaq.bo"
+		data:{fCategory:fCategory},
+		success:function(data){
+			$tableBody = $("selectFaq")
+		}
+	})
+}*/
+
+
 </script>
 
  <br>

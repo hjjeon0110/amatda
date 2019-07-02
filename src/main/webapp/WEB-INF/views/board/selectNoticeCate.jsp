@@ -267,10 +267,22 @@ margin-bottom:15px;
 	<br>
 	
 	<script>
-	$(".table td").click(function(){
+	$(".table td").mouseenter(function(){
+		$(this).css("cursor", "pointer")
+	}).click(function(){
+		var bNo= $(this).parent().children().children().eq(0).val();
+		console.log(bNo);
+		location.href="selectOneNoticeCate.bo?bNo=" + bNo;
+	});
+	
+	
+	<%-- $(".table td").click(function(){
 		var num=$(this).parent().children().eq(0).text();
 		location.href="<%=request.getContextPath()%>/selectOneNotice.bo?num="+num;
-	});
+	}); --%>
+	
+	
+	
 	</script>
 	
 	

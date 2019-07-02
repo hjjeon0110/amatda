@@ -86,6 +86,10 @@ public class BoardServiceImpl implements BoardService{
 	public int updateNotice(Board board) {
 		return bd.updateNotice(sqlSession, board);
 	}
+	
+	
+	
+	
 	//공지사항/이벤트 리스트 출력(SR)
 	@Override
 	public List<Board> selectNotice() {
@@ -147,6 +151,8 @@ public class BoardServiceImpl implements BoardService{
 		return bd.searchNotice(sqlSession);
 	}*/
 
+	
+	
 
 	//1:1문의 리스트(김선아)
 	@Override
@@ -164,6 +170,23 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public Board FAQSelectOne(int bNo) {
 		return bd.FAQSelectOne(sqlSession, bNo);
+	}
+
+
+	
+	
+	//공지사항 카테고리 게시물 상세페이지(SR)
+	@Override
+	public Board selectOneNoticeCate(int bNo) {
+		Board b = bd.selectOneNoticeCate(sqlSession, bNo);
+		return b;	
+		}
+
+	//★이벤트 카테고리 게시물 상세페이지(SR)
+	@Override
+	public Board selectOneEventCate(int bNo) {
+		Board b = bd.selectOneEventCate(sqlSession, bNo);
+		return b;
 	}
 	
 

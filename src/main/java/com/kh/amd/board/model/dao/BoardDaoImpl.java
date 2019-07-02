@@ -110,6 +110,12 @@ public class BoardDaoImpl implements BoardDao {
 	public Board selectOneNotice(SqlSessionTemplate sqlSession, int bNo) {
 		return sqlSession.selectOne("Board.selectOneNotice", bNo);
 	}
+	
+	//공지사항 카테고리 게시물 상세페이지(SR)
+	@Override
+	public Board selectOneNoticeCate(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.selectOne("Board.selectOneNoticeCate", bNo);
+	}
 
 	//FAQ게시판 아코디언 리스트 출력(SR)
 	@Override
@@ -131,6 +137,14 @@ public class BoardDaoImpl implements BoardDao {
 	public Object selectOneReview(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("Board.selectOneReview");
 	}
+
+	//이벤트 카테고리 게시물 상세페이지(SR)
+	@Override
+	public Board selectOneEventCate(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.selectOne("Board.selectOneEventCate", bNo);
+	}
+
+	
 
 	
 	

@@ -113,6 +113,41 @@ public class BoardController {
 			return "board/selectOneNotice";
 		 } 
 		
+		 //★공지사항 카테고리 게시물 상세페이지(SR)
+		
+			@RequestMapping(value="selectOneNoticeCate.bo", method=RequestMethod.GET)
+			 public String selectOneNoticeCate(Model model, int bNo) {
+				 
+				Board b = bs.selectOneNoticeCate(bNo);
+				
+				System.out.println("디비로부터 받아온 Board" + b);
+				
+				model.addAttribute("Board", b);		
+				return "board/selectOneNoticeCate";
+			 } 
+			
+			
+			//★이벤트 카테고리 게시물 상세페이지(SR)
+			
+			@RequestMapping(value="selectOneEventCate.bo", method=RequestMethod.GET)
+			 public String selectOneEventCate(Model model, int bNo) {
+				 
+				Board b = bs.selectOneEventCate(bNo);
+				
+				System.out.println("디비로부터 받아온 Board" + b);
+				
+				model.addAttribute("Board", b);		
+				return "board/selectOneEventCate";
+			 } 
+		
+		
+		
+		
+		
+		
+		
+		
+		//------------------------------------------------------------------
 		 //★FAQ게시판 아코디언 리스트 출력(SR)
 		 @RequestMapping("selectFaq.bo")
 		 public String selectFaq(Model model) {
