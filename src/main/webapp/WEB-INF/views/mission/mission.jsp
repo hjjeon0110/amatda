@@ -214,85 +214,57 @@
   
   <div id="container">
   
-  <!-- 트레이너만 보이는 오늘의 미션(체크박스x) -->
-  <c:if test="${sessionScope.loginUser.mtype =='T'}">   
-  	<div id='calendar' style="margin-top:30px; float:left; width:70%; height:550px"></div>
-  	<div id="selectToday" style="float:right; border:1px solid pink; width:30%; height:700px">
-  		<div id="month" align="center"></div>
-  	
-  		<label>오늘의 식단</label><hr>
-  		<table>
-  		<tr>
-  		<td><label>아침</label><br><label id="selbreakfast" style=""></label></td>
-  		</tr>
-  		<tr>
-  		<td><label>점심</label><br><label id="sellunch"></label></td>
-  		</tr>
-  		<tr>
-  		<td><label>저녁</label><br><label id="seldinner"></label></td>
-  		</tr>
-  		</table>
-  	
-  		<label style="margin-top:30px">오늘의 운동</label><hr>
-  		<table>
-  		<tr>
-  		<td><label>아침</label><br><label id="selbreakEx" style="width:300px;"></label><a href="" id="selbreakExLink"></a></td>
-  		</tr>
-  		<tr>
-  		<td><label>점심</label><br><label id="sellunchEx"></label><a href="" id="sellunchExLink"></a></td>
-  		</tr>
-  		<tr>
-  		<td><label>저녁</label><br><label id="seldinnerEx"></label><a href="" id="seldinnerExLink"></a></td>
-  		</tr>
-  		<tr>
-  		</tr>
-  		</table>
-  		
-  		
-  		
-  	
-  	</div>
-  	</c:if>
-  	
+  
   	
   	<!-- 사용자 미션 수행여부 체크 (체크박스o)-->
   	<c:if test="${sessionScope.loginUser.mtype =='U'}">   
   	<div id='calendar' style="margin-top:30px; float:left; width:70%; height:550px"></div>
   	<div id="selectToday" style="float:right; border:1px solid pink; width:30%; height:700px">
   		<div id="month" align="center"></div>
-
+		
+		<p style="float:right; font-size:12px">*기록완료시, 체크박스는 사라집니다.</p>
   		<label>오늘의 식단</label><hr>
+  		<input type="hidden" value="식단" id="eating">
   		<table>
   		<tr>
-  		<td><label>아침</label><br><label id="selbreakfast" style=""></label></td>
+  		<td><label id="morning">아침</label><br><label id="selbreakfast" style=""></label></td>
+  		  
   		<td><input type="checkbox" id="breakCheck" name="breakCheck" style="margin-top:40px" value="N"></td>
+  		
+  		<td><input type="button" id="checkMission" value="기록하기"></td>
   		</tr>
   		<tr>
-  		<td><label>점심</label><br><label id="sellunch"></label></td>
-  		<td><input type="checkbox" id="lunchCheck" style="margin-top:40px"></td>
+  		<td><label id="lunch">점심</label><br><label id="sellunch"></label></td>
+  		<td><input type="checkbox" id="lunchCheck" style="margin-top:40px" value="N"></td>
+  		<td><input type="button" id="checkMission2" value="기록하기"></td>
   		</tr>
   		<tr>
-  		<td><label>저녁</label><br><label id="seldinner"></label></td>
-  		<td><input type="checkbox" id="dinnerCheck" style="margin-top:40px"></td>
+  		<td><label id="dinner">저녁</label><br><label id="seldinner"></label></td>
+  		<td><input type="checkbox" id="dinnerCheck" style="margin-top:40px" value="N"></td>
+  		<td><input type="button" id="checkMission3" value="기록하기"></td>
   		</tr>
   		</table>
   	
   		<label style="margin-top:30px">오늘의 운동</label><hr>
+  		<input type="hidden" value="운동" id="exercising">
   		<table>
   		<tr>
-  		<td><label>아침</label><br><label id="selbreakEx" style="width:300px;"></label><a href="" id="selbreakExLink"></a></td>
-  		<td><input type="checkbox" id="breakExCheck" style="margin-left:-50px"></td>
+  		<td><label id="morning2">아침</label><br><label id="selbreakEx" style="width:300px;"></label><a href="" id="selbreakExLink"></a></td>
+  		<td><input type="checkbox" id="breakExCheck" style="margin-left:-50px" value="N"></td>
+  		<td><input type="button" id="checkMission4" value="기록하기"></td>
   		</tr>
   		<tr>
-  		<td><label>점심</label><br><label id="sellunchEx"></label><a href="" id="sellunchExLink"></a></td>
-  		<td><input type="checkbox" id="lunchExCheck" style="margin-left:-50px"></td>
+  		<td><label id="lunch2">점심</label><br><label id="sellunchEx"></label><a href="" id="sellunchExLink"></a></td>
+  		<td><input type="checkbox" id="lunchExCheck" style="margin-left:-50px" value="N"></td>
+  		<td><input type="button" id="checkMission5" value="기록하기"></td>
   		</tr>
   		<tr>
-  		<td><label>저녁</label><br><label id="seldinnerEx"></label><a href="" id="seldinnerExLink"></a></td>
-  		<td><input type="checkbox" id="dinnerExCheck" style="margin-left:-50px"></td>
+  		<td><label id="dinner2">저녁</label><br><label id="seldinnerEx"></label><a href="" id="seldinnerExLink"></a></td>
+  		<td><input type="checkbox" id="dinnerExCheck" style="margin-left:-50px" value="N"></td>
+  		<td><input type="button" id="checkMission6" value="기록하기"></td>
   		</tr>
   		<tr>
-  		<td><input type="button" id="checkMission" value="기록하기"></td>
+  		
   		</tr>
   		</table>
   
@@ -303,181 +275,345 @@
   
   
   
-<!-- 트레이너 미션수정 모달-->  
-<c:if test="${sessionScope.loginUser.mtype =='T'}">   
-  <div id="updateModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        
-        <h4 class="modal-title">미션수정</h4>
-      </div>
-      <div class="modal-body">
-       <table align="center">
-        	<tr>
-        		<td>날짜 <input type="text" id="mDate2"></td>
-        	</tr>
-        	<tr style="height:50px;">
-        		<td><label style="margin-left:80px; margin-top:40px">오늘의 식단</label><hr></td>
-        	</tr>
-        	<tr>
-        		<td><label id="break">아침</label><input type="text" id="breakfast2"></td>
-        	</tr>
-        	<tr>
-        		<td><label id="lun">점심</label><input type="text" id="lunch2"></td>
-        	</tr>
-        	<tr>
-        		<td><label id="din">저녁</label><input type="text" id="dinner2"></td>
-        	</tr>
-        	
-        	
-        	<tr>
-        		<td><label style="margin-left:80px; margin-top:40px">오늘의 운동</label><hr></td>
-        	</tr>
-        	<tr>
-        		<td><label id="breakE">아침</label><input type="text" id="breakEx2" ></td>
-        	</tr>
-        	
-        	<tr>
-        		<td><input type="text" id="breakExLink2" style="margin-left:50px"></td>
-        	</tr>
-        	<tr>
-        		<td><label id="lunE">점심</label><input type="text" id="lunchEx2"></td>
-        	</tr>
-        	<tr>	
-        		<td><input type="text" id="lunchExLink2" style="margin-left:50px"></td>
-        	</tr>
-        	<tr>
-        		<td><label id="dinE">저녁</label><input type="text" id="dinnerEx2"></td>
-        	</tr>
-        	<tr>
-        		<td><input type="text" id="dinnerExLink2" style="margin-left:50px"></td>
-        	</tr>
-        	<tr>
-        		<td><input type="submit" value="등록하기" style="margin-left:80px" onclick="updateMission()"></td>
-        	</tr>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-  
-
-<!-- 트레이너 미션등록 --> 
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-        <h4 class="modal-title">미션등록</h4>
-      </div>
-      <div class="modal-body">
- 
-        <table align="center">
-        	<tr>
-        		<td>날짜 <input type="text" id="mDate"></td>
-        	</tr>
-        	<tr style="height:50px;">
-        		<td><label style="margin-left:80px; margin-top:40px">오늘의 식단</label><hr></td>
-        	</tr>
-        	<tr>
-        		<td><label id="break">아침</label><input type="text" id="breakfast"></td>
-        	</tr>
-        	<tr>
-        		<td><label id="lun">점심</label><input type="text" id="lunch"></td>
-        	</tr>
-        	<tr>
-        		<td><label id="din">저녁</label><input type="text" id="dinner"></td>
-        	</tr>
-        	
-        	
-        	<tr>
-        		<td><label style="margin-left:80px; margin-top:40px">오늘의 운동</label><hr></td>
-        	</tr>
-        	<tr>
-        		<td><label id="breakE">아침</label><!--  --><input type="text" id="breakEx" ></td>
-        	</tr>
-        	
-        	<tr>
-        		<td><input type="text" id="breakExLink" style="margin-left:50px"></td>
-        	</tr>
-        	<tr>
-        		<td><label id="lunE">점심</label><input type="text" id="lunchEx"></td>
-        	</tr>
-        	<tr>	
-        		<td><input type="text" id="lunchExLink" style="margin-left:50px"></td>
-        	</tr>
-        	<tr>
-        		<td><label id="dinE">저녁</label><input type="text" id="dinnerEx"></td>
-        	</tr>
-        	<tr>
-        		<td><input type="text" id="dinnerExLink" style="margin-left:50px"></td>
-        	</tr>
-        	<tr>
-        		<td><input type="submit" value="등록하기" style="margin-left:80px" onclick="registerMission()"></td>
-        	</tr>
-        </table>
-     
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-</c:if>
 </body>
 <script>
 console.log("mno: "+${sessionScope.loginUser.mno});
 
 
 
-
+//아침식단 기록
 $("#breakCheck").on('change', function() {
     breakCheck();
+   
  });
 
 
 
 function breakCheck() {
 	if($("input:checkbox[id='breakCheck']").is(":checked")){
-		 $("#breakcheck").attr('value', 'Y');
+		 $("#breakCheck").attr('value', 'Y');
+		 console.log("Y일까 N일까: " + $("#breakCheck").val());
 	alert("Y로 바뀜");
  }
 }
 
 
 
-
  $("#checkMission").click(function(){
-	 alert("기록버튼");
+	
 	 
 	
 	 
 	 var breakCheck = $("#breakCheck").val();
+	 var mno =  ${sessionScope.loginUser.mno};
+	 var month = $("#month").text();
+	 var morning = $("#morning").text(); //아침
+	 var selbreakfast = $("#selbreakfast").text(); //내용
+	 var eating = $("#eating").val(); //식단
+	 
+	 console.log("selbreakfast 내용: " + selbreakfast);
+	 console.log("month: " + month);
 	 $.ajax({
-		
+		 
 		url:"checkBreak.ms",
 		type:"post",
-		data:{breakCheck:breakCheck},
+		data:{breakCheck:breakCheck, mno:mno, month:month, morning:morning , selbreakfast:selbreakfast, eating:eating},
 		success:function(data){
-			alert("성공");
-		},error:function(status){
-			alert("실패!");
+			if(data=="success"){
+				alert("성공");
+				
+				//$("#breakCheck").hide();
+				
+			}
+		},error:function(data){
+			if(data=="fail"){
+				alert("실패!");
+			}
 		}
 	})  
 });
 
 
+ 
+ 
+ 
+ 
+ 
+ 
+//점심식단 기록
+ $("#lunchCheck").on('change', function() {
+     breakCheck2();
+  });
+
+
+
+ function breakCheck2() {
+ 	if($("input:checkbox[id='lunchCheck']").is(":checked")){
+ 		 $("#lunchCheck").attr('value', 'Y');
+ 		 console.log("Y일까 N일까: " + $("#lunchCheck").val());
+ 	alert("Y로 바뀜");
+  }
+ }
+
+
+
+  $("#checkMission2").click(function(){
+ 	 alert("기록버튼");
+ 	 
+ 	
+ 	 
+ 	 var lunchCheck = $("#lunchCheck").val();
+ 	 var mno =  ${sessionScope.loginUser.mno};
+ 	 var month = $("#month").text();
+ 	 var lunch = $("#lunch").text(); //점심
+ 	 var sellunch = $("#sellunch").text(); //내용
+ 	 var eating = $("#eating").val(); //식단
+ 	 
+ 	 console.log("sellunch 내용: " + sellunch);
+ 	 console.log("month: " + month);
+ 	 $.ajax({
+ 		 
+ 		url:"checkLunch.ms",
+ 		type:"post",
+ 		data:{lunchCheck:lunchCheck, mno:mno, month:month, lunch:lunch , sellunch:sellunch, eating:eating},
+ 		success:function(data){
+ 			if(data=="success"){
+ 				alert("성공");
+ 			}
+ 		},error:function(data){
+ 			if(data=="fail"){
+ 				alert("실패!");
+ 			}
+ 		}
+ 	})  
+ });
+
+ 
+  
+  
+  
+  
+//저녁식단 기록
+  $("#dinnerCheck").on('change', function() {
+      breakCheck3();
+   });
+
+
+
+  function breakCheck3() {
+  	if($("input:checkbox[id='dinnerCheck']").is(":checked")){
+  		 $("#dinnerCheck").attr('value', 'Y');
+  		 console.log("Y일까 N일까: " + $("#dinnerCheck").val());
+  	alert("Y로 바뀜");
+   }
+  }
+
+
+
+   $("#checkMission3").click(function(){
+  	 alert("기록버튼");
+  	 
+  	
+  	 
+  	 var dinnerCheck = $("#dinnerCheck").val();
+  	 var mno =  ${sessionScope.loginUser.mno};
+  	 var month = $("#month").text();
+  	 var dinner = $("#dinner").text(); //저녁
+  	 var seldinner = $("#seldinner").text(); //내용
+  	 var eating = $("#eating").val(); //식단
+  	 
+  	 console.log("seldinner 내용: " + seldinner);
+  	 console.log("month: " + month);
+  	 $.ajax({
+  		url:"checkDinner.ms",
+  		type:"post",
+  		data:{dinnerCheck:dinnerCheck, mno:mno, month:month, dinner:dinner , seldinner:seldinner, eating:eating},
+  		success:function(data){
+  			if(data=="success"){
+  				alert("성공");
+  			}
+  		},error:function(data){
+  			if(data=="fail"){
+  				alert("실패!");
+  			}
+  		}
+  	})  
+  });
+  
+  
+  
+  
+   
+   
+   
+   
+ //아침 운동  기록
+   $("#breakExCheck").on('change', function() {
+       breakCheck4();
+    });
+
+
+
+   function breakCheck4() {
+   	if($("input:checkbox[id='breakExCheck']").is(":checked")){
+   		 $("#breakExCheck").attr('value', 'Y');
+   		 console.log("Y일까 N일까: " + $("#breakExCheck").val());
+   		 alert("Y로 바뀜");
+    }
+   }
+
+
+
+    $("#checkMission4").click(function(){
+   	 alert("기록버튼");
+   	 
+   	
+   	 
+   	 var breakExCheck = $("#breakExCheck").val();
+   	 var mno =  ${sessionScope.loginUser.mno}; //날짜
+   	 var month = $("#month").text();
+   	 var morning2 = $("#morning2").text(); //아침
+   	 var selbreakEx = $("#selbreakEx").text(); //내용
+   	 var exercising = $("#exercising").val(); //운동
+   	 var selbreakExLink = $("#selbreakExLink").text();
+	 
+	 console.log("selbreakExLink: " + selbreakExLink);
+   	 console.log("selbreakEx 내용: " + selbreakEx);
+   	 console.log("month: " + month);
+   	 console.log("exercising: " + exercising);
+   	
+   	 $.ajax({
+   		url:"checkBreakEx.ms",
+   		type:"post",
+   		data:{breakExCheck:breakExCheck, mno:mno, month:month, morning2:morning2 , selbreakEx:selbreakEx, exercising:exercising, selbreakExLink:selbreakExLink},
+   		success:function(data){
+   			if(data=="success"){
+   				alert("성공");
+   			}
+   		},error:function(data){
+   			if(data=="fail"){
+   				alert("실패!");
+   			}
+   		}
+   	})  
+   });
+   
+  
+  
+  
+ 
+    
+    
+  //점심 운동  기록
+    $("#lunchExCheck").on('change', function() {
+        breakCheck5();
+     });
+
+
+
+    function breakCheck5() {
+    	if($("input:checkbox[id='lunchExCheck']").is(":checked")){
+    		 $("#lunchExCheck").attr('value', 'Y');
+    		 console.log("Y일까 N일까: " + $("#lunchExCheck").val());
+    		 alert("Y로 바뀜");
+     }
+    }
+
+
+
+     $("#checkMission5").click(function(){
+    	 alert("기록버튼");
+    	 
+    	
+    	 
+    	 var lunchExCheck = $("#lunchExCheck").val();
+    	 var mno =  ${sessionScope.loginUser.mno}; //날짜
+    	 var month = $("#month").text();
+    	 var lunch2 = $("#lunch2").text(); //아침
+    	 var sellunchEx = $("#sellunchEx").text(); //내용
+    	 var exercising = $("#exercising").val(); //운동
+    	 var sellunchExLink = $("#sellunchExLink").text();
+ 	 
+ 	 	 console.log("sellunchExLink: " + sellunchExLink);
+    	 console.log("sellunchEx 내용: " + sellunchEx);
+    	 console.log("month: " + month);
+    	 console.log("exercising: " + exercising);
+    	
+    	 $.ajax({
+    		url:"checkLunchEx.ms",
+    		type:"post",
+    		data:{lunchExCheck:lunchExCheck, mno:mno, month:month, lunch2:lunch2 , sellunchEx:sellunchEx, exercising:exercising, sellunchExLink:sellunchExLink},
+    		success:function(data){
+    			if(data=="success"){
+    				alert("성공");
+    			}
+    		},error:function(data){
+    			if(data=="fail"){
+    				alert("실패!");
+    			}
+    		}
+    	})  
+    });
+    
+     
+     
+     
+     
+     
+     
+     
+   //저녁 운동  기록
+     $("#dinnerExCheck").on('change', function() {
+         breakCheck6();
+      });
+
+
+
+     function breakCheck6() {
+     	if($("input:checkbox[id='dinnerExCheck']").is(":checked")){
+     		 $("#dinnerExCheck").attr('value', 'Y');
+     		 console.log("Y일까 N일까: " + $("#dinnerExCheck").val());
+     		 alert("Y로 바뀜");
+      }
+     }
+
+
+
+      $("#checkMission6").click(function(){
+     	 alert("기록버튼");
+     	 
+     	
+     	 
+     	 var dinnerExCheck = $("#dinnerExCheck").val();
+     	 var mno =  ${sessionScope.loginUser.mno}; //날짜
+     	 var month = $("#month").text();
+     	 var dinner2 = $("#dinner2").text(); //아침
+     	 var seldinnerEx = $("#seldinnerEx").text(); //내용
+     	 var exercising = $("#exercising").val(); //운동
+     	 var seldinnerExLink = $("#seldinnerExLink").text();
+  	 
+  	 	 console.log("seldinnerExLink: " + seldinnerExLink);
+     	 console.log("seldinnerEx 내용: " + seldinnerEx);
+     	 console.log("month: " + month);
+     	 console.log("exercising: " + exercising);
+     	
+     	 $.ajax({
+     		url:"checkDinnerEx.ms",
+     		type:"post",
+     		data:{dinnerExCheck:dinnerExCheck, mno:mno, month:month, dinner2:dinner2 , seldinnerEx:seldinnerEx, exercising:exercising, seldinnerExLink:seldinnerExLink},
+     		success:function(data){
+     			if(data=="success"){
+     				alert("성공");
+     			}
+     		},error:function(data){
+     			if(data=="fail"){
+     				alert("실패!");
+     			}
+     		}
+     	})  
+     });
+     
 
 /*  var breakCheck;
 

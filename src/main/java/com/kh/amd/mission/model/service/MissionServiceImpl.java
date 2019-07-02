@@ -187,6 +187,39 @@ public class MissionServiceImpl implements MissionService{
 	public int updateDinnerEx(Mission m) {
 		return md.updateDinnerEx(sqlSession,m);
 	}
+	
+	
+	
+	//사용자 아침 식단 체크
+	@Override
+	public int insertCheckBreak(Mission m) {
+		return md.insertCheckBreak(sqlSession,m);
+	}
+
+	@Override
+	public int insertCheckLunch(Mission m) {
+		return md.insertCheckLunch(sqlSession,m);
+	}
+
+	@Override
+	public int insertCheckDinner(Mission m) {
+		return md.insertCheckDinner(sqlSession,m);
+	}
+
+	@Override
+	public int insertCheckBreakEx(Mission m) {
+		return md.insertCheckBreakEx(sqlSession,m);
+	}
+
+	@Override
+	public int insertCheckLunchEx(Mission m) {
+		return md.insertCheckLunchEx(sqlSession,m);
+	}
+
+	@Override
+	public int insertCheckDinnerEx(Mission m) {
+		return md.insertCheckDinnerEx(sqlSession,m);
+	}
 
 	
 	
