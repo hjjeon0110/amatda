@@ -31,7 +31,7 @@
 	<!-- 첫번째 설문조사 -->
 	<insert id="insertSurvey1" parameterType="java.util.Map">		
 		INSERT INTO SURVEY (SURVEY_NO, HEIGHT, WEIGHT, HOPE_WEIGHT, UAGE, UNO)
-		VALUES (SURVEY_NO_SEQ.NEXTVAL, #{s.height}, #{s.weight}, #{s.hopeWeight}, #{s.uAge}, #{mno})
+		VALUES (SURVEY_SEQ.NEXTVAL, #{s.height}, #{s.weight}, #{s.hopeWeight}, #{s.uAge}, #{mno})
 	</insert>
 	
 	<!-- 두번째 설문조사 -->	

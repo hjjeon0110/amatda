@@ -8,7 +8,7 @@
 .btn btn-primary:hover {
 	background: white;
 	color: #ff0066;
-	border: 1px solid #ff0066;
+	border: 0.5px solid #ff0066;
 }
 
 .menubarLi4 {
@@ -19,7 +19,7 @@
 	width: 100%;
 	height: 100%;
 	font-family: 'Noto Sans KR', sans-serif;
-	border-top:1px solid lightgray;
+	border-top:0.5px solid lightgray;
 }
 
 .subMenuBar1 {
@@ -61,8 +61,6 @@
 .searchKeywordDiv {
 	width: 100%;
 	height: 200px;
-	border-top: 1px solid lightgray;
-	border-bottom: 1px solid lightgray;
 	padding: 50px;
 }
 
@@ -87,19 +85,31 @@
 .searchTrainerListDiv {
 	width: 100%;
 	height: 100%;
-	background: whitesmoke;
+	background: #F9F9F9;
 }
+
+.recommendtrainerListNullDiv {
+	width:100%;
+	height:100%;
+	background:#F9F9F9;
+	text-align:center;
+}
+
+.recommendtrainerListNullLabel {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
 
 .trainerSelect {
 	width: 150px;
 	font-family: 'Noto Sans KR', sans-serif;
-	border: 1px solid darkgray;
+	border: 0.5px solid darkgray;
 	margin-left: 50px;
 }
 
 .trainerListDiv {
 	width: 90%;
-	border: 1px solid darkgray;
+	border: 0.5px solid darkgray;
 	margin-left: auto;
 	margin-right: auto;
 	padding: 10px;
@@ -168,7 +178,7 @@
 }
 
 .goProfileDetail:hover {
-	border:1px solid #ff0066;
+	border:0.5px solid #ff0066;
 	background:white;
 	color:#ff0066;
 	margin-left: auto;

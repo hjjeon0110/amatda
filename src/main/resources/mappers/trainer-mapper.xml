@@ -91,8 +91,7 @@
 		WHERE TNO = #{mno}
 	</update>
 	
-	<select id="checkRemainNum" parameterType="java.lang.String"
-		resultType="java.lang.String">
+	<select id="checkRemainNum" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT REMAIN_NUM
 		FROM TUSER_INFO T
 		JOIN MEMBER M ON(T.TNO = M.MNO)

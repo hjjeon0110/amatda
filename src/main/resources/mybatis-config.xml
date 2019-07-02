@@ -25,6 +25,7 @@
   		<mapper resource="mappers/member-mapper.xml"/> <!-- 이 파일의 쿼리를 사용한다. -->
   		<mapper resource="mappers/survey-mapper.xml"/>
   		<mapper resource="mappers/trainer-mapper.xml"/>
+  		<mapper resource="mappers/user-mapper.xml"/>
   		<mapper resource="mappers/board-mapper.xml"/>
   		<mapper resource="mappers/declaration-mapper.xml"/>
   		<mapper resource="mappers/mission-mapper.xml"/>

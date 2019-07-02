@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,37 +24,101 @@
 	
 	<!-- 키워드 검색 영역 ------------------------------------------------------------------------------------------------------ -->
 	<div class="searchKeywordDiv">
-		<label class="searchKeywordLabel">회원1님만을 위해 추천한 맞춤 트레이너들을 확인해보세요!</label>
+		<label class="searchKeywordLabel">${ sessionScope.loginUser.name }님만을 위해 추천한 맞춤 트레이너들을 확인해보세요!</label>
 		<br><br>
 		<div class="keywordDiv">
-			<span class="badge badge-pill badge-danger"> #키워드1 </span>&nbsp;
-			<span class="badge badge-pill badge-danger"> #키워드2 </span>&nbsp;
-			<span class="badge badge-pill badge-danger"> #키워드3 </span>&nbsp;
-			<span class="badge badge-pill badge-danger"> #키워드4 </span>&nbsp;
-			<span class="badge badge-pill badge-danger"> #키워드5 </span>
+			<span class="badge badge-pill badge-danger"> #${ survey.hopeAge } </span>&nbsp;&nbsp;
+			<span class="badge badge-pill badge-danger"> #${ survey.hopeGender } </span>&nbsp;&nbsp;
+			<span class="badge badge-pill badge-danger"> #${ survey.hopePeriod } </span>&nbsp;&nbsp;
+			<c:set var="hopeExcercise" value="${ survey.hopeExercise }" />
+			<c:set var="keywordArr" value="${fn:split(hopeExcercise, ',')}"/>
+			<c:forEach items="${keywordArr}" varStatus="keywordArrsST">
+				<span class="badge badge-pill badge-danger"> #${keywordArr[keywordArrsST.index]}</span>&nbsp;&nbsp;
+			</c:forEach>
 		</div>
 	</div>
 
 
 	<!-- 트레이너 리스트 영역 ---------------------------------------------------------------------------------------------------- -->
+	
+	<c:if test="${ empty recommendtrainerList }">
+	
+		<div class="recommendtrainerListNullDiv">
+			<br><br>
+			<label class="recommendtrainerListNullLabel">조회된 맞춤 트레이너 추천 리스트가 없습니다.</label><br>
+			<label class="recommendtrainerListNullLabel" style="color:#ff0066;">셀프 트레이너 검색을 통해 마음에 드는 트레이너를 찾아보세요!</label>
+			<br><br><br>
+		</div>
+	
+	</c:if>
+	<c:if test="${ !empty recommendtrainerList }">
+	
+		<div class="searchTrainerListDiv">
+			<br> 
+			<select class="trainerSelect">
+				<option>- 선택 -</option>
+				<option>신규가입순</option>
+				<option>인기순</option>
+			</select> 
+			<br><br>
+			
+			<c:forEach var="i" begin="0" end="${fn:length(recommendtrainerList)-1}" varStatus="st">
+		
+				<div class="trainerListDiv">
+					<table class="trainerListTable">
+						<tr>
+							<td rowspan="3" class="trainerListTableTd1">
+								<div class="profileImg">
+									<img class="profileImage" src="${ contextPath }/resources/images/profileImg.PNG">
+								</div>
+							</td>
+							<td class="trainerListTableTd2">
+								<label class="trainerName">${ recommendtrainerList[i].name }</label>
+								<label class="trainerGender">(${ recommendtrainerList[i].trainerInfo.tage}, ${ recommendtrainerList[i].gender})</label>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><label class="trainerKeyword">${ recommendtrainerList[i].profile.keyword }</label></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><label class="simpleProfile">${ recommendtrainerList[i].profile.lineProfile}</label></td>
+							<td class="trainerListTableTd1">
+								<button class="goProfileDetail" onclick="location.href='showProfileDetailPageView.us'">프로필 보기</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<br>
+			</c:forEach>
+		</div>
+	
+	</c:if>
+	
+	
+	
+	<%-- 
 	<div class="searchTrainerListDiv">
-		<br> <select class="trainerSelect">
+		<br> 
+		<select class="trainerSelect">
 			<option>- 선택 -</option>
 			<option>신규가입순</option>
 			<option>인기순</option>
-		</select> <br>
-		<br>
+		</select> 
+		<br><br>
 		<div class="trainerListDiv">
 			<table class="trainerListTable">
 				<tr>
 					<td rowspan="3" class="trainerListTableTd1">
 						<div class="profileImg">
-							<img class="profileImage"
-								src="${ contextPath }/resources/images/profileImg.PNG">
+							<img class="profileImage" src="${ contextPath }/resources/images/profileImg.PNG">
 						</div>
 					</td>
-					<td class="trainerListTableTd2"><label class="trainerName">트레이너1</label>
-						<label class="trainerGender">(남)</label></td>
+					<td class="trainerListTableTd2">
+						<label class="trainerName">트레이너1</label>
+						<label class="trainerGender">(남)</label>
+					</td>
 					<td></td>
 				</tr>
 				<tr>
@@ -96,7 +161,7 @@
 		<br>
 		<br>
 	</div>
-
+ --%>
 
 	<!-- footer -------------------------------------------------------------------------------------------------------- -->
 	<br><br><hr><br>
