@@ -78,6 +78,8 @@ public class TrainerController {
 	      System.out.println("ajax로 보낼 객체 : " + estimate);
 	      System.out.println("받아온estType : " + estType);
 	      JSONObject estiMateJson = new JSONObject();
+      
+	    
 	      
 	      
 	         if(estimate != null) {

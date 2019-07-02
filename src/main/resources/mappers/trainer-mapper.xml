@@ -107,6 +107,19 @@
 		SET REMAIN_NUM = (REMAIN_NUM + #{iMemberShipUsage})
 		WHERE TNO = #{mno}
 	</update>
+	<select id="getPaymentListCount" resultType="_int">
+		SELECT COUNT(*)
+  		FROM PAYMENT
+  		WHERE TNO = #{tno}
+	</select>
+	<select id="paymentList" resultMap="paymentResultSet" parameterType="_int">
+		SELECT *
+		FROM PAYMENT P
+		JOIN MEMBERSHIP M ON(P.MEMBERSHIP_NO = M.MEMBERSHIP_NO)
+		WHERE TNO = #{tno2}
+		ORDER BY PAY_DATE DESC
+	</select>
+
 
 
 
