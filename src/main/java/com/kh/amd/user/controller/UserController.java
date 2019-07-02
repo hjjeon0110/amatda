@@ -1,14 +1,49 @@
 package com.kh.amd.user.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.kh.amd.member.model.vo.Member;
+import com.kh.amd.survey.model.vo.Survey;
+import com.kh.amd.trainer.model.service.TrainerService;
+import com.kh.amd.user.model.service.UserService;
+
+@SessionAttributes("loginUser")
 @Controller
 public class UserController {
 	
+	@Autowired
+	private UserService us;
+	
 	// 트레이너찾기_맞춤트레이너추천 페이지 이동 (전효정)
 	@RequestMapping("showRecommendTrainerPageView.us")
-	public String showRecommendTrainerPageView() {
+	public String showRecommendTrainerPageView(Model model, int mno) {
+		
+		// 2. 설문조사/키워드 조회 (전효정)
+		Survey survey = us.selectSurvey(mno);
+		model.addAttribute("survey", survey);
+		
+		String hopeAge = survey.getHopeAge();
+		String hopeGender = survey.getHopeGender();
+		String hopePeriod = survey.getHopePeriod();
+		String hopeExcercise = survey.getHopeExercise();
+		
+		System.out.println(hopeAge);
+		System.out.println(hopeGender);
+		System.out.println(hopePeriod);
+		System.out.println(hopeExcercise);
+		
+		
+		// 1. 맞춤 트레이너 리스트 조회 (전효정)
+		List<Member> recommendtrainerList = us.selectRecommendTrainerList(mno, hopeAge, hopeGender, hopePeriod, hopeExcercise);
+		model.addAttribute("recommendtrainerList", recommendtrainerList);
+		System.out.println(recommendtrainerList);
+		
 		return "user/1_1_recommendTrainerPage";
 	}
 	

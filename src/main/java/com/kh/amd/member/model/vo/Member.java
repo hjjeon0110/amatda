@@ -1,6 +1,9 @@
 package com.kh.amd.member.model.vo;
 
 import java.sql.Date;
+import java.util.ArrayList;
+
+import com.kh.amd.trainer.model.vo.Profile;
 
 public class Member implements java.io.Serializable{
 	private int mno;
@@ -26,6 +29,39 @@ public class Member implements java.io.Serializable{
 	private String topen;
 	private int remainNum;
 	
+	private TrainerInfo trainerInfo;
+	private Profile profile;
+
+	public Member(int mno, String name, String userId, String userPwd, String phone, String gender, String email,
+			String mtype, String status, int matchTime, String emailYn, Date enrollDate, Date modifyDate,
+			String completeSurvey, int tno, String accountName, String bankCode, String accountNo, String tage,
+			String topen, int remainNum, TrainerInfo trainerInfo, Profile profile) {
+		super();
+		this.mno = mno;
+		this.name = name;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.phone = phone;
+		this.gender = gender;
+		this.email = email;
+		this.mtype = mtype;
+		this.status = status;
+		this.matchTime = matchTime;
+		this.emailYn = emailYn;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.completeSurvey = completeSurvey;
+		this.tno = tno;
+		this.accountName = accountName;
+		this.bankCode = bankCode;
+		this.accountNo = accountNo;
+		this.tage = tage;
+		this.topen = topen;
+		this.remainNum = remainNum;
+		this.trainerInfo = trainerInfo;
+		this.profile = profile;
+	}
+
 	public Member() {}
 
 	public Member(int mno, String name, String userId, String userPwd, String phone, String gender, String email,
@@ -55,6 +91,8 @@ public class Member implements java.io.Serializable{
 		this.topen = topen;
 		this.remainNum = remainNum;
 	}
+
+
 
 	public int getMno() {
 		return mno;
@@ -223,6 +261,22 @@ public class Member implements java.io.Serializable{
 	public void setRemainNum(int remainNum) {
 		this.remainNum = remainNum;
 	}
+	
+	public TrainerInfo getTrainerInfo() {
+		return trainerInfo;
+	}
+
+	public void setTrainerInfo(TrainerInfo trainerInfo) {
+		this.trainerInfo = trainerInfo;
+	}
+
+	public Profile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(Profile profile) {
+		this.profile = profile;
+	}
 
 	@Override
 	public String toString() {
@@ -231,11 +285,9 @@ public class Member implements java.io.Serializable{
 				+ ", matchTime=" + matchTime + ", emailYn=" + emailYn + ", enrollDate=" + enrollDate + ", modifyDate="
 				+ modifyDate + ", completeSurvey=" + completeSurvey + ", tno=" + tno + ", accountName=" + accountName
 				+ ", bankCode=" + bankCode + ", accountNo=" + accountNo + ", tage=" + tage + ", topen=" + topen
-				+ ", remainNum=" + remainNum + "]";
+				+ ", remainNum=" + remainNum + ", trainerInfo=" + trainerInfo + ", profile=" + profile + "]";
 	}
 
-	
-	
 	
 	
 	

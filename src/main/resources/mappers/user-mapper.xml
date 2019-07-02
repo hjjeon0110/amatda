@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="User">
+
+	<resultMap id="memberResultSet" type="com.kh.amd.member.model.vo.Member">
+		<id column="MNO" property="mno" /> 
+		<result column="NAME" property="name" />
+		<result column="ID" property="userId" />
+		<result column="PWD" property="userPwd" />
+		<result column="PHONE" property="phone" />
+		<result column="GENDER" property="gender" />
+		<result column="EMAIL" property="email" />
+		<result column="MTYPE" property="mtype" />
+		<result column="STATUS" property="status" />
+		<result column="MATCH_TIME" property="matchTime" />
+		<result column="EMAIL_YN" property="emailYn" />
+		<result column="ENROLL_DATE" property="enrollDate" />
+		<result column="MODIFY_DATE" property="modifyDate" />
+		<result column="COMPLETE_SURVEY" property="completeSurvey" />
+	</resultMap>
+	<resultMap type="com.kh.amd.member.model.vo.TrainerInfo" id="trainerResultSet">
+		<id property="tno" column="TNO" /><!-- DB 기본키 -->
+		<result property="accountName" column="ACCOUNT_NAME" />
+		<result property="bankCode" column="BANKCODE" />
+		<result property="accountNo" column="ACCOUNT_NO" />
+		<result property="tage" column="TAGE" />
+		<result property="topen" column="TOPEN" />
+		<result property="remainNum" column="REMAIN_NUM" />
+	</resultMap>
+	<resultMap type="com.kh.amd.trainer.model.vo.Profile" id="profileResultSet">
+		<id property="profileno" column="PROFILE_NO" />
+		<result property="tno" column="TNO" />
+		<result property="lineProfile" column="LINE_PROFILE" />
+		<result property="proTitle" column="PRO_TITLE" />
+		<result property="intro" column="INTRO" />
+		<result property="media" column="MEDIA" />
+		<result property="certificate" column="CERTIPICATE" />
+		<result property="keyword" column="KEYWORD" />
+	</resultMap>
+		<resultMap id="selectRecommendTrainerList" type="com.kh.amd.member.model.vo.Member">
+		<id column="MNO" property="mno" /> 
+		<result column="NAME" property="name" />
+		<result column="ID" property="userId" />
+		<result column="PWD" property="userPwd" />
+		<result column="PHONE" property="phone" />
+		<result column="GENDER" property="gender" />
+		<result column="EMAIL" property="email" />
+		<result column="MTYPE" property="mtype" />
+		<result column="STATUS" property="status" />
+		<result column="MATCH_TIME" property="matchTime" />
+		<result column="EMAIL_YN" property="emailYn" />
+		<result column="ENROLL_DATE" property="enrollDate" />
+		<result column="MODIFY_DATE" property="modifyDate" />
+		<result column="COMPLETE_SURVEY" property="completeSurvey" />
+		<collection property="trainerInfo" column="trainerResultSet" resultMap="trainerResultSet" javaType="TrainerInfo"/>
+		<collection property="profile" column="profileResultSet" resultMap="profileResultSet" javaType="Profile"/>
+	</resultMap>
+	<resultMap type="Attachment" id="attachmentResultSet">
+		<id property="fileNo" column="FILE_NO" />
+		<result property="bno" column="BNO" />
+		<result property="pno" column="PNO" />
+		<result property="link" column="LINK" />
+		<result property="oriName" column="ORI_NAME" />
+		<result property="modiName" column="MODI_NAME" />
+		<result property="extension" column="EXTENSION" />
+		<result property="fileLevel" column="FILE_LEVEL" />
+		<result property="uploadDate" column="UPLOAD_DATE" />
+		<result property="aType" column="ATYPE" />
+		<result property="aStatus" column="A_STATUS" />
+		<result property="filePath" column="FILE_PATH" />
+	</resultMap>
+	<resultMap type="com.kh.amd.survey.model.vo.Survey" id="surveyResultSet">
+		<id property="surveyNo" column="SURVEY_NO"/>
+		<result property="uNo" column="UNO"/>
+		<result property="hopePeriod" column="HOPE_PERIOD"/>
+		<result property="hopeBody" column="HOPE_BODY"/>
+		<result property="hopeMethod" column="HOPE_METHOD"/>
+		<result property="hopeGender" column="HOPE_GENDER"/>
+		<result property="hopeAge" column="HOPE_AGE"/>
+		<result property="dietFail" column="DIET_FAIL"/>
+		<result property="hopeStart" column="HOPE_START"/>
+		<result property="dietReason" column="DIET_REASON"/>
+		<result property="hopeExercise" column="HOPE_EXERCISE"/>
+		<result property="datExercise" column="DAT_EXERCISE"/>
+		<result property="datFood" column="DAT_FOOD"/>
+		<result property="disease" column="DISEASE"/>
+		<result property="dayTime" column="DAY_TIME"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
+		<result property="height" column="HEIGHT"/>
+		<result property="weight" column="WEIGHT"/>
+		<result property="hopeWeight" column="HOPE_WEIGHT"/>
+		<result property="uAge" column="UAGE"/>
+	</resultMap>
+
+	
+	<!-- 효정 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	
+	<!-- 1. 맞춤 트레이너 리스트 조회 (전효정) -->
+	<select id="selectRecommendTrainerList" resultMap="selectRecommendTrainerList">
+		SELECT * FROM MEMBER M JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE M.MTYPE = 'T' AND TI.TOPEN = 'Y' AND TI.TAGE = #{hopeAge} AND M.GENDER = #{hopeGender} 
+	</select>
+	
+	<!-- 2. 설문조사/키워드 조회 (전효정) -->
+	<select id="selectSurvey" resultMap="surveyResultSet">
+		SELECT * FROM SURVEY WHERE UNO = #{mno}
+	</select>
+
+</mapper>

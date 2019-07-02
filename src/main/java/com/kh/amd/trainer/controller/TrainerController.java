@@ -1,6 +1,7 @@
 package com.kh.amd.trainer.controller;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -259,7 +260,7 @@ public class TrainerController {
 	@RequestMapping("showMyPageProfile.tr")
 	public String showTrainerMyPageProfileView(Model model, int mno) {
 
-		// 1. 프로필 작성 여부 확인(전효정)
+		// 1. 프로필 작성 여부 확인 (전효정)
 		Profile profile = ts.checkProfile(mno);
 		model.addAttribute("profile", profile);
 

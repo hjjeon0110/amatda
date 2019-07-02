@@ -16,7 +16,7 @@
 	
 	<!-- 서브메뉴 영역 -------------------------------------------------------------------------------------------------------- -->
 	<div class="subMenuBar">
-		<div class="subMenuBar1" onclick="location.href='showRecommendTrainerPageView.us'">맞춤 트레이너 추천</div>
+		<div class="subMenuBar1" onclick="location.href='showRecommendTrainerPageView.us?mno=${sessionScope.loginUser.mno}'">맞춤 트레이너 추천</div>
 		<div class="subMenuBar2">셀프 트레이너 검색</div>
 	</div>
 	

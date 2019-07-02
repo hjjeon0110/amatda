@@ -190,7 +190,7 @@
 				<div class="collapse navbar-collapse" id="templateux-navbar-nav">
 					<ul class="menubarLi">
 						<li class="menubarLi4"><a class="menubarLi4"
-							href="showRecommendTrainerPageView.us">트레이너 찾기</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							href="showRecommendTrainerPageView.us?mno=${sessionScope.loginUser.mno}">트레이너 찾기</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<li class="menubarLi5"><a class="menubarLi5"
 							href="showMyPagePrivacy.us">MY PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<li class="menubarLi6"><a class="menubarLi6" href="#">PT
@@ -276,9 +276,7 @@
 							<li class="menubarLi3"><a class="menubarLi3" href="showMatchingInProgressPage.tr">PT 관리</a></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<li class="menuberLi4" id="remainNum2">남은 멤버쉽 횟수 : </li><li class="menuberLi4" id="remainNum"></li>
-						</ul>
-						
+							<li class="menuberLi4" id="remainNum">남은 멤버쉽 횟수 : </li><li class="menuberLi4" id="remainNum2"></li><li class="menuberLi4" id="remainNum">번</li>
 						<div class="as">
 							<div class="dropdown">
 								<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -332,21 +330,19 @@
 		//멤버쉽잔여횟수 체크
 		$(function(){
 			var checkType = "${ sessionScope.loginUser.mtype }";
-			var mno = "${sessionScope.loginUser.mno}";
+			var mno = ${sessionScope.loginUser.mno};
 			
-			console.log("checkType : " + checkType);
-			console.log(typeof checkType);
-			if(checkType == 'T'){
+			if(checkType == "T"){
+
 				$.ajax({
 					url:"checkMembership.tr",
-					data : {mno:mno },
+					data : {mno:mno},
 					success:function(data){
-						$("#remainNum").after(data);
-						
+						$("#remainNum2").text(data);
+
 						
 					}
-					
-				})			
+				});	
 			}
 
 			
