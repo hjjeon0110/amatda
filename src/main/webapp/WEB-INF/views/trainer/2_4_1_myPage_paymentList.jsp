@@ -143,7 +143,9 @@
 			    	<td>${Payment.membershipCount }</td>
 			    	<td><fmt:formatDate pattern="yyyy-MM-dd" value="${Payment.payDate}"/></td>
 			    	<td>${Payment.process }</td>
-			    	<td><button class="modification" id="refundRequest">환불요청</button></td>			    	
+			    	<!-- <td><button class="modification" name="refundBtn">환불요청</button></td>	 -->
+			    	<td><button type="button" class="btn btn-primary modification" id="goProfileDetail" name="refundBtn" data-toggle="modal"
+							data-target="#exampleModalScrollable">환불요청</button></td>   	
 			    </tr>
 			</c:forEach>
 				
@@ -192,7 +194,49 @@
 	<br><br><hr><br>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	
+	<!-- Modal --------------------------------------------------------------------------------------------------------------------------------------- -->
+	<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					
+					알려드립니다! 환불요청 신청시 회원님이 소유하신 멤버쉽 횟수가 즉시 차감 되오니 유의바랍니다!!
+					단 사유의 부적절로인한 환불 실패, 취소시 다시 횟수를 돌려받으실수 있습니다.
+					
+					
+				</div>
+				<div class="modal-body">
+					<div class="modalBody">
+						<textarea id="refundReason" cols="90" rows="10" placeholder="환불사유를 입력해주세요. 세부적으로 입력해주세요" 
+						 style="resize: none;"></textarea>
+						<br />
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">닫기</button>
+					<button type="button" class="btn btn-primary" id="modifyProfileBtn" value="modifyProfileBtn">요청하기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script>
+
+		$(document).ready(function() {
+			$('a.thumb').click(function(event) {
+				event.preventDefault();
+				var content = $('.modal-body');
+				content.empty();
+				var title = $(this).attr("title");
+				$('.modal-title').html(title);
+				content.html($(this).html());
+				$(".modal-profile").modal({
+					show : true
+				});
+			});
+		});
+	
 		$(function(){
 			var tno = ${ sessionScope.loginUser.mno};
 			$("#memberShipPay").mouseenter(function(){
@@ -205,15 +249,28 @@
 			}).click(function(){
 				location.href="paymentList.tr?tno=" + tno;
 			})
-			$("#refundRequest").click(function(){
-				var refundId = $(this).parent().parent().children().children().eq(0).val();
-				console.log(refundId);
-			})
 			$(".reviewTable").find("td").mouseenter(function(){
 				$(this).parent().css("background", "#ffe6f3");
 			}).mouseout(function(){
 				$(this).parent().css("background", "white");
 			})
+			//환불요청하기 버튼 클릭시 사용되는 함수
+			
+			$("button[name=refundBtn]").click(function(){
+				var refundId = $(this).parent().parent().children().children().eq(0).val();
+				$("#modifyProfileBtn").click(function() {
+					var refundReason = $("#refundReason").val();
+					console.log(refundId);
+					 if(refundReason == "" || refundReason == null){
+			               alert("환불사유를 반드시 입력해주세요");
+			               $($("#refundReason").focus());
+			               return false;   
+		            }
+					
+				})
+			})
+			
+			
 		})
 	
 	</script>

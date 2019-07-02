@@ -25,7 +25,7 @@ public interface BoardDao {
 	//공지사항 상세보기(김선아)
 	Board noticeSelectOne(SqlSessionTemplate sqlSession, int bNo);
 
-	//공지사항 조회수증가(김선아)
+	//조회수증가(김선아)
 	void increaseViewcnt(SqlSessionTemplate sqlSession, int bNo);
 	
 	
@@ -55,8 +55,8 @@ public interface BoardDao {
 	//공지사항/이벤트 게시판 페이징 (SR)
 	//List<Map<String, Object>> selectBoardList(Criteria cri);
 
-	//공지사항/이벤트 게시판 검색 (SR)
-	//List<Board> searchNotice(SqlSessionTemplate sqlSession);
+	//공지사항/이벤트 게시판 검색 !!! (SR)
+	List<Board> searchNotice(SqlSessionTemplate sqlSession,String searchCon);
 
 
 	//공지사항 글등록(김선아)
@@ -67,9 +67,6 @@ public interface BoardDao {
 
 	//공지사항 수정(김선아)
 	int updateNotice(SqlSessionTemplate sqlSession, Board board);
-
-	//1:1문의 리스트(김선아)
-	List<Board> QNAlist(SqlSessionTemplate sqlSession);
 
 	//자주묻는질문 리스트(김선아)
 	List<Board> FAQlist(SqlSessionTemplate sqlSession);
@@ -82,6 +79,24 @@ public interface BoardDao {
 
 	//이벤트 카테고리 게시물 상세페이지(SR)
 	Board selectOneEventCate(SqlSessionTemplate sqlSession, int bNo);
+
+	//자주 묻는 질문 글 등록(김선아)
+	void insertFAQ(SqlSessionTemplate sqlSession, Board board);
+
+	//자주 묻는 질문 글 삭제(김선아)
+	void deleteFAQ(SqlSessionTemplate sqlSession, int bNo);
+
+	//자주 묻는 질문 글 수정(김선아)
+	int updateFAQ(SqlSessionTemplate sqlSession, Board board);
+	
+	//1:1문의 리스트(김선아)
+	List<Board> QNAlist(SqlSessionTemplate sqlSession);
+
+	//1:1 상세보기(김선아)
+	Object QNASelectOne(SqlSessionTemplate sqlSession, int bNo);
+
+	//1:1 글 삭제(김선아)
+	void deleteQNA(SqlSessionTemplate sqlSession, int bNo);
 
 	//int insertQna(SqlSessionTemplate sqlSession, Board b, String mno);
 

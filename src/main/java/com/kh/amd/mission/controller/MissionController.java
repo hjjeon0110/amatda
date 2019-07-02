@@ -992,7 +992,9 @@ public class MissionController {
 		m.setCompleteYN(breakCheck);
 		
 		System.out.println("아침미션수행체크: " +  m);
-		int result = ms.insertCheckBreak(m); 
+		int result = ms.insertCheckBreak(m);
+		
+		
 		
 		
 		if(result>0) {
@@ -1000,14 +1002,19 @@ public class MissionController {
 				response.getWriter().print("success");
 				model.addAttribute("mission",m);
 				System.out.println("model: " + model);
+
 				
 			} catch (IOException e) {
-				try {
-					response.getWriter().print("fail");
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+
+				
+			}
+			
+		}else {
+			try {
+				response.getWriter().print("fail");
+			} catch (IOException e) {
+			
+				e.printStackTrace();
 			}
 			
 		}

@@ -47,19 +47,6 @@
 		<result property="aStatus" column="A_STATUS" />
 		<result property="filePath" column="FILE_PATH" />
 	</resultMap>
-	<resultMap type="Payment" id="paymentResultSet">
-		<id property="payNo" column="PAY_NO"/>
-		<result property="membershipNo" column="MEMBERSHIP_NO"/>
-		<result property="tno" column="TNO"/>
-		<result property="process" column="PROCESS"/>
-		<result property="payType" column="PAY_TYPE"/>
-		<result property="payDate" column="PAY_DATE"/>
-		<result property="refundReason" column="REFUND_REASON"/>
-		<result property="membershipType" column="MEMBERSHIP_TYPE"/>
-		<result property="membershipCount" column="MEMBERSHIP_COUNT"/>
-		<result property="membershipPrice" column="MEMBERSHIP_PRICE"/>
-	</resultMap>
-	
 
 
 
@@ -130,8 +117,9 @@
 		FROM PAYMENT P
 		JOIN MEMBERSHIP M ON(P.MEMBERSHIP_NO = M.MEMBERSHIP_NO)
 		WHERE TNO = #{tno2}
+		ORDER BY PAY_DATE DESC
 	</select>
-	
+
 
 
 

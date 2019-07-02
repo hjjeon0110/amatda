@@ -233,9 +233,7 @@ select {
       });
       //빈값체크 메소드
       $(document).ready(function(){
-         $('form[name=estimanteInsert]').bind('submit', function(){
-            
-            
+         $('form[name=estimanteInsert]').bind('submit', function(){          
             if($("#estName").val() == "" || $("#estName").val() == null){
                alert("견적서 이름을 반드시 입력해주세요");
                $($("#estName").focus());
@@ -265,7 +263,7 @@ select {
                success:function(data){
                   console.log(data)
                   if(data.estName== null) {
-                     alert("값이 없다!");
+                     
                      $("#estName").val("");
                      $("#estContents").val("");
                      $("#estDay").val(30);

@@ -990,6 +990,9 @@ function breakCheck() {
 		});
 		
 	})
+	온로드 펑션 
+		mcontent.complete == 'N'
+		
 </script>
 
 </html>

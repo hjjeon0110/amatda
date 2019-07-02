@@ -89,7 +89,7 @@
 									class="dropdown-item" href="refund.ad">환불</a>
 							</div></li>
 
-						<li class="nav-item"><a class="nav-link" href="#"> <i
+						<li class="nav-item"><a class="nav-link" href="declaration.ad"> <i
 								class="fas fa-cog"></i> 신고관리 <span class="sr-only">(current)</span>
 						</a></li>
 
@@ -134,15 +134,14 @@
 						</thead>
 
 						<tbody>
-
-							<c:forEach var="QNAlist" items="${ requestScope.list }" varStatus="status">
+							<c:forEach var="QNAlist" items="${ list }" varStatus="status">
 								<tr>
 									<th scope="row"><b>${ status.count }</b>
 									<input type="hidden" id="decl_no" value="${QNAlist.bNo }"></th>
 									<td>${ QNAlist.bTitle }</td>
-									<td></td>
+									<td>${ QNAlist.member.userId }</td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd" value="${ QNAlist.bWriteDate }"/></td>
-									
+									<td>${QNAlist.bCount }</td>
 								</tr>
 							</c:forEach>
 
@@ -201,10 +200,8 @@
 				}).mouseout(function(){
 					$(this).parents("tr").css({"background":"#567086"});
 				}).click(function(){
-					/* var bid = $(this).parents().children("td").eq(0).text();
-					
-					location.href="selectOne.bo?bid="+ bid; */
-					location.href="QNASelectOne.ad";
+					var bNo = $(this).parents("tr").children("th").children().eq(1).val();
+					location.href="QNASelectOne.ad?bNo=" + bNo;
 				})
 				
 			})

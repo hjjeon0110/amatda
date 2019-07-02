@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <script
@@ -27,8 +26,8 @@
 	https://templatemo.com/tm-524-product-admin
 	-->
 <style>
-#search_input {
-	margin-left: 600px;
+#button {
+	margin-left: 550px;
 }
 </style>
 </head>
@@ -89,8 +88,9 @@
 									class="dropdown-item" href="refund.ad">환불</a>
 							</div></li>
 
-						<li class="nav-item"><a class="nav-link" href="declaration.ad"> <i
-								class="fas fa-cog"></i> 신고관리 <span class="sr-only">(current)</span>
+						<li class="nav-item"><a class="nav-link"
+							href="declaration.ad"> <i class="fas fa-cog"></i> 신고관리 <span
+								class="sr-only">(current)</span>
 						</a></li>
 
 						<li class="nav-item"><a class="nav-link" href="statistics.ad">
@@ -110,109 +110,57 @@
 		</nav>
 		<!--  메뉴바 끝 -->
 
-		<br>
-		<br>
-		<br>
 
-		<div class="container">
+		<div class="container tm-mt-big tm-mb-big">
+			<div class="row">
+				<div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+					<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
 
+						<div class="row">
+							<div class="col-12">
+								<h2 class="tm-block-title d-inline-block">자주 묻는 질문</h2>
+							</div>
+						</div>
 
-			<div class="col-12 tm-block-col">
-				<div
-					class="tm-bg-primary-dark tm-block tm-block-taller">
-					<h2 class="tm-block-title">자주 묻는 질문</h2>
+						<form method="post" action="FAQUpdate.ad ">
+								<input type="hidden" value="${board.bNo }" name="bNo">
 
-					<a href="FAQWrite.ad" class="button" id="list">글 등록</a>
-					<table class="table" id="declarationArea">
-						<thead>
-							<tr>
-								<th scope="col">번호</th>
-								<th scope="col">제목</th>
-								<th>작성자</th>
-								<th scope="col">작성일</th>
-								<th scope="col">조회수</th>
-							</tr>
-						</thead>
+								<select class="custom-select tm-select-accounts" name="blCategory">
+									<option selected>${board.blCategory }</option>
+								</select> 
+								<select class="custom-select tm-select-accounts" name="bmCategory">
+									<option selected>${board.bmCategory }</option>
+								</select>
 
-						<tbody>
+							<div class="form-group">
+								<label for="name">글 제목 </label> 
+								<input id="name" name="bTitle" type="text" class="form-control validate" 
+										value="${board.bTitle }"/>
+							</div>
+							<div class="form-group">
+								<label for="description">글 내용</label>
+								<textarea class="form-control validate" rows="10"
+										name="bContent">${board.bContent }</textarea>
+							</div>
 
-							<c:forEach var="FAQlist" items="${ requestScope.list }" varStatus="status">
-								<tr>
-									<th scope="row"><b>${ status.count }</b>
-									<input type="hidden" id="bNo" value="${FAQlist.bNo }">
-									</th>
-									<td>${FAQlist.bTitle }</td>
-									<td>admin</td>
-									<td><fmt:formatDate pattern="yyyy-MM-dd" value="${FAQlist.bWriteDate }"/></td>
-									<td>${FAQlist.bCount }</td>
-								</tr>
-							</c:forEach>
+							<div id="button">
+								<a href="FAQ.ad" class="button">목록</a>
+								<button type="submit" class="button">수정</button>
+							</div>
 
-						</tbody>
-					</table>
-
-					<br><br>
-					
-					<!-- 페이징처리 -->
-					<div id="paginaArea" align="center">
-						<!-- 첫 페이지를 보고 있는 경우 -->
-						<c:if test="${pi.currentPage <= 1}">
-				[이전] &nbsp;
-			</c:if>
-
-						<!-- 첫 페이지가 아닌 다른페이지를 보고있는 경우 -->
-						<c:if test="${pi.currentPage > 1 }">
-							<c:url var="blistBack" value="/selectList.bo">
-								<c:param name="currnetPage" value="${pi.currentPage - 1 }" />
-							</c:url>
-							<a href="${blistBack}">[이전]</a> &nbsp;
-			</c:if>
-
-						<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-							<c:if test="${p == pi.currentPage }">
-								<font color="red" size="4"> <b>[${p }]</b>
-								</font>
-							</c:if>
-
-							<c:if test="${p != pi.currentPage }">
-								<c:url var="blistCheck" value="selectList.bo">
-									<c:param name="currentPage" value="${p }" />
-								</c:url>
-								<a href="${blistCheck }">${p }</a>
-							</c:if>
-						</c:forEach>
-
-						<!-- 마지막페이지를 보고있는 경우 -->
-						<c:if test="${pi.currentPage >= pi.maxPage }">
-			 		&nbsp; [다음]
-			 	</c:if>
-
-						<c:if test="${pi.currentPage < pi.maxPage }">
-							<c:url var="blistEnd" value="selectList.bo">
-								<c:param name="currentPage" value="${pi.currentPage + 1 }" />
-							</c:url>
-							<a href="${blistEnd }">&nbsp; [다음]</a>
-						</c:if>
+						</form>
 					</div>
 
-					<script>
-					
-			$(function(){
-				$("#declarationArea").find("td").mouseenter(function(){					
-					$(this).parents("tr").css({"background":"#f8585b","cursor":"pointer"});		
-				}).mouseout(function(){
-					$(this).parents("tr").css({"background":"#567086"});
-				}).click(function(){
-					var bNo = $(this).parents("tr").children("th").children().eq(1).val();
-					location.href="FAQSelectOne.ad?bNo=" + bNo;
-				})
-				
-			})
-		</script>
 				</div>
+
 			</div>
+
 		</div>
+
 	</div>
+
+
+
 
 	<script src="<c:url value="/resources/ad-js/jquery-3.3.1.min.js" />"></script>
 	<!-- https://jquery.com/download/ -->
@@ -223,8 +171,6 @@
 	<script src="<c:url value="/resources/ad-js/bootstrap.min.js" />"></script>
 	<!-- https://getbootstrap.com/ -->
 	<script src="<c:url value="/resources/ad-js/tooplate-scripts.js" />"></script>
-
-
 </body>
 
 </html>

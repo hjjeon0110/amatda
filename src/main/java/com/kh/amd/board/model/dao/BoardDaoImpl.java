@@ -47,25 +47,19 @@ public class BoardDaoImpl implements BoardDao {
 	//공지사항 글등록(김선아)
 	@Override
 	public void insertNotice(SqlSessionTemplate sqlSession, Board board) {
-		sqlSession.update("Board.insertNotice", board);		
+		sqlSession.insert("Board.insertNotice", board);		
 	}
 
 	//공지사항 삭제(김선아)
 	@Override
 	public void deleteNotice(SqlSessionTemplate sqlSession, int bNo) {
-		sqlSession.delete("Board.deleteNotice", bNo);	
+		sqlSession.delete("Board.delete", bNo);	
 	}
 
 	//공지사항 수정(김선아)
 	@Override
 	public int updateNotice(SqlSessionTemplate sqlSession, Board board) {
 		return sqlSession.update("Board.updateNotice", board);
-	}
-
-	//1:1문의 리스트(김선아)
-	@Override
-	public List<Board> QNAlist(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectList("Board.QNAlist");
 	}
 
 	//자주묻는질문 리스트(김선아)
@@ -144,6 +138,42 @@ public class BoardDaoImpl implements BoardDao {
 		return sqlSession.selectOne("Board.selectOneEventCate", bNo);
 	}
 
+	//자주묻는질문 글 등록(김선아)
+	@Override
+	public void insertFAQ(SqlSessionTemplate sqlSession, Board board) {
+		sqlSession.insert("Board.insertFAQ", board);	
+	}
+
+	//자주묻는질문 글 삭제(김선아)
+	@Override
+	public void deleteFAQ(SqlSessionTemplate sqlSession, int bNo) {
+		sqlSession.delete("Board.delete", bNo);
+	}
+
+	//자주묻는질문 글 수정(김선아)
+	@Override
+	public int updateFAQ(SqlSessionTemplate sqlSession, Board board) {
+		return sqlSession.update("Board.updateFAQ", board);
+	}
+
+	//1:1문의 리스트(김선아)
+	@Override
+	public List<Board> QNAlist(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Board.QNAlist");
+	}
+	
+	//1:1 상세보기(김선아)
+	@Override
+	public Object QNASelectOne(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.selectOne("Board.QNASelectOne", bNo);
+	}
+
+	//1:1 글 삭제(김선아)
+	@Override
+	public void deleteQNA(SqlSessionTemplate sqlSession, int bNo) {
+		sqlSession.delete("Board.delete", bNo);
+	}
+
 	
 
 	
@@ -161,9 +191,10 @@ public class BoardDaoImpl implements BoardDao {
 
 	
 
-	//공지사항/이벤트 게시판 검색 (SR)
-	/*@Override
-	public List<Board> searchNotice(SqlSessionTemplate sqlSession) {
+	//공지사항/이벤트 게시판 검색  !!! (SR)
+	@Override
+	public List<Board> searchNotice(SqlSessionTemplate sqlSession,String searchCon) {
+		System.out.println("Dao: " + searchCon);
 		List<Board> list = (List) sqlSession.selectList("Board.searchNotice");
 		return sqlSession.selectList("Board.searchNotice");
 	}
