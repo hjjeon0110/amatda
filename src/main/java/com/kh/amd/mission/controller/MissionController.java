@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,6 +58,85 @@ public class MissionController {
 		return "mission/tmissionInsert";
 	}
 	
+	
+	
+	
+	//미션결과여부 확인
+	@RequestMapping("selectMissionResult.ms")
+	public ArrayList selectMissionResult(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		ArrayList arr = null; 
+		
+		String mno = request.getParameter("mno");
+		int mno2 = Integer.parseInt(mno);
+		
+		String mDate2 = request.getParameter("mDate2");
+		
+		
+		System.out.println("미션결과여부확인 컨트롤러 mno2: " + mno2);
+		System.out.println("미션결과여부확인 컨트롤러 mDate2: " + mDate2);
+		
+		
+		Mission m = new Mission();
+		m.setUno(mno2);
+		m.setmDate(mDate2);
+		
+		System.out.println("db가기전 m : " + m);
+		List<Mission> missonList = ms.selectMissionResult(m);
+		System.out.println("missionList: " + missonList);
+		
+		
+		JSONObject estiMateJson = new JSONObject();
+		if(m!=null) {
+			
+		try {
+			for(int i = 0; i < missonList.size(); i++) {
+				
+				String mContent = URLEncoder.encode(missonList.get(i).getmContent(), "UTF-8");
+				mContent = mContent.replaceAll("\\+", "%20");
+				System.out.println("mContent : " + missonList.get(i).getmContent());
+				arr = new ArrayList();
+				arr.add(missonList.get(i).getmContent());
+				
+				String mType = URLEncoder.encode(missonList.get(i).getmType(), "UTF-8");
+				mType = mType.replaceAll("\\+", "%20"); 
+				System.out.println("mType: " + missonList.get(i).getmType() );
+				arr.add(missonList.get(i).getmType());
+				
+				System.out.println("arr : " + arr);
+				
+				
+				estiMateJson.put("mType", mType);
+				estiMateJson.put("mContent", mContent);
+
+			}
+			
+			response.setContentType("application/json");
+		} catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+         }	
+		}			
+		/*//null일떄
+		}else {
+			response.setContentType("application/json");
+		}
+			try {
+				new Gson().toJson(estiMateJson,response.getWriter());
+				
+			} catch (JsonIOException e1) {
+				
+				e1.printStackTrace();
+				
+			} catch (IOException e1) {
+			
+				e1.printStackTrace();
+		}*/
+			
+		return arr;
+	}
+	
+	
+	
 	//미션수정 - 아침 식단 내용
 	@RequestMapping("updateBreakEat.ms")
 	public void updateBreakEat(HttpServletRequest request, HttpServletResponse response) {
@@ -91,7 +172,7 @@ public class MissionController {
 	}
 	
 	
-	//진짜 스프링을 이용한 ajax & controller
+	//진짜 스프링을 이용한 ajax & controller(ajax로 넘길값이 없을때)
 	//미션수정 - 점심 식단 내용
 	@RequestMapping("updateLunchEat.ms")
 	public void updateLunchEat(String mno, String mDate2, String lunch2, String eating, String lun, HttpServletResponse response) {
@@ -456,6 +537,7 @@ public class MissionController {
 		
 	}
 	
+	//진짜 스프링을 이용한 ajax & controller2 (ajax로 넘길 객체의 값이 있을경우-> ajax에서는 data.~로 사용한다)
 	//미션수정전, 점심식단 조회
 	@RequestMapping("selectMissionLunchList.ms")
 	public void selectMissionLunchList(HttpServletRequest request, HttpServletResponse response) {
@@ -476,33 +558,39 @@ public class MissionController {
 		//System.out.println("미션수정전 점심식단 내용  조회 후  m : " + m);
 		
 		
+		JSONObject estiMateJson = new JSONObject();
+		if(m!=null) {
+			
 		try {
 			String mContent = URLEncoder.encode(m.getmContent(), "UTF-8");
 			mContent = mContent.replaceAll("\\+", "%20");
 			//System.out.println("인코딩된 : "+mContent);
 			
 			
-			
-			JSONObject estiMateJson = new JSONObject();
+		
 			estiMateJson.put("mContent", mContent);
 
 			
 			response.setContentType("application/json");
+		} catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }	
 			
-			
+		//null일떄
+		}else {
+				response.setContentType("application/json");
+		}
 			try {
 				new Gson().toJson(estiMateJson,response.getWriter());
+				
 			} catch (JsonIOException e1) {
-				// TODO Auto-generated catch block
+				
 				e1.printStackTrace();
+				
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 			
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				e1.printStackTrace();
 		}
 	
 	}
@@ -912,8 +1000,12 @@ public class MissionController {
 		if(result>0) {
 			try {
 				response.getWriter().print("success");
+				model.addAttribute("mission",m);
+				System.out.println("model: " + model);
+
 				
 			} catch (IOException e) {
+
 				
 			}
 			
@@ -1191,7 +1283,7 @@ public class MissionController {
 		
 		
 	}
-	
+	//오늘의 운동
 	//아침운동 조회
 	@RequestMapping("select.ms")
 	public void selectMission(HttpServletRequest request, HttpServletResponse response) {
@@ -1217,6 +1309,7 @@ public class MissionController {
 			JSONObject estiMateJson = new JSONObject();
 			estiMateJson.put("mContent", mContent);
 			estiMateJson.put("mLink", lm.getmLink());
+			estiMateJson.put("completeYN", lm.getCompleteYN());
 			
 			response.setContentType("application/json");
 			
@@ -1264,6 +1357,7 @@ public class MissionController {
 			JSONObject estiMateJson = new JSONObject();
 			estiMateJson.put("mContent", mContent);
 			estiMateJson.put("mLink", lm.getmLink());
+			estiMateJson.put("completeYN", lm.getCompleteYN());
 			
 			response.setContentType("application/json");
 			
@@ -1309,6 +1403,7 @@ public class MissionController {
 			JSONObject estiMateJson = new JSONObject();
 			estiMateJson.put("mContent", mContent);
 			estiMateJson.put("mLink", lm.getmLink());
+			estiMateJson.put("completeYN", lm.getCompleteYN());
 			
 			response.setContentType("application/json");
 			
@@ -1328,8 +1423,8 @@ public class MissionController {
 		}
 	}
 	
-	
-	
+	//오늘의 식단
+	//아침식단 조회
 	@RequestMapping("selectEatBreak.ms")
 	public void selectEatBreakMission(HttpServletRequest request, HttpServletResponse response) {
 		String today = request.getParameter("today");
@@ -1353,7 +1448,7 @@ public class MissionController {
 			
 			JSONObject estiMateJson = new JSONObject();
 			estiMateJson.put("mContent", mContent);
-
+			estiMateJson.put("completeYN", lm.getCompleteYN());
 			
 			response.setContentType("application/json");
 			
@@ -1398,7 +1493,7 @@ public class MissionController {
 			
 			JSONObject estiMateJson = new JSONObject();
 			estiMateJson.put("mContent", mContent);
-
+			estiMateJson.put("completeYN", lm.getCompleteYN());
 			
 			response.setContentType("application/json");
 			
@@ -1444,7 +1539,7 @@ public class MissionController {
 			
 			JSONObject estiMateJson = new JSONObject();
 			estiMateJson.put("mContent", mContent);
-
+			estiMateJson.put("completeYN", lm.getCompleteYN());
 			
 			response.setContentType("application/json");
 			

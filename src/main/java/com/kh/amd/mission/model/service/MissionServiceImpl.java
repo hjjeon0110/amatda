@@ -221,6 +221,14 @@ public class MissionServiceImpl implements MissionService{
 		return md.insertCheckDinnerEx(sqlSession,m);
 	}
 
+	@Override
+	public List<Mission> selectMissionResult(Mission m) {
+		
+		
+		
+		return md.selectMissionResult(sqlSession,m);
+	}
+
 	
 	
 	

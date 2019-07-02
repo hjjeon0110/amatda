@@ -37,27 +37,27 @@
 
 
 <insert id="insertBreakfast" parameterType="Mission"> 
-INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '아침', '식단', #{mContent} , null, 'N') 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 1, #{mDate}, '아침', '식단', #{mContent} , null, 'N') 
 </insert>
 
 <insert id="insertLunch" parameterType="Mission"> 
-INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '점심', '식단', #{mContent} , null, 'N') 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 1, #{mDate}, '점심', '식단', #{mContent} , null, 'N') 
 </insert>
 
 <insert id="insertDinner" parameterType="Mission"> 
-INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '저녁', '식단', #{mContent} , null, 'N') 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 1, #{mDate}, '저녁', '식단', #{mContent} , null, 'N') 
 </insert>
 
 <insert id="insertBreakEx" parameterType="Mission"> 
-INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '아침', '운동', #{mContent} ,#{mLink}, 'N') 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 1, #{mDate}, '아침', '운동', #{mContent} ,#{mLink}, 'N') 
 </insert>
 
 <insert id="insertLunchEx" parameterType="Mission"> 
-INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '점심', '운동', #{mContent} ,#{mLink}, 'N') 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 1, #{mDate}, '점심', '운동', #{mContent} ,#{mLink}, 'N') 
 </insert>
 
 <insert id="insertDinnerEx" parameterType="Mission"> 
-INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, null, #{mDate}, '저녁', '운동', #{mContent} ,#{mLink}, 'N') 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 1, #{mDate}, '저녁', '운동', #{mContent} ,#{mLink}, 'N') 
 </insert>
 
 <select id="selectMission" parameterType="Mission" resultType="Mission">
@@ -371,4 +371,13 @@ AND MTYPE=#{mType}
 AND MCONTENT=#{mContent}
 AND MLINK=#{mLink}
 </update>
+
+
+<select id="selectMissionResult"  resultMap="missionResultSet"  parameterType="Mission">
+SELECT * 
+FROM MISSION
+WHERE UNO=#{uno}
+AND TNO=2
+AND MDATE=#{mDate}
+</select>
 </mapper>

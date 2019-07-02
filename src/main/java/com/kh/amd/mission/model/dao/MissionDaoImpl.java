@@ -208,6 +208,11 @@ public class MissionDaoImpl implements MissionDao{
 	public int insertCheckDinnerEx(SqlSessionTemplate sqlSession, Mission m) {
 		return sqlSession.update("Mission.updateCheckDinnerEx",m);
 	}
+
+	@Override
+	public List<Mission> selectMissionResult(SqlSessionTemplate sqlSession, Mission m) {
+		return sqlSession.selectList("Mission.selectMissionResult",m);
+	}
 	 
 
 	

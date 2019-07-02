@@ -102,11 +102,33 @@
     	/*  var moment = $('#calendar').fullCalendar('getDate');
     	console.log(moment); */
     	console.log("date: " + date.dateStr);
-    	$("#mDate").val(date.dateStr);
+    	$("#mDate2").val(date.dateStr);
     	alert("후");
     	/* $("#dialog").modal(); */
     	$("#myModal").modal();	
     	
+    	var mno =  ${sessionScope.loginUser.mno};
+    	var mDate2 = $("#mDate2").val();
+    	
+    	console.log("modal mission.jsp에서 mno: " + mno);
+    	console.log("modal mission.jsp에서 mDate2: " + mDate2);
+    	
+    	
+    	
+    	$.ajax({
+    		url:"selectMissionResult.ms",
+    		type:"post",
+    		data:{mno:mno, mDate2:mDate2},
+    		success:function(data){
+    			console.log(data.mContent);
+    			console.log(data.mType);
+    			alert(data);
+    		},error:function(data){
+    			alert("실패");
+    		}
+    		
+    		
+    	})
     	
     	
      },
@@ -275,11 +297,83 @@
   
   
   
+  
+  
+  
+  <!-- 미션결과 확인(모달) -->
+  <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+  			<h4 class="modal-title">미션결과 확인</h4>
+      </div>
+      <div class="modal-body">
+      	<table align="center">
+        	<tr>
+        		<td>날짜 <input type="text" id="mDate2"></td>
+        	</tr>
+        	<tr style="height:50px;">
+        		<td><label style="margin-left:80px; margin-top:40px" id="eating">식단</label><hr></td>
+        	</tr>
+        	<tr>
+        		<td><label id="breakf">아침</label><input type="text" id="breakfast2"></td>
+        	</tr>
+        	<tr>
+        		<td><label id="lun">점심</label><input type="text" id="lunch2"></td>
+        	</tr>
+        	<tr>
+        		<td><label id="din">저녁</label><input type="text" id="dinner2"></td>
+        	</tr>
+        	
+        	
+        	<tr>
+        		<td><label style="margin-left:80px; margin-top:40px" id="exercise">운동</label><hr></td>
+        	</tr>
+        	<tr>
+        		<td><label id="breakE">아침</label><input type="text" id="breakEx2" ></td>
+        		<td rowspan="2"></td>
+        	</tr>
+        	
+        	<tr>
+        		<td><input type="text" id="breakExLink2" style="margin-left:50px"></td>
+        	</tr>
+        	<tr>
+        		<td><label id="lunE">점심</label><input type="text" id="lunchEx2"></td>
+        		<td rowspan="2"></td>
+        	</tr>
+        	<tr>	
+        		<td><input type="text" id="lunchExLink2" style="margin-left:50px"></td>
+        	</tr>
+        	<tr>
+        		<td><label id="dinE">저녁</label><input type="text" id="dinnerEx2"></td>
+        		<td rowspan="2"></td>
+        	</tr>
+        	<tr>
+        		<td><input type="text" id="dinnerExLink2" style="margin-left:50px"></td>
+        	</tr>
+        	
+        </table>
+      </div>
+  	</div>
+   </div>
+   </div>
 
 </body>
 <script>
 console.log("mno: "+${sessionScope.loginUser.mno});
 
+
+$(function(){
+	var mno =  ${sessionScope.loginUser.mno};
+	var mDate2 = $("#mDate2").val();
+	
+	console.log("mission.jsp에서 mno: " + mno);
+	console.log("mission.jsp에서 mDate2: " + mDate2);
+	
+
+})
 
 
 //아침식단 기록
@@ -701,7 +795,13 @@ function breakCheck() {
 				
 				var rLink= mLink.split(",");
 				console.log(rLink);
-				
+				var completeYN = data.completeYN;
+				if(completeYN == 'Y'){
+					$("#breakExCheck").hide();
+				}else{
+					$("#breakExCheck").show();
+
+				}
 				
 				var $link;
 				
@@ -744,7 +844,15 @@ function breakCheck() {
 				 var mLink = data.mLink;
 				
 				var rLink= mLink.split(",");
-			
+				
+				var completeYN = data.completeYN;
+				if(completeYN == 'Y'){
+					$("#lunchExCheck").hide();
+				}else{
+					$("#lunchExCheck").show();
+
+				}
+				
 				var $link;
 				
 				rLink.forEach(function(element){
@@ -776,6 +884,14 @@ function breakCheck() {
 				
 				var rLink= mLink.split(",");
 				
+				var completeYN = data.completeYN;
+				if(completeYN == 'Y'){
+					$("#dinnerExCheck").hide();
+				}else{
+					$("#dinnerExCheck").show();
+
+				}
+				
 				
 				
 				
@@ -806,7 +922,13 @@ function breakCheck() {
 			
 				 $("#selbreakfast").append(mContent); 
 				
-				
+				 var completeYN = data.completeYN;
+					if(completeYN == 'Y'){
+						$("#breakCheck").hide();
+					}else{
+						$("#breakCheck").show();
+
+					}
 					
 				
 			},error:function(stauts){
@@ -825,7 +947,13 @@ function breakCheck() {
 				console.log("data: " + mContent);
 				 $("#sellunch").append(mContent); 
 				
-				
+				 var completeYN = data.completeYN;
+					if(completeYN == 'Y'){
+						$("#lunchCheck").hide();
+					}else{
+						$("#lunchCheck").show();
+
+					}
 					
 				
 			},error:function(stauts){
@@ -847,7 +975,13 @@ function breakCheck() {
 				console.log("data: " + mContent);
 				 $("#seldinner").append(mContent); 
 				
-				
+				 var completeYN = data.completeYN;
+					if(completeYN == 'Y'){
+						$("#dinnerCheck").hide();
+					}else{
+						$("#dinnerCheck").show();
+
+					}
 					
 				
 			},error:function(stauts){
