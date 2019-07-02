@@ -24,24 +24,6 @@ public class Board implements java.io.Serializable{
 	
 	public Board() {}
 
-	public Board(int bNo, int bType, String blCategory, String bmCategory, String bsCategory, Date bWriteDate, Date bModifyDate,
-			String bTitle, String bContent, int bCount, int bLike, String bStatus, int bWriter) {
-		super();
-		this.bNo = bNo;
-		this.bType = bType;
-		this.blCategory = blCategory;
-		this.bmCategory = bmCategory;
-		this.bsCategory = bsCategory;
-		this.bWriteDate = bWriteDate;
-		this.bModifyDate = bModifyDate;
-		this.bTitle = bTitle;
-		this.bContent = bContent;
-		this.bCount = bCount;
-		this.bLike = bLike;
-		this.bStatus = bStatus;
-		this.bWriter = bWriter;
-	}
-
 	public int getbNo() {
 		return bNo;
 	}
@@ -72,6 +54,14 @@ public class Board implements java.io.Serializable{
 
 	public void setBmCategory(String bmCategory) {
 		this.bmCategory = bmCategory;
+	}
+
+	public String getBsCategory() {
+		return bsCategory;
+	}
+
+	public void setBsCategory(String bsCategory) {
+		this.bsCategory = bsCategory;
 	}
 
 	public Date getbWriteDate() {
@@ -138,12 +128,32 @@ public class Board implements java.io.Serializable{
 		this.bWriter = bWriter;
 	}
 
-	public String getBsCategory() {
-		return bsCategory;
+	public Member getMember() {
+		return member;
 	}
 
-	public void setBsCategory(String bsCategory) {
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	public Board(int bNo, int bType, String blCategory, String bmCategory, String bsCategory, Date bWriteDate,
+			Date bModifyDate, String bTitle, String bContent, int bCount, int bLike, String bStatus, int bWriter,
+			Member member) {
+		super();
+		this.bNo = bNo;
+		this.bType = bType;
+		this.blCategory = blCategory;
+		this.bmCategory = bmCategory;
 		this.bsCategory = bsCategory;
+		this.bWriteDate = bWriteDate;
+		this.bModifyDate = bModifyDate;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bCount = bCount;
+		this.bLike = bLike;
+		this.bStatus = bStatus;
+		this.bWriter = bWriter;
+		this.member = member;
 	}
 
 	@Override
@@ -154,6 +164,7 @@ public class Board implements java.io.Serializable{
 				+ ", bStatus=" + bStatus + ", bWriter=" + bWriter + ", member=" + member + "]";
 	}
 
+	
 	
 
 

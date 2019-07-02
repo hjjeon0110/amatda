@@ -117,8 +117,6 @@ public class AdminController {
 	public String noticeUpdate(Board board) { 		
 		//System.out.println("board 출력 : " + board);
 		int result = bs.updateNotice(board);
-		bs.updateNotice(board);
-
 		return "redirect:notice.ad";
 	}
 
@@ -140,34 +138,80 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("admin/FAQSelectOne"); 
 		mav.addObject("FAQ",bs.FAQSelectOne(bNo));
-		System.out.println("자주묻는 질문 상세보기 : " + mav);
+		//System.out.println("자주묻는 질문 상세보기 : " + mav);
 
 		return mav;
 	}
 
 
-	//자주 묻는 질문 글 등록
-	@RequestMapping("FAQInsert.ad")
-	public String FAQInsert(){
-
+	//자주 묻는 질문 글 등록 화면
+	@RequestMapping("FAQWrite.ad")
+	public String FAQWrite(){
 		return "admin/FAQInsert";
+	}
 
+
+	//자주 묻는 질문 글 등록 처리
+	@RequestMapping(value="FAQInsert.ad", method=RequestMethod.POST) 
+	public String FAQInsert(@ModelAttribute Board board){ 
+		bs.insertFAQ(board);
+		return "redirect:FAQ.ad"; 
+	}
+
+	//자주 묻는 질문 삭제
+	@RequestMapping("deleteFAQ.ad")
+	public String deleteFAQ(@RequestParam int bNo) {
+		bs.deleteFAQ(bNo);
+		return "redirect:FAQ.ad";
+	}
+
+	//자주 묻는 질문 수정 페이지 이동
+	@RequestMapping(value="FAQUpdate.ad", method=RequestMethod.GET) 
+	public String FAQRewrite(@RequestParam int bNo, Model model) { 
+		Board board = new Board();
+		board = bs.FAQSelectOne(bNo);
+		model.addAttribute(board);
+		return "admin/FAQUpdate";
+	}
+
+	//자주 묻는 질문 수정 처리
+	@RequestMapping(value="FAQUpdate.ad", method=RequestMethod.POST) 
+	public String FAQUpdate(Board board) { 		
+		int result = bs.updateFAQ(board);
+		return "redirect:FAQ.ad";
 	}
 
 	//1:1문의 리스트
 	@RequestMapping("QNA.ad")
 	public String QNAList(Model model){		
 		List<Board> QNAList = bs.QNAList();
-		model.addAttribute("list", QNAList);	
+		model.addAttribute("list", QNAList);
+		System.out.println("1:1" + QNAList);
 		return "admin/QNAList";
 	}
 
 	//1:1문의 상세보기
-	@RequestMapping("QNASelectOne.ad")
-	public String QNASelectOne(){
+	@RequestMapping(value="QNASelectOne.ad", method=RequestMethod.GET)
+	public ModelAndView QNASelectOne(@RequestParam int bNo, HttpSession session){
 
-		return "admin/QNASelectOne";
+		//조회수 증가
+		bs.increaseViewcnt(bNo, session);
 
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("admin/QNASelectOne"); 
+		mav.addObject("QNA",bs.QNASelectOne(bNo));
+		
+		System.out.println("상세보기  : " + mav);
+		
+		return mav;
+	}
+
+	
+	//1:1문의 글 삭제
+	@RequestMapping("deleteQNA.ad")
+	public String deleteQNA(@RequestParam int bNo) {
+		bs.deleteQNA(bNo);
+		return "redirect:QNA.ad";
 	}
 
 	//멤버쉽 관리
@@ -189,9 +233,7 @@ public class AdminController {
 		List<Declaration> declarationList = ds.declarationList();
 		System.out.println(declarationList);
 		model.addAttribute("list", declarationList);
-
 		return "admin/declarationList";
-
 	}
 
 	//신고게시물 상세보기
@@ -202,9 +244,6 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("admin/declarationSelectOne");
 		mav.addObject("decl", ds.declarationSelectOne(decl_no));
-
-		//System.out.println(ds.declarationSelectOne(decl_no));
-
 		return mav;
 	}
 
