@@ -17,6 +17,7 @@
   		<typeAlias type="com.kh.amd.attachment.model.vo.Attachment" alias="Attachment"/>
   		<typeAlias type="com.kh.amd.mission.model.vo.Mission" alias="Mission"/>
   		<typeAlias type="com.kh.amd.diary.model.vo.Diary" alias="Diary"/>
+  		<typeAlias alias="Payment" type="com.kh.amd.trainer.model.vo.Payment"/>
   	</typeAliases>
 
   	
