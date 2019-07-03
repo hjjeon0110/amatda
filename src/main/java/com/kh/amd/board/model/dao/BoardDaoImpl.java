@@ -192,11 +192,19 @@ public class BoardDaoImpl implements BoardDao {
 	
 
 	//공지사항/이벤트 게시판 검색  !!! (SR)
-	@Override
+	/*@Override
 	public List<Board> searchNotice(SqlSessionTemplate sqlSession,String searchCon) {
 		System.out.println("Dao: " + searchCon);
 		List<Board> list = (List) sqlSession.selectList("Board.searchNotice");
 		return sqlSession.selectList("Board.searchNotice");
+	}*/
+	
+	
+	//공지사항/이벤트 게시판 검색  !!! (SR)
+	@Override
+	public List<Board> searchResult(SqlSessionTemplate sqlSession, Board b) {
+		
+		return sqlSession.selectList("Board.searchResult", b);
 	}
 
 

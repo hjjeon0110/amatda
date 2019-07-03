@@ -220,14 +220,13 @@ margin-bottom:15px;
   			<br><br><br>
   			
   			<div class="checkboxgroup">
-  				<select id="selectType">
+  				<select id="searchType">
   					<option value="content">내용</option>
   					<option value="title">제목</option>
   				</select>
-				<!-- <input type="checkbox" name="chk_info" value="title" checked="checked">제목
-				<input type="checkbox" name="chk_info" value="content">내용 -->
+				
 				<input type="text" name="searchCon">&nbsp;
-				<button id="noticeSearch">검색</button> 
+				<button id="searchResult">검색</button> 
 			</div>
   			
 	  		<!-- 페이징 시작----------------------------------------------------------------- -->
@@ -283,16 +282,20 @@ margin-bottom:15px;
 	
 	
 	
-	 $("#noticeSearch").click(function(){
-		var selectType = $("#selectType").val();
+	 $("#searchResult").click(function(){
+		var searchType = $("#searchType").children("option:selected").val();
 		var searchCon = $("input[name=searchCon]").val();
-		
+		console.log(searchType);
+		console.log(searchCon);
 		$.ajax({
-			url:"searchNotice.bo",
-			data:{selectType:selectType, searchCon:searchCon},
+			url:"searchResult.bo",
+			data:{searchType:searchType, searchCon:searchCon},
 			type:"get",
+			dataType:"json",
 			success:function(data){
-				alert("ddd");
+				console.log(data)
+				
+				
 			}
 		})
 	})

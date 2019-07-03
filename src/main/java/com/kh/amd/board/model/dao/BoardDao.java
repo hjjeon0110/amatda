@@ -56,7 +56,7 @@ public interface BoardDao {
 	//List<Map<String, Object>> selectBoardList(Criteria cri);
 
 	//공지사항/이벤트 게시판 검색 !!! (SR)
-	List<Board> searchNotice(SqlSessionTemplate sqlSession,String searchCon);
+	//List<Board> searchNotice(SqlSessionTemplate sqlSession,String searchCon);
 
 
 	//공지사항 글등록(김선아)
@@ -97,6 +97,9 @@ public interface BoardDao {
 
 	//1:1 글 삭제(김선아)
 	void deleteQNA(SqlSessionTemplate sqlSession, int bNo);
+
+	//공지사항/이벤트 게시판 검색 !!! (SR)
+	List<Board> searchResult(SqlSessionTemplate sqlSession, Board b);
 
 	//int insertQna(SqlSessionTemplate sqlSession, Board b, String mno);
 
