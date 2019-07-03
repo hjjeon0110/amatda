@@ -191,7 +191,7 @@ margin-bottom:15px;
 		<h2>공지사항/이벤트</h2>
 		<br>
 		
-			<table class="table table-hover" color="pink">
+			<table id="boardTable" class="table table-hover" >
 			   <thead> 
 			      <tr>
 			        <th scope="col">글번호 </th>
@@ -289,17 +289,45 @@ margin-bottom:15px;
 		console.log(searchCon);
 		$.ajax({
 			url:"searchResult.bo",
-			data:{searchType:searchType, searchCon:searchCon},
+			data:{searchType:searchType, searchCon:searchCon, bType : -1},
 			type:"get",
 			dataType:"json",
 			success:function(data){
-				console.log(data)
+				console.log(data);
 				
+				$("#boardTable > tbody").children().remove();
 				
+				for(var key in data) {
+					/* key = 인덱스 번호, data = List */
+					var date = new Date(data[key].bWriteDate);
+		            date = getFormatDate(date);
+					var table = "<tr><td>" + data[key].bNo + "</td><td>" + data[key].bsCategory + "</td><td>" +data[key].bTitle 
+								+ "</td><td>" + date + "</td><td>" + data[key].bCount + "</td></tr>";
+					
+					$("#boardTable > tbody").append(table);
+				}
+				
+			},
+			error : function(data) {
+				alert("연결실패");
 			}
 		})
 	})
-	
+	//long형 날짜를 yy/mm/dd hh:MM으로 변환
+      function getFormatDate(date){ 
+         //console.log(date);
+         //console.log(typeof(date));
+         var year = date.getFullYear()+'';   //yyyy 
+         var month = (1 + date.getMonth());   //M 
+         month = month >= 10 ? month : '0' + month;   //month 두자리로 저장 
+         var day = date.getDate();   //d
+         day = day >= 10 ? day : '0' + day;   //day 두자리로 저장
+         var hour = date.getHours();
+         hour = hour >=10 ? hour : '0' + hour;
+         var minu = date.getMinutes();
+         minu = minu >=10 ? minu : '0' + minu;
+         return year + '-' + month + '-' + day; 
+      }
 	 ///////////////////////////////////////////////////////////////////
 
  

@@ -211,6 +211,8 @@ public class BoardServiceImpl implements BoardService{
 	public void deleteQNA(int bNo) {
 		bd.deleteQNA(sqlSession, bNo);
 	}
+	
+	
 	//공지사항/이벤트 게시판 검색 !!!! (SR)
 	@Override
 	public List<Board> searchResult(Board b) {

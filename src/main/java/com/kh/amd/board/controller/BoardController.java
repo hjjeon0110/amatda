@@ -12,6 +12,8 @@ import org.apache.tools.ant.taskdefs.Apt.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -202,7 +204,35 @@ public class BoardController {
 		 }
 		  
 		  
-		
+		 //제목&내용으로 검색
+			@RequestMapping("searchResult.bo")
+			public ResponseEntity searchResult (String searchCon, String searchType, int bType) {
+				
+				Board b = new Board();
+				if(searchType.equals("title")) {
+					//제목내용으로 검색
+					b.setbTitle(searchCon);
+				}else {
+					//본문내용으로 검색
+					b.setbContent(searchCon);
+				}
+				b.setbType(bType);
+				
+				System.out.println("bType : " + b.getbType());
+				System.out.println("title : " + b.getbTitle());
+				System.out.println("content : " + b.bContent);
+				
+				List<Board> searchResult = bs.searchResult(b);
+				
+				System.out.println("List : " + searchResult);
+				System.out.println("list size : " + searchResult.size());
+				
+			/* model.addAttribute("searchResult", searchResult); */
+				//mv.addObject("searchResult", searchResult);
+				
+				return new ResponseEntity(searchResult, HttpStatus.OK);
+			}
+			
 		  
 		
 		 //★공지사항/이벤트 게시판 검색  !!! (SR)
@@ -219,27 +249,6 @@ public class BoardController {
 			 return "board/searchNotice";
 		 }*/
 		 
-		 //제목&내용으로 검색
-		@RequestMapping("searchResult.bo")
-		public String searchResult (Model model,String searchCon,String searchType) {
-			
-			Board b = new Board();
-			if(searchType.equals("bTitle")) {
-				//제목내용으로 검색
-				b.setbTitle(searchCon);
-			}else {
-				//본문내용으로 검색
-				b.setbContent(searchCon);
-			}
-			
-			List<Board> searchResult = bs.searchResult(b);
-			
-			System.out.println("List : " + searchResult);
-			System.out.println("list size : " + searchResult.size());
-			
-			model.addAttribute("searchResult", searchResult);
-			return "board/selectNotice";
-		}
 		
 		 
 		 

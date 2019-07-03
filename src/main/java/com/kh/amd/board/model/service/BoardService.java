@@ -99,7 +99,6 @@ public interface BoardService {
 
 	//공지사항/이벤트 게시판 검색  !! (SR)
 	//List<Board> searchNotice(String searchCon);
-
 	List<Board> searchResult(Board b);
 
 
