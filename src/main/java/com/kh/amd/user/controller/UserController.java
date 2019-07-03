@@ -1,5 +1,6 @@
 package com.kh.amd.user.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +32,12 @@ public class UserController {
 		String hopeAge = survey.getHopeAge();
 		String hopeGender = survey.getHopeGender();
 		String hopePeriod = survey.getHopePeriod();
-		String hopeExcercise = survey.getHopeExercise();
-		
-		System.out.println(hopeAge);
-		System.out.println(hopeGender);
-		System.out.println(hopePeriod);
-		System.out.println(hopeExcercise);
-		
-		
+		String hopeExercise = survey.getHopeExercise();
+				
+		String[] hopeExerciseArr = hopeExercise.split(",");
+
 		// 1. 맞춤 트레이너 리스트 조회 (전효정)
-		List<Member> recommendtrainerList = us.selectRecommendTrainerList(mno, hopeAge, hopeGender, hopePeriod, hopeExcercise);
+		List<Member> recommendtrainerList = us.selectRecommendTrainerList(mno, hopeAge, hopeGender, hopePeriod, hopeExercise, hopeExerciseArr);
 		model.addAttribute("recommendtrainerList", recommendtrainerList);
 		System.out.println(recommendtrainerList);
 		

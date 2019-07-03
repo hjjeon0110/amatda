@@ -101,7 +101,14 @@
 	
 	<!-- 1. 맞춤 트레이너 리스트 조회 (전효정) -->
 	<select id="selectRecommendTrainerList" resultMap="selectRecommendTrainerList">
-		SELECT * FROM MEMBER M JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE M.MTYPE = 'T' AND TI.TOPEN = 'Y' AND TI.TAGE = #{hopeAge} AND M.GENDER = #{hopeGender} 
+		SELECT * FROM MEMBER M JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE M.MTYPE = 'T' AND TI.TOPEN = 'Y' AND TI.TAGE = #{hopeAge} AND M.GENDER = #{hopeGender} AND 
+		<foreach collection="hopeExerciseArr" item="item" index="index" open="(" separator="OR" close=")" >
+			<choose>
+				<when test="item != null">
+				  P.KEYWORD LIKE '%' || #{item} || '%' 
+				</when>
+			</choose>
+		</foreach>
 	</select>
 	
 	<!-- 2. 설문조사/키워드 조회 (전효정) -->

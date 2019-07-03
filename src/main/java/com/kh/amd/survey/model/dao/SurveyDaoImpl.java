@@ -33,11 +33,12 @@ public class SurveyDaoImpl implements SurveyDao{
 	}
 
 	@Override
-	public int insertSurvey3(SqlSessionTemplate sqlSession, Survey s, String mno) {
+	public int insertSurvey3(SqlSessionTemplate sqlSession, Survey s, String mno, String hopeExerciseString) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("s", s);
 		map.put("mno", mno);
+		map.put("hopeExerciseString", hopeExerciseString);
 		
 		return sqlSession.insert("Survey.insertSurvey3", map);
 		
