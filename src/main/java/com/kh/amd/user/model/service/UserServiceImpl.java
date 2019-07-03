@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserService {
 	
 	// 1. 맞춤 트레이너 리스트 조회 (전효정)
 	@Override
-	public List<Member> selectRecommendTrainerList(int mno, String hopeAge, String hopeGender, String hopePeriod, String hopeExcercise) {
-		return ud.selectRecommendTrainerList(sqlSession, mno, hopeAge, hopeGender, hopePeriod, hopeExcercise);
+	public List<Member> selectRecommendTrainerList(int mno, String hopeAge, String hopeGender, String hopePeriod, String hopeExercise, String[] hopeExerciseArr) {
+		return ud.selectRecommendTrainerList(sqlSession, mno, hopeAge, hopeGender, hopePeriod, hopeExercise, hopeExerciseArr);
 	}
 
 	

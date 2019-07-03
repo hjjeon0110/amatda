@@ -11,7 +11,7 @@ public interface SurveyService {
 
 	int insertSurvey2(Survey s, String mno);
 
-	int insertSurvey3(Survey s, String mno);
+	int insertSurvey3(Survey s, String mno, String hopeExerciseString);
 
 	int updateSurvey(Survey s, String mno);
 

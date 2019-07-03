@@ -57,9 +57,9 @@ public class SurveyServiceImpl implements SurveyService{
 	}
 
 	@Override
-	public int insertSurvey3(Survey s, String mno) {
+	public int insertSurvey3(Survey s, String mno, String hopeExerciseString) {
 		
-		return sd.insertSurvey3(sqlSession, s, mno);
+		return sd.insertSurvey3(sqlSession, s, mno, hopeExerciseString);
 	}
 
 	@Override

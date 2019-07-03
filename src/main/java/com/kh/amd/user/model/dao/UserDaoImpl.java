@@ -15,15 +15,25 @@ public class UserDaoImpl implements UserDao {
 	
 	// 1. 맞춤 트레이너 리스트 조회 (전효정)
 	@Override
-	public List<Member> selectRecommendTrainerList(SqlSessionTemplate sqlSession, int mno, String hopeAge, String hopeGender, String hopePeriod, String hopeExcercise) {
+	public List<Member> selectRecommendTrainerList(SqlSessionTemplate sqlSession, int mno, String hopeAge, String hopeGender, String hopePeriod, String hopeExercise, String[] hopeExerciseArr) {
+		
+		int num = 0;
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("hopeAge", hopeAge);
 		map.put("hopeGender", hopeGender);
 		map.put("hopePeriod", hopePeriod);
-		map.put("hopeExcercise", hopeExcercise);
+		map.put("hopeExercise", hopeExercise);
+		map.put("hopeExerciseArr", hopeExerciseArr);
 		
+		for(int i = 0; i < hopeExerciseArr.length; i++) {
+			num++;
+			String key = "hopeExercise" + String.valueOf(num);
+			map.put(key, hopeExerciseArr[i]);
+		}
+				
 		return sqlSession.selectList("User.selectRecommendTrainerList", map);
+		
 	}
 
 	

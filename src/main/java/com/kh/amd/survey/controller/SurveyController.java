@@ -108,18 +108,18 @@ public class SurveyController {
 				
 		String[] hopeExercise = s.getHopeExercise().split(",");
 		
-		String hopeExercise2 = "";
+		String hopeExerciseString = "";
 		
 		for(int i = 0; i < hopeExercise.length; i++) {
 			System.out.println(hopeExercise[i]);
-			hopeExercise2 += "#" + hopeExercise[i];
+			hopeExerciseString += "#" + hopeExercise[i];
 		}
-		System.out.println(hopeExercise2);
+		System.out.println(hopeExerciseString);
 		
 		String mno = request.getParameter("mNo");
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
-		int result = ss.insertSurvey3(s, mno);
+		int result = ss.insertSurvey3(s, mno, hopeExerciseString);
 		
 		if(result > 0) {
 			
