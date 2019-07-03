@@ -61,7 +61,7 @@
 				
 				<c:forEach var="i" begin="0" end="${fn:length(diaryList)-1}" varStatus="st">
 					<tr>
-						<td><input type="text" value="${ diaryList[i].bNo }" id="dListBno"/></td>
+						<td><input type="hidden" value="${ diaryList[i].bNo }" id="dListBno"/></td>
 						<td><input type="checkbox" name="checkList" value="" /></td>
 						<td scope="row"><b>${st.count }</b></td>						
 						<td>${ diaryList[i].bTitle }</td>											

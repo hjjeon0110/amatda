@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>다이어리 작성</title>
+<title>다이어리 상세보기</title>
 <style>
 .outer {
 	width: 1000px;
@@ -63,7 +63,7 @@ tr {
 
 	<div class="outer">
 		<br>
-		<h1 id="fontEng" align="center">Diary Insert</h1>
+		<h1 id="fontEng" align="center">Diary Detail</h1>
 		<br /> <br /> <br />
 		<div class="tableArea">
 			<form action="insert.di" method="post" encType="multipart/form-data">
@@ -77,12 +77,12 @@ tr {
 					</tr>
 					<tr></tr>
 					<tr>
-						<td id="font">사진을 등록하세요 <img id="diaryImgFile" src="${ contextPath }/resources/uploadFiles/${ a.modiName }${ a.extension }" width="500"	height="400"> 
+						<td id="font">  <img id="diaryImgFile" src="${ contextPath }/resources/uploadFiles/${ a.modiName }${ a.extension }" width="500"	height="400"> 
 						<input type="file" name="diaryImgFile" onchange="loaddiaryImgFile(this)" />
 						</td>
 					</tr>
 					<tr>
-						<td id="font">내용</td>
+						<td id="font"> </td>
 						<td></td>
 					</tr>
 					<tr>
@@ -91,7 +91,7 @@ tr {
 						</td>
 					</tr>
 					<tr align="center">
-						<td><input type="submit" value="등 록" /></td>
+						<td><input type="submit" value="수 정" /></td>
 					</tr>
 				</table>
 			</form>

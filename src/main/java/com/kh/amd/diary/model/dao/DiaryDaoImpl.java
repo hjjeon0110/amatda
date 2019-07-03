@@ -43,12 +43,12 @@ public class DiaryDaoImpl implements DiaryDao{
 	}
 
 	//다이어리 이미지 존재여부
-	@Override
-	public Attachment checkDiaryImg(SqlSessionTemplate sqlSession, int mno) {
+	//@Override
+	//public Attachment checkDiaryImg(SqlSessionTemplate sqlSession, int mno) {
 		
 				
-		return sqlSession.selectOne("Diary.checkDiaryImg", mno);
-	}
+		//return sqlSession.selectOne("Diary.checkDiaryImg", mno);
+	//}
 
 	//다이어리 이미지 update
 	@Override

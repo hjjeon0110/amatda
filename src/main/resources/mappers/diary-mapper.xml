@@ -55,7 +55,7 @@
   	</resultMap>
 
    
-   <!-- 프로필 사진 수정 (전효정) -->
+   <!-- 프로필 사진 수정 -->
    <update id="modifyDiaryImg" parameterType="Attachment">
    		UPDATE ATTACHMENT 
    		SET ORI_NAME = #{originalFilename}, 
@@ -65,22 +65,14 @@
    			UPLOAD_DATE = SYSDATE
    </update>  
    
-   <!-- 프로필 이미지 존재 여부 확인 (전효정) -->
+   <!-- 프로필 이미지 존재 여부 확인 -->
    <select id="checkDiaryImg" resultMap="attachmentResultSet" parameterType="Attachment">
    		SELECT FILE_NO, PNO, ORI_NAME, MODI_NAME, EXTENSION, FILE_LEVEL, UPLOAD_DATE, A_STATUS, FILE_PATH  
    		FROM ATTACHMENT 
    		WHERE PNO IN (#{mno}) 
    </select>
  	 	
-   <!-- 프로필 사진 수정 (전효정) -->
-   <update id="modifyProfileImg" parameterType="Attachment">
-   		UPDATE ATTACHMENT 
-   		SET ORI_NAME = #{originalFilename}, 
-   			MODI_NAME = #{changeName}, 
-   			EXTENSION = #{ext}, 
-   			FILE_PATH = #{filePath}, 
-   			UPLOAD_DATE = SYSDATE
-   </update>
+   
    
    <!-- 다이어리 내용 insert -->
    <insert id="insertDiary" parameterType="java.util.Map">
@@ -88,21 +80,27 @@
 	  	VALUES (BNO_SEQ.NEXTVAL, 6, sysdate, #{d.bTitle}, #{d.bContent}, #{mno})
   	</insert>
   	
+  	
+  	<!-- attachment에 bno를 넣기위한 커발 -->
   	<select id="selectDiaryBno" resultType="_int">
   		SELECT BNO_SEQ.CURRVAL FROM DUAL
   	</select>
+  	
   	
    <!-- 다이어리 이미지 insert -->
    <insert id="insertDiaryImg" parameterType="Attachment">
    		INSERT INTO ATTACHMENT 
    		VALUES(FILE_SEQ.NEXTVAL, #{bno}, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 0, 'Y', #{filePath})
    </insert>
+   
+   
   	<!-- 다이어리 list -->
   	<select id="diaryList" resultMap="diaryResultSet">
   		SELECT *
 		FROM BOARD
 		WHERE BTYPE = 6
 		AND BWRITER = #{mno}
+        ORDER BY BNO DESC  	
   	</select>
   	
   	<!-- 다이어리 상세조회 -->
@@ -112,6 +110,7 @@
 		WHERE BNO = #{bno}
   	</select>
   	
+  	<!-- 다이어리 이미지 상세조회 -->
   	<select id="selectAttachmentOne" resultMap="attachmentResultSet">
   		SELECT *
   		FROM ATTACHMENT
