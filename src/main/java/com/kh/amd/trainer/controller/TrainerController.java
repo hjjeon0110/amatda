@@ -386,7 +386,9 @@ public class TrainerController {
 		}
 
 		// return "trainer/2_1_myPage_profile";
-		return "redirect:showMyPageProfile.tr?mno=1";
+		String redirect = "redirect:showMyPageProfile.tr?mno=" + mno;
+		
+		return redirect;
 		
 	}
 	
@@ -441,7 +443,9 @@ public class TrainerController {
 		}
 
 		// return "trainer/2_1_myPage_profile";
-		return "redirect:showMyPageProfile.tr?mno=1";
+		String redirect = "redirect:showMyPageProfile.tr?mno=" + mno;
+		
+		return redirect;
 	}
 	
 	
@@ -524,7 +528,9 @@ public class TrainerController {
 		}
 		
 		// return "trainer/2_1_myPage_profile";
-		return "redirect:showMyPageProfile.tr?mno=1";
+		String redirect = "redirect:showMyPageProfile.tr?mno=" + mno;
+		
+		return redirect;
 	}
 	
 	
@@ -620,7 +626,9 @@ public class TrainerController {
 		}
 		
 		// return "trainer/2_1_myPage_profile";
-		return "redirect:showMyPageProfile.tr?mno=1";
+		String redirect = "redirect:showMyPageProfile.tr?mno=" + mno;
+		
+		return redirect;
 	}
 	
 	
@@ -631,7 +639,9 @@ public class TrainerController {
 		// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 		ts.deleteMidea(mno, thisModiName);
 		
-		return "redirect:showMyPageProfile.tr?mno=1";
+		String redirect = "redirect:showMyPageProfile.tr?mno=" + mno;
+		
+		return redirect;
 	}
 
 

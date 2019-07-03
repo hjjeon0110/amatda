@@ -8,10 +8,10 @@ import com.kh.amd.diary.model.vo.Diary;
 public interface DiaryService {
 
 	//다이어리 내용(image content) insert
-	int insertDiary(Diary d, String mno, String filePath, String originalFilename, String changeName, String ext);
+	void insertDiary(Diary d, String mno);
 
 	//다이어리 이미지 insert
-	//void insertDiaryImg(String mno, String filePath, String originalFilename, String changeName, String ext);
+	void insertDiaryImg(int bno, String mno, String filePath, String originalFilename, String changeName, String ext);
 
 	//다이어리 이미지 존재 여부 확인 메소드
 	//Attachment checkDiaryImg(int mno);
@@ -29,6 +29,9 @@ public interface DiaryService {
 
 	//다이어리 이미지 상세
 	Attachment selectAttachmentOne(int bno);
+
+	// bno 조회
+	int selectDiaryBno();
 
 	
 

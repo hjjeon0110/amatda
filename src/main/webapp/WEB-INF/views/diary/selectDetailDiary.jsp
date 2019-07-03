@@ -77,7 +77,7 @@ tr {
 					</tr>
 					<tr></tr>
 					<tr>
-						<td id="font">사진을 등록하세요 <img id="diaryImgFile" src="${ contextPath }/resources/images/camera.JPG" width="500"	height="400"> 
+						<td id="font">사진을 등록하세요 <img id="diaryImgFile" src="${ contextPath }/resources/uploadFiles/${ a.modiName }${ a.extension }" width="500"	height="400"> 
 						<input type="file" name="diaryImgFile" onchange="loaddiaryImgFile(this)" />
 						</td>
 					</tr>

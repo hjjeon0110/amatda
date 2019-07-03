@@ -43,26 +43,26 @@ public class DiaryController {
 	//다이어리 insert
 	@RequestMapping(value="insert.di")
 	public String insertDiary(Model model, Diary d, Member m, HttpServletRequest request, @RequestParam(name="diaryImgFile", required=false) MultipartFile diaryImgFile){
+				
+		String mno = request.getParameter("mNo");
+		ds.insertDiary(d, mno);
 		
-		
-		System.out.println(d);
+		int bno = ds.selectDiaryBno();
+		System.out.println(bno);
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
-
-		String mno = request.getParameter("mNo");		
 		
 		String filePath = root + "\\uploadFiles";		
 		String originalFilename = diaryImgFile.getOriginalFilename();
 		String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
 		String changeName = CommonUtils.getRandomString();
-		
 				
 		
 		try {
 			
 			diaryImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
-		
-			ds.insertDiary(d, mno, filePath, originalFilename, changeName, ext);
+					
+			ds.insertDiaryImg(bno, mno, filePath, originalFilename, changeName, ext);
 			
 			return "redirect:list.di?mno=" + mno;
 			
