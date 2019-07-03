@@ -270,12 +270,19 @@
   </select>
   
   <!-- 공지사항/이벤트 게시판 검색 !!!!!! (SR) -->
-  <select id="searchNotice" resultMap="boardResultSet">
+  <select id="searchResult" resultMap="boardResultSet">
   	SELECT *
   	FROM BOARD
   	WHERE (BTYPE=1 OR BTYPE=2)
   	AND BSTATUS='Y'
-  	AND (BTITLE || BCONTENT) LIKE '%'||'searchCon'||'%' 
+  	<choose>
+  		<when test="bTitle != null">
+  			AND BTITLE LIKE '%' || #{ bTitle } || '%'
+  		</when>
+  		<when test="bContent != null">
+  			AND BCONTENT LIKE '%' || #{ bContent } || '%'
+  		</when>
+  	</choose>
   </select>
   
   

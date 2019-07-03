@@ -89,19 +89,7 @@ public class BoardController {
 			 return "board/selectEventCate";
 		 }
 		 
-		 //★공지사항/이벤트 게시물 상세페이지(SR)
-	/*
-	 * @RequestMapping(value="selectOneNotice.bo", method=RequestMethod.GET) public
-	 * ModelAndView selectOneNotice(@RequestParam int bNo, HttpSession session) {
-	 * System.out.println("모델엔 뷰를 왜쓰셨죠?"); bs.increaseViewcnt(bNo, session);
-	 * ModelAndView mav = new ModelAndView();
-	 * mav.setViewName("board/selectOneNotice"); mav.addObject("selectOneNotice",
-	 * bs.selectOneNotice(bNo));
-	 * 
-	 * System.out.println("bNo in controller : " + bNo);
-	 * 
-	 * return mav; }
-	 */
+		
 		@RequestMapping(value="selectOneNotice.bo", method=RequestMethod.GET)
 		 public String selectOneNotice(Model model, int bNo) {
 			 
@@ -159,14 +147,7 @@ public class BoardController {
 		 
 		 
 		 
-		//FAQ게시판 그냥 단순 뷰(SR)
-		/* @RequestMapping("selectFaqFormView.bo")
-		 public String selectFaqFormView() {
-			 
-			 System.out.println("나는 단순하게 입력양식만 호출했어요!");
-			 return "board/selectFaq";
-		 }
-		 */
+		
 		 
 		 //--------------------------------------------------------------------
 		 
@@ -221,26 +202,11 @@ public class BoardController {
 		 }
 		  
 		  
-		  //-----------------------------
-		  /*
-		//★공지사항/이벤트 게시물 상세페이지(SR)
-			@RequestMapping(value="selectOneNotice.bo", method=RequestMethod.GET)
-			 public ModelAndView selectOneNotice(@RequestParam int bNo,HttpSession session) {
-				
-				 bs.increaseViewcnt(bNo, session);
-				 ModelAndView mav = new ModelAndView();
-				 mav.setViewName("board/selectOneNotice");
-				 mav.addObject("selectOneNotice", bs.selectOneNotice(bNo));
-				 
-				 System.out.println("bNo in controller : " + bNo);
-				 
-				 return mav;
-			 } 
-		  */
+		
 		  
 		
 		 //★공지사항/이벤트 게시판 검색  !!! (SR)
-		 @RequestMapping("searchNotice.bo")
+		/* @RequestMapping("searchNotice.bo")
 		 public String searchNotice(Model model, String searchCon, String selectType) {
 			 //검색할 내용 = searchCon
 			 //검색할 타입 = selectType
@@ -251,9 +217,29 @@ public class BoardController {
 			 }
 			 model.addAttribute("searchNotice",searchNotice);
 			 return "board/searchNotice";
-		 }
+		 }*/
 		 
-		 
+		 //제목&내용으로 검색
+		@RequestMapping("searchResult.bo")
+		public String searchResult (Model model,String searchCon,String searchType) {
+			
+			Board b = new Board();
+			if(searchType.equals("bTitle")) {
+				//제목내용으로 검색
+				b.setbTitle(searchCon);
+			}else {
+				//본문내용으로 검색
+				b.setbContent(searchCon);
+			}
+			
+			List<Board> searchResult = bs.searchResult(b);
+			
+			System.out.println("List : " + searchResult);
+			System.out.println("list size : " + searchResult.size());
+			
+			model.addAttribute("searchResult", searchResult);
+			return "board/selectNotice";
+		}
 		
 		 
 		 
