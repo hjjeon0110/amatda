@@ -25,10 +25,11 @@ public class DiaryDaoImpl implements DiaryDao{
 
 	//다이어리 이미지 insert
 	@Override
-	public int insertDiaryImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename,
+	public int insertDiaryImg(SqlSessionTemplate sqlSession, Diary d, String mno, String filePath, String originalFilename,
 			String changeName, String ext) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("d", d);
 		map.put("mno", mno);
 		map.put("filePath", filePath);
 		map.put("originalFilename", originalFilename);

@@ -67,11 +67,11 @@ tr {
 		<br /> <br /> <br />
 		<div class="tableArea">
 			<form action="insert.di" method="post" encType="multipart/form-data">
-				<input type="hidden" name="mNo"
-					value="${ sessionScope.loginUser.mno }" />
+				<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" />
 				<table>
+				
 					<tr>
-						<td id="font">제 목 <input type="text" size="40" name="bTitle" autofocus>
+						<td id="font">제 목 <input type="text" size="40" name="bTitle" value="${ d.bTitle }">
 						</td>
 
 					</tr>
@@ -87,7 +87,7 @@ tr {
 					</tr>
 					<tr>
 						<td colspan="4">
-						<textarea name="bContent" cols="60" rows="15" placeholder="자유롭게 작성하세요" id="bContent"></textarea>
+						<textarea name="bContent" cols="60" rows="15" id="bContent" >${ d.bContent }</textarea>
 						</td>
 					</tr>
 					<tr align="center">
@@ -115,7 +115,7 @@ tr {
 	<br />
 	<br />
 
-	<script>
+	<!-- <script>
 		/* $(".modifydiaryImgBtn").hide();
 		
 		$(".diaryImgDiv").mouseenter(function(){
@@ -151,7 +151,7 @@ tr {
 
 			}
 		}
-	</script>
+	</script> -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 
 </body>
