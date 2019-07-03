@@ -189,7 +189,7 @@ margin-bottom:15px;
 		
 	
 		<div class="secondTable">
-		<h2>공지사항/이벤트</h2>
+		<h2>이벤트</h2>
 		<br>
 		
 			<table class="table table-hover" color="pink">

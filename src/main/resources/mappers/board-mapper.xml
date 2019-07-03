@@ -269,11 +269,38 @@
 	  AND BSTATUS='Y'
   </select>
   
-  <!-- 공지사항/이벤트 게시판 검색 !!!!!! (SR) -->
+  <!-- 공지사항/이벤트 게시판 검색 (SR) -->
   <select id="searchResult" resultMap="boardResultSet">
   	SELECT *
   	FROM BOARD
-  	WHERE (BTYPE=1 OR BTYPE=2)
+  	WHERE BSTATUS='Y'
+  	<choose>
+  		<when test="bType == -1">
+  			AND (BTYPE = 1 OR BTYPE = 2)
+  		</when>
+  		<when test="bType == 1">
+  			AND BTYPE = 1
+  		</when>
+  		<when test="bType == 2">
+  			AND BTYPE = 2
+  		</when>
+  	</choose>
+  	<choose>
+  		<when test="bTitle != null">
+  			AND BTITLE LIKE '%' || #{ bTitle } || '%'
+  		</when>
+  		<when test="bContent != null">
+  			AND BCONTENT LIKE '%' || #{ bContent } || '%'
+  		</when>
+  	</choose>
+  </select>
+  
+  
+  <!-- 공지사항/이벤트 게시판 검색 (SR) -->
+ <!--  <select id="searchResult" resultMap="boardResultSet">
+  	SELECT *
+  	FROM BOARD
+  	WHERE BTYPE=#{bType}
   	AND BSTATUS='Y'
   	<choose>
   		<when test="bTitle != null">
@@ -284,6 +311,7 @@
   		</when>
   	</choose>
   </select>
+   -->
   
   
 <!-- 공지사항/이벤트 게시물 상세조회(SR) -->

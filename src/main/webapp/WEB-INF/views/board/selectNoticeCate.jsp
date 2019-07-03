@@ -189,10 +189,10 @@ margin-bottom:15px;
 		
 	
 		<div class="secondTable">
-		<h2>공지사항/이벤트</h2>
+		<h2>공지사항</h2>
 		<br>
 		
-			<table class="table table-hover" color="pink">
+			<table id="boardTable" class="table table-hover" >
 			   <thead> 
 			    	
 			      <tr>
@@ -224,10 +224,14 @@ margin-bottom:15px;
   			<br><br><br>
   			
   			<div class="checkboxgroup">
-				<input type="checkbox" name="chk_info" value="title" checked="checked">제목
-				<input type="checkbox" name="chk_info" value="content">내용
-				<input type="text">&nbsp;
-				<button onclick="location.href='selectNotice.bo'">검색</button> 
+				<select id="searchType">
+					<option value="content">내용</option>
+					<option value="title">제목</option>
+				</select>
+				
+				
+				<input type="text" name="searchCon">&nbsp;
+				<button id="searchResult">검색</button> 
 			</div>
   			
 	  		<!-- 페이징 시작 -->
@@ -276,13 +280,49 @@ margin-bottom:15px;
 	});
 	
 	
-	<%-- $(".table td").click(function(){
-		var num=$(this).parent().children().eq(0).text();
-		location.href="<%=request.getContextPath()%>/selectOneNotice.bo?num="+num;
-	}); --%>
+	$("#searchResult").click(function(){
+		var searchType = $("#searchType").children("option:selected").val();
+		var searchCon = $("input[name=searchCon]").val();
+		console.log(searchType);
+		console.log(searchCon);
+		
+		$.ajax({
+			url:"searchResult.bo",
+			data:{searchType:searchType, searchCon:searchCon, bType : 1},
+			type:"get",
+			dataType:"json",
+			success:function(data){
+				console.log(data);
+			
+			$("#boardTable > tbody").children().remove();
+			
+			for(var key in data){
+				var date = new Date(data[key].bWriteDate);
+				date = getFormatDate(date);
+				var table = "<tr><td>" + data[key].bNo + "</td><td>" + data[key].bTitle + "</td><td>" + date + "</td><td>" + data[key].bCount + "</td><tr>";
+				
+				$("#boardTable > tbody").append(table);
+			}
+			
+		},
+		error : function(data){
+			alert("연결실패");
+		}
+			
+		})
+		
+	})
 	
 	
-	
+	function getFormatDate(date){
+		var year = date.getFullYear()+'';
+		var month=(1 + date.getMonth());
+		month = month >= 10? month : '0' + month;
+		var day = date.getDate();
+		day=day >= 10? day : '0' + day;
+		return year + '-' + month + '-'
+	}
+
 	</script>
 	
 	
