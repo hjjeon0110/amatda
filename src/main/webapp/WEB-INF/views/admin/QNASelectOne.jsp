@@ -151,8 +151,7 @@
 					</div>
 					<br><br>
 					
-					<textarea class="form-control" rows="5" placeholder="댓글 입력"></textarea>
-					<a href="" class="button" id="replyInsert">등록</a>
+				<jsp:include page="../admin/comment.jsp"></jsp:include>
 
 				</div>
 			</div>
