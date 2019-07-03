@@ -14,29 +14,31 @@ public class DiaryDaoImpl implements DiaryDao{
 
 	//다이어리 내용 insert
 	@Override
-	public int insertDiary(SqlSessionTemplate sqlSession, Diary d, String mno) {
+	public void insertDiary(SqlSessionTemplate sqlSession, Diary d, String mno) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("d", d);
 		map.put("mno", mno);
 		
-		return sqlSession.insert("Diary.insertDiary", map);
+		sqlSession.insert("Diary.insertDiary", map);
 	}
 
 	//다이어리 이미지 insert
 	@Override
-	public int insertDiaryImg(SqlSessionTemplate sqlSession, Diary d, String mno, String filePath, String originalFilename,
+	public void insertDiaryImg(SqlSessionTemplate sqlSession, int bno, String mno, String filePath, String originalFilename,
 			String changeName, String ext) {
 		
+		System.out.println("디에이오 bno : " + bno);
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("d", d);
+		map.put("bno", bno);
 		map.put("mno", mno);
 		map.put("filePath", filePath);
 		map.put("originalFilename", originalFilename);
 		map.put("changeName", changeName);
 		map.put("ext", ext);
 		
-		return sqlSession.insert("Diary.insertDiaryImg", map);
+		sqlSession.insert("Diary.insertDiaryImg", map);
 		
 	}
 
@@ -85,6 +87,12 @@ public class DiaryDaoImpl implements DiaryDao{
 	public Attachment selectAttachmentOne(SqlSessionTemplate sqlSession, int bno) {
 		
 		return sqlSession.selectOne("Diary.selectAttachmentOne",bno);
+	}
+
+	@Override
+	public int selectDiaryBno(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Diary.selectDiaryBno");
+		
 	}
 
 	

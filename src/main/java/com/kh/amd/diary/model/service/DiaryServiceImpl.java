@@ -29,11 +29,11 @@ public class DiaryServiceImpl implements DiaryService{
 //	}
 
 	//다이어리 이미지 insert
-//	@Override
-//	public void insertDiaryImg(String mno, String filePath, String originalFilename, String changeName, String ext) {
-//		dd.insertDiaryImg(sqlSession, mno, filePath, originalFilename, changeName, ext);
-//		
-//	}
+	@Override
+	public void insertDiaryImg(int bno, String mno, String filePath, String originalFilename, String changeName, String ext) {
+		dd.insertDiaryImg(sqlSession, bno, mno, filePath, originalFilename, changeName, ext);
+		
+	}
 
 	//다이어리 이미지 존재 여부
 //	@Override
@@ -60,23 +60,9 @@ public class DiaryServiceImpl implements DiaryService{
 	
 	//다이어리(image content) insert 190701
 	@Override
-	public int insertDiary(Diary d, String mno, String filePath, String originalFilename, String changeName,
-			String ext) {
+	public void insertDiary(Diary d, String mno) {
 		
-		int result = 0;
-		
-		int result1 = dd.insertDiary(sqlSession, d, mno);
-		
-		//int result2 = dd.insertDiaryImg(sqlSession, mno, filePath, originalFilename, changeName, ext);
-		int result2 = dd.insertDiaryImg(sqlSession, d, mno, filePath, originalFilename, changeName, ext);
-		
-		if(result1 > 0 && result2 > 0) {
-			result = 1;
-		}else {
-			result = 0;
-		}
-		return result;
-		
+		dd.insertDiary(sqlSession, d, mno);
 		
 	}
 
@@ -93,6 +79,13 @@ public class DiaryServiceImpl implements DiaryService{
 	public Diary selectDetailDiary(int bno) {
 		
 		return dd.selectDetailDiary(sqlSession, bno);
+	}
+
+	// bno 조회
+	@Override
+	public int selectDiaryBno() {
+		return dd.selectDiaryBno(sqlSession);
+		
 	}
 	
 	

@@ -10,18 +10,16 @@ import com.kh.amd.diary.model.vo.Diary;
 public interface DiaryDao {
 
 	//다이어리 내용 insert
-	int insertDiary(SqlSessionTemplate sqlSession, Diary d, String mno);
+	void insertDiary(SqlSessionTemplate sqlSession, Diary d, String mno);
 
 	//다이어리 이미지 insert
-	int insertDiaryImg(SqlSessionTemplate sqlSession, Diary d, String mno, String filePath, String originalFilename,
-			String changeName, String ext);
+	void insertDiaryImg(SqlSessionTemplate sqlSession, int bno, String mno, String filePath, String originalFilename, String changeName, String ext);
 
 	//다이어리 이미지 여부 체크
 	Attachment checkDiaryImg(SqlSessionTemplate sqlSession, int mno);
 
 	//다이어리 이미지 update
-	void modifyDiaryImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename,
-			String changeName, String ext);
+	void modifyDiaryImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename, String changeName, String ext);
 
 	//다이어리 list
 	List<Diary> diaryList(SqlSessionTemplate sqlSession, int mno);
@@ -30,5 +28,7 @@ public interface DiaryDao {
 	Diary selectDetailDiary(SqlSessionTemplate sqlSession, int bno);
 
 	Attachment selectAttachmentOne(SqlSessionTemplate sqlSession, int bno);
+
+	int selectDiaryBno(SqlSessionTemplate sqlSession);
 
 }

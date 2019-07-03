@@ -51,16 +51,9 @@
   		<result property="bCount" column="BCOUNT"/>
   		<result property="bLike" column="BLIKE"/>
   		<result property="bStatus" column="BSTATUS"/>
-  		<result property="bWriter" column="BWRITER"/>
-  		<collection property="member" resultMap="member"/>
-  		
+  		<result property="bWriter" column="BWRITER"/>  		
   	</resultMap>
 
-   <!-- 다이어리 이미지 insert -->
-   <insert id="insertDiaryImg" parameterType="Attachment">
-   		INSERT INTO ATTACHMENT 
-   		VALUES(FILE_SEQ.NEXTVAL, #{d.bNo}, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 0, 'Y', #{filePath})
-   </insert>
    
    <!-- 프로필 사진 수정 (전효정) -->
    <update id="modifyDiaryImg" parameterType="Attachment">
@@ -95,6 +88,15 @@
 	  	VALUES (BNO_SEQ.NEXTVAL, 6, sysdate, #{d.bTitle}, #{d.bContent}, #{mno})
   	</insert>
   	
+  	<select id="selectDiaryBno" resultType="_int">
+  		SELECT BNO_SEQ.CURRVAL FROM DUAL
+  	</select>
+  	
+   <!-- 다이어리 이미지 insert -->
+   <insert id="insertDiaryImg" parameterType="Attachment">
+   		INSERT INTO ATTACHMENT 
+   		VALUES(FILE_SEQ.NEXTVAL, #{bno}, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 0, 'Y', #{filePath})
+   </insert>
   	<!-- 다이어리 list -->
   	<select id="diaryList" resultMap="diaryResultSet">
   		SELECT *
