@@ -229,7 +229,7 @@
 		SELECT B.*, M.ID
 		FROM BOARD B
 		JOIN MEMBER M ON(BWRITER = MNO)
-		WHERE BTYPE = 3
+		WHERE BNO = #{bNo}
   	</select>
   	
   	<!-- 자주 묻는 질문 상세조회(김선아) -->
