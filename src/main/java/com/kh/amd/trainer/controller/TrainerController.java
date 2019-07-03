@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,10 +31,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.common.CommonUtils;
+import com.kh.amd.common.Pagination;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.service.TrainerService;
 import com.kh.amd.trainer.model.vo.Estimate;
+import com.kh.amd.trainer.model.vo.Payment;
 import com.kh.amd.trainer.model.vo.Profile;
+import com.kh.amd.board.model.vo.PageInfo;
+import static com.kh.amd.common.Pagination.*;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -169,7 +175,7 @@ public class TrainerController {
 	   
 	   //트레이너 멤버쉽 결제 메소드(김진환)
 	   @RequestMapping("memberShipPayment.tr")
-	   public void memberShipPayment(String tno, String memberShipName, String memberShipUsage) {
+	   public void memberShipPayment(String tno, String memberShipName, String memberShipUsage, HttpServletResponse rsp) {
 	      System.out.println("멤버쉽 서블릿 들어옴");
 	      System.out.println("받아온값  mno : " + tno + "멤버쉽이름 : " + memberShipName);
 	      int memberShipNo = 0;
@@ -183,12 +189,19 @@ public class TrainerController {
 	      
 	      //멤버쉽 결제 후 인서트 서비스 이동
 	      int result = ts.insertmemberShipPayment(tno, memberShipNo, memberShipUsage);
-	      
-	      
-	      
-	      
-	      
-	      
+		      
+		      try {
+				rsp.getWriter().print("성공");
+		      } catch (IOException e) {
+				try {
+					rsp.getWriter().print("실패");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+		      }
+
 	   }
 	   
 	   //트레이너 잔여 횟수 리스트(김진환)
@@ -205,6 +218,52 @@ public class TrainerController {
 	      }
 	      
 	   }
+	   //트레이너 결제내역 리스트(김진환) ----------------------------------------------------
+	   @RequestMapping("paymentList.tr")
+	   public String paymentList(Model model, String tno, String currentPage) {
+		   System.out.println("MNO받아왔고, 그값은 : " + tno);
+		   
+		   int currentPageI = 1;
+			
+			if(currentPage != null) {
+				currentPageI = Integer.parseInt(currentPage);
+			}
+			//목록을 조회해서 해당 리스트가 리스트가 얼마인지 확인 
+			int listCount = ts.getPaymentListCount(tno);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+
+		   
+			List<Payment> payment = ts.paymentList(tno, pi);
+		   
+			model.addAttribute("payList", payment);
+			model.addAttribute("pi", pi);
+		   
+		   
+		   return "trainer/2_4_1_myPage_paymentList";
+	   }
+	   @RequestMapping("refundRequest.tr")
+	   public void refundRequest(HttpServletResponse response, String refundId, String refundReason, String refundCount, String tno) {
+		   
+		   int mno = Integer.parseInt(tno);
+		   int refundCountI =Integer.parseInt(refundCount);
+		   
+		   System.out.println("받아온 횟수의 값 : " + refundCountI);
+		   System.out.println("mno의값 : " + mno); 
+		   
+		   
+		  int result = ts.refundRequest(refundId, refundReason, mno, refundCountI);
+		   
+		  if(result > 0) {
+			  try {
+				response.getWriter().print("success");
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+		  }
+		   
+	   }
 	   
 	
 	
@@ -213,7 +272,7 @@ public class TrainerController {
 	
 	// 효정 메소드 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		
+	
 	// 회원 찾기 페이지 이동 (전효정) ------------------------------------------------------------------------------------------------------------------------------------------------
 	@RequestMapping("showUserFindPageView.tr")
 	public String showUserFindPageView() {
@@ -327,9 +386,7 @@ public class TrainerController {
 		}
 
 		// return "trainer/2_1_myPage_profile";
-		String redirect = "redirect:showMyPageProfile.tr?mno=" + mno;
-		
-		return redirect;
+		return "redirect:showMyPageProfile.tr?mno=1";
 		
 	}
 	
@@ -384,9 +441,7 @@ public class TrainerController {
 		}
 
 		// return "trainer/2_1_myPage_profile";
-		String redirect = "redirect:showMyPageProfile.tr?mno=" + mno;
-		
-		return redirect;
+		return "redirect:showMyPageProfile.tr?mno=1";
 	}
 	
 	
@@ -469,9 +524,7 @@ public class TrainerController {
 		}
 		
 		// return "trainer/2_1_myPage_profile";
-		String redirect = "redirect:showMyPageProfile.tr?mno=" + mno;
-		
-		return redirect;
+		return "redirect:showMyPageProfile.tr?mno=1";
 	}
 	
 	
@@ -567,9 +620,7 @@ public class TrainerController {
 		}
 		
 		// return "trainer/2_1_myPage_profile";
-		String redirect = "redirect:showMyPageProfile.tr?mno=" + mno;
-		
-		return redirect;
+		return "redirect:showMyPageProfile.tr?mno=1";
 	}
 	
 	
@@ -580,9 +631,7 @@ public class TrainerController {
 		// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 		ts.deleteMidea(mno, thisModiName);
 		
-		String redirect = "redirect:showMyPageProfile.tr?mno=" + mno;
-		
-		return redirect;
+		return "redirect:showMyPageProfile.tr?mno=1";
 	}
 
 
@@ -628,28 +677,7 @@ public class TrainerController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
+	
+	
 }
