@@ -151,7 +151,16 @@
 					</div>
 					<br><br>
 					
-				<jsp:include page="../admin/comment.jsp"></jsp:include>
+					<form id="commentForm" name="commentForm" method="post">
+	
+						<input type="hidden" id="bNo" name="bNo" value="${QNA.bNo }">
+						<textarea class="form-control" placeholder="댓글을 입력하세요"
+						id="repContent" name="repContent"></textarea>
+						<a href='#' class="button" id="replyInsert">등록</a>
+						
+					</form>
+	
+
 
 				</div>
 			</div>
@@ -179,6 +188,26 @@
 					location.href="deleteQNA.ad?bNo=" + no;
 			
 				}
+			})
+			
+			$("#replyInsert").click(function(){
+				
+				var content=$("#repContent").val();
+				var bno="${QNA.bNo}"
+				
+				//console.log(content);
+				//console.log(bno);
+				
+				$.ajax({
+					type:"get",
+					url:"insertReply.ad",
+					data:$("#commentForm").serialize(),
+					success : function(data){
+						alert("댓글이 등록되었습니다.");
+						//alert(data);
+					}
+				})
+				
 			})
 		})
 	</script>
