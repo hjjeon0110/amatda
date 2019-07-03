@@ -13,7 +13,7 @@ public interface DiaryDao {
 	int insertDiary(SqlSessionTemplate sqlSession, Diary d, String mno);
 
 	//다이어리 이미지 insert
-	int insertDiaryImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename,
+	int insertDiaryImg(SqlSessionTemplate sqlSession, Diary d, String mno, String filePath, String originalFilename,
 			String changeName, String ext);
 
 	//다이어리 이미지 여부 체크

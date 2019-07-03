@@ -71,154 +71,20 @@ public class DiaryController {
 			System.out.println("에러발생");
 		}
 
-		return "diary/showDiary";
-
-		
-		
-		
-//		int result = ds.insertDiary(d, mno);
-//		
-//			if(result > 0) {
-//				
-//				return "redirect:index.jsp";
-//				
-//			}else {
-//				
-//				model.addAttribute("msg","등록실패");
-//				
-//				return "common/errorPage";
-//			}
-		
-		
-		//return "redirect:index.jsp";
+		return "diary/showDiary";		
+	
 	}
 	
 	//다이어리 상세
-	@RequestMapping("selectDiaryDetail.di")
-	public String selectDiaryDetail() {
-		
-		return "diary/selectDiaryDetail";
-		
-	}
+//	@RequestMapping("selectDiaryDetail.di")
+//	public String selectDiaryDetail() {
+//		
+//		return "diary/selectDiaryDetail";
+//		
+//	}
 	
 	
-	
-	// 프로필 사진 추가 (전효정) ------------------------------------------------------------------------------------------------------------------------------------
-		@RequestMapping("insertDiaryImg.di")
-		public String modifyDiaryImg1(Model model, Member m, HttpServletRequest request, @RequestParam(name="diaryImgFile", required=false) MultipartFile diaryImgFile) {
 
-			String mno = request.getParameter("mno");
-			String root = request.getSession().getServletContext().getRealPath("resources");
-			String filePath = root + "\\uploadFiles";
-
-			// 파일 이름 변경
-			System.out.println(diaryImgFile);
-			String originalFilename = diaryImgFile.getOriginalFilename();
-			
-			
-			
-			String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
-			String changeName = CommonUtils.getRandomString();
-
-//			try {
-//
-//				diaryImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
-//				
-//				ds.insertDiaryImg(mno, filePath, originalFilename, changeName, ext);
-//				
-//				int mno2 = Integer.parseInt(mno);
-//							
-//								
-//				// 프로필 사진 존재 여부 확인 (전효정)
-//				Attachment attachment = ds.checkDiaryImg(mno2);
-//				
-//				if(attachment != null) {
-//					model.addAttribute("attachment", attachment);
-//					String pic = attachment.getModiName() + attachment.getExtension();
-//					model.addAttribute("pic", pic);		
-//				}else {
-//					model.addAttribute("attachment", attachment);
-//				}	
-//
-//			} catch (IllegalStateException | IOException e) {
-//				e.printStackTrace();
-//				System.out.println("에러발생");
-//			}
-
-			return "diary/showDiary";
-			
-		}
-		
-		// 프로필 사진 수정 (전효정) ------------------------------------------------------------------------------------------------------------------------------------
-		@RequestMapping("modifyDiaryImg.di")
-		public String modifyDiaryImg2(Model model, Member m, HttpServletRequest request, @RequestParam(name="diaryImgFile", required=false) MultipartFile diaryImgFile) {
-			
-			String mno = request.getParameter("mno");
-			String root = request.getSession().getServletContext().getRealPath("resources");
-
-			String filePath = root + "\\uploadFiles";
-
-			// 파일 이름 변경
-			String originalFilename = diaryImgFile.getOriginalFilename();
-			String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
-			String changeName = CommonUtils.getRandomString();
-
-			try {
-
-				diaryImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
-			
-				ds.modifyDiaryImg(mno, filePath, originalFilename, changeName, ext);
-
-				int mno2 = Integer.parseInt(mno);
-				
-
-				// 프로필 사진 존재 여부 확인 (전효정)
-				Attachment attachment = ds.checkDiaryImg(mno2);
-				model.addAttribute("attachment", attachment);
-				String pic = attachment.getModiName() + attachment.getExtension();
-				model.addAttribute("pic", pic);			
-
-			} catch (IllegalStateException | IOException e) {
-				e.printStackTrace();
-				System.out.println("에러발생");
-			}
-
-			return "diary/showDiary";
-		}
-		
-		
-		
-		
-		
-	/*
-	 * public String insertSurvey1(Model model, Survey s, HttpServletRequest
-	 * request) {
-	 * 
-	 * System.out.println(s);
-	 * 
-	 * 
-	 * String mno = request.getParameter("mNo");
-	 * 
-	 * String root =
-	 * request.getSession().getServletContext().getRealPath("resources");
-	 * 
-	 * //System.out.println("survey" + s);
-	 * 
-	 * 
-	 * int result = ss.insertSurvey1(s, mno);
-	 * 
-	 * if(result > 0) {
-	 * 
-	 * return "survey/survey2";
-	 * 
-	 * }else {
-	 * 
-	 * model.addAttribute("msg","등록실패");
-	 * 
-	 * return "common/errorPage";
-	 * 
-	 * } }
-	 */
 	
 	//다이어리 리스트
 	@RequestMapping("list.di")
@@ -237,6 +103,7 @@ public class DiaryController {
 		return "diary/diaryList";
 		
 	}
+	
 	
 	//다이어리 상세보기
 	@RequestMapping(value="selectDetailDiary.di", method=RequestMethod.GET)

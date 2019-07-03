@@ -56,10 +56,10 @@
   		
   	</resultMap>
 
-   <!-- 프로필 사진 insert (전효정) -->
+   <!-- 다이어리 이미지 insert -->
    <insert id="insertDiaryImg" parameterType="Attachment">
    		INSERT INTO ATTACHMENT 
-   		VALUES(FILE_SEQ.NEXTVAL, NULL, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 0, 'Y', #{filePath})
+   		VALUES(FILE_SEQ.NEXTVAL, #{d.bNo}, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 0, 'Y', #{filePath})
    </insert>
    
    <!-- 프로필 사진 수정 (전효정) -->

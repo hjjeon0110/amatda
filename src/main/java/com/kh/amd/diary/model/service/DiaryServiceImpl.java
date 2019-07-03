@@ -29,26 +29,26 @@ public class DiaryServiceImpl implements DiaryService{
 //	}
 
 	//다이어리 이미지 insert
-	@Override
-	public void insertDiaryImg(String mno, String filePath, String originalFilename, String changeName, String ext) {
-		dd.insertDiaryImg(sqlSession, mno, filePath, originalFilename, changeName, ext);
-		
-	}
+//	@Override
+//	public void insertDiaryImg(String mno, String filePath, String originalFilename, String changeName, String ext) {
+//		dd.insertDiaryImg(sqlSession, mno, filePath, originalFilename, changeName, ext);
+//		
+//	}
 
 	//다이어리 이미지 존재 여부
-	@Override
-	public Attachment checkDiaryImg(int mno) {
-		
-		return dd.checkDiaryImg(sqlSession, mno);
-	}
+//	@Override
+//	public Attachment checkDiaryImg(int mno) {
+//		
+//		return dd.checkDiaryImg(sqlSession, mno);
+//	}
 
 	//다이어리 이미지 update
-	@Override
-	public void modifyDiaryImg(String mno, String filePath, String originalFilename, String changeName, String ext) {
-		
-		dd.modifyDiaryImg(sqlSession, mno, filePath, originalFilename, changeName, ext);
-		
-	}
+//	@Override
+//	public void modifyDiaryImg(String mno, String filePath, String originalFilename, String changeName, String ext) {
+//		
+//		dd.modifyDiaryImg(sqlSession, mno, filePath, originalFilename, changeName, ext);
+//		
+//	}
 
 	//다이어리 list
 	@Override
@@ -58,7 +58,7 @@ public class DiaryServiceImpl implements DiaryService{
 	}
 
 	
-	//다이어리 insert 190701
+	//다이어리(image content) insert 190701
 	@Override
 	public int insertDiary(Diary d, String mno, String filePath, String originalFilename, String changeName,
 			String ext) {
@@ -67,7 +67,8 @@ public class DiaryServiceImpl implements DiaryService{
 		
 		int result1 = dd.insertDiary(sqlSession, d, mno);
 		
-		int result2 = dd.insertDiaryImg(sqlSession, mno, filePath, originalFilename, changeName, ext);
+		//int result2 = dd.insertDiaryImg(sqlSession, mno, filePath, originalFilename, changeName, ext);
+		int result2 = dd.insertDiaryImg(sqlSession, d, mno, filePath, originalFilename, changeName, ext);
 		
 		if(result1 > 0 && result2 > 0) {
 			result = 1;
