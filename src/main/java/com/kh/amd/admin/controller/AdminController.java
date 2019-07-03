@@ -25,6 +25,8 @@ import com.kh.amd.board.model.service.BoardService;
 import com.kh.amd.board.model.service.DeclarationService;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.board.model.vo.Declaration;
+import com.kh.amd.board.model.vo.Reply;
+import com.kh.amd.board.model.service.ReplyService;
 
 
 @Controller
@@ -35,6 +37,10 @@ public class AdminController {
 
 	@Autowired
 	private BoardService bs;
+	
+	@Autowired
+	private ReplyService rs;
+	
 
 	//관리자 페이지 메인
 	@RequestMapping("main.ad")
@@ -213,6 +219,19 @@ public class AdminController {
 		bs.deleteQNA(bNo);
 		return "redirect:QNA.ad";
 	}
+	
+	//댓글 입력
+	@RequestMapping("insertReply.ad")
+	public void insertReply(@ModelAttribute Reply reply, HttpServletResponse response) {
+		//System.out.println("댓글 입력 controller");
+		System.out.println(reply);
+		rs.insertReply(reply);
+	
+		
+		/*
+		 * if(result > 0) { response.getWriter().print("우왕성공했습니다!"); }
+		 */
+	}
 
 	//멤버쉽 관리
 	@RequestMapping("membership.ad")
@@ -229,7 +248,6 @@ public class AdminController {
 	//신고관리 페이지
 	@RequestMapping("declaration.ad")
 	public String declarationList(Model model){
-
 		List<Declaration> declarationList = ds.declarationList();
 		System.out.println(declarationList);
 		model.addAttribute("list", declarationList);
