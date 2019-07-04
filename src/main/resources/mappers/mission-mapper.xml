@@ -381,4 +381,19 @@ AND TNO=2
 AND MDATE=#{mDate}
 ORDER BY 1
 </select>
+
+
+<select id="selectAllCalendar" resultMap="missionResultSet"  parameterType="_int">
+SELECT UNO ,MDATE, CASE WHEN 3 = (SELECT COUNT(COMPLETEYN) FROM MISSION MM2 WHERE MM.MDATE = MM2.MDATE AND MM2.MTYPE='식단' AND mm2.COMPLETEYN = 'Y') THEN 'Y' 
+                ELSE 'N'
+                END
+                AS COMPLETEYN
+FROM MISSION MM 
+JOIN  MEMBER M ON (M.MNO = MM.UNO)
+WHERE MM.MTYPE = '식단'
+AND UNO = 1
+AND M.MTYPE = 'U'
+GROUP BY UNO, MDATE
+ORDER BY MDATE
+</select>
 </mapper>

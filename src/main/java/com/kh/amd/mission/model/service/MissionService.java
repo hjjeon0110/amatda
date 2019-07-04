@@ -83,5 +83,7 @@ public interface MissionService {
 	int insertCheckDinnerEx(Mission m);
 
 	List<Mission> selectMissionResult(Mission m);
+
+	List<Mission> selectAllCalendar(int mno);
 	
 }
