@@ -4,13 +4,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.Date;
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,7 +61,43 @@ public class MissionController {
 		return "mission/tmissionInsert";
 	}
 	
+	@RequestMapping("selectAllCalender")
+	public void selectAllCalendar(int mno, HttpServletResponse response) {
+		System.out.println("캘린더 서블릿이다!!!!!");
+		System.out.println("selectAllCalendar의 mno: " + mno);
+		List<Mission> m = ms.selectAllCalendar(mno);
+		System.out.println("selectAllCalendar의 List m : " + m);
+		
+		
+		
+		if(m!=null) {
+			
+			
+			
+			System.out.println("ajax로 보내기 전 m : " + m);
+			
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			try {
+			
+				new Gson().toJson(m, response.getWriter());
+			} catch (JsonIOException e) {
+				
+				e.printStackTrace();
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+		}		
+	}
 	
+	
+	@RequestMapping("selectCalendar.ms")
+	public void selectCalendar(String mno,String result2) {
+		System.out.println("mno: " + mno);
+		System.out.println("result2: " + result2);
+		System.out.println("서블릿 들어왔다");
+	}
 	
 	
 	//미션결과여부 확인

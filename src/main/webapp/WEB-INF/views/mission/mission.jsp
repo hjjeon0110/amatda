@@ -33,7 +33,7 @@
     var calendarEl = document.getElementById('calendar');
     
     
-    calendar = new FullCalendar.Calendar(calendarEl, {
+      calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid' ],
       defaultDate: '2019-06-12',
       editable: true,
@@ -41,7 +41,7 @@
       
       
       
-      events: [
+     /*  events: [
         {
           title: '오늘의 식단',
           start: '2019-06-01'
@@ -96,12 +96,14 @@
           url: 'missionRegister.ca',
           start: '2019-06-28'
         }
-      ],
+      ], */
      
       dateClick:function (date, allDay, jsEvent, view){
     	/*  var moment = $('#calendar').fullCalendar('getDate');
     	console.log(moment); */
-    	console.log("date: " + date.dateStr);
+    	console.log("allDay: " + allDay);
+    	console.log("date: " + date);
+    	console.log("date- dateStr: " + date.dateStr);
     	$("#mDate2").val(date.dateStr);
     	alert("후");
     	/* $("#dialog").modal(); */
@@ -113,8 +115,9 @@
     	console.log("modal mission.jsp에서 mno: " + mno);
     	console.log("modal mission.jsp에서 mDate2: " + mDate2);
     	
-    	//미션결과 여부 확인 ajax
     	
+    	
+    	//미션결과 여부 확인 ajax
     	$.ajax({
     		url:"selectMissionResult.ms",
     		data:{mno:mno, mDate2:mDate2},
@@ -203,6 +206,51 @@
 
   });
   $(function(){
+	  var mno =  ${sessionScope.loginUser.mno};
+	  $.ajax({
+		  url:"selectAllCalender.ms",
+		  type:"post",
+		  data:{mno:mno},
+		  success:function(data){
+			  console.log(data);
+			  alert("성~공~");
+			  for(var key in data){
+				  if(data[key].completeYN == "Y"){
+				  		var event = {
+						  	  id:data[key].missionNo,
+						 	  
+							  title:"오늘의 식단 성공",
+							  start:data[key].mDate
+				        }
+				  		calendar.addEvent(event);
+				}else{
+					var event = {
+							  id:data[key].missionNo,
+					          title:"오늘의 식단 실패",
+						      start:data[key].mDate 
+					}  
+					calendar.addEvent(event);
+				}
+				  console.log(event);
+				  
+			  }
+			 
+			  
+			  var missionNo = data[0].missionNo;
+			  console.log(missionNo);
+			  /* rLink.forEach(function(element){
+				  
+				  
+			  } */
+		  },error:function(){
+			  alert("실~패~");
+		  }
+	  })
+	  
+	  
+	  
+	  
+	  //getEvent();
 	  var date2 = new Date();
 	  console.log("date: " + date2.getDate());
 	  var num1 = "0";
@@ -228,10 +276,12 @@
 	  var today = $('#month').text(date2.getFullYear()).append("-").append(result).append("-").append(result2);
    	 var event = {
    			 title:'오늘의 식단',
-   			start: '2019-06-12T10:30:00',
+   			 start: '2019-06-12T10:30:00',
             end: '2019-06-12T12:30:00'
    	 }
-   	 calendar.addEvent(event);
+   	 
+   	calendar.addEvent(event);
+   	 
    	  /* var now = new Date();
 	  DateFormat format2 = DateFormat.getDateInstance(DateFormat.LONG);
 	  console.log(format2.format(now)); */
@@ -241,7 +291,49 @@
 	  SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 	  console.log(format.format(now));  */
   })
-  
+
+ 
+  /* function getEvent(date){
+
+	 var mno =  ${sessionScope.loginUser.mno};
+	 var date2 = new Date();
+	 
+	  var num1 = "0";
+	  
+	  
+	  if(date2.getMonth()<10){
+		var result = '0'+  (date2.getMonth()+1);
+		console.log(result);
+		if(date2.getDate()<10){
+			  var result2 = num1 + date2.getDate();
+			
+		}else{
+			  var result2 = date2.getDate();
+		}
+	  }else if(date2.getMonth()>=10){
+		var result = date2.getMonth()+1;
+		if(date2.getDate() < 10){
+			  var result2 = num1 + date2.getDate();
+		} else{
+			  var result2 = date2.getDate();
+		}
+	  } 
+	  
+	 console.log("result2: " + result2);
+	 
+	 
+  	 $.ajax({
+  		 url:"selectCalendar.ms",
+  		 type:"post",
+  		 data:{mno:mno, result2:result2},
+  		 success:function(data){
+  			 alert("성공");
+  		 },error:function(status){
+  			 alert("실패");
+  		 }
+  	 })
+    }; */
+    
 </script>
 <style>
 
@@ -472,6 +564,7 @@ function breakCheck() {
 				alert("기록 완료!");
 				
 				$("#breakCheck").hide();
+				//리로드, location.href
 				
 			}
 		},error:function(data){
