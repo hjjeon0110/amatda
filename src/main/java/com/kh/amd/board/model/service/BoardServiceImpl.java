@@ -221,6 +221,12 @@ public class BoardServiceImpl implements BoardService{
 		
 	}
 
+	//FAQ 게시판 카테고리별 클릭시 출력(AJAX)
+	@Override
+	public List<Board> cateResult(String bmCate) {
+		return bd.cateResult(sqlSession, bmCate);
+	}
+
 
 
 

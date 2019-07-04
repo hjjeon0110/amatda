@@ -288,7 +288,7 @@ margin-bottom:15px;
 		
 		$.ajax({
 			url:"searchResult.bo",
-			data:{searchType:searchType, searchCon:searchCon, bType : 1},
+			data:{searchType:searchType, searchCon:searchCon, bType : 2},
 			type:"get",
 			dataType:"json",
 			success:function(data){

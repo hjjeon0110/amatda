@@ -295,6 +295,15 @@
   	</choose>
   </select>
   
+  <!--FAQ 게시판 카테고리별 클릭시 출력(AJAX) (SR)  -->
+  <select id="cateResult" parameterType="java.lang.String" resultMap="boardResultSet">
+  SELECT *
+  FROM BOARD
+  WHERE BSTATUS='Y'
+  AND BTYPE = 3
+  AND BM_CATEGORY = #{ bmCate }
+  </select>
+  
   
   <!-- 공지사항/이벤트 게시판 검색 (SR) -->
  <!--  <select id="searchResult" resultMap="boardResultSet">
