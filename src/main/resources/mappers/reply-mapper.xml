@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Reply">
+
+	<resultMap id="member" type="com.kh.amd.member.model.vo.Member">
+			<id column="MNO" property="mno" /> <!-- DB 기본키 -->
+			<result column="NAME" property="name" /><!-- 일반컬럼 -->
+			<result column="ID" property="userId" />
+			<result column="PWD" property="userPwd" />
+			<result column="PHONE" property="phone" />
+			<result column="GENDER" property="gender" />
+			<result column="EMAIL" property="email" />
+			<result column="MTYPE" property="mtype" />
+			<result column="STATUS" property="status" />
+			<result column="MATCH_TIME" property="matchTime" />
+			<result column="EMAIL_YN" property="emailYn" />
+			<result column="ENROLL_DATE" property="enrollDate" />
+			<result column="MODIFY_DATE" property="modifyDate" />
+			<result column="COMPLETE_SURVEY" property="completeSurvey" />
+		</resultMap>
+
+	<resultMap type="com.kh.amd.board.model.vo.Reply"
+		id="replyResultSet">
+
+		<id column="REP_NO" property="repNo" />
+		<result column="BNO" property="bNo" />
+		<result column="REP_WRITER" property="repWriter" />
+		<result column="REP_CONTENT" property="repContent" />
+		<result column="REP_DATE" property="repDate" />
+		<result column="REP_MDATE" property="repMdate" />
+		<result column="REP_STATUS" property="repStatus" />
+		<collection property="member" resultMap="member"/>
+	</resultMap>
+
+	<!-- 문의 댓글 등록(김선아) -->
+	<insert id="insertReply" parameterType="Reply">
+	INSERT INTO BOARD_REPLY
+		VALUES(REP_SEQ.NEXTVAL, #{bNo}, 1, #{repContent}, SYSDATE, NULL, 'Y')
+	</insert>
+	
+	<!-- 문의 댓글 목록(김선아) -->
+	<select id="replyList" resultMap="replyResultSet">
+		SELECT R.*, M.ID
+		FROM BOARD_REPLY R 
+		JOIN MEMBER M ON(REP_WRITER = MNO)
+		WHERE BNO = #{bNo}
+	</select>
+	
+
+</mapper>

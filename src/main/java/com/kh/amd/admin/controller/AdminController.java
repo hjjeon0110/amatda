@@ -21,11 +21,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.amd.admin.model.service.AdminService;
 import com.kh.amd.board.model.service.BoardService;
 import com.kh.amd.board.model.service.DeclarationService;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.board.model.vo.Declaration;
 import com.kh.amd.board.model.vo.Reply;
+import com.kh.amd.trainer.model.vo.Payment;
 import com.kh.amd.board.model.service.ReplyService;
 
 
@@ -41,7 +43,9 @@ public class AdminController {
 	@Autowired
 	private ReplyService rs;
 	
-
+	@Autowired
+	private AdminService as;
+	
 	//관리자 페이지 메인
 	@RequestMapping("main.ad")
 	public String adminMain() {
@@ -198,7 +202,8 @@ public class AdminController {
 
 	//1:1문의 상세보기
 	@RequestMapping(value="QNASelectOne.ad", method=RequestMethod.GET)
-	public ModelAndView QNASelectOne(@RequestParam int bNo, HttpSession session){
+	public ModelAndView QNASelectOne(@RequestParam int bNo, HttpSession session,
+										Model model){
 
 		//조회수 증가
 		bs.increaseViewcnt(bNo, session);
@@ -207,7 +212,11 @@ public class AdminController {
 		mav.setViewName("admin/QNASelectOne"); 
 		mav.addObject("QNA",bs.QNASelectOne(bNo));
 		
-		System.out.println("상세보기  : " + mav);
+		//System.out.println("상세보기  : " + mav);
+		
+		//댓글 목록
+		List<Reply> repList = rs.replyList(bNo);
+		model.addAttribute("repList", repList);
 		
 		return mav;
 	}
@@ -224,18 +233,17 @@ public class AdminController {
 	@RequestMapping("insertReply.ad")
 	public void insertReply(@ModelAttribute Reply reply, HttpServletResponse response) {
 		//System.out.println("댓글 입력 controller");
-		System.out.println(reply);
+		//System.out.println(reply);
 		rs.insertReply(reply);
-	
-		
-		/*
-		 * if(result > 0) { response.getWriter().print("우왕성공했습니다!"); }
-		 */
 	}
 
 	//멤버쉽 관리
 	@RequestMapping("membership.ad")
-	public String membershipList() {
+	public String membershipList(Model model) {
+		List<Payment> paymentList = as.paymentList();
+		model.addAttribute("paymentList", paymentList);
+		System.out.println("결제내역관리 : " + paymentList);
+		
 		return "admin/membershipList";
 	}
 
