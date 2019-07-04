@@ -320,7 +320,7 @@ margin-bottom:15px;
 		month = month >= 10? month : '0' + month;
 		var day = date.getDate();
 		day=day >= 10? day : '0' + day;
-		return year + '-' + month + '-'
+		return year + '-' + month + '-' + day;
 	}
 
 	</script>

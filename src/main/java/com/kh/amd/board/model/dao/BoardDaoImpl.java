@@ -176,30 +176,6 @@ public class BoardDaoImpl implements BoardDao {
 
 	
 
-	
-	
-
-	//공지사항/이벤트 게시판 페이징 (SR)
-	/*
-	 * @Override public List<Map<String, Object>> selectBoardList(Criteria cri) { //
-	 * TODO Auto-generated method stub
-	 * 
-	 * return (List<Map<String,Object>>).selectList("board.selectBoardList", cri);
-	 * 
-	 * }
-	 */
-
-	
-
-	//공지사항/이벤트 게시판 검색  !!! (SR)
-	/*@Override
-	public List<Board> searchNotice(SqlSessionTemplate sqlSession,String searchCon) {
-		System.out.println("Dao: " + searchCon);
-		List<Board> list = (List) sqlSession.selectList("Board.searchNotice");
-		return sqlSession.selectList("Board.searchNotice");
-	}*/
-	
-	
 	//공지사항/이벤트 게시판 검색  !!! (SR)
 	@Override
 	public List<Board> searchResult(SqlSessionTemplate sqlSession, Board b) {
@@ -210,12 +186,6 @@ public class BoardDaoImpl implements BoardDao {
 
 
 
-	/*
-	 * @Override public int selectReview(SqlSessionTemplate sqlSession, Board b) {
-	 * return sqlSession.selectOne("Board.selectReview",b);
-	 * 
-	 * }
-	 */
 
 	
 }
