@@ -183,6 +183,12 @@ public class BoardDaoImpl implements BoardDao {
 		return sqlSession.selectList("Board.searchResult", b);
 	}
 
+	//FAQ 게시판 카테고리별 클릭시 출력(AJAX)
+	@Override
+	public List<Board> cateResult(SqlSessionTemplate sqlSession, String bmCate) {
+		return sqlSession.selectList("Board.cateResult", bmCate);
+	}
+
 
 
 

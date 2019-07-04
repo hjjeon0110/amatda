@@ -252,31 +252,15 @@ width:400px;
         
         
         <div class="faqcategory">
-        	<h6><a href="#">회원가입</a></h6>
-        	<h6><a href="#">결제/환불</a></h6>
-        	<h6><a href="#">서비스이용</a></h6>
-        	<h6><a href="#">서비스이용</a></h6>
-        	<h6><a href="#">서비스이용</a></h6>
+        	<h6><span class="category">회원가입</span></h6>
+        	<h6><span class="category">회원정보</span></h6>
+        	<h6><span class="category">결제/환불</span></h6>
+        	<h6><span class="category">서비스</span></h6>
+        	<h6><span class="category">기타</span></h6>
         	
         </div>
         <br>
-        <!-- <form>
- 		 <input type="text" name="search" placeholder="Search..">
-		</form> -->
-		
-	<!-- 	<div class="box">
-	  		<div class="container-1">
-	      	<span class="icon"><i class="fa fa-search"></i></span>
-	      	<input type="search" id="search" placeholder="Search..." />
-	  		</div>
-		</div> -->
-		
-		
-		<!-- <div class="searchBox">
-			<input id="searchBox1" type="text" placeholder="검색어 입력">
-			<button id="seachBox2">검색</button>
-		</div> -->
-		
+       
 		<div class="searchBox">
 		<input type="text" id="searchArea" value="" placeholder="검색하실 내용을 입력하세요.">
 			<img id="searchicon"src="${ contextPath }/resources/images/searchicon.png">
@@ -285,29 +269,27 @@ width:400px;
 		<br>
 				
 		
-         
-        
-     	 <c:forEach var="selectFaq" items="${ requestScope.selectFaq }" varStatus="status">
-         
-         <div class = "accordionTable">
-
-			<input type="hidden" id="bNo" value="${ selectFaq.bNo }">
-			
-			
-         <button class="accordion"><b>${selectFaq.bTitle }</b></button>
-         <div class="panel">
-           <br><br><p>${selectFaq.bContent }</p><br><br>
-         </div>
-         
-       		</div>
-         </c:forEach>
+		<div class="faqList">
+			<c:forEach var="selectFaq" items="${ requestScope.selectFaq }" varStatus="status">
+				<div class = "accordionTable">
+					<input type="hidden" id="bNo" value="${ selectFaq.bNo }">
+					<button class="accordion"><b>${selectFaq.bTitle }</b></button>
+					
+					<div class="panel">
+						<br><br><p>${selectFaq.bContent }</p><br><br>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+      	
+      	
       </div>
    </div>
    
 
    
    <script>
-var acc = document.getElementsByClassName("accordion");
+/* var acc = document.getElementsByClassName("accordion");
 var i;
 
 for (i = 0; i < acc.length; i++) {
@@ -319,8 +301,52 @@ for (i = 0; i < acc.length; i++) {
     } else {
       panel.style.maxHeight = panel.scrollHeight + "px";
     } 
+    
   });
-}
+} */
+
+$(".accordion").click(function() {
+	$(this).toggle("active");
+	this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+})
+
+$(".category").click(function() {
+	var bmCate = $(this).text();
+	
+	$.ajax({
+		url : "cateResult.bo",
+		data : {bmCate : bmCate},
+		dataType:"json",
+		success : function(data) {
+			console.log(data);
+			
+			$(".faqList").children().remove();
+			
+			//-----------------------------------------------------------------------
+			for(var key in data){
+				
+				console.log(data[key].bNo );
+				
+				var table = "<div class = 'accordionTable'><input type ='hidden' id='bNo' value='" + data[key].bNo 
+							+ "'><button class='accordion'><b>" + data[key].bTitle + "</b></button>"
+							+"<div class='panel'><br><br><p>" + data[key].bContent + "</p><br><br></div></div>";
+			//--------------------------------------------------------------------------
+				$(".faqList").append(table);
+			}
+		},
+		error : function(data) {
+			
+		}
+		
+	})
+	
+	});
 </script>
 
  <br>

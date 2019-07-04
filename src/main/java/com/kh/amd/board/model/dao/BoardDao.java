@@ -101,6 +101,9 @@ public interface BoardDao {
 	//공지사항/이벤트 게시판 검색 !!! (SR)
 	List<Board> searchResult(SqlSessionTemplate sqlSession, Board b);
 
+	//FAQ 게시판 카테고리별 클릭시 출력(AJAX)
+	List<Board> cateResult(SqlSessionTemplate sqlSession, String bmCate);
+
 	//int insertQna(SqlSessionTemplate sqlSession, Board b, String mno);
 
 

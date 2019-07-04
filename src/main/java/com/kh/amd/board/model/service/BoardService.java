@@ -101,6 +101,9 @@ public interface BoardService {
 	//List<Board> searchNotice(String searchCon);
 	List<Board> searchResult(Board b);
 
+	//FAQ 게시판 카테고리별 클릭시 출력(AJAX)
+	List<Board> cateResult(String bmCate);
+
 
 
 

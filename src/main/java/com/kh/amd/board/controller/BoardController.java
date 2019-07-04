@@ -204,7 +204,7 @@ public class BoardController {
 		 }
 		  
 		  
-		 //제목&내용으로 검색
+		 //공지사항 이벤트 게시판 총 제목&내용으로 검색
 			@RequestMapping("searchResult.bo")
 			public ResponseEntity searchResult (String searchCon, String searchType, int bType) {
 				
@@ -231,9 +231,20 @@ public class BoardController {
 				//mv.addObject("searchResult", searchResult);
 				
 				return new ResponseEntity(searchResult, HttpStatus.OK);
+			
 			}
 			
-		  
+		  //FAQ 게시판 카테고리별 클릭시 출력(AJAX)
+			@RequestMapping("cateResult.bo")
+			public ResponseEntity cateResult(String bmCate) {
+				
+				List<Board> cateResult = bs.cateResult(bmCate);
+				
+				System.out.println("cateResult : " + cateResult.size());
+				
+				return new ResponseEntity(cateResult,HttpStatus.OK);
+			}
+			
 		
 		 //★공지사항/이벤트 게시판 검색  !!! (SR)
 		/* @RequestMapping("searchNotice.bo")
