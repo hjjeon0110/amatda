@@ -113,18 +113,72 @@
     	console.log("modal mission.jsp에서 mno: " + mno);
     	console.log("modal mission.jsp에서 mDate2: " + mDate2);
     	
-    	
+    	//미션결과 여부 확인 ajax
     	
     	$.ajax({
     		url:"selectMissionResult.ms",
-    		type:"post",
     		data:{mno:mno, mDate2:mDate2},
+    		dataType:"json",
     		success:function(data){
-    			console.log(data.mContent);
-    			console.log(data.mType);
-    			alert(data);
-    		},error:function(data){
-    			alert("실패");
+    			alert("성공");
+    			console.log(data);
+    			console.log("data[0]: " + data[0]);
+    			console.log("arr: "+ data[1].missionNo);
+    			console.log("arr: "+ data[0].mDate);
+				console.log("아침식단 내용 data[0].mContent : " + data[0].mContent);
+				console.log("점심식단 내용 data[1].mContent: " + data[1].mContent);
+    			$("#completeBreakfast2").val(data[0].mContent);
+    			$("#completeLunch2").val(data[1].mContent);
+    			$("#completeDinner2").val(data[2].mContent);
+    			
+    			$("#completeBreakEx2").val(data[3].mContent);
+    			$("#completeLunchEx2").val(data[4].mContent);
+    			$("#completeDinnerEx2").val(data[5].mContent);
+    			
+    			$("#completeBreakExLink2").val(data[3].mLink);
+    			$("#completeLunchExLink2").val(data[4].mLink);
+    			$("#completeDinnerExLink2").val(data[5].mLink);
+    			
+    			
+    			
+    			
+    			
+    			//결과여부 (성공,실패)
+    			if((data[0].completeYN)=='Y'){ //아침식단
+    				$("#completeYNBreak").text("성공");
+    			}else{
+    				$("#completeYNBreak").text("실패");
+    			}
+    			
+    			if((data[1].completeYN)=='Y'){
+    				$("#completeYNLunch").text("성공");
+    			}else{
+    				$("#completeYNLunch").text("실패");
+    			}
+    			
+    			if((data[2].completeYN)=='Y'){
+    				$("#completeYNDinner").text("성공");
+    			}else{
+    				$("#completeYNDinner").text("실패");
+    			}
+    			
+    			if((data[3].completeYN)=='Y'){  //아침운동
+    				$("#completeYNBreakEx").text("성공");
+    			}else{
+    				$("#completeYNBreakEx").text("실패");
+    			}
+    			
+    			if((data[4].completeYN)=='Y'){ 
+    				$("#completeYNLunchEx").text("성공");
+    			}else{
+    				$("#completeYNLunchEx").text("실패");
+    			}
+    			
+    			if((data[5].completeYN)=='Y'){ 
+    				$("#completeYNDinnerEx").text("성공");
+    			}else{
+    				$("#completeYNDinnerEx").text("실패");
+    			}
     		}
     		
     		
@@ -312,19 +366,19 @@
       <div class="modal-body">
       	<table align="center">
         	<tr>
-        		<td>날짜 <input type="text" id="mDate2"></td>
+        		<td><label  style="margin-left:50px;">날짜</label> <input type="text" id="mDate2" style="margin-left:100px;"></td>
         	</tr>
         	<tr style="height:50px;">
         		<td><label style="margin-left:80px; margin-top:40px" id="eating">식단</label><hr></td>
         	</tr>
         	<tr>
-        		<td><label id="breakf">아침</label><input type="text" id="breakfast2"></td>
+        		<td><label id="breakf">아침</label><input type="text" id="completeBreakfast2" style="margin-left:30px"><label style="margin-left:30px" id="completeYNBreak"></label></td>
         	</tr>
         	<tr>
-        		<td><label id="lun">점심</label><input type="text" id="lunch2"></td>
+        		<td><label id="lun">점심</label><input type="text" id="completeLunch2" style="margin-left:30px"><label style="margin-left:30px" id="completeYNLunch"></label></td>
         	</tr>
         	<tr>
-        		<td><label id="din">저녁</label><input type="text" id="dinner2"></td>
+        		<td><label id="din">저녁</label><input type="text" id="completeDinner2" style="margin-left:30px"><label style="margin-left:30px" id="completeYNDinner"></label></td>
         	</tr>
         	
         	
@@ -332,26 +386,26 @@
         		<td><label style="margin-left:80px; margin-top:40px" id="exercise">운동</label><hr></td>
         	</tr>
         	<tr>
-        		<td><label id="breakE">아침</label><input type="text" id="breakEx2" ></td>
+        		<td><label id="breakE">아침</label><input type="text" id="completeBreakEx2" style="margin-left:30px" ><label style="margin-left:30px" id="completeYNBreakEx"></label></td>
         		<td rowspan="2"></td>
         	</tr>
         	
         	<tr>
-        		<td><input type="text" id="breakExLink2" style="margin-left:50px"></td>
+        		<td><input type="text" id="completeBreakExLink2" style="margin-left:50px"></td>
         	</tr>
         	<tr>
-        		<td><label id="lunE">점심</label><input type="text" id="lunchEx2"></td>
+        		<td><label id="lunE">점심</label><input type="text" id="completeLunchEx2" style="margin-left:30px"><label style="margin-left:30px" id="completeYNLunchEx"></label></td>
         		<td rowspan="2"></td>
         	</tr>
         	<tr>	
-        		<td><input type="text" id="lunchExLink2" style="margin-left:50px"></td>
+        		<td><input type="text" id="completeLunchExLink2" style="margin-left:50px"></td>
         	</tr>
         	<tr>
-        		<td><label id="dinE">저녁</label><input type="text" id="dinnerEx2"></td>
+        		<td><label id="dinE">저녁</label><input type="text" id="completeDinnerEx2" style="margin-left:30px"><label style="margin-left:30px" id="completeYNDinnerEx"></label></td>
         		<td rowspan="2"></td>
         	</tr>
         	<tr>
-        		<td><input type="text" id="dinnerExLink2" style="margin-left:50px"></td>
+        		<td><input type="text" id="completeDinnerExLink2" style="margin-left:50px"></td>
         	</tr>
         	
         </table>
@@ -415,9 +469,9 @@ function breakCheck() {
 		data:{breakCheck:breakCheck, mno:mno, month:month, morning:morning , selbreakfast:selbreakfast, eating:eating},
 		success:function(data){
 			if(data=="success"){
-				alert("성공");
+				alert("기록 완료!");
 				
-				//$("#breakCheck").hide();
+				$("#breakCheck").hide();
 				
 			}
 		},error:function(data){
@@ -426,6 +480,7 @@ function breakCheck() {
 			}
 		}
 	})  
+	
 });
 
 
@@ -473,7 +528,8 @@ function breakCheck() {
  		data:{lunchCheck:lunchCheck, mno:mno, month:month, lunch:lunch , sellunch:sellunch, eating:eating},
  		success:function(data){
  			if(data=="success"){
- 				alert("성공");
+ 				alert("기록 완료!");
+ 				$("#lunchCheck").hide();
  			}
  		},error:function(data){
  			if(data=="fail"){
@@ -525,7 +581,8 @@ function breakCheck() {
   		data:{dinnerCheck:dinnerCheck, mno:mno, month:month, dinner:dinner , seldinner:seldinner, eating:eating},
   		success:function(data){
   			if(data=="success"){
-  				alert("성공");
+  				alert("기록 완료!");
+  				$("#dinnerCheck").hide();
   			}
   		},error:function(data){
   			if(data=="fail"){
@@ -583,7 +640,8 @@ function breakCheck() {
    		data:{breakExCheck:breakExCheck, mno:mno, month:month, morning2:morning2 , selbreakEx:selbreakEx, exercising:exercising, selbreakExLink:selbreakExLink},
    		success:function(data){
    			if(data=="success"){
-   				alert("성공");
+   				alert("기록 완료!");
+   				$("#breakExCheck").hide();
    			}
    		},error:function(data){
    			if(data=="fail"){
@@ -640,7 +698,8 @@ function breakCheck() {
     		data:{lunchExCheck:lunchExCheck, mno:mno, month:month, lunch2:lunch2 , sellunchEx:sellunchEx, exercising:exercising, sellunchExLink:sellunchExLink},
     		success:function(data){
     			if(data=="success"){
-    				alert("성공");
+    				alert("기록 완료!");
+    				$("#lunchExCheck").hide();
     			}
     		},error:function(data){
     			if(data=="fail"){
@@ -698,7 +757,8 @@ function breakCheck() {
      		data:{dinnerExCheck:dinnerExCheck, mno:mno, month:month, dinner2:dinner2 , seldinnerEx:seldinnerEx, exercising:exercising, seldinnerExLink:seldinnerExLink},
      		success:function(data){
      			if(data=="success"){
-     				alert("성공");
+     				alert("기록 완료!");
+     				$("#dinnerExCheck").hide();
      			}
      		},error:function(data){
      			if(data=="fail"){
@@ -709,37 +769,7 @@ function breakCheck() {
      });
      
 
-/*  var breakCheck;
 
-	function breakCheck(){
-		alert("눌림");
-		
-		 }
-	} 
-
-
-	//사용자->미션체크
-	$("#breakCheck").on('change', function() { 
-	
-	    var breakCheck = $("#breakCheck").val();
-		console.log("breakCheck if문 전 : " + breakCheck); 
-		
-		breakCheck();
-		 
-			/* location.href="checkBreak.ms?breakCheck="+breakCheck.val();
-			$.ajax({
-			
-				url:"checkBreak.ms",
-				type:"post",
-				data:{breakCheck:breakCheck},
-				success:function(data){
-					alert("성공");
-				},error:function(status){
-					alert("실패!");
-				}
-			}) 
-
-	}) */
 
 	//트레이너->미션등록
 	function registerMission(){
@@ -990,8 +1020,7 @@ function breakCheck() {
 		});
 		
 	})
-	온로드 펑션 
-		mcontent.complete == 'N'
+	
 		
 </script>
 
