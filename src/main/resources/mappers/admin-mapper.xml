@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Admin">
+	
+	<resultMap id="paymentResultSet" type="Payment">
+		<id column="PAY_NO" property="payNo"/>		
+		<result column="MEMBERSHIP_NO" property="membershipNo"/>		
+		<result column="TNO" property="tno"/>		
+		<result column="PROCESS" property="process"/>		
+		<result column="PAY_TYPE" property="payType"/>		
+		<result column="PAY_DATE" property="payDate"/>		
+		<result column="REFUND_REASON" property="refundReason"/>		
+		<result column="MEMBERSHIP_TYPE" property="membershipType"/>		
+		<result column="MEMBERSHIP_COUNT" property="membershipCount"/>		
+		<result column="MEMBERSHIP_PRICE" property="membershipPrice"/>	
+	</resultMap>
+	
+	<!-- 결제 내역 조회 -->
+	<select id="paymentList" resultMap="paymentResultSet">
+		SELECT *
+		FROM PAYMENT P
+		JOIN MEMBERSHIP S USING(MEMBERSHIP_NO)
+	</select>
+
+</mapper>
+

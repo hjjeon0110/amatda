@@ -39,6 +39,11 @@
 	margin-left:900px;
 }
 
+.replyList>p{
+	
+	color:white;
+}
+
 
 </style>
 </head>
@@ -159,6 +164,21 @@
 						<a href='#' class="button" id="replyInsert">등록</a>
 						
 					</form>
+					
+					<!-- 댓글 -->
+			<div id="reply">
+				<ol class="replyList">
+					<c:forEach items="${repList}" var="repList">
+					 		<p><b>
+						   ${repList.member.userId}
+						  (<fmt:formatDate value="${repList.repDate}" pattern="yyyy-MM-dd a HH:mm:ss" />)
+						    </b></p>
+						  
+						  	<p>${repList.repContent}</p>
+					
+					 </c:forEach>   
+				</ol>
+			</div>
 	
 
 
@@ -209,6 +229,7 @@
 				})
 				
 			})
+		
 		})
 	</script>
 

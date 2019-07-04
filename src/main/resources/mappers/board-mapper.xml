@@ -106,12 +106,13 @@
 		WHERE BTYPE = 3
 	</select>
 
-	<!-- 자주 묻는 질문 상세조회(김선아) -->
-	<!-- <select id="FAQSelectOne" resultMap="boardResultSet">
+ 	<!-- 자주 묻는 질문 상세조회(김선아) -->
+ 	
+	<select id="FAQSelectOne" resultMap="boardResultSet">
 		SELECT *
 		FROM (SELECT * FROM BOARD WHERE BTYPE = 3)
 		WHERE BNO = #{bNo}
-	</select> -->
+	</select> 
 
 
 	<!-- <insert id="insertReview" parameterType="Board"> INSERT INTO BOARD(BNO,BTYPE,BWRITE_DATE,BTITLE,BCONTENT,MNO) 
@@ -230,13 +231,6 @@
 		FROM BOARD B
 		JOIN MEMBER M ON(BWRITER = MNO)
 		WHERE BNO = #{bNo}
-  	</select>
-  	
-  	<!-- 자주 묻는 질문 상세조회(김선아) -->
-  	<select id="FAQSelectOne" resultMap="boardResultSet">
-  		SELECT *
-        FROM (SELECT * FROM BOARD WHERE BTYPE = 3)
-        WHERE BNO = #{bNo}
   	</select>
   	
   	

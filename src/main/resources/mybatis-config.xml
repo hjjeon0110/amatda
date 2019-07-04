@@ -30,7 +30,8 @@
   		<mapper resource="mappers/declaration-mapper.xml"/>
   		<mapper resource="mappers/mission-mapper.xml"/>
   		<mapper resource="mappers/diary-mapper.xml"/>
-  		<!-- <mapper resource="mappers/reply-mapper.xml"/> -->
+  		<mapper resource="mappers/reply-mapper.xml"/>
+  		<mapper resource="mappers/admin-mapper.xml"/>
   	</mappers>
 </configuration>
   

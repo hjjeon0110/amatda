@@ -200,12 +200,12 @@
 
 						<tbody>
 
-							<c:forEach var="member" begin="1" end="5">
+							<c:forEach var="list" items="${ paymentList }" varStatus="status">
 								<tr>
-									<th scope="row"><b>1</b></th>
+									<th scope="row"><b>${ status.count }</b>
 									<td>wannaOne</td>
 									<td>S</td>
-									<td>46,500</td>
+									<td>${ list.membershipPrice }</td>
 									<td>20회</td>
 									<td><a href="#modalLayer" class="button">상세보기</a>
 										<div id="modalLayer">
