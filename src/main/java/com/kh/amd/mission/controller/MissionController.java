@@ -62,79 +62,55 @@ public class MissionController {
 	
 	
 	//미션결과여부 확인
-	@RequestMapping("selectMissionResult.ms")
-	public ArrayList selectMissionResult(Model model, HttpServletRequest request, HttpServletResponse response) {
-		
-		ArrayList arr = null; 
-		
-		String mno = request.getParameter("mno");
-		int mno2 = Integer.parseInt(mno);
-		
-		String mDate2 = request.getParameter("mDate2");
-		
-		
-		System.out.println("미션결과여부확인 컨트롤러 mno2: " + mno2);
-		System.out.println("미션결과여부확인 컨트롤러 mDate2: " + mDate2);
-		
-		
-		Mission m = new Mission();
-		m.setUno(mno2);
-		m.setmDate(mDate2);
-		
-		System.out.println("db가기전 m : " + m);
-		List<Mission> missonList = ms.selectMissionResult(m);
-		System.out.println("missionList: " + missonList);
-		
-		
-		JSONObject estiMateJson = new JSONObject();
-		if(m!=null) {
+		@RequestMapping("selectMissionResult.ms")
+		public void selectMissionResult(Model model, String mno, String mDate2 , HttpServletResponse response) {
 			
-		try {
-			for(int i = 0; i < missonList.size(); i++) {
-				
-				String mContent = URLEncoder.encode(missonList.get(i).getmContent(), "UTF-8");
-				mContent = mContent.replaceAll("\\+", "%20");
-				System.out.println("mContent : " + missonList.get(i).getmContent());
-				arr = new ArrayList();
-				arr.add(missonList.get(i).getmContent());
-				
-				String mType = URLEncoder.encode(missonList.get(i).getmType(), "UTF-8");
-				mType = mType.replaceAll("\\+", "%20"); 
-				System.out.println("mType: " + missonList.get(i).getmType() );
-				arr.add(missonList.get(i).getmType());
-				
-				System.out.println("arr : " + arr);
-				
-				
-				estiMateJson.put("mType", mType);
-				estiMateJson.put("mContent", mContent);
-
-			}
+			ArrayList arr = null; 
 			
-			response.setContentType("application/json");
-		} catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-         }	
-		}			
-		/*//null일떄
-		}else {
-			response.setContentType("application/json");
+			
+			int mno2 = Integer.parseInt(mno);
+			
+			
+			System.out.println("미션결과여부확인 컨트롤러 mno2: " + mno2);
+			System.out.println("미션결과여부확인 컨트롤러 mDate2: " + mDate2);
+			
+			
+			Mission m = new Mission();
+			m.setUno(mno2);
+			m.setmDate(mDate2);
+			
+			System.out.println("db가기전 m : " + m);
+			List<Mission> missonList = ms.selectMissionResult(m);
+			System.out.println("missionList: " + missonList);
+			
+			
+			
+			if(m!=null) {
+				
+			
+				
+				System.out.println("ajax로 보내기 전의 arr : " + missonList);
+				
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				try {
+					//조회한 6개의 행을 toJson(6개의 행을 담고있는 List이름 , response.getWriter()통로를 이용해서 ajax로 보낸다)
+					new Gson().toJson(missonList, response.getWriter()); //대부분 하나의 값이 아닌 여러값을 보낼때, 사용 ( 객체나 리스트 )
+				} catch (JsonIOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}			
+			
+				
 		}
-			try {
-				new Gson().toJson(estiMateJson,response.getWriter());
-				
-			} catch (JsonIOException e1) {
-				
-				e1.printStackTrace();
-				
-			} catch (IOException e1) {
-			
-				e1.printStackTrace();
-		}*/
-			
-		return arr;
-	}
-	
+		
+		
+		
+		
 	
 	
 	//미션수정 - 아침 식단 내용
@@ -1002,7 +978,9 @@ public class MissionController {
 				response.getWriter().print("success");
 				model.addAttribute("mission",m);
 				System.out.println("model: " + model);
-
+				//model: model에 담을때 사용한 key = 값을담은 객체 [값]
+				//model: {loginUser=Member [mno=1, name=우리나, userId=woorina, userPwd=$2a$10$jcNpTPWyFvdICaTNnS/UsuMAlPB4D.6aZ1WyvjbyC9HPXFL9GEq1q, phone=010-1234-5678, gender=여자, email=wln02036549@gmail.com, mtype=U, status=Y, matchTime=0, emailYn=Y, enrollDate=2019-07-04, modifyDate=null, completeSurvey=Y, tno=0, accountName=null, bankCode=null, accountNo=null, tage=null, topen=null, remainNum=0, trainerInfo=null, profile=null], 
+				//		   mission=Mission [missionNo=0, tno=0, uno=1, mDate=2019-07-04, mTime=아침, mType=식단, mContent=아침아침식단, mLink=null, completeYN=Y]}
 				
 			} catch (IOException e) {
 
@@ -1192,6 +1170,7 @@ public class MissionController {
 					m.setmLink(seldinnerExLink);
 					
 					System.out.println("저녁운동 체크: " +  m);
+					//저녁운동 체크: Mission [missionNo=0, tno=0, uno=1, mDate=2019-07-04, mTime=저녁, mType=운동, mContent=저녁저녁운동, mLink=https://youtu.be/9_gmjmIqA4M, completeYN=Y]
 					int result = ms.insertCheckDinnerEx(m); 
 					
 					
@@ -1271,7 +1250,7 @@ public class MissionController {
 						if(result5>0) {
 							mis.setmDate(mDate);
 							mis.setTno(mno);
-							mis.setmContent(lunchEx);
+							mis.setmContent(dinnerEx);
 							mis.setmLink(dinnerExLink);
 							
 							int result6 = ms.insertDinnerEx(mis);
@@ -1292,7 +1271,7 @@ public class MissionController {
 		m.setmDate(today);
 		System.out.println("controller m: " + m);
 		Mission lm = ms.selectMission(m);
-		System.out.println(lm);
+		System.out.println("오늘의 아침운동 조회: "+lm);
 		
 		
 		try {
