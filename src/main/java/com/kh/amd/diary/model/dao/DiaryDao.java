@@ -16,7 +16,7 @@ public interface DiaryDao {
 	void insertDiaryImg(SqlSessionTemplate sqlSession, int bno, String mno, String filePath, String originalFilename, String changeName, String ext);
 
 	//다이어리 이미지 여부 체크
-	Attachment checkDiaryImg(SqlSessionTemplate sqlSession, int mno);
+	//Attachment checkDiaryImg(SqlSessionTemplate sqlSession, int mno);
 
 	//다이어리 이미지 update
 	void modifyDiaryImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename, String changeName, String ext);
