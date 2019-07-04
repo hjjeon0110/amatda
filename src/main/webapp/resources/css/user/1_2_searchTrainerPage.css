@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+
 .btn {
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 14px;
@@ -87,18 +88,20 @@
 }
 
 .searchConditionTableTd2 {
-	width:80%;
+	width:70%;
 	height:50px;
 	border-top:0.5px solid darkgray;
 	border-bottom:0.5px solid darkgray;
 	padding-left:25px;
 }
 
-#keywordInput {
-	width:80%;
-	height:30px;
+.searchConditionTableTd3 {
+	width:10%;
+	height:50px;
+	border-top:0.5px solid darkgray;
+	border-bottom:0.5px solid darkgray;
+	padding-left:25px;
 }
-
 
 .searchKeywordLabel {
 	font-size: 20px;
@@ -107,9 +110,11 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-.searchKeywordInput {
-	width: 310px;
+#keywordInput {
+	weight:100%;
 	height: 30px;
+	margin-right:0px !important;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 .searchKeywordBtn {
@@ -133,6 +138,24 @@
 	font-family: 'Noto Sans KR', sans-serif;
 	background: #ffe6f3;
 }
+
+.searchTrainerListDiv {
+	width: 100%;
+	height: 100%;
+	background: #F9F9F9;
+}
+
+.searchTrainerListNullDiv {
+	width:100%;
+	height:100%;
+	background:#F9F9F9;
+	text-align:center;
+}
+
+.searchTrainerListNullLabel {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
 
 .searchTrainerListDiv {
 	width: 100%;
