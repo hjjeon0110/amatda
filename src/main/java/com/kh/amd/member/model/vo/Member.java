@@ -3,6 +3,8 @@ package com.kh.amd.member.model.vo;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.vo.Profile;
 
 public class Member implements java.io.Serializable{
@@ -31,11 +33,18 @@ public class Member implements java.io.Serializable{
 	
 	private TrainerInfo trainerInfo;
 	private Profile profile;
+	
+	//회원 리스트 조회에 필요한 필드들입니다.(김진환)
+	private Attachment attachment;
+	private Survey survey;
+
+	public Member () {}
 
 	public Member(int mno, String name, String userId, String userPwd, String phone, String gender, String email,
 			String mtype, String status, int matchTime, String emailYn, Date enrollDate, Date modifyDate,
 			String completeSurvey, int tno, String accountName, String bankCode, String accountNo, String tage,
-			String topen, int remainNum, TrainerInfo trainerInfo, Profile profile) {
+			String topen, int remainNum, TrainerInfo trainerInfo, Profile profile, Attachment attachment,
+			Survey survey) {
 		super();
 		this.mno = mno;
 		this.name = name;
@@ -60,39 +69,9 @@ public class Member implements java.io.Serializable{
 		this.remainNum = remainNum;
 		this.trainerInfo = trainerInfo;
 		this.profile = profile;
+		this.attachment = attachment;
+		this.survey = survey;
 	}
-
-	public Member() {}
-
-	public Member(int mno, String name, String userId, String userPwd, String phone, String gender, String email,
-			String mtype, String status, int matchTime, String emailYn, Date enrollDate, Date modifyDate,
-			String completeSurvey, int tno, String accountName, String bankCode, String accountNo, String tage,
-			String topen, int remainNum) {
-		super();
-		this.mno = mno;
-		this.name = name;
-		this.userId = userId;
-		this.userPwd = userPwd;
-		this.phone = phone;
-		this.gender = gender;
-		this.email = email;
-		this.mtype = mtype;
-		this.status = status;
-		this.matchTime = matchTime;
-		this.emailYn = emailYn;
-		this.enrollDate = enrollDate;
-		this.modifyDate = modifyDate;
-		this.completeSurvey = completeSurvey;
-		this.tno = tno;
-		this.accountName = accountName;
-		this.bankCode = bankCode;
-		this.accountNo = accountNo;
-		this.tage = tage;
-		this.topen = topen;
-		this.remainNum = remainNum;
-	}
-
-
 
 	public int getMno() {
 		return mno;
@@ -261,7 +240,7 @@ public class Member implements java.io.Serializable{
 	public void setRemainNum(int remainNum) {
 		this.remainNum = remainNum;
 	}
-	
+
 	public TrainerInfo getTrainerInfo() {
 		return trainerInfo;
 	}
@@ -278,6 +257,22 @@ public class Member implements java.io.Serializable{
 		this.profile = profile;
 	}
 
+	public Attachment getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(Attachment attachment) {
+		this.attachment = attachment;
+	}
+
+	public Survey getSurvey() {
+		return survey;
+	}
+
+	public void setSurvey(Survey survey) {
+		this.survey = survey;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [mno=" + mno + ", name=" + name + ", userId=" + userId + ", userPwd=" + userPwd + ", phone="
@@ -285,8 +280,11 @@ public class Member implements java.io.Serializable{
 				+ ", matchTime=" + matchTime + ", emailYn=" + emailYn + ", enrollDate=" + enrollDate + ", modifyDate="
 				+ modifyDate + ", completeSurvey=" + completeSurvey + ", tno=" + tno + ", accountName=" + accountName
 				+ ", bankCode=" + bankCode + ", accountNo=" + accountNo + ", tage=" + tage + ", topen=" + topen
-				+ ", remainNum=" + remainNum + ", trainerInfo=" + trainerInfo + ", profile=" + profile + "]";
+				+ ", remainNum=" + remainNum + ", trainerInfo=" + trainerInfo + ", profile=" + profile + ", attachment="
+				+ attachment + ", survey=" + survey + "]";
 	}
+	
+	
 
 	
 	

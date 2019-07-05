@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.PageInfo;
+import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.vo.Estimate;
 import com.kh.amd.trainer.model.vo.Payment;
 import com.kh.amd.trainer.model.vo.Profile;
@@ -121,6 +122,26 @@ public class TrainerDaoImpl implements TrainerDao {
 		
 		sqlSession.update("Trainer.minusRemainNum", map);
 		return sqlSession.update("Trainer.refundRequest", map);
+	}
+	
+	//회원찾기  - 회원리스트 갯수 확인 메소드(김진환)
+	@Override
+	public int getSearchUserListCount(SqlSessionTemplate sqlSession) {		
+		
+		return sqlSession.selectOne("Trainer.searchUserListCount");
+	}
+
+	
+	
+	//회원찾기 - 회원리스트 출력 메소드(김진환)
+	@Override
+	public List<Member> showUserList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());	
+		
+		return (List) sqlSession.selectList("Trainer.showUserList", null, rowBounds);
 	}
 
 
@@ -304,6 +325,10 @@ public class TrainerDaoImpl implements TrainerDao {
 		
 		sqlSession.update("Trainer.deleteMedia", map);
 	}
+
+
+
+
 
 
 	

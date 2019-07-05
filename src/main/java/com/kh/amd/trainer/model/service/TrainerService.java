@@ -43,6 +43,12 @@ public interface TrainerService {
 	
 	// 환불요청 메소드(김진환)
 	int refundRequest(String refundId, String refundReason, int mno, int refundCountI);
+	
+	//회원찾기 - 회원리스트 갯수 확인용 메소드(김진환)
+	int getSearchUserListCount();
+	
+	//회원찾기 - 회원리스트 출력 메소드(김진환)
+	List<Member> showUserList(PageInfo pi);
 
 	
 	
@@ -94,6 +100,10 @@ public interface TrainerService {
 
 	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 	void deleteMidea(String mno, String thisModiName);
+
+	
+	
+	
 
 	
 
