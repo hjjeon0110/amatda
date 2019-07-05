@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,60 +36,74 @@
 	<div class="searchUserListDiv">
 		<br> <select class="userSelect">
 			<option class="option">- 선택 -</option>
-			<option>신규가입순</option>
+			<option value="join">신규가입순</option>
 		</select> <br>
 		<br>
-		<div class="userListDiv">
-			<table class="userListTable">
-				<tr>
-					<td rowspan="3" class="userListTableTd1">
-						<div class="profileImg">
-							<img class="profileImage"
-								src="${ contextPath }/resources/images/profileImg.PNG">
-						</div>
-					</td>
-					<td class="userListTableTd2"><label class="userName">회원1</label>
-						<label class="userGender">(남)</label></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><label class="userKeyword">#키워드</label></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><label class="userSurvey">운동 시작가능일 : 19/06/13, 운동
-							가능 시간 : 18:00 - 22:00, 키 : 180cm, 몸무게 : 100kg, 목표감량치 : 20kg</label></td>
-					<td class="userListTableTd1"><button type="button"
-							class="btn btn-primary" data-toggle="modal"
-							data-target="#exampleModalScrollable">회원 정보 보기</button></td>
-				</tr>
-			</table>
-		</div>
+		
+		<c:forEach var="user" items="${ list }" varStatus="status">
+			<div class="userListDiv">
+				<table class="userListTable">
+					<tr>
+						<td rowspan="3" class="userListTableTd1">
+							<div class="profileImg">
+								<img class="profileImage"
+									src="${ contextPath }/resources/images/profileImg.PNG">
+							</div>
+						</td>
+						<td class="userListTableTd2"><label class="userName">회원1</label>
+							<label class="userGender">(남)</label></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><label class="userKeyword">#키워드</label></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><label class="userSurvey">운동 시작가능일 : 19/06/13, 운동
+								가능 시간 : 18:00 - 22:00, 키 : 180cm, 몸무게 : 100kg, 목표감량치 : 20kg</label></td>
+						<td class="userListTableTd1"><button type="button"
+								class="btn btn-primary" data-toggle="modal"
+								data-target="#exampleModalScrollable">회원 정보 보기</button></td>
+					</tr>
+				</table>
+			</div>
+		</c:forEach>
 		<br>
-		<div class="userListDiv">
-			<table class="userListTable">
-				<tr>
-					<td rowspan="3" class="userListTableTd1">
-						<div class="profileImg">
-							<img class="profileImage"
-								src="${ contextPath }/resources/images/profileImg.PNG">
-						</div>
-					</td>
-					<td class="userListTableTd2"><label class="userName">회원2</label>
-						<label class="userGender">(남)</label></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><label class="userKeyword">#키워드</label></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><label class="userSurvey">운동 시작가능일 : 19/06/13, 운동
-							가능 시간 : 18:00 - 22:00, 키 : 180cm, 몸무게 : 100kg, 목표감량치 : 20kg</label></td>
-					<td class="trainerListTableTd1"><button
-							class="showUserServeyDetail">회원 정보 보기</button></td>
-				</tr>
-			</table>
+		
+		<!-- 페이징 처리를 위한 코드, div지정후 페이징 처리 ----------------------------------->
+		<div id="pagingArea" align="center">
+			<c:if test="${ pi.currentPage <= 1 }">
+				[이전] &nbsp;
+			</c:if>
+			<c:if test="${ pi.currentPage > 1}">
+				<c:url var="blistBack" value="showUserFindPageView.tr">
+					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+				</c:url>
+				<a href="${ blistBack }">[이전]</a> &nbsp;
+			</c:if>
+			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+				<c:if test="${ p eq pi.currentPage }">
+					<font color="orange" size="4"><b>[${ p }]</b></font>
+				</c:if>
+				<c:if test="${ p ne pi.currentPage }">
+					<c:url var="blistCheck" value="showUserFindPageView.tr">
+						<c:param name="currentPage" value="${ p }"/>
+					</c:url>
+					<a href="${ blistCheck }">${ p }</a>
+				</c:if>
+			
+			</c:forEach>
+			
+			<c:if test="${pi.currentPage >= pi.maxPage }">
+				&nbsp; [다음]
+			</c:if>
+			<c:if test="${ pi.currentPage < pi.maxPage }">
+				<c:url var="blistEnd" value="showUserFindPageView.tr">
+					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+				</c:url>
+				<a href="${ blistEnd }">&nbsp;[다음]</a>
+			</c:if>
+			
 		</div>
 
 		<br>

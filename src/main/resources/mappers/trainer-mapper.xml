@@ -4,7 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Trainer">
-
 	<resultMap type="com.kh.amd.member.model.vo.TrainerInfo" id="trainerResultSet">
 		<id property="mno" column="TNO" /><!-- DB 기본키 -->
 		<result property="accountName" column="ACCOUNT_NAME" />
@@ -59,6 +58,48 @@
 		<result column="MEMBERSHIP_COUNT" property="membershipCount"/>		
 		<result column="MEMBERSHIP_PRICE" property="membershipPrice"/>	
 	</resultMap>
+	<resultMap type="com.kh.amd.survey.model.vo.Survey" id="surveyResultSet">
+		<id property="surveyNo" column="SURVEY_NO"/>
+		<result property="uNo" column="UNO"/>
+		<result property="hopePeriod" column="HOPE_PERIOD"/>
+		<result property="hopeBody" column="HOPE_BODY"/>
+		<result property="hopeMethod" column="HOPE_METHOD"/>
+		<result property="hopeGender" column="HOPE_GENDER"/>
+		<result property="hopeAge" column="HOPE_AGE"/>
+		<result property="dietFail" column="DIET_FAIL"/>
+		<result property="hopeStart" column="HOPE_START"/>
+		<result property="dietReason" column="DIET_REASON"/>
+		<result property="hopeExercise" column="HOPE_EXERCISE"/>
+		<result property="datExercise" column="DAT_EXERCISE"/>
+		<result property="datFood" column="DAT_FOOD"/>
+		<result property="disease" column="DISEASE"/>
+		<result property="dayTime" column="DAY_TIME"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
+		<result property="height" column="HEIGHT"/>
+		<result property="weight" column="WEIGHT"/>
+		<result property="hopeWeight" column="HOPE_WEIGHT"/>
+		<result property="uAge" column="UAGE"/>
+	</resultMap>
+	<resultMap id="memberResultSet" type="com.kh.amd.member.model.vo.Member">
+		<id column="MNO" property="mno" /> 
+		<result column="NAME" property="name" />
+		<result column="ID" property="userId" />
+		<result column="PWD" property="userPwd" />
+		<result column="PHONE" property="phone" />
+		<result column="GENDER" property="gender" />
+		<result column="EMAIL" property="email" />
+		<result column="MTYPE" property="mtype" />
+		<result column="STATUS" property="status" />
+		<result column="MATCH_TIME" property="matchTime" />
+		<result column="EMAIL_YN" property="emailYn" />
+		<result column="ENROLL_DATE" property="enrollDate" />
+		<result column="MODIFY_DATE" property="modifyDate" />
+		<result column="COMPLETE_SURVEY" property="completeSurvey" />
+		<collection property="attachment" column="attachmentResultSet" resultMap="attachmentResultSet" javaType="Attachment"/>
+		<collection property="survey" column="surveyResultSet" resultMap="surveyResultSet" javaType="Survey"/>
+	</resultMap>
+	
 
 
 
@@ -157,6 +198,21 @@
 		SET REMAIN_NUM = (REMAIN_NUM - #{refundCountI})
 		WHERE TNO = #{mno}
 	</update>
+	<!-- 12. 회원찾기 - 회원리스트(페이징 처리) -->
+	<select id="searchUserListCount" resultType="_int">
+		SELECT COUNT(*)
+  		FROM MEMBER
+  		WHERE COMPLETE_SURVEY = 'Y'
+  		AND MTYPE = 'U'
+	</select>
+	
+	<!-- 12. 회원찾기  - 회원목록 리스트로 반환 -->
+	<select id="showUserList" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER M 
+		JOIN ATTACHMENT A ON (A.BNO = M.MNO)
+		JOIN SURVEY S ON (S.UNO = M.MNO)	
+	</select>
 
 
 

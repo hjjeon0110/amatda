@@ -242,6 +242,7 @@ public class TrainerController {
 		   
 		   return "trainer/2_4_1_myPage_paymentList";
 	   }
+	   //환불요청 처리 메소드(김진환)
 	   @RequestMapping("refundRequest.tr")
 	   public void refundRequest(HttpServletResponse response, String refundId, String refundReason, String refundCount, String tno) {
 		   
@@ -264,6 +265,33 @@ public class TrainerController {
 		  }
 		   
 	   }
+	// 회원 찾기 페이지 이동 (전효정, 김진환) --------------------------------------------------------------------------------------------------------
+		@RequestMapping("showUserFindPageView.tr")
+		public String showUserFindPageView(Model model, String currentPage) {
+			 int currentPageI = 1;
+			 System.out.println("헬로 유저 리스트 서블릿");
+			 
+			 if(currentPage != null) {
+					currentPageI = Integer.parseInt(currentPage);
+				}
+			//목록을 조회해서 해당 리스트가 몇개인지 확인 
+			int listCount = ts.getSearchUserListCount();
+			
+			
+			PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+			pi.setLimit(5);
+			
+			//리스트 조회
+			List<Member> uInfoList = ts.showUserList(pi);
+			
+			System.out.println(uInfoList);
+			System.out.println(pi);
+			
+			model.addAttribute("list", uInfoList);
+			model.addAttribute("pi", pi);
+			
+			return "trainer/1_userFindPage";
+		}
 	   
 	
 	
@@ -273,11 +301,7 @@ public class TrainerController {
 	// 효정 메소드 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	
-	// 회원 찾기 페이지 이동 (전효정) ------------------------------------------------------------------------------------------------------------------------------------------------
-	@RequestMapping("showUserFindPageView.tr")
-	public String showUserFindPageView() {
-		return "trainer/1_userFindPage";
-	}
+	
 
 	
 	// 트레이너 마이페이지_프로필관리 이동 (전효정) --------------------------------------------------------------------------------------------------------------------------------------

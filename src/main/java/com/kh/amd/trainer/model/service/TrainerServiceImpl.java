@@ -89,6 +89,21 @@ public class TrainerServiceImpl implements TrainerService {
 		
 		return td.refundRequest(sqlSession, refundId, refundReason, mno, refundCountI);
 	}
+	
+	//회원찾기  - 회원리스트 갯수 확인 메소드(김진환)
+	@Override
+	public int getSearchUserListCount() {
+		return td.getSearchUserListCount(sqlSession);
+	}
+
+	
+	//회원찾기 - 회원리스트 출력 메소드(김진환)
+	@Override
+	public List<Member> showUserList(PageInfo pi) {
+		
+		return td.showUserList(sqlSession, pi);
+	}
+	
 
 
 	
@@ -200,6 +215,12 @@ public class TrainerServiceImpl implements TrainerService {
 	public void deleteMidea(String mno, String thisModiName) {
 		td.deleteMidea(sqlSession, mno, thisModiName);
 	}
+
+
+
+
+
+
 
 
 	
