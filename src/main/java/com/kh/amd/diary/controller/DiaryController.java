@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.common.CommonUtils;
 import com.kh.amd.diary.model.service.DiaryService;
 import com.kh.amd.diary.model.vo.Diary;
@@ -100,7 +103,7 @@ public class DiaryController {
 	
 	//다이어리 상세보기
 	@RequestMapping(value="selectDetailDiary.di", method=RequestMethod.GET)
-	public ModelAndView selectDetailDiary(@RequestParam int bno, HttpSession session) {
+	public ModelAndView selectDetailDiary(@RequestParam int bno, HttpSession session, Model model) {
 		
 		System.out.println("컨트롤러 bno : " + bno);
 		
@@ -117,8 +120,21 @@ public class DiaryController {
 		mav.addObject("d", d);
 		mav.addObject("a", a);
 		
+		//댓글 목록
+		List<Reply> repList = ds.replyList(bno);
+		model.addAttribute("repList", repList);
+		
 		return mav;
 		
+	}
+	
+	
+	//댓글 입력
+	@RequestMapping("insertReply.di")
+	public void insertReply(@ModelAttribute Reply reply, HttpServletResponse response) {
+		//System.out.println("댓글 입력 controller");
+		//System.out.println(reply);
+		ds.insertReply(reply);
 	}
 		
 

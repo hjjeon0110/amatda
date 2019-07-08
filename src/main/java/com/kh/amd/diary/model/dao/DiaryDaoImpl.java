@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.diary.model.vo.Diary;
 
 @Repository
@@ -122,6 +123,22 @@ public class DiaryDaoImpl implements DiaryDao{
 		
 //		return list;
 		return sqlSession.selectList("Diary.selectGallery", a);
+	}
+
+
+	//댓글 select
+	@Override
+	public List<Reply> replyList(SqlSessionTemplate sqlSession, int bno) {
+		
+		return sqlSession.selectList("Diary.replyList", bno);
+	}
+
+
+	//댓글 insert
+	@Override
+	public void insertReply(SqlSessionTemplate sqlSession, Reply reply) {
+		sqlSession.insert("Diary.insertReply",reply);
+		
 	}
 	
 	//gallery
