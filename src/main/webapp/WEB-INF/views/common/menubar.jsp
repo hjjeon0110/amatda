@@ -193,7 +193,7 @@
 							href="showRecommendTrainerPageView.us?mno=${sessionScope.loginUser.mno}">트레이너 찾기</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<li class="menubarLi5"><a class="menubarLi5"
 							href="showMyPagePrivacy.us">MY PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<li class="menubarLi6"><a class="menubarLi6" href="#">PT
+						<li class="menubarLi6"><a class="menubarLi6" <%-- href="matching.ms?mno=${sessionScope.loginUser.mno}" --%>>PT
 								PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					</ul>
 					<div class="dropdown">
@@ -245,9 +245,43 @@
 	<!-- 관리자 로그인 -->
 		<c:if test="${!empty sessionScope.loginUser && sessionScope.loginUser.mtype.equals('A')}">
 			
+			
+	<div class="menubarDiv">
+		<nav
+			class="navbar navbar-expand-lg navbar-dark pb_navbar pb_scrolled-light"
+			id="templateux-navbar">
 			<div class="container">
-				<jsp:forward page="../admin/main.jsp"/>
+				<a class="navbar-brand" href="showMain.me"><span
+					class="text-danger">아맞다</span></a>
+				<!-- <a href="#"><label class="logo">AMATDA</label></a> -->
+				<div class="site-menu-toggle js-site-menu-toggle  ml-auto"
+					data-toggle="collapse" data-target="#templateux-navbar-nav"
+					aria-controls="templateux-navbar-nav" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span></span> <span></span> <span></span>
+				</div>
+				<!-- END menu-toggle -->
+
+				<div class="collapse navbar-collapse" id="templateux-navbar-nav">
+					<ul class="menubarLi">
+						
+						<li class="menubarLi6"><a class="menubarLi6" href="main.ad">관리자페이지
+								</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</ul>
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button"
+							id="dropdownMenuButton" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">${sessionScope.loginUser.name } 관리자님</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" href="#">정보수정</a> <a
+								class="dropdown-item" href="selectNotice.bo">고객센터</a> <a class="dropdown-item"
+								href="logout.me">로그아웃</a>
+						</div>
+					</div>
+				</div>
 			</div>
+		</nav>
+		</div>
 		</c:if>
 	
 	<!-- 트레이너 로그인 --------------------------------------------------------------------------------------------------------------------- -->
@@ -377,8 +411,29 @@
 			}
 			
 		})
+		
+		$(".menubarLi6").click(function() {
+			var mno = ${ sessionScope.loginUser.mno };
+			
+			$.ajax({
+				url:"matching.ms",
+				data:{mno:mno},
+				success:function(data) {
+					if(data == "success") {
+						location.href="matchinggo.ms";
+					}else if(data == "fail"){
+						alert("매칭이 완료된 회원만 접근이 가능합니다!");
+						
+					}
+				}
+			})
+		})
+		
+		
+		
+		
 	</script>
-
+	
 
 
 </body>
