@@ -210,8 +210,38 @@
 	<select id="showUserList" resultMap="memberResultSet">
 		SELECT *
 		FROM MEMBER M 
-		JOIN ATTACHMENT A ON (A.BNO = M.MNO)
+		LEFT JOIN ATTACHMENT A ON (A.BNO = M.MNO)
 		JOIN SURVEY S ON (S.UNO = M.MNO)	
+	</select>
+	
+	<!-- 13. 회원찾기 - 회원 목록 정렬해서 리스트로 반환 -->
+	<select id="userListSort" resultMap="memberResultSet" parameterType="string">
+		SELECT *
+		FROM MEMBER M 
+		LEFT JOIN ATTACHMENT A ON (A.BNO = M.MNO)
+		JOIN SURVEY S ON (S.UNO = M.MNO)
+		<if test='value == "join"'>
+		    ORDER BY M.ENROLL_DATE DESC
+		</if>
+		<if test='value == "start"'>
+		    ORDER BY S.HOPE_START DESC
+		</if>
+		<if test='value == "excerPeriod"'>
+		    ORDER BY S.HOPE_PERIOD DESC
+		</if>
+
+		<!-- <choose>
+			<when test="sort == join">
+				ORDER BY M.ENROLL_DATE DESC
+			</when>
+			<when test="sort == start">
+				ORDER BY S.HOPE_START DESC
+			</when>
+			<when test="sort == excerPeriod">
+				ORDER BY S.HOPE_PERIOD DESC
+			</when>
+		</choose> -->
+			
 	</select>
 
 

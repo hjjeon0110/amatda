@@ -52,6 +52,9 @@ public interface TrainerDao {
 	
 	//회원찾기 - 회원리스트 출력 메소드(김진환)
 	List<Member> showUserList(SqlSessionTemplate sqlSession, PageInfo pi);
+	
+	//회원찾기 - 회원리스트 정렬 메소드(김진환)
+	List<Member> userListSort(SqlSessionTemplate sqlSession, String sort, PageInfo pi);
 
 
 
@@ -105,6 +108,8 @@ public interface TrainerDao {
 
 	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 	void deleteMidea(SqlSessionTemplate sqlSession, String mno, String thisModiName);
+
+	
 
 
 

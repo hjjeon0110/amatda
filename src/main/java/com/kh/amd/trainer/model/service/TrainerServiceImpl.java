@@ -104,6 +104,12 @@ public class TrainerServiceImpl implements TrainerService {
 		return td.showUserList(sqlSession, pi);
 	}
 	
+	//회원찾기 - 회원리스트 정렬 메소드(김진환)
+	@Override
+	public List<Member> userListSort(String sort, PageInfo pi) {
+		
+		return td.userListSort(sqlSession, sort, pi);
+	}
 
 
 	
@@ -215,6 +221,8 @@ public class TrainerServiceImpl implements TrainerService {
 	public void deleteMidea(String mno, String thisModiName) {
 		td.deleteMidea(sqlSession, mno, thisModiName);
 	}
+
+	
 
 
 

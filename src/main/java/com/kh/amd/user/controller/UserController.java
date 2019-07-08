@@ -56,11 +56,6 @@ public class UserController {
 		return "user/1_3_profileDetailPage";
 	}
 	
-	// 마이페이지_개인정보관리 페이지 이동 (전효정)
-	@RequestMapping("showMyPagePrivacy.us")
-	public String showMyPagePrivacyPageView() {
-		return "user/2_1_myPage_privacy";
-	}
 	
 	// 마이페이지_다이어트정보관리 페이지 이동 (전효정)
 	@RequestMapping("showMyPageDietSurvey.us")
@@ -85,6 +80,25 @@ public class UserController {
 	public String showMyPageMyWritingPageView() {
 		return "user/2_5_myPage_myWriting";
 	}
+	
+	
+	//(김진환이 조금이라도 들어간 메소드)------------------------------------------------------------------------------------//
+	
+	// 마이페이지_개인정보관리 페이지 이동 (전효정, 김진환)
+		@RequestMapping("showMyPagePrivacy.us")
+		public String showMyPagePrivacyPageView() {
+			
+			
+			return "user/2_1_myPage_privacy";
+		}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
