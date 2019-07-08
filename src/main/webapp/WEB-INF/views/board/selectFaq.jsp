@@ -204,15 +204,20 @@ margin:0 auto;
 		input::-moz-placeholder{color:#a8a8a8;}
    
    
-   #searchicon{
+  #searchicon{ 
 width:20px;
 cursor:pointer;
 }
 
-#searchArea{
-width:400px;
+#searchCon{
+width:450px;
 
 }
+
+/* ----------------------- */
+
+
+
 </style>
 
 </head>
@@ -252,6 +257,7 @@ width:400px;
         
         
         <div class="faqcategory">
+        	<h6><a href="selectFaq.bo">전체</a></h6>
         	<h6><span class="category">회원가입</span></h6>
         	<h6><span class="category">회원정보</span></h6>
         	<h6><span class="category">결제/환불</span></h6>
@@ -262,14 +268,18 @@ width:400px;
         <br>
        
 		<div class="searchBox">
-		<input type="text" id="searchArea" value="" placeholder="검색하실 내용을 입력하세요.">
-			<img id="searchicon"src="${ contextPath }/resources/images/searchicon.png">
+		<input type="text" id="searchCon" name="searchCon" placeholder="검색하실 내용을 입력하세요.">
+			<%-- <button type="button" id="searchicon"><img src="${ contextPath }/resources/images/searchicon.png"></button> --%>
+			 <img id="searchicon" src="${ contextPath }/resources/images/searchicon.png"> 
+			
+			
 		</div>
 		
 		<br>
 				
 		
-		<div class="faqList">
+		<!-- ------------아코디언 시작----------------------- -->
+		 <div class="faqList">
 			<c:forEach var="selectFaq" items="${ requestScope.selectFaq }" varStatus="status">
 				<div class = "accordionTable">
 					<input type="hidden" id="bNo" value="${ selectFaq.bNo }">
@@ -280,7 +290,25 @@ width:400px;
 					</div>
 				</div>
 			</c:forEach>
-		</div>
+		</div> 
+		
+		<!-- -------------------------------------------------------------------------- -->
+		<%-- <div class="faqList" align="center">
+		<c:forEach var="selectFaq" items="${ requestScope.selectFaq }" varStatus="status">	
+			<div class = "accordionTable">
+			<input type="hidden" id="bNo" value="${ selectFaq.bNo }">
+				<ul id="faq1">
+				  <li>
+				    <b>${selectFaq.bTitle }</b>
+				    <p>${selectFaq.bContent }</p>
+				  </li>
+				 
+				</ul>
+			</div>
+		</c:forEach>
+		</div> --%>
+	<!-- -------------------------------------------------------------------------- -->
+		<!-- -----------------------------아코디언 끝----------------- -->
       	
       	
       </div>
@@ -289,10 +317,58 @@ width:400px;
 
    
    <script>
-/* var acc = document.getElementsByClassName("accordion");
+   
+   /*  --------------------------------------마우스커서------------------------------------------------- */
+   $(".faqList").mouseenter(function(){
+		$(this).css("cursor", "pointer")
+	/* }).click(function(){
+		var bNo= $(this).parent().children().children().eq(0).val();
+		console.log(bNo);
+		location.href="selectFaq.bo?bNo=" + bNo; */
+	});
+   
+   /*  ------------------------------------검색기능--------------------------------------------------- */
+   
+   
+    $("#searchicon").click(function(){
+		//var searchType = $("#searchType").children("option:selected").val();
+		var searchCon = $("input[name=searchCon]").val();
+		console.log(searchType);
+		console.log(searchCon);
+		$.ajax({
+			url:"searchResultFaq.bo",
+			data:{searchCon:searchCon},
+			type:"get",
+			dataType:"json",
+			success:function(data){
+				console.log(data);
+				$(".faqList").children().remove();
+				
+				//-----------------------------------------------------------------------
+				for(var key in data){
+					
+					console.log(data[key].bNo );
+					
+					var table = "<div class = 'accordionTable'><input type ='hidden' id='bNo' value='" + data[key].bNo 
+								+ "'><button class='accordion'><b>" + data[key].bTitle + "</b></button>"
+								+"<div class='panel'><br><br><p>" + data[key].bContent + "</p><br><br></div></div>";
+				//--------------------------------------------------------------------------
+					$(".faqList").append(table);
+				}
+			},
+			error : function(data) {
+				
+			}
+			
+		})
+		
+		});
+   /*  --------------------------------------아코디언 에니메이션------------------------------------------------- */
+   
+var acc = document.getElementsByClassName("accordion");
 var i;
 
-for (i = 0; i < acc.length; i++) {
+ for (i = 0; i < acc.length; i++) {
   acc[i].addEventListener("click", function() {
     this.classList.toggle("active");
     var panel = this.nextElementSibling;
@@ -303,19 +379,8 @@ for (i = 0; i < acc.length; i++) {
     } 
     
   });
-} */
-
-$(".accordion").click(function() {
-	$(this).toggle("active");
-	this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.maxHeight){
-      panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    } 
-})
-
+}  
+ /*  -----------------------------------------카테고리별 ---------------------------------------------- */
 $(".category").click(function() {
 	var bmCate = $(this).text();
 	
@@ -347,6 +412,35 @@ $(".category").click(function() {
 	})
 	
 	});
+	
+	
+/*  $(".accordion").click(function() {
+$(this).toggle("active");
+this.classList.toggle("active");
+var panel = this.nextElementSibling;
+if (panel.style.maxHeight){
+  panel.style.maxHeight = null;
+} else {
+  panel.style.maxHeight = panel.scrollHeight + "px";
+} 
+})   */
+
+/* ------------------------새로운 아코디언 시작 -------------------- */
+/* $(document).ready(function(){
+	$("p").hide();
+	// $("ul > li:first-child a").next().show();
+	$("#faq1 li b").click(function(){
+		$(this).next().slideToggle(50);
+		// $(this).next().slideDown(300);
+		$("#faq1 li b").not(this).next().slideUp(50);
+		return false;
+	});
+	$("#faq1 li a").eq(0).trigger("click");
+}); */
+/* ------------------------새로운 아코디언 끝 -------------------- */
+	
+
+	
 </script>
 
  <br>

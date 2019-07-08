@@ -92,11 +92,11 @@ display:inline;
 	<div class="outer"> 	
 		<br>
 		<h2 align="center">후기</h2>
-		<form action="insertReview.bo" method="post"> 
+		<form  method="post" id="formId"> 
 			<!-- encType="multipart/form-data" -->
 			<!-- encType을 설정해야 파일을 폼에서 보낼 수 있다 -->
-			 <input type="hidden" name="bType" value="5"/>
 			<input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.mno }" />
+			 <input type="hidden" name="bType" value="5"/>
 			
 			
 			<!-- 자가코딩 시작 -->
@@ -106,13 +106,13 @@ display:inline;
 					<tbody>
 						<tr>
 							<th>제목</th>
-							<td><input type="text" placeholder="제목을 입력하세요" name="bTitle" style="width:700px;"></td>
+							<td><input type="text" id="bTitle" placeholder="제목을 입력하세요" name="bTitle" style="width:700px;"></td>
 							
 							
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><input type="text" placeholder="내용을 입력하세요" name="bContent" style="width:700px; height:600px;"></td>
+							<td><input type="text" id="bContent" placeholder="내용을 입력하세요" name="bContent" style="width:700px; height:600px;"></td>
 						</tr>
 						<tr>
 							<th>첨부파일   (썸네일)</th>
@@ -144,7 +144,7 @@ display:inline;
             
          </div> -->
 			
-			<input type="submit" value="작성하기" class="btn btn-primary">
+			<input id="clickInput" type="submit" value="작성하기" class="btn btn-primary">
 			<button onclick="location.href='selectReview.bo'" class="btn btn-primary">목록으로</button>
 			</div>
 			
@@ -166,9 +166,22 @@ display:inline;
 			location.href="loginMember.me";
 		}
 		
+		$("#clickInput").click(function(){
+			var bTitle = $("#bTitle").val();
+			var bContent = $("#bContent").val();
+			if(bTitle == 0){
+				alert("제목을 입력해주세요");
+			}else if(bContent == 0){
+				alert("내용을 입력해주세요");
+			}else if(bTitle != 0 && bContent != 0){
+				console.log("둘다 잇음")
+				$("#formId").attr("action", "insertReview.bo");
 				
+			}	
 		})
-	
+		
+	})
+		
 	
 	
 	

@@ -50,10 +50,13 @@
 	<!-- REVIEW 후기 리스트 출력용(SR) -->
 	<!-- <select id="selectReview" parameterType="Board"> SELECT* FROM BOARD 
 		WHERE BTYPE='5' AND BSTATUS='Y' </select> -->
+		
 	<!-- review 후기 입력용(sr) -->
 	<insert id="insertReview" parameterType="Board">
-		INSERT INTO BOARD(BNO,BTYPE,BWRITE_DATE,BTITLE,BCONTENT)
-		VALUES (BNO_SEQ.NEXTVAL,#{bType}, sysdate, #{bTitle},#{bContent})
+		<!-- INSERT INTO BOARD(BNO,BTYPE,BWRITE_DATE,BTITLE,BCONTENT)
+		VALUES (BNO_SEQ.NEXTVAL,#{bType}, sysdate, #{bTitle},#{bContent}) -->
+		INSERT INTO BOARD(BNO,BTYPE,BWRITE_DATE,BTITLE,BCONTENT,BWRITER) 
+		VALUES (BNO_SEQ.NEXTVAL,#{bType}, sysdate, #{bTitle},#{bContent},#{bWriter})
 	</insert>
 
 
@@ -115,9 +118,7 @@
 	</select> 
 
 
-	<!-- <insert id="insertReview" parameterType="Board"> INSERT INTO BOARD(BNO,BTYPE,BWRITE_DATE,BTITLE,BCONTENT,MNO) 
-		VALUES (BNO_SEQ.NEXTVAL,#{bType}, sysdate, #{bTitle},#{bContent},#{mno}) 
-		</insert> -->
+	
 
 	<!-- 사용자 공지사항/이벤트 리스트 출력(sr) -->
 <!-- 	<select id="selectNotice" resultMap="boardResultSet">
@@ -288,6 +289,32 @@
   		</when>
   	</choose>
   </select>
+  
+  
+  <!-- FAQ 게시판 총 제목&내용으로 검색(SR) -->
+  <select id="searchResultFaq" resultMap="boardResultSet">
+  SELECT * 
+  FROM BOARD
+  WHERE BSTATUS='Y'
+	  <choose>
+	  <!-- 	<when test="bTitle != null">
+	  		AND BTITLE LIKE '%' || #{bTitle} || '%'
+	  	</when>
+	  	
+	  	<when test="bContent != null">
+	  		AND BCONTENT LIKE '%' || #{BcONTENT} || '%'
+	  	</when> -->
+	  	
+	  	<when test="bContent != null">
+	  		AND BCONTENT LIKE '%' || #{bTitle} || '%'
+	  		AND BCONTENT LIKE '%' || #{bContent} || '%'
+	  	</when>
+	  	
+	  </choose>
+  </select>
+  
+  
+  
   
   <!--FAQ 게시판 카테고리별 클릭시 출력(AJAX) (SR)  -->
   <select id="cateResult" parameterType="java.lang.String" resultMap="boardResultSet">

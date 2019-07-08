@@ -10,6 +10,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.member.model.vo.Member;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -183,10 +184,16 @@ public class BoardDaoImpl implements BoardDao {
 		return sqlSession.selectList("Board.searchResult", b);
 	}
 
-	//FAQ 게시판 카테고리별 클릭시 출력(AJAX)
+	//FAQ 게시판 카테고리별 클릭시 출력(AJAX)(SR)
 	@Override
 	public List<Board> cateResult(SqlSessionTemplate sqlSession, String bmCate) {
 		return sqlSession.selectList("Board.cateResult", bmCate);
+	}
+
+	// FAQ 게시판 총 제목&내용으로 검색(SR)
+	@Override
+	public List<Board> searchResultFaq(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.selectList("Board.searchResultFaq",b);
 	}
 
 

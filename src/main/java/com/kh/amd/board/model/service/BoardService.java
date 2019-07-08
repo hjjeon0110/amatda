@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.member.model.vo.Member;
 
 public interface BoardService {
 
@@ -101,8 +102,11 @@ public interface BoardService {
 	//List<Board> searchNotice(String searchCon);
 	List<Board> searchResult(Board b);
 
-	//FAQ 게시판 카테고리별 클릭시 출력(AJAX)
+	//FAQ 게시판 카테고리별 클릭시 출력(AJAX)(SR)
 	List<Board> cateResult(String bmCate);
+	
+	// FAQ 게시판 총 제목&내용으로 검색(SR)
+	List<Board> searchResultFaq(Board b);
 
 
 

@@ -1,3 +1,4 @@
+--------0707-18:10/ insertDeclaration -----------------------
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -145,12 +146,12 @@ input[type=submit]:hover {
 }
 
 
-	
-	.firstTable h6:hover{
+   
+   .firstTable h6:hover{
 background:#ffe6f3;
 width:180px;
 }
-	.firstTableLine1{
+   .firstTableLine1{
 background:#ff0066; 
 width:180px; 
 height:5px; 
@@ -211,23 +212,23 @@ height:200px;
     
     /*모달창*/
     .modal.modal-center {
- 	 text-align: center;
-	}
+     text-align: center;
+   }
 
-	@media screen and (min-width: 768px) { 
-	  .modal.modal-center:before {
-	    display: inline-block;
-	    vertical-align: middle;
-	    content: " ";
-	    height: 100%;
-	  }
-	}
-	
-	.modal-dialog.modal-center {
-	  display: inline-block;
-	  text-align: left;
-	  vertical-align: middle; 
-	}
+   @media screen and (min-width: 768px) { 
+     .modal.modal-center:before {
+       display: inline-block;
+       vertical-align: middle;
+       content: " ";
+       height: 100%;
+     }
+   }
+   
+   .modal-dialog.modal-center {
+     display: inline-block;
+     text-align: left;
+     vertical-align: middle; 
+   }
 
 /*---------------*/
 
@@ -285,7 +286,7 @@ height:200px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
     border-radius: 10px;
-	font-family:'dotum';
+   font-family:'dotum';
 } */
 a#login_pop:hover, a#join_pop:hover {
     border-color: black;
@@ -479,37 +480,37 @@ a#login_pop:hover, a#join_pop:hover {
         
         <!-- 신고대상자 id검색란  -->
         <!-- <div class="row">
-        	<div class="col-25">
-        		<label for="declaration3">신고대상자</label>
-        	</div>
-			<div class="col-75"> -->
-			
-			
-			<!-- 
-			 <div class="panel">
+           <div class="col-25">
+              <label for="declaration3">신고대상자</label>
+           </div>
+         <div class="col-75"> -->
+         
+         
+         <!-- 
+          <div class="panel">
                 <a href="#login_form" id="login_pop">아이디 검색 : 여기를 클릭하세요.</a>
                 
                  <a href="#x" class="overlay" id="login_form"></a>
-		        
-		        <div class="popup">
-		            <h2>신고대상자 검색</h2>
-		            <p>신고할 대상의 아이디를 조회하세요.</p>
-		            <div>
-		                <label for="login">아이디 입력란</label>
-		                <input type="text" id="login" value="" placeholder="아이디를 입력하세요." />
-		            </div>
-		            <div>
-		                <label for="password">Password</label>
-		                <input type="password" id="password" value="" />
-		            </div>
-		            <input type="button" value="검색" />
-		
-		            <a class="close" href="#close"></a>
-		        </div>
+              
+              <div class="popup">
+                  <h2>신고대상자 검색</h2>
+                  <p>신고할 대상의 아이디를 조회하세요.</p>
+                  <div>
+                      <label for="login">아이디 입력란</label>
+                      <input type="text" id="login" value="" placeholder="아이디를 입력하세요." />
+                  </div>
+                  <div>
+                      <label for="password">Password</label>
+                      <input type="password" id="password" value="" />
+                  </div>
+                  <input type="button" value="검색" />
+      
+                  <a class="close" href="#close"></a>
+              </div>
             </div> -->
-			
-				<!-- <button onclick="location.href='#'">아이디 검색</button>  -->
-			
+         
+            <!-- <button onclick="location.href='#'">아이디 검색</button>  -->
+         
         
         <div class="row">
           <div class="col-25">
@@ -539,18 +540,18 @@ a#login_pop:hover, a#join_pop:hover {
         
         <!-- 파일첨부 -->
        <!--  <div class="col-25">
-  			<label for="subject">파일 첨부</label>
-  		</div> -->
-  	
-        	<!-- 파일첨부 시작 -->
-	  	<!-- <div class="col-75">
-	  		<div class="filebox preview-image"> 
-	  			<input class="upload-name" value="파일선택" disabled="disabled" > 
-	  			<label for="input-file">업로드</label> 
-	  			<input type="file" id="input-file" class="upload-hidden"> 
-	  		</div>
-	  	</div> -->
-  		<!-- 파일첨부 끝 -->
+           <label for="subject">파일 첨부</label>
+        </div> -->
+     
+           <!-- 파일첨부 시작 -->
+        <!-- <div class="col-75">
+           <div class="filebox preview-image"> 
+              <input class="upload-name" value="파일선택" disabled="disabled" > 
+              <label for="input-file">업로드</label> 
+              <input type="file" id="input-file" class="upload-hidden"> 
+           </div>
+        </div> -->
+        <!-- 파일첨부 끝 -->
         
         
       <br><br>
@@ -618,54 +619,54 @@ a#login_pop:hover, a#join_pop:hover {
 
 <script>
 $(function(){
-	var mno = $("#mNo").val();
-	if(mno > 0){
-		/* alert("로그인이 됐다는것") */
-		
-	
-		
-	}else{
-		alert("로그인을 하셔야 작성이 가능합니다.")
-		/* location.href="http://www.naver.com"; */
-		location.href="loginMember.me";
-	}
-	
-			
-	})
+   var mno = $("#mNo").val();
+   if(mno > 0){
+      /* alert("로그인이 됐다는것") */
+      
+   
+      
+   }else{
+      alert("로그인을 하셔야 작성이 가능합니다.")
+      /* location.href="http://www.naver.com"; */
+      location.href="loginMember.me";
+   }
+   
+         
+   })
 //preview image 
 /* var imgTarget = $('.preview-image .upload-hidden'); 
 imgTarget.on('change', function(){
-	var parent = $(this).parent(); 
-	parent.children('.upload-display').remove(); 
-	
-	if(window.FileReader){
-		//image 파일만 
-		if (!$(this)[0].files[0].type.match(/image\//)) return;
-		
-		var reader = new FileReader(); 
-		reader.onload = function(e){
-			var src = e.target.result;
-			parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>'); 
-			
-		} 
-		reader.readAsDataURL($(this)[0].files[0]); 
-			} 
-	
-	else { 
-		$(this)[0].select(); 
-		$(this)[0].blur(); 
-		var imgSrc = document.selection.createRange().text;
-		parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
-		
-		var img = $(this).siblings('.upload-display').find('img'); 
-		img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")"; 
-		
-	} 
-	
-	});
-	
-		
-	}) */
+   var parent = $(this).parent(); 
+   parent.children('.upload-display').remove(); 
+   
+   if(window.FileReader){
+      //image 파일만 
+      if (!$(this)[0].files[0].type.match(/image\//)) return;
+      
+      var reader = new FileReader(); 
+      reader.onload = function(e){
+         var src = e.target.result;
+         parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>'); 
+         
+      } 
+      reader.readAsDataURL($(this)[0].files[0]); 
+         } 
+   
+   else { 
+      $(this)[0].select(); 
+      $(this)[0].blur(); 
+      var imgSrc = document.selection.createRange().text;
+      parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
+      
+      var img = $(this).siblings('.upload-display').find('img'); 
+      img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")"; 
+      
+   } 
+   
+   });
+   
+      
+   }) */
 
 
 
