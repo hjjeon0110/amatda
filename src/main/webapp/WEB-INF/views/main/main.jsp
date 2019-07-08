@@ -15,7 +15,7 @@
 	<jsp:include page="../common/menubar.jsp"></jsp:include>
 	
 	<a href="matching.ms">캘린더</a>
-	<a href="trainerMatching.ms">트레이너용 캘린더</a>
+	<a href="goUpdateMission.ms">트레이너용 캘린더</a>
 
 	<!-- 캐러셀 영역 ---------------------------------------------------------------------------------------------------------- -->
 	<div id="carouselExampleControls" class="carousel slide"

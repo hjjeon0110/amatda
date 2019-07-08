@@ -238,7 +238,7 @@
   		<label style="margin-top:30px">오늘의 운동</label><hr>
   		<table>
   		<tr>
-  		<td><label>아침</label><br><label id="selbreakEx" style="margin-left:20px;"></label><a href="" id="selbreakExLink" style="margin-left:20px;"></a></td>
+  		<td><label>아침</label><br><label id="selbreakEx" style="margin-left:20px;"></label><a href=""  id="selbreakExLink" style="margin-left:20px;"></a></td>
   		</tr>
   		<tr>
   		<td><label>점심</label><br><label id="sellunchEx" style="margin-left:20px"></label><a href="" id="sellunchExLink" style="margin-left:20px;"></a></td>
@@ -316,7 +316,7 @@
         		<td><input type="text" id="dinnerExLink" style="margin-left:50px"></td>
         	</tr>
         	<tr>
-        		<td><input type="submit" value="등록하기" style="margin-left:80px" onclick="registerMission()"></td>
+        		<td><input type="submit" value="등록하기" style="margin-left:80px" onclick="registerMission()" id="registerMission"></td>
         	</tr>
         </table>
      
@@ -396,7 +396,8 @@
 					
 					
 					  
-					 var link = $("<a>").attr("href", rLink[0]).text(rLink[0]);
+					 var link = $("<a>").attr("href", rLink[0]).text(rLink[0]).attr("target", "_blank");
+					
 					 console.log("아침운동 link: "+rLink[0]);
 					 console.log(link);
 					 $("#selbreakExLink").append(link);
@@ -436,7 +437,7 @@
 				
 				rLink.forEach(function(element){
 			
-					 var link = $("<a>").attr("href", rLink[0]).text(rLink[0]);
+					 var link = $("<a>").attr("href", rLink[0]).text(rLink[0]).attr("target", "_blank");
 					 $("#sellunchExLink").append(link);
 					
 					
@@ -468,7 +469,7 @@
 				
 				rLink.forEach(function(element){
 			
-					 var link = $("<a>").attr("href", rLink[0]).text(rLink[0]);
+					 var link = $("<a>").attr("href", rLink[0]).text(rLink[0]).attr("target", "_blank");
 					
 					 $("#seldinnerExLink").append(link);
 					

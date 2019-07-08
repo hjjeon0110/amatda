@@ -92,6 +92,44 @@ public class MissionController {
 	}
 	
 	
+	
+	
+	@RequestMapping("selectAllExCalender.ms")
+	public void selectAllExCalender(int mno, HttpServletResponse response) {
+		System.out.println("캘린더 운동 서블릿이다!!!!!");
+		System.out.println("selectAllExCalendar의 mno: " + mno);
+		List<Mission> m2 = ms.selectAllExCalender(mno);
+		System.out.println("selectAllExCalendar의 List m : " + m2);
+		
+		
+		
+		if(m2!=null) {
+			
+			
+			
+			System.out.println("ajax로 보내기 전  m : " + m2);
+			
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			try {
+			
+				new Gson().toJson(m2, response.getWriter());
+			} catch (JsonIOException e) {
+				
+				e.printStackTrace();
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+		}else {		
+			System.out.println("DB에서 가져오지못함");
+		}
+	}
+	
+	
+	
+	
+	
 	@RequestMapping("selectCalendar.ms")
 	public void selectCalendar(String mno,String result2) {
 		System.out.println("mno: " + mno);
@@ -516,7 +554,7 @@ public class MissionController {
 		m.setTno(mno2);
 		//System.out.println("미션수정전 아침식단 내용 조회 m : " + m);
 		m = ms.selectMissionList(m);
-		//System.out.println("미션수정전 아침식단 내용 조회 후  m : " + m);
+		System.out.println("미션수정전 아침식단 내용 조회 후  m : " + m);
 		
 		
 		try {
@@ -574,7 +612,7 @@ public class MissionController {
 		
 		
 		JSONObject estiMateJson = new JSONObject();
-		if(m!=null) {
+	
 			
 		try {
 			String mContent = URLEncoder.encode(m.getmContent(), "UTF-8");
@@ -587,26 +625,23 @@ public class MissionController {
 
 			
 			response.setContentType("application/json");
-		} catch (UnsupportedEncodingException e) {
+				try {
+					new Gson().toJson(estiMateJson,response.getWriter());
+				} catch (JsonIOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
          }	
 			
-		//null일떄
-		}else {
-				response.setContentType("application/json");
-		}
-			try {
-				new Gson().toJson(estiMateJson,response.getWriter());
-				
-			} catch (JsonIOException e1) {
-				
-				e1.printStackTrace();
-				
-			} catch (IOException e1) {
-			
-				e1.printStackTrace();
-		}
+		
+
+	
 	
 	}
 	
@@ -1257,47 +1292,126 @@ public class MissionController {
 		
 		int result1 = ms.insertBreakfast(mis);
 		
-		if(result1>0) {
-			mis.setmDate(mDate);
-			mis.setTno(mno);
-			mis.setmContent(lunch);
-			
-			int result2 = ms.insertLunch(mis);
-			
-			if(result2>0) {
-				mis.setmDate(mDate);
-				mis.setTno(mno);
-				mis.setmContent(dinner);
-				int result3 = ms.insertDinner(mis);
-				
-				if(result3>0) {
-					mis.setmDate(mDate);
-					mis.setTno(mno);
-					mis.setmContent(breakEx);
-					mis.setmLink(breakExLink);
-					
-					int result4 = ms.insertBreakEx(mis);
-					
-					if(result4>0) {
-						mis.setmDate(mDate);
-						mis.setTno(mno);
-						mis.setmContent(lunchEx);
-						mis.setmLink(lunchExLink);
-						
-						int result5 = ms.insertLunchEx(mis);
-						
-						if(result5>0) {
-							mis.setmDate(mDate);
-							mis.setTno(mno);
-							mis.setmContent(dinnerEx);
-							mis.setmLink(dinnerExLink);
-							
-							int result6 = ms.insertDinnerEx(mis);
-						}
-					}
-				}
-			}
-		}
+		
+		
+	}
+	
+	
+	@RequestMapping("insertLunchEat.ms")
+	public void insertLunchEat(HttpServletRequest request, HttpServletResponse response, int mno) {
+		
+		String mDate = request.getParameter("mDate");
+		
+		String lunch = request.getParameter("lunch");
+		
+		System.out.println("mno: "+mno);
+		System.out.println("lunch: " + lunch);
+		Mission mis = new Mission();
+		mis.setmDate(mDate);
+		mis.setTno(mno);
+		mis.setmContent(lunch);
+		
+		
+		int result1 = ms.insertLunch(mis);
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	@RequestMapping("insertDinnerEat.ms")
+	public void insertDinnerEat(HttpServletRequest request, HttpServletResponse response, int mno) {
+		
+		String mDate = request.getParameter("mDate");
+		
+		String dinner = request.getParameter("dinner");
+	
+		System.out.println("mno: "+mno);
+		System.out.println("breakfast: " + dinner);
+		Mission mis = new Mission();
+		mis.setmDate(mDate);
+		mis.setTno(mno);
+		mis.setmContent(dinner);
+		
+		
+		int result1 = ms.insertDinner(mis);
+		
+		
+		
+		
+	}
+	
+	
+	
+	@RequestMapping("insertBreakEx.ms")
+	public void insertBreakEx2(HttpServletRequest request, HttpServletResponse response, int mno) {
+		
+		String mDate = request.getParameter("mDate");
+		
+		String breakEx = request.getParameter("breakEx");
+		
+		String breakExLink = request.getParameter("breakExLink");
+	
+		System.out.println("mno: "+mno);
+		System.out.println("breakEx: " + breakEx);
+		Mission mis = new Mission();
+		mis.setmDate(mDate);
+		mis.setTno(mno);
+		mis.setmContent(breakEx);
+		mis.setmLink(breakExLink);
+		
+		int result1 = ms.insertBreakEx(mis);
+		
+		
+	}
+	
+	
+	
+	@RequestMapping("insertLunchEx.ms")
+	public void insertLunchEx2(HttpServletRequest request, HttpServletResponse response, int mno) {
+		
+		String mDate = request.getParameter("mDate");
+		
+		String lunchEx = request.getParameter("lunchEx");
+		
+		String lunchExLink = request.getParameter("lunchExLink");
+	
+		System.out.println("mno: "+mno);
+		System.out.println("lunchEx: " + lunchEx);
+		Mission mis = new Mission();
+		mis.setmDate(mDate);
+		mis.setTno(mno);
+		mis.setmContent(lunchEx);
+		mis.setmLink(lunchExLink);
+		
+		int result1 = ms.insertLunchEx(mis);
+		
+		
+	}
+	
+	
+	
+	@RequestMapping("insertDinnerEx.ms")
+	public void insertBreakEx3(HttpServletRequest request, HttpServletResponse response, int mno) {
+		
+		String mDate = request.getParameter("mDate");
+		
+		String dinnerEx = request.getParameter("dinnerEx");
+		
+		String dinnerExLink = request.getParameter("dinnerExLink");
+	
+		System.out.println("mno: "+mno);
+		System.out.println("dinnerEx: " + dinnerEx);
+		Mission mis = new Mission();
+		mis.setmDate(mDate);
+		mis.setTno(mno);
+		mis.setmContent(dinnerEx);
+		mis.setmLink(dinnerExLink);
+		
+		int result1 = ms.insertDinnerEx(mis);
 		
 		
 	}

@@ -219,6 +219,12 @@ public class MissionDaoImpl implements MissionDao{
 		System.out.println("dao 캘린더: " + mno);
 		return sqlSession.selectList("Mission.selectAllCalendar", mno);
 	}
+
+	@Override
+	public List<Mission> selectAllExCalender(SqlSessionTemplate sqlSession, int mno) {
+		System.out.println("dao2 캘린더: " + mno);
+		return sqlSession.selectList("Mission.selectAllExCalender", mno);
+	}
 	 
 
 	

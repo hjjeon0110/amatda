@@ -237,6 +237,13 @@ public class MissionServiceImpl implements MissionService{
 		return md.selectAllCalendar(sqlSession,mno);
 	}
 
+	@Override
+	public List<Mission> selectAllExCalender(int mno) {
+		return md.selectAllExCalender(sqlSession,mno);
+	}
+
+	
+
 	
 	
 	
