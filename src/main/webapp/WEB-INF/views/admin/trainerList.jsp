@@ -26,7 +26,7 @@
 	https://templatemo.com/tm-524-product-admin
 	-->
 <style>
-	#search_input{
+	#userId{
 	margin-left:600px;
 }
 	
@@ -129,8 +129,9 @@
 						<option value="2">매칭상태</option>
 					</select> 
 					
-					<input id="search_input" type="text" name="" placeholder="아이디 입력">
-					<a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+			<!-- 아이디 검색 -->		
+			 <input id="userId"  name="userId" type="text"  placeholder="아이디 입력">
+			 <a href="#" class="search_icon" id="idSearch"><i class="fas fa-search"></i></a>
 
 
 					<table class="table">
@@ -141,24 +142,20 @@
 								<th scope="col">이름</th>
 								<th scope="col">성별</th>
 								<th scope="col">나이대</th>
-								<th scope="col">이메일</th>
-								<th scope="col">멤버쉽</th>
-								<th scope="col">고용횟수</th>
+								<th scope="col">이메일</th>				
 							</tr>
 						</thead>
 
 						<tbody>
 
-							<c:forEach var="member" begin="1" end="10">
+							<c:forEach var="list" items="${ trainerList }" varStatus="status">
 								<tr>
-									<th scope="row"><b>1</b></th>
-									<td>강다니엘</td>
-									<td>wannaOne</td>
-									<td>남</td>
-									<td>18~24세</td>
-									<td>wannaone@gmail.com</td>
-									<td>S</td>
-									<td>1</td>
+									<th scope="row"><b>${ status.count }</b>
+									<td>${ list.userId }</td>
+									<td>${ list.name }</td>
+									<td>${ list.gender }</td>
+									<td>${ list.tage }</td>
+									<td>${ list.email }</td>
 								</tr>
 							</c:forEach>
 
@@ -179,6 +176,32 @@
 	<!-- https://getbootstrap.com/ -->
 	<script src="<c:url value="/resources/ad-js/tooplate-scripts.js" />"></script>
 
+  <script>
+  	$("#idSearch").click(function(){
+  		var userId = $("input[name=userId]").val();  		
+  		var searchId = {userId:userId};
+  		console.log(searchId);
+  		 $.ajax({
+  			url:"searchUser.ad",
+  			data:searchId,
+  			type:"get",
+  			success:function(data){
+  				//console.log(data[0].name);
+  				$(".table > tbody").children().remove();
+  				var table="<tr><td>" + 1 + "</td><td>" + 
+  									   data[0].userId + "</td><td>" + 
+  									   data[0].name + "</td><td>" + 
+  									   data[0].gender + "</td><td>" +
+  									   data[0].tage + "</td><td>" + 
+  									   data[0].email + "</td></tr>";
+  				$(".table > tbody").append(table);
+  				
+  			}
+  		}) 
+  	})
+ 
+
+  </script>
 
 </body>
 

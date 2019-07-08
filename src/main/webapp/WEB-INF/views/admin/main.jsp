@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,8 +24,8 @@
 	https://templatemo.com/tm-524-product-admin
 	-->
 <style>
-	#search_input{
-	margin-left:600px;
+	#userId{
+	margin-left:450px;
 }
 	
 </style>
@@ -138,17 +138,23 @@
 					class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
 					<h2 class="tm-block-title">회원 정보 조회</h2>
 
-					<select class="custom-select">
-						<option value="0">카테고리별 조회</option>
-						<option value="1">성별</option>
-						<option value="2">나이대</option>
-						<option value="2">매칭상태</option>
+			<!-- 필터링 검색 -->
+					<select class="custom-select" onchange="categoryChange(this)" id="category" name="category">
+						<option>카테고리별 조회</option>
+						<option value="gender">성별</option>
+						<option value="age">나이대</option>
 					</select> 
 					
-					<input id="search_input" type="text" name="" placeholder="아이디 입력">
-					<a href="#" class="search_icon"><i class="fas fa-search"></i></a>
-
-
+					<select class="custom-select" id="keyword" name="keyword">
+						<option>구분</option>
+					</select>
+					
+			
+			 <!-- 아이디 검색 -->		
+			 <input id="userId"  name="userId" type="text"  placeholder="아이디 입력">
+			 <a href="#" class="search_icon" id="idSearch"><i class="fas fa-search"></i></a>
+			 
+										
 					<table class="table">
 						<thead>
 							<tr>
@@ -157,24 +163,20 @@
 								<th scope="col">이름</th>
 								<th scope="col">성별</th>
 								<th scope="col">나이대</th>
-								<th scope="col">이메일</th>
-								<th scope="col">매칭상태</th>
-								<th scope="col">매칭횟수</th>
+								<th scope="col">이메일</th>					
 							</tr>
 						</thead>
 
 						<tbody>
 
-							<c:forEach var="member" begin="1" end="10">
+							<c:forEach var="list" items="${ userList }" varStatus="status">
 								<tr>
-									<th scope="row"><b>1</b></th>
-									<td>김선아</td>
-									<td>sunah</td>
-									<td>여</td>
-									<td>18~24세</td>
-									<td>ksa@gmail.com</td>
-									<td>Y</td>
-									<td>1</td>
+									<th scope="row"><b>${ status.count }</b>
+									<td>${ list.userId }</td>
+									<td>${ list.name }</td>
+									<td>${ list.gender }</td>
+									<td>${ list.uage }</td>
+									<td>${ list.email }</td>								
 								</tr>
 							</c:forEach>
 
@@ -194,8 +196,87 @@
     <script src="<c:url value="/resources/ad-js/bootstrap.min.js" />"></script> 
     <!-- https://getbootstrap.com/ -->
     <script src="<c:url value="/resources/ad-js/tooplate-scripts.js" />"></script>    
-    
-    
+
+  <script>
+  	$("#idSearch").click(function(){
+  		var userId = $("input[name=userId]").val();  		
+  		var searchId = {userId:userId};
+  		//console.log(searchId);
+  		 $.ajax({
+  			url:"searchUser.ad",
+  			data:searchId,
+  			type:"get",
+  			success:function(data){
+  				//console.log(data[0].name);
+  				$(".table > tbody").children().remove();
+  				var table="<tr><td>" + 1 + "</td><td>" + 
+  									   data[0].userId + "</td><td>" + 
+  									   data[0].name + "</td><td>" + 
+  									   data[0].gender + "</td><td>" +
+  									   data[0].uage + "</td><td>" + 
+  									   data[0].email + "</td></tr>";
+  				$(".table > tbody").append(table);
+  				
+  			}
+  		})
+  	})
+  	
+  	function categoryChange(e){
+  		var gender = ["남자", "여자"];
+  		var age = ["18세미만", "18~24세", "25~34세", "35~44세", "45~54세"];
+  		var keyword = document.getElementById("keyword");
+ 	
+  		if(e.value == "gender") var value = gender;
+  		else if (e.value == "age") var value = age;
+  		
+  		console.log("값 : " + value);
+  		
+  		for(key in value){
+  			var opt = document.createElement("option");
+  			opt.value = value[key];
+  			opt.innerHTML = value[key];
+  			keyword.appendChild(opt);
+  		}
+  		
+ 	$('#keyword').change(function(){
+  		
+ 		var category = $("select[name=category]").val();  
+  		var keyword=$(this).val();
+  		//console.log(category);
+  				
+  		var filter = {category:category, keyword:keyword};
+  		//console.log(filter);
+
+  		 $.ajax({
+  			url:"filtering.ad",
+  			data:filter,
+  			type:"get",
+  			success:function(data){
+  				
+  				var value = '${filteringList}';
+  				console.log(value);
+  				$(".table > tbody").children().remove();
+  				/* var table="<tr><td>" + 1 + "</td><td>" + 
+  									   data[0].userId + "</td><td>" + 
+  									   data[0].name + "</td><td>" + 
+  									   data[0].gender + "</td><td>" +
+  									   data[0].uage + "</td><td>" + 
+  									   data[0].email + "</td></tr>";
+  				$(".table > tbody").append(table); */
+  				 
+  			}
+  		}) 
+  		
+  	}) 
+  			
+  	}
+ 
+
+  </script>
+	
+
+
+
 </body>
 
 </html>

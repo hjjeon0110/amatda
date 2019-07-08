@@ -14,6 +14,8 @@ public class Payment implements java.io.Serializable{
 	private int membershipPrice;
 	private int membershipCount;
 	
+	private String userId;
+	
 	public Payment () {}
 
 	public int getPayNo() {
@@ -111,14 +113,26 @@ public class Payment implements java.io.Serializable{
 		this.membershipCount = membershipCount;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 	@Override
 	public String toString() {
 		return "Payment [payNo=" + payNo + ", membershipNo=" + membershipNo + ", tno=" + tno + ", process=" + process
 				+ ", payType=" + payType + ", payDate=" + payDate + ", refundReason=" + refundReason
 				+ ", membershipType=" + membershipType + ", membershipPrice=" + membershipPrice + ", membershipCount="
-				+ membershipCount + "]";
+				+ membershipCount + ", userId=" + userId + "]";
 	}
+
+
+
 	
+
 	
 	
 }
