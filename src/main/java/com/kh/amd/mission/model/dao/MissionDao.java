@@ -86,4 +86,6 @@ public interface MissionDao {
 
 	List<Mission> selectAllCalendar(SqlSessionTemplate sqlSession, int mno);
 
+	List<Mission> selectAllExCalender(SqlSessionTemplate sqlSession, int mno);
+
 }

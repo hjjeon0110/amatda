@@ -37,27 +37,27 @@
 
 
 <insert id="insertBreakfast" parameterType="Mission"> 
-INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 1, #{mDate}, '아침', '식단', #{mContent} , null, 'N') 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 2, #{mDate}, '아침', '식단', #{mContent} , null, 'N') 
 </insert>
 
 <insert id="insertLunch" parameterType="Mission"> 
-INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 1, #{mDate}, '점심', '식단', #{mContent} , null, 'N') 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 2, #{mDate}, '점심', '식단', #{mContent} , null, 'N') 
 </insert>
 
 <insert id="insertDinner" parameterType="Mission"> 
-INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 1, #{mDate}, '저녁', '식단', #{mContent} , null, 'N') 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 2, #{mDate}, '저녁', '식단', #{mContent} , null, 'N') 
 </insert>
 
 <insert id="insertBreakEx" parameterType="Mission"> 
-INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 1, #{mDate}, '아침', '운동', #{mContent} ,#{mLink}, 'N') 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 2, #{mDate}, '아침', '운동', #{mContent} ,#{mLink}, 'N') 
 </insert>
 
 <insert id="insertLunchEx" parameterType="Mission"> 
-INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 1, #{mDate}, '점심', '운동', #{mContent} ,#{mLink}, 'N') 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 2, #{mDate}, '점심', '운동', #{mContent} ,#{mLink}, 'N') 
 </insert>
 
 <insert id="insertDinnerEx" parameterType="Mission"> 
-INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 1, #{mDate}, '저녁', '운동', #{mContent} ,#{mLink}, 'N') 
+INSERT INTO MISSION VALUES (MISSION_SEQ.NEXTVAL, #{tno}, 2, #{mDate}, '저녁', '운동', #{mContent} ,#{mLink}, 'N') 
 </insert>
 
 <select id="selectMission" parameterType="Mission" resultType="Mission">
@@ -93,7 +93,7 @@ WHERE MDATE = #{mDate}
 AND MTIME = '아침'
 AND MTYPE = '식단'
 AND TNO=#{tno}
-AND UNO=1 
+AND UNO=2 
 </select>
 
 
@@ -104,7 +104,7 @@ WHERE MDATE = #{mDate}
 AND MTIME = '점심'
 AND MTYPE = '식단'
 AND TNO=#{tno}
-AND UNO=1
+AND UNO=2
 </select>
 
 
@@ -116,7 +116,7 @@ WHERE MDATE = #{mDate}
 AND MTIME = '저녁'
 AND MTYPE = '식단'
 AND TNO=#{tno}
-AND UNO=1
+AND UNO=2
 </select>
 
 <!-- 미션 수정전, 값 가져오기( 아침 운동 내용 ) -->
@@ -127,7 +127,7 @@ WHERE MDATE = #{mDate}
 AND MTIME = '아침'
 AND MTYPE = '운동'
 AND TNO=#{tno}
-AND UNO=1 
+AND UNO=2
 </select>
 
 <select id="selectLunchEx" parameterType="Mission" resultMap="missionResultSet">
@@ -137,7 +137,7 @@ WHERE MDATE = #{mDate}
 AND MTIME = '점심'
 AND MTYPE = '운동'
 AND TNO=#{tno}
-AND UNO=1
+AND UNO=2
 </select> 
 
 <select id="selectDinnerEx" parameterType="Mission" resultMap="missionResultSet"> 
@@ -147,7 +147,7 @@ WHERE MDATE = #{mDate}
 AND MTIME = '저녁'
 AND MTYPE = '운동'
 AND TNO=#{tno}
-AND UNO=1
+AND UNO=2
 </select>
 
 <!-- 미션 수정전, 값 가져오기 ( 아침운동 링크 ) -->
@@ -158,7 +158,7 @@ WHERE MDATE = #{mDate}
 AND MTIME = '아침'
 AND MTYPE = '운동'
 AND TNO=#{tno}
-AND UNO=1 
+AND UNO=2 
 </select>
 
 
@@ -169,7 +169,7 @@ WHERE MDATE = #{mDate}
 AND MTIME = '점심'
 AND MTYPE = '운동'
 AND TNO=#{tno}
-AND UNO=1 
+AND UNO=2 
 </select>
 
 
@@ -180,7 +180,7 @@ WHERE MDATE = #{mDate}
 AND MTIME = '저녁'
 AND MTYPE = '운동' 
 AND TNO=#{tno}
-AND UNO=1
+AND UNO=2
 </select>
 
 
@@ -189,7 +189,7 @@ AND UNO=1
 UPDATE MISSION
 SET MLINK = #{mLink}
 WHERE TNO=#{tno}
-AND UNO=1
+AND UNO=2
 AND MDATE=#{mDate}
 AND MTIME=#{mTime}
 AND MTYPE=#{mType}
@@ -202,7 +202,7 @@ AND MTYPE=#{mType}
 UPDATE MISSION
 SET MLINK = #{mLink}
 WHERE TNO=#{tno}
-AND UNO=1
+AND UNO=2
 AND MDATE=#{mDate}
 AND MTIME=#{mTime}
 AND MTYPE=#{mType}
@@ -214,7 +214,7 @@ AND MTYPE=#{mType}
 UPDATE MISSION
 SET MLINK = #{mLink}
 WHERE TNO=#{tno}
-AND UNO=1
+AND UNO=2
 AND MDATE=#{mDate}
 AND MTIME=#{mTime}
 AND MTYPE=#{mType}
@@ -226,7 +226,7 @@ AND MTYPE=#{mType}
 UPDATE MISSION
 SET MCONTENT = #{mContent}
 WHERE TNO=#{tno}
-AND UNO=1
+AND UNO=2
 AND MDATE=#{mDate}
 AND MTIME=#{mTime}
 AND MTYPE=#{mType}
@@ -236,7 +236,7 @@ AND MTYPE=#{mType}
 UPDATE MISSION
 SET MCONTENT = #{mContent}
 WHERE TNO=#{tno}
-AND UNO=1
+AND UNO=2
 AND MDATE=#{mDate}
 AND MTIME=#{mTime}
 AND MTYPE=#{mType}
@@ -246,7 +246,7 @@ AND MTYPE=#{mType}
 UPDATE MISSION
 SET MCONTENT = #{mContent}
 WHERE TNO=#{tno}
-AND UNO=1
+AND UNO=2
 AND MDATE=#{mDate}
 AND MTIME=#{mTime}
 AND MTYPE=#{mType}
@@ -258,7 +258,7 @@ UPDATE MISSION
 SET MCONTENT = #{mContent},
     MLINK = #{mLink}
 WHERE TNO=#{tno}
-AND UNO=1
+AND UNO=2
 AND MDATE=#{mDate}
 AND MTIME=#{mTime}
 AND MTYPE=#{mType}
@@ -270,7 +270,7 @@ UPDATE MISSION
 SET MCONTENT = #{mContent},
     MLINK = #{mLink}
 WHERE TNO=#{tno}
-AND UNO=1
+AND UNO=2
 AND MDATE=#{mDate}
 AND MTIME=#{mTime}
 AND MTYPE=#{mType}
@@ -282,7 +282,7 @@ UPDATE MISSION
 SET MCONTENT = #{mContent},
     MLINK = #{mLink}
 WHERE TNO=#{tno}
-AND UNO=1
+AND UNO=2
 AND MDATE=#{mDate}
 AND MTIME=#{mTime}
 AND MTYPE=#{mType}
@@ -295,7 +295,7 @@ AND MTYPE=#{mType}
 UPDATE MISSION
 SET COMPLETEYN = #{completeYN}
 WHERE UNO=#{uno}
-AND TNO=2
+AND TNO=32
 AND MDATE=#{mDate}
 AND MTIME=#{mTime}
 AND MTYPE=#{mType}
@@ -309,7 +309,7 @@ AND MCONTENT=#{mContent}
 UPDATE MISSION
 SET COMPLETEYN = #{completeYN}
 WHERE UNO=#{uno}
-AND TNO=2
+AND TNO=32
 AND MDATE=#{mDate}
 AND MTIME=#{mTime}
 AND MTYPE=#{mType}
@@ -322,7 +322,7 @@ AND MCONTENT=#{mContent}
 UPDATE MISSION
 SET COMPLETEYN = #{completeYN}
 WHERE UNO=#{uno}
-AND TNO=2
+AND TNO=32
 AND MDATE=#{mDate}
 AND MTIME=#{mTime}
 AND MTYPE=#{mType}
@@ -335,7 +335,7 @@ AND MCONTENT=#{mContent}
 UPDATE MISSION
 SET COMPLETEYN = #{completeYN}
 WHERE UNO=#{uno}
-AND TNO=2
+AND TNO=32
 AND MDATE=#{mDate}
 AND MTIME=#{mTime}
 AND MTYPE=#{mType}
@@ -348,7 +348,7 @@ AND MLINK=#{mLink}
 UPDATE MISSION
 SET COMPLETEYN = #{completeYN}
 WHERE UNO=#{uno}
-AND TNO=2
+AND TNO=32
 AND MDATE=#{mDate}
 AND MTIME=#{mTime}
 AND MTYPE=#{mType}
@@ -364,7 +364,7 @@ AND MLINK=#{mLink}
 UPDATE MISSION
 SET COMPLETEYN = #{completeYN}
 WHERE UNO=#{uno}
-AND TNO=2
+AND TNO=32
 AND MDATE=#{mDate}
 AND MTIME=#{mTime}
 AND MTYPE=#{mType}
@@ -377,7 +377,7 @@ AND MLINK=#{mLink}
 SELECT * 
 FROM MISSION
 WHERE UNO=#{uno}
-AND TNO=2
+AND TNO=32
 AND MDATE=#{mDate}
 ORDER BY 1
 </select>
@@ -391,7 +391,24 @@ SELECT UNO ,MDATE, CASE WHEN 3 = (SELECT COUNT(COMPLETEYN) FROM MISSION MM2 WHER
 FROM MISSION MM 
 JOIN  MEMBER M ON (M.MNO = MM.UNO)
 WHERE MM.MTYPE = '식단'
-AND UNO = 1
+AND UNO = 2
+AND M.MTYPE = 'U'
+GROUP BY UNO, MDATE
+ORDER BY MDATE
+</select>
+
+
+
+
+<select id="selectAllExCalender" resultMap="missionResultSet"  parameterType="_int">
+SELECT UNO ,MDATE, CASE WHEN 3 = (SELECT COUNT(COMPLETEYN) FROM MISSION MM2 WHERE MM.MDATE = MM2.MDATE AND MM2.MTYPE='운동' AND mm2.COMPLETEYN = 'Y') THEN 'Y' 
+                ELSE 'N'
+                END
+                AS COMPLETEYN
+FROM MISSION MM 
+JOIN  MEMBER M ON (M.MNO = MM.UNO)
+WHERE MM.MTYPE = '운동'
+AND UNO = 2
 AND M.MTYPE = 'U'
 GROUP BY UNO, MDATE
 ORDER BY MDATE

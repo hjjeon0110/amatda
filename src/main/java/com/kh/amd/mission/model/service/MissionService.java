@@ -85,5 +85,9 @@ public interface MissionService {
 	List<Mission> selectMissionResult(Mission m);
 
 	List<Mission> selectAllCalendar(int mno);
+
+	List<Mission> selectAllExCalender(int mno);
+
+	
 	
 }

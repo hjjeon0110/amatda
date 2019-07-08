@@ -22,6 +22,8 @@
 <script src="${pageContext.request.contextPath}/resources/js/calendar/daygrid/main.js"></script>
 <!-- <script src='../packages/daygrid/main.js'></script> -->
 
+<script src="${pageContext.request.contextPath}/resources/js/calendar/ko.js"></script>
+
 
 <script>
 
@@ -35,10 +37,11 @@
     
       calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid' ],
-      defaultDate: '2019-06-12',
+      lang:"ko",
+     
       editable: true,
-      eventLimit: true, // allow "more" link when too many events
-      
+      eventLimit: false, // allow "more" link when too many events
+     
       
       
      /*  events: [
@@ -99,18 +102,20 @@
       ], */
      
       dateClick:function (date, allDay, jsEvent, view){
+    	  /* var cDate = $('#calendar').fullCalendar('getDate'); 
+    	  var date = new Date(cDate).format("yyyyMM"); */
     	/*  var moment = $('#calendar').fullCalendar('getDate');
     	console.log(moment); */
     	console.log("allDay: " + allDay);
     	console.log("date: " + date);
     	console.log("date- dateStr: " + date.dateStr);
-    	$("#mDate2").val(date.dateStr);
+    	$("#mDate2").text(date.dateStr);
     	alert("후");
     	/* $("#dialog").modal(); */
     	$("#myModal").modal();	
     	
     	var mno =  ${sessionScope.loginUser.mno};
-    	var mDate2 = $("#mDate2").val();
+    	var mDate2 = $("#mDate2").text();
     	
     	console.log("modal mission.jsp에서 mno: " + mno);
     	console.log("modal mission.jsp에서 mDate2: " + mDate2);
@@ -148,37 +153,37 @@
     			
     			//결과여부 (성공,실패)
     			if((data[0].completeYN)=='Y'){ //아침식단
-    				$("#completeYNBreak").text("성공");
+    				$("#completeYNBreak").text("성공").css({"color":"green", "font-weight":"bold"});
     			}else{
-    				$("#completeYNBreak").text("실패");
+    				$("#completeYNBreak").text("실패").css({"color":"red", "font-weight":"bold"});
     			}
     			
     			if((data[1].completeYN)=='Y'){
-    				$("#completeYNLunch").text("성공");
+    				$("#completeYNLunch").text("성공").css({"color":"green", "font-weight":"bold"});
     			}else{
-    				$("#completeYNLunch").text("실패");
+    				$("#completeYNLunch").text("실패").css({"color":"red", "font-weight":"bold"});
     			}
     			
     			if((data[2].completeYN)=='Y'){
-    				$("#completeYNDinner").text("성공");
+    				$("#completeYNDinner").text("성공").css({"color":"green", "font-weight":"bold"});
     			}else{
-    				$("#completeYNDinner").text("실패");
+    				$("#completeYNDinner").text("실패").css({"color":"red", "font-weight":"bold"});
     			}
     			
     			if((data[3].completeYN)=='Y'){  //아침운동
-    				$("#completeYNBreakEx").text("성공");
+    				$("#completeYNBreakEx").text("성공").css({"color":"green", "font-weight":"bold"});
     			}else{
-    				$("#completeYNBreakEx").text("실패");
+    				$("#completeYNBreakEx").text("실패").css({"color":"red", "font-weight":"bold"});
     			}
     			
     			if((data[4].completeYN)=='Y'){ 
-    				$("#completeYNLunchEx").text("성공");
+    				$("#completeYNLunchEx").text("성공").css({"color":"green", "font-weight":"bold"});
     			}else{
-    				$("#completeYNLunchEx").text("실패");
+    				$("#completeYNLunchEx").text("실패").css({"color":"red", "font-weight":"bold"});
     			}
     			
     			if((data[5].completeYN)=='Y'){ 
-    				$("#completeYNDinnerEx").text("성공");
+    				$("#completeYNDinnerEx").text("성공").css({"color":"green", "font-weight":"bold"});
     			}else{
     				$("#completeYNDinnerEx").text("실패");
     			}
@@ -206,6 +211,7 @@
 
   });
   $(function(){
+	  //식단
 	  var mno =  ${sessionScope.loginUser.mno};
 	  $.ajax({
 		  url:"selectAllCalender.ms",
@@ -218,15 +224,18 @@
 				  if(data[key].completeYN == "Y"){
 				  		var event = {
 						  	  id:data[key].missionNo,
-						 	  
-							  title:"오늘의 식단 성공",
+							  title:"식단 성공",
+							  color:"#CC6666",
+							  textColor:"#FFFFFF",
 							  start:data[key].mDate
 				        }
 				  		calendar.addEvent(event);
 				}else{
 					var event = {
 							  id:data[key].missionNo,
-					          title:"오늘의 식단 실패",
+					          title:"식단 실패",
+					          color:"#CC6666",
+							  textColor:"#FFFFFF",
 						      start:data[key].mDate 
 					}  
 					calendar.addEvent(event);
@@ -236,15 +245,52 @@
 			  }
 			 
 			  
-			  var missionNo = data[0].missionNo;
-			  console.log(missionNo);
-			  /* rLink.forEach(function(element){
-				  
-				  
-			  } */
+			 
 		  },error:function(){
 			  alert("실~패~");
 		  }
+		  
+	  })
+		  
+		  //운동
+		  var mno =  ${sessionScope.loginUser.mno};
+		  console.log("운동여부 달력 mno: " + mno);
+		  $.ajax({
+			  url:"selectAllExCalender.ms",
+			  type:"post",
+			  data:{mno:mno},
+			  success:function(data){
+				  console.log("운동여부 달력에 띄우기: "+data);
+				  alert("성~공~!!!!!");
+				  for(var key in data){
+					  if(data[key].completeYN == "Y"){
+					  		var event2 = {
+							  	  id:data[key].missionNo,
+								  title:"운동 성공",
+								  color:"#FF9999",
+								  textColor:"#FFFFFF",
+								  start:data[key].mDate
+					        }
+					  		calendar.addEvent(event2);
+					}else{
+						var event2 = {
+								  id:data[key].missionNo,
+						          title:"운동 실패",
+						          color:"#FF9999",
+								  textColor:"#FFFFFF",
+							      start:data[key].mDate 
+						}  
+						calendar.addEvent(event2);
+					}
+					  console.log("운동 event: "+event2);
+					  
+				  }
+				 
+				  
+				
+			  },error:function(){
+				  alert("실~패~!!!!!!!!");
+			  }
 	  })
 	  
 	  
@@ -368,10 +414,21 @@
 	#selbreakfast{
 		width:250px
 	}
+		.fc-button{
+		background:#ff0066;
+		border:1px solid #ff0066;
+	}
+	.fc-unthemed td.fc-today {
+    background: #ffe6f3;
+
+   
+	}
+	.fc-button-primary:disabled {
+    color: #fff;
+    background-color: #ff0066;
+    border-color: #ff0066;
 }
 
-
-}
 
 </style>
 </head>
@@ -386,50 +443,57 @@
   	
   	<!-- 사용자 미션 수행여부 체크 (체크박스o)-->
   	<c:if test="${sessionScope.loginUser.mtype =='U'}">   
-  	<div id='calendar' style="margin-top:30px; float:left; width:70%; height:550px"></div>
-  	<div id="selectToday" style="float:right; border:1px solid pink; width:30%; height:700px">
+  	<div id='calendar' style="margin-top:30px; float:left; width:722px; height:700px"></div>
+  	<div id="selectToday" style="float:right; border:1px solid pink; width:280px; height:1000px">
   		<div id="month" align="center"></div>
 		
 		<p style="float:right; font-size:12px">*기록완료시, 체크박스는 사라집니다.</p>
-  		<label>오늘의 식단</label><hr>
+  		<label>＊오늘의 식단＊</label><hr>
   		<input type="hidden" value="식단" id="eating">
   		<table>
   		<tr>
-  		<td><label id="morning">아침</label><br><label id="selbreakfast" style=""></label></td>
-  		  
-  		<td><input type="checkbox" id="breakCheck" name="breakCheck" style="margin-top:40px" value="N"></td>
-  		
-  		<td><input type="button" id="checkMission" value="기록하기"></td>
+  			<td><label id="morning">아침</label><br><label id="selbreakfast" style="width:300px"></label></td>
   		</tr>
   		<tr>
-  		<td><label id="lunch">점심</label><br><label id="sellunch"></label></td>
-  		<td><input type="checkbox" id="lunchCheck" style="margin-top:40px" value="N"></td>
-  		<td><input type="button" id="checkMission2" value="기록하기"></td>
+  			<td><input type="checkbox" id="breakCheck" name="breakCheck" style="margin-top:20px; margin-bottom:40px;" value="N"><input type="button" id="checkMission" value="기록" style="background:#ff0066; color:white; border:1px solid lightgray"></td>
   		</tr>
   		<tr>
-  		<td><label id="dinner">저녁</label><br><label id="seldinner"></label></td>
-  		<td><input type="checkbox" id="dinnerCheck" style="margin-top:40px" value="N"></td>
-  		<td><input type="button" id="checkMission3" value="기록하기"></td>
+  			<td><label id="lunch">점심</label><br><label id="sellunch" style="width:300px"></label></td>
+  		</tr>
+  		<tr>
+  			<td><input type="checkbox" id="lunchCheck"  style="margin-bottom:40px;" value="N"><input type="button" id="checkMission2" value="기록" style="background:#ff0066; color:white; border:1px solid lightgray"></td>
+  		</tr>
+  		<tr>
+  			<td><label id="dinner">저녁</label><br><label id="seldinner"></label></td>
+  			
+  		</tr>
+  		<tr>
+  			<td><input type="checkbox" id="dinnerCheck"  value="N"><input type="button" id="checkMission3" value="기록" style="background:#ff0066; color:white; border:1px solid lightgray"></td>
   		</tr>
   		</table>
   	
-  		<label style="margin-top:30px">오늘의 운동</label><hr>
+  		<label style="margin-top:30px">*오늘의 운동*</label><hr>
   		<input type="hidden" value="운동" id="exercising">
   		<table>
   		<tr>
-  		<td><label id="morning2">아침</label><br><label id="selbreakEx" style="width:300px;"></label><a href="" id="selbreakExLink"></a></td>
-  		<td><input type="checkbox" id="breakExCheck" style="margin-left:-50px" value="N"></td>
-  		<td><input type="button" id="checkMission4" value="기록하기"></td>
+  			<td><label id="morning2">아침</label><br><label id="selbreakEx" style="width:300px;"></label><a href="" id="selbreakExLink"></a></td>
   		</tr>
   		<tr>
-  		<td><label id="lunch2">점심</label><br><label id="sellunchEx"></label><a href="" id="sellunchExLink"></a></td>
-  		<td><input type="checkbox" id="lunchExCheck" style="margin-left:-50px" value="N"></td>
-  		<td><input type="button" id="checkMission5" value="기록하기"></td>
+  			<td><input type="checkbox" id="breakExCheck" value="N" style="margin-bottom:40px;"><input type="button" id="checkMission4" value="기록" style="background:#ff0066; color:white; border:1px solid lightgray"></td>
   		</tr>
   		<tr>
-  		<td><label id="dinner2">저녁</label><br><label id="seldinnerEx"></label><a href="" id="seldinnerExLink"></a></td>
-  		<td><input type="checkbox" id="dinnerExCheck" style="margin-left:-50px" value="N"></td>
-  		<td><input type="button" id="checkMission6" value="기록하기"></td>
+  			<td><label id="lunch2">점심</label><br><label id="sellunchEx"></label><a href="" id="sellunchExLink"></a></td>
+  		</tr>
+  		<tr>
+  			<td><input type="checkbox" id="lunchExCheck"  value="N" style="margin-bottom:40px;"><input type="button" id="checkMission5" value="기록" style="background:#ff0066; color:white; border:1px solid lightgray"></td>
+  		
+  		</tr>
+  		<tr>
+  			<td><label id="dinner2">저녁</label><br><label id="seldinnerEx"></label><a href="" id="seldinnerExLink"></a></td>
+  		</tr>
+  		<tr>	
+  			<td><input type="checkbox" id="dinnerExCheck"  value="N" style="margin-bottom:40px;"><input type="button" id="checkMission6" value="기록" style="background:#ff0066; color:white; border:1px solid lightgray"></td>
+  		
   		</tr>
   		<tr>
   		
@@ -447,21 +511,22 @@
   
   
   <!-- 미션결과 확인(모달) -->
-  <div id="myModal" class="modal fade" role="dialog">
+  <div id="myModal" class="modal fade" role="dialog" style="font-family: 'Noto Sans KR', sans-serif;">
   <div class="modal-dialog">
 
     <!-- Modal content-->
-    <div class="modal-content">
+    <div class="modal-content" style="border:5px solid pink;">
       <div class="modal-header">
-  			<h4 class="modal-title">미션결과 확인</h4>
+  			<h4 class="modal-title" style="font-family: 'Noto Sans KR', sans-serif;">미션결과 확인</h4>
       </div>
       <div class="modal-body">
-      	<table align="center">
+      	<table style="margin-left:160px;">
         	<tr>
-        		<td><label  style="margin-left:50px;">날짜</label> <input type="text" id="mDate2" style="margin-left:100px;"></td>
+        		<!-- <td><label  style="margin-left:80px;">날짜</label> <input type="text" id="mDate2" ></td> -->
+        			  <td><label id="mDate2" style="font-size:20px;margin-left:-160px;"></label></td>
         	</tr>
         	<tr style="height:50px;">
-        		<td><label style="margin-left:80px; margin-top:40px" id="eating">식단</label><hr></td>
+        		<td><label style="margin-left:150px; margin-top:40px" id="eating">식단</label><hr></td>
         	</tr>
         	<tr>
         		<td><label id="breakf">아침</label><input type="text" id="completeBreakfast2" style="margin-left:30px"><label style="margin-left:30px" id="completeYNBreak"></label></td>
@@ -475,7 +540,7 @@
         	
         	
         	<tr>
-        		<td><label style="margin-left:80px; margin-top:40px" id="exercise">운동</label><hr></td>
+        		<td><label style="margin-left:150px; margin-top:40px" id="exercise">운동</label><hr></td>
         	</tr>
         	<tr>
         		<td><label id="breakE">아침</label><input type="text" id="completeBreakEx2" style="margin-left:30px" ><label style="margin-left:30px" id="completeYNBreakEx"></label></td>
@@ -483,21 +548,21 @@
         	</tr>
         	
         	<tr>
-        		<td><input type="text" id="completeBreakExLink2" style="margin-left:50px"></td>
+        		<td><input type="text" id="completeBreakExLink2" style="margin-left:60px"></td>
         	</tr>
         	<tr>
         		<td><label id="lunE">점심</label><input type="text" id="completeLunchEx2" style="margin-left:30px"><label style="margin-left:30px" id="completeYNLunchEx"></label></td>
         		<td rowspan="2"></td>
         	</tr>
         	<tr>	
-        		<td><input type="text" id="completeLunchExLink2" style="margin-left:50px"></td>
+        		<td><input type="text" id="completeLunchExLink2" style="margin-left:60px"></td>
         	</tr>
         	<tr>
         		<td><label id="dinE">저녁</label><input type="text" id="completeDinnerEx2" style="margin-left:30px"><label style="margin-left:30px" id="completeYNDinnerEx"></label></td>
         		<td rowspan="2"></td>
         	</tr>
         	<tr>
-        		<td><input type="text" id="completeDinnerExLink2" style="margin-left:50px"></td>
+        		<td><input type="text" id="completeDinnerExLink2" style="margin-left:60px"></td>
         	</tr>
         	
         </table>
@@ -513,7 +578,7 @@ console.log("mno: "+${sessionScope.loginUser.mno});
 
 $(function(){
 	var mno =  ${sessionScope.loginUser.mno};
-	var mDate2 = $("#mDate2").val();
+	var mDate2 = $("#mDate2").text();
 	
 	console.log("mission.jsp에서 mno: " + mno);
 	console.log("mission.jsp에서 mDate2: " + mDate2);
