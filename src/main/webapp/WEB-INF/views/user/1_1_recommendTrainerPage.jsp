@@ -65,6 +65,7 @@
 			<c:forEach var="i" begin="0" end="${fn:length(recommendtrainerList)-1}" varStatus="st">
 		
 				<div class="trainerListDiv">
+					<input type="hidden" class="tname">
 					<table class="trainerListTable">
 						<tr>
 							<td rowspan="3" class="trainerListTableTd1">
@@ -85,7 +86,9 @@
 						<tr>
 							<td><label class="simpleProfile">${ recommendtrainerList[i].profile.lineProfile}</label></td>
 							<td class="trainerListTableTd1">
-								<button class="goProfileDetail" onclick="location.href='showProfileDetailPageView.us'">프로필 보기</button>
+								<input type="hidden" value="${ recommendtrainerList[i].mno }">
+								<input type="hidden" value="${ recommendtrainerList[i].name }">
+								<button class="goProfileDetail">프로필 보기</button>
 							</td>
 						</tr>
 					</table>
@@ -166,5 +169,18 @@
 	<!-- footer -------------------------------------------------------------------------------------------------------- -->
 	<br><br><hr><br>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
+	
+	<script>
+		$(".goProfileDetail").click(function() {
+			
+			var tno = $(this).parent().children().eq(0).val();
+			var tname = $(this).parent().children().eq(1).val();
+			console.log(tno);
+			console.log(tname);
+			
+			location.href='showProfileDetailPageView.us?mno=' + tno + '&tname=' + tname;
+		});
+		
+	</script>
 </body>
 </html>

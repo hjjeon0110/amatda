@@ -26,7 +26,7 @@
 	display: inline-block;
 	width: 150px;
 	height: 150px;
-	border: 1px solid gray;
+	border: 0.5px solid darkgray;
 	background: white;
 	font-family: 'Noto Sans KR', sans-serif;
 }
@@ -55,7 +55,7 @@
 				<label class="myPageMenuLabel" id="myPageMenu2">다이어트 정보 관리</label>
 				
 			</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<div class="myPageMenu" id="myPageMenu3" onclick="location.href='showMyPageMyTrainer.us'">
+			<div class="myPageMenu" id="myPageMenu3" onclick="location.href='showMyPageMyTrainer.us?mno=${ sessionScope.loginUser.mno }'">
 				<br><br><br>
 				<label class="myPageMenuLabel" id="myPageMenu3">MY 트레이너</label>
 				

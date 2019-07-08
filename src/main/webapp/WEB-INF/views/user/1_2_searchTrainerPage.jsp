@@ -39,49 +39,38 @@
 			<tr class="searchConditionTableTr">
 				<td class="searchConditionTableTd1">연령대</td>
 				<td class="searchConditionTableTd2">
-					<input type="radio" name="hogeAge" value="전체" checked="checked">&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="hogeAge" value="20대">&nbsp;20대&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="hogeAge" value="30대">&nbsp;30대&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="hogeAge" value="40대">&nbsp;40대&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="hogeAge" value="50대">&nbsp;50대&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input id="searchTrainerAge" type="radio" name="hogeAge" value="전체" checked="checked">&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input id="searchTrainerAge" type="radio" name="hogeAge" value="20대">&nbsp;20대&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input id="searchTrainerAge" type="radio" name="hogeAge" value="30대">&nbsp;30대&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input id="searchTrainerAge" type="radio" name="hogeAge" value="40대">&nbsp;40대&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input id="searchTrainerAge" type="radio" name="hogeAge" value="50대">&nbsp;50대&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</td>
 				<td class="searchConditionTableTd3"></td>
 			</tr>
 			<tr class="searchConditionTableTr">
 				<td class="searchConditionTableTd1">성별</td>
 				<td class="searchConditionTableTd2">
-					<input type="radio" name="hogeGender" value="전체" checked="checked">&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="hogeGender" value="남자">&nbsp;남자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="hogeGender" value="여자">&nbsp;여자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input id="searchTrainerGender" type="radio" name="hogeGender" value="전체" checked="checked">&nbsp;전체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input id="searchTrainerGender" type="radio" name="hogeGender" value="남자">&nbsp;남자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input id="searchTrainerGender" type="radio" name="hogeGender" value="여자">&nbsp;여자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</td>
 				<td class="searchConditionTableTd3"></td>
 			</tr>
 			<tr class="searchConditionTableTr">
 				<td class="searchConditionTableTd1">이름</td>
 				<td class="searchConditionTableTd2">
-					<input class='form-control' id="keywordInput" type="text">
+					<input class='form-control' id="searchTrainerName" type="text">
 				</td>
 				<td class="searchConditionTableTd3"></td>
 			</tr>
 		</table>
 		<br><br>
-		<!-- <label class="searchKeywordLabel">키워드</label>&nbsp;&nbsp;&nbsp;
-		<input class="searchKeywordInput" type="text">&nbsp;&nbsp;&nbsp;
-		<button class="searchKeywordBtn"><i class="fa fa-search"></i></button>
-		<br><br>
-		<div class="keywordDiv">
-			<span class="badge badge-pill badge-danger"> #키워드1 </span>&nbsp;
-			<span class="badge badge-pill badge-danger"> #키워드2 </span>&nbsp;
-			<span class="badge badge-pill badge-danger"> #키워드3 </span>&nbsp;
-			<span class="badge badge-pill badge-danger"> #키워드4 </span>&nbsp;
-			<span class="badge badge-pill badge-danger"> #키워드5 </span>
-		</div> -->
 	</div>
 
 
 	<!-- 트레이너 리스트 영역 ---------------------------------------------------------------------------------------------------- -->
 		
-	<c:if test="${ empty recommendtrainerList }">
+	<%-- <c:if test="${ empty searchTrainerList }">
 
 		<div class="searchTrainerListNullDiv">
 			<br><br>
@@ -90,8 +79,11 @@
 			<br><br><br>
 		</div>
 	
-	</c:if>
-	<c:if test="${ !empty recommendtrainerList }">
+	</c:if> --%>
+	
+	<div class="searchTrainerListDiv"></div>
+		
+	<%-- <c:if test="${ !empty searchTrainerList }">
 	
 		<div class="searchTrainerListDiv">
 			<br> 
@@ -103,7 +95,7 @@
 			</select> 
 			<br><br>
 			
-			<c:forEach var="i" begin="0" end="${fn:length(recommendtrainerList)-1}" varStatus="st">
+			<c:forEach var="i" begin="0" end="${fn:length(searchTrainerList)-1}" varStatus="st">
 		
 				<div class="trainerListDiv">
 					<table class="trainerListTable">
@@ -114,19 +106,21 @@
 								</div>
 							</td>
 							<td class="trainerListTableTd2">
-								<label class="trainerName">${ recommendtrainerList[i].name }</label>
-								<label class="trainerGender">(${ recommendtrainerList[i].trainerInfo.tage}, ${ recommendtrainerList[i].gender})</label>
+								<label class="trainerName">${ searchTrainerList[i].name }</label>
+								<label class="trainerGender">(${ searchTrainerList[i].trainerInfo.tage}, ${ searchTrainerList[i].gender})</label>
 							</td>
 							<td></td>
 						</tr>
 						<tr>
-							<td><label class="trainerKeyword">${ recommendtrainerList[i].profile.keyword }</label></td>
+							<td><label class="trainerKeyword">${ searchTrainerList[i].profile.keyword }</label></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td><label class="simpleProfile">${ recommendtrainerList[i].profile.lineProfile}</label></td>
+							<td><label class="simpleProfile">${ searchTrainerList[i].profile.lineProfile}</label></td>
 							<td class="trainerListTableTd1">
-								<button class="goProfileDetail" onclick="location.href='showProfileDetailPageView.us'">프로필 보기</button>
+								<input type="hidden" value="${ searchTrainerList[i].mno }"/>
+								<input type="hidden" value="${ searchTrainerList[i].name }"/>
+								<button class="goProfileDetail">프로필 보기</button>
 							</td>
 						</tr>
 					</table>
@@ -136,7 +130,7 @@
 		</div>
 	
 	</c:if>
-
+ --%>
 
 	<!-- footer -------------------------------------------------------------------------------------------------------- -->
 	<br><br><hr><br>
@@ -144,6 +138,138 @@
 	
 	<script>
 	
+		$(".searchKeywordBtn").click(function() {
+						
+			var mno = ${ sessionScope.loginUser.mno };
+			var searchServiceKeyword = $("#keywordInput").val();
+			var searchTrainerAge = $("#searchTrainerAge:checked").val();
+			var searchTrainerGender = $("#searchTrainerGender:checked").val();
+			var searchTrainerName = $("#searchTrainerName").val();
+			
+			$.ajax({
+				url:"selectSearchTrainerList.us",
+				data:{mno:mno, searchServiceKeyword:searchServiceKeyword, searchTrainerAge:searchTrainerAge, searchTrainerGender:searchTrainerGender, searchTrainerName:searchTrainerName},
+				success:function(data) {
+					
+					if(data[0] == null) {
+						
+						$(".searchTrainerListDiv").children().remove();
+						$br = "<br>";
+						$searchTrainerListNullDiv = $("<div class='searchTrainerListNullDiv'>");
+						$searchTrainerListNullLabel1 = $("<label class='searchTrainerListNullLabel'>").text("검색된 트레이너 리스트가 없습니다.");
+						$searchTrainerListNullLabel2 = $("<label class='searchTrainerListNullLabel' style='color:#ff0066;'>").text("다른 키워드를 통해 마음에 드는 트레이너를 찾아보세요!");
+						
+						$(".searchConditionDiv").append($searchTrainerListNullDiv);
+						$searchTrainerListNullDiv.append($br);
+						$searchTrainerListNullDiv.append($br);
+						$searchTrainerListNullDiv.append($searchTrainerListNullLabel1);
+						$searchTrainerListNullDiv.append($br);
+						$searchTrainerListNullDiv.append($searchTrainerListNullLabel2);
+						$searchTrainerListNullDiv.append($br);
+						$searchTrainerListNullDiv.append($br);
+						$searchTrainerListNullDiv.append($br);
+						
+											
+					}else {
+						
+						$(".searchTrainerListDiv").children().remove();
+						
+						$br = "<br>";
+						$searchTrainerListDiv = $(".searchTrainerListDiv");
+						$trainerSelect = $("<select class='trainerSelect'>");
+						$option1 = $("<option>").text("신규가입순");
+						$option2 = $("<option>").text("매칭횟수순");
+						$option3 = $("<option>").text("평점높은순");
+						$option4 = $("<option>").text("최근활동순");
+						
+						$searchTrainerListDiv.append($br);
+						$searchTrainerListDiv.append($trainerSelect);
+						$trainerSelect.append($option1);
+						$trainerSelect.append($option2);
+						$trainerSelect.append($option3);
+						$trainerSelect.append($option4);
+						$searchTrainerListDiv.append($br);
+						$searchTrainerListDiv.append($br);
+						
+						for(var i in data) {
+							
+							$br = "<br>";
+							$nbsp = "&nbsp;";
+							$searchTrainerListDiv = $(".searchTrainerListDiv");
+							$trainerListDiv = $("<div class='trainerListDiv'>");
+							$trainerListTable = $("<table class='trainerListTable'>")
+							$trainerListTableTr1 = $("<tr>");
+							$trainerListTableTd1 = $("<td class='trainerListTableTd1' rowspan='3'>");
+							$trainerListTableTd11 = $("<td class='trainerListTableTd11'>");
+							$profileImgDiv = $("<div class='profileImg'>");
+							$profileImage = $("<img class='profileImage' src='${ contextPath }/resources/images/profileImg.PNG'>")
+							$trainerListTableTr2 = $("<tr>");
+							$trainerListTableTd2 = $("<td class='trainerListTableTd2'>");
+							$trainerName = $("<label class='trainerName'>").text(data[i].name);
+							$trainerGender = $("<label class='trainerGender'>").text("( "+ data[i].trainerInfo.tage + ", " + data[i].gender + ")");
+							$trainerListTableTd3 = $("<td class='trainerListTableTd3'>");
+							$trainerListTableTr3 = $("<tr>");
+							$trainerListTableTd4 = $("<td class='trainerListTableTd4'>");
+							$trainerKeyword = $("<label class='trainerKeyword'>").text(data[i].profile.keyword);
+							$trainerListTableTd5 = $("<td class='trainerListTableTd5'>");
+							$simpleProfile = $("<label class='simpleProfile'>").text(data[i].profile.lineProfile);
+							$tno = $("<input type='hidden'>").text(data[i].mno);
+							$tname = $("<input type='hidden'>").text(data[i].name);
+							$goProfileDetailBtn = $("<button class='goProfileDetail' id='tt' onclick='goProfileDetail(this)'>").text("프로필 보기");
+														
+							$(".searchTrainerListNullDiv").remove();
+							
+							$searchTrainerListDiv.append($trainerListDiv);
+							$trainerListDiv.append($trainerListTable);
+							
+							$trainerListTable.append($trainerListTableTr1);
+							
+								$trainerListTableTr1.append($trainerListTableTd1);
+								$trainerListTableTd1.append($profileImgDiv);
+								$profileImgDiv.append($profileImage);
+								
+								$trainerListTableTr1.append($trainerListTableTd2);
+								$trainerListTableTd2.append($trainerName);
+								$trainerName.after($nbsp);
+								$trainerListTableTd2.append($trainerGender);
+								
+								$trainerListTableTr1.append($trainerListTableTd3);
+							
+							$trainerListTable.append($trainerListTableTr2);
+							
+								$trainerListTableTr2.append($trainerListTableTd4);
+								$trainerListTableTd4.append($trainerKeyword);
+								
+								$trainerListTableTr2.append($trainerListTableTd3);
+							
+							$trainerListTable.append($trainerListTableTr3);
+							
+								$trainerListTableTr3.append($trainerListTableTd5);
+								$trainerListTableTd5.append($simpleProfile);
+								$trainerListTableTr3.append($trainerListTableTd11);
+								$trainerListTableTd11.append($tno);
+								$trainerListTableTd11.append($tname);
+								$trainerListTableTd11.append($goProfileDetailBtn);
+							
+							$searchTrainerListDiv.append($br); 
+
+						}	
+					}
+				}
+			});
+		}); 
+		
+		function goProfileDetail(value) {
+						
+			var tno = $(value).parent().children().eq(0).text();
+			var tname = $(value).parent().children().eq(1).text();
+			console.log(tno);
+			console.log(tname);
+			
+			location.href='showProfileDetailPageView.us?mno=' + tno + '&tname=' + tname;
+		}
+
+
 	</script>
 </body>
 </html>
