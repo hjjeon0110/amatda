@@ -40,24 +40,6 @@
 		<result property="certificate" column="CERTIPICATE" />
 		<result property="keyword" column="KEYWORD" />
 	</resultMap>
-		<resultMap id="selectRecommendTrainerList" type="com.kh.amd.member.model.vo.Member">
-		<id column="MNO" property="mno" /> 
-		<result column="NAME" property="name" />
-		<result column="ID" property="userId" />
-		<result column="PWD" property="userPwd" />
-		<result column="PHONE" property="phone" />
-		<result column="GENDER" property="gender" />
-		<result column="EMAIL" property="email" />
-		<result column="MTYPE" property="mtype" />
-		<result column="STATUS" property="status" />
-		<result column="MATCH_TIME" property="matchTime" />
-		<result column="EMAIL_YN" property="emailYn" />
-		<result column="ENROLL_DATE" property="enrollDate" />
-		<result column="MODIFY_DATE" property="modifyDate" />
-		<result column="COMPLETE_SURVEY" property="completeSurvey" />
-		<collection property="trainerInfo" column="trainerResultSet" resultMap="trainerResultSet" javaType="TrainerInfo"/>
-		<collection property="profile" column="profileResultSet" resultMap="profileResultSet" javaType="Profile"/>
-	</resultMap>
 	<resultMap type="Attachment" id="attachmentResultSet">
 		<id property="fileNo" column="FILE_NO" />
 		<result property="bno" column="BNO" />
@@ -95,6 +77,36 @@
 		<result property="hopeWeight" column="HOPE_WEIGHT"/>
 		<result property="uAge" column="UAGE"/>
 	</resultMap>
+	<resultMap type="Mprocess" id="mprocessResultSet">
+		<id property="processNo" column="PROCESS_NO"/>
+		<result property="estNo" column="EST_NO"/>
+		<result property="uno" column="UNO"/>
+		<result property="tno" column="TNO"/>
+		<result property="matchingLevel" column="MATCHING_LEVEL"/>
+		<result property="matchingAccept" column="MATCHING_ACCEPT"/>
+		<result property="matchingStatus" column="MATCHING_STATUS"/>
+		<result property="processDate" column="PROCESS_DATE"/>
+	</resultMap>
+	<resultMap id="selectRecommendTrainerList" type="com.kh.amd.member.model.vo.Member">
+		<id column="MNO" property="mno" /> 
+		<result column="NAME" property="name" />
+		<result column="ID" property="userId" />
+		<result column="PWD" property="userPwd" />
+		<result column="PHONE" property="phone" />
+		<result column="GENDER" property="gender" />
+		<result column="EMAIL" property="email" />
+		<result column="MTYPE" property="mtype" />
+		<result column="STATUS" property="status" />
+		<result column="MATCH_TIME" property="matchTime" />
+		<result column="EMAIL_YN" property="emailYn" />
+		<result column="ENROLL_DATE" property="enrollDate" />
+		<result column="MODIFY_DATE" property="modifyDate" />
+		<result column="COMPLETE_SURVEY" property="completeSurvey" />
+		<collection property="trainerInfo" column="trainerResultSet" resultMap="trainerResultSet" javaType="TrainerInfo"/>
+		<collection property="profile" column="profileResultSet" resultMap="profileResultSet" javaType="Profile"/>
+		<collection property="mprocess" column="mprocessResultSet" resultMap="mprocessResultSet" javaType="Mprocess"/>
+	</resultMap>
+	
 
 	
 	<!-- 효정 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -114,6 +126,61 @@
 	<!-- 2. 설문조사/키워드 조회 (전효정) -->
 	<select id="selectSurvey" resultMap="surveyResultSet">
 		SELECT * FROM SURVEY WHERE UNO = #{mno}
+	</select>
+	
+	<!-- 3. 셀프 트레이너 검색 리스트 조회 (전효정) -->
+	<select id="selectSearchTrainerList" resultMap="selectRecommendTrainerList" parameterType="java.util.Map">
+		SELECT * FROM MEMBER M JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE M.MTYPE = 'T' AND TI.TOPEN = 'Y' 
+			<if test='searchServiceKeyword != null and !searchServiceKeyword.equals("")'>
+				AND P.KEYWORD LIKE '%' || #{searchServiceKeyword} || '%'
+			</if>
+			<if test='searchTrainerAge != null and searchTrainerAge != "전체"'>
+				AND TI.TAGE = #{searchTrainerAge}
+			</if>
+			<if test='searchTrainerGender != null and searchTrainerGender != "전체"'>
+				AND M.GENDER = #{searchTrainerGender}
+			</if>
+			<if test='searchTrainerName != null and !searchTrainerName.equals("")'>
+				AND M.NAME = #{searchTrainerName}
+			</if>
+	</select>
+	
+	<!-- 4. 프로필 이미지 존재 여부 확인 메소드 (전효정) -->
+	<select id="checkProfileImg" resultMap="attachmentResultSet" parameterType="Attachment">
+		SELECT FILE_NO, PNO, ORI_NAME, MODI_NAME, EXTENSION, FILE_LEVEL, UPLOAD_DATE, A_STATUS, FILE_PATH FROM ATTACHMENT WHERE PNO IN (#{tno}) AND ATYPE = 0
+	</select>
+	
+	<!-- 5. 프로필 작성 여부 확인 (전효정) -->
+	<select id="checkProfile" resultMap="profileResultSet" parameterType="Profile">
+		SELECT PROFILE_NO, LINE_PROFILE, PRO_TITLE, INTRO, MEDIA, CERTIPICATE, KEYWORD FROM PROFILE WHERE TNO IN (#{tno})
+	</select>
+	
+	<!-- 6. 미디어 존재 여부 확인 메소드 (전효정) -->
+	<select id="checkMediaAttachment" resultMap="attachmentResultSet" parameterType="Attachment">
+		SELECT * FROM ATTACHMENT WHERE PNO = #{tno} AND ATYPE = 1 AND A_STATUS = 'Y' ORDER BY FILE_NO ASC
+	</select>
+	
+	<!-- 7. 자격증 존재 여부 확인 메소드 (전효정) -->
+	<select id="checkCertificationAttachment" resultMap="attachmentResultSet" parameterType="Attachment">
+		SELECT * FROM ATTACHMENT WHERE PNO = #{tno} AND ATYPE = 2 AND A_STATUS = 'Y' ORDER BY FILE_NO ASC
+	</select>
+	
+	<!-- 8. 마이트레이너 insert (전효정) -->
+	<insert id="insertMyTrainer">
+		INSERT INTO M_PROCESS VALUES(MPROCESS_SEQ.NEXTVAL, NULL, #{uno}, #{tno}, 0, 'N', '매칭전', SYSDATE)
+	</insert>
+	
+	<!-- 9. 마이트레이너 리스트 조회 (전효정) -->
+	<select id="selectMyTrainer" resultMap="mprocessResultSet" parameterType="Mprocess">
+		SELECT TNO FROM M_PROCESS MP JOIN MEMBER M ON(MP.UNO = M.MNO) WHERE MP.UNO = #{mno}
+	</select>
+	
+	<!-- 10. 마이트레이너 상세정보 조회 (전효정) -->
+	<select id="selectTrainerInfoList" resultMap="selectRecommendTrainerList" parameterType="java.util.Map">
+		SELECT * FROM MEMBER M JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) 
+		<foreach collection="tnoArr" item="item" index="index" >
+			WHERE M.MNO = #{item}
+		</foreach>
 	</select>
 
 </mapper>

@@ -110,7 +110,7 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-#keywordInput {
+#keywordInput, #searchTrainerName {
 	weight:100%;
 	height: 30px;
 	margin-right:0px !important;

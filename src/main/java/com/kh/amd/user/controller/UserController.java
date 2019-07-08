@@ -1,7 +1,11 @@
 package com.kh.amd.user.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,9 +13,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.service.TrainerService;
+import com.kh.amd.trainer.model.vo.Profile;
 import com.kh.amd.user.model.service.UserService;
 
 @SessionAttributes("loginUser")
@@ -39,7 +48,6 @@ public class UserController {
 		// 1. 맞춤 트레이너 리스트 조회 (전효정)
 		List<Member> recommendtrainerList = us.selectRecommendTrainerList(mno, hopeAge, hopeGender, hopePeriod, hopeExercise, hopeExerciseArr);
 		model.addAttribute("recommendtrainerList", recommendtrainerList);
-		System.out.println(recommendtrainerList);
 		
 		return "user/1_1_recommendTrainerPage";
 	}
@@ -50,9 +58,56 @@ public class UserController {
 		return "user/1_2_searchTrainerPage";
 	}
 	
+	// 트레이너찾기_셀프 트레이너 검색 ajax (전효정)
+	@RequestMapping("selectSearchTrainerList.us")
+	public void selectSearchTrainerList(HttpServletResponse response, String mno, String searchServiceKeyword, String searchTrainerAge, String searchTrainerGender, String searchTrainerName) {
+		
+		// 3. 셀프 트레이너 검색 리스트 조회 (전효정)
+		List<Member> searchTrainerList = us.selectSearchTrainerList(mno, searchServiceKeyword, searchTrainerAge, searchTrainerGender, searchTrainerName);
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+        try {
+			new Gson().toJson(searchTrainerList, response.getWriter());
+		} catch (JsonIOException | IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	// 트레이너찾기_프로필상세보기 페이지 이동 (전효정)
 	@RequestMapping("showProfileDetailPageView.us")
-	public String showProfileDetailPageView() {
+	public String showProfileDetailPageView(Model model, HttpServletRequest request) {
+		
+		String tno = request.getParameter("mno");
+		String tname = request.getParameter("tname");
+		model.addAttribute("tno", tno);
+		model.addAttribute("tname", tname);
+		
+		// 4. 프로필 이미지 존재 여부 확인 메소드 (전효정)
+		Attachment profileImgAttachment = us.checkProfileImg(tno);
+		
+		if(profileImgAttachment != null) {
+			model.addAttribute("profileImgAttachment", profileImgAttachment);
+			String profileImgAttachmentSrc = profileImgAttachment.getModiName() + profileImgAttachment.getExtension();
+			model.addAttribute("profileImgAttachmentSrc", profileImgAttachmentSrc);		
+		}else {
+			model.addAttribute("profileImgAttachment", profileImgAttachment);
+		}
+		
+		// 5. 프로필 작성 여부 확인 (전효정)
+		Profile profile = us.checkProfile(tno);
+		model.addAttribute("profile", profile);
+		
+		// 6. 미디어 존재 여부 확인 메소드 (전효정)
+		List<Attachment> mediaAttachment = us.checkMediaAttachment(tno);					
+		model.addAttribute("mediaAttachment", mediaAttachment);
+		
+		// 7. 자격증 존재 여부 확인 메소드 (전효정)
+		List<Attachment> certificationAttachment = us.checkCertificationAttachment(tno);					
+		model.addAttribute("certificationAttachment", certificationAttachment);
+		
+		
 		return "user/1_3_profileDetailPage";
 	}
 	
@@ -68,19 +123,42 @@ public class UserController {
 		return "user/2_2_myPage_dietSurvey";
 	}
 	
-	// 트레이너찾기_프로필상세보기 페이지 이동 (전효정)
-	@RequestMapping("showMyPageMyTrainer.us")
-	public String showMyPageMyTrainerPageView() {
+	// 마이페이지_마이트레이너 페이지 이동 (전효정)
+	@RequestMapping("insertMyTrainer.us")
+	public String insertMyTrainer(Model model, HttpServletRequest request) {
+		
+		String uno = request.getParameter("mno");
+		String tno = request.getParameter("tno");
+		
+		// 8. 마이트레이너 insert (전효정)
+		us.insertMyTrainer(uno, tno);
+		
 		return "user/2_3_myPage_myTrainer";
 	}
 	
-	// 트레이너찾기_프로필상세보기 페이지 이동 (전효정)
+	// 마이페이지_마이트레이너 페이지 이동 (전효정)
+	@RequestMapping("showMyPageMyTrainer.us")
+	public String showMyPageMyTrainerPageView(Model model, HttpServletRequest request) {
+		
+		String mno = request.getParameter("mno");
+		
+		// 9. 마이트레이너 리스트 조회 (전효정)
+		List<Mprocess> myTrainerList = us.selectMyTrainerList(mno);
+		
+		// 10. 마이트레이너 상세정보 조회 (전효정)
+		List<Member> myTrainerInfo = us.selectMyTrainerInfoList(myTrainerList);
+		System.out.println("myTrainerInfo : " + myTrainerInfo);
+ 		
+		return "user/2_3_myPage_myTrainer";
+	}
+	
+	// 마이페이지_받은요청내역 페이지 이동 (전효정)
 	@RequestMapping("showMyPageRequestsReceived.us")
 	public String showMyPageRequestsReceivedPageView() {
 		return "user/2_4_myPage_requestsReceived";
 	}
 	
-	// 트레이너찾기_프로필상세보기 페이지 이동 (전효정)
+	// 마이페이지_내글관리 페이지 이동 (전효정)
 	@RequestMapping("showMyPageMyWriting.us")
 	public String showMyPageMyWritingPageView() {
 		return "user/2_5_myPage_myWriting";
