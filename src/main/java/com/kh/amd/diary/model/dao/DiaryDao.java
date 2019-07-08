@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.diary.model.vo.Diary;
 
 public interface DiaryDao {
@@ -49,7 +50,16 @@ public interface DiaryDao {
 	//List<Diary> galleryList(SqlSessionTemplate sqlSession, int mno);
 
 
+	//갤러리 select
 	List<Object> selectGallery(SqlSessionTemplate sqlSession, Attachment a);
+
+
+	//댓글 select
+	List<Reply> replyList(SqlSessionTemplate sqlSession, int bno);
+
+
+	//댓글 insert
+	void insertReply(SqlSessionTemplate sqlSession, Reply reply);
 
 
 

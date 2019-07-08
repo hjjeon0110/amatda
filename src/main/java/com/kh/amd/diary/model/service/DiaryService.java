@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.diary.model.vo.Diary;
 
 public interface DiaryService {
@@ -41,7 +42,16 @@ public interface DiaryService {
 			String ext);
 
 
+	//갤러리 select
 	List<Object> selectGallery(Attachment a);
+
+
+	//댓글  select
+	List<Reply> replyList(int bno);
+
+
+	//댓글 insert
+	void insertReply(Reply reply);
 	
 
 	//gallery

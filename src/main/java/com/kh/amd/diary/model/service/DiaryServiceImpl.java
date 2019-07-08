@@ -9,6 +9,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.diary.model.dao.DiaryDao;
 import com.kh.amd.diary.model.vo.Diary;
 
@@ -90,10 +91,27 @@ public class DiaryServiceImpl implements DiaryService{
 	}
 
 
+	//갤러리 select
 	@Override
 	public List<Object> selectGallery(Attachment a) {
 		
 		return dd.selectGallery(sqlSession, a);
+	}
+
+
+	//댓글 select
+	@Override
+	public List<Reply> replyList(int bno) {
+		
+		return dd.replyList(sqlSession, bno);
+	}
+
+
+	//댓글 insert
+	@Override
+	public void insertReply(Reply reply) {
+		dd.insertReply(sqlSession, reply);
+		
 	}
 	
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,20 +99,53 @@ tr {
 				</table>
 			</form>
 			<br />
-			<div class="replyArea">
-				<div class="replyWriterArea">
+			
+			
+			
+			
+			
+			
+			<!-- <div id="reply">
+				<div class="replyList">
 					<table>
 						<tr>
 							<td>
-							<textarea id="rContent" cols="60" rows="3" placeholder="트레이너만 입력하세요"></textarea>
+							<textarea name="repContent" id="repContent" cols="60" rows="3" placeholder="트레이너만 입력하세요"></textarea>
 							</td>
 						</tr>
 						<tr>
-							<td align="center"><button id="replyBtn">등록</button></td>
+							<td align="center"><button id="replyInsert">등록</button></td>
 						</tr>
 					</table>
 				</div>
+			</div> -->
+			
+			
+			<form id="commentForm" name="commentForm" method="post">
+	
+						<input type="hidden" id="bno" name="bno" value="${d.bNo }">
+						<textarea class="form-control" placeholder="댓글을 입력하세요"
+						id="repContent" name="repContent"></textarea>
+						<a href='#' class="button" id="replyInsert">등록</a>
+						
+					</form>
+					
+					<!-- 댓글 -->
+			<div id="reply">
+				<ol class="replyList">
+					<c:forEach items="${repList}" var="repList">
+					 		<p><b>
+						   
+						  (<fmt:formatDate value="${repList.repDate}" pattern="yyyy-MM-dd a HH:mm:ss" />)
+						    </b></p>
+						  
+						  	<p>${repList.repContent}</p>
+					
+					 </c:forEach>   
+				</ol>
 			</div>
+			
+			
 		</div>
 	</div>
 	<br />
@@ -144,6 +178,9 @@ tr {
 			$(".modifydiaryImgSubmit").click();
 		});
 -->
+
+
+
 		function loaddiaryImgFile(value) {
 			if (value.files && value.files[0]) {
 				var reader = new FileReader();
@@ -154,6 +191,22 @@ tr {
 
 			}
 		}
+		
+		
+		$("#replyInsert").click(function(){
+			
+			var content=$("#repContent").val();
+			var bno="${ d.bNo }"
+			
+			$.ajax({
+				type:"get",
+				url:"insertReply.di",
+				data:$("#commentForm").serialize(),
+				success:function(data){
+					alert("트레이너댓글");
+				}
+			})
+		})
 	</script>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 
