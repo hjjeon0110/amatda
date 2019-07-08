@@ -171,16 +171,14 @@
 	</insert>
 	
 	<!-- 9. 마이트레이너 리스트 조회 (전효정) -->
-	<select id="selectMyTrainer" resultMap="mprocessResultSet" parameterType="Mprocess">
-		SELECT TNO FROM M_PROCESS MP JOIN MEMBER M ON(MP.UNO = M.MNO) WHERE MP.UNO = #{mno}
+	<select id="selectMyTrainer" resultMap="selectRecommendTrainerList">
+		SELECT * FROM MEMBER M JOIN M_PROCESS MP ON(MP.TNO = M.MNO) JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE MP.UNO = #{mno}
 	</select>
 	
-	<!-- 10. 마이트레이너 상세정보 조회 (전효정) -->
-	<select id="selectTrainerInfoList" resultMap="selectRecommendTrainerList" parameterType="java.util.Map">
-		SELECT * FROM MEMBER M JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) 
-		<foreach collection="tnoArr" item="item" index="index" >
-			WHERE M.MNO = #{item}
-		</foreach>
+	<!-- 10. 마이트레이너 존재 여부 확인 (전효정) -->
+	<select id="selectOneMyTrainer" resultMap="mprocessResultSet">
+		SELECT * FROM M_PROCESS WHERE UNO = #{mno} AND TNO = #{tno}
 	</select>
+	
 
 </mapper>

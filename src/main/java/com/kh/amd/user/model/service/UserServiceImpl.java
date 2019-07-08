@@ -80,15 +80,17 @@ public class UserServiceImpl implements UserService {
 
 	// 9. 마이트레이너 리스트 조회 (전효정)
 	@Override
-	public List<Mprocess> selectMyTrainerList(String mno) {
+	public List<Member> selectMyTrainerList(String mno) {
 		return ud.selectMyTrainerList(sqlSession, mno);
 	}
 
-	
-	// 10. 마이트레이너 상세정보 조회 (전효정)
+
+	// 10. 마이트레이너 존재 여부 확인 메소드 (전효정)
 	@Override
-	public List<Member> selectMyTrainerInfoList(List<Mprocess> myTrainerList) {
-		return ud.selectMyTrainerInfo(sqlSession, myTrainerList);
+	public Mprocess selectOneMyTrainer(String mno, String tno) {
+		return ud.selectOneMyTrainer(sqlSession, mno, tno);
 	}
+	
+
 
 }

@@ -79,7 +79,8 @@ public class UserController {
 	@RequestMapping("showProfileDetailPageView.us")
 	public String showProfileDetailPageView(Model model, HttpServletRequest request) {
 		
-		String tno = request.getParameter("mno");
+		String mno = request.getParameter("mno");
+		String tno = request.getParameter("tno");
 		String tname = request.getParameter("tname");
 		model.addAttribute("tno", tno);
 		model.addAttribute("tname", tname);
@@ -107,6 +108,11 @@ public class UserController {
 		List<Attachment> certificationAttachment = us.checkCertificationAttachment(tno);					
 		model.addAttribute("certificationAttachment", certificationAttachment);
 		
+		// 10. 마이트레이너 존재 여부 확인 메소드 (전효정)
+		Mprocess selectOneMyTrainer = us.selectOneMyTrainer(mno, tno);
+		model.addAttribute("selectOneMyTrainer", selectOneMyTrainer);
+
+		
 		
 		return "user/1_3_profileDetailPage";
 	}
@@ -118,7 +124,7 @@ public class UserController {
 		return "user/2_2_myPage_dietSurvey";
 	}
 	
-	// 마이페이지_마이트레이너 페이지 이동 (전효정)
+	// 마이페이지_마이트레이너 페이지 이동1 (전효정)
 	@RequestMapping("insertMyTrainer.us")
 	public String insertMyTrainer(Model model, HttpServletRequest request) {
 		
@@ -128,21 +134,22 @@ public class UserController {
 		// 8. 마이트레이너 insert (전효정)
 		us.insertMyTrainer(uno, tno);
 		
+		// 9. 마이트레이너 리스트 조회 (전효정)
+		List<Member> myTrainerList = us.selectMyTrainerList(uno);
+		model.addAttribute("myTrainerList", myTrainerList);
+		
 		return "user/2_3_myPage_myTrainer";
 	}
 	
-	// 마이페이지_마이트레이너 페이지 이동 (전효정)
+	// 마이페이지_마이트레이너 페이지 이동2 (전효정)
 	@RequestMapping("showMyPageMyTrainer.us")
 	public String showMyPageMyTrainerPageView(Model model, HttpServletRequest request) {
 		
 		String mno = request.getParameter("mno");
 		
 		// 9. 마이트레이너 리스트 조회 (전효정)
-		List<Mprocess> myTrainerList = us.selectMyTrainerList(mno);
-		
-		// 10. 마이트레이너 상세정보 조회 (전효정)
-		List<Member> myTrainerInfo = us.selectMyTrainerInfoList(myTrainerList);
-		System.out.println("myTrainerInfo : " + myTrainerInfo);
+		List<Member> myTrainerList = us.selectMyTrainerList(mno);
+		model.addAttribute("myTrainerList", myTrainerList);
  		
 		return "user/2_3_myPage_myTrainer";
 	}

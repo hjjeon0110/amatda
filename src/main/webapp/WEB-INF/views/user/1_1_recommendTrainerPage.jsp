@@ -173,12 +173,13 @@
 	<script>
 		$(".goProfileDetail").click(function() {
 			
+			var mno = ${ sessionScope.loginUser.mno };
 			var tno = $(this).parent().children().eq(0).val();
 			var tname = $(this).parent().children().eq(1).val();
 			console.log(tno);
 			console.log(tname);
 			
-			location.href='showProfileDetailPageView.us?mno=' + tno + '&tname=' + tname;
+			location.href='showProfileDetailPageView.us?mno=' + mno + "&tno=" + tno + '&tname=' + tname;
 		});
 		
 	</script>

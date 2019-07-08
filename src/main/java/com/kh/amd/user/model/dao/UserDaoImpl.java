@@ -110,34 +110,23 @@ public class UserDaoImpl implements UserDao {
 
 	// 9. 마이트레이너 리스트 조회 (전효정)
 	@Override
-	public List<Mprocess> selectMyTrainerList(SqlSessionTemplate sqlSession, String mno) {
+	public List<Member> selectMyTrainerList(SqlSessionTemplate sqlSession, String mno) {
 		return sqlSession.selectList("User.selectMyTrainer", mno);
 	}
 
 
-	// 10. 마이트레이너 상세정보 조회 (전효정)
-	
+	// 10. 마이트레이너 존재 여부 확인 메소드 (전효정)
 	@Override
-	public List<Member> selectMyTrainerInfo(SqlSessionTemplate sqlSession, List<Mprocess> myTrainerList) {
-		
-		int num = 0;
+	public Mprocess selectOneMyTrainer(SqlSessionTemplate sqlSession, String mno, String tno) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		String[] tnoArr = null;
+		map.put("mno", mno);
+		map.put("tno", tno);
 		
-		for(int i = 0; i < myTrainerList.size(); i++) {
-			num++;
-			String key = String.valueOf(num);
-			tnoArr[i] += String.valueOf(myTrainerList.get(i).getTno());
-			map.put(key, myTrainerList.get(i).getTno());
-		}
-		
-		map.put("tnoArr", tnoArr);
-		
-		System.out.println("tnoArr : " + tnoArr);
-		System.out.println("map : " + map);
-		
-		return sqlSession.selectList("User.selectTrainerInfoList", map);
+		return sqlSession.selectOne("User.selectOneMyTrainer", map);
 	}
+
+
+
 
 }

@@ -40,7 +40,15 @@
 								<label class="traineProfileTableTd2Label">${ profile.proTitle }</label>
 							</c:if>
 						</td>
-						<td style="text-align:center;"><br><button type="button" class="btn btn-secondary" id="insertMyTrainer" data-toggle="tooltip" data-placement="bottom" title="이 트레이너에게 PT를 받고 싶으면, 서비스를 요청해보세요."> MY트레이너로 등록 </button></td>
+						<td style="text-align:center;">
+							<br>
+							<c:if test="${ empty selectOneMyTrainer }">
+								<button type="button" class="btn btn-secondary" id="insertMyTrainer" data-toggle="tooltip" data-placement="bottom" title="이 트레이너에게 PT를 받고 싶으면, 서비스를 요청해보세요."> MY트레이너로 등록 </button>
+							</c:if>
+							<c:if test="${ !empty selectOneMyTrainer }">
+								<button type="button" class="btn btn-secondary" id="deleteMyTrainer" data-toggle="tooltip" data-placement="bottom" title="이미 마이트레이너 리스트에 추가된 트레이너 입니다."> MY트레이너 등록 취소 </button>
+							</c:if>
+						</td>
 					</tr>
 					<tr>
 						<td><br>
@@ -64,7 +72,7 @@
 			<div class="mediaDiv">
 				<br><br>
 				<label class="subTitle">미디어</label><br>
-				<label class="contents">등록된 사진이 없습니다.</label><br>
+				<label class="contents">등록된 사진이 없습니다.</label>
 			</div>
 		</c:if>
 		
