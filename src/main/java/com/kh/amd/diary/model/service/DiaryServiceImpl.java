@@ -1,5 +1,6 @@
 package com.kh.amd.diary.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -21,12 +22,23 @@ public class DiaryServiceImpl implements DiaryService{
 	@Autowired
 	private DataSourceTransactionManager transactionManager;
 
+
 	//다이어리 내용 insert
-//	@Override
-//	public int insertDiary(Diary d, String mno) {
-//		
-//		return dd.insertDiary(sqlSession, d, mno);
-//	}
+	@Override
+	public void insertDiary(Diary d, String mno) {
+		
+		dd.insertDiary(sqlSession, d, mno);
+		
+	}
+	
+	
+	// bno 조회
+	@Override
+	public int selectDiaryBno() {
+		return dd.selectDiaryBno(sqlSession);
+		
+	}
+	
 
 	//다이어리 이미지 insert
 	@Override
@@ -35,20 +47,6 @@ public class DiaryServiceImpl implements DiaryService{
 		
 	}
 
-	//다이어리 이미지 존재 여부
-//	@Override
-//	public Attachment checkDiaryImg(int mno) {
-//		
-//		return dd.checkDiaryImg(sqlSession, mno);
-//	}
-
-	//다이어리 이미지 update
-//	@Override
-//	public void modifyDiaryImg(String mno, String filePath, String originalFilename, String changeName, String ext) {
-//		
-//		dd.modifyDiaryImg(sqlSession, mno, filePath, originalFilename, changeName, ext);
-//		
-//	}
 
 	//다이어리 list
 	@Override
@@ -57,22 +55,6 @@ public class DiaryServiceImpl implements DiaryService{
 		return dd.diaryList(sqlSession, mno);
 	}
 
-	
-	//다이어리(image content) insert 190701
-	@Override
-	public void insertDiary(Diary d, String mno) {
-		
-		dd.insertDiary(sqlSession, d, mno);
-		
-	}
-
-
-	//다이어리 이미지 상세
-	@Override
-	public Attachment selectAttachmentOne(int bno) {
-		
-		return dd.selectAttachmentOne(sqlSession, bno);
-	}
 
 	//다이어리 상세보기
 	@Override
@@ -80,13 +62,53 @@ public class DiaryServiceImpl implements DiaryService{
 		
 		return dd.selectDetailDiary(sqlSession, bno);
 	}
-
-	// bno 조회
+	
+	
+	//다이어리 이미지 상세
 	@Override
-	public int selectDiaryBno() {
-		return dd.selectDiaryBno(sqlSession);
+	public Attachment selectAttachmentOne(int bno) {
+		
+		return dd.selectAttachmentOne(sqlSession, bno);
+	}
+
+
+
+	//diary update
+	@Override
+	public void updateDiary(Diary d, String mno, String bno) {
+		dd.updateDiary(sqlSession, d, mno, bno);
 		
 	}
+	
+
+	//diary Img update
+	@Override
+	public void updateDiaryImg(String bno, String mno, String filePath, String originalFilename, String changeName,
+			String ext) {
+		dd.updateDiaryImg(sqlSession, bno, mno, filePath, originalFilename, changeName, ext);
+		
+	}
+
+
+	@Override
+	public List<Object> selectGallery(Attachment a) {
+		
+		return dd.selectGallery(sqlSession, a);
+	}
+	
+
+	//gallery
+//	@Override
+//	public List<Diary> galleryList(int mno) {
+//		
+//		return dd.galleryList(sqlSession, mno);
+//	}
+
+
+	
+
+	
+	
 	
 	
 

@@ -56,14 +56,26 @@
 
    
    <!-- 프로필 사진 수정 -->
-   <update id="modifyDiaryImg" parameterType="Attachment">
+   <update id="updateDiaryImg" parameterType="java.util.HashMap">
    		UPDATE ATTACHMENT 
    		SET ORI_NAME = #{originalFilename}, 
    			MODI_NAME = #{changeName}, 
    			EXTENSION = #{ext}, 
    			FILE_PATH = #{filePath}, 
    			UPLOAD_DATE = SYSDATE
-   </update>  
+   		WHERE BNO = #{bno}
+   		AND PNO = #{mno}
+   </update>
+   
+   <!-- 다이어리 내용 update -->
+   <update id="updateDiary" parameterType="java.util.Map">
+   		UPDATE BOARD
+   		SET BMODIFY_DATE = SYSDATE,
+   			BTITLE = #{d.bTitle},
+   			BCONTENT = #{d.bContent}   		
+   		WHERE BNO = #{bno}
+   		AND BWRITER = #{mno}
+   </update>
    
    <!-- 프로필 이미지 존재 여부 확인 -->
    <select id="checkDiaryImg" resultMap="attachmentResultSet" parameterType="Attachment">
@@ -90,7 +102,7 @@
    <!-- 다이어리 이미지 insert -->
    <insert id="insertDiaryImg" parameterType="Attachment">
    		INSERT INTO ATTACHMENT 
-   		VALUES(FILE_SEQ.NEXTVAL, #{bno}, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 0, 'Y', #{filePath})
+   		VALUES(FILE_SEQ.NEXTVAL, #{bno}, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 3, 'Y', #{filePath})
    </insert>
    
    
@@ -115,6 +127,22 @@
   		SELECT *
   		FROM ATTACHMENT
   		WHERE BNO = #{bno}
+  	</select>
+  	
+  	<!-- gallery list -->
+  	<select id="galleryList" resultMap="diaryResultSet">
+  		SELECT *
+		FROM BOARD
+		WHERE BTYPE = 6
+		AND BWRITER = #{mno}
+        
+  	</select>
+  	
+  	<select id="selectGallery" parameterType="Attachment" resultMap="attachmentResultSet">
+  		SELECT *
+		FROM ATTACHMENT
+		WHERE PNO = #{pno}
+		ORDER BY UPLOAD_DATE DESC
   	</select>
 
 	

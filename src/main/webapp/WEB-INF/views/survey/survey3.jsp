@@ -8,7 +8,7 @@
 <style>
 .outer {
 	width: 1000px;
-	height: 1400px;
+	height: 750px;
 	background-image: url(${ contextPath }/resources/images/pink.jpg);
 	background-repeat: no-repeat;
 	background-position: top center;
@@ -20,7 +20,7 @@
 }
 
 td {
-	height: 35px;
+	height: 60px;
 	/* border: 1px solid #ff0066; */
 }
 
@@ -86,9 +86,10 @@ td {
 				</tr> -->
 				<tr> 
 					<td>
-						<h2>다이어트 정보</h2>
+						<h2 id="font" align="center">다이어트 정보 두번째</h2>
 					</td>
 				</tr>
+				<tr></tr>
 				<!-- <tr>
 					<td>희망다이어트 기간</td>
 					<td><input type="radio" name="hope_period" value="1개월" />1개월
@@ -135,12 +136,12 @@ td {
 				</tr> -->
 				<tr>
 					<td>앞선다이어트실패원인</td>
-					<td><input type="checkbox" name="dietFail" value="다이어트정보부족" />다이어트정보부족 &nbsp;&nbsp; 
-						<input type="checkbox" name="dietFail" value="운동부족" />운동부족 &nbsp;&nbsp; 
-						<input type="checkbox" name="dietFail" value="과식" />과식/야식 &nbsp;&nbsp; 
-						<input type="checkbox" name="dietFail" value="음주" />음주문화	&nbsp;&nbsp; 
-						<input type="checkbox" name="dietFail" value="의지박약" />의지박약 &nbsp;&nbsp; 
-						<input type="checkbox" name="dietFail" value="경험없음" />다이어트경험없음	&nbsp;&nbsp;
+					<td><input type="checkbox" name="dietFail" value="다이어트정보부족" id="dietFail1"/><label for="dietFail1">다이어트정보부족 </label>&nbsp;&nbsp; 
+						<input type="checkbox" name="dietFail" value="운동부족" id="dietFail2"/><label for="dietFail2">운동부족</label> &nbsp;&nbsp; 
+						<input type="checkbox" name="dietFail" value="과식" id="dietFail3"/><label for="dietFail3">과식/야식 </label>&nbsp;&nbsp; 
+						<input type="checkbox" name="dietFail" value="음주" id="dietFail4"/><label for="dietFail4">음주문화</label>	&nbsp;&nbsp; 
+						<input type="checkbox" name="dietFail" value="의지박약" id="dietFail5"/><label for="dietFail5">의지박약 </label>&nbsp;&nbsp; 
+						<input type="checkbox" name="dietFail" value="경험없음" id="dietFail6"/><label for="dietFail6">다이어트경험없음</label>	&nbsp;&nbsp;
 					</td>
 				</tr>
 				<tr>
@@ -150,35 +151,35 @@ td {
 				</tr>
 				<tr>
 					<td>다이어트를하고싶은이유</td>
-					<td><input type="radio" name="dietReason" value="미모" />미모	&nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="dietReason" value="다이어트" />다이어트 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio"	name="dietReason" value="건강" />건강 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="dietReason" value="체형교정" />체형교정 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="dietReason" value="상관없음" />상관없음
+					<td><input type="radio" name="dietReason" value="미모" id="dietReason1"/><label for="dietReason1">미모</label>	&nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="dietReason" value="다이어트" id="dietReason2"/><label for="dietReason2">다이어트</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio"	name="dietReason" value="건강" id="dietReason3"/><label for="dietReason3">건강</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="dietReason" value="체형교정" id="dietReason4"/><label for="dietReason4">체형교정 </label>&nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="dietReason" value="상관없음" id="dietReason5"/><label for="dietReason5">상관없음</label>
 					</td>
 				</tr>
 				<tr>
 					<td>선호운동유형</td>
-					<td><input type="checkbox" name="hopeExercise" value="요가" />요가 &nbsp;&nbsp; 
-						<input type="checkbox" name="hopeExercise"	value="필라테스" />필라테스 &nbsp;&nbsp; 
-						<input type="checkbox" name="hopeExercise" value="웨이트" />웨이트 &nbsp;&nbsp; 
-						<input type="checkbox" name="hopeExercise" value="맨몸운동" />맨몸운동 &nbsp;&nbsp; 
-						<input type="checkbox" name="hopeExercise"	value="상관없음" />상관없음
+					<td><input type="checkbox" name="hopeExercise" value="요가" id="hopeExercise1"/><label for="hopeExercise1">요가</label> &nbsp;&nbsp; 
+						<input type="checkbox" name="hopeExercise"	value="필라테스" id="hopeExercise2"/><label for="hopeExercise2">필라테스</label> &nbsp;&nbsp; 
+						<input type="checkbox" name="hopeExercise" value="웨이트" id="hopeExercise3"/><label for="hopeExercise3">웨이트 </label>&nbsp;&nbsp; 
+						<input type="checkbox" name="hopeExercise" value="맨몸운동" id="hopeExercise4"/><label for="hopeExercise4">맨몸운동 </label>&nbsp;&nbsp; 
+						<input type="checkbox" name="hopeExercise"	value="상관없음" id="hopeExercise5"/><label for="hopeExercise5">상관없음</label>
 					</td>
 				</tr>
 				<tr>
 					<td>하루운동가능량</td>
-					<td><input type="radio" name="datExercise" value="1시간" />1시간 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="datExercise" value="2시간" />2시간 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio"	name="datExercise" value="3~5시간" />3~5시간 &nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="radio" name="datExercise" value="상관없음" />상관없음</td>
+					<td><input type="radio" name="datExercise" value="1시간" id="datExercise1"/><label for="datExercise1">1시간</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="datExercise" value="2시간" id="datExercise2"/><label for="datExercise2">2시간</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio"	name="datExercise" value="3~5시간" id="datExercise3"/><label for="datExercise3">3~5시간 </label>&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="datExercise" value="상관없음" id="datExercise4"/><label for="datExercise4">상관없음</label></td>
 				</tr>
 				<tr>
 					<td>하루식사량</td>
-					<td><input type="radio" name="datFood" value="1끼" />1끼 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="datFood"	value="2끼" />2끼 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio"	name="datFood" value="3끼" />3끼 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="datFood" value="상관없음" />상관없음
+					<td><input type="radio" name="datFood" value="1끼" id="datFood1"/><label for="datFood1">1끼</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="datFood"	value="2끼" id="datFood2"/><label for="datFood2">2끼</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio"	name="datFood" value="3끼" id="datFood3"/><label for="datFood3">3끼 </label>&nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="datFood" value="상관없음" id="datFood4"/><label for="datFood4">상관없음</label>
 					</td>
 				</tr>
 				<tr>
@@ -193,8 +194,10 @@ td {
 						<input type="text" placeholder="시간을 입력하세요" name="dayTime" class="form-control" />
 					</td>
 				</tr>
+				<tr></tr>
 				<tr align="center">
-					<td><input type="submit" value="등록" /></td>
+					<td colspan="2"><input type="submit" value="등록" /></td>
+					<td></td>
 				</tr>
 			</table>
 

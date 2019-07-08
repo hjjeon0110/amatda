@@ -8,7 +8,7 @@
 <style>
 .outer {
 	width: 1000px;
-	height: 1400px;
+	height: 600px;
 	background-image: url(${ contextPath }/resources/images/pink.jpg);
 	background-repeat: no-repeat;
 	background-position: top center;
@@ -20,7 +20,7 @@
 }
 
 td {
-	height: 50px;
+	height: 80px;
 	/* border: 1px solid #ff0066; */
 }
 
@@ -33,6 +33,11 @@ td {
 	margin-top:20px;
 	
 }
+.surveySubmitBtn {
+	margin-left:auto;
+	margin-right:auto;
+}
+
 
 
 </style>
@@ -60,8 +65,9 @@ td {
 
 			<table align="center" id="font">
 				<tr>
-					<td>개인 기초 정보 입력 사항</td>
+					<h2 id="font" align="center">개인 기초 정보 입력 사항</h2>
 				</tr>
+				<br />
 				<tr>
 					<td>키(Cm)</td>
 					<td><input type="text" placeholder="숫자만 입력하세요" name="height"
@@ -79,12 +85,12 @@ td {
 				</tr>
 				<tr>
 					<td>나이 연령대</td>
-					<td><input type="radio" class="uAge" name="uAge" value="18세미만" />18세 미만 &nbsp;
-						<input type="radio" class="uAge" name="uAge" value="18~24세" />18 ~ 24세 &nbsp; 
-						<input type="radio" class="uAge" name="uAge" value="25~34세" />25 ~ 34세 &nbsp; 
-						<input type="radio" class="uAge" name="uAge" value="35~44세" />35 ~ 44세 &nbsp; 
-						<input type="radio" class="uAge" name="uAge" value="45~54세" />45 ~ 54세 &nbsp; 
-						<input type="radio" class="uAge" name="uAge" value="55세이상" />55세 이상</td>
+					<td><input type="radio" class="uAge" name="uAge" value="18세미만" id="uAge1"/><label for="uAge1">18세 미만</label> &nbsp;
+						<input type="radio" class="uAge" name="uAge" value="18~24세" id="uAge2"/><label for="uAge2">18 ~ 24세</label> &nbsp; 
+						<input type="radio" class="uAge" name="uAge" value="25~34세" id="uAge3"/><label for="uAge3">25 ~ 34세 </label>&nbsp; 
+						<input type="radio" class="uAge" name="uAge" value="35~44세" id="uAge4"/><label for="uAge4">35 ~ 44세 </label>&nbsp; 
+						<input type="radio" class="uAge" name="uAge" value="45~54세" id="uAge5"/><label for="uAge5">45 ~ 54세 </label>&nbsp; 
+						<input type="radio" class="uAge" name="uAge" value="55세이상" id="uAge6"/><label for="uAge6">55세 이상</label></td>
 				</tr>
 				<!-- <tr>
 					<td>
@@ -196,8 +202,10 @@ td {
 					<td><input type="text" placeholder="시간을 입력하세요" name="day_time"
 						class="form-control" /></td>
 				</tr> -->
+				<tr></tr>
 				<tr align="center">
-					<td><input type="submit" value="다음 설문으로 이동" /></td>
+					<td colspan="2"><input type="submit" class="surveySubmitBtn" value="다음 설문으로 이동"/></td>
+					<td></td>
 				</tr>
 			</table>
 
