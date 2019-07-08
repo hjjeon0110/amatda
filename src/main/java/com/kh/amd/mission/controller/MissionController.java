@@ -43,7 +43,6 @@ public class MissionController {
 		String mno = request.getParameter("mno");
 		int mno2 = Integer.parseInt(mno);
 		int result = ms.selectTno(mno2);
-
 		System.out.println("조회결과: " + result);
 				
 		if(result == 1) {
