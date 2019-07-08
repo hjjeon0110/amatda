@@ -261,12 +261,13 @@
 		
 		function goProfileDetail(value) {
 						
+			var mno = ${ sessionScope.loginUser.mno };
 			var tno = $(value).parent().children().eq(0).text();
 			var tname = $(value).parent().children().eq(1).text();
 			console.log(tno);
 			console.log(tname);
 			
-			location.href='showProfileDetailPageView.us?mno=' + tno + '&tname=' + tname;
+			location.href='showProfileDetailPageView.us?mno=' + mno + "&tno=" + tno + '&tname=' + tname;
 		}
 
 

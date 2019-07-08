@@ -16,17 +16,17 @@
 	<jsp:include page="../user/2_myPageMenubar.jsp"/>
 	
 	<!-- 트레이너 리스트 영역 ---------------------------------------------------------------------------------------------------- -->	
-	<c:if test="${ empty recommendtrainerList }">
+	<c:if test="${ empty myTrainerList }">
 	
 		<div class="recommendtrainerListNullDiv">
 			<br><br>
-			<label class="recommendtrainerListNullLabel">조회된 맞춤 트레이너 추천 리스트가 없습니다.</label><br>
-			<label class="recommendtrainerListNullLabel" style="color:#ff0066;">셀프 트레이너 검색을 통해 마음에 드는 트레이너를 찾아보세요!</label>
+			<label class="recommendtrainerListNullLabel">조회된 마이트레이너 리스트가 없습니다. </label><br>
+			<label class="recommendtrainerListNullLabel" style="color:#ff0066;">트레이너 찾기를 통해 마음에 드는 트레이너를 찾아보세요!</label>
 			<br><br><br>
 		</div>
 	
 	</c:if>
-	<c:if test="${ !empty recommendtrainerList }">
+	<c:if test="${ !empty myTrainerList }">
 	
 		<div class="searchTrainerListDiv">
 			<br> 
@@ -37,7 +37,7 @@
 			</select> 
 			<br><br>
 			
-			<c:forEach var="i" begin="0" end="${fn:length(recommendtrainerList)-1}" varStatus="st">
+			<c:forEach var="i" begin="0" end="${fn:length(myTrainerList)-1}" varStatus="st">
 		
 				<div class="trainerListDiv">
 					<input type="hidden" class="tname">
@@ -49,20 +49,20 @@
 								</div>
 							</td>
 							<td class="trainerListTableTd2">
-								<label class="trainerName">${ recommendtrainerList[i].name }</label>
-								<label class="trainerGender">(${ recommendtrainerList[i].trainerInfo.tage}, ${ recommendtrainerList[i].gender})</label>
+								<label class="trainerName">${ myTrainerList[i].name }</label>
+								<label class="trainerGender">(${ myTrainerList[i].trainerInfo.tage}, ${ myTrainerList[i].gender})</label>
 							</td>
 							<td></td>
 						</tr>
 						<tr>
-							<td><label class="trainerKeyword">${ recommendtrainerList[i].profile.keyword }</label></td>
+							<td><label class="trainerKeyword">${ myTrainerList[i].profile.keyword }</label></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td><label class="simpleProfile">${ recommendtrainerList[i].profile.lineProfile}</label></td>
+							<td><label class="simpleProfile">${ myTrainerList[i].profile.lineProfile}</label></td>
 							<td class="trainerListTableTd1">
-								<input type="hidden" value="${ recommendtrainerList[i].mno }">
-								<input type="hidden" value="${ recommendtrainerList[i].name }">
+								<input type="hidden" value="${ myTrainerList[i].mno }">
+								<input type="hidden" value="${ myTrainerList[i].name }">
 								<button class="goProfileDetail">프로필 보기</button>
 							</td>
 						</tr>

@@ -35,9 +35,11 @@ public interface UserService {
 	void insertMyTrainer(String uno, String tno);
 
 	// 9. 마이트레이너 리스트 조회 (전효정)
-	List<Mprocess> selectMyTrainerList(String mno);
+	List<Member> selectMyTrainerList(String mno);
 
-	// 10. 마이트레이너 상세정보 조회 (전효정)
-	List<Member> selectMyTrainerInfoList(List<Mprocess> myTrainerList);
+	// 10. 마이트레이너 존재 여부 확인 메소드 (전효정)
+	Mprocess selectOneMyTrainer(String mno, String tno);
+	
+
 
 }
