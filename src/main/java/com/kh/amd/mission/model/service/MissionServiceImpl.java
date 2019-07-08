@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.mission.model.dao.MissionDao;
 import com.kh.amd.mission.model.vo.Mission;
 
@@ -240,6 +241,17 @@ public class MissionServiceImpl implements MissionService{
 	@Override
 	public List<Mission> selectAllExCalender(int mno) {
 		return md.selectAllExCalender(sqlSession,mno);
+	}
+
+	//사용자 캘린더로 넘어가기전 tno조회(트레이너 번호 조회)
+	@Override
+	public int selectTno(int mno2) {
+		return md.selectTno(sqlSession,mno2);
+	}
+
+	@Override
+	public int selectTnoTno(int tno2) {
+		return md.selectTnoTno(sqlSession,tno2);
 	}
 
 	

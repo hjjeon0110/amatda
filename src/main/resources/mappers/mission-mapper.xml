@@ -413,4 +413,17 @@ AND M.MTYPE = 'U'
 GROUP BY UNO, MDATE
 ORDER BY MDATE
 </select>
+
+<select id="selectTno" parameterType="_int" resultType="int">
+	SELECT COUNT(*)
+	FROM M_PROCESS
+	WHERE UNO=#{mno2}
+</select>
+
+<select id="selectTnoTno" parameterType="_int" resultType="int">
+	SELECT COUNT(*)
+	FROM M_PROCESS
+	WHERE TNO=#{tno2}
+</select>
+
 </mapper>
