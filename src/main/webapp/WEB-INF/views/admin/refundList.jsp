@@ -26,61 +26,62 @@
 	https://templatemo.com/tm-524-product-admin
 	-->
 <style>
-#modalLayer{
-	display:none; 
-	position:relative;
+#modalLayer {
+	display: none;
+	position: relative;
 }
 
 #modalLayer 
-	.modalContent{
-	width:440px; 
-	height:380px; 
-	padding:20px; 
-	border:1px solid #ccc; 
-	position:fixed; 
-	left:50%; 
-	top:50%; 
-	z-index:11; 
-	background:#fff;
+	.modalContent {
+	width: 440px;
+	height: 380px;
+	padding: 20px;
+	border: 1px solid #ccc;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	z-index: 11;
+	background: #fff;
 }
 
-#modalConfirm{
-	color:#435c70;
-	text-align:center;
-	margin-top:100px;
+#modalConfirm {
+	color: #435c70;
+	text-align: center;
+	margin-top: 100px;
 }
 
-#modalContent{
-	color:#435c70;
-	text-align:center;
-	margin-top:50px;
+#modalContent {
+	color: #435c70;
+	text-align: center;
+	margin-top: 50px;
 }
 
-
-#modalLayer .modalContent button{
-	
-	width:200px;
-    background-color: #f8585b;
-    border: none;
-    color:#fff;
-    padding: 5px 0;
-    text-align: center;
-    text-decoration: none;
-    font-size: 15px;
-    margin: 4px;
-    margin-left:100px;
-    margin-top:15px;
-    cursor: pointer;
-    border-radius:10px;
-
-	}
-	
-#button{
-	margin-top:80px;
+#modalLayer .modalContent button {
+	width: 200px;
+	background-color: #f8585b;
+	border: none;
+	color: #fff;
+	padding: 5px 0;
+	text-align: center;
+	text-decoration: none;
+	font-size: 15px;
+	margin: 4px;
+	margin-left: 100px;
+	margin-top: 15px;
+	cursor: pointer;
+	border-radius: 10px;
 }
 
-#agree{
-	background-color:#7fccde;
+#button {
+	margin-top: 80px;
+}
+
+#agree {
+	background-color: #7fccde;
+}
+
+#refuse {
+	background-color: #bc8f8f;
 }
 </style>
 </head>
@@ -141,8 +142,9 @@
 									class="dropdown-item" href="#">환불</a>
 							</div></li>
 
-						<li class="nav-item"><a class="nav-link" href="declaration.ad"> <i
-								class="fas fa-cog"></i> 신고관리 <span class="sr-only">(current)</span>
+						<li class="nav-item"><a class="nav-link"
+							href="declaration.ad"> <i class="fas fa-cog"></i> 신고관리 <span
+								class="sr-only">(current)</span>
 						</a></li>
 
 						<li class="nav-item"><a class="nav-link" href="statistics.ad">
@@ -175,7 +177,7 @@
 					<select class="custom-select">
 						<option value="0">상태</option>
 						<option value="1">요청중</option>
-						<option value="2">승인</option>						
+						<option value="2">승인</option>
 					</select>
 
 					<table class="table">
@@ -183,67 +185,58 @@
 							<tr>
 								<th scope="col">번호</th>
 								<th scope="col">아이디</th>
-								<th scope="col">멤버쉽</th>
+								<th scope="col">유형</th>
 								<th scope="col">결제날짜</th>
-								<th scope="col">환불신청날짜</th>
 								<th scope="col">환불사유</th>
-								<th scope="col">상태</th>					
+								<th scope="col">상태</th>
 							</tr>
 						</thead>
 
 						<tbody>
 
-							<c:forEach var="member" begin="1" end="3">
+							<c:forEach var="list" items="${ refundList }" varStatus="status">
+
 								<tr>
-									<th scope="row"><b>1</b></th>
-									<td>wannaOne</td>
-									<td>S</td>
-									<td>2019.06.07</td>
-									<td>2019.06.07</td>
-									<td>다른 멤버쉽으로 변경</td>
-									<!-- if문 -->
-									<td>
-										<a href="#modalLayer" class="button">요청중</a>
-										 <div id="modalLayer">
-											<div class="modalContent">
-											 <h5 id="modalConfirm"><strong>승인 하시겠습니까?</strong></h5>
-											 <div id="button">
-												<button type="button">확인</button>
-												<button type="button">취소</button>
-											</div>
-										</div>
-									</div>	
-									</td>
-											
-											
-											
+									<th scope="row"><b>${ status.count }</b>
+									<td>${ list.userId }</td>
+									<td>멤버쉽${ list.membershipType }</td>
+									<td>${ list.payDate }</td>
+									<td>${ list.refundReason }</td>
+									<!-- 상태 -->
+									<c:set var="status" value="${list.process }" />
+									<td><c:choose>
+											<c:when test="${status eq '환불요청'}">
+												<a href="#modalLayer" class="button"><b>요청중</b></a>
+												<div id="modalLayer">
+													<div class="modalContent">
+														<h5 id="modalConfirm">
+															<strong>승인 하시겠습니까?</strong>
+														</h5>
+														<div id="button">
+															<button type="button">확인</button>
+															<button type="button">취소</button>
+														</div>
+													</div>
+												</div>
+											</c:when>
+
+											<c:when test="${status eq '환불승인'}">
+												<button class="button" disabled='disabled' id="agree">
+													<b>승인</b>
+												</button>
+											</c:when>
+
+											<c:otherwise>
+												<button class="button" disabled='disabled' id="refuse">
+													<b>거절</b>
+												</button>
+											</c:otherwise>
+										</c:choose></td>
+
 								</tr>
 							</c:forEach>
-							
-							<tr>
-									<th scope="row"><b>1</b></th>
-									<td>wannaOne</td>
-									<td>S</td>
-									<td>2019.06.07</td>
-									<td>2019.06.07</td>
-									<td>다른 멤버쉽으로 변경</td>
-									<!-- if문 -->
-									<td>
-										<a href="#modalLayer" class="button" id="agree">승인</a>
-										 <div id="modalLayer">
-											<div class="modalContent">
-											 <h5 id="modalConfirm"><strong>승인 하시겠습니까?</strong></h5>
-											 <div id="button">
-												<button type="button">확인</button>
-												<button type="button">취소</button>
-											</div>
-										</div>
-									</div>	
-									</td>
-											
-											
-											
-								</tr>
+
+
 
 						</tbody>
 					</table>

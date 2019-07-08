@@ -37,6 +37,9 @@ public class Member implements java.io.Serializable{
 	//회원 리스트 조회에 필요한 필드들입니다.(김진환)
 	private Attachment attachment;
 	private Survey survey;
+	
+	//(김선아 추가)
+	private String uage;
 
 	public Member () {}
 
@@ -271,6 +274,15 @@ public class Member implements java.io.Serializable{
 
 	public void setSurvey(Survey survey) {
 		this.survey = survey;
+	}
+	
+
+	public String getUage() {
+		return uage;
+	}
+
+	public void setUage(String uage) {
+		this.uage = uage;
 	}
 
 	@Override

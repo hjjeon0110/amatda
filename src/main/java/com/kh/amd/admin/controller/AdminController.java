@@ -2,6 +2,7 @@ package com.kh.amd.admin.controller;
 
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,6 +30,7 @@ import com.kh.amd.board.model.service.DeclarationService;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.board.model.vo.Declaration;
 import com.kh.amd.board.model.vo.Reply;
+import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.vo.Payment;
 import com.kh.amd.board.model.service.ReplyService;
 
@@ -46,17 +50,55 @@ public class AdminController {
 	@Autowired
 	private AdminService as;
 	
-	//관리자 페이지 메인
+	//관리자 페이지 메인(회원 정보 조회)
 	@RequestMapping("main.ad")
-	public String adminMain() {
-
+	public String adminMain(Model model) {	
+		List<Member> userList = as.userList();
+		model.addAttribute("userList", userList);	
+		//System.out.println("회원 정보 조회 : "+userList);
 		return "admin/main";
 	}
+	
+	//아이디 검색 기능
+	@RequestMapping("searchUser.ad")
+	public ResponseEntity searchUser(String userId) {			
+		List<Member> searchResult = as.searchUser(userId);
+		//System.out.println(searchResult);		
+		return new ResponseEntity(searchResult, HttpStatus.OK);
+	}
+	
+	
+	//카테고리별 검색	  
+	 @RequestMapping("filtering.ad") 
+	 public ModelAndView filteringList(@RequestParam String category,
+			 						 @RequestParam String keyword) {
+		 
+		 System.out.println("필터링 실행");
+		 List<Member> filteringList = as.filteringList(category, keyword);
+		 
+		 ModelAndView mav = new ModelAndView();
+		 //데이터를 맵에 저장
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 map.put("filteringList", filteringList);
+		 map.put("category", category);
+		 map.put("keyword", keyword);
+		 //맵에 저장된 데이터를 mav에 저장
+		 mav.addObject("map", map);
+		 mav.setViewName("admin/main");	
+		 
+		 System.out.println("필터링 : " + mav);
+		 return mav;
+		 
+	 }
+
+	 
+	 
 
 	//트레이너 조회
 	@RequestMapping("trainer.ad")
-	public String trainerList() {
-
+	public String trainerList(Model model) {
+		List<Member> trainerList = as.trainerList();
+		model.addAttribute("trainerList", trainerList);
 		return "admin/trainerList";
 	}
 
@@ -73,7 +115,7 @@ public class AdminController {
 	public String noticeList(Model model){
 
 		List<Board> noticeList = bs.noticeList();
-		System.out.println(noticeList);
+		//System.out.println(noticeList);
 		model.addAttribute("list", noticeList);		
 
 		return "admin/noticeList";
@@ -196,7 +238,7 @@ public class AdminController {
 	public String QNAList(Model model){		
 		List<Board> QNAList = bs.QNAList();
 		model.addAttribute("list", QNAList);
-		System.out.println("1:1" + QNAList);
+		//System.out.println("1:1" + QNAList);
 		return "admin/QNAList";
 	}
 
@@ -242,14 +284,19 @@ public class AdminController {
 	public String membershipList(Model model) {
 		List<Payment> paymentList = as.paymentList();
 		model.addAttribute("paymentList", paymentList);
-		System.out.println("결제내역관리 : " + paymentList);
+		//System.out.println("결제내역관리 : " + paymentList);
 		
 		return "admin/membershipList";
 	}
 
 	//환불 관리
 	@RequestMapping("refund.ad")
-	public String refundList() {
+	public String refundList(Model model) {
+		//환불 요청
+		List<Payment> refundList = as.refundList();
+		model.addAttribute("refundList", refundList);
+		//System.out.println("환불내역 : " + refundList);
+	
 		return "admin/refundList";
 	}
 
@@ -257,7 +304,7 @@ public class AdminController {
 	@RequestMapping("declaration.ad")
 	public String declarationList(Model model){
 		List<Declaration> declarationList = ds.declarationList();
-		System.out.println(declarationList);
+		//System.out.println(declarationList);
 		model.addAttribute("list", declarationList);
 		return "admin/declarationList";
 	}

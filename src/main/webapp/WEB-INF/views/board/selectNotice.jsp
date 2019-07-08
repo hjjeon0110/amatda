@@ -293,7 +293,7 @@ margin-bottom:15px;
 			type:"get",
 			dataType:"json",
 			success:function(data){
-				console.log(data);
+				console.log("검색 : " + data);
 				
 				$("#boardTable > tbody").children().remove();
 				

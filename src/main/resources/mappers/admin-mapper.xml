@@ -16,13 +16,86 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		<result column="MEMBERSHIP_TYPE" property="membershipType"/>		
 		<result column="MEMBERSHIP_COUNT" property="membershipCount"/>		
 		<result column="MEMBERSHIP_PRICE" property="membershipPrice"/>	
+		<result column="ID" property="userId"/>
 	</resultMap>
+	
+	<resultMap id="memberResultSet" type="com.kh.amd.member.model.vo.Member">
+		<id column="MNO" property="mno"/> <!-- DB 기본키 -->
+		<result column="NAME" property="name"/><!-- 일반컬럼 -->
+		<result column="ID" property="userId"/>
+		<result column="PWD" property="userPwd"/>
+		<result column="PHONE" property="phone"/>
+		<result column="GENDER" property="gender"/>
+		<result column="EMAIL" property="email"/>
+		<result column="MTYPE" property="mtype"/>
+		<result column="STATUS" property="status"/>
+		<result column="MATCH_TIME" property="matchTime"/>
+		<result column="EMAIL_YN" property="emailYn"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="COMPLETE_SURVEY" property="completeSurvey"/>
+		<result column="UAGE" property="uage"/>
+		<result column="TAGE" property="tage"/>
+</resultMap>
 	
 	<!-- 결제 내역 조회 -->
 	<select id="paymentList" resultMap="paymentResultSet">
 		SELECT *
-		FROM PAYMENT P
-		JOIN MEMBERSHIP S USING(MEMBERSHIP_NO)
+		FROM PAYMENT P 
+		JOIN MEMBERSHIP USING(MEMBERSHIP_NO)
+		JOIN MEMBER M ON(TNO = MNO)
+		WHERE PROCESS = '결제완료'
+	</select>
+	
+	<!-- 환불 내역 조회 -->
+	<select id="refundList" resultMap="paymentResultSet">
+		SELECT *
+		FROM PAYMENT P 
+		JOIN MEMBERSHIP USING(MEMBERSHIP_NO)
+		JOIN MEMBER M ON(TNO = MNO)
+		WHERE PROCESS LIKE '%환불%'
+	</select>
+	
+	<!-- 회원 정보 조회 -->
+	<select id="userList" resultMap="memberResultSet">
+		SELECT M.*, S.UAGE
+		FROM MEMBER M
+        JOIN SURVEY S ON(MNO = UNO)
+		WHERE MTYPE = 'U'
+	</select>
+	
+	<!-- 트레이너 조회 -->
+	<select id="trainerList" resultMap="memberResultSet">
+		SELECT M.*, I.TAGE
+        FROM MEMBER M
+        JOIN TUSER_INFO I ON (MNO = TNO)
+        WHERE MTYPE = 'T'
+	</select>
+	
+	<!-- 아이디 검색 -->
+	<select id="searchUser" resultMap="memberResultSet">
+		SELECT M.*, S.UAGE, I.TAGE
+		FROM MEMBER M
+        LEFT OUTER JOIN SURVEY S ON(MNO = UNO)
+        LEFT OUTER JOIN TUSER_INFO I ON(MNO = TNO)
+        WHERE ID = #{userId}
+	</select>
+	
+	
+	<!-- 카테고리별 검색 -->
+	<select id="filteringList" resultMap="memberResultSet">
+	SELECT M.*, S.UAGE
+		FROM MEMBER M
+        JOIN SURVEY S ON(MNO = UNO)
+		WHERE MTYPE = 'U'
+	    <choose>
+			<when test = "category == 'gender'">
+				AND GENDER = #{keyword}
+			</when>
+			<when test = "category == 'age'">
+				AND UAGE = #{keyword}
+			</when>	
+		</choose>
 	</select>
 
 </mapper>

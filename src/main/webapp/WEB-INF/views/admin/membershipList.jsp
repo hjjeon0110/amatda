@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <script
@@ -41,11 +42,11 @@
 	left:50%; 
 	top:50%; 
 	z-index:11; 
-	background:#fff;
+	background:#435c70;
 }
 
 #title{
-	color:#435c70;	
+	color:#fff;	
 	margin-top:0px;
 }
 
@@ -188,12 +189,12 @@
 
 					<table class="table">
 						<thead>
-							<tr>
+							<tr align="center">
 								<th scope="col">번호</th>
 								<th scope="col">아이디</th>
-								<th scope="col">멤버쉽</th>
+								<th scope="col">유형</th>
 								<th scope="col">결제금액</th>
-								<th scope="col">사용내역</th>
+								<th scope="col">사용가능내역</th>
 								<th scope="col">지난이용내역</th>					
 							</tr>
 						</thead>
@@ -201,22 +202,21 @@
 						<tbody>
 
 							<c:forEach var="list" items="${ paymentList }" varStatus="status">
-								<tr>
+								<tr align="center">
 									<th scope="row"><b>${ status.count }</b>
-									<td>wannaOne</td>
-									<td>S</td>
-									<td>${ list.membershipPrice }</td>
-									<td>20회</td>
+									<td>${ list.userId }</td>
+									<td>멤버쉽${ list.membershipType }</td>
+									<td><fmt:formatNumber value="${ list.membershipPrice }" type="currency"/></td>
+									<td >${ list.membershipCount }회</td>
+									<!-- 지난사용내역 -->			
 									<td><a href="#modalLayer" class="button">상세보기</a>
 										<div id="modalLayer">
 											<div class="modalContent">
 												<h6 id="title">
-													<strong>tuser1</strong>님의 멤버쉽 이용 내역
+													<strong>${ list.userId }</strong> 님의 멤버쉽 이용 내역
 												</h6>
-											
-													
-				<div
-					class="tm-block tm-block-taller-m tm-block-scroll" id="membership">
+																	
+				<div class="tm-block tm-block-taller-m tm-block-scroll" id="membership">
 					
 													<table class="membershiptable">
 														<thead>
