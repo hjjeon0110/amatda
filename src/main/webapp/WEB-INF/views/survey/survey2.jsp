@@ -8,7 +8,7 @@
 <style>
 .outer {
 	width: 1000px;
-	height: 1400px;
+	height: 600px;
 	background-image: url(${ contextPath }/resources/images/pink.jpg);
 	background-repeat: no-repeat;
 	background-position: top center;
@@ -20,7 +20,8 @@
 }
 
 td {
-	height: 35px;
+	height: 60px;
+	
 	/* border: 1px solid #ff0066; */
 }
 
@@ -86,44 +87,44 @@ td {
 				</tr> -->
 				<tr>
 					<td>
-						<h2>다이어트 정보</h2>
+						<h2 id="font" align="center">다이어트 정보 첫번째</h2>
 					</td>
 				</tr>
 				<tr>
 					<td>희망다이어트 기간</td>
-					<td><input type="radio" name="hopePeriod" value="1개월" />1개월 &nbsp;&nbsp;&nbsp;&nbsp;
-					    <input type="radio" name="hopePeriod" value="3개월" />3개월 &nbsp;&nbsp;&nbsp;&nbsp; 
-					    <input type="radio" name="hopePeriod" value="6개월" />6개월 &nbsp;&nbsp;&nbsp;&nbsp; 
-					    <input type="radio" name="hopePeriod" value="1년이상" />1년 이상</td>
+					<td><input type="radio" name="hopePeriod" value="1개월" id="hopePeriod1"/><label for="hopePeriod1">1개월</label> &nbsp;&nbsp;&nbsp;&nbsp;
+					    <input type="radio" name="hopePeriod" value="3개월" id="hopePeriod2"/><label for="hopePeriod2">3개월</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+					    <input type="radio" name="hopePeriod" value="6개월" id="hopePeriod3"/><label for="hopePeriod3">6개월 </label>&nbsp;&nbsp;&nbsp;&nbsp; 
+					    <input type="radio" name="hopePeriod" value="1년이상" id="hopePeriod4"/><label for="hopePeriod4">1년 이상</label></td>
 				</tr>
 				<tr>
 					<td>가장빼고싶은신체부위</td>
-					<td><input type="checkbox" name="hopeBody" value="팔부위" />팔 부위 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="checkbox" name="hopeBody" value="다리부위" />다리 부위 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="checkbox" name="hopeBody" value="배부위" />배 부위 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="checkbox" name="hopeBody" value="전신" />전신</td>
+					<td><input type="checkbox" name="hopeBody" value="팔부위" id="hopeBody1"/><label for="hopeBody1">팔 부위</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="checkbox" name="hopeBody" value="다리부위" id="hopeBody2"/><label for="hopeBody2">다리 부위</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="checkbox" name="hopeBody" value="배부위" id="hopeBody3"/><label for="hopeBody3">배 부위 </label>&nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="checkbox" name="hopeBody" value="전신" id="hopeBody4"/><label for="hopeBody4">전신</label></td>
 				</tr>
 				<tr>
 					<td>선호하는다이어트방법</td>
-					<td><input type="radio" name="hopeMethod" value="의학적방법" />의학적방법(약,주사) &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="hopeMethod" value="식단조절" />식단조절 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="hopeMethod" value="운동" />운동 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="hopeMethod" value="식단과운동" />식단과운동  &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="hopeMethod" value="상관없음" />상관없음</td>
+					<td><input type="radio" name="hopeMethod" value="의학적방법" id="hopeMethod1"/><label for="hopeMethod1">의학적방법(약,주사)</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="hopeMethod" value="식단조절" id="hopeMethod2"/><label for="hopeMethod2">식단조절</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="hopeMethod" value="운동" id="hopeMethod3"/><label for="hopeMethod3">운동 </label>&nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="hopeMethod" value="식단과운동" id="hopeMethod4"/><label for="hopeMethod4">식단과운동 </label> &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="hopeMethod" value="상관없음" id="hopeMethod5"/><label for="hopeMethod5">상관없음</label></td>
 				</tr>
 				<tr>
 					<td>선호하는트레이너성별</td>
-					<td><input type="radio" name="hopeGender" value="남자" />남자 	&nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="hopeGender" value="여자" />여자 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="hopeGender" value="상관없음" />상관없음</td>
+					<td><input type="radio" name="hopeGender" value="남자" id="hopeGender1"/><label for="hopeGender1">남자</label> 	&nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="hopeGender" value="여자" id="hopeGender2"/><label for="hopeGender2">여자</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="hopeGender" value="상관없음" id="hopeGender3"/><label for="hopeGender3">상관없음</label></td>
 				</tr>
 				<tr>
 					<td>선호하는트레이너연령</td>
-					<td><input type="radio" name="hopeAge" value="20대" />20대 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="hopeAge"	value="30대" />30대 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio"	name="hopeAge" value="40대" />40대 &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="hopeAge" value="50대이상" />50대 이상  &nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="hopeAge" value="상관없음" />상관없음</td>
+					<td><input type="radio" name="hopeAge" value="20대" id="hopeAge1"/><label for="hopeAge1">20대</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="hopeAge"	value="30대" id="hopeAge2"/><label for="hopeAge2">30대</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio"	name="hopeAge" value="40대" id="hopeAge3"/><label for="hopeAge3">40대</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="hopeAge" value="50대이상" id="hopeAge4"/><label for="hopeAge4">50대 이상</label>  &nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="radio" name="hopeAge" value="상관없음" id="hopeAge5"/><label for="hopeAge5">상관없음</label></td>
 				</tr>
 				<!-- <tr>
 					<td>앞선다이어트실패원인</td>
@@ -186,8 +187,10 @@ td {
 					<td><input type="text" placeholder="시간을 입력하세요" name="day_time"
 						class="form-control" /></td>
 				</tr> -->
+				<tr></tr>
 				<tr align="center">
-					<td><input type="submit" value="다음 설문으로 이동" /></td>
+					<td colspan="2"><input type="submit" value="다음 설문으로 이동" /></td>
+					<td></td>
 				</tr>
 			</table>
 

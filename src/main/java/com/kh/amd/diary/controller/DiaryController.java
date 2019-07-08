@@ -2,6 +2,7 @@ package com.kh.amd.diary.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.common.CommonUtils;
 import com.kh.amd.diary.model.service.DiaryService;
 import com.kh.amd.diary.model.vo.Diary;
@@ -118,79 +120,94 @@ public class DiaryController {
 		return mav;
 		
 	}
+		
+
+	//다이어리 update 테스트
+		@RequestMapping(value="update.di")
+		public String updateDiary(Model model, Diary d, Member m, HttpServletRequest request, @RequestParam(name="diaryImgFile", required=false) MultipartFile diaryImgFile){
+					
+			String mno = request.getParameter("mNo");
+			String bno = request.getParameter("bno");
+			System.out.println("bno : " + bno);
+			
+			//int mno = m.getMno();
+			//int bno = d.getbNo();
+			
+			ds.updateDiary(d, mno, bno);
+			
+			
+			
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			
+			String filePath = root + "\\uploadFiles";		
+			String originalFilename = diaryImgFile.getOriginalFilename();
+			String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
+			String changeName = CommonUtils.getRandomString();
+					
+			
+			try {
+				
+				diaryImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
+						
+				ds.updateDiaryImg(bno, mno, filePath, originalFilename, changeName, ext);
+				
+				return "redirect:list.di?mno=" + mno;
+				
+			}catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+				System.out.println("에러발생");
+			}
+
+			return "diary/showDiary";		
+		
+		}
 	
-	//다이어리 update
-//	@RequestMapping(value="update.di")
-//	public String updateDiary(Model model, Diary d, Member m, HttpServletRequest request, @RequestParam(name="diaryImgFile", required=false) MultipartFile diaryImgFile){
-//				
-//		String mno = request.getParameter("mNo");
-//		ds.updateDiary(d, mno);
-//		
-//		
-//		
-//		
-//		String root = request.getSession().getServletContext().getRealPath("resources");
-//		
-//		String filePath = root + "\\uploadFiles";		
-//		String originalFilename = diaryImgFile.getOriginalFilename();
-//		String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
-//		String changeName = CommonUtils.getRandomString();
-//				
-//		
-//		try {
-//			
-//			diaryImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
-//					
-//			ds.insertDiaryImg(bno, mno, filePath, originalFilename, changeName, ext);
-//			
-//			return "redirect:list.di?mno=" + mno;
-//			
-//		}catch (IllegalStateException | IOException e) {
-//			e.printStackTrace();
-//			System.out.println("에러발생");
-//		}
-//
-//		return "diary/showDiary";		
-//	
-//	}
 	
 	
-	// 상품 수정 - 참고사항 
-//	@RequestMapping(value = "/goods/modify", method = RequestMethod.POST)
-//	public String postGoodsModify(GoodsVO vo, MultipartFile file, HttpServletRequest req) throws Exception {
-//	 logger.info("post goods modify");
-//
-//	 // 새로운 파일이 등록되었는지 확인
-//	 if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
-//	  // 기존 파일을 삭제
-//	  new File(uploadPath + req.getParameter("gdsImg")).delete();
-//	  new File(uploadPath + req.getParameter("gdsThumbImg")).delete();
-//	  
-//	  // 새로 첨부한 파일을 등록
-//	  String imgUploadPath = uploadPath + File.separator + "imgUpload";
-//	  String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
-//	  String fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
-//	  
-//	  vo.setGdsImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
-//	  vo.setGdsThumbImg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
-//	  
-//	 } else {  // 새로운 파일이 등록되지 않았다면
-//	  // 기존 이미지를 그대로 사용
-//	  vo.setGdsImg(req.getParameter("gdsImg"));
-//	  vo.setGdsThumbImg(req.getParameter("gdsThumbImg"));
-//	  
-//	 }
-//	 
-//	 adminService.goodsModify(vo);
-//	 
-//	 return "redirect:/admin/index";
-//	}
 	
 	@RequestMapping("deleteDiary.di")
 	public String deleteDiary() {
 		
 		return "diary/deleteDiary";
 		
+	}
+	
+	
+	//갤러리 테스트
+//		@RequestMapping(value="showGallery.di", method=RequestMethod.GET)
+//		public ModelAndView selectGallery(@RequestParam String mno, HttpSession session) {
+//			
+//			System.out.println("컨트롤러 mno : " + mno);
+//			
+//			Diary d = ds.selectGallery(mno);
+//			Attachment a = ds.selectAttachment(mno);
+//			
+//			System.out.println("다이어리 : " + d);
+//			System.out.println("다이어리 이미지 : " + a);
+//					
+//			ModelAndView mav = new ModelAndView();
+//			mav.setViewName("gallery/selectGallery");
+//			mav.addObject("gallery", ds.selectGallery(mno));
+//			
+//			mav.addObject("d", d);
+//			mav.addObject("a", a);
+//			
+//			return mav;
+//			
+//		}
+//		
+	
+	@RequestMapping("showGallery.di")
+	public String selectGallery(HttpServletRequest request, Attachment a, HttpSession session, Member m, Model model ) {
+		
+		m = (Member) session.getAttribute("loginUser");
+		a.setPno(m.getMno());
+		
+		List<Object> list = ds.selectGallery(a);
+		
+		model.addAttribute("list", list);
+		
+		return "gallery/selectGallery";
 	}
 
 }

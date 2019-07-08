@@ -52,7 +52,7 @@
 						<th>번호</th>
 						<th>제목</th>
 						<th>등록일</th>
-						<th>참견</th>
+						<!-- <th>참견</th> -->
 					</tr>
 				</thead>
 				<tbody>
@@ -62,7 +62,7 @@
 				<c:forEach var="i" begin="0" end="${fn:length(diaryList)-1}" varStatus="st">
 					<tr>
 						<td><input type="hidden" value="${ diaryList[i].bNo }" id="dListBno"/></td>
-						<td><input type="checkbox" name="checkList" value="" /></td>
+						<!-- <td><input type="checkbox" name="checkList" value="" /></td> -->
 						<td scope="row"><b>${st.count }</b></td>						
 						<td>${ diaryList[i].bTitle }</td>											
 						<td><fmt:formatDate value="${ diaryList[i].bWriteDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>

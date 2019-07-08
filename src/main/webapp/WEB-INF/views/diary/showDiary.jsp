@@ -66,7 +66,7 @@ tr {
 		<h1 id="fontEng" align="center">Diary Insert</h1>
 		<br /> <br /> <br />
 		<div class="tableArea">
-			<form action="insert.di" method="post" encType="multipart/form-data">
+			<form action="insert.di" name="di" onsubmit="return check()" method="post" encType="multipart/form-data">
 				<input type="hidden" name="mNo"	value="${ sessionScope.loginUser.mno }" />
 				<table>
 					<tr>
@@ -140,6 +140,7 @@ tr {
 			$(".modifydiaryImgSubmit").click();
 		}); */
 
+		//이미지 첨부
 		function loaddiaryImgFile(value) {
 			if (value.files && value.files[0]) {
 				var reader = new FileReader();
@@ -148,6 +149,16 @@ tr {
 				}
 				reader.readAsDataURL(value.files[0]);
 
+			}
+		}
+		
+		//이미지 미첨부 alert
+		function check(){
+			if (di.diaryImgFile.value == ""){
+				alert("사진을 등록해 주세요");
+				return false;
+			}else{
+				return true;
 			}
 		}
 	</script>

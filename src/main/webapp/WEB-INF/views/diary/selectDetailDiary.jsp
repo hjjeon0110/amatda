@@ -66,8 +66,9 @@ tr {
 		<h1 id="fontEng" align="center">Diary Detail</h1>
 		<br /> <br /> <br />
 		<div class="tableArea">
-			<form action="insert.di" method="post" encType="multipart/form-data">
+			<form action="update.di" method="post" encType="multipart/form-data">
 				<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" />
+				<input type="hidden" name="bno" value="${ d.bNo }" />
 				<table>
 				
 					<tr>
@@ -77,7 +78,8 @@ tr {
 					</tr>
 					<tr></tr>
 					<tr>
-						<td id="font">  <img id="diaryImgFile" src="${ contextPath }/resources/uploadFiles/${ a.modiName }${ a.extension }" width="500"	height="400"> 
+						<td>  
+						<img id="diaryImgFile" src="${ contextPath }/resources/uploadFiles/${ a.modiName }${ a.extension }" width="500"	height="400"> 
 						<input type="file" name="diaryImgFile" onchange="loaddiaryImgFile(this)" />
 						</td>
 					</tr>
@@ -115,8 +117,9 @@ tr {
 	<br />
 	<br />
 
-	<!-- <script>
-		/* $(".modifydiaryImgBtn").hide();
+<script>
+	<!-- 
+		$(".modifydiaryImgBtn").hide();
 		
 		$(".diaryImgDiv").mouseenter(function(){
 			$(".modifydiaryImgBtn").show();
@@ -139,8 +142,8 @@ tr {
 		
 		$(".modifydiaryImg").on("change", function() {
 			$(".modifydiaryImgSubmit").click();
-		}); */
-
+		});
+-->
 		function loaddiaryImgFile(value) {
 			if (value.files && value.files[0]) {
 				var reader = new FileReader();
@@ -151,7 +154,7 @@ tr {
 
 			}
 		}
-	</script> -->
+	</script>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 
 </body>
