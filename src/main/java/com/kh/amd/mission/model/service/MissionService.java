@@ -2,6 +2,7 @@ package com.kh.amd.mission.model.service;
 
 import java.util.List;
 
+import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.mission.model.vo.Mission;
 
 public interface MissionService {
@@ -87,6 +88,10 @@ public interface MissionService {
 	List<Mission> selectAllCalendar(int mno);
 
 	List<Mission> selectAllExCalender(int mno);
+
+	int selectTno(int mno2);
+
+	int selectTnoTno(int tno2);
 
 	
 	

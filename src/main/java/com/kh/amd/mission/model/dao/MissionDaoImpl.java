@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.mission.model.vo.Mission;
 
 
@@ -224,6 +225,38 @@ public class MissionDaoImpl implements MissionDao{
 	public List<Mission> selectAllExCalender(SqlSessionTemplate sqlSession, int mno) {
 		System.out.println("dao2 캘린더: " + mno);
 		return sqlSession.selectList("Mission.selectAllExCalender", mno);
+	}
+
+	@Override
+	public int selectTno(SqlSessionTemplate sqlSession,int mno2) {	
+		int tno = sqlSession.selectOne("Mission.selectTno", mno2);
+		int result;
+		
+		if(tno != 0) {
+			result = 1;
+		}else {
+			result = 0;
+		}
+		
+		System.out.println(result);
+		
+		return result;	
+	}
+
+	@Override
+	public int selectTnoTno(SqlSessionTemplate sqlSession, int tno2) {
+		int tno = sqlSession.selectOne("Mission.selectTnoTno", tno2);
+		int result;
+		
+		if(tno != 0) {
+			result = 1;
+		}else {
+			result = 0;
+		}
+		
+		System.out.println(result);
+		
+		return result;	
 	}
 	 
 

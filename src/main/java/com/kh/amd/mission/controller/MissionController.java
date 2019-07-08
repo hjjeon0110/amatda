@@ -4,16 +4,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.sql.Date;
 import java.util.ArrayList;
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
+import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.mission.model.service.MissionService;
 import com.kh.amd.mission.model.vo.Mission;
 @SessionAttributes("loginUser")
@@ -32,15 +30,50 @@ public class MissionController {
 	private MissionService ms;
 	
 	
+	
+	
+
+	
+	
+	
+	
 	//사용자용 캘린더 폼으로 이동
 	@RequestMapping("matching.ms")
-	public String goCalendar(Model model, String mno) {
+	public void goCalendar(Model model, HttpServletRequest request, HttpServletResponse response) {
+		String mno = request.getParameter("mno");
+		int mno2 = Integer.parseInt(mno);
+		int result = ms.selectTno(mno2);
+		System.out.println("조회결과: " + result);
+				
+		if(result == 1) {
+			try {
+				response.getWriter().print("success");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {
+			try {
+				response.getWriter().print("fail");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+				
+	
 		
 		
-
-		return "mission/mission";
 	}
 	
+	
+	
+	
+	//미션페이지 이동
+	@RequestMapping("matchinggo.ms")
+	public String goCalendar2() {
+		return "mission/mission";
+	}
 	
 	//트레이너용 미션등록 or 미션수정 선택 폼으로 이동
 	@RequestMapping("trainerMatching.ms")
@@ -51,9 +84,44 @@ public class MissionController {
 	
 	//트레이너용 미션수정하기 폼으로 이동
 	@RequestMapping("goUpdateMission.ms")
-	public String goUpdateMission() {
+	public void goUpdateMission(HttpServletRequest request,HttpServletResponse response) {
+		String tno = request.getParameter("tno");
+		System.out.println("tno: " + tno);
+		int tno2 = Integer.parseInt(tno);
+		
+		int result = ms.selectTnoTno(tno2);
+		System.out.println("goUpdateMission.ms의 result: " + result);
+		if(result == 1) {
+			try {
+				response.getWriter().print("success");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {
+			try {
+				response.getWriter().print("fail");
+	
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	
+	@RequestMapping("goUpdateMissiono.ms")
+	public String goUpdateMissionon(){
 		return "mission/tmissionUpdate";
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//트레이너용 미션등록하기 폼으로 이동
@@ -62,7 +130,7 @@ public class MissionController {
 		return "mission/tmissionInsert";
 	}
 	
-	@RequestMapping("selectAllCalender")
+	@RequestMapping("selectAllCalender.ms")
 	public void selectAllCalendar(int mno, HttpServletResponse response) {
 		System.out.println("캘린더 서블릿이다!!!!!");
 		System.out.println("selectAllCalendar의 mno: " + mno);

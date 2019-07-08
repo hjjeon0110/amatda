@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.mission.model.vo.Mission;
 
 public interface MissionDao {
@@ -87,5 +88,9 @@ public interface MissionDao {
 	List<Mission> selectAllCalendar(SqlSessionTemplate sqlSession, int mno);
 
 	List<Mission> selectAllExCalender(SqlSessionTemplate sqlSession, int mno);
+
+	int selectTno(SqlSessionTemplate sqlSession,int mno2);
+
+	int selectTnoTno(SqlSessionTemplate sqlSession, int tno2);
 
 }

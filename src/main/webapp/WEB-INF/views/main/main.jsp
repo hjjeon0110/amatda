@@ -15,7 +15,7 @@
 	<jsp:include page="../common/menubar.jsp"></jsp:include>
 	
 	<a href="matching.ms">캘린더</a>
-	<a href="goUpdateMission.ms">트레이너용 캘린더</a>
+	<a class="ttt" href="goUpdateMission.ms?tno=${sessionScope.loginUser.mno}">트레이너용 캘린더</a>
 
 	<!-- 캐러셀 영역 ---------------------------------------------------------------------------------------------------------- -->
 	<div id="carouselExampleControls" class="carousel slide"
@@ -337,10 +337,28 @@
 		    	}else{ //취소버튼
 		    		location.href="showSearchTrainerPageView.us";
 		    	}
-		}else if(${sessionScope.loginUser.mtype =='U'}  && ${sessionScope.loginUser.completeSurvey=='Y'}){
+		}/* else if(${sessionScope.loginUser.mtype =='U'}  && ${sessionScope.loginUser.completeSurvey=='Y'}){
 			
 
-		}
+		} */
+	})
+	
+	
+	$(".ttt").click(function(){
+		var tno = ${ sessionScope.loginUser.mno };
+		
+		$.ajax({
+			url:"goUpdateMission.ms",
+			data:{tno:tno},
+			success:function(data) {
+				if(data == "success") {
+					location.href="goUpdateMissiono.ms";
+				}else if(data == "fail"){
+					alert("진행중인 매칭이 없습니다!");
+					location.reload();
+				}
+			}
+		})
 	})
 	
 	</script>
