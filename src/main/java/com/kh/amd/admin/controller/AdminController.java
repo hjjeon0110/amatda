@@ -43,13 +43,13 @@ public class AdminController {
 
 	@Autowired
 	private BoardService bs;
-	
+
 	@Autowired
 	private ReplyService rs;
-	
+
 	@Autowired
 	private AdminService as;
-	
+
 	//관리자 페이지 메인(회원 정보 조회)
 	@RequestMapping("main.ad")
 	public String adminMain(Model model) {	
@@ -58,7 +58,7 @@ public class AdminController {
 		//System.out.println("회원 정보 조회 : "+userList);
 		return "admin/main";
 	}
-	
+
 	//아이디 검색 기능
 	@RequestMapping("searchUser.ad")
 	public ResponseEntity searchUser(String userId) {			
@@ -66,33 +66,42 @@ public class AdminController {
 		//System.out.println(searchResult);		
 		return new ResponseEntity(searchResult, HttpStatus.OK);
 	}
-	
-	
-	//카테고리별 검색	  
-	 @RequestMapping("filtering.ad") 
-	 public ModelAndView filteringList(@RequestParam String category,
-			 						 @RequestParam String keyword) {
-		 
-		 System.out.println("필터링 실행");
-		 List<Member> filteringList = as.filteringList(category, keyword);
-		 
-		 ModelAndView mav = new ModelAndView();
-		 //데이터를 맵에 저장
-		 Map<String, Object> map = new HashMap<String, Object>();
-		 map.put("filteringList", filteringList);
-		 map.put("category", category);
-		 map.put("keyword", keyword);
-		 //맵에 저장된 데이터를 mav에 저장
-		 mav.addObject("map", map);
-		 mav.setViewName("admin/main");	
-		 
-		 System.out.println("필터링 : " + mav);
-		 return mav;
-		 
-	 }
 
-	 
-	 
+
+	//카테고리별 검색	(회원)  
+	@RequestMapping("filtering.ad") 
+	public ResponseEntity<Map<String, Object>> filteringList(@RequestParam String category,
+			@RequestParam String keyword) {
+
+		//System.out.println("필터링 실행");
+		List<Member> filteringList = as.filteringList(category, keyword);
+
+		//데이터를 맵에 저장
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("filteringList", filteringList);
+
+		//System.out.println("필터링 : " + map);
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+
+	}
+
+	//카테고리별 검색	(트레이너)  
+	@RequestMapping("T_filtering.ad") 
+	public ResponseEntity<Map<String, Object>> T_filteringList(@RequestParam String category,
+			@RequestParam String keyword) {
+
+		//System.out.println("필터링 실행");
+		List<Member> filteringList = as.T_filteringList(category, keyword);
+
+		//데이터를 맵에 저장
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("filteringList", filteringList);
+
+		//System.out.println("필터링 : " + map);
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+
+	}
+
 
 	//트레이너 조회
 	@RequestMapping("trainer.ad")
@@ -245,7 +254,7 @@ public class AdminController {
 	//1:1문의 상세보기
 	@RequestMapping(value="QNASelectOne.ad", method=RequestMethod.GET)
 	public ModelAndView QNASelectOne(@RequestParam int bNo, HttpSession session,
-										Model model){
+			Model model){
 
 		//조회수 증가
 		bs.increaseViewcnt(bNo, session);
@@ -253,24 +262,24 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("admin/QNASelectOne"); 
 		mav.addObject("QNA",bs.QNASelectOne(bNo));
-		
+
 		//System.out.println("상세보기  : " + mav);
-		
+
 		//댓글 목록
 		List<Reply> repList = rs.replyList(bNo);
 		model.addAttribute("repList", repList);
-		
+
 		return mav;
 	}
 
-	
+
 	//1:1문의 글 삭제
 	@RequestMapping("deleteQNA.ad")
 	public String deleteQNA(@RequestParam int bNo) {
 		bs.deleteQNA(bNo);
 		return "redirect:QNA.ad";
 	}
-	
+
 	//댓글 입력
 	@RequestMapping("insertReply.ad")
 	public void insertReply(@ModelAttribute Reply reply, HttpServletResponse response) {
@@ -285,7 +294,7 @@ public class AdminController {
 		List<Payment> paymentList = as.paymentList();
 		model.addAttribute("paymentList", paymentList);
 		//System.out.println("결제내역관리 : " + paymentList);
-		
+
 		return "admin/membershipList";
 	}
 
@@ -296,8 +305,29 @@ public class AdminController {
 		List<Payment> refundList = as.refundList();
 		model.addAttribute("refundList", refundList);
 		//System.out.println("환불내역 : " + refundList);
-	
+
 		return "admin/refundList";
+	}
+
+	//환불 승인 처리
+	@RequestMapping("refundAgree.ad")
+	public String refundAgree(@RequestParam int payNo) {	  
+		System.out.println("승인 시도");
+		as.refundAgree(payNo); 
+		return "admin/refundList"; 
+	}
+
+	//카테고리별 검색	(환불상태)  
+	@RequestMapping("refundStatus.ad") 
+	public ResponseEntity<Map<String, Object>> refundStatus(@RequestParam String keyword) {
+
+		List<Payment> filteringList = as.refundStatus(keyword);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("filteringList", filteringList);
+
+		System.out.println(map);
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+
 	}
 
 	//신고관리 페이지

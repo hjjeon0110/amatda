@@ -27,7 +27,7 @@
 	-->
 <style>
 	#userId{
-	margin-left:600px;
+	margin-left:450px;
 }
 	
 </style>
@@ -122,12 +122,16 @@
 					class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
 					<h2 class="tm-block-title">트레이너 조회</h2>
 
-					<select class="custom-select">
-						<option value="0">카테고리별 조회</option>
-						<option value="1">성별</option>
-						<option value="2">나이대</option>
-						<option value="2">매칭상태</option>
+			<!-- 필터링 검색 -->
+					<select class="custom-select" onchange="categoryChange(this)" id="category" name="category">
+						<option>카테고리별 조회</option>
+						<option value="gender">성별</option>
+						<option value="age">나이대</option>
 					</select> 
+					
+				<select class="custom-select" id="keyword" name="keyword">
+						<option>구분</option>
+					</select>	
 					
 			<!-- 아이디 검색 -->		
 			 <input id="userId"  name="userId" type="text"  placeholder="아이디 입력">
@@ -196,10 +200,76 @@
   									   data[0].email + "</td></tr>";
   				$(".table > tbody").append(table);
   				
+  				
   			}
-  		}) 
+  		})
   	})
- 
+  	
+  	function categoryChange(e){
+  		var gender = ["남자", "여자"];
+  		var age = ["20대", "30대", "40대", "50대"];
+  		var keyword = document.getElementById("keyword");
+ 	
+  		if(e.value == "gender") var value = gender;
+  		else if (e.value == "age") var value = age;
+  		
+  		console.log("값 : " + value);
+  		
+  		for(key in value){
+  			var opt = document.createElement("option");
+  			opt.value = value[key];
+  			opt.innerHTML = value[key];
+  			keyword.appendChild(opt);
+  		}
+  		
+		
+  	$('#keyword').change(function(){
+  	  		
+  	 		var category = $("select[name=category]").val();  
+  	  		var keyword=$(this).val();
+  	  		//console.log(category);
+  	  				
+  	  		var filter = {category:category, keyword:keyword};
+  	  		//console.log(filter);
+
+  	  		 $.ajax({
+  	  			url:"T_filtering.ad",
+  	  			data:filter,
+  	  			type:"get",
+  	  			success:function(data){
+  	  				console.log(data);
+  	  				$(".table > tbody").children().remove();
+  	  				
+  	  				var index = data.filteringList;
+  	  				console.log(index);
+  	  				
+  	  			for(var i = 0 ; i<index.length; i++){
+  	  					//console.log(index[i].name);
+  	  					
+  	  					var table="<tr><td>" + (i+1) + "</td><td>" + 
+  						  index[i].userId + "</td><td>" + 
+  						  index[i].name + "</td><td>" + 
+  						  index[i].gender + "</td><td>" +
+  						  index[i].tage + "</td><td>" + 
+  						  index[i].email + "</td></tr>";
+  							$(".table > tbody").append(table);
+  	  				
+  	  					
+  	  				}
+  	  				
+  	  				
+  	  				
+  	  		
+  	  			
+
+  	  				 
+  	  			}
+  	  		}) 
+  	  		
+  	  	}) 
+  	  			
+  	  	}
+
 
   </script>
 

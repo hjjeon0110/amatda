@@ -51,12 +51,31 @@ public class AdminServiceImpl implements AdminService{
 		return ad.searchUser(sqlSession, userId);
 	}
 
-	//카테고리별 조회
+	//카테고리별 조회(회원)
 	@Override
 	public List<Member> filteringList(String category, String keyword) {
 		return ad.filteringList(sqlSession, category, keyword);
 	}
 
+	//카테고리별 조회(트레이너)
+	@Override
+	public List<Member> T_filteringList(String category, String keyword) {
+		return ad.T_filteringList(sqlSession, category, keyword);
+	}
+
+	//카테고리별 조회(환불상태)
+	@Override
+	public List<Payment> refundStatus(String keyword) {
+		return ad.refundStatus(sqlSession, keyword);
+	}
+
+	//환불 승인 처리
+	@Override
+	public int refundAgree(int payNo) {
+		return ad.refundAgree(sqlSession, payNo);
+	}
+
+	
 
 
 

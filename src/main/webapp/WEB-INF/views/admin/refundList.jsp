@@ -41,17 +41,17 @@
 	left: 50%;
 	top: 50%;
 	z-index: 11;
-	background: #fff;
+	background: #435c70;
 }
 
 #modalConfirm {
-	color: #435c70;
+	color: #fff;
 	text-align: center;
 	margin-top: 100px;
 }
 
 #modalContent {
-	color: #435c70;
+	color: #fff;
 	text-align: center;
 	margin-top: 50px;
 }
@@ -74,6 +74,7 @@
 
 #button {
 	margin-top: 80px;
+	margin-left: 100px;
 }
 
 #agree {
@@ -126,8 +127,8 @@
 						</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item" href="notice.ad">공지사항</a> <a
-									class="dropdown-item" href="#">자주 묻는 질문</a> <a
-									class="dropdown-item" href="#">1:1문의</a>
+									class="dropdown-item" href="FAQ.ad">자주 묻는 질문</a> <a
+									class="dropdown-item" href="QNA.ad">1:1문의</a>
 							</div></li>
 
 						<li class="nav-item dropdown"><a
@@ -174,10 +175,12 @@
 					class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
 					<h2 class="tm-block-title">환불 관리</h2>
 
-					<select class="custom-select">
-						<option value="0">상태</option>
-						<option value="1">요청중</option>
-						<option value="2">승인</option>
+				<!-- 필터링 검색 -->
+					<select class="custom-select" id="keyword" name="keyword">
+						<option>상태</option>
+						<option value="환불요청">요청중</option>
+						<option value="환불승인">승인</option>
+						<option value="환불거절">거절</option>
 					</select>
 
 					<table class="table">
@@ -198,6 +201,7 @@
 
 								<tr>
 									<th scope="row"><b>${ status.count }</b>
+									<input type="text" id="payNo" value="${list.payNo }"></th>
 									<td>${ list.userId }</td>
 									<td>멤버쉽${ list.membershipType }</td>
 									<td>${ list.payDate }</td>
@@ -210,11 +214,12 @@
 												<div id="modalLayer">
 													<div class="modalContent">
 														<h5 id="modalConfirm">
-															<strong>승인 하시겠습니까?</strong>
+															<strong>환불 요청을 승인 하시겠습니까?</strong>
 														</h5>
 														<div id="button">
-															<button type="button">확인</button>
-															<button type="button">취소</button>
+															<a href="refundAgree.ad?payNo=${ list.payNo}" class="button">승인</a>															
+															<a href="#" class="button">거절</a>
+														
 														</div>
 													</div>
 												</div>
@@ -282,6 +287,41 @@
 				button.focus();
 			});
 		});
+		
+		$('#keyword').change(function(){
+			var keyword=$(this).val();
+			console.log(keyword);
+			
+			$.ajax({
+				url:"refundStatus.ad",
+				data:{keyword:keyword},
+				type:"get",
+				success:function(data){
+					var index = data.filteringList;
+	  				
+	  				
+	  				$(".table > tbody").children().remove();
+	  				
+	  				for(var i = 0 ; i<index.length; i++){
+	  					
+	  					
+	  
+	  					
+	  					var table="<tr><td>" + (i+1) + "</td><td>" + 
+						  index[i].userId + "</td><td>" +  
+						  "멤버쉽" + index[i].membershipType + "</td><td>" +
+						  index[i].payDate + "</td><td>" + 
+						  index[i].refundReason+ "</td><td>" +
+						  index[i].process+ "</td></tr>";
+							$(".table > tbody").append(table);
+	  				
+							
+							
+	  					
+	  				}
+				}
+			})
+		})
 	</script>
 
 

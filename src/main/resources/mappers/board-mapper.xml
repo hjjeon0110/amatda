@@ -110,7 +110,6 @@
 	</select>
 
  	<!-- 자주 묻는 질문 상세조회(김선아) -->
- 	
 	<select id="FAQSelectOne" resultMap="boardResultSet">
 		SELECT *
 		FROM (SELECT * FROM BOARD WHERE BTYPE = 3)

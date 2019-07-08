@@ -82,7 +82,7 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	</select>
 	
 	
-	<!-- 카테고리별 검색 -->
+	<!-- 카테고리별 검색(회원) -->
 	<select id="filteringList" resultMap="memberResultSet">
 	SELECT M.*, S.UAGE
 		FROM MEMBER M
@@ -97,6 +97,37 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 			</when>	
 		</choose>
 	</select>
+	
+	<!-- 카테고리별 검색(트레이너) -->
+	<select id="T_filteringList" resultMap="memberResultSet">
+		SELECT M.*, I.TAGE
+        FROM MEMBER M
+        JOIN TUSER_INFO I ON (MNO = TNO)
+        WHERE MTYPE = 'T'
+	    <choose>
+			<when test = "category == 'gender'">
+				AND GENDER = #{keyword}
+			</when>
+			<when test = "category == 'age'">
+				AND TAGE = #{keyword}
+			</when>	
+		</choose>
+	</select>
 
+	<!-- 카테고리별 검색(환불상태) -->
+	<select id="refundStatus" resultMap="paymentResultSet">
+		SELECT *
+		FROM PAYMENT P 
+		JOIN MEMBERSHIP USING(MEMBERSHIP_NO)
+		JOIN MEMBER M ON(TNO = MNO)
+		WHERE PROCESS LIKE #{keyword}
+	</select>
+	
+	<!-- 환불 요청 승인 -->
+	<update id="agree">
+		UPDATE PAYMENT
+		SET PROCESS = '환불승인'
+		WHERE PAY_NO = #{payNo}
+	</update>
 </mapper>
 
