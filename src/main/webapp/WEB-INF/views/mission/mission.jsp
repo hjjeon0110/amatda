@@ -29,7 +29,7 @@
 
 
   document.addEventListener('DOMContentLoaded', function() {
-	  
+	
 	  
 	  
     var calendarEl = document.getElementById('calendar');

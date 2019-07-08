@@ -233,11 +233,8 @@ public class TrainerController {
 				}
 			//목록을 조회해서 해당 리스트가 몇개인지 확인 
 			int listCount = ts.getSearchUserListCount();
-			
-			
+
 			PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
-			
-			
 			
 			//리스트 조회
 			List<Member> uInfoList = ts.showUserList(pi);
@@ -247,6 +244,9 @@ public class TrainerController {
 				String changeExcer = member.getSurvey().getHopeExercise().replaceAll(",", " #");
 				member.getSurvey().setHopeExercise(changeExcer);
 			}
+			
+			System.out.println("회원 리스트 ? : " + uInfoList); 
+			
 			
 			model.addAttribute("list", uInfoList);
 			model.addAttribute("pi", pi);

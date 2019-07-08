@@ -140,7 +140,6 @@
 			<option value="join" >신규가입순</option>
 			<option value="start">운동시작일순</option>
 			<option value="excerPeriod">운동개월수순</option>
-			
 		</select> <br>
 		<br>
 		
@@ -216,8 +215,8 @@
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">닫기</button>
 							<button type="button" class="btn btn-primary" name="estimateOpen"
-								class="btn btn-primary" data-toggle="modal"
-								data-target="#estimateSendModal${ user.mno }">내 견적서 열기</button>
+								class="btn btn-primary" data-toggle="modal" value="${ user.mno }"
+								data-target="#estimateSendModal${ user.mno }" onclick="openEstimate(this)">내 견적서 열기</button>
 						</div>
 					</div>
 				</div>
@@ -232,24 +231,24 @@
 						</div>
 						<div class="modal-body">
 							<div class="subMenuBar">
-						      <div class="subMenuBar1" id="existingEstimate">기존견적서 불러오기</div>
-						      <div class="subMenuBar2" id="writeNewEstimate">견적서 새로 작성하기<input type="hidden" value="3"></div>
+						      <div class="subMenuBar1">기존견적서 불러오기</div>
+						      <div class="subMenuBar2" onclick="writeEstimate()">견적서 새로 작성하기<input type="hidden" value="3"><input type="hidden" class="uno2" value="uuno"></div>
 						  	</div>
 						  	<br />&nbsp;&nbsp;&nbsp;&nbsp;
-						  	<select name="estimateType">
-						  		<option value="3">최근견적서</option>
+						  	<select name="estimateType" id="estimateType" onchange="estimateChange()">
 						  		<option value="1">견적서1</option>
 						  		<option value="2">견적서2</option>
+						  		<option value="3">최근견적서</option>
 						  	</select>
 						  	<label class="subTitle" id="estimateNew">견적서를 새로 작성해보세요!</label>
 							<br />
 					<div class="estimateDiv">
-						<input type="hidden" name="tno" id="tno" value="${ sessionScope.loginUser.mno }" /> 
-						<input type="hidden" name="estType" id="estType" value="1" /> 
+						<input type="hidden" name="tno" value="${ sessionScope.loginUser.mno }" /> 
+						<input type="hidden" name="estType" value="1" /> 
 						<br>
 						<label class="subTitle">제목</label> 
 						<br>
-						<input type="text" id="estName" name="estName" placeholder="견적서 제목을 입력해주세요" value="${ estimate.estName }" readonly />
+						<input type="text" id="estName" name="estName" placeholder="견적서 제목을 입력해주세요" value="" readonly />
 						<br><br>
 						<label class="subTitle">커리큘럼</label> 
 						<br>
@@ -257,7 +256,7 @@
 						<br><br>
 						<label class="subTitle" >개월수</label>
 				        <br>
-					    <select name="estDay" id="estDay" readonly>
+					    <select name="estDay" id="estDay" >
 					       <option value="30">1개월</option>
 					       <option value="60">2개월</option>
 					       <option value="90">3개월</option>
@@ -274,7 +273,7 @@
 						<br><br>
 						<label class="subTitle">가격</label>
 						<br>
-						<input type="number" name="estPrice" id="estPrice" placeholder="가격을 입력해주세요" value="${ estimate.estPrice }" readonly/>
+						<input type="number" name="estPrice" id="estPrice" placeholder="가격을 입력해주세요" value="" readonly/>
 						<br>
 						
 					</div>
@@ -348,31 +347,65 @@
 	function selectChange(){
 		var value = $("option:selected").val();
 		location.href="userListSort.tr?sort=" + value;
+		
 	}
 	
-	$("button[name=estimateOpen]").click(function(){
-		var mno = ${sessionScope.loginUser.mno}
-		var estType = "1";
-		console.log(mno);
-		console.log(estType);
-		alert("견적서열기 들어옴");
+	//견적서 변경시 마다 값 호출하기
+	function estimateChange() {
+		var estType = $("select[name=estimateType]").val();
+		var mno = ${sessionScope.loginUser.mno};
+		console.log("estVal : " + estType);
 		$.ajax({
 			url:"ajaxshowMyPageEstimate.tr",
 			data:{mno:mno, estType:estType},
 			type:"get",
             dataType:"json",
             success:function(data){
-            	 $("#estName").val(data.estName);
-                 $("#estContents").val(data.estContents);
-                 $("#estDay").val(data.estDay);
-                 $("#estPrice").val(data.estPrice);
-                 $("#estDay").val(data.estDay).prop("selected", true);
+            	if(data != null){
+            	 $("input[name=estName]").val(data.estName);
+                 $("textarea[name=estContents]").val(data.estContents);
+                 $("input[name=estPrice]").val(data.estPrice);
+                 $("select[name=estDay]").val(data.estDay).prop("selected", true);
+            	}else{
+            	 alert("견적서가 없습니다!");
+            	 $("input[name=estName]").val("");
+            	 $("textarea[name=estContents]").val("");
+                 $("select[name=estDay]").val(30).prop("selected", true);
+                 $("input[name=estPrice]").val("");
+            	}
+            }
+		})
+	}
+	
+	//견적서 열기 클릭시
+	$("button[name=estimateOpen]").click(function(){
+		
+		var mno = ${sessionScope.loginUser.mno}
+		var estType = "1";
+		$.ajax({
+			url:"ajaxshowMyPageEstimate.tr",
+			data:{mno:mno, estType:estType},
+			type:"get",
+            dataType:"json",
+            success:function(data){
+            	if(data != null){
+            	 $("input[name=estName]").val(data.estName);
+                 $("textarea[name=estContents]").val(data.estContents);
+                 $("input[name=estPrice]").val(data.estPrice);
+                 $("select[name=estDay]").val(data.estDay).prop("selected", true);
+            	}else{
+            	 alert("견적서가 없습니다!");
+            	 $("input[name=estName]").val("");
+            	 $("textarea[name=estContents]").val("");
+                 $("select[name=estDay]").val(30);
+                 $("select[name=estDay]").val(data.estDay).prop("selected", true);
+                 $("input[name=estPrice]").val("");
+            	}
             }
 		})
 		
 	})
-	
-	
+
 	
 	//기존 견적서 클릭
 	$("#existingEstimate").mouseenter(function(){
@@ -417,7 +450,22 @@
 		        return ;
 		    }
 	})
-		
+	
+	//새로만들기 클릭시
+	function openEstimate(value) {
+		var uno = $(value).val();
+		console.log("uno : " + uno);
+		$(".subMenuBar2").children().eq(1).attr("value", uno);
+		console.log("새로견적서작성 : " + $(".subMenuBar2").children().eq(1).val());
+				
+	}
+		function writeEstimate(){
+		var mno = ${ sessionScope.loginUser.mno };
+		var uno = $(".subMenuBar2").children().eq(1).val();
+		console.log("넘어온 uno : " + uno);
+		console.log("견적서 mno : " + mno);
+	}
+	
 
 	
 	
