@@ -17,6 +17,7 @@ public interface DeclarationService {
 	//신고게시물 삭제(김선아)
 	void deleteDeclaration(int decl_no);
 
+	//신고게시물 전송(SR)
 	int insertDeclaration(Declaration d);
 
 

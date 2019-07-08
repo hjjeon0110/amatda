@@ -15,6 +15,7 @@ public interface DeclarationDao {
 	//게시물 삭제(김선아)
 	void deleteDeclaration(SqlSessionTemplate sqlSession, int decl_no);
 
+	//신고게시물 전송(SR)
 	int insertDeclaration(SqlSessionTemplate sqlSession, Declaration d);
 	
 

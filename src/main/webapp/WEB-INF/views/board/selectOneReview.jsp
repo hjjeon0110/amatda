@@ -130,7 +130,7 @@
 		<%-- <td>${selectOneReview.bTitle }</td> --%>
 		
 		<input type="hidden" id="bNo" value="${selectReview.bNo }">
-		<input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.userId }" />
+		<input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.userId }" >
 		<p>${selectOneReview.bTitle }</p>
 		<p></p>
 		<p></p>
@@ -154,9 +154,10 @@
 		<!-- <input type="text" id="replybox" placeholder="내용을 입력하세요.">
 		<button type="button" class="btn btn-primary" data-toggle="modal" 
         data-target="#my80sizeCenterModal">작성</button> -->
+        </div>
 	</c:forEach>
-	</form>
 	</table>
+	</form>
 	</div>
 	
 	<br><br><br><br><br><br><br><br><br>

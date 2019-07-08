@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.amd.board.model.dao.BoardDao;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.member.model.vo.Member;
 
 
 @Service
@@ -225,6 +226,12 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public List<Board> cateResult(String bmCate) {
 		return bd.cateResult(sqlSession, bmCate);
+	}
+
+	// FAQ 게시판 총 제목&내용으로 검색(SR)
+	@Override
+	public List<Board> searchResultFaq(Board b) {
+		return bd.searchResultFaq(sqlSession,b);
 	}
 
 

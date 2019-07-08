@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.member.model.vo.Member;
 
 
 public interface BoardDao {
@@ -101,8 +102,11 @@ public interface BoardDao {
 	//공지사항/이벤트 게시판 검색 !!! (SR)
 	List<Board> searchResult(SqlSessionTemplate sqlSession, Board b);
 
-	//FAQ 게시판 카테고리별 클릭시 출력(AJAX)
+	//FAQ 게시판 카테고리별 클릭시 출력(AJAX) (SR)
 	List<Board> cateResult(SqlSessionTemplate sqlSession, String bmCate);
+
+	// FAQ 게시판 총 제목&내용으로 검색(SR)
+	List<Board> searchResultFaq(SqlSessionTemplate sqlSession, Board b);
 
 	//int insertQna(SqlSessionTemplate sqlSession, Board b, String mno);
 
