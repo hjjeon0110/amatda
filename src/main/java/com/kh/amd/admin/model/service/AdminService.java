@@ -23,9 +23,19 @@ public interface AdminService {
 	//아이디 검색 
 	List<Member> searchUser(String userId);
 
-	//카테고리별 검색
+	//카테고리별 검색(회원)
 	List<Member> filteringList(String category, String keyword);
 
+	//카테고리별 검색(트레이너)
+	List<Member> T_filteringList(String category, String keyword);
+
+	//카테고리별 검색(환불상태)
+	List<Payment> refundStatus(String keyword);
+
+	//환불 승인 처리
+	int refundAgree(int payNo);
+
+	
 
 
 

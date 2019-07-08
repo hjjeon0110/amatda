@@ -252,18 +252,27 @@
   			data:filter,
   			type:"get",
   			success:function(data){
-  				
-  				var value = '${filteringList}';
-  				console.log(value);
+  				console.log(data);
   				$(".table > tbody").children().remove();
-  				/* var table="<tr><td>" + 1 + "</td><td>" + 
-  									   data[0].userId + "</td><td>" + 
-  									   data[0].name + "</td><td>" + 
-  									   data[0].gender + "</td><td>" +
-  									   data[0].uage + "</td><td>" + 
-  									   data[0].email + "</td></tr>";
-  				$(".table > tbody").append(table); */
-  				 
+  				
+  				var index = data.filteringList;
+  				console.log(index);
+  				
+  				for(var i = 0 ; i<index.length; i++){
+  					//console.log(index[i].name);
+  					
+  					var table="<tr><td>" + (i+1) + "</td><td>" + 
+					  index[i].userId + "</td><td>" + 
+					  index[i].name + "</td><td>" + 
+					  index[i].gender + "</td><td>" +
+					  index[i].uage + "</td><td>" + 
+					  index[i].email + "</td></tr>";
+						$(".table > tbody").append(table);
+  				
+  					
+  				}
+  				
+ 
   			}
   		}) 
   		

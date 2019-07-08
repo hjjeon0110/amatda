@@ -43,13 +43,36 @@ public class AdminDaoImpl implements AdminDao{
 		return sqlSession.selectList("Admin.searchUser", userId);
 	}
 
-	//카테고리별 조회
+	//카테고리별 조회(회원)
 	@Override
 	public List<Member> filteringList(SqlSessionTemplate sqlSession, String category, String keyword) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("category", category);
 		map.put("keyword", keyword);
 		return sqlSession.selectList("Admin.filteringList", map);
+	}
+
+	//카테고리별 조회(트레이너)
+	@Override
+	public List<Member> T_filteringList(SqlSessionTemplate sqlSession, String category, String keyword) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("category", category);
+		map.put("keyword", keyword);
+		return sqlSession.selectList("Admin.T_filteringList", map);
+	}
+
+	//카테고리별 조회(환불상태)
+	@Override
+	public List<Payment> refundStatus(SqlSessionTemplate sqlSession, String keyword) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("keyword", keyword);
+		return sqlSession.selectList("Admin.refundStatus", map);
+	}
+
+	//환불 승인 처리
+	@Override
+	public int refundAgree(SqlSessionTemplate sqlSession, int payNo) {
+		return sqlSession.update("Admin.refundAgree", payNo);
 	}
 
 

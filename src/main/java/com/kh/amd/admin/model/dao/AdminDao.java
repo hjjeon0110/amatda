@@ -25,8 +25,17 @@ public interface AdminDao {
 	//아이디 검색
 	List<Member> searchUser(SqlSessionTemplate sqlSession, String userId);
 
-	//카테고리별 조회
+	//카테고리별 조회(회원)
 	List<Member> filteringList(SqlSessionTemplate sqlSession, String category, String keyword);
+
+	//카테고리별 조회(트레이너)
+	List<Member> T_filteringList(SqlSessionTemplate sqlSession, String category, String keyword);
+
+	//카테고리별 조회(환불상태)
+	List<Payment> refundStatus(SqlSessionTemplate sqlSession, String keyword);
+
+	//환불 승인 처리
+	int refundAgree(SqlSessionTemplate sqlSession, int payNo);
 
 
 
