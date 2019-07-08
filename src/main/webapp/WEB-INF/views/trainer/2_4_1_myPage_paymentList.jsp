@@ -129,7 +129,7 @@
 	<!-- 결제 내역 영역 ------------------------------------------------------------------------------------------------- -->
 	<div class="reviewDiv">
 		<br /><br /><br />
-		<label class="subTitle">내결제 내역</label>
+		<label class="subTitle">내결제 내역(최근 요청일 순)</label>
 		<br /><br />
 		<table class="reviewTable">
 			<thead>
@@ -188,6 +188,7 @@
 			<c:if test="${ pi.currentPage > 1}">
 				<c:url var="blistBack" value="paymentList.tr">
 					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+					<c:param name="tno" value="${ sessionScope.loginUser.mno }"/>
 				</c:url>
 				<a href="${ blistBack }">[이전]</a> &nbsp;
 			</c:if>
@@ -198,6 +199,7 @@
 				<c:if test="${ p ne pi.currentPage }">
 					<c:url var="blistCheck" value="paymentList.tr">
 						<c:param name="currentPage" value="${ p }"/>
+						<c:param name="tno" value="${ sessionScope.loginUser.mno }"/>
 					</c:url>
 					<a href="${ blistCheck }">${ p }</a>
 				</c:if>
@@ -210,6 +212,7 @@
 			<c:if test="${ pi.currentPage < pi.maxPage }">
 				<c:url var="blistEnd" value="paymentList.tr">
 					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+					<c:param name="tno" value="${ sessionScope.loginUser.mno }"/>
 				</c:url>
 				<a href="${ blistEnd }">&nbsp;[다음]</a>
 			</c:if>

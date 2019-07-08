@@ -1,22 +1,14 @@
 package com.kh.amd.trainer.controller;
 
 import java.io.File;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,20 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.common.CommonUtils;
 import com.kh.amd.common.Pagination;
 import com.kh.amd.member.model.vo.Member;
+import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.service.TrainerService;
 import com.kh.amd.trainer.model.vo.Estimate;
 import com.kh.amd.trainer.model.vo.Payment;
 import com.kh.amd.trainer.model.vo.Profile;
-import com.kh.amd.board.model.vo.PageInfo;
-import static com.kh.amd.common.Pagination.*;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -74,53 +65,22 @@ public class TrainerController {
 	 */
 	
 	
-	   //견적서 select 보기 메소드(김진환)
+	   //견적서 ajax로 select 보기 메소드(김진환)
 	   @RequestMapping("ajaxshowMyPageEstimate.tr")
-	   public void ajaxshowMyPageEstimate(HttpServletRequest request, HttpServletResponse response, int mno, String estType) {
+	   public void ajaxshowMyPageEstimate(HttpServletResponse response, int mno, String estType) {
+		   System.out.println("받아온 mno : " + mno + "받아온 estType : " + estType);
 	      int iestType = Integer.parseInt(estType); 
 	      Estimate estimate = ts.selectEstimate(mno, iestType);
-	      System.out.println("estimate값 : " + estimate);
 	      
-	      System.out.println("ajax로 보낼 객체 : " + estimate);
-	      System.out.println("받아온estType : " + estType);
-	      JSONObject estiMateJson = new JSONObject();
-      
-	    
-	      
-	      
-	         if(estimate != null) {
-
-	            try {
-	               String EncodeestContents = URLEncoder.encode(estimate.getEstContents(), "UTF-8");
-	               String EncodeestContent = EncodeestContents.replaceAll("\\+", "%20");
-	               String EncodeestName = URLEncoder.encode(estimate.getEstName(), "UTF-8");
-	               String EncestName = EncodeestName.replaceAll("\\+", "%20");
-	               estiMateJson.put("estName", EncestName);
-	               estiMateJson.put("estContents", EncodeestContent);
-	               estiMateJson.put("estDay", estimate.getEstDay());
-	               estiMateJson.put("estPrice", estimate.getEstPrice());
-	               
-	               response.setContentType("application/json");
-	            } catch (UnsupportedEncodingException e) {
-	               // TODO Auto-generated catch block
-	               e.printStackTrace();
-	            }
-	            
-	            
-	         }else {
-	            response.setContentType("application/json");
-	            
-	         }
-	            try {
-	               new Gson().toJson(estiMateJson, response.getWriter());
-	            } catch (JsonIOException e) {
-	               // TODO Auto-generated catch block
-	               e.printStackTrace();
-	            } catch (IOException e) {
-	               // TODO Auto-generated catch block
-	               e.printStackTrace();
-	            }      
-	      
+          response.setContentType("application/json");
+          response.setCharacterEncoding("UTF-8");
+	      try {
+			new Gson().toJson(estimate, response.getWriter());
+			} catch (JsonIOException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	          
 	   }
 	   
 	   
@@ -154,9 +114,6 @@ public class TrainerController {
 	      int iestType = Integer.parseInt(estType);
 
 	      Estimate estimate = ts.selectEstimate(mno, iestType);
-
-	      System.out.println("받아온 iestType의 값? " + iestType);
-	      System.out.println("받아온 estimate객체 : " + estimate);
 
 	      model.addAttribute("estimate", estimate);
 
@@ -238,6 +195,7 @@ public class TrainerController {
 		   
 			model.addAttribute("payList", payment);
 			model.addAttribute("pi", pi);
+			
 		   
 		   
 		   return "trainer/2_4_1_myPage_paymentList";
@@ -269,7 +227,6 @@ public class TrainerController {
 		@RequestMapping("showUserFindPageView.tr")
 		public String showUserFindPageView(Model model, String currentPage) {
 			 int currentPageI = 1;
-			 System.out.println("헬로 유저 리스트 서블릿");
 			 
 			 if(currentPage != null) {
 					currentPageI = Integer.parseInt(currentPage);
@@ -279,18 +236,53 @@ public class TrainerController {
 			
 			
 			PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
-			pi.setLimit(5);
+			
+			
 			
 			//리스트 조회
 			List<Member> uInfoList = ts.showUserList(pi);
 			
-			System.out.println(uInfoList);
-			System.out.println(pi);
+			//설문조사 희망운동 , 를 #으로 바꾸기
+			for(Member member : uInfoList) {
+				String changeExcer = member.getSurvey().getHopeExercise().replaceAll(",", " #");
+				member.getSurvey().setHopeExercise(changeExcer);
+			}
 			
 			model.addAttribute("list", uInfoList);
 			model.addAttribute("pi", pi);
 			
 			return "trainer/1_userFindPage";
+		}
+		
+		//회원찾기 정렬 메소드(김진환)
+		@RequestMapping("userListSort")
+		public String userListSort(Model model, String sort) {
+			int currentPageI = 1;
+			//목록을 조회해서 해당 리스트가 몇개인지 확인 
+			int listCount = ts.getSearchUserListCount();
+
+			//페이징 처리를 위해 pageinfo객체 초기화
+			PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+			
+			
+
+
+			
+			//정렬 리스트 조회
+			List<Member> list = ts.userListSort(sort, pi);
+			
+			//설문조사 희망운동 , 를 #으로 바꾸기
+			for(Member member : list) {
+				String changeExcer = member.getSurvey().getHopeExercise().replaceAll(",", " #");
+				member.getSurvey().setHopeExercise(changeExcer);
+			}
+			
+			//모델 담아서 보내기
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+			
+			return "trainer/1_userFindPage";
+			
 		}
 	   
 	

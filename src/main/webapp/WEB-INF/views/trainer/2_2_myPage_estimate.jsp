@@ -145,7 +145,7 @@ select {
       <br><br><br>
       <label class="subTitle" >커리큘럼</label>
       <br><br>
-      <textarea class="curriculum" name="estContents" placeholder=" 커리큘럼을 입력해주세요"></textarea>
+      <textarea class="curriculum" name="estContents" placeholder=" 커리큘럼을 입력해주세요" style="resize: none;"></textarea>
       
       <br><br><br>
       <label class="subTitle">개월수</label>
@@ -239,6 +239,11 @@ select {
                $($("#estName").focus());
                return false;   
             }
+            if($("#estContents").val() == "" || $("#estContents").val() == null){
+            	alert("견적서 이름을 반드시 입력해주세요");
+                $($("#estContents").focus());
+                return false;  
+            }
             
             
          })
@@ -246,6 +251,7 @@ select {
       })
    
       //견적서 1, 2전환시 값을 보여주는 ajax메소드
+      //견적서 2번에 대한 메소드 작성
       $(function(){
          $("#subMenuBar2").mouseenter(function(){
             $(this).css({"cursor":"pointer"});
@@ -259,26 +265,21 @@ select {
                url:"ajaxshowMyPageEstimate.tr",
                data: {mno:mno, estType:estType},
                type:"get",
-               dataType:"json",
+               dataType :"json",
                success:function(data){
-                  console.log(data)
-                  if(data.estName== null) {
-                     
+            	   console.log(data);
+                  if(data != null) {
+                     $("#estName").val(data.estName);
+                     $("#estContents").val(data.estContents);
+                     $("#estDay").val(data.estDay);
+                     $("#estPrice").val(data.estPrice);
+                     $("#estType").attr("value", "2"); 
+                  }else {   
                      $("#estName").val("");
                      $("#estContents").val("");
                      $("#estDay").val(30);
                      $("#estPrice").val("");
                      $("#estType").attr("value", "2");                      
-                  }else {
-                     var estName = decodeURIComponent(data.estName);
-                     var estContents = decodeURIComponent(data.estContents);   
-                     console.log(data);
-                     $("#estName").val(estName);
-                     $("#estContents").val(estContents);
-                     $("#estDay").val(data.estDay);
-                     $("#estPrice").val("18000");
-                     $("#estType").attr("value", "2"); 
-                     
                   }
                   
                }
@@ -288,6 +289,7 @@ select {
 
          })
       })
+      //견적서 1번에 대한 메소드 작성
       $(function(){
          $("#subMenuBar1").mouseenter(function(){
             $(this).css({"cursor":"pointer"});
@@ -300,24 +302,22 @@ select {
                url:"ajaxshowMyPageEstimate.tr",
                data: {mno:mno, estType:estType},
                type:"get",
-               dataType:"json",
+               dataType :"json",
                success:function(data){
-                  console.log(data)
-                  if(data.estName == null) {
-                     alert("값이 없다!");
+                  console.log(data);
+                  if(data != null) {
+                	 $("#estName").val(data.estName);
+                     $("#estContents").val(data.estContents);
+                     $("#estDay").val(data.estDay);
+                     $("#estPrice").val(data.estPrice);
+                     $("#estType").attr("value", "1");                     
+                  }else { 
+                    
                      $("#estName").val("");
                      $("#estContents").val("");
                      $("#estDay").val(30);
                      $("#estPrice").val("");
-                     $("#estType").attr("value", "1");                      
-                  }else {
-                     var estName = decodeURIComponent(data.estName);
-                     var estContents = decodeURIComponent(data.estContents);   
-                     $("#estName").val(estName);
-                     $("#estContents").val(estContents);
-                     $("#estDay").val(data.estDay);
-                     $("#estPrice").val("18000");
-                     $("#estType").attr("value", "1");                      
+                     $("#estType").attr("value", "1");    
                   }
                },
                

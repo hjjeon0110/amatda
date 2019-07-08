@@ -141,7 +141,30 @@ public class TrainerDaoImpl implements TrainerDao {
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());	
 		
-		return (List) sqlSession.selectList("Trainer.showUserList", null, rowBounds);
+		List<Member> list = null;
+		
+		list = (List) sqlSession.selectList("Trainer.showUserList", null, rowBounds);
+		System.out.println("Dao에서 list : " + list);
+		
+		return list;
+	}
+	
+	//회원찾기 - 회원리스트 정렬 메소드(김진환)
+	@Override
+	public List<Member> userListSort(SqlSessionTemplate sqlSession, String sort, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());	
+		
+		
+		List<Member> list = null;
+		
+		System.out.println("Dao에서 sort : " + sort);
+		
+		list = (List) sqlSession.selectList("Trainer.userListSort", sort, rowBounds);
+		
+		return list;
 	}
 
 
@@ -325,6 +348,8 @@ public class TrainerDaoImpl implements TrainerDao {
 		
 		sqlSession.update("Trainer.deleteMedia", map);
 	}
+
+	
 
 
 
