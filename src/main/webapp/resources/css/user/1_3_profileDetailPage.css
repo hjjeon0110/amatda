@@ -11,6 +11,16 @@
 
 #insertMyTrainer {
 	width:220px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+#deleteMyTrainer{
+	width:220px;
+	background:white;
+	/* border:0.5px solid #ff0066; */
+	border-style:none;
+	color:#ff2f9c;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 

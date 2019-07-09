@@ -56,14 +56,14 @@
 						</tr>
 						<tr>
 							<td><label class="trainerKeyword">${ myTrainerList[i].profile.keyword }</label></td>
-							<td></td>
+							<td><button class="goProfileDetail">프로필 보기</button></td>
 						</tr>
 						<tr>
 							<td><label class="simpleProfile">${ myTrainerList[i].profile.lineProfile}</label></td>
 							<td class="trainerListTableTd1">
 								<input type="hidden" value="${ myTrainerList[i].mno }">
 								<input type="hidden" value="${ myTrainerList[i].name }">
-								<button class="goProfileDetail">프로필 보기</button>
+								<button class="matchingStartBtn">매칭 시작하기</button>
 							</td>
 						</tr>
 					</table>
@@ -77,6 +77,22 @@
 	<!-- footer ----------------------------------------------------------------------------------------------------- -->
 	<br><br><hr><br>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
+	
+
+	<script>
+		$(".matchingStartBtn").click(function() {
+			
+			var mno = ${ sessionScope.loginUser.mno };
+			var tno = $(this).parent().children().eq(0).val();
+			var tname = $(this).parent().children().eq(1).val();
+			console.log("mno : " + mno);
+			console.log("tno : " + tno);
+			console.log("tname : " + tname);
+			
+			location.href='showProfileDetailPageView.us?mno=' + mno + "&tno=" + tno + '&tname=' + tname;
+
+		});
+	</script>
 	
 </body>
 </html>

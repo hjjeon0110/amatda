@@ -46,11 +46,11 @@
 	<!-- 추천 신입 트레이너 ----------------------------------------------------------------------------------------------------- -->
 	<div class="recommendNewTrainer">
 		<label class="recommendNewTrainerLabel" data-aos="fade-up">추천 신입 트레이너</label>
-																						<a href="survey1.su">설문조사 insert</a>&nbsp;&nbsp;
+																						<!-- <a href="survey1.su">설문조사 insert</a>&nbsp;&nbsp; -->
 																						<a href="list.su?mno=${sessionScope.loginUser.mno}">설문조사 update</a>&nbsp;&nbsp;
-																						<a href="show.di?mno=${sessionScope.loginUser.mno}">다이어리 insert</a>&nbsp;&nbsp;
+																						<%-- <a href="show.di?mno=${sessionScope.loginUser.mno}">다이어리 insert</a>&nbsp;&nbsp;
 																						<a href="list.di?mno=${sessionScope.loginUser.mno}">다이어리 list</a>&nbsp;&nbsp;
-																						<a href="showGallery.di?mno=${sessionScope.loginUser.mno}">갤러리 select</a>
+																						<a href="showGallery.di?mno=${sessionScope.loginUser.mno}">갤러리 select</a> --%>
 		<section class="blog_section">
 			<div class="container">
 				<div class="blog_content">

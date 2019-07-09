@@ -180,5 +180,10 @@
 		SELECT * FROM M_PROCESS WHERE UNO = #{mno} AND TNO = #{tno}
 	</select>
 	
+	<!-- 11. 마이트레이너 delete (전효정) -->
+	<delete id="deleteMyTrainer">
+		DELETE FROM M_PROCESS WHERE UNO = #{uno} AND TNO = #{tno}
+	</delete>
+	
 
 </mapper>

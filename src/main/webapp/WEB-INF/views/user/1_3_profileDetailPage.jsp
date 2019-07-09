@@ -219,6 +219,13 @@
 			location.href="insertMyTrainer.us?mno=" + mno + "&tno=" + tno;
 			
 		});
+		
+		$("#deleteMyTrainer").click(function() {
+			var mno = ${ sessionScope.loginUser.mno };
+			var tno = ${ tno };
+			
+			location.href="deleteMyTrainer.us?mno=" + mno + "&tno=" + tno;
+		});
 
 	</script>
 
