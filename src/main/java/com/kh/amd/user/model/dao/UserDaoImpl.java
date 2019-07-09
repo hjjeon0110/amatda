@@ -127,6 +127,19 @@ public class UserDaoImpl implements UserDao {
 	}
 
 
+	// 11. 마이트레이너 delete (전효정)
+	@Override
+	public void deleteMyTrainer(SqlSessionTemplate sqlSession, String uno, String tno) {
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", uno);
+		map.put("tno", tno);
+		
+		sqlSession.delete("User.deleteMyTrainer", map);
+		
+	}
+
+
 
 
 }

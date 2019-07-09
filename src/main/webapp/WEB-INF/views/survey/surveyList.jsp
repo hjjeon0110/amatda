@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>설문조사 조회</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/user/2_2_myPage_dietSurvey.css">
 <style>
 .outer {
 	width: 1000px;

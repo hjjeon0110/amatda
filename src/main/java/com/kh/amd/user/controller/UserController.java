@@ -118,11 +118,59 @@ public class UserController {
 	}
 	
 	
+	// 마이트레이너 등록 취소 (전효정)
+	@RequestMapping("deleteMyTrainer.us")
+	public String deleteMyTrainer(Model model, HttpServletRequest request) {
+		
+		String uno = request.getParameter("mno");
+		String tno = request.getParameter("tno");
+		
+		// 11. 마이트레이너 delete (전효정)
+		us.deleteMyTrainer(uno, tno);
+		
+		String mno = request.getParameter("mno");
+		String tname = request.getParameter("tname");
+		model.addAttribute("tno", tno);
+		model.addAttribute("tname", tname);
+		
+		// 4. 프로필 이미지 존재 여부 확인 메소드 (전효정)
+		Attachment profileImgAttachment = us.checkProfileImg(tno);
+		
+		if(profileImgAttachment != null) {
+			model.addAttribute("profileImgAttachment", profileImgAttachment);
+			String profileImgAttachmentSrc = profileImgAttachment.getModiName() + profileImgAttachment.getExtension();
+			model.addAttribute("profileImgAttachmentSrc", profileImgAttachmentSrc);		
+		}else {
+			model.addAttribute("profileImgAttachment", profileImgAttachment);
+		}
+		
+		// 5. 프로필 작성 여부 확인 (전효정)
+		Profile profile = us.checkProfile(tno);
+		model.addAttribute("profile", profile);
+		
+		// 6. 미디어 존재 여부 확인 메소드 (전효정)
+		List<Attachment> mediaAttachment = us.checkMediaAttachment(tno);					
+		model.addAttribute("mediaAttachment", mediaAttachment);
+		
+		// 7. 자격증 존재 여부 확인 메소드 (전효정)
+		List<Attachment> certificationAttachment = us.checkCertificationAttachment(tno);					
+		model.addAttribute("certificationAttachment", certificationAttachment);
+		
+		// 10. 마이트레이너 존재 여부 확인 메소드 (전효정)
+		Mprocess selectOneMyTrainer = us.selectOneMyTrainer(mno, tno);
+		model.addAttribute("selectOneMyTrainer", selectOneMyTrainer);
+		
+		return "user/1_3_profileDetailPage";
+	}
+	
+	
+	
 	// 마이페이지_다이어트정보관리 페이지 이동 (전효정)
 	@RequestMapping("showMyPageDietSurvey.us")
 	public String showMyPageDietSurveyPageView() {
 		return "user/2_2_myPage_dietSurvey";
 	}
+	
 	
 	// 마이페이지_마이트레이너 페이지 이동1 (전효정)
 	@RequestMapping("insertMyTrainer.us")
@@ -141,6 +189,7 @@ public class UserController {
 		return "user/2_3_myPage_myTrainer";
 	}
 	
+	
 	// 마이페이지_마이트레이너 페이지 이동2 (전효정)
 	@RequestMapping("showMyPageMyTrainer.us")
 	public String showMyPageMyTrainerPageView(Model model, HttpServletRequest request) {
@@ -153,6 +202,7 @@ public class UserController {
  		
 		return "user/2_3_myPage_myTrainer";
 	}
+	
 	
 	// 마이페이지_받은요청내역 페이지 이동 (전효정)
 	@RequestMapping("showMyPageRequestsReceived.us")

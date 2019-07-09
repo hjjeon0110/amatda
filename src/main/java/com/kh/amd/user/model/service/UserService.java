@@ -40,6 +40,9 @@ public interface UserService {
 	// 10. 마이트레이너 존재 여부 확인 메소드 (전효정)
 	Mprocess selectOneMyTrainer(String mno, String tno);
 	
+	// 11. 마이트레이너 delete (전효정)
+	void deleteMyTrainer(String uno, String tno);
+	
 
 
 }

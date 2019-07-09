@@ -90,6 +90,13 @@ public class UserServiceImpl implements UserService {
 	public Mprocess selectOneMyTrainer(String mno, String tno) {
 		return ud.selectOneMyTrainer(sqlSession, mno, tno);
 	}
+
+
+	// 11. 마이트레이너 delete (전효정)
+	@Override
+	public void deleteMyTrainer(String uno, String tno) {
+		ud.deleteMyTrainer(sqlSession, uno, tno);
+	}
 	
 
 

@@ -43,5 +43,8 @@ public interface UserDao {
 	// 10. 마이트레이너 존재 여부 확인 메소드 (전효정)
 	Mprocess selectOneMyTrainer(SqlSessionTemplate sqlSession, String mno, String tno);
 
+	// 11. 마이트레이너 delete (전효정)
+	void deleteMyTrainer(SqlSessionTemplate sqlSession, String uno, String tno);
+
 	
 }

@@ -177,7 +177,7 @@ public class SurveyController {
 			
 			model.addAttribute("list", surveyList);
 			
-			return "survey/surveyList";
+			return "user/2_2_myPage_dietSurvey";
 		}
 		
 	
