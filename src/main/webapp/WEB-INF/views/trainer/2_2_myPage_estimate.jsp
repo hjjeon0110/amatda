@@ -133,14 +133,14 @@ select {
    
    <!-- 견적서 값이 없을때 나올  견적서 영역 --------------------------------------------------------- -->
    <c:if test="${empty estimate}">
-   <form action="insertEstimate.tr">
+   <form action="insertEstimate.tr" name="estimanteInsert">
    <div class="estimateDiv">
       <input type="hidden" name="tno" value="${ sessionScope.loginUser.mno }"/>
       <input type="hidden" name="estType" id="estType" value="1"/>
       <br><br><br>
       <label class="subTitle">제목</label>
       <br><br>
-      <input type="text" id="estName" name="estName" value="${ estimate.estName }" placeholder=" 제목을 입력해주세요">
+      <input type="text" id="estName" name="estName" value="" placeholder=" 제목을 입력해주세요">
       
       <br><br><br>
       <label class="subTitle" >커리큘럼</label>
@@ -235,12 +235,17 @@ select {
       $(document).ready(function(){
          $('form[name=estimanteInsert]').bind('submit', function(){          
             if($("#estName").val() == "" || $("#estName").val() == null){
-               alert("견적서 이름을 반드시 입력해주세요");
+               alert("견적서 이름은 필수 입력사항입니다.");
                $($("#estName").focus());
                return false;   
             }
             if($("#estContents").val() == "" || $("#estContents").val() == null){
-            	alert("견적서 이름을 반드시 입력해주세요");
+            	alert("견적서 내용은 필수 입력사항입니다.");
+                $($("#estContents").focus());
+                return false;  
+            }
+            if($("#estPrice").val() == "" || $("#estPrice").val() == null){
+            	alert("견적서 가격은 필수 입력사항입니다.");
                 $($("#estContents").focus());
                 return false;  
             }
