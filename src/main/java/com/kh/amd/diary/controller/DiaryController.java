@@ -131,10 +131,49 @@ public class DiaryController {
 	
 	//댓글 입력
 	@RequestMapping("insertReply.di")
-	public void insertReply(@ModelAttribute Reply reply, HttpServletResponse response) {
+	public void insertReply(@ModelAttribute Reply reply, HttpServletRequest request, HttpServletResponse response) {
 		//System.out.println("댓글 입력 controller");
 		//System.out.println(reply);
-		ds.insertReply(reply);
+		String mno = request.getParameter("mno");
+		String bno = request.getParameter("bno");
+		String content = request.getParameter("content");
+		
+		int mno2 = Integer.parseInt(mno);
+		int bno2 = Integer.parseInt(bno);
+		
+		Reply rep = new Reply();
+		
+		rep.setMno(mno2);
+	
+		
+		rep.setbNo(bno2);
+		rep.setRepContent(content);
+		
+		
+		
+		
+		System.out.println("rep: "+ rep);
+		
+		int result = ds.insertReply(rep);
+		System.out.println("db갔다온 mno: " + mno);
+		System.out.println("db갔다온 bno: " + bno);
+		
+		if(result>0) {
+			try {
+				response.getWriter().print("success");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {
+			try {
+				response.getWriter().print("fail");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
 	}
 		
 

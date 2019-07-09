@@ -165,7 +165,7 @@
 	<!-- 댓글 insert -->
 	<insert id="insertReply" parameterType="Reply">
 		INSERT INTO BOARD_REPLY
-		VALUE(REP_SEQ.NEXTVAL, #{bno}, #{mno}, #{repContent}, SYSDATE, NULL, 'Y')
+		VALUES(REP_SEQ.NEXTVAL, #{bNo}, #{mno}, #{repContent}, SYSDATE, NULL, 'Y')
 	</insert>
 	
 </mapper>

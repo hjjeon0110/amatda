@@ -51,7 +51,7 @@ public interface DiaryService {
 
 
 	//댓글 insert
-	void insertReply(Reply reply);
+	int insertReply(Reply rep);
 	
 
 	//gallery
