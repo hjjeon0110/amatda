@@ -255,7 +255,7 @@ public class TrainerController {
 		}
 		
 		//회원찾기 정렬 메소드(김진환)
-		@RequestMapping("userListSort")
+		@RequestMapping("userListSort.tr")
 		public String userListSort(Model model, String sort) {
 			int currentPageI = 1;
 			//목록을 조회해서 해당 리스트가 몇개인지 확인 
@@ -283,6 +283,30 @@ public class TrainerController {
 			
 			return "trainer/1_userFindPage";
 			
+		}
+		//견적서 보내기 + 매칭스타트(견적서 있을경우)(김진환)
+		@RequestMapping("insertMatchStart.tr")
+		public String insertMatchStart(Model model, String uno, String tno, String estNo) {
+			System.out.println("tno : " + tno + "uno : " + uno + "estNo" + estNo);
+			
+			//int result = ts.insertMatchStart(tno, uno, estNo);
+			
+			//멤버객체를 가져와서 보낸요청 리스트로 리턴
+			
+			return null;
+		}
+		
+		//견적서 보내기 + 매칭스타트 메소드(견적서 없을시)(김진환)
+		@RequestMapping("insertEstMatchStart.tr")
+		public String insertEstMatchStart(Model model, String uno, String tno, String estDay, String estName, String estContents, String estPrice) {
+			
+			System.out.println(uno + " : " + tno);
+			
+			//int result = ts.insertEstMatchStart(uno, tno, estDay, estName, estContents, estPrice);
+			
+			//멤버객체를 가져와서 보낸요청 리스트로 리턴
+			
+			return null;
 		}
 	   
 	

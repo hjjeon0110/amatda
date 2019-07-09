@@ -103,9 +103,7 @@
 	   font-size:18px;
 	   float:right;
 	}
-	#estimateNew{
-		visibility: hidden;
-	}
+
 
 </style>
 </head>
@@ -231,20 +229,21 @@
 						</div>
 						<div class="modal-body">
 							<div class="subMenuBar">
-						      <div class="subMenuBar1">기존견적서 불러오기</div>
-						      <div class="subMenuBar2" onclick="writeEstimate()">견적서 새로 작성하기<input type="hidden" value="3"><input type="hidden" class="uno2" value="uuno"></div>
+						      <div class="subMenuBar1" onclick="existEstimate()">기존견적서 불러오기</div>
+						      <div class="subMenuBar2" onclick="writeEstimate()">견적서 새로 작성하기<input type="hidden" value="3"><input type="hidden" class="uno2" value=""></div>
 						  	</div>
 						  	<br />&nbsp;&nbsp;&nbsp;&nbsp;
-						  	<select name="estimateType" id="estimateType" onchange="estimateChange()">
+						  	 <!-- onchange="estimateChange()" -->
+						  	<select name="estimateType" onchange="estimateChange(this.value)">
 						  		<option value="1">견적서1</option>
 						  		<option value="2">견적서2</option>
 						  		<option value="3">최근견적서</option>
 						  	</select>
-						  	<label class="subTitle" id="estimateNew">견적서를 새로 작성해보세요!</label>
+						  	<label class="estimateNew" id="estimateNew">견적서를 새로 작성해보세요!</label>
 							<br />
 					<div class="estimateDiv">
 						<input type="hidden" name="tno" value="${ sessionScope.loginUser.mno }" /> 
-						<input type="hidden" name="estType" value="1" /> 
+						<input type="hidden" name="estNo" value=""/> 
 						<br>
 						<label class="subTitle">제목</label> 
 						<br>
@@ -283,6 +282,7 @@
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">닫기</button>
 							<button type="button" class="btn btn-primary" value="${ user.mno }" name="matchingStart">매칭 신청하기</button>
+							<button type="button" class="btn btn-primary" value="${ user.mno }" name="insertEstMatchStart">매칭 신청따리</button>
 						</div>
 						</div>
 					</div>
@@ -341,6 +341,8 @@
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	
 	<script>
+	
+	 $(".estimateNew").hide();
 	//정렬 옵션변경시 그에 맞게 정렬값을 주도록 하는 스크립트
 	$("#userListSort").change(selectChange);
 	
@@ -350,11 +352,14 @@
 		
 	}
 	
+	//$("select[name=estimateType]").change(estimateChange);
+	
 	//견적서 변경시 마다 값 호출하기
-	function estimateChange() {
-		var estType = $("select[name=estimateType]").val();
+	function estimateChange(value) {
+		var estType = value;
 		var mno = ${sessionScope.loginUser.mno};
-		console.log("estVal : " + estType);
+		console.log("estType : " + estType);
+		//console.log("estType2 : " + estType2);
 		$.ajax({
 			url:"ajaxshowMyPageEstimate.tr",
 			data:{mno:mno, estType:estType},
@@ -362,23 +367,143 @@
             dataType:"json",
             success:function(data){
             	if(data != null){
-            	 $("input[name=estName]").val(data.estName);
-                 $("textarea[name=estContents]").val(data.estContents);
-                 $("input[name=estPrice]").val(data.estPrice);
-                 $("select[name=estDay]").val(data.estDay).prop("selected", true);
+            	 $("input[name=estNo]").val(data.estNo);
+            	 $("input[name=estName]").attr("readonly", true).val(data.estName);
+                 $("textarea[name=estContents]").attr("readonly", true).val(data.estContents);
+                 $("input[name=estPrice]").attr("readonly", true).val(data.estPrice);
+                 $("select[name=estDay]").attr("disabled", true).val(data.estDay).prop("selected", true);
+                 $("select[name=estimateType]").show();
+                 $(".estimateNew").hide();
+                 $("button[name=matchingStart]").show();
+                 $("button[name=insertEstMatchStart]").hide();
             	}else{
-            	 alert("견적서가 없습니다!");
-            	 $("input[name=estName]").val("");
-            	 $("textarea[name=estContents]").val("");
-                 $("select[name=estDay]").val(30).prop("selected", true);
-                 $("input[name=estPrice]").val("");
+            		
+            	 alert("견적서가 없습니다! 새로작성해보세요!");
+            	 $("input[name=estNo]").val("");
+            	 $("input[name=estName]").attr("readonly", false).val("");
+            	 $("textarea[name=estContents]").attr("readonly", false).val("");
+                 $("select[name=estDay]").attr("disabled", false).val(30).prop("selected", true);
+                 $("input[name=estPrice]").attr("readonly", false).val("");
+                 $(".subMenuBar2").css({"background":"#ff0066", "color":"white"});
+                 $(".subMenuBar1").css({"background":"white", "color":"black"}); 
+                 $("select[name=estimateType]").hide();
+                 $(".estimateNew").show();
+                 $("button[name=matchingStart]").hide();
+                 $("button[name=insertEstMatchStart]").show();
             	}
             }
 		})
 	}
+	//새로만들기 클릭시
+	function openEstimate(value) {
+		var uno = $(value).val();
+		console.log("uno : " + uno);
+		$(".subMenuBar2").children().eq(1).attr("value", uno);
+		console.log("새로견적서작성 : " + $(".subMenuBar2").children().eq(1).val());
+		var mno = ${sessionScope.loginUser.mno}
+		var estType = "1";
+		$.ajax({
+			url:"ajaxshowMyPageEstimate.tr",
+			data:{mno:mno, estType:estType},
+			type:"get",
+            dataType:"json",
+            success:function(data){
+            	if(data != null){
+           		 $("input[name=estNo]").val(data.estNo);
+               	 $("input[name=estName]").attr("readonly", true).val(data.estName);
+                 $("textarea[name=estContents]").attr("readonly", true).val(data.estContents);
+                 $("input[name=estPrice]").attr("readonly", true).val(data.estPrice);
+                 $("select[name=estDay]").attr("disabled", true).val(data.estDay).prop("selected", true);
+                 $("select[name=estimateType]").show();
+                 $(".subMenuBar1").css({"background":"#ff0066", "color":"white"});
+                 $(".subMenuBar2").css({"background":"white", "color":"black"}); 
+                 $(".estimateNew").hide();
+                 $("button[name=matchingStart]").show();
+                 $("button[name=insertEstMatchStart]").hide();
+            	}else{
+            	 $("input[name=estNo]").val("");
+               	 $("input[name=estName]").attr("readonly", false).val("");
+               	 $("textarea[name=estContents]").attr("readonly", false).val("");
+                 $("select[name=estDay]").attr("disabled", false).val(30).prop("selected", true);
+                 $("input[name=estPrice]").attr("readonly", false).val("");
+                 $(".subMenuBar2").css({"background":"#ff0066", "color":"white"});
+                 $(".subMenuBar1").css({"background":"white", "color":"black"}); 
+                 $("select[name=estimateType]").hide();
+                 $(".estimateNew").show();
+                 $("button[name=matchingStart]").hide();
+                 $("button[name=insertEstMatchStart]").show();
+            	}
+            }
+		})
+				
+	}
+		//견적서 새로 작성
+		function writeEstimate(){
+			var mno = ${ sessionScope.loginUser.mno };
+			var uno = $(".subMenuBar2").children().eq(1).val();
+			console.log("넘어온 uno : " + uno);
+			console.log("견적서 mno : " + mno);
+			$("input[name=estNo]").val("");
+            $("input[name=estName]").attr("readonly", false).val("");
+            $("textarea[name=estContents]").attr("readonly", false).val("");
+            $("select[name=estDay]").attr("disabled", false).val(30).prop("selected", true);
+            $("input[name=estPrice]").attr("readonly", false).val("");
+            $(".subMenuBar2").css({"background":"#ff0066", "color":"white"});
+            $(".subMenuBar1").css({"background":"white", "color":"black"}); 
+            $("select[name=estimateType]").hide();
+            $(".estimateNew").show();
+            $("button[name=matchingStart]").hide();
+            $("button[name=insertEstMatchStart]").show();
+		
+		}
+		//기존견적서 작성
+		function existEstimate(){
+			var mno = ${ sessionScope.loginUser.mno };
+			var uno = $(".subMenuBar2").children().eq(1).val();
+			console.log("넘어온 uno : " + uno);
+			console.log("견적서 mno : " + mno);
+			var estType = "1";
+			$.ajax({
+				url:"ajaxshowMyPageEstimate.tr",
+				data:{mno:mno, estType:estType},
+				type:"get",
+	            dataType:"json",
+	            success:function(data){
+	            	if(data != null){
+            		 $("input[name=estNo]").val(data.estNo);
+	               	 $("input[name=estName]").attr("readonly", true).val(data.estName);
+                     $("textarea[name=estContents]").attr("readonly", true).val(data.estContents);
+                     $("input[name=estPrice]").attr("readonly", true).val(data.estPrice);
+                     $("select[name=estDay]").attr("disabled", true).val(data.estDay).prop("selected", true);
+	                 $(".subMenuBar1").css({"background":"#ff0066", "color":"white"});
+	                 $(".subMenuBar2").css({"background":"white", "color":"black"}); 
+	                 $("select[name=estimateType]").show();
+	                 $(".estimateNew").hide();
+	                 $("button[name=matchingStart]").show();
+	                 $("button[name=insertEstMatchStart]").hide();
+	            	}else{
+	            	 alert("견적서가 없습니다! 새로작성해보세요!");
+	            	 $("input[name=estNo]").val("");
+	               	 $("input[name=estName]").attr("readonly", false).val("");
+	               	 $("textarea[name=estContents]").attr("readonly", false).val("");
+	                 $("select[name=estDay]").attr("disabled", false).val(30).prop("selected", true);
+	                 $("input[name=estPrice]").attr("readonly", false).val("");
+	                 $(".subMenuBar2").css({"background":"#ff0066", "color":"white"});
+	                 $(".subMenuBar1").css({"background":"white", "color":"black"}); 
+	                 $("select[name=estimateType]").hide();
+	                 $(".estimateNew").show();
+	                 $("button[name=matchingStart]").hide();
+	                 $("button[name=insertEstMatchStart]").show();
+	                 
+	            	}
+	            }
+			})
+			
+		}
+	
 	
 	//견적서 열기 클릭시
-	$("button[name=estimateOpen]").click(function(){
+	/* $("button[name=estimateOpen]").click(function(){
 		
 		var mno = ${sessionScope.loginUser.mno}
 		var estType = "1";
@@ -393,6 +518,9 @@
                  $("textarea[name=estContents]").val(data.estContents);
                  $("input[name=estPrice]").val(data.estPrice);
                  $("select[name=estDay]").val(data.estDay).prop("selected", true);
+                 $("select[name=estimateType]").show();
+                 $(".subMenuBar1").css({"background":"#ff0066", "color":"white"});
+                 $(".subMenuBar2").css({"background":"white", "color":"black"}); 
             	}else{
             	 alert("견적서가 없습니다!");
             	 $("input[name=estName]").val("");
@@ -400,15 +528,17 @@
                  $("select[name=estDay]").val(30);
                  $("select[name=estDay]").val(data.estDay).prop("selected", true);
                  $("input[name=estPrice]").val("");
+                 $(".subMenuBar2").css({"background":"#ff0066", "color":"white"});
+                 $(".subMenuBar1").css({"background":"white", "color":"black"}); 
             	}
             }
 		})
 		
-	})
+	}) */
 
 	
-	//기존 견적서 클릭
-	$("#existingEstimate").mouseenter(function(){
+	/* //기존 견적서 클릭
+	$(".subMenubar2").mouseenter(function(){
 		 $(this).css({"cursor":"pointer"});
 	}).click(function(){
         $(this).css({"background":"#ff0066", "color":"white"});
@@ -425,46 +555,71 @@
         $("#existingEstimate").css({"background":"white", "color":"black"}); 
         $("select[name=estimateType]").hide();
         $("#estimateNew").css({"visibility": "visible"});
-	});
+	}); */
 	
 	//매칭신청하기 버튼 클릭시 
 	$("button[name=matchingStart]").click(function(){
 		var mno = $(this).val();
 		var mno2 = ${sessionScope.loginUser.mno};
+		var estNo = $("input[name=estNo]").val();
 		var userName = $("button[name=userInfoShow]").parent().parent().parent().children().children("td").eq(1).children().eq(0).text();
-		console.log("userName : " + userName)
-		console.log("mno2 : " + mno2)
-		console.log("회원mno : " + mno);
+		alert(estNo); 
 		 if(confirm(userName +"회원 님에게 매칭을 신청하시겠습니까 ?") == true){
-				/* $.ajax({
-					url:"",
-					data:{},
-					type:"get",
-					success:function(data){
-						location.reload();
-					}
-				}) */
-			       
+				location.href="insertMatchStart.tr?uno=" + mno + "&tno=" + mno2 + "&estNo=" + estNo;
 		    }
 		    else{
 		        return ;
 		    }
 	})
+	//견적서가 없을경우 입력후 매칭 시작하는 메소드
+	$("button[name=insertEstMatchStart]").click(function(){
+		var mno = $(this).val();
+		var mno2 = ${sessionScope.loginUser.mno};
+		var userName = $("button[name=userInfoShow]").parent().parent().parent().children().children("td").eq(1).children().eq(0).text();
+		var estName = $("input[name=estName]").val();
+       	var estContents = $("textarea[name=estContents]").val();
+        var estDay = $("select[name=estDay]").val();
+        var estPrice = $("input[name=estPrice]").val();
+        
+	 	if(confirm(userName +"회원 님에게 매칭을 신청하시겠습니까 ?") == true){
+	 		
+	 		 if(estName == "" || estName == null){
+	             alert("견적서 이름은 필수 입력사항입니다.");
+	             $($("input[name=estName]").focus());
+	             return false;   
+	          }
+	          if(estContents == "" || estContents == null){
+	          	alert("견적서 내용은 필수 입력사항입니다.");
+	              $($("textarea[name=estContents]").focus());
+	              return false;  
+	          }
+	          if(estPrice == "" || estPrice == null){
+	          	alert("견적서 가격은 필수 입력사항입니다.");
+	              $($("input[name=estPrice]").focus());
+	              return false;  
+	          }
+	 		
+			location.href = "insertEstMatchStart.tr?estName=" + estName + 
+						"&estContents=" + estContents + "&estDay=" + estDay + "&estPrice" + estPrice +
+						"&uno=" + mno + "&tno=" + mno2;		       
+	    }
+	    else{
+	        return ;
+	    }
+		
+	})
 	
-	//새로만들기 클릭시
-	function openEstimate(value) {
-		var uno = $(value).val();
-		console.log("uno : " + uno);
-		$(".subMenuBar2").children().eq(1).attr("value", uno);
-		console.log("새로견적서작성 : " + $(".subMenuBar2").children().eq(1).val());
-				
-	}
-		function writeEstimate(){
-		var mno = ${ sessionScope.loginUser.mno };
-		var uno = $(".subMenuBar2").children().eq(1).val();
-		console.log("넘어온 uno : " + uno);
-		console.log("견적서 mno : " + mno);
-	}
+	//빈값체크 메소드
+      $(document).ready(function(){
+         $('button[name=insertEstMatchStart]').bind('submit', function(){          
+            
+            
+            
+         })
+         
+      })
+	
+	
 	
 
 	
