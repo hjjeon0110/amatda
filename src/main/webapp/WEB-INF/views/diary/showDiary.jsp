@@ -95,7 +95,7 @@ tr {
 				</table>
 			</form>
 			<br />
-			<div class="replyArea">
+			<!-- <div class="replyArea">
 				<div class="replyWriterArea">
 					<table>
 						<tr>
@@ -108,7 +108,7 @@ tr {
 						</tr>
 					</table>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 	<br />

@@ -123,10 +123,9 @@ tr {
 			
 			<form id="commentForm" name="commentForm" method="post">
 	
-						<input type="hidden" id="bno" name="bno" value="${d.bNo }">
-						<textarea class="form-control" placeholder="댓글을 입력하세요"
-						id="repContent" name="repContent"></textarea>
-						<a href='#' class="button" id="replyInsert">등록</a>
+						<%-- <input type="hidden" id="bno" name="bno" value="${d.bNo }"> --%>
+						<textarea class="form-control" placeholder="댓글을 입력하세요!!" id="repContent" name="repContent"></textarea>
+						<!-- <a href='#' class="button" id="replyInsert">등록</a> --><input type="button" id="replyInsert" value="등록"/>
 						
 					</form>
 					
@@ -197,13 +196,14 @@ tr {
 			
 			var content=$("#repContent").val();
 			var bno="${ d.bNo }"
+			var mno="${mno}"
 			
 			$.ajax({
 				type:"get",
 				url:"insertReply.di",
 				data:$("#commentForm").serialize(),
 				success:function(data){
-					alert("트레이너댓글");
+					alert("댓글");
 				}
 			})
 		})
