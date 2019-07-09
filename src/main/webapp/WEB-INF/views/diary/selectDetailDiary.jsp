@@ -124,9 +124,9 @@ tr {
 			<form id="commentForm" name="commentForm" method="post">
 	
 						<input type="hidden" id="bno" name="bno" value="${d.bNo }">
-						<textarea class="form-control" placeholder="댓글을 입력하세요"
-						id="repContent" name="repContent"></textarea>
-						<a href='#' class="button" id="replyInsert">등록</a>
+						<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" />
+						<textarea class="form-control" placeholder="댓글을 입력하세요!!" id="repContent" name="repContent"></textarea>
+						<!-- <a href='#' class="button" id="replyInsert">등록</a> --><input type="button" id="replyInsert" value="등록"/>
 						
 					</form>
 					
@@ -196,14 +196,22 @@ tr {
 		$("#replyInsert").click(function(){
 			
 			var content=$("#repContent").val();
-			var bno="${ d.bNo }"
+			var bno="${ d.bNo }";
+			var mno=${ sessionScope.loginUser.mno };
+			console.log("content: "  + content);
+			console.log("bno: " + bno);
+			console.log("mno: " + mno);
 			
 			$.ajax({
 				type:"get",
 				url:"insertReply.di",
-				data:$("#commentForm").serialize(),
+				data:{content:content,bno:bno,mno:mno},
 				success:function(data){
-					alert("트레이너댓글");
+					if(data=="success"){
+					alert("댓글");
+					}else{
+						alert("실패");
+					}
 				}
 			})
 		})

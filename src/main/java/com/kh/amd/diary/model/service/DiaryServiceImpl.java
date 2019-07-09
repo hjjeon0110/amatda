@@ -109,8 +109,8 @@ public class DiaryServiceImpl implements DiaryService{
 
 	//댓글 insert
 	@Override
-	public void insertReply(Reply reply) {
-		dd.insertReply(sqlSession, reply);
+	public int insertReply(Reply rep) {
+		return dd.insertReply(sqlSession, rep);
 		
 	}
 	

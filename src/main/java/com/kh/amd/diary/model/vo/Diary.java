@@ -22,6 +22,7 @@ public class Diary implements java.io.Serializable{
 	
 	private Member member;
 	
+	private int mno;
 	public Diary() {}
 
 	public Diary(int bNo, int bType, String blCategory, String bmCategory, String bsCategory, Date bWriteDate,

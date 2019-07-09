@@ -136,8 +136,15 @@ public class DiaryDaoImpl implements DiaryDao{
 
 	//댓글 insert
 	@Override
-	public void insertReply(SqlSessionTemplate sqlSession, Reply reply) {
-		sqlSession.insert("Diary.insertReply",reply);
+	public int insertReply(SqlSessionTemplate sqlSession, Reply rep) {
+		
+		/*
+		 * HashMap<String, Object> map = new HashMap<String, Object>(); map.put("bno",
+		 * bno); map.put("mno", mno); map.put("reply", reply);
+		 */
+	
+		System.out.println("가만있어보자: " + rep);
+		return sqlSession.insert("Diary.insertReply",rep);
 		
 	}
 	

@@ -59,7 +59,7 @@ public interface DiaryDao {
 
 
 	//댓글 insert
-	void insertReply(SqlSessionTemplate sqlSession, Reply reply);
+	int insertReply(SqlSessionTemplate sqlSession, Reply rep);
 
 
 
