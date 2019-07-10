@@ -158,6 +158,18 @@ public class BoardController {
 		 }
 		  */
 		 
+		 //리뷰게시판 select리스트 그냥 단순 페이지 출력(SR)
+		 @RequestMapping("selectReviewFormView.bo")
+		 public String selectReviewFormView() {
+			 
+			 System.out.println("selectReviewFormView in controller");
+			 
+			 return "board/selectReview";
+			 
+		 }
+		 
+		 
+		 
 		 //리뷰게시판 리스트(sr)
 		  @RequestMapping("selectReview.bo")
 		  public String selectReview(Model model ) {
