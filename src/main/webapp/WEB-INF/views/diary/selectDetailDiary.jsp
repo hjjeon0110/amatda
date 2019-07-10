@@ -102,7 +102,41 @@ tr {
 			<br />
 			
 			
-			
+			<%-- <form id="commentForm" name="commentForm" method="post">
+	
+						<input type="hidden" id="bno" name="bno" value="${d.bNo }">
+						<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" />
+						
+						
+								<textarea class="form-control"  id="repContent1" name="repContent" cols="4" rows="5" placeholder="댓글을 입력하세요"></textarea>
+						
+						
+						
+						<!-- <a href='#' class="button" id="replyInsert">등록</a> --><input type="button" id="replyInsert" value="등록"/>
+						
+					</form>
+					
+					<!-- 댓글 -->
+			<div id="reply">
+			<c:forEach items="${repList}" var="repList">
+							<c:if test="${!empty repList.repContent}">
+								<textarea class="form-control" id="repContent2" name="repContent">${repList.repContent}</textarea>
+							</c:if>
+						</c:forEach>
+						
+						
+				<ol class="replyList">
+					<c:forEach items="${repList}" var="repList">
+					 		<p><b>
+						   
+						  (<fmt:formatDate value="${repList.repDate}" pattern="yyyy-MM-dd" />)
+						    </b></p>
+						  
+						  	<p>${repList.repContent}</p>
+					
+					 </c:forEach>   
+				</ol>
+			</div> --%>
 			
 			
 			
@@ -128,23 +162,28 @@ tr {
 						<input type="hidden" id="bno" name="bno" value="${d.bNo }">
 						<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" />
 						
-						<c:forEach items="${repList}" var="repList">
-							<c:if test="${repList.repContent}">
-								<textarea class="form-control"  id="repContent1" name="repContent" cols="4" rows="5">댓글</textarea>
-							</c:if>
-						</c:forEach>
+						<%-- <c:forEach items="${repList}" var="repList">
+							<c:if test="${repList.repContent}"> --%>
+							<div class="area" style="width:500px; background:pink">
+								<textarea class="form-control"  id="repContent" name="repContent" cols="60" rows="2" placeholder="댓글을 입력하세요" style="float:left"></textarea>
+								<input type="button" id="replyInsert" value="등록" style="float:right">
+							</div>
+							<%-- </c:if>
+						</c:forEach> --%>
 						
 						<c:forEach items="${repList}" var="repList">
 							<c:if test="${!empty repList.repContent}">
-								<textarea class="form-control" id="repContent2" name="repContent">${repList.repContent}</textarea>
+								<textarea class="form-control" id="repContent" name="repContent">${repList.repContent}
+								(<fmt:formatDate value="${repList.repDate}" pattern="yyyy-MM-dd" />)
+								</textarea>
 							</c:if>
 						</c:forEach>
-						<!-- <a href='#' class="button" id="replyInsert">등록</a> --><input type="button" id="replyInsert" value="등록"/>
+						<!-- <input type="button" id="replyInsert" value="등록"/> -->
 						
 					</form>
 					
 					<!-- 댓글 -->
-			<div id="reply">
+			<%-- <div id="reply">
 				<ol class="replyList">
 					<c:forEach items="${repList}" var="repList">
 					 		<p><b>
@@ -156,7 +195,7 @@ tr {
 					
 					 </c:forEach>   
 				</ol>
-			</div>
+			</div> --%>
 			
 			
 		</div>
