@@ -110,7 +110,7 @@
     	console.log("date: " + date);
     	console.log("date- dateStr: " + date.dateStr);
     	$("#mDate2").text(date.dateStr);
-    	alert("후");
+    	//alert("후");
     	/* $("#dialog").modal(); */
     	$("#myModal").modal();	
     	
@@ -128,7 +128,7 @@
     		data:{mno:mno, mDate2:mDate2},
     		dataType:"json",
     		success:function(data){
-    			alert("성공");
+    			//alert("성공");
     			console.log(data);
     			console.log("data[0]: " + data[0]);
     			console.log("arr: "+ data[1].missionNo);
@@ -185,7 +185,7 @@
     			if((data[5].completeYN)=='Y'){ 
     				$("#completeYNDinnerEx").text("성공").css({"color":"green", "font-weight":"bold"});
     			}else{
-    				$("#completeYNDinnerEx").text("실패");
+    				$("#completeYNDinnerEx").text("실패").css({"color":"red", "font-weight":"bold"});
     			}
     		}
     		
@@ -219,7 +219,7 @@
 		  data:{mno:mno},
 		  success:function(data){
 			  console.log(data);
-			  alert("성~공~");
+			  //alert("성~공~");
 			  for(var key in data){
 				  if(data[key].completeYN == "Y"){
 				  		var event = {
@@ -261,7 +261,7 @@
 			  data:{mno:mno},
 			  success:function(data){
 				  console.log("운동여부 달력에 띄우기: "+data);
-				  alert("성~공~!!!!!");
+				  //alert("성~공~!!!!!");
 				  for(var key in data){
 					  if(data[key].completeYN == "Y"){
 					  		var event2 = {
@@ -599,7 +599,7 @@ function breakCheck() {
 	if($("input:checkbox[id='breakCheck']").is(":checked")){
 		 $("#breakCheck").attr('value', 'Y');
 		 console.log("Y일까 N일까: " + $("#breakCheck").val());
-	alert("Y로 바뀜");
+	//alert("Y로 바뀜");
  }
 }
 
@@ -629,7 +629,7 @@ function breakCheck() {
 				alert("기록 완료!");
 				
 				$("#breakCheck").hide();
-				//리로드, location.href
+				location.reload();
 				
 			}
 		},error:function(data){
@@ -659,14 +659,14 @@ function breakCheck() {
  	if($("input:checkbox[id='lunchCheck']").is(":checked")){
  		 $("#lunchCheck").attr('value', 'Y');
  		 console.log("Y일까 N일까: " + $("#lunchCheck").val());
- 	alert("Y로 바뀜");
+ 	//alert("Y로 바뀜");
   }
  }
 
 
 
   $("#checkMission2").click(function(){
- 	 alert("기록버튼");
+ 	// alert("기록버튼");
  	 
  	
  	 
@@ -688,6 +688,7 @@ function breakCheck() {
  			if(data=="success"){
  				alert("기록 완료!");
  				$("#lunchCheck").hide();
+ 				location.reload();
  			}
  		},error:function(data){
  			if(data=="fail"){
@@ -713,14 +714,14 @@ function breakCheck() {
   	if($("input:checkbox[id='dinnerCheck']").is(":checked")){
   		 $("#dinnerCheck").attr('value', 'Y');
   		 console.log("Y일까 N일까: " + $("#dinnerCheck").val());
-  	alert("Y로 바뀜");
+  	//alert("Y로 바뀜");
    }
   }
 
 
 
    $("#checkMission3").click(function(){
-  	 alert("기록버튼");
+  	 //alert("기록버튼");
   	 
   	
   	 
@@ -741,6 +742,7 @@ function breakCheck() {
   			if(data=="success"){
   				alert("기록 완료!");
   				$("#dinnerCheck").hide();
+  				location.reload();
   			}
   		},error:function(data){
   			if(data=="fail"){
@@ -768,14 +770,14 @@ function breakCheck() {
    	if($("input:checkbox[id='breakExCheck']").is(":checked")){
    		 $("#breakExCheck").attr('value', 'Y');
    		 console.log("Y일까 N일까: " + $("#breakExCheck").val());
-   		 alert("Y로 바뀜");
+   		// alert("Y로 바뀜");
     }
    }
 
 
 
     $("#checkMission4").click(function(){
-   	 alert("기록버튼");
+   	// alert("기록버튼");
    	 
    	
    	 
@@ -800,6 +802,7 @@ function breakCheck() {
    			if(data=="success"){
    				alert("기록 완료!");
    				$("#breakExCheck").hide();
+   				location.reload();
    			}
    		},error:function(data){
    			if(data=="fail"){
@@ -826,14 +829,14 @@ function breakCheck() {
     	if($("input:checkbox[id='lunchExCheck']").is(":checked")){
     		 $("#lunchExCheck").attr('value', 'Y');
     		 console.log("Y일까 N일까: " + $("#lunchExCheck").val());
-    		 alert("Y로 바뀜");
+    		// alert("Y로 바뀜");
      }
     }
 
 
 
      $("#checkMission5").click(function(){
-    	 alert("기록버튼");
+    	// alert("기록버튼");
     	 
     	
     	 
@@ -858,6 +861,7 @@ function breakCheck() {
     			if(data=="success"){
     				alert("기록 완료!");
     				$("#lunchExCheck").hide();
+    				location.reload();
     			}
     		},error:function(data){
     			if(data=="fail"){
@@ -885,14 +889,14 @@ function breakCheck() {
      	if($("input:checkbox[id='dinnerExCheck']").is(":checked")){
      		 $("#dinnerExCheck").attr('value', 'Y');
      		 console.log("Y일까 N일까: " + $("#dinnerExCheck").val());
-     		 alert("Y로 바뀜");
+     		// alert("Y로 바뀜");
       }
      }
 
 
 
       $("#checkMission6").click(function(){
-     	 alert("기록버튼");
+     	// alert("기록버튼");
      	 
      	
      	 
@@ -917,6 +921,7 @@ function breakCheck() {
      			if(data=="success"){
      				alert("기록 완료!");
      				$("#dinnerExCheck").hide();
+     				location.reload();
      			}
      		},error:function(data){
      			if(data=="fail"){

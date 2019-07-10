@@ -86,7 +86,7 @@ public class MissionController {
 	@RequestMapping("goUpdateMission.ms")
 	public void goUpdateMission(HttpServletRequest request,HttpServletResponse response) {
 		String tno = request.getParameter("tno");
-		System.out.println("tno: " + tno);
+		System.out.println("tno 폼이동: " + tno);
 		int tno2 = Integer.parseInt(tno);
 		
 		int result = ms.selectTnoTno(tno2);
@@ -1482,6 +1482,25 @@ public class MissionController {
 		
 		int result1 = ms.insertDinnerEx(mis);
 		
+		if(result1>0) {
+			
+			
+			
+			System.out.println("ajax로 보내기 전의 mis : " + mis);
+			
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			try {
+				//조회한 6개의 행을 toJson(6개의 행을 담고있는 List이름 , response.getWriter()통로를 이용해서 ajax로 보낸다)
+				new Gson().toJson(mis, response.getWriter()); //대부분 하나의 값이 아닌 여러값을 보낼때, 사용 ( 객체나 리스트 )
+			} catch (JsonIOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}			
 		
 	}
 	//오늘의 운동

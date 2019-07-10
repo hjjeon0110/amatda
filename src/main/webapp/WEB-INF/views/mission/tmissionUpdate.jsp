@@ -105,7 +105,7 @@
     	var mDate0 = date.dateStr;
     	console.log("mDate0: " + mDate0);
         $("#mDate2").val(date.dateStr);
-    	alert("후");
+    	//alert("후");
     	/* $("#dialog").modal(); */
     	$("#updateModal").modal();	
     	
@@ -123,12 +123,12 @@
     			var mContent = decodeURIComponent(data.mContent);
     			if(mContent!=null){
     				console.log(data.mContent);
-        			alert("조회성공");
+        			//alert("조회성공");
         			$("#breakfast2").val(mContent);
         			$("#insertBreakEat").hide();
     			}
     			},error:function(status){
-    			alert("조회실패");
+    			//alert("조회실패");
     		
     			$("#breakfast2").val("");
 				$("#updateBreakEat222").hide();
@@ -147,12 +147,12 @@
     			
     			if(mContent!=null){
     				console.log(data.mContent);
-    				alert("조회성공");
+    				//alert("조회성공");
     				$("#lunch2").val(mContent);
     				$("#insertLunchEat").hide();
     			}
     		},error:function(status){
-    			alert("조회실패");
+    			//alert("조회실패");
     			$("#lunch2").val("");
     			$("#updateLunchEat222").hide();
 				$("#insertLunchEat").show();
@@ -169,12 +169,12 @@
     			var mContent = decodeURIComponent(data.mContent);
     			if(mContent!=null){
     				console.log(data.mContent);
-    				alert("조회성공");
+    				//alert("조회성공");
     				$("#dinner2").val(mContent);
     				$("#insertDinnerEat").hide();
     			}
     		},error:function(status){
-    			alert("조회실패");
+    			//alert("조회실패");
     			$("#dinner2").val("");
     			$("#updateDinnerEat222").hide();
 				$("#insertDinnerEat").show();
@@ -192,12 +192,12 @@
     			var mContent = decodeURIComponent(data.mContent);
     				if(mContent!=null){
     					console.log(data.mContent);
-    					alert("조회성공");
+    					//alert("조회성공");
     					$("#breakEx2").val(mContent);
     					$("#insertBreakfastEx").hide();
     			}
     		},error:function(status){
-    			alert("조회실패");
+    			//alert("조회실패");
     			$("#breakEx2").val("");
     			$("#updateBreakEx222").hide();
 				$("#insertBreakfastEx").show();
@@ -220,10 +220,10 @@
     		success:function(data){
     			var mContent = decodeURIComponent(data.mContent);
     			console.log(data.mContent);
-    			alert("조회성공");
+    			//alert("조회성공");
     			$("#lunchEx2").val(mContent);
     		},error:function(status){
-    			alert("조회실패");
+    			//alert("조회실패");
     			$("#lunchEx2").val("");
     		}
     	}) 
@@ -239,10 +239,10 @@
     		success:function(data){
     			var mContent = decodeURIComponent(data.mContent);
     			console.log(data.mContent);
-    			alert("조회성공");
+    			//alert("조회성공");
     			$("#dinnerEx2").val(mContent);
     		},error:function(status){
-    			alert("조회실패");
+    			//alert("조회실패");
     			$("#dinnerEx2").val("");
     		}
     	}) 
@@ -258,12 +258,12 @@
     			var mLink = decodeURIComponent(data.mLink);
     			console.log("아침운동링크조회: " + mLink);
     			if(mLink!=null){
-    				alert("조회성공!!!");
+    				//alert("조회성공!!!");
     				$("#breakExLink2").val(mLink);
     				$("#insertBreakfastEx").hide();
     			}
     		},error:function(status){
-    			alert("조회실패!!!");
+    			//alert("조회실패!!!");
     			$("#breakExLink2").val("");
     			$("#updateBreakEx222").hide();
 				$("#insertBreakfastEx").show();
@@ -280,11 +280,11 @@
     		success:function(data){
     			var mLink = decodeURIComponent(data.mLink);
     			console.log(data.mLink);
-    			alert("조회성공");
+    			//alert("조회성공");
     			$("#lunchExLink2").val(mLink);
     			$("#insertLunchEx").hide();
     		},error:function(status){
-    			alert("조회실패");
+    			//alert("조회실패");
     			$("#lunchExLink2").val("");
     			$("#updateLunchEx222").hide();
 				$("#insertLunchEx").show();
@@ -303,11 +303,11 @@
     		success:function(data){
     			var mLink = decodeURIComponent(data.mLink);
     			console.log(data.mLink);
-    			alert("조회성공");
+    			//alert("조회성공");
     			$("#dinnerExLink2").val(mLink);
     			$("#insertDinnerEx").hide();
     		},error:function(status){
-    			alert("조회실패");
+    			//alert("조회실패");
     			$("#dinnerExLink2").val("");
     			$("#updateDinnerEx222").hide();
 				$("#insertDinnerEx").show();
@@ -659,7 +659,19 @@ $("#insertDinnerEx").click(function(){
 		data:everything, 
 		success:function(data){
 			alert("미션등록 완료");
-			location.href="goUpdateMission.ms";
+			/* location.href="goUpdateMission.ms?tno="+mno; */
+			console.log(data);
+		
+			var event = {
+				  	  id:data.missionNo,
+					  title:"미션 등록 완료!",
+					  color:"#CC6666",
+					  textColor:"#FFFFFF",
+					  start:data.mDate
+		        }
+		  		calendar.addEvent(event);
+			location.reload();
+			console.log(data);
 		},error:function(status){
 			alert("미션등록 실패");
 		}
