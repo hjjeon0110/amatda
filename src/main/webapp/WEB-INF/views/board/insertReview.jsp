@@ -112,7 +112,10 @@ display:inline;
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><input type="text" id="bContent" placeholder="내용을 입력하세요" name="bContent" style="width:700px; height:600px;"></td>
+								<td>
+									<!-- <input type="text" id="bContent" placeholder="내용을 입력하세요" name="bContent" style="width:700px; height:500px;"> -->
+									 <textarea id="bContent" name="bContent" placeholder="내용을 입력하세요." style="width:700px; height:500px;"></textarea>
+								</td>
 						</tr>
 						<tr>
 							<th>첨부파일   (썸네일)</th>

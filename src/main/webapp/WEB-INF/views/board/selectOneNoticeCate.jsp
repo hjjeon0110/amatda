@@ -30,7 +30,7 @@ border:1px solid black;
 	 margin-top:2%;
 	 float:right;
 	 width: 60%;
-	
+	 align:center;
 	 margin-right:10%;
 	 text-align: center;
 	/*  background:skyblue; */	
@@ -88,6 +88,11 @@ tr.bordered2 td{
 margin-left: 400px;
  }
  
+ .divv{
+    width:100%;
+    height:400px;
+ }
+ 
 </style>
 
 </head>
@@ -97,7 +102,7 @@ margin-left: 400px;
 <img class="testImg" src="${ contextPath }/resources/images/sstestMain.jpg">
 	<br>
 		<div class="selectOneTable">
-		<h2 align="left">공지사항/이벤트</h2>
+		<h2 align="left">공지사항</h2>
 		<br><br><br>
 				
 		<table class="contentTable">
@@ -142,7 +147,7 @@ margin-left: 400px;
 		        data-target="#my80sizeCenterModal" onclick="location.href='selectNoticeCate.bo'">목록</button>
 	        </div>
 		</div>
-		
+		<div class="divv"></div>
 		<br>
 	
 	

@@ -58,27 +58,10 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
    <!-- 신고게시판 입력용(sr) -->
-   <!-- <insert id="insertDeclaration" parameterType="Declaration">
+   <insert id="insertDeclaration" parameterType="Declaration">
    INSERT INTO DECLARATION(DECLARE_NO,DECL_CATEGORY,DECL_CLASSIFICATION,DECL_TITLE,DECL_CONTENT,WRITE_DATE,WRITER)
    VALUES (DECL_SEQ.NEXTVAL,#{decl_category},#{decl_classification},#{decl_title},#{decl_content},sysdate,#{writer})
-   </insert> -->
-    <insert id="insertDeclaration" parameterType="java.util.Map">
-      INSERT INTO DECLARATION(DECLARE_NO,DECL_CATEGORY,DECL_CLASSIFICATION,DECL_TITLE,DECL_CONTENT,WRITE_DATE,WRITER)
-      VALUES (DECL_SEQ.NEXTVAL,#{decl_category},#{decl_classification},#{decl_title},#{decl_content},sysdate,#{writer})
-     </insert>
+   </insert> 
    
    
-   <!-- attachment에 bno를 넣기위한 커발 -->
-     <select id="selectDeclBno" resultType="_int">
-        SELECT BNO_SEQ.CURRVAL FROM DUAL
-     </select>
-     
-     <!-- 신고게시판 이미지 insert -->
-   <insert id="insertDeclarationImg" parameterType="Attachment">
-         INSERT INTO ATTACHMENT 
-         VALUES(FILE_SEQ.NEXTVAL, #{bno}, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 4, 'Y', #{filePath})
-   </insert>
-     
-   
-
 </mapper>

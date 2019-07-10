@@ -298,7 +298,7 @@ a:active {text-decoration: none; color: #333333;}
 		<tr>
 			</c:if>
 				<td width="1000px;" align="center"><p>${status.count }</p> <input type="hidden" id="bNo" value="${selectReview.bNo }">
-				<a href="selectOneReview.bo"><p>${selectReview.bTitle }</p></a>
+				<a id="tableTitle" href="selectOneReview.bo"><p>${selectReview.bTitle }</p></a>
 				<%-- <a href="${selectOneReview.bo}"><p>${selectReview.bTitle }</p></a> --%>
 				<p><fmt:formatDate pattern="MM월 dd일" value="${selectReview.bWriteDate }"/></p></td>
 			<c:if test="${i%j==j-1 }">
@@ -374,6 +374,9 @@ a:active {text-decoration: none; color: #333333;}
 		})
 		
 	})
+	
+	
+
 	
 	</script>
 	

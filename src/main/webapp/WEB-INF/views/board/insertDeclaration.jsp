@@ -1,5 +1,3 @@
-----------------------insert decla.jsp -----------------
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -445,10 +443,10 @@ a#login_pop:hover, a#join_pop:hover {
       <p>저희 아맞다를 이용하시는 도중 불편한 사항이 있으시면 언제든지 신고해주십시요. 보내주신 사항은 검토후 시정하도록 하겠습니다. 감사합니다. </p>
       
       <div class="container1">
-        <form action="insertDeclaration.de" name="bo"  method="get" encType="multipart/form-data">
+        <form action="insertDeclaration.de" method="post">
         
-        <input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.mno }" />
-       
+        <input type="hidden" id="mNo" name="writer" value="${ sessionScope.loginUser.mno }" />
+       <%-- <input type="hidden" id="writer" name="writer" value="${ sessionScope.loginUser.writer }" /> --%>
         
         
        <!--  <input type="hidden" name="" value="로그인한 아이디의 mno"/> -->
@@ -531,20 +529,14 @@ a#login_pop:hover, a#join_pop:hover {
           </div>
         </div>
         
-        <div class="row">
-          <div class="col-25">
-            <label for="subject">첨부자료</label>
-          </div>
-          <div class="col-75">
-            
-            
-            <!-- 상모오빠꺼 참고 -->
-             <input type="file" name="declImgFile" onchange="loaddeclImgFile(this)"/> 
-           
-          </div>
-        </div>
+        <input type="submit" value="신고" class="btn btn-primary" >
+         <!-- <button type="button" class="btn btn-primary" data-toggle="modal" 
+        data-target="#my80sizeCenterModal">
+  신고
+</button> -->
         
-        <input type="submit" value="신고" class="btn btn-primary">
+        
+        
         </form>
          
            </div>
@@ -552,10 +544,7 @@ a#login_pop:hover, a#join_pop:hover {
        </div>
           
         
-        <!----------------------------------------------- 파일첨부 ---------------------------------->
-        
-     
-        
+        <!-- 파일첨부 -->
        <!--  <div class="col-25">
            <label for="subject">파일 첨부</label>
         </div> -->
@@ -607,7 +596,7 @@ a#login_pop:hover, a#join_pop:hover {
       </div>
     </div>
   </div>
-</div> -->
+</div>  -->
        <!-- 80%size Modal at Center --> 
         
         
@@ -639,7 +628,7 @@ $(function(){
    var mno = $("#mNo").val();
    if(mno > 0){
       /* alert("로그인이 됐다는것") */
-      
+     
    
       
    }else{
@@ -650,33 +639,8 @@ $(function(){
    
          
    })
-   
-   
-   //이미지 첨부 
-  function loaddeclImgFile(value){
-   if(value.files && value.Files[0]){
-      var reader = new FileReader();
-      reader.onload = function(e){
-         $("#declImgFile").attr("src",e.target.result);
-      }
-      reader.readAsDataURL(value.files[0]);
-   }
-   
-}
-
-//이미지 미첨부시 alert창 표시
-function check(){
-   if(bo.declImgFile.value == ""){
-      alert("사진을 등록해 주세요.");
-      return false;
-   }else{
-      return true;
-   }
-}
-   
-   
 //preview image 
- /*var imgTarget = $('.preview-image .upload-hidden'); 
+/* var imgTarget = $('.preview-image .upload-hidden'); 
 imgTarget.on('change', function(){
    var parent = $(this).parent(); 
    parent.children('.upload-display').remove(); 
