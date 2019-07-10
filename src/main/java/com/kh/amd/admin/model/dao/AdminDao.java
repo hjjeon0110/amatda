@@ -37,6 +37,9 @@ public interface AdminDao {
 	//환불 승인 처리
 	int refundAgree(SqlSessionTemplate sqlSession, int payNo);
 
+	//환불 거절 처리
+	int refundRefuse(SqlSessionTemplate sqlSession, int payNo);
+
 
 
 
