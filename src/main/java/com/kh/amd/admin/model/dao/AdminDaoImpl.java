@@ -81,6 +81,14 @@ public class AdminDaoImpl implements AdminDao{
 		return sqlSession.update("Admin.refundRefuse", payNo);
 	}
 
+	//카테고리별 조회(멤버쉽)
+	@Override
+	public List<Payment> membershipType(SqlSessionTemplate sqlSession, String keyword) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("keyword", keyword);
+		return sqlSession.selectList("Admin.membershipType", map);
+	}
+
 
 
 }

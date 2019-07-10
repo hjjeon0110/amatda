@@ -23,12 +23,7 @@
 	Product Admin CSS Template
 	https://templatemo.com/tm-524-product-admin
 	-->
-<style>
-	#userId{
-	margin-left:450px;
-}
-	
-</style>
+
 </head>
 
 <body id="reportsPage">

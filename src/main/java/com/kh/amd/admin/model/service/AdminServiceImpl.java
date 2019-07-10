@@ -80,6 +80,12 @@ public class AdminServiceImpl implements AdminService{
 	public int refundRefuse(int payNo) {
 		return ad.refundRefuse(sqlSession, payNo);
 	}
+
+	//카테고리별 검색(멤버쉽)
+	@Override
+	public List<Payment> membershipType(String keyword) {
+		return ad.membershipType(sqlSession, keyword);
+	}
 	
 
 

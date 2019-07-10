@@ -276,20 +276,25 @@
          var marginTop = modalCont.outerHeight() / 2;
                   
       button.click(function() {
-            /* var payNo = $(this).parents("tr").children("th").children().eq(1).val();*/
+            var payNo = $(this).parents("tr").children("th").children().eq(1).val();
             var mProcess =$(this).parents("tr").children("th").children().eq(2).val();
             var accept = $(this).parents("tr").children("td").children().eq(1).children().children().children().eq(1).val();
-            
-            var payNo = $(this).val();
-            
+              
             /* console.log(accept); */
-            console.log(payNo);
-            /* console.log(mProcess); */
+            console.log("요청중 버튼 클릭 : " + payNo);
             
-            /* if(mProcess == '환불요청'){
-               location.href="refundAgree.ad?payNo=" + payNo;               
-            }
-            if(mProcess == )  */
+          	var $input = $("<input type='text' id='num' value=" + payNo + ">")
+           	console.log($input);
+          	
+          //환불 승인 버튼
+            $("#agreeBtn").click(function() {
+               modalLayer.fadeOut("slow");
+               button.focus(); 
+               
+               var payNo = $(input[id=num]);
+               console.log("승인" + payNo);
+               //location.href="refundAgree.ad?payNo=" + payNo;            
+            })
 
             modalLayer.fadeIn("slow");
             modalCont.css({
@@ -302,36 +307,28 @@
          
          });
 
-      //환불 승인 버튼
+     /*  //환불 승인 버튼
          $("#agreeBtn").click(function() {
             modalLayer.fadeOut("slow");
-            button.focus();           
-            var payNo = $(this).parents("tr").children("th").children().eq(1).val();
-            console.log(payNo);
-            location.href="refundAgree.ad?payNo=" + payNo;            
-         });
+            button.focus(); 
+            
+            var payNo = $(input[id=num]);
+            console.log("승인" + payNo);
+            //location.href="refundAgree.ad?payNo=" + payNo;            
+         }); */
          
          //환불 거절 버튼
          $("#refuseBtn").click(function() {
             modalLayer.fadeOut("slow");
             button.focus();           
             var payNo = $(this).parents("tr").children("th").children().eq(1).val();
-            console.log(payNo);
-            location.href="refundRefuse.ad?payNo=" + payNo;
+            console.log("거절" + payNo);
+            //location.href="refundRefuse.ad?payNo=" + payNo;
             
          });
       });
       
-      $("button[name=accept]").click(function(){
-         var payNo = $(this).parents("tr").children("th").children().eq(1).val();
-         var mProcess =$(this).parents("tr").children("th").children().eq(2).val();
-         var payNo2 = $(this).val();
-         console.log(payNo);
-         console.log(mProcess);
-         console.log(payNo2);
-         
-      })
-         
+
       
       
       //Date() 함수에서 날짜 형식 출력
@@ -373,6 +370,7 @@
       String.prototype.zf = function (len) { return "0".string(len - this.length) + this; };
       Number.prototype.zf = function (len) { return this.toString().zf(len); };
       
+      //필터링 검색
       $('#keyword').change(function(){
          var keyword=$(this).val();
          console.log(keyword);
@@ -407,6 +405,8 @@
             }
          })
       })
+      
+ 
    </script>
 
 

@@ -38,6 +38,9 @@ public interface AdminService {
 	//환불 거절 처리
 	int refundRefuse(int payNo);
 
+	//카테고리별 검색(멤버쉽)
+	List<Payment> membershipType(String keyword);
+
 	
 
 
