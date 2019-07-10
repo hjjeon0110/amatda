@@ -197,7 +197,7 @@
 				</tr>
 				<tr>
 					<td><label class="userKeyword">#키워드</label></td>
-					<td><button class="showSurveyBtn">요청서 보기</button></td>
+					<td><button class="showSurveyBtn ttt">요청서 보기</button></td>
 				</tr>
 				<tr>
 					<td><label class="userSurvey">운동 시작가능일 : 19/06/13, 운동 가능 시간 : 18:00 - 22:00, 키 : 180cm, 몸무게 : 100kg, 목표감량치 : 20kg</label></td>
@@ -224,7 +224,7 @@
 				</tr>
 				<tr>
 					<td><label class="userSurvey">운동 시작가능일 : 19/06/13, 운동 가능 시간 : 18:00 - 22:00, 키 : 180cm, 몸무게 : 100kg, 목표감량치 : 20kg</label></td>
-					<td class="trainerListTableTd1"><button class="goMatchingProcessBtn">PT 페이지</button></td>
+					<td class="trainerListTableTd1"><button class="goMatchingProcessBtn ttt">PT 페이지</button></td>
 				</tr>
 			</table>
 		</div>
@@ -236,4 +236,22 @@
 	<br><br><hr><br>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 </body>
+<script>
+$(".ttt").click(function(){
+	var tno = ${ sessionScope.loginUser.mno };
+	console.log("제발좀: " + tno);
+	$.ajax({
+		url:"goUpdateMission.ms?tno=" + tno,
+		data:{tno:tno},
+		success:function(data) {
+			if(data == "success") {
+				location.href="goUpdateMissiono.ms?tno=" + tno;
+			}else if(data == "fail"){
+				alert("진행중인 매칭이 없습니다!");
+				location.reload();
+			}
+		}
+	})
+})
+</script>
 </html>
