@@ -98,6 +98,7 @@ td{
 				if(data =='FAIL'){
 					alert("일치하는 정보가 없습니다.");
 				}else{
+					
 					alert("회원님의 아이디는 "+data + "입니다.");
 					location.href="loginMember.me";
 				}
@@ -123,8 +124,10 @@ td{
 			data:{name:name, userId:userId, email:email},
 			success:function(data){
 				if(data == "ok"){
-				
-				document.location.href='updatePwd.me?name=' + name;  //폼으로 이동
+					alert("본인 인증을 위한 이메일 전송입니다.");
+				var count = 0;	
+				//document.location.href='updatePwd.me?name=' + name;  //폼으로 이동
+				location.href="gotoRandomPwdWrite.ms";
 				}else if(data == "fail"){
 					alert("일치하는 정보가 없습니다.");
 				}

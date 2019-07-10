@@ -1,5 +1,7 @@
 package com.kh.amd.member.model.dao;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.context.annotation.SessionScope;
@@ -123,6 +125,26 @@ public class MemberDaoImpl implements MemberDao{
 		@Override
 		public int updateMyInfo(SqlSessionTemplate sqlSession, Member m) {
 			return sqlSession.update("Member.updateMyInfo", m);
+		}
+
+
+		@Override
+		public int updateRandomPwd(SqlSessionTemplate sqlSession, Member m) {
+			return sqlSession.update("Member.updateRandomPwd", m);
+		}
+
+
+		@Override
+		public void insertMyImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename,
+				String ext, String changeName) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("mno", mno);
+			map.put("filePath", filePath);
+			map.put("originalFilename", originalFilename);
+			map.put("changeName", changeName);
+			map.put("ext", ext);
+			
+			sqlSession.insert("Member.insertMyImg",map);
 		}
 
 	

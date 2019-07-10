@@ -1,5 +1,6 @@
 package com.kh.amd.mission.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -15,10 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
+import com.kh.amd.common.CommonUtils;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.mission.model.service.MissionService;
 import com.kh.amd.mission.model.vo.Mission;
@@ -1480,9 +1484,9 @@ public class MissionController {
 		mis.setmContent(dinnerEx);
 		mis.setmLink(dinnerExLink);
 		
-		int result1 = ms.insertDinnerEx(mis);
+		int result = ms.insertDinnerEx(mis);
 		
-		if(result1>0) {
+		if(result>0) {
 			
 			
 			
@@ -1778,5 +1782,7 @@ public class MissionController {
 			e2.printStackTrace();
 		}
 	}
+	
+	
 	
 }
