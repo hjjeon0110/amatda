@@ -2,14 +2,11 @@ package com.kh.amd.trainer.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +21,8 @@ import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.common.CommonUtils;
 import com.kh.amd.common.Pagination;
+import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
-import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.service.TrainerService;
 import com.kh.amd.trainer.model.vo.Estimate;
 import com.kh.amd.trainer.model.vo.Payment;
@@ -264,8 +261,6 @@ public class TrainerController {
 			//페이징 처리를 위해 pageinfo객체 초기화
 			PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
 			
-			
-
 
 			
 			//정렬 리스트 조회
@@ -286,14 +281,53 @@ public class TrainerController {
 		}
 		//견적서 보내기 + 매칭스타트(견적서 있을경우)(김진환)
 		@RequestMapping("insertMatchStart.tr")
-		public String insertMatchStart(Model model, String uno, String tno, String estNo) {
+		public String insertMatchStart(Model model, String uno, String tno, String estNo, 
+				String estName, String estContents, String estDay, String estPrice) {
 			System.out.println("tno : " + tno + "uno : " + uno + "estNo" + estNo);
+			
+			System.out.println("estName : "+ estName);
+			
+			int estDayi = Integer.parseInt(estDay);
+			int estPricei = Integer.parseInt(estPrice);
+			int tnoI = Integer.parseInt(tno);
+			
+			Estimate estimate = new Estimate();
+			estimate.setEstContents(estContents);
+			estimate.setEstDay(estDayi);
+			estimate.setEstName(estName);
+			estimate.setEstPrice(estPricei);
+			estimate.setEstType(3);
+			estimate.setTno(tnoI);
+			
+			Estimate existEstimate = ts.selectEstimate(tnoI, 3);
+			System.out.println("estimate : " + estimate);
+			System.out.println("이미 있는 estimate : " + existEstimate);
+			int result = 0;
+			
+			if(existEstimate == null) {
+				System.out.println("인서트로 들어옴");
+				result = ts.insertEstimate(estimate);
+				
+			}else {
+				System.out.println("업데이트로 들어옴");
+				result = ts.updateEstimate(estimate);
+			}
+			
+			Mprocess mprocess = new Mprocess();
+			
+			
+		/*
+		 * if(result > 0) { List<Member>
+		 * 
+		 * }
+		 */
+			
 			
 			//int result = ts.insertMatchStart(tno, uno, estNo);
 			
 			//멤버객체를 가져와서 보낸요청 리스트로 리턴
 			
-			return null;
+			return "trainer/2_3_myPage_matching";
 		}
 		
 		//견적서 보내기 + 매칭스타트 메소드(견적서 없을시)(김진환)
@@ -306,7 +340,7 @@ public class TrainerController {
 			
 			//멤버객체를 가져와서 보낸요청 리스트로 리턴
 			
-			return null;
+			return "trainer/2_3_myPage_matching";
 		}
 	   
 	

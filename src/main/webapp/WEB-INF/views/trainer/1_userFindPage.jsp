@@ -282,7 +282,7 @@
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">닫기</button>
 							<button type="button" class="btn btn-primary" value="${ user.mno }" name="matchingStart">매칭 신청하기</button>
-							<button type="button" class="btn btn-primary" value="${ user.mno }" name="insertEstMatchStart">매칭 신청따리</button>
+							<button type="button" class="btn btn-primary" value="${ user.mno }" name="insertEstMatchStart">매칭 신청하기</button>
 						</div>
 						</div>
 					</div>
@@ -563,9 +563,16 @@
 		var mno2 = ${sessionScope.loginUser.mno};
 		var estNo = $("input[name=estNo]").val();
 		var userName = $("button[name=userInfoShow]").parent().parent().parent().children().children("td").eq(1).children().eq(0).text();
+		var estName = $("input[name=estName]").val();
+		var estContents = $("textarea[name=estContents]").val();
+		var estPrice = $("input[name=estPrice]").val();
+		var estDay = $("select[name=estDay]").val();
+		
 		alert(estNo); 
 		 if(confirm(userName +"회원 님에게 매칭을 신청하시겠습니까 ?") == true){
-				location.href="insertMatchStart.tr?uno=" + mno + "&tno=" + mno2 + "&estNo=" + estNo;
+				location.href="insertMatchStart.tr?uno=" + mno + "&tno=" + mno2 + 
+						"&estNo=" + estNo + "&estName=" + estName + "&estContents=" + estContents + "&estPrice=" + estPrice +
+						"&estDay=" + estDay;
 		    }
 		    else{
 		        return ;
