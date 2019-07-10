@@ -56,7 +56,7 @@
 
 <resultMap type="com.kh.amd.board.model.vo.Reply" id="replyResultSet">
 	<id column="REP_NO" property="repNo" />
-	<result column="BNO" property="bNo" />
+	<result column="BNO" property="bNo"/>
 	<result column="REP_WRITER" property="repWriter" />
 	<result column="REP_CONTENT" property="repContent" />
 	<result column="REP_DATE" property="repDate" />
@@ -157,8 +157,10 @@
   	
   	<!-- 댓글 select -->
 	<select id="replyList" resultMap="replyResultSet">
-		SELECT *
-		FROM BOARD_REPLY
+	
+		SELECT R.*, M.NAME
+		FROM BOARD_REPLY R
+        JOIN MEMBER M ON(REP_WRITER = MNO)
 		WHERE BNO = #{bno}
 	</select>
 	

@@ -123,6 +123,7 @@ public class DiaryController {
 		//댓글 목록
 		List<Reply> repList = ds.replyList(bno);
 		model.addAttribute("repList", repList);
+		System.out.println("이름 나오나: " + repList);
 		
 		return mav;
 		
