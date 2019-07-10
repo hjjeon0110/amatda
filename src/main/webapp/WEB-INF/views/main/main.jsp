@@ -15,14 +15,14 @@
 	<jsp:include page="../common/menubar.jsp"></jsp:include>
 	
 	<a href="matching.ms">캘린더</a>
-	<a class="ttt" href="goUpdateMission.ms?tno=${sessionScope.loginUser.mno}">트레이너용 캘린더</a>
+	<a href="goUpdateMission.ms">트레이너용 캘린더</a>
 
 	<!-- 캐러셀 영역 ---------------------------------------------------------------------------------------------------------- -->
 	<div id="carouselExampleControls" class="carousel slide"
 		data-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img src="${ contextPath }/resources/images/testImage.png" class="d-block w-100" alt="..." id="carouselImg">
+				<img src="${ contextPath }/resources/images/mainC2.png" class="d-block w-100" alt="..." id="carouselImg">
 			</div>
 			<div class="carousel-item">
 				<img src="${ contextPath }/resources/images/testImage.png" class="d-block w-100" alt="..." id="carouselImg">
@@ -46,11 +46,7 @@
 	<!-- 추천 신입 트레이너 ----------------------------------------------------------------------------------------------------- -->
 	<div class="recommendNewTrainer">
 		<label class="recommendNewTrainerLabel" data-aos="fade-up">추천 신입 트레이너</label>
-																						<!-- <a href="survey1.su">설문조사 insert</a>&nbsp;&nbsp; -->
 																						<a href="list.su?mno=${sessionScope.loginUser.mno}">설문조사 update</a>&nbsp;&nbsp;
-																						<%-- <a href="show.di?mno=${sessionScope.loginUser.mno}">다이어리 insert</a>&nbsp;&nbsp;
-																						<a href="list.di?mno=${sessionScope.loginUser.mno}">다이어리 list</a>&nbsp;&nbsp;
-																						<a href="showGallery.di?mno=${sessionScope.loginUser.mno}">갤러리 select</a> --%>
 		<section class="blog_section">
 			<div class="container">
 				<div class="blog_content">
@@ -337,28 +333,10 @@
 		    	}else{ //취소버튼
 		    		location.href="showSearchTrainerPageView.us";
 		    	}
-		}/* else if(${sessionScope.loginUser.mtype =='U'}  && ${sessionScope.loginUser.completeSurvey=='Y'}){
+		}else if(${sessionScope.loginUser.mtype =='U'}  && ${sessionScope.loginUser.completeSurvey=='Y'}){
 			
 
-		} */
-	})
-	
-	
-	$(".ttt").click(function(){
-		var tno = ${ sessionScope.loginUser.mno };
-		
-		$.ajax({
-			url:"goUpdateMission.ms",
-			data:{tno:tno},
-			success:function(data) {
-				if(data == "success") {
-					location.href="goUpdateMissiono.ms";
-				}else if(data == "fail"){
-					alert("진행중인 매칭이 없습니다!");
-					location.reload();
-				}
-			}
-		})
+		}
 	})
 	
 	</script>

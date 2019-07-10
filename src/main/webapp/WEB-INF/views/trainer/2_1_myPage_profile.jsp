@@ -37,7 +37,7 @@
 						<td rowspan="3" class="traineProfileTableTd1">
 							<!-- 프로필 사진이 null일 때 ----------------------------------------------------------------------------------------------------- -->
 							<c:if test="${ empty profileImgAttachment }">
-								<div class="profileImgDiv"><img id="profileImg" src="${contextPath}/resources/images/profileImg3.PNG"></div>
+								<div class="profileImgDiv"><img id="profileImg" src="${contextPath}/resources/images/profileImg3.PNG"><br><br></div>
 								<button class="modifyProfileImgBtn">사진 추가</button>
 							    <form action="insertProfileImg.tr" method="post" enctype="multipart/form-data">
 							    	<input type="file" class="modifyProfileImg" name="profileImgFile" onchange="loadProfileImg(this)">
