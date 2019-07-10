@@ -628,7 +628,7 @@ input[type="checkbox"]:focus {
     margin-right: 0;
   }
   .tm-block-taller {
-    max-height: 520px;
+    max-height: 3000px;
   }
 }
 @media (max-width: 1199.98px) {

@@ -22,7 +22,7 @@
 		data-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img src="${ contextPath }/resources/images/mainC2.png" class="d-block w-100" alt="..." id="carouselImg">
+				<img src="${ contextPath }/resources/images/testImage.png" class="d-block w-100" alt="..." id="carouselImg">
 			</div>
 			<div class="carousel-item">
 				<img src="${ contextPath }/resources/images/testImage.png" class="d-block w-100" alt="..." id="carouselImg">

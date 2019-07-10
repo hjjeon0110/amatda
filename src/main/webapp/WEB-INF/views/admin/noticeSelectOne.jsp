@@ -32,7 +32,7 @@
 }
 
 .button2{
-	margin-left:700px;
+	margin-left:500px;
 }
 </style>
 </head>

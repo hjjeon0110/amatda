@@ -137,5 +137,16 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		SET PROCESS = '환불거절' 
 		WHERE PAY_NO = #{payNo} 
 	</update>
+	
+	<!-- 카테고리별 검색(멤버쉽) -->
+	<select id="membershipType" resultMap="paymentResultSet">
+		SELECT *
+		FROM PAYMENT P 
+		JOIN MEMBERSHIP USING(MEMBERSHIP_NO)
+		JOIN MEMBER M ON(TNO = MNO)
+		WHERE PROCESS = '결제완료'
+	  	AND MEMBERSHIP_TYPE = #{keyword}	
+	</select>
+	
 </mapper>
 

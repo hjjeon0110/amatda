@@ -179,12 +179,11 @@
 					class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
 					<h2 class="tm-block-title">멤버쉽 관리</h2>
 
-					<select class="custom-select">
+					<select class="custom-select" id="keyword" name="keyword">
 						<option value="0">멤버쉽별 조회</option>
-						<option value="1">S</option>
-						<option value="2">A</option>
-						<option value="2">B</option>
-						
+						<option value="S">S</option>
+						<option value="A">A</option>
+						<option value="B">B</option>						
 					</select>
 
 					<table class="table">
@@ -289,8 +288,44 @@
 			$(".modalContent > button").click(function() {
 				modalLayer.fadeOut("slow");
 				button.focus();
-			});
+			});		
 		});
+		
+		//필터링
+		$('#keyword').change(function(){
+         var keyword=$(this).val();
+         console.log(keyword);
+         
+       $.ajax({
+            url:"membershipType.ad",
+            data:{keyword:keyword},
+            type:"get",
+            success:function(data){
+               
+               var index = data.filteringList;
+                 $(".table > tbody").children().remove();
+          
+                 
+                 for(var i = 0 ; i<index.length; i++){
+                    
+                	 console.log("성공!!")
+                   
+        
+                    var table="<tr><td>" + (i+1) + "</td><td>" + 
+                    index[i].userId + "</td><td>" +  
+                    "멤버쉽" + index[i].membershipType + "</td><td>" +
+                    index[i].membershipPrice + "</td><td>" + 
+                    index[i].membershipCount+ "회" + "</td><td>" +
+                    index[i].membershipCount+ "</td></tr>";
+                     $(".table > tbody").append(table); 
+                 
+                     
+                     
+                    
+                 }
+            }
+         })
+      })
 	</script>
 
 

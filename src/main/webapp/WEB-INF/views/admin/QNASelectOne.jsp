@@ -32,11 +32,11 @@
 }
 
 .button2{
-	margin-left:800px;
+	margin-left:600px;
 }
 
 #replyInsert{
-	margin-left:900px;
+	margin-left:700px;
 }
 
 .replyList>p{

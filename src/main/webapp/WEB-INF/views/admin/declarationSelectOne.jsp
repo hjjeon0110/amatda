@@ -27,7 +27,7 @@
 	-->
 <style>
 #button {
-	margin-left: 800px;
+	margin-left: 600px;
 }
 </style>
 </head>

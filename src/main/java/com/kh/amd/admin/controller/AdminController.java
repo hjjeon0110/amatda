@@ -297,6 +297,19 @@ public class AdminController {
 
 		return "admin/membershipList";
 	}
+	
+	//카테고리별 검색	(멤버쉽)  
+	@RequestMapping("membershipType.ad") 
+	public ResponseEntity<Map<String, Object>> membershipType(@RequestParam String keyword) {
+
+		List<Payment> filteringList = as.membershipType(keyword);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("filteringList", filteringList);
+
+		System.out.println("멤버쉽 : " + map);
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+
+	}
 
 	//환불 관리
 	@RequestMapping("refund.ad")
