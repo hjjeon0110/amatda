@@ -239,7 +239,7 @@ select {
                $($("#estName").focus());
                return false;   
             }
-            if($("#estContents").val() == "" || $("#estContents").val() == null){
+            if($("#estContents").val().equals("") || $("#estContents").val() == null){
             	alert("견적서 내용은 필수 입력사항입니다.");
                 $($("#estContents").focus());
                 return false;  

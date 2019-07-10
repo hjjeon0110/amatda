@@ -110,6 +110,16 @@ public class TrainerServiceImpl implements TrainerService {
 		
 		return td.userListSort(sqlSession, sort, pi);
 	}
+	
+	//견적서 보내기 - 매칭시작(김진환)
+	@Override
+	public int insertMatchStart(String tno, String uno, String estNo) {
+		
+		//int result = td.insertMatchStart(estNo);
+		
+		return 0;
+	}
+
 
 
 	
@@ -221,6 +231,8 @@ public class TrainerServiceImpl implements TrainerService {
 	public void deleteMidea(String mno, String thisModiName) {
 		td.deleteMidea(sqlSession, mno, thisModiName);
 	}
+
+
 
 	
 

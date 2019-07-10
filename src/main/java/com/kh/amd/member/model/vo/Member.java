@@ -1,11 +1,11 @@
 package com.kh.amd.member.model.vo;
 
 import java.sql.Date;
-import java.util.ArrayList;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.survey.model.vo.Survey;
+import com.kh.amd.trainer.model.vo.Estimate;
 import com.kh.amd.trainer.model.vo.Profile;
 
 public class Member implements java.io.Serializable{
@@ -39,6 +39,7 @@ public class Member implements java.io.Serializable{
 	//회원 리스트 조회에 필요한 필드들입니다.(김진환)
 	private Attachment attachment;
 	private Survey survey;
+	private Estimate estimate;
 	
 	//(김선아 추가)
 	private String uage;
@@ -49,7 +50,7 @@ public class Member implements java.io.Serializable{
 			String mtype, String status, int matchTime, String emailYn, Date enrollDate, Date modifyDate,
 			String completeSurvey, int tno, String accountName, String bankCode, String accountNo, String tage,
 			String topen, int remainNum, TrainerInfo trainerInfo, Profile profile, Mprocess mprocess,
-			Attachment attachment, Survey survey) {
+			Attachment attachment, Survey survey, Estimate estimate, String uage) {
 		super();
 		this.mno = mno;
 		this.name = name;
@@ -77,216 +78,225 @@ public class Member implements java.io.Serializable{
 		this.mprocess = mprocess;
 		this.attachment = attachment;
 		this.survey = survey;
+		this.estimate = estimate;
+		this.uage = uage;
 	}
 
 	public int getMno() {
 		return mno;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public String getUserPwd() {
-		return userPwd;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public String getMtype() {
-		return mtype;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public int getMatchTime() {
-		return matchTime;
-	}
-
-	public String getEmailYn() {
-		return emailYn;
-	}
-
-	public Date getEnrollDate() {
-		return enrollDate;
-	}
-
-	public Date getModifyDate() {
-		return modifyDate;
-	}
-
-	public String getCompleteSurvey() {
-		return completeSurvey;
-	}
-
-	public int getTno() {
-		return tno;
-	}
-
-	public String getAccountName() {
-		return accountName;
-	}
-
-	public String getBankCode() {
-		return bankCode;
-	}
-
-	public String getAccountNo() {
-		return accountNo;
-	}
-
-	public String getTage() {
-		return tage;
-	}
-
-	public String getTopen() {
-		return topen;
-	}
-
-	public int getRemainNum() {
-		return remainNum;
-	}
-
-	public TrainerInfo getTrainerInfo() {
-		return trainerInfo;
-	}
-
-	public Profile getProfile() {
-		return profile;
-	}
-
-	public Mprocess getMprocess() {
-		return mprocess;
-	}
-
-	public Attachment getAttachment() {
-		return attachment;
-	}
-
-	public Survey getSurvey() {
-		return survey;
-	}
-
 	public void setMno(int mno) {
 		this.mno = mno;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getUserPwd() {
+		return userPwd;
 	}
 
 	public void setUserPwd(String userPwd) {
 		this.userPwd = userPwd;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getGender() {
+		return gender;
 	}
 
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getMtype() {
+		return mtype;
 	}
 
 	public void setMtype(String mtype) {
 		this.mtype = mtype;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public int getMatchTime() {
+		return matchTime;
 	}
 
 	public void setMatchTime(int matchTime) {
 		this.matchTime = matchTime;
 	}
 
+	public String getEmailYn() {
+		return emailYn;
+	}
+
 	public void setEmailYn(String emailYn) {
 		this.emailYn = emailYn;
+	}
+
+	public Date getEnrollDate() {
+		return enrollDate;
 	}
 
 	public void setEnrollDate(Date enrollDate) {
 		this.enrollDate = enrollDate;
 	}
 
+	public Date getModifyDate() {
+		return modifyDate;
+	}
+
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
+	}
+
+	public String getCompleteSurvey() {
+		return completeSurvey;
 	}
 
 	public void setCompleteSurvey(String completeSurvey) {
 		this.completeSurvey = completeSurvey;
 	}
 
+	public int getTno() {
+		return tno;
+	}
+
 	public void setTno(int tno) {
 		this.tno = tno;
+	}
+
+	public String getAccountName() {
+		return accountName;
 	}
 
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
 	}
 
+	public String getBankCode() {
+		return bankCode;
+	}
+
 	public void setBankCode(String bankCode) {
 		this.bankCode = bankCode;
+	}
+
+	public String getAccountNo() {
+		return accountNo;
 	}
 
 	public void setAccountNo(String accountNo) {
 		this.accountNo = accountNo;
 	}
 
+	public String getTage() {
+		return tage;
+	}
+
 	public void setTage(String tage) {
 		this.tage = tage;
+	}
+
+	public String getTopen() {
+		return topen;
 	}
 
 	public void setTopen(String topen) {
 		this.topen = topen;
 	}
 
+	public int getRemainNum() {
+		return remainNum;
+	}
+
 	public void setRemainNum(int remainNum) {
 		this.remainNum = remainNum;
+	}
+
+	public TrainerInfo getTrainerInfo() {
+		return trainerInfo;
 	}
 
 	public void setTrainerInfo(TrainerInfo trainerInfo) {
 		this.trainerInfo = trainerInfo;
 	}
 
+	public Profile getProfile() {
+		return profile;
+	}
+
 	public void setProfile(Profile profile) {
 		this.profile = profile;
+	}
+
+	public Mprocess getMprocess() {
+		return mprocess;
 	}
 
 	public void setMprocess(Mprocess mprocess) {
 		this.mprocess = mprocess;
 	}
 
+	public Attachment getAttachment() {
+		return attachment;
+	}
+
 	public void setAttachment(Attachment attachment) {
 		this.attachment = attachment;
+	}
+
+	public Survey getSurvey() {
+		return survey;
 	}
 
 	public void setSurvey(Survey survey) {
 		this.survey = survey;
 	}
-	
+
+	public Estimate getEstimate() {
+		return estimate;
+	}
+
+	public void setEstimate(Estimate estimate) {
+		this.estimate = estimate;
+	}
 
 	public String getUage() {
 		return uage;
@@ -304,9 +314,11 @@ public class Member implements java.io.Serializable{
 				+ modifyDate + ", completeSurvey=" + completeSurvey + ", tno=" + tno + ", accountName=" + accountName
 				+ ", bankCode=" + bankCode + ", accountNo=" + accountNo + ", tage=" + tage + ", topen=" + topen
 				+ ", remainNum=" + remainNum + ", trainerInfo=" + trainerInfo + ", profile=" + profile + ", mprocess="
-				+ mprocess + ", attachment=" + attachment + ", survey=" + survey + "]";
+				+ mprocess + ", attachment=" + attachment + ", survey=" + survey + ", estimate=" + estimate + ", uage="
+				+ uage + "]";
 	}
 
+	
 	
 	
 	
