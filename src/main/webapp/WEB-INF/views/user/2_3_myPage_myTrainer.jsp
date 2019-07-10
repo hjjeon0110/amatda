@@ -56,14 +56,14 @@
 						</tr>
 						<tr>
 							<td><label class="trainerKeyword">${ myTrainerList[i].profile.keyword }</label></td>
-							<td><button class="goProfileDetail">프로필 보기</button></td>
+							<td><button class="goProfileDetail">매칭 시작하기</button></td>
 						</tr>
 						<tr>
 							<td><label class="simpleProfile">${ myTrainerList[i].profile.lineProfile}</label></td>
 							<td class="trainerListTableTd1">
 								<input type="hidden" value="${ myTrainerList[i].mno }">
 								<input type="hidden" value="${ myTrainerList[i].name }">
-								<button class="matchingStartBtn">매칭 시작하기</button>
+								<button class="matchingStartBtn">프로필 보기</button>
 							</td>
 						</tr>
 					</table>
