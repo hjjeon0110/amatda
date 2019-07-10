@@ -1,3 +1,5 @@
+----------------------insert decla.jsp -----------------
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -443,7 +445,7 @@ a#login_pop:hover, a#join_pop:hover {
       <p>저희 아맞다를 이용하시는 도중 불편한 사항이 있으시면 언제든지 신고해주십시요. 보내주신 사항은 검토후 시정하도록 하겠습니다. 감사합니다. </p>
       
       <div class="container1">
-        <form action="insertDeclaration.de" name="bo"  method="post" encType="multipart/form-data">
+        <form action="insertDeclaration.de" name="bo"  method="get" encType="multipart/form-data">
         
         <input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.mno }" />
        
@@ -652,24 +654,24 @@ $(function(){
    
    //이미지 첨부 
   function loaddeclImgFile(value){
-	if(value.files && value.Files[0]){
-		var reader = new FileReader();
-		reader.onload = function(e){
-			$("#declImgFile").attr("src",e.target.result);
-		}
-		reader.readAsDataURL(value.files[0]);
-	}
-	
+   if(value.files && value.Files[0]){
+      var reader = new FileReader();
+      reader.onload = function(e){
+         $("#declImgFile").attr("src",e.target.result);
+      }
+      reader.readAsDataURL(value.files[0]);
+   }
+   
 }
 
 //이미지 미첨부시 alert창 표시
 function check(){
-	if(bo.declImgFile.value == ""){
-		alert("사진을 등록해 주세요.");
-		return false;
-	}else{
-		return true;
-	}
+   if(bo.declImgFile.value == ""){
+      alert("사진을 등록해 주세요.");
+      return false;
+   }else{
+      return true;
+   }
 }
    
    
