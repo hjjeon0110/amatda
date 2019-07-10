@@ -32,6 +32,10 @@ public interface MemberDao {
 
 	Member loginUserReturn(SqlSessionTemplate sqlSession, String mno);
 
+	Member selectMyInfo(SqlSessionTemplate sqlSession, String mno);
+
+	int updateMyInfo(SqlSessionTemplate sqlSession, Member m);
+
 	
 
 	

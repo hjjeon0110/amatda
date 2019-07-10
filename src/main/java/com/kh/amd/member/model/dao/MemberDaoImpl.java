@@ -110,6 +110,21 @@ public class MemberDaoImpl implements MemberDao{
 			return sqlSession.selectOne("Member.loginUserReturn", mno2);
 		}
 
+
+		@Override
+		public Member selectMyInfo(SqlSessionTemplate sqlSession, String mno) {
+			int mno2 = Integer.parseInt(mno);
+			
+			System.out.println("int로 바꾼 mno2: " + mno2);
+			return sqlSession.selectOne("Member.selectMyInfo", mno2);
+		}
+
+
+		@Override
+		public int updateMyInfo(SqlSessionTemplate sqlSession, Member m) {
+			return sqlSession.update("Member.updateMyInfo", m);
+		}
+
 	
 
 

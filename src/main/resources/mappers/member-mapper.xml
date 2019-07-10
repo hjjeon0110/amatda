@@ -128,4 +128,21 @@ SELECT *
 FROM MEMBER
 WHERE MNO = #{mno2}
 </select>
+
+
+<select id="selectMyInfo" parameterType="_int" resultMap="memberResultSet">
+SELECT *
+FROM MEMBER
+WHERE MNO = #{mno2}
+</select>
+
+<update id="updateMyInfo" parameterType="Member">
+UPDATE MEMBER
+SET NAME = #{name},
+	ID= #{userId},
+	PWD = #{userPwd},
+	PHONE = #{phone},
+	GENDER = #{gender}
+WHERE MNO = #{mno}
+</update>
 </mapper>

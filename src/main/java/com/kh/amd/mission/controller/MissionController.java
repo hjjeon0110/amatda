@@ -1491,8 +1491,8 @@ public class MissionController {
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			try {
-				//조회한 6개의 행을 toJson(6개의 행을 담고있는 List이름 , response.getWriter()통로를 이용해서 ajax로 보낸다)
-				new Gson().toJson(mis, response.getWriter()); //대부분 하나의 값이 아닌 여러값을 보낼때, 사용 ( 객체나 리스트 )
+				
+				new Gson().toJson(mis, response.getWriter()); 
 			} catch (JsonIOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
