@@ -225,7 +225,7 @@ public class MemberServiceImpl implements MemberService{
 	
 	
 	
-	//비밀번호 변경
+		//비밀번호 변경
 		@Override
 		public int updateMyPwd(Member m) {
 			int result = 0;
@@ -237,6 +237,18 @@ public class MemberServiceImpl implements MemberService{
 		@Override
 		public Member loginUserReturn(String mno) {
 			return md.loginUserReturn(sqlSession, mno);
+		}
+		
+		
+		//개인정보 수정전 조회
+		@Override
+		public Member selectMyInfo(String mno) {
+			return md.selectMyInfo(sqlSession,mno);
+		}
+
+		@Override
+		public int updateMyInfo(Member m) {
+			return md.updateMyInfo(sqlSession,m);
 		}
 	
 }

@@ -27,6 +27,10 @@ public interface MemberService {
 
 	Member loginUserReturn(String mno);
 
+	Member selectMyInfo(String mno);
+
+	int updateMyInfo(Member m);
+
 	
 	
 }

@@ -125,6 +125,8 @@ td{
 				if(data == "ok"){
 				
 				document.location.href='updatePwd.me?name=' + name;  //폼으로 이동
+				}else if(data == "fail"){
+					alert("일치하는 정보가 없습니다.");
 				}
 			},error:function(status){
 				console.log("다시");

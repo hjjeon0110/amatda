@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.amd.member.model.service.MemberService;
 import com.kh.amd.member.model.vo.Member;
 @SessionAttributes("loginUser")
@@ -435,5 +436,82 @@ public class MemberController {
 		}
 		
 		
+		//개인정보 수정전 정보 불러오기
+		@RequestMapping("selectMyInfo.ms")
+		public void selectMyInfo(String mno, HttpServletResponse response) {
+			
+			System.out.println("ajax에서 받아온 mno: " + mno);
+			
+		/*
+		 * int mno2 = Integer.parseInt(mno); System.out.println("int타입으로 바꾼 mno2: " +
+		 * mno2);
+		 */
+			
+			Member result =  ms.selectMyInfo(mno);
+			
+			if(result!=null) {
+				System.out.println("db잘감");
+				System.out.println(result);
+				try {
+					//response.getWriter().print("success");
+					response.setContentType("application/json");
+					response.setCharacterEncoding("UTF-8");
+					
+					new Gson().toJson(result, response.getWriter());
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else {
+				System.out.println("db못감");
+			/*
+			 * try { //response.getWriter().print("fail"); } catch (IOException e) { // TODO
+			 * Auto-generated catch block e.printStackTrace(); }
+			 */
+			}
+		}
+		
+		
+		
+		@RequestMapping("updateMyInfo.ms")
+		public void updateMyInfo(HttpServletResponse response,String mno, String name, String userId, String userPwd, String phone, String gender) {
+			
+			System.out.println("수정서블릿오니");
+			System.out.println("mno: " + mno);
+			System.out.println("name: " + name);
+			System.out.println("userPwd: " + userPwd);
+			System.out.println("phone: " + phone);
+			System.out.println("gender: " + gender);
+			
+			Member m = new Member();
+			int mno2 = Integer.parseInt(mno);
+			m.setMno(mno2);
+			m.setName(name);
+			m.setPhone(phone);
+			//m.setUserPwd(userPwd);
+			m.setGender(gender);
+			m.setUserId(userId);
+			m.setUserPwd(passwordEncoder.encode(userPwd));
+			int result = ms.updateMyInfo(m);
+			
+			if(result>0) {
+				System.out.println("result값이 1이 나옴");
+				try {
+					response.getWriter().print("success");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}else {
+				try {
+					response.getWriter().print("fail");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 
 }

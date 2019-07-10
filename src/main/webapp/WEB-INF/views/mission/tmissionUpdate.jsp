@@ -658,20 +658,26 @@ $("#insertDinnerEx").click(function(){
 		type:"post",
 		data:everything, 
 		success:function(data){
-			alert("미션등록 완료");
-			/* location.href="goUpdateMission.ms?tno="+mno; */
 			console.log(data);
-		
+			alert("미션등록 완료");
+			
 			var event = {
 				  	  id:data.missionNo,
 					  title:"미션 등록 완료!",
 					  color:"#CC6666",
 					  textColor:"#FFFFFF",
 					  start:data.mDate
-		        }
-		  		calendar.addEvent(event);
+		    }
+			
+		  	calendar.addEvent(event);
+			
+			
+			/* location.href="goUpdateMission.ms?tno="+mno; */
+			console.log(data);
 			location.reload();
 			console.log(data);
+			
+			
 		},error:function(status){
 			alert("미션등록 실패");
 		}
