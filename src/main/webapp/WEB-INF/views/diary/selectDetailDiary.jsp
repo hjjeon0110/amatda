@@ -50,6 +50,24 @@ table #rContent {
 tr {
 	height: 25px;
 }
+
+#commentList{
+	background-color:#fff;
+	width:500px;
+	
+}
+
+#repContent{
+	width:450px;
+
+}
+
+.area{
+	width:500px;
+	height:65px;
+}
+
+
 </style>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -160,25 +178,40 @@ tr {
 			<form id="commentForm" name="commentForm" method="post">
 	
 						<input type="hidden" id="bno" name="bno" value="${d.bNo }">
-						<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" />
+						<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mtype }" />
+						<c:if test="${ sessionScope.loginUser.mtype == 'T'}">
 						
-						<%-- <c:forEach items="${repList}" var="repList">
+						<%-- <c:forEach items="${repList}" var="repList">textarea.form-control
 							<c:if test="${repList.repContent}"> --%>
-							<div class="area" style="width:500px; background:pink">
-								<textarea class="form-control"  id="repContent" name="repContent" cols="60" rows="2" placeholder="댓글을 입력하세요" style="float:left"></textarea>
+							
+						<div class="area">
+								<textarea id="repContent" name="repContent" cols="60" rows="2" placeholder="댓글을 입력하세요" style="float:left"></textarea>
 								<input type="button" id="replyInsert" value="등록" style="float:right">
-							</div>
 							<%-- </c:if>
 						</c:forEach> --%>
 						
+				
+						</div>
+						</c:if>
+						
+			
+										<div id="commentList">
 						<c:forEach items="${repList}" var="repList">
 							<c:if test="${!empty repList.repContent}">
-								<textarea class="form-control" id="repContent" name="repContent">${repList.repContent}
-								(<fmt:formatDate value="${repList.repDate}" pattern="yyyy-MM-dd" />)
-								</textarea>
+								${repList.member.name} 트레이너 (<fmt:formatDate value="${repList.repDate}" pattern="yyyy-MM-dd" />) :
+								${repList.repContent}
+								
+							<br />
 							</c:if>
 						</c:forEach>
+					
 						<!-- <input type="button" id="replyInsert" value="등록"/> -->
+							
+						</div>
+							
+						
+						
+						
 						
 					</form>
 					
@@ -260,7 +293,7 @@ tr {
 				data:{content:content,bno:bno,mno:mno},
 				success:function(data){
 					if(data=="success"){
-					alert("댓글");
+					alert("댓글이 등록되었습니다");
 					}else{
 						alert("실패");
 					}
