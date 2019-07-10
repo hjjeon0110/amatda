@@ -41,7 +41,7 @@
 	<div class="" id="home">
 		<nav class="navbar navbar-expand-xl">
 			<div class="container h-100">
-				<a class="navbar-brand" href="index.html">
+				<a class="navbar-brand" href="index.jsp">
 					<h1 class="tm-site-title mb-0">AMATDA ADMIN</h1>
 				</a>
 				<button class="navbar-toggler ml-auto mr-0" type="button"

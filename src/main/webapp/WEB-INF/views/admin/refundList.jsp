@@ -201,42 +201,46 @@
 
 								<tr>
 									<th scope="row"><b>${ status.count }</b>
-									<input type="text" id="payNo" value="${list.payNo }"></th>
+									<input type="hidden" id="payNo" value="${list.payNo }">
+									<input type="hidden" id="process" value="${list.process }"></th>
 									<td>${ list.userId }</td>
 									<td>멤버쉽${ list.membershipType }</td>
 									<td>${ list.payDate }</td>
 									<td>${ list.refundReason }</td>
 									<!-- 상태 -->
-									<c:set var="status" value="${list.process }" />
-									<td><c:choose>
-											<c:when test="${status eq '환불요청'}">
-												<a href="#modalLayer" class="button"><b>요청중</b></a>
+		
+									<td>						
+											<c:if test="${list.process eq '환불요청'}">
+												<a href="#modalLayer" class="button" id="request"><b>요청중</b></a>
 												<div id="modalLayer">
 													<div class="modalContent">
 														<h5 id="modalConfirm">
 															<strong>환불 요청을 승인 하시겠습니까?</strong>
+															<button name="accept" value="">승인</button>
+															<button name="deny">거절</button>		
 														</h5>
-														<div id="button">
-															<a href="refundAgree.ad?payNo=${ list.payNo}" class="button">승인</a>															
-															<a href="#" class="button">거절</a>
 														
-														</div>
+													<!-- 	<div class="button2">
+															<button class="button">승인</button>
+																										
+														</div> -->
+														
 													</div>
 												</div>
-											</c:when>
+											</c:if>
 
-											<c:when test="${status eq '환불승인'}">
+											<c:if test="${list.process eq '환불승인'}">
 												<button class="button" disabled='disabled' id="agree">
 													<b>승인</b>
 												</button>
-											</c:when>
+											</c:if>
 
-											<c:otherwise>
+											<c:if test="${list.process eq '환불거절'}">
 												<button class="button" disabled='disabled' id="refuse">
 													<b>거절</b>
 												</button>
-											</c:otherwise>
-										</c:choose></td>
+											</c:if>
+										</td>
 
 								</tr>
 							</c:forEach>
@@ -270,8 +274,23 @@
 			var modalCont = $(".modalContent");
 			var marginLeft = modalCont.outerWidth() / 2;
 			var marginTop = modalCont.outerHeight() / 2;
+						
+			$("button[name='accpet']").click(function() {
+				/* var payNo = $(this).parents("tr").children("th").children().eq(1).val();*/
+				var mProcess =$(this).parents("tr").children("th").children().eq(2).val();
+				var accept = $(this).parents("tr").children("td").children().eq(1).children().children().children().eq(1).val();
+				
+				var payNo = $(this).val();
+				
+				/* console.log(accept); */
+				console.log(payNo);
+				/* console.log(mProcess); */
+				
+				/* if(mProcess == '환불요청'){
+					location.href="refundAgree.ad?payNo=" + payNo;					
+				}
+				if(mProcess == )  */
 
-			button.click(function() {
 				modalLayer.fadeIn("slow");
 				modalCont.css({
 					"margin-top" : -marginTop,
@@ -280,13 +299,82 @@
 				$(this).blur();
 				$(".modalContent > a").focus();
 				return false;
+			
 			});
 
-			$(".modalContent > #button > button").click(function() {
+/* 			//환불 승인 버튼
+			$(".modalContent > #button > #agreeBtn").click(function() {
 				modalLayer.fadeOut("slow");
 				button.focus();
+				
+				var payNo = $(this).parents("tr").children("th").children().eq(1).val();
+				console.log(payNo);
+				//location.href="refundAgree.ad?payNo=" + payNo;
+				
 			});
+			
+			//환불 거절 버튼
+			$(".modalContent > #button > #refuseBtn").click(function() {
+				modalLayer.fadeOut("slow");
+				button.focus();
+				
+				var payNo = $(this).parents("tr").children("th").children().eq(1).val();
+				console.log(payNo);
+				//location.href="refundRefuse.ad?payNo=" + payNo;
+				
+			}); */
 		});
+		
+		$("button[name=accept]").click(function(){
+			var payNo = $(this).parents("tr").children("th").children().eq(1).val();
+			var mProcess =$(this).parents("tr").children("th").children().eq(2).val();
+			var payNo2 = $(this).val();
+			console.log(payNo);
+			console.log(mProcess);
+			console.log(payNo2);
+			
+		})
+			
+		
+		
+		//Date() 함수에서 날짜 형식 출력
+		Date.prototype.format = function (f) {
+
+		    if (!this.valueOf()) return " ";
+
+		    var weekKorName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+		    var weekKorShortName = ["일", "월", "화", "수", "목", "금", "토"];
+		    var weekEngName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+		    var weekEngShortName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+		    var d = this;
+
+		    return f.replace(/(yyyy|yy|MM|dd|KS|KL|ES|EL|HH|hh|mm|ss|a\/p)/gi, function ($1) {
+
+		        switch ($1) {
+		            case "yyyy": return d.getFullYear(); // 년 (4자리)
+		            case "yy": return (d.getFullYear() % 1000).zf(2); // 년 (2자리)
+		            case "MM": return (d.getMonth() + 1).zf(2); // 월 (2자리)
+		            case "dd": return d.getDate().zf(2); // 일 (2자리)
+		            case "KS": return weekKorShortName[d.getDay()]; // 요일 (짧은 한글)
+		            case "KL": return weekKorName[d.getDay()]; // 요일 (긴 한글)
+		            case "ES": return weekEngShortName[d.getDay()]; // 요일 (짧은 영어)
+		            case "EL": return weekEngName[d.getDay()]; // 요일 (긴 영어)
+		            case "HH": return d.getHours().zf(2); // 시간 (24시간 기준, 2자리)
+		            case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2); // 시간 (12시간 기준, 2자리)
+		            case "mm": return d.getMinutes().zf(2); // 분 (2자리)
+		            case "ss": return d.getSeconds().zf(2); // 초 (2자리)
+		            case "a/p": return d.getHours() < 12 ? "오전" : "오후"; // 오전/오후 구분
+		            default: return $1;
+
+		        }
+
+		    });
+
+		};
+
+		String.prototype.string = function (len) { var s = '', i = 0; while (i++ < len) { s += this; } return s; };
+		String.prototype.zf = function (len) { return "0".string(len - this.length) + this; };
+		Number.prototype.zf = function (len) { return this.toString().zf(len); };
 		
 		$('#keyword').change(function(){
 			var keyword=$(this).val();
@@ -297,20 +385,20 @@
 				data:{keyword:keyword},
 				type:"get",
 				success:function(data){
+					
 					var index = data.filteringList;
-	  				
-	  				
 	  				$(".table > tbody").children().remove();
 	  				
 	  				for(var i = 0 ; i<index.length; i++){
 	  					
-	  					
+	  					var date = new Date(index[i].payDate);
+	  					console.log(date.format('yyyy-MM-dd'));
 	  
 	  					
 	  					var table="<tr><td>" + (i+1) + "</td><td>" + 
 						  index[i].userId + "</td><td>" +  
 						  "멤버쉽" + index[i].membershipType + "</td><td>" +
-						  index[i].payDate + "</td><td>" + 
+						  date.format('yyyy-MM-dd') + "</td><td>" + 
 						  index[i].refundReason+ "</td><td>" +
 						  index[i].process+ "</td></tr>";
 							$(".table > tbody").append(table);

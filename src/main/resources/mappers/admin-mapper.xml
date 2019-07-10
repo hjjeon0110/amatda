@@ -129,5 +129,13 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		SET PROCESS = '환불승인'
 		WHERE PAY_NO = #{payNo}
 	</update>
+	
+
+	<!-- 환불 요청 거절 -->
+	<update id="refundRefuse">
+		UPDATE PAYMENT
+		SET PROCESS = '환불거절' 
+		WHERE PAY_NO = #{payNo} 
+	</update>
 </mapper>
 

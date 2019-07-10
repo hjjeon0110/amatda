@@ -35,6 +35,9 @@ public interface AdminService {
 	//환불 승인 처리
 	int refundAgree(int payNo);
 
+	//환불 거절 처리
+	int refundRefuse(int payNo);
+
 	
 
 
