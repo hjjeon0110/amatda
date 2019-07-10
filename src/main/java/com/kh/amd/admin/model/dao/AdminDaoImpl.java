@@ -74,6 +74,13 @@ public class AdminDaoImpl implements AdminDao{
 	public int refundAgree(SqlSessionTemplate sqlSession, int payNo) {
 		return sqlSession.update("Admin.refundAgree", payNo);
 	}
+	
+	//환불 거절 처리
+	@Override
+	public int refundRefuse(SqlSessionTemplate sqlSession, int payNo) {
+		return sqlSession.update("Admin.refundRefuse", payNo);
+	}
+
 
 
 }

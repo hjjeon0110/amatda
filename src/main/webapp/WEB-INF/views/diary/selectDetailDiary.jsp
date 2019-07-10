@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>다이어리 상세보기</title>
+
 <style>
 .outer {
 	width: 1000px;
@@ -119,13 +120,25 @@ tr {
 					</table>
 				</div>
 			</div> -->
+				
 			
 			
 			<form id="commentForm" name="commentForm" method="post">
 	
 						<input type="hidden" id="bno" name="bno" value="${d.bNo }">
 						<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" />
-						<textarea class="form-control" placeholder="댓글을 입력하세요!!" id="repContent" name="repContent"></textarea>
+						
+						<c:forEach items="${repList}" var="repList">
+							<c:if test="${repList.repContent}">
+								<textarea class="form-control"  id="repContent1" name="repContent" cols="4" rows="5">댓글</textarea>
+							</c:if>
+						</c:forEach>
+						
+						<c:forEach items="${repList}" var="repList">
+							<c:if test="${!empty repList.repContent}">
+								<textarea class="form-control" id="repContent2" name="repContent">${repList.repContent}</textarea>
+							</c:if>
+						</c:forEach>
 						<!-- <a href='#' class="button" id="replyInsert">등록</a> --><input type="button" id="replyInsert" value="등록"/>
 						
 					</form>
@@ -136,7 +149,7 @@ tr {
 					<c:forEach items="${repList}" var="repList">
 					 		<p><b>
 						   
-						  (<fmt:formatDate value="${repList.repDate}" pattern="yyyy-MM-dd a HH:mm:ss" />)
+						  (<fmt:formatDate value="${repList.repDate}" pattern="yyyy-MM-dd" />)
 						    </b></p>
 						  
 						  	<p>${repList.repContent}</p>

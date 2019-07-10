@@ -75,6 +75,11 @@ public class AdminServiceImpl implements AdminService{
 		return ad.refundAgree(sqlSession, payNo);
 	}
 
+	//환불 거절 처리
+	@Override
+	public int refundRefuse(int payNo) {
+		return ad.refundRefuse(sqlSession, payNo);
+	}
 	
 
 

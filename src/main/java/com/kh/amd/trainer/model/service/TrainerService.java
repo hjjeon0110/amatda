@@ -53,6 +53,9 @@ public interface TrainerService {
 	//회원찾기 - 회원리스트 정렬 메소드(김진환)
 	List<Member> userListSort(String sort, PageInfo pi);
 	
+	//견적서 보내기 - 매칭 시작(김진환)
+	int insertMatchStart(String tno, String uno, String estNo);
+	
 	
 	
 	// 효정 메소드 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -102,6 +105,7 @@ public interface TrainerService {
 
 	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 	void deleteMidea(String mno, String thisModiName);
+
 
 	
 

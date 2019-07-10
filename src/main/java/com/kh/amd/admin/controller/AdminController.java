@@ -312,9 +312,17 @@ public class AdminController {
 	//환불 승인 처리
 	@RequestMapping("refundAgree.ad")
 	public String refundAgree(@RequestParam int payNo) {	  
-		System.out.println("승인 시도");
+		System.out.println("글번호 : " + payNo);
 		as.refundAgree(payNo); 
-		return "admin/refundList"; 
+		return "redirect:refund.ad";
+	}
+	
+	//환불 거절 처리
+	@RequestMapping("refundRefuse.ad")
+	public String refundRefuse(@RequestParam int payNo) {	  
+		System.out.println("글번호 : " + payNo);		
+		as.refundRefuse(payNo); 
+		return "redirect:refund.ad";
 	}
 
 	//카테고리별 검색	(환불상태)  
