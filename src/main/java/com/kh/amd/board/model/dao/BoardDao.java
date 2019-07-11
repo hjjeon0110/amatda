@@ -108,6 +108,13 @@ public interface BoardDao {
 	// FAQ 게시판 총 제목&내용으로 검색(SR)
 	List<Board> searchResultFaq(SqlSessionTemplate sqlSession, Board b);
 
+	//리뷰게시판 BNO조회(SR)
+	int selectReviewBno(SqlSessionTemplate sqlSession);
+
+	//리뷰게시판 이미지 insert(SR)
+	void insertReviewImg(SqlSessionTemplate sqlSession, int bno, String mno, String filePath, String originalFilename,
+			String changeName, String ext, String bTitle, String bContent);
+
 	//int insertQna(SqlSessionTemplate sqlSession, Board b, String mno);
 
 

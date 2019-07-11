@@ -234,6 +234,21 @@ public class BoardServiceImpl implements BoardService{
 		return bd.searchResultFaq(sqlSession,b);
 	}
 
+	//리뷰게시판 BNO조회(SR)
+	@Override
+	public int selectReviewBno() {
+		System.out.println("selectReviewBno가 serviceimpl에 오는가?");
+		return bd.selectReviewBno(sqlSession);
+	}
+
+	//리뷰게시판 이미지 insert(SR)
+	@Override
+	public void insertReviewImg(int bno, String mno, String filePath, String originalFilename, String changeName,
+			String ext, String bTitle, String bContent) {
+		System.out.println("insertReviewImag in serviceimpl");
+		bd.insertReviewImg(sqlSession,bno,mno,filePath,originalFilename,changeName,ext,bTitle,bContent);
+	}
+
 
 
 

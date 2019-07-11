@@ -196,6 +196,34 @@ public class BoardDaoImpl implements BoardDao {
 		return sqlSession.selectList("Board.searchResultFaq",b);
 	}
 
+	//리뷰게시판 BNO조회(SR)
+	@Override
+	public int selectReviewBno(SqlSessionTemplate sqlSession) {
+		System.out.println("selectReviewBno가 daoimpl에 오는가?");
+		return sqlSession.selectOne("Board.selectReviewBno");
+	}
+
+	//리뷰게시판 이미지 insert(SR)
+	@Override
+	public void insertReviewImg(SqlSessionTemplate sqlSession, int bno, String mno, String filePath,
+			String originalFilename, String changeName, String ext, String bTitle, String bContent) {
+
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("bno", bno);
+		map.put("mno", mno);
+		map.put("filePath", filePath);
+		map.put("originalFilename", originalFilename);
+		map.put("changeName", changeName);
+		map.put("ext", ext);
+		map.put("bTitle", bTitle);
+		map.put("bContent", bContent);
+		
+		sqlSession.insert("Board.insertImg",map);
+		
+		System.out.println("daoimpl에서의 map이나오려나?" + map);
+		
+	}
+
 
 
 

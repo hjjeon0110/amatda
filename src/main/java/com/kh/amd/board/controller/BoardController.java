@@ -1,6 +1,8 @@
 package com.kh.amd.board.controller;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,10 +23,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.amd.board.model.service.BoardService;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.common.CommonUtils;
 import com.kh.amd.member.model.vo.Member;
 
 
@@ -224,22 +228,61 @@ public class BoardController {
 		 
 		 //★리뷰게시판 입력(SR)
 		 @RequestMapping("insertReview.bo")
-		 public String insertReview(Model model,Board b,HttpServletRequest request) {
+		 public String insertReview(Model model,HttpServletRequest request,HttpSession session,@RequestParam(name="declImgFile",required=false) MultipartFile declImgFile) {
+			
+			 
 			 System.out.println("insertReview.bo로 옴");
 			 
-			 Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-			 b.setbWriter(loginUser.getMno());
-			
+			 Board b = new Board();
+			 int mNo = Integer.parseInt(request.getParameter("mNo"));
+			 String bTitle = request.getParameter("bTitle");
+			 String bContent = request.getParameter("bContent");
+			 b.setbWriter(mNo);
+			 b.setbTitle(bTitle);
+			 b.setbContent(bContent);
 			 
-			 int result = bs.insertReview(b);
-			 if(result >0) {
-				  return "redirect:/selectReview.bo"; 
-			  }else {
-				  model.addAttribute("msg","등록실패");
-				  return "common/errorPage";
-			  }
-			
+			 System.out.println("b : "+ b);
+			  
+			 
+			 System.out.println("-----------------------");
+			 //int result = bs.insertReview(b);
+			 //int bno=bs.selectReviewBno();
+			 //System.out.println("bno in controller : " + bno);
+			 
+			 
+			/* String root = request.getSession().getServletContext().getRealPath("resources");
+	         
+	         String filePath = root + "\\uploadFiles";      
+	         String originalFilename = declImgFile.getOriginalFilename();
+	         String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
+	         String changeName = CommonUtils.getRandomString();
+			 
+	         try {
+	               
+	               declImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
+	                     
+	               //ds.insertDeclarationImg(bno, mno, filePath, originalFilename, changeName, ext,decl_category ,decl_classification);
+	               
+	               return "redirect:insertReview.de";
+	               
+	            }catch (IllegalStateException | IOException e) {
+	               e.printStackTrace();
+	               System.out.println("에러발생");
+	            }*/
+	            return "board/insertReview";      
 		 }
+	         
+	/*
+	 * Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+	 * b.setbWriter(loginUser.getMno());
+	 * 
+	 * 
+	 * int result = bs.insertReview(b); if(result >0) { return
+	 * "redirect:/selectReview.bo"; }else { model.addAttribute("msg","등록실패"); return
+	 * "common/errorPage"; }
+	 */
+			
+
 		 
 		 
 		 
