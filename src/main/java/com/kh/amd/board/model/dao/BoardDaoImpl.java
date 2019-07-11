@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSession;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.board.model.vo.PageInfo;
+import com.kh.amd.member.model.vo.Member;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -97,26 +100,36 @@ public class BoardDaoImpl implements BoardDao {
 
 	//공지사항/이벤트 리스트 출력(SR)
 	@Override
-	public List<Board> selectNotice(SqlSessionTemplate sqlSession) {
+	public List<Board> selectNotice(SqlSessionTemplate sqlSession,PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+	     RowBounds rowBounds = new RowBounds(offset, pi.getLimit()); //알려고 하지마라.
 		
-		List<Board> list = (List) sqlSession.selectList("Board.selectNotice");
+	     List<Board> list=null;
+	     
+		list = (List) sqlSession.selectList("Board.selectNotice", null, rowBounds);
 		System.out.println("list : " + list);
 		
-		return sqlSession.selectList("Board.selectNotice");
+		return list;
 	}
 
 	//공지사항 CATEGORY만의 리스트 출력(SR)
 	@Override
-	public List<Board> selectNoticeCate(SqlSessionTemplate sqlSession) {
-		List<Board> list = (List) sqlSession.selectList("Board.selectNoticeCate");
-		return sqlSession.selectList("Board.selectNoticeCate");
+	public List<Board> selectNoticeCate(SqlSessionTemplate sqlSession,PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit()); //알려고 하지마라.
+		List<Board> list=null;
+		list = (List) sqlSession.selectList("Board.selectNoticeCate",null,rowBounds);
+		return list;
 	}
 
 	//이벤트 CATEGORY만의 리스트 출력(SR)
 	@Override
-	public List<Board> selectEventCate(SqlSessionTemplate sqlSession) {
-		List<Board> list = (List) sqlSession.selectList("Board.selectEventCate");
-		return sqlSession.selectList("Board.selectEventCate");
+	public List<Board> selectEventCate(SqlSessionTemplate sqlSession,PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit()); //알려고 하지마라.
+		List<Board> list=null;
+		list = (List) sqlSession.selectList("Board.selectEventCate",null,rowBounds);
+		return list;
 	}
 
 	//공지사항/이벤트 게시물 상세페이지(SR)
@@ -235,25 +248,67 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	//리뷰게시판 이미지 insert(SR)
-	@Override
-	public void insertReviewImg(SqlSessionTemplate sqlSession, int bno, String mno, String filePath,
-			String originalFilename, String changeName, String ext, String bTitle, String bContent) {
+	/*
+	 * @Override public void insertReviewImg(SqlSessionTemplate sqlSession, int bno,
+	 * String mno, String filePath, String originalFilename, String changeName,
+	 * String ext, String bTitle, String bContent) {
+	 * 
+	 * HashMap<String,Object> map = new HashMap<String,Object>(); map.put("bno",
+	 * bno); map.put("mno", mno); map.put("filePath", filePath);
+	 * map.put("originalFilename", originalFilename); map.put("changeName",
+	 * changeName); map.put("ext", ext); map.put("bTitle", bTitle);
+	 * map.put("bContent", bContent);
+	 * 
+	 * sqlSession.insert("Board.insertImg",map);
+	 * 
+	 * System.out.println("daoimpl에서의 map이나오려나?" + map);
+	 * 
+	 * }
+	 */
 
+	//공지사항&이벤트 페이지 페이징(SR)
+	@Override
+	public int getSearchNoticeListCount(SqlSessionTemplate sqlSession) {
+		//int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+	    //RowBounds rowBounds = new RowBounds(offset, pi.getLimit());   
+		return sqlSession.selectOne("Board.getSearchNoticeListCount");
+		
+	}
+	//공지사항 CATEGORY만의 리스트 페이징(SR)	
+	@Override
+	public int getSearchNoticeCateListCount(SqlSessionTemplate sqlSession) {
+		//int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+	    //RowBounds rowBounds = new RowBounds(offset, pi.getLimit());   
+		return sqlSession.selectOne("Board.getSearchNoticeCateListCount");
+	}
+
+	//이벤트 CATEGORY만의 리스트 페이징(SR)
+	@Override
+	public int getSearchEventCateListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Board.getSearchEventCateListCount");
+	}
+
+	// 후기 이미지 insert
+	@Override
+	public void insertReviewImg(SqlSessionTemplate sqlSession, String mno, Board b, String filePath,
+			String originalFilename, String changeName, String ext) {
+		
+		int bno = b.getbNo();
+		
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		map.put("bno", bno);
+		
 		map.put("mno", mno);
+		map.put("bno", bno);
 		map.put("filePath", filePath);
 		map.put("originalFilename", originalFilename);
 		map.put("changeName", changeName);
 		map.put("ext", ext);
-		map.put("bTitle", bTitle);
-		map.put("bContent", bContent);
 		
-		sqlSession.insert("Board.insertImg",map);
-		
-		System.out.println("daoimpl에서의 map이나오려나?" + map);
+		sqlSession.insert("Board.insertReviewImg", map);
 		
 	}
+	
+	
 
 
 
