@@ -77,15 +77,25 @@
 		<result property="hopeWeight" column="HOPE_WEIGHT"/>
 		<result property="uAge" column="UAGE"/>
 	</resultMap>
+	<resultMap type="Estimate" id="estimateResultSet">
+		<id property="estNo" column="EST_NO" />
+		<result property="estName" column="EST_NAME" />
+		<result property="estPrice" column="EST_COST" />
+		<result property="estDay" column="TRAINING_DAYS" />
+		<result property="estContents" column="EST_CONTENTS" />
+		<result property="estType" column="EST_TYPE" />
+		<result property="tno" column="TNO" />
+	</resultMap>
 	<resultMap type="Mprocess" id="mprocessResultSet">
 		<id property="processNo" column="PROCESS_NO"/>
-		<result property="estNo" column="EST_NO"/>
 		<result property="uno" column="UNO"/>
 		<result property="tno" column="TNO"/>
+		<result property="transferStatus" column="TRANSFER_STATUS"/>
 		<result property="matchingLevel" column="MATCHING_LEVEL"/>
 		<result property="matchingAccept" column="MATCHING_ACCEPT"/>
 		<result property="matchingStatus" column="MATCHING_STATUS"/>
 		<result property="processDate" column="PROCESS_DATE"/>
+		<collection property="matchEstimate" column="estimateResultSet" resultMap="estimateResultSet" javaType="Estimate"/>
 	</resultMap>
 	<resultMap id="selectRecommendTrainerList" type="com.kh.amd.member.model.vo.Member">
 		<id column="MNO" property="mno" /> 

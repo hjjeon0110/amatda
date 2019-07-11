@@ -80,6 +80,8 @@
 	
 
 	<script>
+		
+		// 프로필 보기
 		$(".matchingStartBtn").click(function() {
 			
 			var mno = ${ sessionScope.loginUser.mno };
@@ -92,6 +94,21 @@
 			location.href='showProfileDetailPageView.us?mno=' + mno + "&tno=" + tno + '&tname=' + tname;
 
 		});
+		
+		// 매칭 시작하기
+		$(".goProfileDetail").click(function() {
+			
+			var mno = ${ sessionScope.loginUser.mno };
+			var tno = $(this).parent().parent().parent().children().eq(2).children().eq(1).children().eq(0).val();
+			var tname = $(this).parent().parent().parent().children().eq(2).children().eq(1).children().eq(1).val();
+			console.log("mno : " + mno);
+			console.log("tno : " + tno);
+			console.log("tname : " + tname);
+			
+			location.href='goMatchingProcess.us?mno=' + mno + "&tno=" + tno + '&tname=' + tname;
+			
+		});
+		
 	</script>
 	
 </body>

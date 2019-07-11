@@ -151,7 +151,6 @@
 </body>
 <script>
 	
-	
 function loadMyImgFile(value) {
 	if (value.files && value.files[0]) {
 		var reader = new FileReader();
