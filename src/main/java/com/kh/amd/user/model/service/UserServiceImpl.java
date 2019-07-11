@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
@@ -96,6 +97,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteMyTrainer(String uno, String tno) {
 		ud.deleteMyTrainer(sqlSession, uno, tno);
+	}
+
+	
+	//12. 나의 문의 내역 select (우리나)
+	@Override
+	public List<Board> selectMyQnaList(int mno2) {
+		return ud.selectMyQnaList(sqlSession,mno2);
+	}
+
+
+	@Override
+	public Board selectMyQnaDetail(int bno2) {
+		return ud.selectMyQnaDetail(sqlSession,bno2);
 	}
 	
 
