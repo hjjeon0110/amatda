@@ -86,6 +86,30 @@ public class AdminServiceImpl implements AdminService{
 	public List<Payment> membershipType(String keyword) {
 		return ad.membershipType(sqlSession, keyword);
 	}
+
+	//페이징 처리(공지사항)
+	@Override
+	public int noticeListCount() {
+		return ad.noticeListCount(sqlSession);
+	}
+
+	//페이징 처리(FAQ)
+	@Override
+	public int faqListCount() {
+		return ad.faqListCount(sqlSession);
+	}
+
+	//페이징 처리(QNA)
+	@Override
+	public int qnaListCount() {
+		return ad.qnaListCount(sqlSession);
+	}
+	
+	//페이징 처리(신고)
+	@Override
+	public int declListCount() {
+		return ad.declListCount(sqlSession);
+	}
 	
 
 

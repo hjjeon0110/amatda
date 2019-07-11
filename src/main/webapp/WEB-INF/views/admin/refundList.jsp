@@ -216,12 +216,11 @@
                                        <div class="modalContent">
                                           <h5 id="modalConfirm">
                                              <strong>환불 요청을 승인 하시겠습니까?</strong>
-                                            <!--  <button class="button" id="agreeBtn">승인</button>
-                                             <button class="button" id="refuseBtn">거절</button>       -->
+                                    
                                           </h5>
                                           
                                       <div class="button2">
-                                               <button class="button" id="agreeBtn">승인</button>
+                                             <button class="button" id="agreeBtn">승인</button>
                                              <button class="button" id="refuseBtn">거절</button> 
                                          </div>
                                           
@@ -283,18 +282,30 @@
             /* console.log(accept); */
             console.log("요청중 버튼 클릭 : " + payNo);
             
-          	var $input = $("<input type='text' id='num' value=" + payNo + ">")
-           	console.log($input);
+          	var $input = $("<input type='hidden' id='num' value=" + payNo + ">")
+           	$(".container").append($input);
           	
           //환불 승인 버튼
             $("#agreeBtn").click(function() {
                modalLayer.fadeOut("slow");
                button.focus(); 
-               
-               var payNo = $(input[id=num]);
-               console.log("승인" + payNo);
-               //location.href="refundAgree.ad?payNo=" + payNo;            
+                           
+              var payNo = $("#num").val();
+              console.log("승인" + payNo);
+              location.href="refundAgree.ad?payNo=" + payNo; 
+      
             })
+            
+         //환불 거절 버튼
+         $("#refuseBtn").click(function() {
+            modalLayer.fadeOut("slow");
+            button.focus();      
+            
+            var payNo = $("#num").val();
+            console.log("거절" + payNo);
+            location.href="refundRefuse.ad?payNo=" + payNo;
+ 
+         });
 
             modalLayer.fadeIn("slow");
             modalCont.css({
@@ -307,25 +318,8 @@
          
          });
 
-     /*  //환불 승인 버튼
-         $("#agreeBtn").click(function() {
-            modalLayer.fadeOut("slow");
-            button.focus(); 
-            
-            var payNo = $(input[id=num]);
-            console.log("승인" + payNo);
-            //location.href="refundAgree.ad?payNo=" + payNo;            
-         }); */
-         
-         //환불 거절 버튼
-         $("#refuseBtn").click(function() {
-            modalLayer.fadeOut("slow");
-            button.focus();           
-            var payNo = $(this).parents("tr").children("th").children().eq(1).val();
-            console.log("거절" + payNo);
-            //location.href="refundRefuse.ad?payNo=" + payNo;
-            
-         });
+  
+        
       });
       
 
@@ -395,6 +389,7 @@
                     "멤버쉽" + index[i].membershipType + "</td><td>" +
                     date.format('yyyy-MM-dd') + "</td><td>" + 
                     index[i].refundReason+ "</td><td>" +
+                   
                     index[i].process+ "</td></tr>";
                      $(".table > tbody").append(table);
                  

@@ -658,10 +658,10 @@ public class MemberController {
 		}
 		
 		
-		@RequestMapping("insertMyImg.ms")
-		public String insertMyImg(HttpServletRequest request, Member m, @RequestParam(name="modifypicture", required=false) MultipartFile modifypicture){
+		@RequestMapping("insertMyImg.me")
+		public String insertMyImg(HttpServletRequest request, String mno, @RequestParam(name="modifypicture", required=false) MultipartFile modifypicture){
 			
-			System.out.println("mno: " + m.getMno());
+			System.out.println("mno: " + mno);
 			System.out.println("modifypicture: " + modifypicture);
 			String root = request.getSession().getServletContext().getRealPath("resources");
 			

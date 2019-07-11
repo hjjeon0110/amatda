@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.member.model.vo.Member;
 
 
@@ -21,7 +22,7 @@ public interface BoardDao {
 
 
 	//공지사항 리스트(김선아)
-	List<Board> noticeList(SqlSessionTemplate sqlSession);
+	List<Board> noticeList(SqlSessionTemplate sqlSession, PageInfo pi);
 
 	//공지사항 상세보기(김선아)
 	Board noticeSelectOne(SqlSessionTemplate sqlSession, int bNo);
@@ -31,13 +32,13 @@ public interface BoardDao {
 	
 	
 	//공지사항/이벤트 리스트 출력(SR)
-	List<Board> selectNotice(SqlSessionTemplate sqlSession);
+	List<Board> selectNotice(SqlSessionTemplate sqlSession, PageInfo pi);
 
 	 //공지사항 CATEGORY만의 리스트 출력(SR)
-	List<Board> selectNoticeCate(SqlSessionTemplate sqlSession);
+	List<Board> selectNoticeCate(SqlSessionTemplate sqlSession, PageInfo pi);
 
 	//이벤트 CATEGORY만의 리스트 출력(SR)
-	List<Board> selectEventCate(SqlSessionTemplate sqlSession);
+	List<Board> selectEventCate(SqlSessionTemplate sqlSession, PageInfo pi);
 
 	//공지사항/이벤트 게시물 상세페이지(SR)
 	Board selectOneNotice(SqlSessionTemplate sqlSession, int bNo);
@@ -70,7 +71,7 @@ public interface BoardDao {
 	int updateNotice(SqlSessionTemplate sqlSession, Board board);
 
 	//자주묻는질문 리스트(김선아)
-	List<Board> FAQlist(SqlSessionTemplate sqlSession);
+	List<Board> FAQlist(SqlSessionTemplate sqlSession, PageInfo pi);
 
 	//자주묻는질문 상세보기(김선아)
 	Board FAQSelectOne(SqlSessionTemplate sqlSession, int bNo);
@@ -91,7 +92,7 @@ public interface BoardDao {
 	int updateFAQ(SqlSessionTemplate sqlSession, Board board);
 	
 	//1:1문의 리스트(김선아)
-	List<Board> QNAlist(SqlSessionTemplate sqlSession);
+	List<Board> QNAlist(SqlSessionTemplate sqlSession, PageInfo pi);
 
 	//1:1 상세보기(김선아)
 	Object QNASelectOne(SqlSessionTemplate sqlSession, int bNo);
@@ -112,8 +113,24 @@ public interface BoardDao {
 	int selectReviewBno(SqlSessionTemplate sqlSession);
 
 	//리뷰게시판 이미지 insert(SR)
-	void insertReviewImg(SqlSessionTemplate sqlSession, int bno, String mno, String filePath, String originalFilename,
-			String changeName, String ext, String bTitle, String bContent);
+	/*
+	 * void insertReviewImg(SqlSessionTemplate sqlSession, int bno, String mno,
+	 * String filePath, String originalFilename, String changeName, String ext,
+	 * String bTitle, String bContent);
+	 */
+
+	//공지사항&이벤트 페이지 페이징(SR)
+	int getSearchNoticeListCount(SqlSessionTemplate sqlSession);
+	
+	//공지사항 CATEGORY만의 리스트 페이징(SR)	
+	int getSearchNoticeCateListCount(SqlSessionTemplate sqlSession);
+
+	//이벤트 CATEGORY만의 리스트 페이징(SR)
+	int getSearchEventCateListCount(SqlSessionTemplate sqlSession);
+
+	// 후기 이미지 insert
+	void insertReviewImg(SqlSessionTemplate sqlSession, String mno, Board b, String filePath, String originalFilename,
+			String changeName, String ext);
 
 	//int insertQna(SqlSessionTemplate sqlSession, Board b, String mno);
 

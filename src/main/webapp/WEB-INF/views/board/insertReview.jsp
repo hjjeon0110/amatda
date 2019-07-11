@@ -92,10 +92,10 @@ display:inline;
 	<div class="outer"> 	
 		<br>
 		<h2 align="center">후기</h2>
-		<form  action ="selectReview.bo" name="formId" method="get" id="formId" encType="multipart/form-data"> 
+		<form action ="insertReview.bo" name="reviewImgFile" method="post" id="formId" encType="multipart/form-data"> 
 			<!-- encType="multipart/form-data" -->
 			<!-- encType을 설정해야 파일을 폼에서 보낼 수 있다 -->
-			<input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.mno }" />
+			<input type="hidden" id="mNo" name="bWriter" value="${ sessionScope.loginUser.mno }" />
 			 <input type="hidden" name="bType" value="5"/>
 			
 			
@@ -121,7 +121,7 @@ display:inline;
 							<th>첨부파일   (썸네일)</th>
 							<td>
 							
-							  <input type="file" name="reviewImgFile" onchange="loadReviewImgFile(this)"/> 
+							  <input type="file" name="reviewImgFile"/> 
 								<!-- <div id="titleImgArea" style="float:left; margin-right:10%;" >
 									<img id="titleImg1" width="350" height="250">
 								</div>
@@ -136,12 +136,6 @@ display:inline;
 					</tbody>
 					
 				</table>
-			
-			<div id="fileArea">
-				<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)">
-				<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)">
-				
-			</div>
 			<br>
 			<!-- <div class="btnArea">
 	            <button onclick="location.href='selectReview.bo'">취소하기</button>
@@ -149,9 +143,9 @@ display:inline;
             
          </div> -->
 			
-			<input id="clickInput" type="submit" value="작성하기" class="btn btn-primary">
-			<button onclick="location.href='selectReview.bo'" class="btn btn-primary">목록으로</button>
-			</div>
+			<input type="submit" value="작성하기" class="btn btn-primary">
+			<!-- <button onclick="location.href='selectReview.bo'" class="btn btn-primary">목록으로</button>
+			</div> -->
 			
 		</form>
 	</div>
@@ -171,7 +165,7 @@ display:inline;
 			location.href="loginMember.me";
 		}
 		
-		$("#clickInput").click(function(){
+		/* $("#clickInput").click(function(){
 			var bTitle = $("#bTitle").val();
 			var bContent = $("#bContent").val();
 			if(bTitle == 0){
@@ -183,7 +177,7 @@ display:inline;
 				$("#formId").attr("action", "insertReview.bo");
 				
 			}	
-		})
+		}) */
 		
 	})
 		

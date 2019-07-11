@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.diary.model.vo.Diary;
 
@@ -18,7 +19,7 @@ public interface DiaryService {
 	
 	
 	//다이어리 list
-	List<Diary> diaryList(int mno);	
+	List<Diary> diaryList(int mno, PageInfo pi);	
 	
 
 	//다이어리 내용상세
@@ -52,6 +53,10 @@ public interface DiaryService {
 
 	//댓글 insert
 	int insertReply(Reply rep);
+
+
+	//페이징처리
+	int diaryListCount(int mno);
 	
 
 	//gallery
