@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.diary.model.vo.Diary;
 
@@ -57,11 +59,22 @@ public class DiaryDaoImpl implements DiaryDao{
 
 	//다이어리 list
 	@Override
-	public List<Diary> diaryList(SqlSessionTemplate sqlSession, int mno) {
+	public List<Diary> diaryList(SqlSessionTemplate sqlSession, int mno, PageInfo pi) {
 		
-		System.out.println("dao mno: " + mno);
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+	      
+	    RowBounds rowBounds = new RowBounds(offset, pi.getLimit());   
 		
-		return sqlSession.selectList("Diary.diaryList", mno);
+		System.out.println("dao mno: " + mno + pi);
+		
+		List<Diary> list = null;
+		
+		list = (List) sqlSession.selectList("Diary.diaryList", mno, rowBounds);
+		System.out.println("list를 받아오나? " + list);
+		
+		return list;
+		
+		/* return sqlSession.selectList("Diary.diaryList", mno, pi); */
 	}
 
 	
@@ -146,6 +159,14 @@ public class DiaryDaoImpl implements DiaryDao{
 		System.out.println("가만있어보자: " + rep);
 		return sqlSession.insert("Diary.insertReply",rep);
 		
+	}
+
+
+	//페이징
+	@Override
+	public int diaryListCount(SqlSessionTemplate sqlSession, int mno) {
+		
+		return sqlSession.selectOne("Diary.selectDiaryListCount", mno);
 	}
 	
 	//gallery

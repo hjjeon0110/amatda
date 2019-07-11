@@ -269,7 +269,7 @@
 	</insert>
 	
 	<!-- 견적서 보낸 매칭 프로세스에 해당하는 값 모두 가져와 리스트로 반환 -->
-	<select id="sendEstList" resultMap="Member">
+	<select id="sendEstList" resultMap="memberResultSet" >
 		SELECT * 
 		FROM MEMBER M
 		JOIN M_PROCESS MP ON (MP.TNO = M.TNO)
