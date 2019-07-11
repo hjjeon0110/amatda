@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.member.model.vo.Member;
 
 
@@ -21,7 +22,7 @@ public interface BoardDao {
 
 
 	//공지사항 리스트(김선아)
-	List<Board> noticeList(SqlSessionTemplate sqlSession);
+	List<Board> noticeList(SqlSessionTemplate sqlSession, PageInfo pi);
 
 	//공지사항 상세보기(김선아)
 	Board noticeSelectOne(SqlSessionTemplate sqlSession, int bNo);
@@ -70,7 +71,7 @@ public interface BoardDao {
 	int updateNotice(SqlSessionTemplate sqlSession, Board board);
 
 	//자주묻는질문 리스트(김선아)
-	List<Board> FAQlist(SqlSessionTemplate sqlSession);
+	List<Board> FAQlist(SqlSessionTemplate sqlSession, PageInfo pi);
 
 	//자주묻는질문 상세보기(김선아)
 	Board FAQSelectOne(SqlSessionTemplate sqlSession, int bNo);
@@ -91,7 +92,7 @@ public interface BoardDao {
 	int updateFAQ(SqlSessionTemplate sqlSession, Board board);
 	
 	//1:1문의 리스트(김선아)
-	List<Board> QNAlist(SqlSessionTemplate sqlSession);
+	List<Board> QNAlist(SqlSessionTemplate sqlSession, PageInfo pi);
 
 	//1:1 상세보기(김선아)
 	Object QNASelectOne(SqlSessionTemplate sqlSession, int bNo);

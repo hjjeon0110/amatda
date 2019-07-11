@@ -37,6 +37,23 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		<result column="UAGE" property="uage"/>
 		<result column="TAGE" property="tage"/>
 </resultMap>
+
+<resultMap id="boardResultSet" type="com.kh.amd.board.model.vo.Board">
+		<id property="bNo" column="BNO" />
+		<result property="bType" column="BTYPE" />
+		<result property="blCategory" column="BL_CATEGORY" />
+		<result property="bmCategory" column="BM_CATEGORY" />
+		<result property="bsCategory" column="BS_CATEGORY" />
+		<result property="bWriteDate" column="BWRITE_DATE" />
+		<result property="bModifyDate" column="BMODIFY_DATE" />
+		<result property="bTitle" column="BTITLE" />
+		<result property="bContent" column="BCONTENT" />
+		<result property="bCount" column="BCOUNT" />
+		<result property="bLike" column="BLIKE" />
+		<result property="bStatus" column="BSTATUS" />
+		<result property="bWriter" column="BWRITER" />
+		<collection property="member" resultMap="member"/>		
+	</resultMap>
 	
 	<!-- 결제 내역 조회 -->
 	<select id="paymentList" resultMap="paymentResultSet">
@@ -146,6 +163,33 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		JOIN MEMBER M ON(TNO = MNO)
 		WHERE PROCESS = '결제완료'
 	  	AND MEMBERSHIP_TYPE = #{keyword}	
+	</select>
+	
+	<!-- 페이징 처리(공지사항) -->
+	<select id="noticeListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE BTYPE = 1 OR BTYPE=2		
+	</select>
+	
+	<!-- 페이징 처리(FAQ) -->
+	<select id="faqListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD B
+		WHERE BTYPE = 3	
+	</select>
+	
+	<!-- 페이징 처리(QNA) -->
+	<select id="qnaListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD B
+		WHERE BTYPE = 4
+	</select>
+	
+	<!-- 페이징 처리(신고) -->
+	<select id="declListCount" resultType="_int">
+		SELECT COUNT(*) 
+     	FROM DECLARATION 
 	</select>
 	
 </mapper>

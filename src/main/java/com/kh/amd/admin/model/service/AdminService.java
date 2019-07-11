@@ -41,6 +41,18 @@ public interface AdminService {
 	//카테고리별 검색(멤버쉽)
 	List<Payment> membershipType(String keyword);
 
+	//페이징 처리(공지사항)
+	int noticeListCount();
+
+	//페이징 처리(FAQ)
+	int faqListCount();
+
+	//페이징 처리(QNA)
+	int qnaListCount();
+
+	//페이징 처리(신고)
+	int declListCount();
+
 	
 
 

@@ -43,6 +43,18 @@ public interface AdminDao {
 	//카테고리별 조회(멤버쉽)
 	List<Payment> membershipType(SqlSessionTemplate sqlSession, String keyword);
 
+	//페이징처리(공지사항)
+	int noticeListCount(SqlSessionTemplate sqlSession);
+
+	//페이징처리(FAQ)
+	int faqListCount(SqlSessionTemplate sqlSession);
+
+	//페이징처리(QNA)
+	int qnaListCount(SqlSessionTemplate sqlSession);
+
+	//페이징처리(신고)
+	int declListCount(SqlSessionTemplate sqlSession);
+
 
 
 

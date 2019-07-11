@@ -69,8 +69,8 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="notice.ad">공지사항</a>
-                                <a class="dropdown-item" href="#">자주 묻는 질문</a>
-                                <a class="dropdown-item" href="#">1:1문의</a>
+                                <a class="dropdown-item" href="FAQ.ad">자주 묻는 질문</a>
+                                <a class="dropdown-item" href="QNA.ad">1:1문의</a>
                             </div>
                         </li>
                         
@@ -121,12 +121,15 @@
             </div>
 
         </nav>
+        
+        
         <div class="container">
             <!-- <div class="row">
                 <div class="col">
                     <p class="text-white mt-5 mb-5">Welcome back, <b>Admin</b></p>
                 </div>
             </div> -->
+            
             <!-- row -->
             <div class="row tm-content-row">
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">

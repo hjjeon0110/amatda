@@ -124,7 +124,7 @@ td{
 			data:{name:name, userId:userId, email:email},
 			success:function(data){
 				if(data == "ok"){
-					alert("본인 인증을 위한 이메일 전송입니다.");
+					alert("본인 인증을 위한 이메일을 전송하였습니다.");
 				var count = 0;	
 				//document.location.href='updatePwd.me?name=' + name;  //폼으로 이동
 				location.href="gotoRandomPwdWrite.ms";

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
@@ -210,12 +211,34 @@ public class UserController {
 		return "user/2_4_myPage_requestsReceived";
 	}
 	
-	// 마이페이지_내글관리 페이지 이동 (전효정)
+	// 마이페이지_내글관리 페이지 이동 & qna리스트 select (우리나)
 	@RequestMapping("showMyPageMyWriting.us")
-	public String showMyPageMyWritingPageView() {
+	public String showMyPageMyWritingPageView(Model model,String mno) {
+		System.out.println("mno넘어오니?" + mno);
+		
+		int mno2 = Integer.parseInt(mno);
+		
+		List<Board> selectMyQnaList = us.selectMyQnaList(mno2);
+		System.out.println("db에서 가져온 List: " + selectMyQnaList);
+		model.addAttribute("qnaList", selectMyQnaList);
 		return "user/2_5_myPage_myWriting";
 	}
 	
+	//마이페이지 _qna리스트에서 detail select (우리나)
+	@RequestMapping("gotoMyQnaDetailForm.us")
+	public String gotoMyQnaDetailForm(String bno,Model model) {
+		System.out.println("bno: " + bno);
+		
+		int bno2 = Integer.parseInt(bno);
+		
+		Board myQnaDetail = us.selectMyQnaDetail(bno2);
+		
+		System.out.println("db다녀온 qna 디테일: " + myQnaDetail);
+		
+		model.addAttribute("myQnaDetail",myQnaDetail);
+		
+		return "user/2_6_myQnaDetail";
+	}
 	
 	//(김진환이 조금이라도 들어간 메소드)------------------------------------------------------------------------------------//
 	

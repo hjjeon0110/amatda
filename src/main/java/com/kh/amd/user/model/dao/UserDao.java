@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
@@ -45,6 +46,11 @@ public interface UserDao {
 
 	// 11. 마이트레이너 delete (전효정)
 	void deleteMyTrainer(SqlSessionTemplate sqlSession, String uno, String tno);
+
+	//12. 나의 문의 내역 select (우리나)
+	List<Board> selectMyQnaList(SqlSessionTemplate sqlSession, int mno2);
+
+	Board selectMyQnaDetail(SqlSessionTemplate sqlSession, int bno2);
 
 	
 }
