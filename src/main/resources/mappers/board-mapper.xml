@@ -38,6 +38,21 @@
 		<result property="bWriter" column="BWRITER" />
 		<collection property="member" resultMap="member"/>		
 	</resultMap>
+	
+	<resultMap type="Attachment" id="attachmentResultSet">
+	<id property="fileNo" column="FILE_NO"/>
+	<result property="bno" column="BNO"/>
+	<result property="pno" column="PNO"/>
+	<result property="link" column="LINK"/>
+	<result property="oriName" column="ORI_NAME"/>
+	<result property="modiName" column="MODI_NAME"/>
+	<result property="extension" column="EXTENSION"/>
+	<result property="fileLevel" column="FILE_LEVEL"/>
+	<result property="uploadDate" column="UPLOAD_DATE"/>
+	<result property="aType" column="ATYPE"/>
+	<result property="aStatus" column="A_STATUS"/>
+	<result property="filePath" column="FILE_PATH"/>
+</resultMap>
 
 
 	<!-- Q&A 입력용(sr) -->
@@ -58,6 +73,18 @@
 		INSERT INTO BOARD(BNO,BTYPE,BWRITE_DATE,BTITLE,BCONTENT,BWRITER) 
 		VALUES (BNO_SEQ.NEXTVAL,#{bType}, sysdate, #{bTitle},#{bContent},#{bWriter})
 	</insert>
+	
+	<!-- (review) attachment에 bno를 넣기위한 커발  -->
+	<select id="selectDeclBno" resultType="_int">
+		SELECT BNO_SEQ.CURRVAL FROM DUAL 
+	</select>
+	
+	<!-- (review) 이미지 insert -->
+	<insert id="insertReviewImg" parameterType="Attachment">
+		INSERT INTO ATTACHMENT
+		VALUES(FILE_SEQ.NEXTVAL, #{bno}, #{mno}, NULL, #{originalFilename}, #{changeName}, #{ext}, 0, SYSDATE, 5, 'Y', #{filePath}) 
+	</insert>
+
 
 
 	<!-- 공지사항 리스트 조회(김선아) -->
@@ -116,91 +143,6 @@
 		WHERE BNO = #{bNo}
 	</select> 
 
-
-	
-
-	<!-- 사용자 공지사항/이벤트 리스트 출력(sr) -->
-<!-- 	<select id="selectNotice" resultMap="boardResultSet">
-		SELECT *
-		FROM BOARD
-		WHERE (BTYPE=1 OR BTYPE=2)
-		AND BSTATUS = 'Y'
-	</select> -->
-
-	<!-- 공지사항 CATEGORY만의 리스트 출력(SR) -->
-	<!-- <select id="selectNoticeCate" resultMap="boardResultSet">
-		SELECT *
-		FROM BOARD
-		WHERE BTYPE=1
-		AND BSTATUS='Y'
-	</select> -->
-
-	<!-- 이벤트 CATEGORY만의 리스트 출력(SR) -->
-	<!-- <select id="selectEventCate" resultMap="boardResultSet">
-		SELECT *
-		FROM BOARD
-		WHERE BTYPE=2
-		AND BSTATUS='Y'
-	</select> -->
-
-	<!-- 공지사항/이벤트 게시판 검색 (SR) -->
-	<!-- <select id="searchNotice" resultMap="boardResultSet">
-		SELECT *
-		FROM BOARD
-		WHERE (BTYPE=1 OR BTYPE=2)
-		AND BSTATUS='Y'
-		AND (BTITLE || BCONTENT) LIKE '%'||'searchCon'||'%'
-	</select> -->
-
-
-	<!-- 공지사항/이벤트 게시물 상세조회(SR) -->
-	<!-- <select id="selectOneNotice" resultMap="boardResultSet"
-		parameterType="_int">
-		SELECT *
-		FROM (SELECT * FROM BOARD WHERE BTYPE = 1 OR BTYPE=2)
-		WHERE BNO = #{bNo}
-	</select> -->
-
-	<!-- 사용자 FAQ 리스트 출력(sr) -->
-	<!-- <select id="selectFaq" resultMap="boardResultSet">
-		SELECT *
-		FROM BOARD
-		WHERE BTYPE=3
-		AND BSTATUS = 'Y'
-	</select> -->
-
-	<!-- 사용자 후기리뷰 게시판 리뷰 출력(SR) -->
-	<!-- <select id="selectReview" resultMap="boardResultSet">
-		SELECT *
-		FROM BOARD
-		WHERE BTYPE=5
-		AND BSTATUS = 'Y'
-	</select> -->
-
-	<!-- 사용자 후기리뷰 상세 게시물 출력(SR) -->
-	<!-- <select id="selectOneReview" resultMap="boardResultSet">
-		SELECT *
-		FROM (SELECT * FROM BOARD WHERE BTYPE = 5)
-		WHERE BNO=#{bNo}
-	</select> -->
-
-
-	<!-- 공지사항 카테고리 게시물 상세조회(SR) -->
-	<!-- <select id="selectOneNoticeCate" resultMap="boardResultSet"
-		parameterType="_int">
-		SELECT *
-		FROM (SELECT * FROM BOARD WHERE BTYPE = 1)
-		WHERE BNO = #{bNo}
-	</select> -->
-
-
-	<!-- 이벤트 카테고리 게시물 상세조회(SR) -->
-	<!-- <select id="selectOneEventCate" resultMap="boardResultSet"
-		parameterType="_int">
-		SELECT *
-		FROM (SELECT * FROM BOARD WHERE BTYPE = 2)
-		WHERE BNO = #{bNo}
-	</select> -->
 
 	<!-- 자주 묻는 질문 글등록(김선아) -->
 	<insert id="insertFAQ">

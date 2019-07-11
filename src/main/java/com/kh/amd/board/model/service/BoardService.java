@@ -48,7 +48,7 @@ public interface BoardService {
 	List<Board> selectReview();
 
 	//후기리뷰 입력(SR)
-	int insertReview(Board b);
+	int insertReview(Board b,int bNo);
 
 	//리뷰게시판 상세페이지 (SR)
 	Object selectOneReview(int bNo);
@@ -107,6 +107,14 @@ public interface BoardService {
 	
 	// FAQ 게시판 총 제목&내용으로 검색(SR)
 	List<Board> searchResultFaq(Board b);
+
+	////리뷰게시판 BNO조회(SR)
+	int selectReviewBno();
+	
+	//리뷰게시판 이미지 insert(SR)
+	void insertReviewImg(int bno,String mno,String filePath,String originalFilename,String changeName,String ext,String bTitle,String bContent);
+	
+	
 
 
 

@@ -92,7 +92,7 @@ display:inline;
 	<div class="outer"> 	
 		<br>
 		<h2 align="center">후기</h2>
-		<form  method="post" id="formId"> 
+		<form  action ="selectReview.bo" name="formId" method="get" id="formId" encType="multipart/form-data"> 
 			<!-- encType="multipart/form-data" -->
 			<!-- encType을 설정해야 파일을 폼에서 보낼 수 있다 -->
 			<input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.mno }" />
@@ -120,6 +120,8 @@ display:inline;
 						<tr>
 							<th>첨부파일   (썸네일)</th>
 							<td>
+							
+							  <input type="file" name="reviewImgFile" onchange="loadReviewImgFile(this)"/> 
 								<!-- <div id="titleImgArea" style="float:left; margin-right:10%;" >
 									<img id="titleImg1" width="350" height="250">
 								</div>
@@ -217,6 +219,31 @@ display:inline;
 				reader.readAsDataURL(value.files[0]);
 			}
 		};
+		
+		
+		 //이미지 첨부 
+		  function loadReviewImgFile(value){
+		   if(value.files && value.Files[0]){
+		      var reader = new FileReader();
+		      reader.onload = function(e){
+		         $("#declImgFile").attr("src",e.target.result);
+		      }
+		      reader.readAsDataURL(value.files[0]);
+		   }
+		   
+		}
+
+		//이미지 미첨부시 alert창 표시
+		function check(){
+		   if(bo.ReviewImgFile.value == ""){
+		      alert("사진을 등록해 주세요.");
+		      return false;
+		   }else{
+		      return true;
+		   }
+		}
+		
+		
 	</script>
 	
 	<br><br><br><br><br><br><br><br><br>
