@@ -7,8 +7,9 @@ import com.kh.amd.trainer.model.vo.Estimate;
 public class Mprocess implements java.io.Serializable {
 	//estNo삭제, sendUser, receiveUser로 이름 변경 (김진환)
 	private int processNo;
-	private int sendUser;
-	private int receiveUser;
+	private int tno;
+	private int uno;
+	private String transferStatus;
 	private int matchingLevel;
 	private String matchingAccept;
 	private String matchingStatus;
@@ -19,6 +20,20 @@ public class Mprocess implements java.io.Serializable {
 	
 	public Mprocess() {}
 
+	public Mprocess(int processNo, int tno, int uno, String transferStatus, int matchingLevel, String matchingAccept,
+			String matchingStatus, Date processDate, Estimate matchEstimate) {
+		super();
+		this.processNo = processNo;
+		this.tno = tno;
+		this.uno = uno;
+		this.transferStatus = transferStatus;
+		this.matchingLevel = matchingLevel;
+		this.matchingAccept = matchingAccept;
+		this.matchingStatus = matchingStatus;
+		this.processDate = processDate;
+		this.matchEstimate = matchEstimate;
+	}
+
 	public int getProcessNo() {
 		return processNo;
 	}
@@ -27,20 +42,28 @@ public class Mprocess implements java.io.Serializable {
 		this.processNo = processNo;
 	}
 
-	public int getSendUser() {
-		return sendUser;
+	public int getTno() {
+		return tno;
 	}
 
-	public void setSendUser(int sendUser) {
-		this.sendUser = sendUser;
+	public void setTno(int tno) {
+		this.tno = tno;
 	}
 
-	public int getReceiveUser() {
-		return receiveUser;
+	public int getUno() {
+		return uno;
 	}
 
-	public void setReceiveUser(int receiveUser) {
-		this.receiveUser = receiveUser;
+	public void setUno(int uno) {
+		this.uno = uno;
+	}
+
+	public String getTransferStatus() {
+		return transferStatus;
+	}
+
+	public void setTransferStatus(String transferStatus) {
+		this.transferStatus = transferStatus;
 	}
 
 	public int getMatchingLevel() {
@@ -83,25 +106,15 @@ public class Mprocess implements java.io.Serializable {
 		this.matchEstimate = matchEstimate;
 	}
 
-	public Mprocess(int processNo, int sendUser, int receiveUser, int matchingLevel, String matchingAccept,
-			String matchingStatus, Date processDate, Estimate matchEstimate) {
-		super();
-		this.processNo = processNo;
-		this.sendUser = sendUser;
-		this.receiveUser = receiveUser;
-		this.matchingLevel = matchingLevel;
-		this.matchingAccept = matchingAccept;
-		this.matchingStatus = matchingStatus;
-		this.processDate = processDate;
-		this.matchEstimate = matchEstimate;
-	}
-
 	@Override
 	public String toString() {
-		return "Mprocess [processNo=" + processNo + ", sendUser=" + sendUser + ", receiveUser=" + receiveUser
-				+ ", matchingLevel=" + matchingLevel + ", matchingAccept=" + matchingAccept + ", matchingStatus="
-				+ matchingStatus + ", processDate=" + processDate + ", matchEstimate=" + matchEstimate + "]";
+		return "Mprocess [processNo=" + processNo + ", tno=" + tno + ", uno=" + uno + ", transferStatus="
+				+ transferStatus + ", matchingLevel=" + matchingLevel + ", matchingAccept=" + matchingAccept
+				+ ", matchingStatus=" + matchingStatus + ", processDate=" + processDate + ", matchEstimate="
+				+ matchEstimate + "]";
 	}
+
+	
 
 	
 	

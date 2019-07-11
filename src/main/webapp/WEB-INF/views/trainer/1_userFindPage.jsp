@@ -549,15 +549,15 @@
 	
 	//견적서가 없을경우 입력후 매칭 시작하는 메소드
 	$("button[name=insertEstMatchStart]").click(function(){
-		var mno = $(this).val();
-		var mno2 = ${sessionScope.loginUser.mno};
+		var uno = $("button[name=matchingStart]").val();
+		var tno = ${sessionScope.loginUser.mno};
 		var userName = $("button[name=userInfoShow]").parent().parent().parent().children().children("td").eq(1).children().eq(0).text();
 		var estName = $("input[name=estName]").val();
        	var estContents = $("textarea[name=estContents]").val();
         var estDay = $("select[name=estDay]").val();
         var estPrice = $("input[name=estPrice]").val();
         var memberShip = $("#remainNum2").text();
-        
+        alert(mno+""+tno)
         
 	 	if(confirm(userName +"회원 님에게 매칭을 신청하시겠습니까 ?\n(멤버쉽 횟수가 1회 차감됩니다.)\n" + "현재 이용가능한 멤버쉽 횟수 : " + memberShip + "회 남았습니다.") == true){
 	 		
@@ -579,7 +579,7 @@
 	          //"&estContents=" + estContents
 			location.href = "insertEstMatchStart.tr?estName=" + estName + 
 						"&estDay=" + estDay + "&estPrice" + estPrice +
-						"&uno=" + mno + "&tno=" + mno2;		       
+						"&uno=" + uno + "&tno=" + tno;		       
 	    }
 	    else{
 	        return ;

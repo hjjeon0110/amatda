@@ -315,15 +315,15 @@ public class TrainerController {
 			}
 			
 			//프로세스 객체 생성, 객체에 값을 넣어서 보냄
-			int sendUser = Integer.parseInt(tno);
-			int receiveUser = Integer.parseInt(uno);
+			int unoI = Integer.parseInt(uno);
 			Mprocess mprocess = new Mprocess();
 			mprocess.setMatchEstimate(estimate);
-			mprocess.setSendUser(sendUser);
-			mprocess.setReceiveUser(receiveUser);
+			mprocess.setTno(tnoI);
+			mprocess.setUno(unoI);
 			
 			//프로세스에 insert + list를 리턴 받는 메소드
 			List<Member> sendEstList = ts.sendEstList(tno, mprocess);
+			System.out.println(sendEstList);
 			
 			model.addAttribute("list", sendEstList);
 		/*
@@ -346,8 +346,45 @@ public class TrainerController {
 			
 			System.out.println(uno + " : " + tno);
 			
-			//int result = ts.insertEstMatchStart(uno, tno, estDay, estName, estContents, estPrice);
+			int tnoI = Integer.parseInt(tno);
+			int unoI = Integer.parseInt(uno);
+			int estDayi = Integer.parseInt(estDay);
+			int estPricei = Integer.parseInt(estPrice);
 			
+			Estimate estimate = new Estimate();
+			estimate.setEstContents(estContents);
+			estimate.setEstDay(estDayi);
+			estimate.setEstName(estName);
+			estimate.setEstPrice(estPricei);
+			estimate.setEstType(3);
+			estimate.setTno(tnoI);
+			
+			Estimate existEstimate = ts.selectEstimate(tnoI, 3);
+			System.out.println("estimate : " + estimate);
+			System.out.println("이미 있는 estimate : " + existEstimate);
+			
+			int result = 0;
+			
+			if(existEstimate == null) {
+				System.out.println("인서트로 들어옴");
+				result = ts.insertEstimate(estimate);
+				
+			}else {
+				System.out.println("업데이트로 들어옴");
+				result = ts.updateEstimate(estimate);
+			}
+			
+			
+			Mprocess mprocess = new Mprocess();
+			mprocess.setMatchEstimate(estimate);
+			mprocess.setTno(tnoI);
+			mprocess.setUno(unoI);
+			
+			//int result = ts.insertEstMatchStart(uno, tno, estDay, estName, estContents, estPrice);
+			List<Member> sendEstList = ts.sendEstList(tno, mprocess);
+			System.out.println(sendEstList);
+			
+			model.addAttribute("list", sendEstList);
 			//멤버객체를 가져와서 보낸요청 리스트로 리턴
 			
 			return "trainer/2_3_myPage_matching";

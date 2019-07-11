@@ -144,6 +144,7 @@ public class TrainerDaoImpl implements TrainerDao {
 		
 		List<Member> list = null;
 		
+		
 		list = (List) sqlSession.selectList("Trainer.showUserList", null, rowBounds);
 		System.out.println("Dao에서 list : " + list);
 		

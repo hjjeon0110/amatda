@@ -373,7 +373,9 @@ public class MemberController {
 		
 		m.setUserPwd(passwordEncoder.encode(m.getUserPwd()));
 		
-		int result =ms.insertMember(m);
+		int result = ms.insertMember(m);
+		//기본 사진 삽입메소드
+		int dummyImgInsert = ms.dummyImgInsert();
 		
 		System.out.println("controller: " + result);
 		PrintWriter out;

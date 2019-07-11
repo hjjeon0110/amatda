@@ -35,6 +35,8 @@ public interface MemberService {
 
 	void insertMyImg(String mno, String filePath, String originalFilename, String ext, String changeName);
 
+	int dummyImgInsert();
+
 	
 	
 }
