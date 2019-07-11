@@ -130,6 +130,7 @@
   		SELECT *
 		FROM BOARD
 		WHERE BNO = #{bno}
+		AND BTYPE = 6
   	</select>
   	
   	<!-- 다이어리 이미지 상세조회 -->
@@ -137,6 +138,7 @@
   		SELECT *
   		FROM ATTACHMENT
   		WHERE BNO = #{bno}
+  		AND ATYPE = 3
   	</select>
   	
   	<!-- gallery list -->
