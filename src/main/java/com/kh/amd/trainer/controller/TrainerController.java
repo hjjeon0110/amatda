@@ -302,6 +302,7 @@ public class TrainerController {
 			Estimate existEstimate = ts.selectEstimate(tnoI, 3);
 			System.out.println("estimate : " + estimate);
 			System.out.println("이미 있는 estimate : " + existEstimate);
+			
 			int result = 0;
 			
 			if(existEstimate == null) {
@@ -313,9 +314,18 @@ public class TrainerController {
 				result = ts.updateEstimate(estimate);
 			}
 			
+			//프로세스 객체 생성, 객체에 값을 넣어서 보냄
+			int sendUser = Integer.parseInt(tno);
+			int receiveUser = Integer.parseInt(uno);
 			Mprocess mprocess = new Mprocess();
+			mprocess.setMatchEstimate(estimate);
+			mprocess.setSendUser(sendUser);
+			mprocess.setReceiveUser(receiveUser);
 			
+			//프로세스에 insert + list를 리턴 받는 메소드
+			List<Member> sendEstList = ts.sendEstList(tno, mprocess);
 			
+			model.addAttribute("list", sendEstList);
 		/*
 		 * if(result > 0) { List<Member>
 		 * 

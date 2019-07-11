@@ -98,10 +98,20 @@
 		<result column="COMPLETE_SURVEY" property="completeSurvey" />
 		<collection property="attachment" column="attachmentResultSet" resultMap="attachmentResultSet" javaType="Attachment"/>
 		<collection property="survey" column="surveyResultSet" resultMap="surveyResultSet" javaType="Survey"/>
+		<collection property="mprocess" resultMap="mprocessResultSet" javaType="Mprocess"></collection>
+	</resultMap>
+	<resultMap type="Mprocess" id="mprocessResultSet">
+		<id property="processNo" column="PROCESS_NO"/>
+		<result property="sendUser" column="SEND_USER"/>
+		<result property="receiveUser" column="RECEIVE_USER"/>
+		<result property="matchingLevel" column="MATCHING_LEVEL"/>
+		<result property="matchingAccept" column="MATCHING_ACCEPT"/>
+		<result property="matchingStatus" column="MATCHING_STATUS"/>
+		<result property="processDate" column="PROCESS_DATE"/>
+		<collection property="matchEstimate" resultMap="estimateResultSet" javaType="Estimate"></collection>
 	</resultMap>
 	
-
-
+	
 
 	<!-- 트레이너 추가 정보 회원가입 -->
 	<insert id="insertTrainerInfo" parameterType="TrainerInfo">
@@ -242,6 +252,39 @@
 			</when>
 		</choose> -->
 			
+	</select>
+	
+	<!-- 14. 견적서 전송 - 멤버쉽 차감 -->
+	<update id="memberShipDecrease">
+		UPDATE TUSER_INFO
+		SET REMAIN_NUM = (REMAIN_NUM - 1)
+		WHERE TNO = #{mno}
+	</update>
+	
+	<!-- 15. 견적서 보내기 - 매칭 프로세스에 insert -->
+	<insert id="insertMprocess" parameterType="Mprocess" >
+		INSERT INTO M_PROCESS
+		VALUES(MPROCESS_SEQ.NEXTVAL, #{receiveUser}, #{sendUser}, 0, 'N', '매칭전', sysdate, #{matchEstimate.estName}, #{matchEstimate.estContents}, #{matchEstimate.estDay}, #{matchEstimate.estPrice})
+	
+	</insert>
+	
+	<!-- 견적서 보낸 매칭 프로세스에 해당하는 값 모두 가져와 리스트로 반환 -->
+	<select id="sendEstList" resultMap="Member">
+		SELECT * 
+		FROM MEMBER M
+		JOIN M_PROCESS MP ON (MP.TNO = M.TNO)
+		WHERE MP.SEND_USER = #{sendUser}
+		
+		<!-- WHERE MP.TNO = #{}
+		SELECT * 
+		FROM MEMBER M 
+		JOIN M_PROCESS MP ON(MP.TNO = M.MNO) 
+		JOIN PROFILE P ON(M.MNO = P.TNO) 
+		JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) 
+		WHERE MP.UNO = #{mno}
+		 -->
+		
+	
 	</select>
 
 
