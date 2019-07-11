@@ -65,7 +65,7 @@
 				<label class="myPageMenuLabel" id="myPageMenu4">받은 요청 내역</label>
 				
 			</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<div class="myPageMenu" id="myPageMenu5" onclick="location.href='showMyPageMyWriting.us'">
+			<div class="myPageMenu" id="myPageMenu5" onclick="location.href='showMyPageMyWriting.us?mno=${ sessionScope.loginUser.mno }'">
 				<br><br><br>
 				<label class="myPageMenuLabel" id="myPageMenu5">내 글 관리</label>
 				

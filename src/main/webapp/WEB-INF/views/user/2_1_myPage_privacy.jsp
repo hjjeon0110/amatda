@@ -128,7 +128,7 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					<form action="insertMyImg.ms" method="post" encType="multipart/form-data">
+					<form action="insertMyImg.me" method="post" encType="multipart/form-data">
 						<input type="hidden" name="mno" value="${sessionScope.loginUser.mno }">
 						<input type="file" name="modifypicture" onchange="loadMyImgFile(this)" />
 						<input type="submit" value="저장하기">
