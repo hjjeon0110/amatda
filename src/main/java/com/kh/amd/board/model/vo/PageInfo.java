@@ -3,7 +3,7 @@ package com.kh.amd.board.model.vo;
 public class PageInfo implements java.io.Serializable {
 	
 	private int currentPage; 	//현재페이지
-	private int listCount;
+	private int listCount;		
 	private int limit;
 	private int maxPage;
 	private int startPage;

@@ -153,47 +153,43 @@
 
 					<br><br>
 					
-					<!-- 페이징처리 -->
-					<div id="paginaArea" align="center">
-						<!-- 첫 페이지를 보고 있는 경우 -->
-						<c:if test="${pi.currentPage <= 1}">
-				[이전] &nbsp;
-			</c:if>
+			
 
-						<!-- 첫 페이지가 아닌 다른페이지를 보고있는 경우 -->
-						<c:if test="${pi.currentPage > 1 }">
-							<c:url var="blistBack" value="/selectList.bo">
-								<c:param name="currnetPage" value="${pi.currentPage - 1 }" />
-							</c:url>
-							<a href="${blistBack}">[이전]</a> &nbsp;
-			</c:if>
-
-						<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-							<c:if test="${p == pi.currentPage }">
-								<font color="red" size="4"> <b>[${p }]</b>
-								</font>
-							</c:if>
-
-							<c:if test="${p != pi.currentPage }">
-								<c:url var="blistCheck" value="selectList.bo">
-									<c:param name="currentPage" value="${p }" />
-								</c:url>
-								<a href="${blistCheck }">${p }</a>
-							</c:if>
-						</c:forEach>
-
-						<!-- 마지막페이지를 보고있는 경우 -->
-						<c:if test="${pi.currentPage >= pi.maxPage }">
-			 		&nbsp; [다음]
-			 	</c:if>
-
-						<c:if test="${pi.currentPage < pi.maxPage }">
-							<c:url var="blistEnd" value="selectList.bo">
-								<c:param name="currentPage" value="${pi.currentPage + 1 }" />
-							</c:url>
-							<a href="${blistEnd }">&nbsp; [다음]</a>
-						</c:if>
-					</div>
+					<!-- 페이징 처리를 위한 코드, div지정후 페이징 처리 ----------------------------------->
+      <div id="pagingArea" align="center">
+         <c:if test="${ pi.currentPage <= 1 }">
+            [이전] &nbsp;
+         </c:if>
+         <c:if test="${ pi.currentPage > 1}">
+            <c:url var="blistBack" value="FAQ.ad">
+               <c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+            </c:url>
+            <a href="${ blistBack }">[이전]</a> &nbsp;
+         </c:if>
+         <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+            <c:if test="${ p eq pi.currentPage }">
+               <font color="#f8585b" size="4"><b>[${ p }]</b></font>
+            </c:if>
+            <c:if test="${ p ne pi.currentPage }">
+               <c:url var="blistCheck" value="FAQ.ad">
+                  <c:param name="currentPage" value="${ p }"/>
+               </c:url>
+               <a href="${ blistCheck }">${ p }</a>
+            </c:if>
+         
+         </c:forEach>
+         
+         <c:if test="${pi.currentPage >= pi.maxPage }">
+            &nbsp; [다음]
+         </c:if>
+         <c:if test="${ pi.currentPage < pi.maxPage }">
+            <c:url var="blistEnd" value="FAQ.ad">
+               <c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+            </c:url>
+            <a href="${ blistEnd }">&nbsp;[다음]</a>
+         </c:if>
+         
+      </div>
 
 					<script>
 					
