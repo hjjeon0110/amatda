@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.amd.board.model.dao.BoardDao;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.member.model.vo.Member;
 
 
@@ -38,8 +39,8 @@ public class BoardServiceImpl implements BoardService{
 
 	//공지사항 리스트(김선아)
 	@Override
-	public List<Board> noticeList() {
-		return bd.noticeList(sqlSession);
+	public List<Board> noticeList(PageInfo pi) {
+		return bd.noticeList(sqlSession, pi);
 	}
 
 	//공지사항 상세보기(김선아)
@@ -91,22 +92,22 @@ public class BoardServiceImpl implements BoardService{
 
 	//공지사항/이벤트 리스트 출력(SR)
 	@Override
-	public List<Board> selectNotice() {
+	public List<Board> selectNotice(PageInfo pi) {
 
-		return bd.selectNotice(sqlSession);
+		return bd.selectNotice(sqlSession,pi);
 	}
 
 
 	//공지사항 CATEGORY만의 리스트 출력(SR)
 	@Override
-	public List<Board> selectNoticeCate() {
-		return bd.selectNoticeCate(sqlSession);
+	public List<Board> selectNoticeCate(PageInfo pi) {
+		return bd.selectNoticeCate(sqlSession,pi);
 	}
 
 	//이벤트 CATEGORY만의 리스트 출력(SR)
 	@Override
-	public List<Board> selectEventCate() {
-		return bd.selectEventCate(sqlSession);
+	public List<Board> selectEventCate(PageInfo pi) {
+		return bd.selectEventCate(sqlSession,pi);
 	}
 
 	//공지사항/이벤트 게시물 상세페이지(SR)
@@ -153,8 +154,8 @@ public class BoardServiceImpl implements BoardService{
 
 	//자주묻는질문 리스트(김선아)
 	@Override
-	public List<Board> FAQList() {
-		return bd.FAQlist(sqlSession);
+	public List<Board> FAQList(PageInfo pi) {
+		return bd.FAQlist(sqlSession, pi);
 	}
 
 	//자주묻는질문 상세보기(김선아)
@@ -197,8 +198,8 @@ public class BoardServiceImpl implements BoardService{
 
 	//1:1문의 리스트(김선아)
 	@Override
-	public List<Board> QNAList() {
-		return bd.QNAlist(sqlSession);
+	public List<Board> QNAList(PageInfo pi) {
+		return bd.QNAlist(sqlSession, pi);
 	}
 
 	//1:1 상세보기(김선아)
@@ -241,12 +242,38 @@ public class BoardServiceImpl implements BoardService{
 		return bd.selectReviewBno(sqlSession);
 	}
 
-	//리뷰게시판 이미지 insert(SR)
+	/*
+	 * //리뷰게시판 이미지 insert(SR)
+	 * 
+	 * @Override public void insertReviewImg(int bno, String mno, String filePath,
+	 * String originalFilename, String changeName, String ext, String bTitle, String
+	 * bContent) { System.out.println("insertReviewImag in serviceimpl");
+	 * bd.insertReviewImg(sqlSession,bno,mno,filePath,originalFilename,changeName,
+	 * ext,bTitle,bContent); }
+	 */
+
+	//공지사항&이벤트 페이지 페이징(SR)
 	@Override
-	public void insertReviewImg(int bno, String mno, String filePath, String originalFilename, String changeName,
-			String ext, String bTitle, String bContent) {
-		System.out.println("insertReviewImag in serviceimpl");
-		bd.insertReviewImg(sqlSession,bno,mno,filePath,originalFilename,changeName,ext,bTitle,bContent);
+	public int getSearchNoticeListCount() {
+		return bd.getSearchNoticeListCount(sqlSession);
+	}
+	
+	//공지사항 CATEGORY만의 리스트 페이징(SR)	
+	public int getSearchNoticeCateListCount() {
+		return bd.getSearchNoticeCateListCount(sqlSession);
+	}
+
+	//이벤트 CATEGORY만의 리스트 페이징(SR)
+	@Override
+	public int getSearchEventCateListCount() {
+		return bd.getSearchEventCateListCount(sqlSession);
+	}
+
+	// 후기 이미지 insert
+	@Override
+	public void insertReviewImg(String mno, Board b, String filePath, String originalFilename, String ext, String changeName) {
+		bd.insertReviewImg(sqlSession, mno, b, filePath, originalFilename, changeName, ext);
+		
 	}
 
 

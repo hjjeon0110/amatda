@@ -28,7 +28,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.amd.board.model.service.BoardService;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.common.CommonUtils;
+import com.kh.amd.common.Pagination;
 import com.kh.amd.member.model.vo.Member;
 
 
@@ -42,8 +44,6 @@ public class BoardController {
 	  //Q&A 게시판 그냥 단순 페이지 출력 (SR)
 	 @RequestMapping("insertQnaFormView.bo")
 	 public String insertQnaFormView() {
-		 
-		 System.out.println("나는 단순하게 입력양식만 호출했어요!");
 		 return "board/insertQna";
 	 }
 	
@@ -55,6 +55,7 @@ public class BoardController {
 	  System.out.println(b);
 	 
 	  Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+	  
 	  b.setbWriter(loginUser.getMno());
 	  
 	  int result = bs.insertQna(b);
@@ -71,27 +72,69 @@ public class BoardController {
 	
 		 //공지사항/이벤트 리스트 출력(SR)
 		 @RequestMapping("selectNotice.bo")
-		 public String selectNotice(Model model) {
-			 List<Board> selectNotice = bs.selectNotice();
+		 public String selectNotice(Model model,String currentPage) {
+			
+			 int currentPageI = 1;
+	          
+	          if(currentPage != null) {
+	               currentPageI = Integer.parseInt(currentPage);
+	            }
+	         //목록을 조회해서 해당 리스트가 몇개인지 확인 
+	         int listCount = bs.getSearchNoticeListCount(); //디비안의 해당리스틀가 몇개인지 확인용 
+	         System.out.println("listCount in controller : " + listCount);
+	         PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+	         
+	         //------------------------
+			 
+			 List<Board> selectNotice = bs.selectNotice(pi);
 			 model.addAttribute("selectNotice",selectNotice);
+			 model.addAttribute("pi", pi);//[1]들에게 속성을 달아줌
+			 
 			 System.out.println("selectNotice in controller : " + selectNotice);
 			 return "board/selectNotice";
+			 
+			 
 		 }
 	
 		 //공지사항 CATEGORY만의 리스트 출력(SR)
 		 @RequestMapping("selectNoticeCate.bo")
-		 public String selectNoticeCate(Model model) {
-			 List<Board> selectNoticeCate = bs.selectNoticeCate();
+		 public String selectNoticeCate(Model model,String currentPage) {
+			 int currentPageI = 1;
+	          
+	          if(currentPage != null) {
+	               currentPageI = Integer.parseInt(currentPage);
+	            }
+	         //목록을 조회해서 해당 리스트가 몇개인지 확인 
+	         int listCount = bs.getSearchNoticeCateListCount();
+	         System.out.println("getSearchNoticeCateListCount in controller : " + listCount);
+	         PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+			 
+			 //---------
+			 List<Board> selectNoticeCate = bs.selectNoticeCate(pi);
 			 model.addAttribute("selectNoticeCate",selectNoticeCate);
+			 model.addAttribute("pi", pi);//[1]들에게 속성을 달아줌
 			 System.out.println("selectNoticeCate in controller : " + selectNoticeCate );
 			 return "board/selectNoticeCate";
 		 }
 		 
+		 
 		 //이벤트 CATEGORY만의 리스트 출력(SR)
 		 @RequestMapping("selectEventCate.bo")
-		 public String selectEventCate(Model model) {
-			 List<Board> selectEventCate = bs.selectEventCate();
+		 public String selectEventCate(Model model,String currentPage) {
+			 int currentPageI = 1;
+	          if(currentPage != null) {
+	               currentPageI = Integer.parseInt(currentPage);
+	            }
+	          //목록을 조회해서 해당 리스트가 몇개인지 확인 
+		         int listCount = bs.getSearchEventCateListCount();
+		         System.out.println("getSearchEventCateListCount in controller : " + listCount);
+		         PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+				 
+			 //-----------------------------
+			 List<Board> selectEventCate = bs.selectEventCate(pi);
 			 model.addAttribute("selectEventCate",selectEventCate);
+			 model.addAttribute("pi", pi);//[1]들에게 속성을 달아줌
+			 System.out.println("selectEventCate in controller : " + selectEventCate );
 			 return "board/selectEventCate";
 		 }
 		 
@@ -228,20 +271,18 @@ public class BoardController {
 		 
 		 //★리뷰게시판 입력(SR)
 		 @RequestMapping("insertReview.bo")
-		 public String insertReview(Model model,HttpServletRequest request,HttpSession session,@RequestParam(name="declImgFile",required=false) MultipartFile declImgFile) {
+		 public String insertReview(Model model,HttpServletRequest request, Board b, @RequestParam(name="reviewImgFile", required=false) MultipartFile reviewImgFile) {
 			
 			 
-			 System.out.println("insertReview.bo로 옴");
+			 System.out.println("insertReview.bo로 옴 : " + b);
 			 
-			 Board b = new Board();
-			 int mNo = Integer.parseInt(request.getParameter("mNo"));
-			 String bTitle = request.getParameter("bTitle");
-			 String bContent = request.getParameter("bContent");
-			 b.setbWriter(mNo);
-			 b.setbTitle(bTitle);
-			 b.setbContent(bContent);
-			 
-			 System.out.println("b : "+ b);
+		/*
+		 * int mNo = Integer.parseInt(request.getParameter("mNo")); String bTitle =
+		 * request.getParameter("bTitle"); String bContent =
+		 * request.getParameter("bContent"); b.setbWriter(mNo); b.setbTitle(bTitle);
+		 * b.setbContent(bContent);
+		 */
+	
 			  
 			 
 			 System.out.println("-----------------------");
@@ -249,15 +290,26 @@ public class BoardController {
 			 //int bno=bs.selectReviewBno();
 			 //System.out.println("bno in controller : " + bno);
 			 
-			 
-			/* String root = request.getSession().getServletContext().getRealPath("resources");
+			 String root = request.getSession().getServletContext().getRealPath("resources");
 	         
-	         String filePath = root + "\\uploadFiles";      
-	         String originalFilename = declImgFile.getOriginalFilename();
+	         String filePath = root + "\\uploadFiles";    
+
+	         String originalFilename = reviewImgFile.getOriginalFilename();
 	         String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
 	         String changeName = CommonUtils.getRandomString();
+	         
+	         String mno = request.getParameter("bWriter");
+	         System.out.println("bWriter : " + mno);
+	         
+	         // 후기 이미지 insert
+	         bs.insertReviewImg(mno, b, filePath, originalFilename, ext, changeName);
+	         
+	         
+	         
+	         
+
 			 
-	         try {
+	        /* try {
 	               
 	               declImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
 	                     
@@ -418,15 +470,11 @@ public class BoardController {
 	 */
 
 
-		 
-		
-		 
+			
+
+
+
 }
-
-
-
-
-
 
 
 

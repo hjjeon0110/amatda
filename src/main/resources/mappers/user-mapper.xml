@@ -117,7 +117,24 @@
 		<collection property="mprocess" column="mprocessResultSet" resultMap="mprocessResultSet" javaType="Mprocess"/>
 	</resultMap>
 	
-
+	
+	
+	<resultMap id="boardResultSet" type="com.kh.amd.board.model.vo.Board">
+		<id property="bNo" column="BNO" />
+		<result property="bType" column="BTYPE" />
+		<result property="blCategory" column="BL_CATEGORY" />
+		<result property="bmCategory" column="BM_CATEGORY" />
+		<result property="bsCategory" column="BS_CATEGORY" />
+		<result property="bWriteDate" column="BWRITE_DATE" />
+		<result property="bModifyDate" column="BMODIFY_DATE" />
+		<result property="bTitle" column="BTITLE" />
+		<result property="bContent" column="BCONTENT" />
+		<result property="bCount" column="BCOUNT" />
+		<result property="bLike" column="BLIKE" />
+		<result property="bStatus" column="BSTATUS" />
+		<result property="bWriter" column="BWRITER" />
+	</resultMap>
+	
 	
 	<!-- 효정 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
@@ -195,5 +212,20 @@
 		DELETE FROM M_PROCESS WHERE UNO = #{uno} AND TNO = #{tno}
 	</delete>
 	
-
+	
+	<!-- 12. 나의 문의 내역 select (우리나) -->
+	<select id="selectMyQnaList" parameterType="_int" resultMap="boardResultSet" >
+		SELECT *
+		FROM BOARD 
+		WHERE BWRITER=#{mno2}
+		AND BTYPE=4
+		ORDER BY BWRITE_DATE
+	</select>
+	
+	
+	<select id="selectMyQnaDetail" parameterType="_int" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE BNO=#{bno2}
+	</select>
 </mapper>

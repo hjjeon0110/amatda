@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
@@ -137,6 +138,20 @@ public class UserDaoImpl implements UserDao {
 		
 		sqlSession.delete("User.deleteMyTrainer", map);
 		
+	}
+
+	
+	//12. 나의 문의 내역 select (우리나)
+	@Override
+	public List<Board> selectMyQnaList(SqlSessionTemplate sqlSession, int mno2) {
+		System.out.println("dao에서 mno2: " + mno2);
+		return sqlSession.selectList("User.selectMyQnaList", mno2);
+	}
+
+
+	@Override
+	public Board selectMyQnaDetail(SqlSessionTemplate sqlSession, int bno2) {
+		return sqlSession.selectOne("User.selectMyQnaDetail", bno2);
 	}
 
 

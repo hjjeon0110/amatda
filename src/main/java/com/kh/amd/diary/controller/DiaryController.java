@@ -22,8 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.common.CommonUtils;
+import com.kh.amd.common.Pagination;
 import com.kh.amd.diary.model.service.DiaryService;
 import com.kh.amd.diary.model.vo.Diary;
 import com.kh.amd.member.model.vo.Member;
@@ -84,17 +86,32 @@ public class DiaryController {
 	
 	//다이어리 리스트
 	@RequestMapping("list.di")
-	public String selectDiary(Model model, Member m) {
+	public String selectDiary(Model model, Member m, int mno, String currentPage) {
+		//리스트
+
 		
-		int mno = m.getMno();
+		//페이지처리
+		int currentPageI = 1;
+        
+        if(currentPage != null) {
+             currentPageI = Integer.parseInt(currentPage);
+          }
+       //목록을 조회해서 해당 리스트가 몇개인지 확인 
+       int listCount = ds.diaryListCount(mno);
+       
+       System.out.println("리스트 나오냐: " + listCount);
+
+       PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+       
 		
 		
-		List<Diary> diaryList = ds.diaryList(mno);
+		List<Diary> diaryList = ds.diaryList(mno, pi);
 		
 		
 		System.out.println("diaryList: " + diaryList);
-		
+		System.out.println(pi);
 		model.addAttribute("diaryList", diaryList);
+		model.addAttribute("pi", pi);
 		
 		return "diary/diaryList";
 		

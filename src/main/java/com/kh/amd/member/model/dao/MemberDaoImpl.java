@@ -17,6 +17,13 @@ public class MemberDaoImpl implements MemberDao{
 	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.insert("Member.insertMember",m);
 	}
+	
+	//일반회원가입시에 dummyImg추가
+	@Override
+	public int dummyImgInsert(SqlSessionTemplate sqlSession) {
+
+		return sqlSession.insert("Member.dummyImgInsert");
+	}
 
 	
 	//트레이너 회원가입
@@ -146,6 +153,9 @@ public class MemberDaoImpl implements MemberDao{
 			
 			sqlSession.insert("Member.insertMyImg",map);
 		}
+
+
+		
 
 	
 

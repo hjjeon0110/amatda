@@ -89,6 +89,30 @@ public class AdminDaoImpl implements AdminDao{
 		return sqlSession.selectList("Admin.membershipType", map);
 	}
 
+	//페이징처리(공지사항)
+	@Override
+	public int noticeListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Admin.noticeListCount");
+	}
+
+	//페이징처리(FAQ)
+	@Override
+	public int faqListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Admin.faqListCount");
+	}
+
+	//페이징처리(QNA)
+	@Override
+	public int qnaListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Admin.qnaListCount");
+	}
+
+	//페이징처리(신고)
+	@Override
+	public int declListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Admin.declListCount");
+	}
+
 
 
 }

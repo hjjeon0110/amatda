@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.amd.board.model.dao.DeclarationDao;
 import com.kh.amd.board.model.vo.Declaration;
+import com.kh.amd.board.model.vo.PageInfo;
 
 @Service
 public class DeclarationServiceImpl implements DeclarationService{
@@ -22,8 +23,8 @@ public class DeclarationServiceImpl implements DeclarationService{
 
 	//신고 목록 조회(김선아)
 	@Override
-	public List<Declaration> declarationList() {		
-		return dd.declarationList(sqlSession);	
+	public List<Declaration> declarationList(PageInfo pi) {		
+		return dd.declarationList(sqlSession, pi);	
 	}
 
 	//게시물 상세보기(김선아)

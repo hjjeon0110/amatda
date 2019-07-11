@@ -262,5 +262,11 @@ public class MemberServiceImpl implements MemberService{
 			md.insertMyImg(sqlSession,mno, filePath, originalFilename, ext,changeName);
 			
 		}
+
+		@Override
+		public int dummyImgInsert() {
+			// TODO Auto-generated method stub
+			return md.dummyImgInsert(sqlSession);
+		}
 	
 }

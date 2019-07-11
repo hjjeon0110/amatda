@@ -41,6 +41,8 @@ public interface MemberDao {
 	void insertMyImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename,
 			String ext,String changeName);
 
+	int dummyImgInsert(SqlSessionTemplate sqlSession);
+
 	
 	
 

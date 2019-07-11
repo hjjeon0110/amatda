@@ -3,12 +3,13 @@ package com.kh.amd.common;
 import com.kh.amd.board.model.vo.PageInfo;
 
 public class Pagination {
+	
 	public static PageInfo getPageInfo(int currentPage, int listCount) {
 		PageInfo pi = null;
 		
-		int limit = 10;
-		int buttonCount = 10;
-		int maxPage;
+		int limit = 5; //한페이지당 10개의 글을 넣겠다.
+		int buttonCount = 10; //밑에 [1][2][3][4][5][6][7][8][9][10] 그리고 [다음]을 눌러 [11]로 넘어간다.
+		int maxPage; //얘는 몰라도 괜찮음
 		int startPage;
 		int endPage;
 		

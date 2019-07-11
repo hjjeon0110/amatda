@@ -38,7 +38,7 @@
 	<result column="COMPLETE_SURVEY" property="completeSurvey"/>
 </resultMap>
 
-<resultMap type="com.kh.amd.diary.model.vo.Diary" id="diaryResultSet">
+<resultMap type="Diary" id="diaryResultSet">
 	<id property="bNo" column="BNO"/>
 	<result property="bType" column="BTYPE"/>
 	<result property="blCategory" column="BL_CATEGORY"/>
@@ -51,7 +51,8 @@
 	<result property="bCount" column="BCOUNT"/>
 	<result property="bLike" column="BLIKE"/>
 	<result property="bStatus" column="BSTATUS"/>
-	<result property="bWriter" column="BWRITER"/>  		
+	<result property="bWriter" column="BWRITER"/>  	
+	<collection property="member" javaType="Member" resultMap="member"></collection>	
 </resultMap>
 
 <resultMap type="com.kh.amd.board.model.vo.Reply" id="replyResultSet">
@@ -171,6 +172,13 @@
 		INSERT INTO BOARD_REPLY
 		VALUES(REP_SEQ.NEXTVAL, #{bNo}, #{mno}, #{repContent}, SYSDATE, NULL, 'Y')
 	</insert>
+	
+	<!-- 페이징 -->
+	<select id="selectDiaryListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE BWRITER = #{mno}
+	</select>
 	
 </mapper>
 

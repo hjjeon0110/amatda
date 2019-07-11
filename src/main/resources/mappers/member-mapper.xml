@@ -46,6 +46,13 @@ INSERT INTO MEMBER
 VALUES (MNO_SEQ.NEXTVAL, #{name}, #{userId}, #{userPwd}, #{phone}, #{gender}, #{email}, 'U', 'Y', null,'Y', sysdate, null, 'N') 
 </insert>
 
+<insert id="dummyImgInsert">
+	INSERT INTO ATTACHMENT
+	VALUES(FILE_SEQ.NEXTVAL, NULL, MNO_SEQ.CURRVAL, NULL, 'profileImg.PNG', '1f300fe27f9b43ceaf15a780dc1dc77e', '.PNG', 0, SYSDATE, 0, 'Y', 
+	'D:\final\workspace\amatda\src\main\webapp\resources\uploadFiles')
+
+</insert>
+
 
 
 <!-- 트레이너 회원가입을 위한 mno조회용 -->
@@ -172,4 +179,7 @@ WHERE EMAIL = #{email}
 	INSERT INTO ATTACHMENT
 	VALUES(FILE_SEQ.NEXTVAL,NULL,NULL,#{mno}, NULL, #{originalFilename}, #{changeName}, #{ext},6,SYSDATE, 6, 'Y', #{filePath})
 </insert>
+
+
+
 </mapper>
