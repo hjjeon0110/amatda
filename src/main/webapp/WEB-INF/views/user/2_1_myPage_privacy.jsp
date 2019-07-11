@@ -129,7 +129,7 @@
 				</div>
 				<div class="modal-body">
 					<form action="insertMyImg.ms" method="post" encType="multipart/form-data">
-						<input type="hidden" name="mno" value="${sessionScope.loginUser.mno }">
+						<input type="hidden" class="mnoNum" name="mno2" value="${ sessionScope.loginUser.mno }"/>
 						<input type="file" name="modifypicture" onchange="loadMyImgFile(this)" />
 						<input type="submit" value="저장하기">
 					</form>
@@ -150,7 +150,6 @@
 
 </body>
 <script>
-	
 	
 function loadMyImgFile(value) {
 	if (value.files && value.files[0]) {

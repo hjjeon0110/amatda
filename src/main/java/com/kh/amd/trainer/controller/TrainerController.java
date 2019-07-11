@@ -319,8 +319,8 @@ public class TrainerController {
 			int receiveUser = Integer.parseInt(uno);
 			Mprocess mprocess = new Mprocess();
 			mprocess.setMatchEstimate(estimate);
-			mprocess.setSendUser(sendUser);
-			mprocess.setReceiveUser(receiveUser);
+			mprocess.setTno(sendUser);
+			mprocess.setUno(receiveUser);
 			
 			//프로세스에 insert + list를 리턴 받는 메소드
 			List<Member> sendEstList = ts.sendEstList(tno, mprocess);

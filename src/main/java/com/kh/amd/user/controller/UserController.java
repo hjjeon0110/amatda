@@ -111,8 +111,6 @@ public class UserController {
 		// 10. 마이트레이너 존재 여부 확인 메소드 (전효정)
 		Mprocess selectOneMyTrainer = us.selectOneMyTrainer(mno, tno);
 		model.addAttribute("selectOneMyTrainer", selectOneMyTrainer);
-
-		
 		
 		return "user/1_3_profileDetailPage";
 	}
@@ -216,24 +214,58 @@ public class UserController {
 		return "user/2_5_myPage_myWriting";
 	}
 	
+	// 매칭 프로세스 페이지 이동 (전효정)
+	@RequestMapping("goMatchingProcess.us")
+	public String goMatchingProcess(Model model, HttpServletRequest request) {
+		
+		String mno = request.getParameter("mno");
+		String tno = request.getParameter("tno");
+		String tname = request.getParameter("tname");
+		model.addAttribute("tno", tno);
+		model.addAttribute("tname", tname);
+		
+		// 4. 프로필 이미지 존재 여부 확인 메소드 (전효정)
+		Attachment profileImgAttachment = us.checkProfileImg(tno);
+		
+		if(profileImgAttachment != null) {
+			model.addAttribute("profileImgAttachment", profileImgAttachment);
+			String profileImgAttachmentSrc = profileImgAttachment.getModiName() + profileImgAttachment.getExtension();
+			model.addAttribute("profileImgAttachmentSrc", profileImgAttachmentSrc);		
+		}else {
+			model.addAttribute("profileImgAttachment", profileImgAttachment);
+		}
+		
+		// 5. 프로필 작성 여부 확인 (전효정)
+		Profile profile = us.checkProfile(tno);
+		model.addAttribute("profile", profile);
+		
+		// 6. 미디어 존재 여부 확인 메소드 (전효정)
+		List<Attachment> mediaAttachment = us.checkMediaAttachment(tno);					
+		model.addAttribute("mediaAttachment", mediaAttachment);
+		
+		// 7. 자격증 존재 여부 확인 메소드 (전효정)
+		List<Attachment> certificationAttachment = us.checkCertificationAttachment(tno);					
+		model.addAttribute("certificationAttachment", certificationAttachment);
+		
+		// 10. 마이트레이너 존재 여부 확인 메소드 (전효정)
+		Mprocess selectOneMyTrainer = us.selectOneMyTrainer(mno, tno);
+		model.addAttribute("selectOneMyTrainer", selectOneMyTrainer);
+		
+		return "user/3_1_matchingProcessPage";
+	}
+	
+	
+	
+	
+	
+	
 	
 	//(김진환이 조금이라도 들어간 메소드)------------------------------------------------------------------------------------//
 	
 	// 마이페이지_개인정보관리 페이지 이동 (전효정, 김진환)
-		@RequestMapping("showMyPagePrivacy.us")
-		public String showMyPagePrivacyPageView() {
-			
-			
-			return "user/2_1_myPage_privacy";
-		}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping("showMyPagePrivacy.us")
+	public String showMyPagePrivacyPageView() {
+		return "user/2_1_myPage_privacy";
+	}
 	
 }
