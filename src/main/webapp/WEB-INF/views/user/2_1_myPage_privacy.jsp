@@ -21,6 +21,7 @@
 	<br><br>
 	
 	<div class="privacyDiv">
+	
 	<table class="privacyTable">
 			<tr>
 				<td><input type="hidden" name="mno" value="${sessionScope.loginUser.mno}"></td>
@@ -117,6 +118,7 @@
 
 	<!-- 모달영역 -->
 	<div id="memberpicture" class="modal fade" role="dialog">
+	
 		<div class="modal-dialog">
 
 			<!-- 모달 내용-->
@@ -126,7 +128,11 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					<input type="file" name="modifypicture" />
+					<form action="insertMyImg.ms" method="post" encType="multipart/form-data">
+						<input type="hidden" name="mno" value="${sessionScope.loginUser.mno }">
+						<input type="file" name="modifypicture" onchange="loadMyImgFile(this)" />
+						<input type="submit" value="저장하기">
+					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -134,6 +140,7 @@
 			</div>
 
 		</div>
+	
 	</div>
 
 
@@ -143,7 +150,19 @@
 
 </body>
 <script>
+	
+	
+function loadMyImgFile(value) {
+	if (value.files && value.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$("#profileImg").attr("src", e.target.result);
+		}
+		reader.readAsDataURL(value.files[0]);
 
+	}
+}
+	
 	$(function(){
 		//$("button[type='submit']").attr("disabled", true);
 		var mno = ${sessionScope.loginUser.mno};

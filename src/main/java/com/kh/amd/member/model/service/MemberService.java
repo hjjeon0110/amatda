@@ -31,6 +31,10 @@ public interface MemberService {
 
 	int updateMyInfo(Member m);
 
+	int updateRandomPwd(Member m);
+
+	void insertMyImg(String mno, String filePath, String originalFilename, String ext, String changeName);
+
 	
 	
 }

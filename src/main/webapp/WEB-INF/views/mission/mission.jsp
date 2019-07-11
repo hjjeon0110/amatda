@@ -482,14 +482,14 @@
   			<td><input type="checkbox" id="breakExCheck" value="N" style="margin-bottom:40px;"><input type="button" id="checkMission4" value="기록" style="background:#ff0066; color:white; border:1px solid lightgray"></td>
   		</tr>
   		<tr>
-  			<td><label id="lunch2">점심</label><br><label id="sellunchEx"></label><a href="" id="sellunchExLink"></a></td>
+  			<td><label id="lunch2">점심</label><br><label id="sellunchEx" style="width:300px;"></label><a href="" id="sellunchExLink"></a></td>
   		</tr>
   		<tr>
   			<td><input type="checkbox" id="lunchExCheck"  value="N" style="margin-bottom:40px;"><input type="button" id="checkMission5" value="기록" style="background:#ff0066; color:white; border:1px solid lightgray"></td>
   		
   		</tr>
   		<tr>
-  			<td><label id="dinner2">저녁</label><br><label id="seldinnerEx"></label><a href="" id="seldinnerExLink"></a></td>
+  			<td><label id="dinner2">저녁</label><br><label id="seldinnerEx" style="width:300px;"></label><a href="" id="seldinnerExLink"></a></td>
   		</tr>
   		<tr>	
   			<td><input type="checkbox" id="dinnerExCheck"  value="N" style="margin-bottom:40px;"><input type="button" id="checkMission6" value="기록" style="background:#ff0066; color:white; border:1px solid lightgray"></td>
@@ -1002,7 +1002,7 @@ function breakCheck() {
 					
 					
 					  
-					 var link = $("<a>").attr("href", rLink[0]).text(rLink[0]);
+					 var link = $("<a>").attr("href", rLink[0]).text(rLink[0]).attr('target','_blank');
 					 console.log("아침운동 link: "+rLink[0]);
 					 console.log(link);
 					 $("#selbreakExLink").append(link);
@@ -1050,7 +1050,7 @@ function breakCheck() {
 				
 				rLink.forEach(function(element){
 			
-					 var link = $("<a>").attr("href", rLink[0]).text(rLink[0]);
+					 var link = $("<a>").attr("href", rLink[0]).text(rLink[0]).attr('target','_blank');
 					 $("#sellunchExLink").append(link);
 					
 					
@@ -1090,7 +1090,7 @@ function breakCheck() {
 				
 				rLink.forEach(function(element){
 			
-					 var link = $("<a>").attr("href", rLink[0]).text(rLink[0]);
+					 var link = $("<a>").attr("href", rLink[0]).text(rLink[0]).attr('target','_blank');
 					
 					 $("#seldinnerExLink").append(link);
 					

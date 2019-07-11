@@ -250,5 +250,17 @@ public class MemberServiceImpl implements MemberService{
 		public int updateMyInfo(Member m) {
 			return md.updateMyInfo(sqlSession,m);
 		}
+		
+		//랜덤비밀번호로 저장
+		@Override
+		public int updateRandomPwd(Member m) {
+			return md.updateRandomPwd(sqlSession,m);
+		}
+
+		@Override
+		public void insertMyImg(String mno, String filePath, String originalFilename, String ext, String changeName) {
+			md.insertMyImg(sqlSession,mno, filePath, originalFilename, ext,changeName);
+			
+		}
 	
 }

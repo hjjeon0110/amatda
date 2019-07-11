@@ -5,6 +5,20 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Member">
 
+<resultMap type="Attachment" id="attachmentResultSet">
+	<id property="fileNo" column="FILE_NO"/>
+	<result property="bno" column="BNO"/>
+	<result property="pno" column="PNO"/>
+	<result property="link" column="LINK"/>
+	<result property="oriName" column="ORI_NAME"/>
+	<result property="modiName" column="MODI_NAME"/>
+	<result property="extension" column="EXTENSION"/>
+	<result property="fileLevel" column="FILE_LEVEL"/>
+	<result property="uploadDate" column="UPLOAD_DATE"/>
+	<result property="aType" column="ATYPE"/>
+	<result property="aStatus" column="A_STATUS"/>
+	<result property="filePath" column="FILE_PATH"/>
+</resultMap>
 
 <resultMap id="memberResultSet" type="com.kh.amd.member.model.vo.Member">
 
@@ -112,7 +126,7 @@ AND EMAIL= #{email}
 <update id="updateMyPwd" parameterType="Member">
 UPDATE MEMBER
 SET PWD = #{userPwd}
-WHERE NAME = #{name}
+
 
 </update>
 
@@ -145,4 +159,17 @@ SET NAME = #{name},
 	GENDER = #{gender}
 WHERE MNO = #{mno}
 </update>
+
+<update id="updateRandomPwd" parameterType="Member">
+UPDATE MEMBER
+SET PWD = #{userPwd}
+WHERE EMAIL = #{email}
+
+</update>
+
+
+<insert id="insertMyImg" parameterType="Attachment">
+	INSERT INTO ATTACHMENT
+	VALUES(FILE_SEQ.NEXTVAL,NULL,NULL,#{mno}, NULL, #{originalFilename}, #{changeName}, #{ext},6,SYSDATE, 6, 'Y', #{filePath})
+</insert>
 </mapper>

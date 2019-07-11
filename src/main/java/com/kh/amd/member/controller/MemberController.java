@@ -1,5 +1,6 @@
 package com.kh.amd.member.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Properties;
@@ -24,11 +25,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.kh.amd.common.CommonUtils;
 import com.kh.amd.member.model.service.MemberService;
 import com.kh.amd.member.model.vo.Member;
+import com.sun.mail.iap.Response;
 @SessionAttributes("loginUser")
 @Controller
 
@@ -61,7 +65,9 @@ public class MemberController {
 			if(loginUser !=null) {
 				
 				//jsp(ajax)로 보낼값
-				response.getWriter().print(loginUser.getUserId());
+				String id = loginUser.getUserId();
+				String realId = id.substring(0,1) + "**" + id.substring(2,3) + "*" +id.substring(4,5) + "*" +  id.substring(6,id.length());
+				response.getWriter().print(realId);
 			}else {
 				response.getWriter().print("FAIL");
 			}
@@ -77,21 +83,40 @@ public class MemberController {
 	
 	//비밀번호 찾기
 	@RequestMapping("findPwd.me")
-	public void findPwd(Model model, Member m, HttpServletResponse response, HttpServletRequest request ) {
+	public void findPwd(String email,Model model, Member m, HttpServletResponse response, HttpServletRequest request ) {
 		 
+		
+		String random = "1234567890abcdefghijklmnopqrstuvwxyz";
+		
+		
+		String randomCode = "";
+		for(int i = 0; i <= 10; i++) {
+			int num = (int)(Math.random() * random.length()) + 1;
+			randomCode += random.substring((num-1), num);
+		}
+		
+		String password =randomCode;
+		System.out.println("password가 뭐니: " + password);
+		
+		
+		m.setUserPwd(password);
+		m.setEmail(email);
+		
+		sendEmail2(email, password);
+		
+		int randomPwd = ms.updateRandomPwd(m);
+		
+		 System.out.println("randonPwd결과: " + randomPwd);
+		 password = passwordEncoder.encode(password);
+		 m.setUserPwd(password);
+		 int encodeRandomPwd = ms.updateRandomPwd(m);
+		 System.out.println("encodeRanomPwd결과: " + encodeRandomPwd);
 		 System.out.println("서비스로 넘어가볼까");
 		 System.out.println("input창에서 입력한 정보들: " + m);
-		 int result = 0;
-			try {
-				 result = ms.findPwd(m);
-				 System.out.println("controller result:" + result);
-			} catch (LoginException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+		 
 		
 		 
-		 if(result !=0) {
+		 if(encodeRandomPwd !=0) {
 				try {
 					response.getWriter().print("ok");
 				} catch (IOException e) {
@@ -107,30 +132,126 @@ public class MemberController {
 				}
 			}
 	}
-	//비밀번호 변경 폼으로 이동
-	@RequestMapping("updatePwd.me")
-	public String updatePwd(@RequestParam String name, HttpServletRequest request) {
-		System.out.println(name);
-		request.setAttribute("name", name);
+	
+	
+	
+	//비밀번호찾기 -임시비밀번호 보내기
+	private void sendEmail2(String email, String password) {
+		String host = "smtp.gmail.com";
+
+		String to1 = email;
 		
-		return "common/updatePwd";
+		System.out.println("to1: " + to1);
+
+		String from = "wln02036549@gmail.com";
+
+	
+
+		String from_name = "우리나 운영자";
+
+		
+		String content="임시비밀번호 [" + password+ "]";
+
+		System.out.println("from: " + from);
+		
+
+		try {
+			Properties props = new Properties();
+			
+			props.put("mail.smtp.starttls.enable", "true");
+			props.put("mail.transport.protocol", "smtp");
+			props.put("mail.smtp.host", host);
+			props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			props.put("mail.smtp.port", "465");
+			props.put("mail.smtp.user", from);
+			props.put("mail.smtp.auth", "true");
+
+			Session mailSession = Session.getDefaultInstance(props, new javax.mail.Authenticator() { 
+				protected PasswordAuthentication getPasswordAuthentication() { 
+					return new PasswordAuthentication("wln02036549@gmail.com", "011flskdidchlrh"); 
+					} 
+				});
+
+			
+			MimeMessage msg = new MimeMessage(mailSession);
+			System.out.println("msg가 뭔가요? "+msg);
+			msg.setFrom(new InternetAddress(from, MimeUtility.encodeText(from_name, "UTF-8", "B")));
+			
+			InternetAddress[] address1= { new InternetAddress(to1)};
+			System.out.println("address1: " + address1 );
+			msg.setRecipients(Message.RecipientType.TO, address1); //받는사람
+			msg.setSubject("아맞다에서 보낸 임시비밀번호입니다."); //제목
+			msg.setSentDate(new java.util.Date());
+			msg.setContent(content, "text/html;charset=euc-kr");
+			
+			
+			
+		
+			System.out.println("date: "+msg.getSentDate());
+			System.out.println("content: "+msg.getContent());
+			System.out.println("subject: "+msg.getSubject());
+			System.out.println("msg: " + msg);
+			Transport.send(msg);
+
+			System.out.println("성공");
+			
+		}catch(MessagingException e) {
+			System.out.println("언제쯤");
+
+		} catch (Exception e) {
+			
+			System.out.println("전송안됨");
+
+		}
+		
 	}
 	
+	
+	
+	//임시비밀번호 폼 기능
+	@RequestMapping("updatePwd.me")
+	public void updatePwd(String userPwd, HttpServletResponse response) {
+		
+		 System.out.println("비밀번호 변경폼으로 가기전 userPwd: "+userPwd); 
+		
+		 try {
+			response.getWriter().print("success");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
+	
+	@RequestMapping("updatePwd2.me")
+	public String updatePwd2(String userPwd) {
+		
+		System.out.println(userPwd); 
+		
+		 
+		return "common/updatePwd";
+		
+	}
 	
 	//비밀번호 변경
 	@RequestMapping("updateMyPwd.me")
 	public void updateMyPwd(Model model, String userPwd, HttpServletResponse response,HttpServletRequest request) {
 		
-		String name = request.getParameter("name");
-		System.out.println("받아온 name: "+name);
-		
+		/*
+		 * String name = request.getParameter("name");
+		 * System.out.println("받아온 name: "+name);
+		 */
+		System.out.println("받아온 userPwd" + userPwd);
 		String updateEncPwd = passwordEncoder.encode(userPwd);
 		System.out.println(updateEncPwd);
 		System.out.println("서비스로 왔어요");
 		
 		Member m = new Member();
 		m.setUserPwd(updateEncPwd);
-		m.setName(name);
+		//m.setName(name);
 		int result = ms.updateMyPwd(m);
 		
 		
@@ -202,6 +323,26 @@ public class MemberController {
 			}	
 			
 	}
+	
+	
+	
+	@RequestMapping("gotoRandomPwdWrite.ms")
+	public String gotoRandomPwdWrite() {
+		return "common/gotoRandomPwdWrite";
+	}
+	
+	//임시비밀번호로 로그인
+	/*
+	 * @RequestMapping("login2.me") public String login2(Model model,Member m) {
+	 * Member loginUser; try { loginUser = ms.loginMember(m);
+	 * model.addAttribute("loginUser", loginUser); System.out.println(loginUser);
+	 * return "redirect:index.jsp";
+	 * 
+	 * } catch (LoginException e) { model.addAttribute("msg", e.getMessage());
+	 * return "common/errorPage"; }
+	 * 
+	 * }
+	 */
 	
 	//로그아웃
 	@RequestMapping("logout.me")
@@ -513,5 +654,29 @@ public class MemberController {
 				}
 			}
 		}
-
+		
+		
+		@RequestMapping("insertMyImg.ms")
+		public String insertMyImg(HttpServletRequest request, Member m, @RequestParam(name="modifypicture", required=false) MultipartFile modifypicture){
+			
+			System.out.println("mno: " + m.getMno());
+			System.out.println("modifypicture: " + modifypicture);
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			
+			String filePath = root + "\\uploadFiles";		
+			String originalFilename = modifypicture.getOriginalFilename();
+			String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
+			
+			String changeName = CommonUtils.getRandomString();
+			try {
+				modifypicture.transferTo(new File(filePath + "\\" + changeName + ext));
+				
+				//ms.insertMyImg(m.getMno(), filePath, originalFilename,ext, changeName);
+			
+			} catch (IllegalStateException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			return "redirect:index.jsp";
+		}
 }

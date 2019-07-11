@@ -36,6 +36,12 @@ public interface MemberDao {
 
 	int updateMyInfo(SqlSessionTemplate sqlSession, Member m);
 
+	int updateRandomPwd(SqlSessionTemplate sqlSession, Member m);
+
+	void insertMyImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename,
+			String ext,String changeName);
+
+	
 	
 
 	
