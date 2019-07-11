@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.PageInfo;
+import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.vo.Estimate;
 import com.kh.amd.trainer.model.vo.Payment;
@@ -24,7 +25,7 @@ public class TrainerDaoImpl implements TrainerDao {
 	// 진환 메소드 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	
-	// 견적서  보기 select 메소드 (김진환)
+	// 1. 견적서  보기 select 메소드 (김진환)
 	@Override
 	public Estimate selectEstimate(SqlSessionTemplate sqlSession, int mno, int iestType) {
 		
@@ -36,21 +37,21 @@ public class TrainerDaoImpl implements TrainerDao {
 	}
 	
 	
-	// 견적서 insert 메소드 (김진환)
+	// 2. 견적서 insert 메소드 (김진환)
 	@Override
 	public int insertEstimate(SqlSessionTemplate sqlSession, Estimate tEst) {
 		return sqlSession.insert("Trainer.insertEstimate", tEst);
 	}
 	
 	
-	// 견적서 update 메소드 (김진환)
+	// 3. 견적서 update 메소드 (김진환)
 	@Override
 	public int updateEstimate(SqlSessionTemplate sqlSession, Estimate estimate) {
 		return sqlSession.update("Trainer.updateEstimate", estimate);
 	}
 	
 	
-	// 트레이너 공개설정 update 메소드 (김진환)
+	// 4. 트레이너 공개설정 update 메소드 (김진환)
 	@Override
 	public void updateTopen(SqlSessionTemplate sqlSession, String mno, String open) {
 		
@@ -62,13 +63,13 @@ public class TrainerDaoImpl implements TrainerDao {
 	}
 	
 	
-	// 멤버십 (김진환)
+	// 5. 멤버십 체크 (김진환)
 	@Override
 	public String checkMemberShip(SqlSessionTemplate sqlSession, String mno) {
 		return sqlSession.selectOne("Trainer.checkRemainNum", mno);
 	}
 	
-	//멤버쉽 결제 인서트 서블릿(김진환)
+	// 6. 멤버쉽 결제 인서트 서블릿(김진환)
 	@Override
 	public int insertmemberShipPayment(SqlSessionTemplate sqlSession, String tno, int memberShipNo, String memberShipUsage) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -87,7 +88,7 @@ public class TrainerDaoImpl implements TrainerDao {
 		return sqlSession.insert("Trainer.insertmemberShipPayment", map);
 	}
 	
-	//내 결제내역 리스트 갯수 조회용 메소드(김진환)
+	// 7. 내 결제내역 리스트 갯수 조회용 메소드(김진환)
 	@Override
 	public int getPaymentListCount(SqlSessionTemplate sqlSession, String tno) {
 		
@@ -95,7 +96,7 @@ public class TrainerDaoImpl implements TrainerDao {
 		return sqlSession.selectOne("Trainer.getPaymentListCount", tno);
 	}
 	
-	//내 결제내역 리스트 조회용 메소드(김진환)
+	// 8. 내 결제내역 리스트 조회용 메소드(김진환)
 	@Override
 	public List<Payment> paymentList(SqlSessionTemplate sqlSession, String tno, PageInfo pi) {
 		
@@ -111,7 +112,7 @@ public class TrainerDaoImpl implements TrainerDao {
 		return list;
 	}
 	
-	//환불요청 메소드 (김진환)
+	// 9. 환불요청 메소드 (김진환)
 	@Override
 	public int refundRequest(SqlSessionTemplate sqlSession, String refundId, String refundReason, int mno, int refundCountI) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -124,7 +125,7 @@ public class TrainerDaoImpl implements TrainerDao {
 		return sqlSession.update("Trainer.refundRequest", map);
 	}
 	
-	//회원찾기  - 회원리스트 갯수 확인 메소드(김진환)
+	// 10. 회원찾기  - 회원리스트 갯수 확인 메소드(김진환)
 	@Override
 	public int getSearchUserListCount(SqlSessionTemplate sqlSession) {		
 		
@@ -133,7 +134,7 @@ public class TrainerDaoImpl implements TrainerDao {
 
 	
 	
-	//회원찾기 - 회원리스트 출력 메소드(김진환)
+	// 11. 회원찾기 - 회원리스트 출력 메소드(김진환)
 	@Override
 	public List<Member> showUserList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		
@@ -149,7 +150,7 @@ public class TrainerDaoImpl implements TrainerDao {
 		return list;
 	}
 	
-	//회원찾기 - 회원리스트 정렬 메소드(김진환)
+	// 12. 회원찾기 - 회원리스트 정렬 메소드(김진환)
 	@Override
 	public List<Member> userListSort(SqlSessionTemplate sqlSession, String sort, PageInfo pi) {
 		
@@ -166,6 +167,31 @@ public class TrainerDaoImpl implements TrainerDao {
 		
 		return list;
 	}
+	
+	// 13. 견적서 전송 - 멤버쉽 차감(김진환)
+		@Override
+		public int memberShipDecrease(SqlSessionTemplate sqlSession, String tno) {
+			int mno = Integer.parseInt(tno);
+			
+			return sqlSession.update("Trainer.memberShipDecrease", mno);
+		}
+		
+	
+	// 14. 견적서 전송 - mprocess 테이블 insert(김진환)
+	@Override
+	public int insertMprocess(SqlSessionTemplate sqlSession, Mprocess mprocess) {
+		
+		return sqlSession.insert("Trainer.insertMprocess", mprocess);
+	}
+
+	// 15. 견적서 전송 - 보낸요청 리스트에 담기(김진환)
+	@Override
+	public List<Member> sendEstList(SqlSessionTemplate sqlSession, Mprocess mprocess) {
+		
+		
+		return sqlSession.selectList("Trainer.sendEstList", mprocess);
+	}
+
 
 
 
@@ -348,6 +374,10 @@ public class TrainerDaoImpl implements TrainerDao {
 		
 		sqlSession.update("Trainer.deleteMedia", map);
 	}
+
+	
+	
+	
 
 	
 

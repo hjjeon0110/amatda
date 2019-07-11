@@ -213,15 +213,18 @@
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">닫기</button>
 							<button type="button" class="btn btn-primary" name="estimateOpen"
-								class="btn btn-primary" data-toggle="modal" value="${ user.mno }"
-								data-target="#estimateSendModal${ user.mno }" onclick="openEstimate(this)">내 견적서 열기</button>
+								class="btn btn-primary" data-toggle="modal" value="${ user.mno }" 
+								data-target="#estimateSendModal" onclick="openEstimate(this)">내 견적서 열기</button>
 						</div>
 					</div>
 				</div>
 			</div>
 			
-	<!-------------------------- 견적서 보내기 위한 modal창 생성 코드--------------------------->
-			<div class="modal fade" id="estimateSendModal${ user.mno }" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+		</c:forEach>
+		<!-- end of 회원목록 forEach문 -->
+		
+			<!-------------------------- 견적서 보내기 위한 modal창 생성 코드--------------------------->
+			<div class="modal fade" id="estimateSendModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-scrollable" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -281,16 +284,18 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">닫기</button>
-							<button type="button" class="btn btn-primary" value="${ user.mno }" name="matchingStart">매칭 신청하기</button>
-							<button type="button" class="btn btn-primary" value="${ user.mno }" name="insertEstMatchStart">매칭 신청하기</button>
+							<button type="button" class="btn btn-primary" name="matchingStart">매칭 신청하기</button>
+							<button type="button" class="btn btn-primary" name="insertEstMatchStart">매칭 신청하기</button>
 						</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			
-		</c:forEach>
-		<!-- end of 회원목록 forEach문 -->
+		
+		
+		
+		
+		
 		<br>
 		
 		<!-- 페이징 처리를 위한 코드, div지정후 페이징 처리 ----------------------------------->
@@ -394,12 +399,14 @@
             }
 		})
 	}
+	
 	//새로만들기 클릭시
 	function openEstimate(value) {
 		var uno = $(value).val();
 		console.log("uno : " + uno);
-		$(".subMenuBar2").children().eq(1).attr("value", uno);
-		console.log("새로견적서작성 : " + $(".subMenuBar2").children().eq(1).val());
+		$("button[name=matchingStart]").attr("value", uno);
+		//$(".subMenuBar2").children().eq(1).attr("value", uno);
+		console.log("값이 들어갔나? : " + $("button[name=matchingStart]").val());
 		var mno = ${sessionScope.loginUser.mno}
 		var estType = "1";
 		$.ajax({
@@ -502,82 +509,44 @@
 		}
 	
 	
-	//견적서 열기 클릭시
-	/* $("button[name=estimateOpen]").click(function(){
-		
-		var mno = ${sessionScope.loginUser.mno}
-		var estType = "1";
-		$.ajax({
-			url:"ajaxshowMyPageEstimate.tr",
-			data:{mno:mno, estType:estType},
-			type:"get",
-            dataType:"json",
-            success:function(data){
-            	if(data != null){
-            	 $("input[name=estName]").val(data.estName);
-                 $("textarea[name=estContents]").val(data.estContents);
-                 $("input[name=estPrice]").val(data.estPrice);
-                 $("select[name=estDay]").val(data.estDay).prop("selected", true);
-                 $("select[name=estimateType]").show();
-                 $(".subMenuBar1").css({"background":"#ff0066", "color":"white"});
-                 $(".subMenuBar2").css({"background":"white", "color":"black"}); 
-            	}else{
-            	 alert("견적서가 없습니다!");
-            	 $("input[name=estName]").val("");
-            	 $("textarea[name=estContents]").val("");
-                 $("select[name=estDay]").val(30);
-                 $("select[name=estDay]").val(data.estDay).prop("selected", true);
-                 $("input[name=estPrice]").val("");
-                 $(".subMenuBar2").css({"background":"#ff0066", "color":"white"});
-                 $(".subMenuBar1").css({"background":"white", "color":"black"}); 
-            	}
-            }
-		})
-		
-	}) */
-
-	
-	/* //기존 견적서 클릭
-	$(".subMenubar2").mouseenter(function(){
-		 $(this).css({"cursor":"pointer"});
-	}).click(function(){
-        $(this).css({"background":"#ff0066", "color":"white"});
-        $("#writeNewEstimate").css({"background":"white", "color":"black"});  
-        $("select[name=estimateType]").show();
-        $("#estimateNew").css({"visibility": "hidden"});
-	});
-	
-	//견적서 새로 작성하기 클릭
-	$("#writeNewEstimate").mouseenter(function(){
-		 $(this).css({"cursor":"pointer"});
-	}).click(function(){
-		$(this).css({"background":"#ff0066", "color":"white"});
-        $("#existingEstimate").css({"background":"white", "color":"black"}); 
-        $("select[name=estimateType]").hide();
-        $("#estimateNew").css({"visibility": "visible"});
-	}); */
-	
 	//매칭신청하기 버튼 클릭시 
 	$("button[name=matchingStart]").click(function(){
-		var mno = $(this).val();
-		var mno2 = ${sessionScope.loginUser.mno};
+		var uno = $("button[name=matchingStart]").val();
+		var tno = ${sessionScope.loginUser.mno};
 		var estNo = $("input[name=estNo]").val();
 		var userName = $("button[name=userInfoShow]").parent().parent().parent().children().children("td").eq(1).children().eq(0).text();
 		var estName = $("input[name=estName]").val();
 		var estContents = $("textarea[name=estContents]").val();
 		var estPrice = $("input[name=estPrice]").val();
 		var estDay = $("select[name=estDay]").val();
+        var memberShip = $("#remainNum2").text();
+        
+        console.log("값이 비교가 되는가?" + (memberShip > 0));
 		
-		alert(estNo); 
-		 if(confirm(userName +"회원 님에게 매칭을 신청하시겠습니까 ?") == true){
-				location.href="insertMatchStart.tr?uno=" + mno + "&tno=" + mno2 + 
+        //
+		 if(confirm(userName +"회원 님에게 매칭을 신청하시겠습니까 ?\n(멤버쉽 횟수가 1회 차감됩니다.)\n" + 
+				 "현재 이용가능한 멤버쉽 횟수 : " + memberShip + "회 남았습니다.") == true){
+			 
+			 if(memberShip > 0){
+				 alert(userName + "님에게 견적서를 보냈습니다.\n 견적서는 3일이내 답변을 받아보실수 있습니다.")
+				 location.href="insertMatchStart.tr?uno=" + uno + "&tno=" + tno + 
+					"&estNo=" + estNo + "&estName=" + estName + "&estContents=" + estContents + "&estPrice=" + estPrice +
+					"&estDay=" + estDay;
+			 }else{
+				 alert("멤버쉽이 부족합니다. 충전후 이용해보세요!");
+				 location.href="showMyPageMembership.tr";
+				 
+			 }
+			 
+				/* location.href="insertMatchStart.tr?uno=" + uno + "&tno=" + tno + 
 						"&estNo=" + estNo + "&estName=" + estName + "&estContents=" + estContents + "&estPrice=" + estPrice +
-						"&estDay=" + estDay;
+						"&estDay=" + estDay; */
 		    }
 		    else{
 		        return ;
 		    }
 	})
+	
 	//견적서가 없을경우 입력후 매칭 시작하는 메소드
 	$("button[name=insertEstMatchStart]").click(function(){
 		var mno = $(this).val();
@@ -587,8 +556,10 @@
        	var estContents = $("textarea[name=estContents]").val();
         var estDay = $("select[name=estDay]").val();
         var estPrice = $("input[name=estPrice]").val();
+        var memberShip = $("#remainNum2").text();
         
-	 	if(confirm(userName +"회원 님에게 매칭을 신청하시겠습니까 ?") == true){
+        
+	 	if(confirm(userName +"회원 님에게 매칭을 신청하시겠습니까 ?\n(멤버쉽 횟수가 1회 차감됩니다.)\n" + "현재 이용가능한 멤버쉽 횟수 : " + memberShip + "회 남았습니다.") == true){
 	 		
 	 		 if(estName == "" || estName == null){
 	             alert("견적서 이름은 필수 입력사항입니다.");
@@ -605,9 +576,9 @@
 	              $($("input[name=estPrice]").focus());
 	              return false;  
 	          }
-	 		
+	          //"&estContents=" + estContents
 			location.href = "insertEstMatchStart.tr?estName=" + estName + 
-						"&estContents=" + estContents + "&estDay=" + estDay + "&estPrice" + estPrice +
+						"&estDay=" + estDay + "&estPrice" + estPrice +
 						"&uno=" + mno + "&tno=" + mno2;		       
 	    }
 	    else{
