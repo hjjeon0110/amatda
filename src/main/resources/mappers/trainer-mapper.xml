@@ -101,15 +101,16 @@
 		<collection property="mprocess" resultMap="mprocessResultSet" javaType="Mprocess"></collection>
 	</resultMap>
 	<resultMap type="Mprocess" id="mprocessResultSet">
-		<id property="processNo" column="PROCESS_NO"/>
-		<result property="sendUser" column="SEND_USER"/>
-		<result property="receiveUser" column="RECEIVE_USER"/>
-		<result property="matchingLevel" column="MATCHING_LEVEL"/>
-		<result property="matchingAccept" column="MATCHING_ACCEPT"/>
-		<result property="matchingStatus" column="MATCHING_STATUS"/>
-		<result property="processDate" column="PROCESS_DATE"/>
-		<collection property="matchEstimate" resultMap="estimateResultSet" javaType="Estimate"></collection>
-	</resultMap>
+      <id property="processNo" column="PROCESS_NO"/>
+      <result property="uno" column="UNO"/>
+      <result property="tno" column="TNO"/>
+      <result property="transferStatus" column="TRANSFER_STATUS"/>
+      <result property="matchingLevel" column="MATCHING_LEVEL"/>
+      <result property="matchingAccept" column="MATCHING_ACCEPT"/>
+      <result property="matchingStatus" column="MATCHING_STATUS"/>
+      <result property="processDate" column="PROCESS_DATE"/>
+      <collection property="matchEstimate" column="estimateResultSet" resultMap="estimateResultSet" javaType="Estimate"/>
+   </resultMap>
 	
 	
 
@@ -220,8 +221,9 @@
 	<select id="showUserList" resultMap="memberResultSet">
 		SELECT *
 		FROM MEMBER M 
-		LEFT JOIN ATTACHMENT A ON (A.BNO = M.MNO)
-		JOIN SURVEY S ON (S.UNO = M.MNO)	
+		JOIN ATTACHMENT A ON (A.PNO = M.MNO)
+		JOIN SURVEY S ON (S.UNO = M.MNO)
+        WHERE M.MTYPE = 'U'	
 	</select>
 	
 	<!-- 13. 회원찾기 - 회원 목록 정렬해서 리스트로 반환 -->
@@ -268,21 +270,13 @@
 	
 	</insert>
 	
-	<!-- 견적서 보낸 매칭 프로세스에 해당하는 값 모두 가져와 리스트로 반환 -->
-	<select id="sendEstList" resultMap="memberResultSet" >
+	<!-- 16. 견적서 보낸 매칭 프로세스에 해당하는 값 모두 가져와 리스트로 반환 -->
+	<select id="sendEstList" resultMap="memberResultSet">
 		SELECT * 
 		FROM MEMBER M
-		JOIN M_PROCESS MP ON (MP.TNO = M.TNO)
-		WHERE MP.SEND_USER = #{sendUser}
-		
-		<!-- WHERE MP.TNO = #{}
-		SELECT * 
-		FROM MEMBER M 
-		JOIN M_PROCESS MP ON(MP.TNO = M.MNO) 
-		JOIN PROFILE P ON(M.MNO = P.TNO) 
-		JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) 
+		JOIN M_PROCESS MP ON (MP.UNO = M.MNO)
+		JOIN ATTACHMENT A ON (A.PNO = MP.UNO)
 		WHERE MP.UNO = #{mno}
-		 -->
 		
 	
 	</select>
