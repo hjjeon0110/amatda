@@ -9,6 +9,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.diary.model.dao.DiaryDao;
 import com.kh.amd.diary.model.vo.Diary;
@@ -51,9 +52,9 @@ public class DiaryServiceImpl implements DiaryService{
 
 	//다이어리 list
 	@Override
-	public List<Diary> diaryList(int mno) {
+	public List<Diary> diaryList(int mno, PageInfo pi) {
 		
-		return dd.diaryList(sqlSession, mno);
+		return dd.diaryList(sqlSession, mno, pi);
 	}
 
 
@@ -112,6 +113,14 @@ public class DiaryServiceImpl implements DiaryService{
 	public int insertReply(Reply rep) {
 		return dd.insertReply(sqlSession, rep);
 		
+	}
+
+
+	//페이징
+	@Override
+	public int diaryListCount(int mno) {
+		
+		return dd.diaryListCount(sqlSession, mno);
 	}
 	
 

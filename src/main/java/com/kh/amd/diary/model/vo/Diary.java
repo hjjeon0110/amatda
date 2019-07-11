@@ -2,6 +2,7 @@ package com.kh.amd.diary.model.vo;
 
 import java.util.Date;
 
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.member.model.vo.Member;
 
 public class Diary implements java.io.Serializable{
@@ -22,12 +23,15 @@ public class Diary implements java.io.Serializable{
 	
 	private Member member;
 	
+	private Reply reply;
+	
 	private int mno;
+	
 	public Diary() {}
 
 	public Diary(int bNo, int bType, String blCategory, String bmCategory, String bsCategory, Date bWriteDate,
 			Date bModifyDate, String bTitle, int bWriter, String bContent, int bCount, int bLike, String bStatus,
-			Member member) {
+			Member member, Reply reply, int mno) {
 		super();
 		this.bNo = bNo;
 		this.bType = bType;
@@ -43,6 +47,8 @@ public class Diary implements java.io.Serializable{
 		this.bLike = bLike;
 		this.bStatus = bStatus;
 		this.member = member;
+		this.reply = reply;
+		this.mno = mno;
 	}
 
 	public int getbNo() {
@@ -157,13 +163,32 @@ public class Diary implements java.io.Serializable{
 		this.member = member;
 	}
 
+	public Reply getReply() {
+		return reply;
+	}
+
+	public void setReply(Reply reply) {
+		this.reply = reply;
+	}
+
+	public int getMno() {
+		return mno;
+	}
+
+	public void setMno(int mno) {
+		this.mno = mno;
+	}
+
 	@Override
 	public String toString() {
 		return "Diary [bNo=" + bNo + ", bType=" + bType + ", blCategory=" + blCategory + ", bmCategory=" + bmCategory
 				+ ", bsCategory=" + bsCategory + ", bWriteDate=" + bWriteDate + ", bModifyDate=" + bModifyDate
 				+ ", bTitle=" + bTitle + ", bWriter=" + bWriter + ", bContent=" + bContent + ", bCount=" + bCount
-				+ ", bLike=" + bLike + ", bStatus=" + bStatus + ", member=" + member + "]";
+				+ ", bLike=" + bLike + ", bStatus=" + bStatus + ", member=" + member + ", reply=" + reply + ", mno="
+				+ mno + "]";
 	}
+
+	
 
 	
 	
