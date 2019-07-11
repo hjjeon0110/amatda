@@ -19,7 +19,7 @@ public interface BoardService {
 	int insertQna(Board b);
 
 	//공지사항 리스트(김선아)
-	List<Board> noticeList();
+	List<Board> noticeList(PageInfo pi);
 
 	//공지사항 상세보기(김선아)
 	Board noticeSelectOne(int bNo);
@@ -67,7 +67,7 @@ public interface BoardService {
 	int updateNotice(Board board);
 
 	//자주 묻는 질문 리스트(김선아)
-	List<Board> FAQList();
+	List<Board> FAQList(PageInfo pi);
 
 	//자주 묻는 질문 상세보기(김선아)
 	Board FAQSelectOne(int bNo);
@@ -82,7 +82,7 @@ public interface BoardService {
 	int updateFAQ(Board board);
 
 	//1:1문의 리스트(김선아)
-	List<Board> QNAList();
+	List<Board> QNAList(PageInfo pi);
 
 	//1:1문의 상세보기(김선아)
 	Object QNASelectOne(int bNo);

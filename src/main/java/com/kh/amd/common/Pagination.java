@@ -3,6 +3,7 @@ package com.kh.amd.common;
 import com.kh.amd.board.model.vo.PageInfo;
 
 public class Pagination {
+	
 	public static PageInfo getPageInfo(int currentPage, int listCount) {
 		PageInfo pi = null;
 		

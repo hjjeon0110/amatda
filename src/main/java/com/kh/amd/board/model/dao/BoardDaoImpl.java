@@ -1,12 +1,11 @@
 package com.kh.amd.board.model.dao;
 
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -31,8 +30,17 @@ public class BoardDaoImpl implements BoardDao {
 
 	//공지사항 리스트(김선아)
 	@Override
-	public List<Board> noticeList(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectList("Board.noticeList");
+	public List<Board> noticeList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();	      
+	    RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+	    
+	    List<Board> list = null;
+	    list = (List)sqlSession.selectList("Board.noticeList", null, rowBounds);
+		System.out.println("리스트 : " + list);
+		
+		return list;
+	    //return sqlSession.selectList("Board.noticeList", pi);
 	}
 	
 	//공지사항 상세보기(김선아)
@@ -67,9 +75,21 @@ public class BoardDaoImpl implements BoardDao {
 
 	//자주묻는질문 리스트(김선아)
 	@Override
-	public List<Board> FAQlist(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectList("Board.FAQlist");
+	public List<Board> FAQlist(SqlSessionTemplate sqlSession, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();	      
+	    RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+	    
+	    List<Board> list = null;
+	    list = (List)sqlSession.selectList("Board.FAQlist", null, rowBounds);
+		System.out.println("리스트 : " + list);
+		
+		return list;
+	    
+		//return sqlSession.selectList("Board.FAQlist", pi);
 	}
+	
+
 
 	//자주묻는질문 상세보기(김선아)
 	@Override
@@ -171,9 +191,21 @@ public class BoardDaoImpl implements BoardDao {
 
 	//1:1문의 리스트(김선아)
 	@Override
-	public List<Board> QNAlist(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectList("Board.QNAlist");
+	public List<Board> QNAlist(SqlSessionTemplate sqlSession, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();	      
+	    RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+	    
+	    List<Board> list = null;
+	    
+	    list = (List)sqlSession.selectList("Board.QNAlist", null, rowBounds);
+		System.out.println("리스트 : " + list);
+		
+		return list;
+	    
+		//return sqlSession.selectList("Board.QNAlist", pi);
 	}
+	
 	
 	//1:1 상세보기(김선아)
 	@Override

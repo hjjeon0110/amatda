@@ -3,6 +3,7 @@ package com.kh.amd.user.model.service;
 import java.util.List;
 
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
@@ -42,6 +43,10 @@ public interface UserService {
 	
 	// 11. 마이트레이너 delete (전효정)
 	void deleteMyTrainer(String uno, String tno);
+
+	List<Board> selectMyQnaList(int mno2);
+
+	Board selectMyQnaDetail(int bno2);
 	
 
 

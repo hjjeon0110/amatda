@@ -56,7 +56,7 @@
 						<th>번호</th>
 						<th>제목</th>
 						<th>등록일</th>
-						<!-- <th>트레이너 댓글</th> -->
+						<!-- <th>테스트</th> -->
 					</tr>
 				</thead>
 				<tbody>
@@ -69,7 +69,7 @@
 						<!-- <td><input type="checkbox" name="checkList" value="" /></td> -->
 						<td scope="row"><b>${st.count }</b></td>						
 						<td>${ diaryList[i].bTitle }</td>											
-						<td><fmt:formatDate value="${ diaryList[i].bWriteDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+						<td><fmt:formatDate value="${ diaryList[i].bWriteDate }" pattern="yyyy-MM-dd"/></td>
 						<td></td>					
 					</tr>
 					
@@ -78,8 +78,47 @@
 				</tbody>
 			</table>
 		
-		<!-- 페이징처리 -->
-					<div id="paginaArea" align="center">
+		<!-- 페이징 처리를 위한 코드, div지정후 페이징 처리 ----------------------------------->
+      <div id="pagingArea" align="center">
+         <c:if test="${ pi.currentPage <= 1 }">
+            [이전] &nbsp;
+         </c:if>
+         <c:if test="${ pi.currentPage > 1}">
+            <c:url var="blistBack" value="list.di">
+               <c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+               <c:param name="mno" value="${sessionScope.loginUser.mno}"></c:param>
+            </c:url>
+            <a href="${ blistBack }">[이전]</a> &nbsp;
+         </c:if>
+         <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+            <c:if test="${ p eq pi.currentPage }">
+               <font color="orange" size="4"><b>[${ p }]</b></font>
+            </c:if>
+            <c:if test="${ p ne pi.currentPage }">
+               <c:url var="blistCheck" value="list.di">
+                  <c:param name="currentPage" value="${ p }"/>
+                                 <c:param name="mno" value="${sessionScope.loginUser.mno}"></c:param>
+                  
+               </c:url>
+               <a href="${ blistCheck }">${ p }</a>
+            </c:if>
+         
+         </c:forEach>
+         
+         <c:if test="${pi.currentPage >= pi.maxPage }">
+            &nbsp; [다음]
+         </c:if>
+         <c:if test="${ pi.currentPage < pi.maxPage }">
+            <c:url var="blistEnd" value="list.di">
+               <c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+               <c:param name="mno" value="${sessionScope.loginUser.mno}"/>
+            </c:url>
+            <a href="${ blistEnd }">&nbsp;[다음]</a>
+         </c:if>
+         
+      </div>
+		
+					<%-- <div id="paginaArea" align="center">
 						<!-- 첫 페이지를 보고 있는 경우 -->
 						<c:if test="${pi.currentPage <= 1}">
 				[이전] &nbsp;
@@ -118,14 +157,12 @@
 							</c:url>
 							<a href="${blistEnd }">&nbsp; [다음]</a>
 						</c:if>
-					</div>
+					</div> --%>
 					
 					
 					<script>
 					
-			$(function(){
-				
-				
+			$(function(){				
 				
 				$(".listArea").find("td").mouseenter(function(){					
 							
@@ -138,11 +175,18 @@
 					console.log(bno);
 					
 					location.href="selectDetailDiary.di?bno=" + bno;
-				});
-				
-				
+				});			
 				
 			});
+			
+			
+			/* window.onload = function () {
+				 
+				
+				
+				alert("테스트중");
+				} */
+			
 		</script>
 </div>
 </div>

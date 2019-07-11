@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.diary.model.vo.Diary;
 
@@ -26,7 +27,7 @@ public interface DiaryDao {
 
 	
 	//다이어리 list
-	List<Diary> diaryList(SqlSessionTemplate sqlSession, int mno);
+	List<Diary> diaryList(SqlSessionTemplate sqlSession, int mno, PageInfo pi);
 
 	
 	//다이어리 상세보기
@@ -60,6 +61,10 @@ public interface DiaryDao {
 
 	//댓글 insert
 	int insertReply(SqlSessionTemplate sqlSession, Reply rep);
+
+
+	//페이징
+	int diaryListCount(SqlSessionTemplate sqlSession, int mno);
 
 
 

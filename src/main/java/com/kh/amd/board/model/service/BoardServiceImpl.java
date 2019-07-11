@@ -39,8 +39,8 @@ public class BoardServiceImpl implements BoardService{
 
 	//공지사항 리스트(김선아)
 	@Override
-	public List<Board> noticeList() {
-		return bd.noticeList(sqlSession);
+	public List<Board> noticeList(PageInfo pi) {
+		return bd.noticeList(sqlSession, pi);
 	}
 
 	//공지사항 상세보기(김선아)
@@ -154,8 +154,8 @@ public class BoardServiceImpl implements BoardService{
 
 	//자주묻는질문 리스트(김선아)
 	@Override
-	public List<Board> FAQList() {
-		return bd.FAQlist(sqlSession);
+	public List<Board> FAQList(PageInfo pi) {
+		return bd.FAQlist(sqlSession, pi);
 	}
 
 	//자주묻는질문 상세보기(김선아)
@@ -198,8 +198,8 @@ public class BoardServiceImpl implements BoardService{
 
 	//1:1문의 리스트(김선아)
 	@Override
-	public List<Board> QNAList() {
-		return bd.QNAlist(sqlSession);
+	public List<Board> QNAList(PageInfo pi) {
+		return bd.QNAlist(sqlSession, pi);
 	}
 
 	//1:1 상세보기(김선아)
