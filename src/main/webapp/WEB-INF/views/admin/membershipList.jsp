@@ -88,6 +88,10 @@
 .tm-block-taller-m {
     max-height: 280px;
   }
+  
+.table{
+	text-align: center;
+}
 
 </style>
 </head>
@@ -199,7 +203,7 @@
 						</thead>
 
 						<tbody>
-
+							<c:set var="price" value="${list.membershipPrice }" />
 							<c:forEach var="list" items="${ paymentList }" varStatus="status">
 								<tr align="center">
 									<th scope="row"><b>${ status.count }</b>
@@ -295,38 +299,43 @@
 		$('#keyword').change(function(){
          var keyword=$(this).val();
          console.log(keyword);
-         
-       $.ajax({
-            url:"membershipType.ad",
-            data:{keyword:keyword},
-            type:"get",
-            success:function(data){
-               
-               var index = data.filteringList;
-                 $(".table > tbody").children().remove();
-          
-                 
-                 for(var i = 0 ; i<index.length; i++){
-                    
-                	 console.log("성공!!")
-                   
         
-                    var table="<tr><td>" + (i+1) + "</td><td>" + 
-                    index[i].userId + "</td><td>" +  
-                    "멤버쉽" + index[i].membershipType + "</td><td>" +
-                    index[i].membershipPrice + "</td><td>" + 
-                    index[i].membershipCount+ "회" + "</td><td>" +
-                    index[i].membershipCount+ "</td></tr>";
-                     $(".table > tbody").append(table); 
-                 
+         $.ajax({
+             url:"membershipType.ad",
+             data:{keyword:keyword},
+             type:"get",
+             success:function(data){	
+     
+                var index = data.filteringList;
+                  $(".table").children().remove();
+                  
+                 var thead = "<thead><tr><th>번호</th><th>아이디</th><th>유형</th><th>결제금액</th><th>사용가능내역</th></tr><thead>";
+
+               	$(".table").append(thead);
+                  
+        		
+                  
+           
+          for(var i = 0 ; i<index.length; i++){
                      
-                     
+                 	//console.log("성공!!")
+         
+                     var tbody="<tr><td>" + (i+1) + "</td><td>" + 
+                     index[i].userId + "</td><td>" +  
+                     "멤버쉽" + index[i].membershipType + "</td><td>" +
+                     index[i].membershipPrice + "</td><td>" + 
+                     index[i].membershipCount+ "회" + "</td></tr>";
+                      $(".table").append(tbody); 
+                  
                     
-                 }
-            }
-         })
-      })
-	</script>
+                      
+                     
+                  }
+             }
+          })
+       })
+ 	</script>
+
 
 
 </body>
