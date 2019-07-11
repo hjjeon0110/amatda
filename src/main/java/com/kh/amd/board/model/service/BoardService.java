@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.member.model.vo.Member;
 
 public interface BoardService {
@@ -27,13 +28,13 @@ public interface BoardService {
 	void increaseViewcnt(int bNo, HttpSession session);
 
 	//공지사항/이벤트 리스트 출력(SR)
-	List<Board> selectNotice();
+	List<Board> selectNotice(PageInfo pi);
 
 	//공지사항 CATEGORY만의 리스트 출력(SR)
-	List<Board> selectNoticeCate();
+	List<Board> selectNoticeCate(PageInfo pi);
 
 	//이벤트 CATEGORY만의 리스트 출력(SR)
-	List<Board> selectEventCate();
+	List<Board> selectEventCate(PageInfo pi);
 
 	//공지사항/이벤트 게시물 상세페이지(SR)
 	Board selectOneNotice(int bNo);
@@ -48,7 +49,7 @@ public interface BoardService {
 	List<Board> selectReview();
 
 	//후기리뷰 입력(SR)
-	int insertReview(Board b,int bNo);
+	int insertReview(Board b);
 
 	//리뷰게시판 상세페이지 (SR)
 	Object selectOneReview(int bNo);
@@ -111,8 +112,23 @@ public interface BoardService {
 	////리뷰게시판 BNO조회(SR)
 	int selectReviewBno();
 	
-	//리뷰게시판 이미지 insert(SR)
-	void insertReviewImg(int bno,String mno,String filePath,String originalFilename,String changeName,String ext,String bTitle,String bContent);
+	/*
+	 * //리뷰게시판 이미지 insert(SR) void insertReviewImg(int bno,String mno,String
+	 * filePath,String originalFilename,String changeName,String ext,String
+	 * bTitle,String bContent);
+	 */
+
+	//공지사항&이벤트 페이지 페이징(SR)
+	int getSearchNoticeListCount();
+
+	//공지사항 CATEGORY만의 리스트 페이징(SR)
+	int getSearchNoticeCateListCount();
+
+	//이벤트 CATEGORY만의 리스트 페이징(SR)
+	int getSearchEventCateListCount();
+
+	// 후기 이미지 insert
+	void insertReviewImg(String mno, Board b, String filePath, String originalFilename, String ext, String changeName);
 	
 	
 

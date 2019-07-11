@@ -231,28 +231,48 @@ margin-bottom:15px;
   			
 	  		<!-- 페이징 시작----------------------------------------------------------------- -->
 	  
+	  			<!-- 페이징 처리를 위한 코드, div지정후 페이징 처리 ----------------------------------->
+			      <div id="pagingArea" align="center">
+			         <c:if test="${ pi.currentPage <= 1 }">
+			            [이전] &nbsp;
+			         </c:if>
+			         <c:if test="${ pi.currentPage > 1}">
+			            <c:url var="blistBack" value="selectNotice.bo">
+			               <c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+			            </c:url>
+			            <a href="${ blistBack }">[이전]</a> &nbsp;
+			         </c:if>
+			         <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+			            <c:if test="${ p eq pi.currentPage }">
+			               <font color="orange" size="4"><b>[${ p }]</b></font>
+			            </c:if>
+			            <c:if test="${ p ne pi.currentPage }">
+			               <c:url var="blistCheck" value="selectNotice.bo">
+			                  <c:param name="currentPage" value="${ p }"/>
+			               </c:url>
+			               <a href="${ blistCheck }">${ p }</a>
+			            </c:if>
+			         
+			         </c:forEach>
+			         
+			         <c:if test="${pi.currentPage >= pi.maxPage }">
+			            &nbsp; [다음]
+			         </c:if>
+			         <c:if test="${ pi.currentPage < pi.maxPage }">
+			            <c:url var="blistEnd" value="selectNotice.bo">
+			               <c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+			            </c:url>
+			            <a href="${ blistEnd }">&nbsp;[다음]</a>
+			         </c:if>
+			         
+			      </div>
+				  
+	  
+	  
+	  
 	  		
 	  		<!-- 페이징 끝----------------------------------------------------------------- -->
-	  		
-	  		
-	  		
-	  		
-	  		<!-- <div class="paging">
-				<a href="#" class="direction fisrt"><span>처음</span></a>
-				<a href="#" class="direction prev"><span>이전</span></a>
-				<a href="#">1</a> -->
-				<!-- <a href="#">2</a>
-				<a href="#">3</a>
-				<a href="#">4</a>
-				<strong>5</strong>
-				<a href="#">6</a>
-				<a href="#">7</a>
-				<a href="#">8</a>
-				<a href="#">9</a>
-				<a href="#" class="direction next"><span>다음</span></a>
-				<a href="#" class="direction last"><span>끝</span></a>
-			</div> -->
-				
+	  			
 		</div>
 	</div>
 	<br>

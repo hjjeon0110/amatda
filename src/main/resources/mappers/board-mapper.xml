@@ -332,6 +332,33 @@
   	</select>
   
   
+  <!-- 공지사항&이벤트 페이지 페이징(SR) -->
+  <select id="getSearchNoticeListCount" resultType="_int">
+  	SELECT COUNT(*) 
+  	FROM BOARD
+  	WHERE (BTYPE=1 OR BTYPE=2)
+  	AND BSTATUS = 'Y'
+  </select>
+  
+  <!-- 공지사항 카테고리 페이지 페이징(SR) -->
+  <select id="getSearchNoticeCateListCount" resultType="_int">
+  	  SELECT COUNT(*)
+	  FROM BOARD
+	  WHERE BTYPE=1
+	  AND BSTATUS='Y'
+  </select>
+  
+  <!-- 이벤트 CATEGORY만의 리스트 페이징(SR) -->
+  <select id="getSearchEventCateListCount" resultType="_int">
+  	  SELECT COUNT(*)
+	  FROM BOARD
+	  WHERE BTYPE=2
+	  AND BSTATUS='Y'
+  </select>
+  
+  <!-- 후기 img insert -->
+  
+  
   </mapper>
 
   
