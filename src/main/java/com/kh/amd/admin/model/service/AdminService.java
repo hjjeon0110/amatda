@@ -52,6 +52,9 @@ public interface AdminService {
 
 	//페이징 처리(신고)
 	int declListCount();
+	
+	//통계
+	List<Member> memberAge();
 
 	
 

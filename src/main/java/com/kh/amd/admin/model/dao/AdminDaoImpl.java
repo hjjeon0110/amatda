@@ -113,6 +113,12 @@ public class AdminDaoImpl implements AdminDao{
 		return sqlSession.selectOne("Admin.declListCount");
 	}
 
+	//통계
+	@Override
+	public List<Member> memberAge(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Admin.memberAge");
+	}
+
 
 
 }
