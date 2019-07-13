@@ -122,6 +122,17 @@ public class DiaryServiceImpl implements DiaryService{
 		
 		return dd.diaryListCount(sqlSession, mno);
 	}
+
+
+	//다이어리 delete
+	@Override
+	public int deleteDiary(String bNo) {
+		
+		return dd.deleteDiary(sqlSession, bNo);
+	}
+
+
+	
 	
 
 	//gallery

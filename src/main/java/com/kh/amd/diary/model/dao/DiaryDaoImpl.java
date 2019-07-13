@@ -168,6 +168,14 @@ public class DiaryDaoImpl implements DiaryDao{
 		
 		return sqlSession.selectOne("Diary.selectDiaryListCount", mno);
 	}
+
+
+	//다이어리 delete
+	@Override
+	public int deleteDiary(SqlSessionTemplate sqlSession, String bNo) {
+		
+		return sqlSession.delete("Diary.deleteDiary", bNo);
+	}
 	
 	//gallery
 //	@Override

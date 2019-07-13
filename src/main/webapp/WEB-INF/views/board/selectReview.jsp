@@ -294,9 +294,6 @@ a:active {text-decoration: none; color: #333333;}
 		
 		<c:forEach var="selectReview" items="${ requestScope.selectReview }" varStatus="status">
 		<c:if test="${i%j == 0 }">
-		
-
-			
 			
          </c:if>
 			<tr>
