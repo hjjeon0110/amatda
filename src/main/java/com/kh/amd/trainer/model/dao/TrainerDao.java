@@ -74,6 +74,13 @@ public interface TrainerDao {
 
 	// 18. 보낸요청 페이징 처리를 위한 카운트(김진환)
 	int getTrainerMyPageMatchingListCount(SqlSessionTemplate sqlSession, String tno);
+	
+	// 19. 받은요청 페이징 처리를 위한 카운트(김진환)
+	int checkMyReceiveListCount(SqlSessionTemplate sqlSession, String tno);
+	
+	// 20. 받은 요청 리스트 확인 메소드(김진환)
+	List<Member> myReciveList(SqlSessionTemplate sqlSession, String tno, PageInfo pi);
+
 
 
 
@@ -127,6 +134,9 @@ public interface TrainerDao {
 
 	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 	void deleteMidea(SqlSessionTemplate sqlSession, String mno, String thisModiName);
+
+
+	
 
 
 

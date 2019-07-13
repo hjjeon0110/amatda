@@ -177,6 +177,76 @@
 }
 
 
+.modal {
+   font-family: 'Noto Sans KR', sans-serif;
+}
+
+.modal-header {   
+   background:#ffe6f3 !important;
+   border-left:0.2px solid gray !important;
+}
+
+.modalHeader {
+   color: #ff0066;
+   font-weight: bold;
+   font-family: 'Noto Sans KR', sans-serif;
+   
+}
+.surveyInfo{
+   font-weight: bold;
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size:14px;
+   margin-top:3px;
+}
+
+.modalMenubar {
+   width:100%;
+   font-family: 'Montserrat', sans-serif;
+}
+
+.modalMenubar thead {
+   text-align:center;
+   font-weight:bold;
+}
+
+.modalMenubar td {
+   width:20%;
+   padding-top:15px;
+   padding-bottom:15px;
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size:14px;
+}
+
+.modalBody {
+   padding:20px;
+}
+
+.modalMenu {
+   color: #ff0066;
+   font-size:16px;
+   font-weight:bold;
+   font-family: 'Noto Sans KR', sans-serif;
+}
+
+.form-control {
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size: 14px !important;
+   height:30px !important;
+   background:white !important;
+}
+
+.index{
+   color: #ff0066;
+   font-weight:bold;
+}
+
+.subTitleLabel {
+   font-weight:bold;
+   font-size: 14px;
+   font-family: 'Noto Sans KR', sans-serif;
+}
+
+
 </style>
 </head>
 <body>
@@ -258,7 +328,7 @@
 					</tr>
 					<tr>
 						<td><label class="userKeyword">#${ user.survey.hopeExercise }</label></td>
-						<td><button class="remainDay" name="remainCheck${ user.mno }">기한초과 : <label>${ (estDate + 3 - nowTime)}</label>일</button></td>						
+						<td><button class="remainDay" name="remainCheck${ user.mno }">기한초과</button></td>						
 					</tr>
 					<tr>
 						<td><label class="userSurvey">운동 시작가능일 : ${ user.survey.hopeStart}, 운동
@@ -277,53 +347,55 @@
 			
 			<br>
 			<!-- Modal ---------------------------------------------------------------------------------------------------------- -->
-			<div class="modal fade" id="exampleModalScrollable${ user.mno }" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+			<div class="modal fade" id="exampleModalScrollable${user.mno}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-scrollable" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<label class="modalHeader">${user.name }님의 다이어트 정보 </label>&nbsp;&nbsp;&nbsp;
-							<label> 나이 : ${ user.survey.uAge } 키 : ${user.survey.height }cm, 몸무게 : ${ user.survey.weight}kg, 목표감량치 : -${user.survey.hopeWeight}kg</label>
+							<label class="modalHeader"><i class="fa fa-check"></i> ${user.name }님의 다이어트 정보 </label>&nbsp;&nbsp;&nbsp;&nbsp;
+							<label class="surveyInfo"> 나이 : ${ user.survey.uAge } / 키 : ${user.survey.height }cm / 몸무게 : ${ user.survey.weight}kg / 목표감량치 : -${user.survey.hopeWeight}kg</label>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
 						<div class="modal-body">
-							<label class="index">I</label>&nbsp;&nbsp;<label>PT를 받는 목적이 무엇인가요?</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.dietReason } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>이전 다이어트 실패의 이유</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.dietFail} readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>선호 트레이너 성별</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.hopeGender } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>가장빼고 싶은 신체부위</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.hopeBody } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>선호하는 다이어트방법</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.hopeMethod } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>선호하는 트레이너 연령</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.hopeAge } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>운동시작 희망일자</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.hopeStart } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>하루식사량</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.datFood } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>선호운동유형</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.hopeExercise } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>하루운동가능량</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.datExercise } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>장애 및 질병 여부</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.disease } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>일일운동시간</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.dayTime } readonly><br><br>
-						</div>
+               <br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">PT를 받는 목적이 무엇인가요?</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<input class='form-control' type="text" value="${ user.survey.dietReason }" readonly><br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">이전 다이어트 실패의 이유</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.dietFail}" readonly><br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">선호 트레이너 성별</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.hopeGender }" readonly><br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">가장빼고 싶은 신체부위</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.hopeBody }" readonly><br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">선호하는 다이어트방법</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.hopeMethod }" readonly><br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">선호하는 트레이너 연령</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.hopeAge }" readonly><br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">운동시작 희망일자</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.hopeStart }" readonly><br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">하루식사량</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.datFood }" readonly><br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">선호운동유형</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.hopeExercise }" readonly><br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">하루운동가능량</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.datExercise }" readonly><br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">장애 및 질병 여부</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.disease }" readonly><br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">일일운동시간</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.dayTime }" readonly><br>
+            </div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">닫기</button>
-							<button type="button" class="btn btn-primary" name="estimateOpen"
+							<button type="button" class="btn btn-primary" name="estimateOpen" id="modal1"
 								class="btn btn-primary" data-toggle="modal" value="${ user.mno }" 
-								data-target="#estimateSendModal" onclick="openEstimate(this)">내 견적서 열기</button>
+								data-target="#estimateSendModal">내가 보낸 견적서 보기</button>
 						</div>
 					</div>
 				</div>
 			</div>
+
 			
 		</c:forEach>
 		<!-- 페이징 처리를 위한 코드, div지정후 페이징 처리 ----------------------------------->
@@ -364,64 +436,35 @@
 			</c:if>
 			
 		</div>
-		
-		
-		</div>
-		<!-- end of 회원목록 forEach문 -->
-		
-			<!-------------------------- 견적서 보내기 위한 modal창 생성 코드--------------------------->
+	</div>
+	
+		<!-------------------------- 견적서 확인을 위한 modal창 생성 코드--------------------------->
 			<div class="modal fade" id="estimateSendModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-scrollable" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<label class="subTitle">${ sessionScope.loginUser.name } 트레이너 님의 견적서 정보</label>
+							<label class="modalHeader"><i class="fa fa-check"></i></label>&nbsp;&nbsp;&nbsp;&nbsp;
 						</div>
 						<div class="modal-body">
-							<div class="subMenuBar">
-						      <div class="subMenuBar1" onclick="existEstimate()">기존견적서 불러오기</div>
-						      <div class="subMenuBar2" onclick="writeEstimate()">견적서 새로 작성하기<input type="hidden" value="3"><input type="hidden" class="uno2" value=""></div>
-						  	</div>
-						  	<br />&nbsp;&nbsp;&nbsp;&nbsp;
-						  	 <!-- onchange="estimateChange()" -->
-						  	<select name="estimateType" onchange="estimateChange(this.value)">
-						  		<option value="3">최근견적서</option>
-						  		<option value="1">견적서1</option>
-						  		<option value="2">견적서2</option>
-						  	</select>
-						  	<label class="estimateNew" id="estimateNew">견적서를 새로 작성해보세요!</label>
-							<br />
+
 					<div class="estimateDiv">
-						<input type="hidden" name="tno" value="${ sessionScope.loginUser.mno }" /> 
-						<input type="hidden" name="estNo" value=""/> 
+						<input class="form-control" type="hidden" name="tno" value="${ sessionScope.loginUser.mno }" /> 
 						<br>
-						<label class="subTitle">제목</label> 
+						<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">제목</label> 
 						<br>
-						<input type="text" id="estName" name="estName" placeholder="견적서 제목을 입력해주세요" value="" readonly />
-						<br><br>
-						<label class="subTitle">커리큘럼</label> 
+						<input class="form-control" type="text" id="estName" name="estName" placeholder="견적서 제목을 입력해주세요" value="" readonly />
 						<br>
-						<textarea class="curriculum" id="estContents" name="estContents" placeholder="커리큘럼을 입력해주세요" style="resize: none;" readonly>${ estimate.estContents }</textarea>
-						<br><br>
-						<label class="subTitle" >개월수</label>
+						<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">커리큘럼</label> 
+						<br>
+						<textarea class="form-control" id="estContents" name="estContents" placeholder="커리큘럼을 입력해주세요" style="height:150px !important;resize: none;" readonly></textarea>
+						<br>
+						<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">운동일수</label>
 				        <br>
-					    <select name="estDay" id="estDay" >
-					       <option value="30">1개월</option>
-					       <option value="60">2개월</option>
-					       <option value="90">3개월</option>
-					       <option value="120">4개월</option>
-					       <option value="150">5개월</option>
-					       <option value="180">6개월</option>
-					       <option value="210">7개월</option>
-					       <option value="240">8개월</option>
-					       <option value="270">9개월</option>
-					       <option value="300">10개월</option>
-					       <option value="330">11개월</option>
-					       <option value="360">12개월</option>
-					    </select>
-						<br><br>
-						<label class="subTitle">가격</label>
+				    	<input class="form-control" type="text" value=""/>
 						<br>
-						<input type="number" name="estPrice" id="estPrice" placeholder="가격을 입력해주세요" value="" readonly/>
+						<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">가격</label>
+						<br>
+						<input class="form-control" type="number" name="estPrice" id="estPrice" placeholder="가격을 입력해주세요" value="" readonly/>
 						<br>
 						
 					</div>
@@ -430,14 +473,12 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">닫기</button>
-							<button type="button" class="btn btn-primary" name="matchingStart">매칭 신청하기</button>
-							<button type="button" class="btn btn-primary" name="insertEstMatchStart">매칭 신청하기</button>
+							<button type="button" class="btn btn-primary" name="matchingStart">매칭 철회하기</button>
 						</div>
 						</div>
 					</div>
 				</div>
 			</div>
-	
 	
 	<!-- footer ----------------------------------------------------------------------------------------------------- -->
 	<br><br><hr><br>
@@ -462,6 +503,11 @@
 			}
 			console.log(remainDay);
 		})
+		$("#modal1").click(function(){
+			
+		});
+		
+
 		
 	</script>
 	

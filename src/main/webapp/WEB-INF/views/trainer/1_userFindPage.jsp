@@ -407,8 +407,7 @@
 		$("button[name=matchingStart]").attr("value", uno);
 		$("button[name=insertEstMatchStart]").attr("value", uno);
 		//$(".subMenuBar2").children().eq(1).attr("value", uno);
-		console.log("값이 들어갔나? : " + $("button[name=matchingStart]").val());
-		console.log("값이 들어갔나? : " + $("button[name=insertEstMatchStart]").val());
+
 		var mno = ${sessionScope.loginUser.mno}
 		var estType = "3";
 		$.ajax({
@@ -536,9 +535,7 @@
 					data : {uno:uno, tno:tno, estName:estName, estContents:estContents, estPrice:estPrice, estDay:estDay},
 					type : "post",
 					success:function(data){
-						console.log("이실수 너무 많이해");
-						console.log(data);
-						
+												
 						if(data == "false"){						
 							alert("해당 회원에게는 이미 견적서를 보냈습니다.!")
 							location.reload();
