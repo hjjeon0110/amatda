@@ -56,7 +56,13 @@
 						</tr>
 						<tr>
 							<td><label class="trainerKeyword">${ myTrainerList[i].profile.keyword }</label></td>
+							<c:if test="${ myTrainerList[i].mprocess.matchingLevel == 0 }">
 							<td><button class="goProfileDetail">매칭 시작하기</button></td>
+							</c:if>
+							<c:if test="${ myTrainerList[i].mprocess.matchingLevel != 0 }">
+							<td><button class="goProfileDetail">매칭 진행중</button></td>
+							</c:if>
+							
 						</tr>
 						<tr>
 							<td><label class="simpleProfile">${ myTrainerList[i].profile.lineProfile}</label></td>

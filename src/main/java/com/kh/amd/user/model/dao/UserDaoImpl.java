@@ -16,6 +16,35 @@ import com.kh.amd.trainer.model.vo.Profile;
 
 @Repository
 public class UserDaoImpl implements UserDao {
+	
+	
+	// 나의 문의 내역 select (우리나)
+	@Override
+	public List<Board> selectMyQnaList(SqlSessionTemplate sqlSession, int mno2) {
+		System.out.println("dao에서 mno2: " + mno2);
+		return sqlSession.selectList("User.selectMyQnaList", mno2);
+	}
+
+	//13. 내글관리(QnaDetail) select (우리나)
+	@Override
+	public Board selectMyQnaDetail(SqlSessionTemplate sqlSession, int bno2) {
+		return sqlSession.selectOne("User.selectMyQnaDetail", bno2);
+	}
+
+	//14. 내글관리(QnaReply) select (우리나)
+	@Override
+	public Reply selectQnaReply(SqlSessionTemplate sqlSession, int bno2) {
+		return sqlSession.selectOne("User.selectQnaReply", bno2);
+	}
+
+
+	@Override
+	public List<Board> selectMyBoardList(SqlSessionTemplate sqlSession, int mno2) {
+		return sqlSession.selectList("User.selectMyBoardList",mno2);
+	}
+	
+	
+	// 효정 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	
 	// 1. 맞춤 트레이너 리스트 조회 (전효정)
@@ -156,32 +185,18 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	
+	// 14. 내 정보 보낸 후 mprocess update (전효정)
+	@Override
+	public void updateMprocess1(SqlSessionTemplate sqlSession, String mno, String tno) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mno", mno);
+		map.put("tno", tno);
+		
+		sqlSession.update("User.updateMprocess1", map);
+	}
+
 	
-	
-	// 나의 문의 내역 select (우리나)
-	@Override
-	public List<Board> selectMyQnaList(SqlSessionTemplate sqlSession, int mno2) {
-		System.out.println("dao에서 mno2: " + mno2);
-		return sqlSession.selectList("User.selectMyQnaList", mno2);
-	}
-
-	//13. 내글관리(QnaDetail) select (우리나)
-	@Override
-	public Board selectMyQnaDetail(SqlSessionTemplate sqlSession, int bno2) {
-		return sqlSession.selectOne("User.selectMyQnaDetail", bno2);
-	}
-
-	//14. 내글관리(QnaReply) select (우리나)
-	@Override
-	public Reply selectQnaReply(SqlSessionTemplate sqlSession, int bno2) {
-		return sqlSession.selectOne("User.selectQnaReply", bno2);
-	}
-
-
-	@Override
-	public List<Board> selectMyBoardList(SqlSessionTemplate sqlSession, int mno2) {
-		return sqlSession.selectList("User.selectMyBoardList",mno2);
-	}
 
 
 

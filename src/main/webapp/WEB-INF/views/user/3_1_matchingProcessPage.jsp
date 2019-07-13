@@ -242,15 +242,11 @@
 		
 		// 2. 내 정보 보내기 버튼 클릭 시 (모달)
 		$("#sendMyInfoBtn").click(function() {
-			
 			var mno = ${ sessionScope.loginUser.mno };
 			var tno = ${ matchingTrainer.mno };
-			var tname = ${ matchingTrainer.name };
-			console.log("mno : " + mno);
-			console.log("tno : " + tno);
-			console.log("tname : " + tname);
+			var tname = "${ matchingTrainer.name }";
 			
-			// location.href='showProfileDetailPageView.us?mno=' + mno + "&tno=" + tno + '&tname=' + tname;
+			location.href='updateMprocess1.us?mno=' + mno + "&tno=" + tno + '&tname=' + tname;
 			
 		});
 		
