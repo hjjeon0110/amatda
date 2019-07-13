@@ -57,6 +57,15 @@ public interface TrainerService {
 	// 13. 견적서 보낸뒤, 멤버십 차감 / mProcess에 저장(김진환)
 	List<Member> sendEstList(String tno, Mprocess mprocess);
 	
+	// 14. 메뉴바를 통해 매칭관리 - 보낸견적서 리스트 확인 메소드(김진환)
+	List<Member> sendEstList(String tno, PageInfo pi);
+	
+	// 15. 회원찾기 - 견적서를 이미 보낸 것인지에 대한 확인(김진환)
+	int checkMprocess(String uno, String tno);
+	
+	// 16. 보낸요청 페이징 처리를 위한 카운트(김진환)
+	int getTrainerMyPageMatchingListCount(String tno);
+	
 	
 	
 	// 효정 메소드 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -106,6 +115,10 @@ public interface TrainerService {
 
 	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 	void deleteMidea(String mno, String thisModiName);
+
+
+
+	
 
 	
 

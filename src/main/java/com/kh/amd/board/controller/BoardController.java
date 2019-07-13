@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.service.BoardService;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.board.model.vo.PageInfo;
@@ -41,34 +42,7 @@ public class BoardController {
 	private BoardService bs;
 	
 	
-	  //Q&A 게시판 그냥 단순 페이지 출력 (SR)
-	 @RequestMapping("insertQnaFormView.bo")
-	 public String insertQnaFormView() {
-		 return "board/insertQna";
-	 }
-	
-	 
-	 //Q&A 게시판 입력 (SR)
-	  @RequestMapping("insertQna.bo") 
-	  public String insertQna(Model model, Board b,HttpServletRequest request) {
-	  System.out.println("내가 호출됐어요!!!");
-	  System.out.println(b);
-	 
-	  Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-	  
-	  b.setbWriter(loginUser.getMno());
-	  
-	  int result = bs.insertQna(b);
-	  if(result >0) {
-		  return "board/insertQna"; 
-	  }else {
-		  model.addAttribute("msg","등록실패");
-		  return "common/errorPage";
-	  }
-	
-	 }
-	 
-	
+	//-------------------------------------------------------------------------------------------------(공지사항/이벤트)
 	
 		 //공지사항/이벤트 리스트 출력(SR)
 		 @RequestMapping("selectNotice.bo")
@@ -176,198 +150,8 @@ public class BoardController {
 				model.addAttribute("Board", b);		
 				return "board/selectOneEventCate";
 			 } 
-		
-		
-		//------------------------------------------------------------------
-		 //★FAQ게시판 아코디언 리스트 출력(SR)
-		 @RequestMapping("selectFaq.bo")
-		 public String selectFaq(Model model) {
-			 List<Board> selectFaq = bs.selectFaq();
-			 model.addAttribute("selectFaq",selectFaq);
-			 System.out.println("selectFaq in controller : " + selectFaq);
-			 return "board/selectFaq";
-		 }
-		 
-		 
-		 
-		
-		 
-		 //--------------------------------------------------------------------
-		 
-		 
-		 
-		  //리뷰게시판 그냥 단순 페이지 출력 (SR)
-		  
-		 /*@RequestMapping("insertReviewFormView.bo") 
-		 public String insertReviewFormView() { 
-			System.out.println("나는 단순하게 입력양식만 호출했어요!");
-			 return "board/insertReview"; 
-		 }
-		  */
-		 
-		 //리뷰게시판 select리스트 그냥 단순 페이지 출력(SR)
-		 @RequestMapping("selectReviewFormView.bo")
-		 public String selectReviewFormView() {
-			 
-			 System.out.println("selectReviewFormView in controller");
-			 
-			 return "board/selectReview";
-			 
-		 }
-		 
-		 
-		 
-		 //리뷰게시판 리스트(sr)
-		  @RequestMapping("selectReview.bo")
-		  public String selectReview(Model model ) {
-			  System.out.println("selectReview페이지로 옴");
-			  List <Board> selectReview = bs.selectReview();
-			  model.addAttribute("selectReview",selectReview);
-			  System.out.println("selectReview in controller : " + selectReview);
-			  
-			  return "board/selectReview"; 
-			  } 
-		  
-		  
-		  //리뷰게시판 상세페이지 (SR)
-		 @RequestMapping("selectOneReview.bo")
-		  public String selectOneReview(Model model,int bNo) {
-			 System.out.println("bno in controller : " + bNo);
-			 bs.selectOneReview(bNo);
-			 return "board/selectOneReview";
-			 
-		 }
-		 
-		 //★리뷰게시판 입력(SR)
-		 /*@RequestMapping("insertReview.bo")
-		 public String insertReview(Model model,Board b) {
-			 System.out.println("진짜인 내가 호출됐어요!!");
-			 
-			 int result = bs.insertReview(b);
-			 
-			 return "board/insertReview";
-		 }
-		  */
-	/*----------------------------------------보험용-------------------*/
-		 //★리뷰게시판 입력(SR)
-		 /*@RequestMapping("insertReview.bo")
-		 public String insertReview(Model model,Board b,HttpServletRequest request) {
-			 System.out.println("진짜인 내가 호출됐어요!!");
-			 
-			 Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-			 b.setbWriter(loginUser.getMno());
-			 
-			 int result = bs.insertReview(b);
-			 if(result >0) {
-				  return "board/insertQna"; 
-			  }else {
-				  model.addAttribute("msg","등록실패");
-				  return "common/errorPage";
-			  }
-		 } */
-		 /*----------------------------------------보험용-------------------*/
-		 
-		 
-		 
-		 //★리뷰게시판 입력(SR)
-		 @RequestMapping("insertReview.bo")
-		 public String insertReview(Model model,HttpServletRequest request, Board b, @RequestParam(name="reviewImgFile", required=false) MultipartFile reviewImgFile) {
 			
-			 
-			 System.out.println("insertReview.bo로 옴 : " + b);
-			 
-		/*
-		 * int mNo = Integer.parseInt(request.getParameter("mNo")); String bTitle =
-		 * request.getParameter("bTitle"); String bContent =
-		 * request.getParameter("bContent"); b.setbWriter(mNo); b.setbTitle(bTitle);
-		 * b.setbContent(bContent);
-		 */
-	
-			  
-			 
-			 System.out.println("-----------------------");
-			 //int result = bs.insertReview(b);
-			 //int bno=bs.selectReviewBno();
-			 //System.out.println("bno in controller : " + bno);
-			 
-			 String root = request.getSession().getServletContext().getRealPath("resources");
-	         
-	         String filePath = root + "\\uploadFiles";    
-
-	         String originalFilename = reviewImgFile.getOriginalFilename();
-	         String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
-	         String changeName = CommonUtils.getRandomString();
-	         
-	         String mno = request.getParameter("bWriter");
-	         System.out.println("bWriter : " + mno);
-	         
-	         // 후기 이미지 insert
-	         bs.insertReviewImg(mno, b, filePath, originalFilename, ext, changeName);
-	         
-	         
-	         
-	         
-
-			 
-	        /* try {
-	               
-	               declImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
-	                     
-	               //ds.insertDeclarationImg(bno, mno, filePath, originalFilename, changeName, ext,decl_category ,decl_classification);
-	               
-	               return "redirect:insertReview.de";
-	               
-	            }catch (IllegalStateException | IOException e) {
-	               e.printStackTrace();
-	               System.out.println("에러발생");
-	            }*/
-	            return "board/insertReview";      
-		 }
-	         
-	/*
-	 * Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-	 * b.setbWriter(loginUser.getMno());
-	 * 
-	 * 
-	 * int result = bs.insertReview(b); if(result >0) { return
-	 * "redirect:/selectReview.bo"; }else { model.addAttribute("msg","등록실패"); return
-	 * "common/errorPage"; }
-	 */
-			
-
-		 
-		 
-		 
-		 //Q&A 게시판 입력 (SR)
-		 /* @RequestMapping("insertQna.bo") 
-		  public String insertQna(Model model, Board b,HttpServletRequest request) {
-		  System.out.println("내가 호출됐어요!!!");
-		  System.out.println(b);
-		 
-		  Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-		  b.setbWriter(loginUser.getMno());
-		  
-		  int result = bs.insertQna(b);
-		  if(result >0) {
-			  return "board/insertQna"; 
-		  }else {
-			  model.addAttribute("msg","등록실패");
-			  return "common/errorPage";
-		  }
-		
-		 } */
-		 
-		 
-		  //리뷰 게시판 그냥 단순 페이지 출력 (SR)
-		 @RequestMapping("insertReviewFormView.bo")
-		 public String insertReviewFormView() {
-			 
-			 System.out.println("나는 단순하게 입력양식만 호출했어요!");
-			 return "board/insertReview";
-		 }
-		  
-		  
-		 //공지사항 이벤트 게시판 총 제목&내용으로 검색
+			 //공지사항 이벤트 게시판 총 제목&내용으로 검색(SR)
 			@RequestMapping("searchResult.bo")
 			public ResponseEntity searchResult (String searchCon, String searchType, int bType) {
 				
@@ -396,9 +180,34 @@ public class BoardController {
 				return new ResponseEntity(searchResult, HttpStatus.OK);
 			
 			}
-			
-			
-			 // FAQ 게시판 총 제목&내용으로 검색(SR)
+		
+
+			 //★공지사항/이벤트 게시판 검색  !!! (SR)
+			/* @RequestMapping("searchNotice.bo")
+			 public String searchNotice(Model model, String searchCon, String selectType) {
+				 //검색할 내용 = searchCon
+				 //검색할 타입 = selectType
+				 System.out.println("받아온값 두개 : " + searchCon + ";;;;;" + selectType);
+				 List<Board> searchNotice = bs.searchNotice(searchCon);
+				 if(searchNotice!=null) {
+					 System.out.println("잘 넘어옴");
+				 }
+				 model.addAttribute("searchNotice",searchNotice);
+				 return "board/searchNotice";
+			 }*/
+			 
+		
+		//-----------------------------------------------------------------------------------------------(FAQ)
+		 //★FAQ게시판 아코디언 리스트 출력(SR)
+		 @RequestMapping("selectFaq.bo")
+		 public String selectFaq(Model model) {
+			 List<Board> selectFaq = bs.selectFaq();
+			 model.addAttribute("selectFaq",selectFaq);
+			 System.out.println("selectFaq in controller : " + selectFaq);
+			 return "board/selectFaq";
+		 }
+		 
+		 // FAQ 게시판 총 제목&내용으로 검색(SR)
 			@RequestMapping("searchResultFaq.bo")
 			public ResponseEntity searchResultFaq (String searchCon) {
 				
@@ -433,46 +242,218 @@ public class BoardController {
 				return new ResponseEntity(cateResult,HttpStatus.OK);
 			}
 			
+		 //----------------------------------------------------------------------------------------------(후기리뷰)
+		 
+		 //리뷰게시판 select리스트 그냥 단순 페이지 출력(SR)
+		 @RequestMapping("selectReviewFormView.bo")
+		 public String selectReviewFormView() {
+			 
+			 System.out.println("selectReviewFormView in controller");
+			 
+			 return "board/selectReview";
+			 
+		 }
+		 
+		 
+		 //리뷰게시판 리스트(sr)
+		  @RequestMapping("selectReview.bo")
+		  public String selectReview2(Model model,Attachment a ) {
+			  System.out.println("selectReview페이지로 옴");
+			  System.out.println("a잘넘어오나? " + a);
+			  List <Board> selectReview = bs.selectReview2(a);
+			  model.addAttribute("selectReview",selectReview);
+			  System.out.println("selectReview in controller : " + selectReview);
+			  
+			  return "board/selectReview"; 
+			  } 
+		  
+		  
+		  //리뷰게시판 상세페이지 (SR)
+		 @RequestMapping(value="selectOneReview.bo",method=RequestMethod.GET)
+		  public ModelAndView selectOneReview(Model model,@RequestParam int bNo,HttpSession session) {
+			 Board b=bs.selectOneReview(bNo);
+			 Attachment a= bs.selectOneAttachment(bNo);
+			 
+			 ModelAndView mav = new ModelAndView();
+			 mav.setViewName("board/selectOneReview");
+			 mav.addObject("board",bs.selectOneReview(bNo));
+			 mav.addObject("b",b);
+			 mav.addObject("a",a);
+			 
+			 return mav;
+			 
+			 //System.out.println("bno in controller : " + bNo);
+			 //bs.selectOneReview(bNo);
+			 
+		 }
+		 
+		 //★리뷰게시판 입력(SR)
+		 /*@RequestMapping("insertReview.bo")
+		 public String insertReview(Model model,Board b) {
+			 System.out.println("진짜인 내가 호출됐어요!!");
+			 
+			 int result = bs.insertReview(b);
+			 
+			 return "board/insertReview";
+		 }
+		  */
+		 /*----------------------------------------보험용-------------------*/
+		 //★리뷰게시판 입력(SR)
+		 /*@RequestMapping("insertReview.bo")
+		 public String insertReview(Model model,Board b,HttpServletRequest request) {
+			 System.out.println("진짜인 내가 호출됐어요!!");
+			 
+			 Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+			 b.setbWriter(loginUser.getMno());
+			 
+			 int result = bs.insertReview(b);
+			 if(result >0) {
+				  return "board/insertQna"; 
+			  }else {
+				  model.addAttribute("msg","등록실패");
+				  return "common/errorPage";
+			  }
+		 } */
+		 /*----------------------------------------보험용-------------------*/
+		 
+		 
+		 
 		
-		 //★공지사항/이벤트 게시판 검색  !!! (SR)
-		/* @RequestMapping("searchNotice.bo")
-		 public String searchNotice(Model model, String searchCon, String selectType) {
-			 //검색할 내용 = searchCon
-			 //검색할 타입 = selectType
-			 System.out.println("받아온값 두개 : " + searchCon + ";;;;;" + selectType);
-			 List<Board> searchNotice = bs.searchNotice(searchCon);
-			 if(searchNotice!=null) {
-				 System.out.println("잘 넘어옴");
+
+		 //★리뷰게시판 입력(SR)
+		       @RequestMapping("insertReview.bo")
+		       public String insertReview(Model model,HttpServletRequest request, Board b, @RequestParam(name="reviewImgFile", required=false) MultipartFile reviewImgFile) {
+		         
+		          
+		          System.out.println("insertReview.bo로 옴 : " + b);
+		          
+		      /*
+		       * int mNo = Integer.parseInt(request.getParameter("mNo")); String bTitle =
+		       * request.getParameter("bTitle"); String bContent =
+		       * request.getParameter("bContent"); b.setbWriter(mNo); b.setbTitle(bTitle);
+		       * b.setbContent(bContent);
+		       */
+		   
+		           
+		          
+		          System.out.println("-----------------------");
+		          
+		          String mno = request.getParameter("bWriter");
+		          System.out.println("bWriter : " + mno);
+		          int result = bs.insertReview(b);  //1. 후기 내용 작성
+		          int bno=bs.selectReviewBno();      //2. 작성한 후기의 bno조회(currval)
+		          System.out.println("bno in controller : " + bno);
+		         
+		          
+		          
+		          String root = request.getSession().getServletContext().getRealPath("resources");
+		            
+		            String filePath = root + "\\uploadFiles";    
+
+		            String originalFilename = reviewImgFile.getOriginalFilename();
+		            String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
+		            String changeName = CommonUtils.getRandomString();
+		            
+		            /////////////김진환 추가
+		           // List <Board> selectReview = bs.selectReview();	            
+		            //model.addAttribute("selectReview", selectReview);
+		            
+		            try {
+		               reviewImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
+		               bs.insertReviewImg(mno, filePath, originalFilename, ext, changeName,bno);
+		               return "board/selectReview";
+		            }catch(IllegalStateException | IOException e){
+		               e.printStackTrace();
+		               System.out.println("에러발생");
+		            }
+		            return "board/selectReview";
+		            
+	            // 후기 이미지 insert
+	            //bs.insertReviewImg(mno, filePath, originalFilename, ext, changeName,bno);  //3. 조회해온 bno를 담아서 attachment에 insert
+	          
+	            //selectReview(model);// 이 메소드의 내용들을 보여달라는 뜻 
+	               //return "board/selectReview";      
+		       }
+		            
+		   /*
+		    * Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+		    * b.setbWriter(loginUser.getMno());
+		    * 
+		    * 
+		    * int result = bs.insertReview(b); if(result >0) { return
+		    * "redirect:/selectReview.bo"; }else { model.addAttribute("msg","등록실패"); return
+		    * "common/errorPage"; }
+		    */
+
+			  //리뷰 게시판 그냥 단순 페이지 출력 (SR)
+			 @RequestMapping("insertReviewFormView.bo")
+			 public String insertReviewFormView() {
+				 
+				 System.out.println("나는 단순하게 입력양식만 호출했어요!");
+				 return "board/insertReview";
 			 }
-			 model.addAttribute("searchNotice",searchNotice);
-			 return "board/searchNotice";
-		 }*/
-		 
+			  
+		  
 		
-		 
-		 
-		//공지사항/이벤트 게시판 페이징 (SR)
-	/*
-	 * @RequestMapping("selectNotice.bo") public ModelAndView openBoardList(Criteria
-	 * cri) throws Exception {
-	 * 
-	 * ModelAndView mav = new ModelAndView("/board/selectNotice");
-	 * 
-	 * PageMaker pageMaker = new PageMaker(); pageMaker.setCri(cri);
-	 * pageMaker.setTotalCount(100);
-	 * 
-	 * List<Map<String,Object>> list = bs.selectBoardList(cri);
-	 * mav.addObject("list", list); mav.addObject("pageMaker", pageMaker);
-	 * 
-	 * return mav;
-	 * 
-	 * }
-	 */
-
-
 			
-
-
+			  //리뷰게시판 그냥 단순 페이지 출력 (SR)
+			  
+			 /*@RequestMapping("insertReviewFormView.bo") 
+			 public String insertReviewFormView() { 
+				System.out.println("나는 단순하게 입력양식만 호출했어요!");
+				 return "board/insertReview"; 
+			 }
+			  */
+			
+			//---------------------------------------------------------------------------------------------(Q&A)
+			
+			 //Q&A 게시판 그냥 단순 페이지 출력 (SR)
+			 @RequestMapping("insertQnaFormView.bo")
+			 public String insertQnaFormView() {
+				 return "board/insertQna";
+			 }
+			
+			 
+			 //Q&A 게시판 입력 (SR)
+			  @RequestMapping("insertQna.bo") 
+			  public String insertQna(Model model, Board b,HttpServletRequest request) {
+			  System.out.println("내가 호출됐어요!!!");
+			  System.out.println(b);
+			 
+			  Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+			  
+			  b.setbWriter(loginUser.getMno());
+			  
+			  int result = bs.insertQna(b);
+			  if(result >0) {
+				  return "board/insertQna"; 
+			  }else {
+				  model.addAttribute("msg","등록실패");
+				  return "common/errorPage";
+			  }
+			
+			 }
+			  
+			//Q&A 게시판 입력 (SR)
+			 /* @RequestMapping("insertQna.bo") 
+			  public String insertQna(Model model, Board b,HttpServletRequest request) {
+			  System.out.println("내가 호출됐어요!!!");
+			  System.out.println(b);
+			 
+			  Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+			  b.setbWriter(loginUser.getMno());
+			  
+			  int result = bs.insertQna(b);
+			  if(result >0) {
+				  return "board/insertQna"; 
+			  }else {
+				  model.addAttribute("msg","등록실패");
+				  return "common/errorPage";
+			  }
+			
+			 } */
+			 
+			
 
 }
 

@@ -260,14 +260,15 @@
 	<update id="memberShipDecrease">
 		UPDATE TUSER_INFO
 		SET REMAIN_NUM = (REMAIN_NUM - 1)
-		WHERE TNO = #{mno}
+		WHERE TNO = #{tno}
 	</update>
 	
 	<!-- 15. 견적서 보내기 - 매칭 프로세스에 insert -->
 	<insert id="insertMprocess" parameterType="Mprocess" >
 		INSERT INTO M_PROCESS
-		VALUES(MPROCESS_SEQ.NEXTVAL, #{receiveUser}, #{sendUser}, 0, 'N', '매칭전', sysdate, #{matchEstimate.estName}, #{matchEstimate.estContents}, #{matchEstimate.estDay}, #{matchEstimate.estPrice})
-	
+		VALUES(MPROCESS_SEQ.NEXTVAL, #{uno}, #{tno}, 0, 'N', '매칭전', 'SEND', 
+		#{matchEstimate.estName}, #{matchEstimate.estContents}, #{matchEstimate.estDay}, #{matchEstimate.estPrice}, sysdate)
+			
 	</insert>
 	
 	<!-- 16. 견적서 보낸 매칭 프로세스에 해당하는 값 모두 가져와 리스트로 반환 -->
@@ -276,9 +277,36 @@
 		FROM MEMBER M
 		JOIN M_PROCESS MP ON (MP.UNO = M.MNO)
 		JOIN ATTACHMENT A ON (A.PNO = MP.UNO)
-		WHERE MP.UNO = #{mno}
-		
+        JOIN SURVEY S ON (MP.UNO = S.UNO)
+		WHERE MP.TNO = #{tno}
+		AND MP.TRANSFER_STATUS = 'SEND'
 	
+	</select>
+	
+	<select id="checkMprocess" resultType="_int">
+		SELECT COUNT(*)
+		FROM M_PROCESS
+		WHERE UNO = #{uno}
+		AND TNO = #{tno}	
+	
+	</select>
+	<select id="getTrainerMyPageMatchingListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER M
+		JOIN M_PROCESS MP ON (MP.UNO = M.MNO)
+		JOIN ATTACHMENT A ON (A.PNO = MP.UNO)
+        JOIN SURVEY S ON (MP.UNO = S.UNO)
+		WHERE MP.TNO = #{tno}
+		AND MP.TRANSFER_STATUS = 'SEND'
+	</select>
+	<select id="sendEstListPaging" resultMap="memberResultSet">
+		SELECT * 
+		FROM MEMBER M
+		JOIN M_PROCESS MP ON (MP.UNO = M.MNO)
+		JOIN ATTACHMENT A ON (A.PNO = MP.UNO)
+        JOIN SURVEY S ON (MP.UNO = S.UNO)
+		WHERE MP.TNO = #{tno}
+		AND MP.TRANSFER_STATUS = 'SEND'	
 	</select>
 
 

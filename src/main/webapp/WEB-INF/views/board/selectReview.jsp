@@ -282,28 +282,35 @@ a:active {text-decoration: none; color: #333333;}
 		<div id="normalReviewList">
   			<h5>전체보기</h5> 
   		</div><br>
+  		
 		<div class="secondTableLine"></div> 
 		
 		
 		<br>
 		<br>
 		
-		
 		<c:set var="i" value="0"/>
 		<c:set var="j" value="3"/>
 		
 		<c:forEach var="selectReview" items="${ requestScope.selectReview }" varStatus="status">
 		<c:if test="${i%j == 0 }">
-		
-		<tr>
+			
          </c:if>
-            <td width="1000px;" align="center" class="tableTd"><img src="#"><br><br>글번호 : ${status.count }
-               <input type="hidden" id="bNo" value="${selectReview.bNo }"><br>작성자 : ${loginUser.userId }
-               <a id="tableTitle" href="selectOneReview.bo"><br>글제목 : ${selectReview.bTitle }</a>
-               <br>작성일 : <fmt:formatDate pattern="MM월 dd일" value="${selectReview.bWriteDate }"/>
+			<tr>
+            <td width="1000px;" align="center">
+            <input type="hidden" value="${selectReview.bNo }">
+            <p><img src="${contextPath}/resources/uploadFiles/${selectReview.attachment.modiName }${selectReview.attachment.extension}" width="100px" height="75px"/></p>
+            <p>${status.count }
+            </p>
+            <input type="hidden" id="bNo" value="${selectReview.bNo }">
+            <p>${selectReview.bTitle }</p></a>
+            <input type="hidden" id="bNo" value="${selectReview.bNo }">
+            <br>작성자 : ${selectReview.bWriter }
+            <%-- <a href="${selectOneReview.bo}"><p>${selectReview.bTitle }</p></a> --%>
+            <p><fmt:formatDate pattern="MM월 dd일" value="${selectReview.bWriteDate }"/></p>
             </td>
-         <c:if test="${i%j==j-1 }">
             </tr>
+         <c:if test="${i%j==j-1 }">
          </c:if>
 		
 			<c:set var = "i" value="${i+1 }"/>
@@ -317,33 +324,21 @@ a:active {text-decoration: none; color: #333333;}
 		</table>
 		
 		
-		
+	
 		
 		<br><br><br>
-  			<div class="checkboxgroup">
+  			<!-- <div class="checkboxgroup">
 				<input type="checkbox" name="chk_info" value="title" checked="checked">제목
 				<input type="checkbox" name="chk_info" value="content">내용
 				<input type="text">&nbsp;
 				<button onclick="location.href='selectNotice.bo'">검색</button> 
-			</div>
+			</div> -->
   			
 	  		<!-- 페이징 시작 -->
 	  		
-	  		<!-- <div class="paging">
-				<a href="#" class="direction fisrt"><span>처음</span></a>
-				<a href="#" class="direction prev"><span>이전</span></a>
-				<a href="#">1</a>
-				<a href="#">2</a>
-				<a href="#">3</a>
-				<a href="#">4</a>
-				<strong>5</strong>
-				<a href="#">6</a>
-				<a href="#">7</a>
-				<a href="#">8</a>
-				<a href="#">9</a>
-				<a href="#" class="direction next"><span>다음</span></a>
-				<a href="#" class="direction last"><span>끝</span></a>
-			</div> -->
+	  		
+	  		<!-- 페이징 끝 -->
+	  		
 				
 		</div>
 	</div>
@@ -364,19 +359,23 @@ a:active {text-decoration: none; color: #333333;}
 	<br>
 	<script>
 	$(function(){
-		
 		$(".3reviewTable").find("td").mouseenter(function(){					
 			$(this).parents("tr").css({"background":"white","cursor":"pointer"});		
 		}).click(function(){
 
-			/* var no = $(this).parents("tr").children("td").children().eq(1).val(); */
-			var no = $(this).children().eq(1).val();
+			//var no = $(this).children().eq(1).val();
 			
+			//td에 하나의 자식만 있어서 eq(0)을 써주지않고 그냥 children만 써줘도 됨(다수의 자식이 있다면 eq~ 써주기)
+			var no=$(this).parent().eq(0).children().children().val(); //parent를 하면 tr  -> eq(0)을 하면 tr의 가장 첫번째꺼 -> tr의 children을 하면 td  -> td의 children을하면 input
+			
+			//만약 td에 여러 자식들이 있다면 eq(i)를 써줘야한다.
+			//var no = $(this).parent().eq(0).children().children().eq(0).val();  //parent를 하면 tr  -> eq(0)을 하면 tr의 가장 첫번째꺼 -> tr의 children을 하면 td  -> td의 children eq(0)을하면 input 
+			alert(no);
 			location.href="selectOneReview.bo?bNo=" + no;
 		})
 		
-	})
-	
+	}) 
+
 	
 
 	

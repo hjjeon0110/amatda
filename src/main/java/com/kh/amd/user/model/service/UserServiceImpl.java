@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
@@ -98,19 +99,45 @@ public class UserServiceImpl implements UserService {
 	public void deleteMyTrainer(String uno, String tno) {
 		ud.deleteMyTrainer(sqlSession, uno, tno);
 	}
-
 	
-	//12. 나의 문의 내역 select (우리나)
+	
+	// 12. 매칭 시작 트레이너 조회 (전효정)
+	@Override
+	public Member selectOneMatchingTrainer(String tno) {
+		return ud.selectOneMatchingTrainer(sqlSession, tno);
+	}
+	
+	
+	// 13. 다이어트 정보 보내기 - 회원 설문조사 selectOne (전효정)
+	@Override
+	public Survey selectOneSurvey(String mno) {
+		return ud.selectOneSurvey(sqlSession, mno);
+	}
+	
+	
+	// 나의 문의 내역 select (우리나)
 	@Override
 	public List<Board> selectMyQnaList(int mno2) {
 		return ud.selectMyQnaList(sqlSession,mno2);
 	}
 
-
+	// 내글관리(QnaDetail) select (우리나)
 	@Override
 	public Board selectMyQnaDetail(int bno2) {
 		return ud.selectMyQnaDetail(sqlSession,bno2);
 	}
+	
+	// 내글관리(QnaReply) select (우리나)
+	@Override
+	public Reply selectQnaReply(int bno2) {
+		return ud.selectQnaReply(sqlSession,bno2);
+	}
+
+	@Override
+	public List<Board> selectMyBoardList(int mno2) {
+		return ud.selectMyBoardList(sqlSession,mno2);
+	}
+
 	
 
 

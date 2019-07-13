@@ -1,6 +1,9 @@
 const width_threshold = 480;
 
 function drawLineChart() {
+	
+	
+	
   if ($("#lineChart").length) {
     ctxLine = document.getElementById("lineChart").getContext("2d");
     optionsLine = {
@@ -8,8 +11,8 @@ function drawLineChart() {
         yAxes: [
           {
             scaleLabel: {
-              display: true,
-              labelString: "Hits"
+              display: true
+             /* labelString: "Hits"*/
             }
           }
         ]
@@ -21,42 +24,34 @@ function drawLineChart() {
       $(window).width() < width_threshold ? false : true;
 
     configLine = {
-      type: "line",
+      type: "line", //차트타입
       data: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July"
-        ],
+    	  labels: ['18세미만', '18~24세', '25~34세', '35~44세', '45~54세'],
         datasets: [
           {
-            label: "Latest Hits",
-            data: [88, 68, 79, 57, 50, 55, 70],
+            label: "회원",
+            data: [88, 68, 79, 57, 50],
             fill: false,
             borderColor: "rgb(75, 192, 192)",
             cubicInterpolationMode: "monotone",
             pointRadius: 0
           },
           {
-            label: "Popular Hits",
-            data: [33, 45, 37, 21, 55, 74, 69],
+            label: "트레이너",
+            data: [33, 45, 37, 21, 55],
             fill: false,
             borderColor: "rgba(255,99,132,1)",
             cubicInterpolationMode: "monotone",
             pointRadius: 0
-          },
-          {
+          }
+        /*  {
             label: "Featured",
             data: [44, 19, 38, 46, 85, 66, 79],
             fill: false,
             borderColor: "rgba(153, 102, 255, 1)",
             cubicInterpolationMode: "monotone",
             pointRadius: 0
-          }
+          }*/
         ]
       },
       options: optionsLine
@@ -65,6 +60,11 @@ function drawLineChart() {
     lineChart = new Chart(ctxLine, configLine);
   }
 }
+
+
+
+
+
 
 function drawBarChart() {
   if ($("#barChart").length) {
@@ -81,7 +81,7 @@ function drawBarChart() {
             },
             scaleLabel: {
               display: true,
-              labelString: "Hits"
+             /* labelString: "Hits"*/
             }
           }
         ]
@@ -105,11 +105,11 @@ function drawBarChart() {
     configBar = {
       type: "horizontalBar",
       data: {
-        labels: ["Red", "Aqua", "Green", "Yellow", "Purple", "Orange", "Blue"],
+        labels: ["맨몸운동", "필라테스", "요가", "웨이트"],
         datasets: [
           {
-            label: "# of Hits",
-            data: [33, 40, 28, 49, 58, 38, 44],
+            label: "# of 트레이너",
+            data: [33, 40, 28, 49],
             backgroundColor: [
               "#F7604D",
               "#4ED6B8",
@@ -159,15 +159,15 @@ function drawPieChart() {
       data: {
         datasets: [
           {
-            data: [18.24, 6.5, 9.15],
-            backgroundColor: ["#F7604D", "#4ED6B8", "#A8D582"],
+            data: [17, 35],
+            backgroundColor: ["#F7604D", "#4ED6B8"],
             label: "Storage"
           }
         ],
         labels: [
-          "Used Storage (18.240GB)",
-          "System Storage (6.500GB)",
-          "Available Storage (9.150GB)"
+          "여",
+          "남"
+          
         ]
       },
       options: optionsPie
@@ -175,6 +175,51 @@ function drawPieChart() {
 
     pieChart = new Chart(ctxPie, configPie);
   }
+  
+  if ($("#pieChart2").length) {
+	    var chartHeight = 300;
+
+	    $("#pieChartContainer").css("height", chartHeight + "px");
+
+	    ctxPie = document.getElementById("pieChart2").getContext("2d");
+
+	    optionsPie = {
+	      responsive: true,
+	      maintainAspectRatio: false,
+	      layout: {
+	        padding: {
+	          left: 10,
+	          right: 10,
+	          top: 10,
+	          bottom: 10
+	        }
+	      },
+	      legend: {
+	        position: "top"
+	      }
+	    };
+
+	    configPie = {
+	      type: "pie",
+	      data: {
+	        datasets: [
+	          {
+	            data: [15, 78],
+	            backgroundColor: ["#F7604D", "#4ED6B8"],
+	            label: "Storage"
+	          }
+	        ],
+	        labels: [
+	          "여",
+	          "남"
+	          
+	        ]
+	      },
+	      options: optionsPie
+	    };
+
+	    pieChart2 = new Chart(ctxPie, configPie);
+	  }
 }
 
 function updateLineChart() {

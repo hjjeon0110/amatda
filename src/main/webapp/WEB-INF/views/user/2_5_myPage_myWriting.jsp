@@ -11,6 +11,53 @@
 </head>
 <style>
 	tr.rowStyle:hover{background-color:pink}
+	.subMenuBar {
+	width: 100%;
+	height: 100%;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-top:0.5px solid lightgray;
+}
+
+.subMenuBar1 {
+	width: 49.8%;
+	height: 72px;
+	display: inline-block;
+	border-bottom: 2px solid #ff0066;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 22px;
+	background: white;
+	margin-left: 2px;
+	margin-right: -4px;
+	color:black;
+}
+
+.subMenuBar2 {
+	width: 49.8%;
+	height: 72px;
+	display: inline-block;
+	border-bottom: 2px solid #ff0066;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 22px;
+	background:#ff0066;
+	color:white;
+}
+
+.subMenuBar1:hover {
+	width: 49.8%;
+	height: 72px;
+	display: inline-block;
+	border-bottom: 2px solid #ff0066;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 22px;
+	background: white;
+	color: #ff0066;
+	margin-left: 2px;
+	margin-right: -4px;
+	cursor:pointer;
+}
 </style>
 <body>
 
@@ -19,64 +66,14 @@
 
 	<jsp:include page="../user/2_myPageMenubar.jsp"/>
 	
-	<!-- 리뷰 영역 ----------------------------------------------------------------------------------------------------------- -->
-	<div class="reviewDiv">
-		<br><br><br>
-		<label class="subTitle">REVIEW 내역</label>
-		<br><br>
-		<table class="reviewTable">
-			<thead>
-				<tr>
-					<th>No.</th>
-					<th>카테고리</th>
-					<th>제목</th>
-					<th>내용</th>
-					<th>작성일</th>
-					<th>수정하기</th>
-				</tr>
-			</thead>
-				<tr>
-					<td>1</td>
-					<td>카테고리</td>
-					<td>제목 공간입니다.</td>
-					<td>내용 공간입니다.</td>
-					<td>작성일</td>
-					<td><button class="modification">수정하기</button></td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>카테고리</td>
-					<td>제목 공간입니다.</td>
-					<td>내용 공간입니다.</td>
-					<td>작성일</td>
-					<td><button class="modification">수정하기</button></td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>카테고리</td>
-					<td>제목 공간입니다.</td>
-					<td>내용 공간입니다.</td>
-					<td>작성일</td>
-					<td><button class="modification">수정하기</button></td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>카테고리</td>
-					<td>제목 공간입니다.</td>
-					<td>내용 공간입니다.</td>
-					<td>작성일</td>
-					<td><button class="modification">수정하기</button></td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>카테고리</td>
-					<td>제목 공간입니다.</td>
-					<td>내용 공간입니다.</td>
-					<td>작성일</td>
-					<td><button class="modification">수정하기</button></td>
-				</tr>
-		</table>
+	
+	<div class="subMenuBar">
+		<div class="subMenuBar1" onclick="location.href='gotoMyReviewList.us?mno=${sessionScope.loginUser.mno}'">REVIEW 내역</div>
+		<div class="subMenuBar2" onclick="location.href='showMyPageMyWriting.us?mno=${sessionScope.loginUser.mno}'">Q&A 내역</div>
 	</div>
+	
+	
+
 	
 	
 	<!-- Q&A 영역 ----------------------------------------------------------------------------------------------------------- -->
@@ -103,7 +100,7 @@
 					
 					<td>${qnaList.bTitle}</td>
 					<td>${qnaList.bContent }</td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${qnaList.bWriteDate }"/></td>
+					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${qnaList.bWriteDate }"/></td> <!-- fmt사용을 위한 taglib위에 추가해야함! -->
 					
 				</tr>
 				

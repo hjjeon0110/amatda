@@ -124,12 +124,35 @@ public class TrainerServiceImpl implements TrainerService {
 		
 		//List 객체 생성
 		List<Member> sendEstList = null;
-		sendEstList = td.sendEstList(sqlSession, mprocess);
+		sendEstList = td.sendEstList(sqlSession, tno);
 		
 		
 		
 		return sendEstList;
 	}
+	
+	// 14. 메뉴바를 통해 매칭관리 - 보낸견적서 리스트 확인 메소드(김진환)
+	@Override
+	public List<Member> sendEstList(String tno, PageInfo pi) {
+		List<Member> sendEstList = null;
+		sendEstList = td.sendEstList(sqlSession, tno, pi);
+		return sendEstList;
+	}
+	
+	// 15. 회원찾기 - 견적서를 이미 보냈는지 확인(김진환)
+	@Override
+	public int checkMprocess(String uno, String tno) {
+		
+		return td.checkMprocess(sqlSession, uno, tno);
+	}
+	
+	// 16. 보낸요청 페이징 처리를 위한 카운트(김진환)
+	@Override
+	public int getTrainerMyPageMatchingListCount(String tno) {
+		
+		return td.getTrainerMyPageMatchingListCount(sqlSession, tno);
+	}
+
 	
 
 
@@ -243,6 +266,11 @@ public class TrainerServiceImpl implements TrainerService {
 	public void deleteMidea(String mno, String thisModiName) {
 		td.deleteMidea(sqlSession, mno, thisModiName);
 	}
+
+
+
+	
+
 
 
 

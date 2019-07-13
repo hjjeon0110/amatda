@@ -175,11 +175,20 @@ WHERE EMAIL = #{email}
 </update>
 
 
-<insert id="insertMyImg" parameterType="Attachment">
-	INSERT INTO ATTACHMENT
-	VALUES(FILE_SEQ.NEXTVAL,NULL,NULL,#{mno}, NULL, #{originalFilename}, #{changeName}, #{ext},6,SYSDATE, 6, 'Y', #{filePath})
-</insert>
+<update id="updateMyImg" parameterType="Attachment">
+UPDATE ATTACHMENT
+SET ORI_NAME=#{originalFilename},
+	MODI_NAME=#{changeName},
+	EXTENSION=#{ext}
+WHERE PNO=#{mno}
+</update>
 
 
+<select id="selectMyImg" parameterType="_int" resultMap="attachmentResultSet">
+SELECT *
+FROM ATTACHMENT
+WHERE PNO = #{mno2}
+AND ATYPE=0
+</select>
 
 </mapper>

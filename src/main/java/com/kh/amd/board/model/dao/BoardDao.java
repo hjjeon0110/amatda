@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
-
+import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.member.model.vo.Member;
@@ -47,10 +47,10 @@ public interface BoardDao {
 	List<Board> selectFaq(SqlSessionTemplate sqlSession);
 
 	//후기리뷰 게시판 리스트 출력(SR)
-	List<Board> selectReview(SqlSessionTemplate sqlSession);
+	//List<Board> selectReview(SqlSessionTemplate sqlSession, Attachment a);
 
 	//리뷰게시판 상세페이지 (SR)
-	Object selectOneReview(SqlSessionTemplate sqlSession);
+	//Object selectOneReview(SqlSessionTemplate sqlSession, int bNo);
 
 	
 
@@ -129,8 +129,16 @@ public interface BoardDao {
 	int getSearchEventCateListCount(SqlSessionTemplate sqlSession);
 
 	// 후기 이미지 insert
-	void insertReviewImg(SqlSessionTemplate sqlSession, String mno, Board b, String filePath, String originalFilename,
-			String changeName, String ext);
+	void insertReviewImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename,
+			String changeName, String ext,int bno);
+
+	//리뷰게시판 상세페이지 1(SR)
+	Board selectOneReview(SqlSessionTemplate sqlSession, int bNo);
+
+	//리뷰게시판 상세페이지 2(SR)
+	Attachment selectOneAttachment(SqlSessionTemplate sqlSession, int bNo);
+
+	List<Board> selectReview2(SqlSessionTemplate sqlSession, Attachment a);
 
 	//int insertQna(SqlSessionTemplate sqlSession, Board b, String mno);
 

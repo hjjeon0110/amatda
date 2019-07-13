@@ -61,10 +61,19 @@ public interface TrainerDao {
 	int memberShipDecrease(SqlSessionTemplate sqlSession, String tno);
 	
 	// 14. 견적서 전송 - 보낸요청 리스트에 담기(김진환)
-	List<Member> sendEstList(SqlSessionTemplate sqlSession, Mprocess mprocess);
+	List<Member> sendEstList(SqlSessionTemplate sqlSession, String tno);
 	
 	// 15. 견적서 전송 - mprocess 테이블 insert(김진환)
 	int insertMprocess(SqlSessionTemplate sqlSession, Mprocess mprocess);
+	
+	// 16. 회원찾기 - 이미 견적서를 보낸 회원인지 확인(김진환)
+	int checkMprocess(SqlSessionTemplate sqlSession, String uno, String tno);
+	
+	// 17. 페이징 처리를 위한 오버라이딩을 한 sendList(보낸요청서) (김진환)
+	List<Member> sendEstList(SqlSessionTemplate sqlSession, String tno, PageInfo pi);
+
+	// 18. 보낸요청 페이징 처리를 위한 카운트(김진환)
+	int getTrainerMyPageMatchingListCount(SqlSessionTemplate sqlSession, String tno);
 
 
 
@@ -118,6 +127,11 @@ public interface TrainerDao {
 
 	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 	void deleteMidea(SqlSessionTemplate sqlSession, String mno, String thisModiName);
+
+
+
+	
+	
 
 	
 

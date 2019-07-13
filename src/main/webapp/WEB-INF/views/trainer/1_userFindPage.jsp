@@ -238,9 +238,9 @@
 						  	<br />&nbsp;&nbsp;&nbsp;&nbsp;
 						  	 <!-- onchange="estimateChange()" -->
 						  	<select name="estimateType" onchange="estimateChange(this.value)">
+						  		<option value="3">최근견적서</option>
 						  		<option value="1">견적서1</option>
 						  		<option value="2">견적서2</option>
-						  		<option value="3">최근견적서</option>
 						  	</select>
 						  	<label class="estimateNew" id="estimateNew">견적서를 새로 작성해보세요!</label>
 							<br />
@@ -405,10 +405,12 @@
 		var uno = $(value).val();
 		console.log("uno : " + uno);
 		$("button[name=matchingStart]").attr("value", uno);
+		$("button[name=insertEstMatchStart]").attr("value", uno);
 		//$(".subMenuBar2").children().eq(1).attr("value", uno);
 		console.log("값이 들어갔나? : " + $("button[name=matchingStart]").val());
+		console.log("값이 들어갔나? : " + $("button[name=insertEstMatchStart]").val());
 		var mno = ${sessionScope.loginUser.mno}
-		var estType = "1";
+		var estType = "3";
 		$.ajax({
 			url:"ajaxshowMyPageEstimate.tr",
 			data:{mno:mno, estType:estType},
@@ -447,7 +449,7 @@
 		//견적서 새로 작성
 		function writeEstimate(){
 			var mno = ${ sessionScope.loginUser.mno };
-			var uno = $(".subMenuBar2").children().eq(1).val();
+			var uno = $("button[name=insertEstMatchStart]").val();
 			console.log("넘어온 uno : " + uno);
 			console.log("견적서 mno : " + mno);
 			$("input[name=estNo]").val("");
@@ -469,7 +471,7 @@
 			var uno = $(".subMenuBar2").children().eq(1).val();
 			console.log("넘어온 uno : " + uno);
 			console.log("견적서 mno : " + mno);
-			var estType = "1";
+			var estType = "3";
 			$.ajax({
 				url:"ajaxshowMyPageEstimate.tr",
 				data:{mno:mno, estType:estType},
@@ -509,7 +511,7 @@
 		}
 	
 	
-	//매칭신청하기 버튼 클릭시 
+	//매칭신청하기 버튼 클릭시 (견적서있을경우)
 	$("button[name=matchingStart]").click(function(){
 		var uno = $("button[name=matchingStart]").val();
 		var tno = ${sessionScope.loginUser.mno};
@@ -528,10 +530,29 @@
 				 "현재 이용가능한 멤버쉽 횟수 : " + memberShip + "회 남았습니다.") == true){
 			 
 			 if(memberShip > 0){
-				 alert(userName + "님에게 견적서를 보냈습니다.\n 견적서는 3일이내 답변을 받아보실수 있습니다.")
-				 location.href="insertMatchStart.tr?uno=" + uno + "&tno=" + tno + 
-					"&estNo=" + estNo + "&estName=" + estName + "&estContents=" + estContents + "&estPrice=" + estPrice +
-					"&estDay=" + estDay;
+				 
+				 $.ajax({
+					url : "insertMatchStart.tr",
+					data : {uno:uno, tno:tno, estName:estName, estContents:estContents, estPrice:estPrice, estDay:estDay},
+					type : "post",
+					success:function(data){
+						console.log("이실수 너무 많이해");
+						console.log(data);
+						
+						if(data == "false"){						
+							alert("해당 회원에게는 이미 견적서를 보냈습니다.!")
+							location.reload();
+
+						}else{
+							alert(userName + "님에게 견적서를 보냈습니다.\n 견적서는 3일이내 답변을 받아보실수 있습니다.")
+							location.reload();
+							
+						}
+						
+					}
+					
+				 })
+				 
 			 }else{
 				 alert("멤버쉽이 부족합니다. 충전후 이용해보세요!");
 				 location.href="showMyPageMembership.tr";
@@ -557,9 +578,10 @@
         var estDay = $("select[name=estDay]").val();
         var estPrice = $("input[name=estPrice]").val();
         var memberShip = $("#remainNum2").text();
-        alert(mno+""+tno)
+        alert(uno)
         
-	 	if(confirm(userName +"회원 님에게 매칭을 신청하시겠습니까 ?\n(멤버쉽 횟수가 1회 차감됩니다.)\n" + "현재 이용가능한 멤버쉽 횟수 : " + memberShip + "회 남았습니다.") == true){
+	 	if(confirm(userName +"회원 님에게 매칭을 신청하시겠습니까 ?\n(멤버쉽 횟수가 1회 차감됩니다.)\n" 
+	 			+ "현재 이용가능한 멤버쉽 횟수 : " + memberShip + "회 남았습니다.") == true){
 	 		
 	 		 if(estName == "" || estName == null){
 	             alert("견적서 이름은 필수 입력사항입니다.");
@@ -578,7 +600,7 @@
 	          }
 	          //"&estContents=" + estContents
 			location.href = "insertEstMatchStart.tr?estName=" + estName + 
-						"&estDay=" + estDay + "&estPrice" + estPrice +
+						"&estDay=" + estDay + "&estPrice=" + estPrice + "&estContents=" + estContents + 
 						"&uno=" + uno + "&tno=" + tno;		       
 	    }
 	    else{

@@ -55,6 +55,9 @@ public interface AdminDao {
 	//페이징처리(신고)
 	int declListCount(SqlSessionTemplate sqlSession);
 
+	//통계
+	List<Member> memberAge(SqlSessionTemplate sqlSession);
+
 
 
 

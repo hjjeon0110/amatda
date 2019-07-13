@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.context.annotation.SessionScope;
 
+import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.member.model.vo.Member;
 @SessionScope
 @Repository
@@ -142,7 +143,7 @@ public class MemberDaoImpl implements MemberDao{
 
 
 		@Override
-		public void insertMyImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename,
+		public void updateMyImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename,
 				String ext, String changeName) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("mno", mno);
@@ -151,7 +152,12 @@ public class MemberDaoImpl implements MemberDao{
 			map.put("changeName", changeName);
 			map.put("ext", ext);
 			
-			sqlSession.insert("Member.insertMyImg",map);
+			sqlSession.insert("Member.updateMyImg",map);
+		}
+
+		@Override
+		public Attachment selectMyImg(SqlSessionTemplate sqlSession, int mno2) {
+			return sqlSession.selectOne("Member.selectMyImg", mno2);
 		}
 
 

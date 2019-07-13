@@ -192,5 +192,13 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
      	FROM DECLARATION 
 	</select>
 	
+	<!-- 통계 -->
+ 	<select id="memberAge" resultType="_int">
+		SELECT COUNT(GENDER) 
+		FROM MEMBER
+		WHERE MTYPE = 'U'
+		GROUP BY GENDER 
+	</select>
+	 
 </mapper>
 

@@ -440,8 +440,8 @@ public class AdminController {
 	}
 
 	//신고게시물 삭제
-	@RequestMapping("deleteDeclaration.ad") public String
-	deleteDeclaration(@RequestParam int decl_no) { 
+	@RequestMapping("deleteDeclaration.ad") 
+	public String deleteDeclaration(@RequestParam int decl_no) { 
 		ds.deleteDeclaration(decl_no);
 		return "redirect:declaration.ad";
 
@@ -451,9 +451,20 @@ public class AdminController {
 	//통계관리 페이지
 	@RequestMapping("statistics.ad")
 	public String statistics(){
+	
+		return "admin/statistics";
+	}
+	
+	//통계
+	@RequestMapping("memberAge.ad")
+	public String memberAge(Model model){
+		
+		List<Member> memberAge = as.memberAge();
+		model.addAttribute("list", memberAge);
+		System.out.println("통계 : " +  memberAge);
 
 		return "admin/statistics";
-
 	}
+	
 
 }

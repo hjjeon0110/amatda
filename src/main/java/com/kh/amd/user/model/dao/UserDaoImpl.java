@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
@@ -139,20 +140,49 @@ public class UserDaoImpl implements UserDao {
 		sqlSession.delete("User.deleteMyTrainer", map);
 		
 	}
+	
+	
+	// 12. 매칭 시작 트레이너 조회 (전효정)
+	@Override
+	public Member selectOneMatchingTrainer(SqlSessionTemplate sqlSession, String tno) {
+		return sqlSession.selectOne("User.selectOneMatchingTrainer", tno);
+	}
+	
+	
+	// 13. 다이어트 정보 보내기 - 회원 설문조사 selectOne (전효정)
+	@Override
+	public Survey selectOneSurvey(SqlSessionTemplate sqlSession, String mno) {
+		return sqlSession.selectOne("User.selectOneSurvey", mno);
+	}
 
 	
-	//12. 나의 문의 내역 select (우리나)
+	
+	
+	// 나의 문의 내역 select (우리나)
 	@Override
 	public List<Board> selectMyQnaList(SqlSessionTemplate sqlSession, int mno2) {
 		System.out.println("dao에서 mno2: " + mno2);
 		return sqlSession.selectList("User.selectMyQnaList", mno2);
 	}
 
-
+	//13. 내글관리(QnaDetail) select (우리나)
 	@Override
 	public Board selectMyQnaDetail(SqlSessionTemplate sqlSession, int bno2) {
 		return sqlSession.selectOne("User.selectMyQnaDetail", bno2);
 	}
+
+	//14. 내글관리(QnaReply) select (우리나)
+	@Override
+	public Reply selectQnaReply(SqlSessionTemplate sqlSession, int bno2) {
+		return sqlSession.selectOne("User.selectQnaReply", bno2);
+	}
+
+
+	@Override
+	public List<Board> selectMyBoardList(SqlSessionTemplate sqlSession, int mno2) {
+		return sqlSession.selectList("User.selectMyBoardList",mno2);
+	}
+
 
 
 

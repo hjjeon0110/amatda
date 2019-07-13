@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,6 +66,16 @@ label {
   border-radius: 5px;
   background-color: #ffe6f3;
   padding: 20px;
+  height:300px;
+}
+
+
+.sub {
+  border-radius: 5px;
+  background-color: #ffe6f3;
+  padding: 20px;
+  height:160px;
+  margin-top:50px;
 }
 
 .col-25 {
@@ -108,7 +119,45 @@ margin-bottom:15px;
 	
 	
 
+.subMenuBar1 {
+	width: 49.8%;
+	height: 72px;
+	display: inline-block;
+	border-bottom: 2px solid #ff0066;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 22px;
+	background: white;
+	margin-left: 2px;
+	margin-right: -4px;
+}
 
+.subMenuBar2 {
+	width: 49.8%;
+	height: 72px;
+	display: inline-block;
+	border-bottom: 2px solid #ff0066;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 22px;
+	background:#ff0066;
+	color:white;
+}
+
+.subMenuBar1:hover {
+	width: 49.8%;
+	height: 72px;
+	display: inline-block;
+	border-bottom: 2px solid #ff0066;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 22px;
+	background: white;
+	color: #ff0066;
+	margin-left: 2px;
+	margin-right: -4px;
+	cursor:pointer;
+}
 
 
     
@@ -126,7 +175,10 @@ margin-bottom:15px;
    
    <jsp:include page="../user/2_myPageMenubar.jsp"/>
    
-
+	<div class="subMenuBar">
+		<div class="subMenuBar1" onclick="location.href='gotoMyReviewList.us?mno=${sessionScope.loginUser.mno}'">REVIEW 내역</div>
+		<div class="subMenuBar2" onclick="location.href='showMyPageMyWriting.us?mno=${sessionScope.loginUser.mno}'">Q&A 내역</div>
+	</div>
    
    
    <div class="csTable">
@@ -163,6 +215,15 @@ margin-bottom:15px;
     </div>
   </div>
  
+ 	<div class="row">
+ 		<div class="sub">
+ 		<c:if test="${re.repWriter==1 }">
+ 			<label>관리자댓글</label>
+ 		</c:if>
+ 			<label>${re.repContent }</label>
+ 			
+ 		</div>
+ 	</div>
 </div>
    
    
@@ -173,7 +234,7 @@ margin-bottom:15px;
    </div>   
    
    </div>
-   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
    <br>
    <br>
    <br>

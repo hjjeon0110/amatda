@@ -1,6 +1,7 @@
 package com.kh.amd.trainer.model.dao;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -187,11 +188,40 @@ public class TrainerDaoImpl implements TrainerDao {
 
 	// 15. 견적서 전송 - 보낸요청 리스트에 담기(김진환)
 	@Override
-	public List<Member> sendEstList(SqlSessionTemplate sqlSession, Mprocess mprocess) {
+	public List<Member> sendEstList(SqlSessionTemplate sqlSession, String tno) {
 		
-		
-		return sqlSession.selectList("Trainer.sendEstList", mprocess);
+		return sqlSession.selectList("Trainer.sendEstList", tno);
 	}
+	
+	// 16. 회원 찾기 - 견적서 전송 이미 보내는것인지 확인(김진환)
+	@Override
+	public int checkMprocess(SqlSessionTemplate sqlSession, String uno, String tno) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", uno);
+		map.put("tno", tno);
+		
+		return sqlSession.selectOne("Trainer.checkMprocess", map);
+		
+	}
+	
+	// 17. 페이징 처리를 위한 오버라이딩을 한 sendList(보낸요청서) (김진환)
+	@Override
+	public List<Member> sendEstList(SqlSessionTemplate sqlSession, String tno, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());		
+		
+		return (List) sqlSession.selectList("Trainer.sendEstListPaging", tno, rowBounds);
+	}
+
+	// 18. 보낸요청 페이징 처리를 위한 카운트(김진환)
+	@Override
+	public int getTrainerMyPageMatchingListCount(SqlSessionTemplate sqlSession, String tno) {
+		
+		return sqlSession.selectOne("Trainer.getTrainerMyPageMatchingListCount", tno);
+	}
+
 
 
 
@@ -376,6 +406,11 @@ public class TrainerDaoImpl implements TrainerDao {
 		sqlSession.update("Trainer.deleteMedia", map);
 	}
 
+
+	
+
+
+	
 	
 	
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,32 +28,32 @@
 				<td><input type="hidden" name="mno" value="${sessionScope.loginUser.mno}"></td>
 			</tr>
 				<tr>
-					<td rowspan="5" style="text-align:center; width:30%;">
-						<div class="profileImgDiv">
-							<img id="profileImg" src="${contextPath}/resources/images/profileImg3.PNG">
-						</div>
-						<br>
-						<button type="button" class="checkBtn" data-toggle="modal" data-target="#memberpicture">사진 변경</button>
-					</td>
-				</tr>
-				<!-- <tr>
-					<td class="bigName" style="width:15%;">이메일</td>
-					<td class="tdInput" style="width:45%;">
-						<input type="email" name="email" id="email" class="form-control input">
-					</td>
-					<td class="tdBtn" style="width:10%;">
-						<button onclick="return duplicationCheck()" class="checkBtn">중복확인</button>
-					</td>
-				</tr> 
-				<tr>
-					<td class="bigName">인증번호</td>
-					<td class="tdInput">
-						<input type="text" name="email" id="email" class="form-control input">
-					</td>
-					<td class="tdBtn">
-						<button class="checkBtn" onclick="return checkEmail()">인증하기</button>
-					</td>
-				</tr>-->
+				<td rowspan="5" style="text-align: center; width: 30%;">
+					<div class="profileImgDiv">
+
+
+
+						<%-- <img
+							src="${ contextPath }/resources/uploadFiles/${ list.modiName }${ list.extension }"
+							width="200px" height="150px" /> --%>
+						<img
+							src="${contextPath}/resources/uploadFiles/${ at.modiName }${ at.extension }"
+							style="width: 200px; height: 180px" id="profileImg" />
+
+					</div> 
+					<br> 
+					<%-- <c:if test="${result == 0 }">
+						<button type="button" class="checkBtn" data-toggle="modal"
+							data-target="#memberpicture">사진 등록</button>
+					</c:if> 
+					<c:if test="${result == 1 }"> --%>
+						<button type="button" class="checkBtn" data-toggle="modal"
+							data-target="#memberpicture">사진 변경</button>
+					<%-- </c:if> --%>
+
+				</td>
+			</tr>
+				
 				<tr>
 					<td class="bigName">이름</td>
 					<td class="tdInput">
@@ -106,7 +107,9 @@
 				<tr class="registerTr">
 					<td></td>
 					<td colspan="2">
-						<button type="button" id="updateBtn">수정하기</button>
+						<button type="button" id="updateBtn" class="form-control" style="margin:0 auto;background:#ff0066;  
+	border:1px solid #ff0066; 
+	color:white; ">수정하기</button>
 					</td>
 				</tr>
 	
@@ -128,7 +131,7 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					<form action="insertMyImg.me" method="post" encType="multipart/form-data">
+					<form action="updateMyImg.me" method="post" encType="multipart/form-data">
 						<input type="hidden" name="mno" value="${sessionScope.loginUser.mno }">
 						<input type="file" name="modifypicture" onchange="loadMyImgFile(this)" />
 						<input type="submit" value="저장하기">
@@ -150,7 +153,8 @@
 
 </body>
 <script>
-	
+
+//이미지등록
 function loadMyImgFile(value) {
 	if (value.files && value.files[0]) {
 		var reader = new FileReader();
@@ -163,6 +167,10 @@ function loadMyImgFile(value) {
 }
 	
 	$(function(){
+		
+		
+		
+		
 		//$("button[type='submit']").attr("disabled", true);
 		var mno = ${sessionScope.loginUser.mno};
 		var userName = $("#userName").val();
@@ -175,7 +183,6 @@ function loadMyImgFile(value) {
 			success:function(data){
 				
 				
-					
 				
 					console.log(data);
 					console.log(data.mno);
@@ -184,9 +191,7 @@ function loadMyImgFile(value) {
 					$("#userId").val(data.userId);
 					$("#phone").val(data.phone);
 					$("#gender").val(data.gender);
-					
-				
-					
+
 					
 			},error:function(data){
 				alert("그냥 에러임");
@@ -195,6 +200,39 @@ function loadMyImgFile(value) {
 	})
 	
 	
+	/* $(function(){
+		
+		var mno = ${sessionScope.loginUser.mno};
+		console.log("이미지 불러오기");
+		
+		location.href="selectMyImg.me?mno="+mno;
+		
+		/* $.ajax({
+			
+			url:"selectMyImg.me",
+			type:"post",
+			data:{mno:mno},
+			success:function(data){
+				
+					alert("성공");
+					console.log("이미지 불러온"+data);
+				
+				
+			}
+		}) */
+		
+$("#userPwd2").change(function(){
+	var userPwd = $("#userPwd").val();
+	var userPwd2 = $("#userPwd2").val();
+	
+	if(userPwd==userPwd2){
+		$("#Result").text("일치").css("color", "yellowgreen");
+	}else{
+		$("#Result").text("불일치").css("color", "red");
+	}
+})	
+
+			
 	
 	
 	

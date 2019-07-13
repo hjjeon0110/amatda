@@ -192,7 +192,7 @@
 						<li class="menubarLi4"><a class="menubarLi4"
 							href="showRecommendTrainerPageView.us?mno=${sessionScope.loginUser.mno}">트레이너 찾기</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<li class="menubarLi5"><a class="menubarLi5"
-							href="showMyPagePrivacy.us">MY PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							href="showMyPagePrivacy.us?mno=${sessionScope.loginUser.mno}">MY PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<li class="menubarLi6"><a class="menubarLi6" <%-- href="matching.ms?mno=${sessionScope.loginUser.mno}" --%>>PT
 								PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<li class="menubarLi7"><a class="menubarLi7" href="list.di?mno=${sessionScope.loginUser.mno}">다이어리

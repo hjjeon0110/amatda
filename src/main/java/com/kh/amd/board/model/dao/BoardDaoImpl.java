@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.member.model.vo.Member;
@@ -153,17 +154,17 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	//후기리뷰 게시판 리스트 출력(SR)
-	@Override
-	public List<Board> selectReview(SqlSessionTemplate sqlSession) {
-		List<Board> list = (List) sqlSession.selectList("Board.selectReview");
-		return sqlSession.selectList("Board.selectReview");
-	}
+	//@Override
+	//public List<Board> selectReview(SqlSessionTemplate sqlSession,Attachment a) {
+	//	List<Board> list = (List) sqlSession.selectList("Board.selectReview",a);
+	//	return list;
+	//}
 
 	//리뷰게시판 상세페이지 (SR)
-	@Override
-	public Object selectOneReview(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("Board.selectOneReview");
-	}
+	/*
+	 * @Override public Object selectOneReview(SqlSessionTemplate sqlSession,int
+	 * bNo) { return sqlSession.selectOne("Board.selectOneReview",bNo); }
+	 */
 
 	//이벤트 카테고리 게시물 상세페이지(SR)
 	@Override
@@ -290,10 +291,10 @@ public class BoardDaoImpl implements BoardDao {
 
 	// 후기 이미지 insert
 	@Override
-	public void insertReviewImg(SqlSessionTemplate sqlSession, String mno, Board b, String filePath,
-			String originalFilename, String changeName, String ext) {
+	public void insertReviewImg(SqlSessionTemplate sqlSession, String mno, String filePath,
+			String originalFilename, String changeName, String ext,int bno) {
 		
-		int bno = b.getbNo();
+		//int bno = b.getbNo();
 		
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		
@@ -304,12 +305,31 @@ public class BoardDaoImpl implements BoardDao {
 		map.put("changeName", changeName);
 		map.put("ext", ext);
 		
+		System.out.println(map);
+		
 		sqlSession.insert("Board.insertReviewImg", map);
 		
 	}
-	
-	
 
+	//리뷰게시판 상세페이지 1 (SR)
+	@Override
+	public Board selectOneReview(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.selectOne("Board.selectOneReview",bNo);
+	}
+
+	//리뷰게시판 상세페이지 2(SR)
+	@Override
+	public Attachment selectOneAttachment(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.selectOne("Board.selectOneAttachment",bNo);
+	}
+
+	@Override
+	public List<Board> selectReview2(SqlSessionTemplate sqlSession, Attachment a) {
+		 
+		return sqlSession.selectList("Board.selectReview2",a);
+	}
+
+	
 
 
 

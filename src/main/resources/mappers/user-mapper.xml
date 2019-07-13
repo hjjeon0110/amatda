@@ -136,6 +136,22 @@
 	</resultMap>
 	
 	
+	
+	
+	<resultMap type="com.kh.amd.board.model.vo.Reply"
+		id="replyResultSet">
+
+		<id column="REP_NO" property="repNo" />
+		<result column="BNO" property="bNo" />
+		<result column="REP_WRITER" property="repWriter" />
+		<result column="REP_CONTENT" property="repContent" />
+		<result column="REP_DATE" property="repDate" />
+		<result column="REP_MDATE" property="repMdate" />
+		<result column="REP_STATUS" property="repStatus" />
+		
+	</resultMap>
+	
+	
 	<!-- 효정 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
 	<!-- 1. 맞춤 트레이너 리스트 조회 (전효정) -->
@@ -194,7 +210,7 @@
 	
 	<!-- 8. 마이트레이너 insert (전효정) -->
 	<insert id="insertMyTrainer">
-		INSERT INTO M_PROCESS VALUES(MPROCESS_SEQ.NEXTVAL, NULL, #{uno}, #{tno}, 0, 'N', '매칭전', SYSDATE)
+		INSERT INTO M_PROCESS VALUES(MPROCESS_SEQ.NEXTVAL, NULL, #{uno}, #{tno}, 0, 'N', '매칭전', 'receive', NULL, NULL, NULL, NULL, SYSDATE)
 	</insert>
 	
 	<!-- 9. 마이트레이너 리스트 조회 (전효정) -->
@@ -204,16 +220,26 @@
 	
 	<!-- 10. 마이트레이너 존재 여부 확인 (전효정) -->
 	<select id="selectOneMyTrainer" resultMap="mprocessResultSet">
-		SELECT * FROM M_PROCESS WHERE UNO = #{mno} AND TNO = #{tno}
+		SELECT * FROM M_PROCESS WHERE UNO = #{mno} AND TNO = #{tno} 
 	</select>
 	
 	<!-- 11. 마이트레이너 delete (전효정) -->
 	<delete id="deleteMyTrainer">
-		DELETE FROM M_PROCESS WHERE UNO = #{uno} AND TNO = #{tno}
+		DELETE FROM M_PROCESS WHERE UNO = #{uno} AND TNO = #{tno} AND MATCHING_LEVEL = 0
 	</delete>
 	
+	<!-- 12. 매칭 시작 트레이너 조회 (전효정) -->
+	<select id="selectOneMatchingTrainer" resultMap="selectRecommendTrainerList">
+		SELECT * FROM MEMBER M JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE MNO = #{tno}
+	</select>
 	
-	<!-- 12. 나의 문의 내역 select (우리나) -->
+	<!-- 13. 다이어트 정보 보내기 - 회원 설문조사 selectOne (전효정) -->
+	<select id="selectOneSurvey" resultMap="surveyResultSet">
+		SELECT * FROM SURVEY WHERE UNO = #{mno}
+	</select>
+	
+	
+	<!-- 나의 문의 내역 select (우리나) -->
 	<select id="selectMyQnaList" parameterType="_int" resultMap="boardResultSet" >
 		SELECT *
 		FROM BOARD 
@@ -222,10 +248,25 @@
 		ORDER BY BWRITE_DATE
 	</select>
 	
-	
 	<select id="selectMyQnaDetail" parameterType="_int" resultMap="boardResultSet">
 		SELECT *
 		FROM BOARD
 		WHERE BNO=#{bno2}
 	</select>
+
+	<select id="selectQnaReply" parameterType="_int" resultMap="replyResultSet">
+		SELECT * 
+		FROM BOARD_REPLY
+		WHERE BNO=#{bno2}
+	</select>
+	
+	
+	<select id="selectMyBoardList" parameterType="_int" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE BWRITER=#{mno2}
+		AND BTYPE=5
+		AND BSTATUS='Y'
+	</select>
+	
 </mapper>

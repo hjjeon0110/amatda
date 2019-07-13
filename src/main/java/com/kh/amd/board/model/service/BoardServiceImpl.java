@@ -10,6 +10,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.dao.BoardDao;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.board.model.vo.PageInfo;
@@ -125,18 +126,19 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	//후기리뷰 게시판 리스트 출력(SR)
-	@Override
-	public List<Board> selectReview() {
-		return bd.selectReview(sqlSession);
-	}
+	//@Override
+	//public List<Board> selectReview(Attachment a) {
+	//	return bd.selectReview(sqlSession,a);
+	//}
 
 	//리뷰게시판 상세페이지 (SR)
-	@Override
-	public Object selectOneReview(int bNo) {
-
-		return bd.selectOneReview(sqlSession);
-
-	}
+	/*
+	 * @Override public Object selectOneReview(int bNo) {
+	 * 
+	 * return bd.selectOneReview(sqlSession,bNo);
+	 * 
+	 * }
+	 */
 
 
 	//공지사항/이벤트 게시판 페이징 (SR)
@@ -271,10 +273,29 @@ public class BoardServiceImpl implements BoardService{
 
 	// 후기 이미지 insert
 	@Override
-	public void insertReviewImg(String mno, Board b, String filePath, String originalFilename, String ext, String changeName) {
-		bd.insertReviewImg(sqlSession, mno, b, filePath, originalFilename, changeName, ext);
+	public void insertReviewImg(String mno, String filePath, String originalFilename, String ext, String changeName,int bno) {
+		bd.insertReviewImg(sqlSession, mno,  filePath, originalFilename, changeName, ext,bno);
 		
 	}
+
+	//리뷰게시판 상세페이지1 (SR)
+	@Override
+	public Board selectOneReview(int bNo) {
+		return bd.selectOneReview(sqlSession,bNo);
+	}
+
+	//리뷰게시판 상세페이지 2(SR)
+	@Override
+	public Attachment selectOneAttachment(int bNo) {
+		return bd.selectOneAttachment(sqlSession,bNo);
+	}
+
+	@Override
+	public List<Board> selectReview2(Attachment a) {
+	
+		return bd.selectReview2(sqlSession,a);
+	}
+
 
 
 

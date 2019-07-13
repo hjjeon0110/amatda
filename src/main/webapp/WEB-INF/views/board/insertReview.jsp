@@ -144,10 +144,11 @@ display:inline;
          </div> -->
 			
 			<input type="submit" value="작성하기" class="btn btn-primary">
-			<!-- <button onclick="location.href='selectReview.bo'" class="btn btn-primary">목록으로</button>
-			</div> -->
+			
+			</div> 
 			
 		</form>
+		<button onclick="location.href='selectReviewFormView.bo'" class="btn btn-primary">목록으로</button>
 	</div>
 	
 	<script>
