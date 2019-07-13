@@ -37,29 +37,6 @@ public class TrainerController {
 	
 	
 	// 진환 메소드 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	/*
-	
-	  @RequestMapping(value = "ajaxshowMyPageEstimate.tr") 
-	  public void ajaxshowMyPageEstimate(HttpServletResponse response, int mno, String estType) { 
-		  
-		  int iestType = Integer.parseInt(estType); 
-		  Estimate estimate = ts.selectEstimate(mno, iestType);
-		  ObjectMapper mapper = new ObjectMapper();
-		  
-		  try { 
-			  response.getWriter().print(mapper.writeValueAsString(estimate)); 
-		  } catch (JsonGenerationException e) { 
-			  e.printStackTrace(); 
-		  } catch (JsonMappingException e) {
-			  e.printStackTrace(); 
-		  } catch (IOException e) {
-			  e.printStackTrace(); 
-		  }
-		  System.out.println("받아온 estimate객체 : " + estimate);
-	  }
-	  
-	 */
 		
 	   //견적서 ajax로 select 보기 메소드(김진환)
 	   @RequestMapping("ajaxshowMyPageEstimate.tr")
@@ -412,6 +389,7 @@ public class TrainerController {
 			
 			return "trainer/2_3_myPage_matching";
 		}
+		
 		@RequestMapping("showMyPageReceivedMatching.tr")
 		public String showMyPageReceivedMatching(Model model, String tno, String currentPage) {
 			int currentPageI = 1;
@@ -420,18 +398,18 @@ public class TrainerController {
 					currentPageI = Integer.parseInt(currentPage);
 			}
 			//목록을 조회해서 해당 리스트가 몇개인지 확인 
-			int listCount = 0;
+			int listCount = ts.checkMyReceiveListCount(tno);
 
 			PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
 			
-			List<Member> list = null;
+			List<Member> list = ts.myReciveList(tno, pi);
 			
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
 			
 			System.out.println(list);
 			
-			return "trainer/2_3_myPage_matching";
+			return "trainer/2_3_1myPage_matching(receive)";
 		}
 		
 	   

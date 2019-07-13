@@ -423,7 +423,7 @@ public class UserController {
 			model.addAttribute("profileImgAttachmentSrc", profileImgAttachmentSrc);		
 		}else {
 			model.addAttribute("profileImgAttachment", profileImgAttachment);
-    }
+		}
 	
 		// 5. 프로필 작성 여부 확인 (전효정)
 		Profile profile = us.checkProfile(tno);
@@ -466,6 +466,21 @@ public class UserController {
 	}
 	
 	
+	// 내 정보 보낸 후 mprocess update (전효정)
+	@RequestMapping("updateMprocess1.us")
+	public String updateMprocess1(Model model, HttpServletRequest request) {
+		
+		String mno = request.getParameter("mno");
+		String tno = request.getParameter("tno");
+		String tname = request.getParameter("tname").toString();
+		
+		// 14. 내 정보 보낸 후 mprocess update (전효정)
+		us.updateMprocess1(mno, tno);
+		
+		return "redirect:goMatchingProcess.us?mno=" + mno +"&tno=" + tno + "&tname=" + tname;
+	}
+	
+	
 	
 	
 	
@@ -478,15 +493,11 @@ public class UserController {
 		
 		int mno2 = Integer.parseInt(mno);
 		
-		
-		
 		Attachment at = ms.selectMyImg(mno2);
-		
 		
 		System.out.println("at: " + at);
 		model.addAttribute("at",at);
 	
-		
 		return "user/2_1_myPage_privacy";
 	}
 	

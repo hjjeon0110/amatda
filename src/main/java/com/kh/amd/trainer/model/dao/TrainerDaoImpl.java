@@ -222,6 +222,27 @@ public class TrainerDaoImpl implements TrainerDao {
 		return sqlSession.selectOne("Trainer.getTrainerMyPageMatchingListCount", tno);
 	}
 
+	// 19. 받은요청 페이징 철를 위한 카운트(김진환)
+	@Override
+	public int checkMyReceiveListCount(SqlSessionTemplate sqlSession, String tno) {
+		
+		return sqlSession.selectOne("Trainer.checkMyReceiveListCount", tno);
+	}
+	
+	// 20. 받은요청 리스트 확인 메소드(김진환)
+	@Override
+	public List<Member> myReciveList(SqlSessionTemplate sqlSession, String tno, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());		
+		
+		return (List) sqlSession.selectList("Trainer.myReciveList", tno, rowBounds);
+	}
+
+
+
+	
+
 
 
 
@@ -407,7 +428,6 @@ public class TrainerDaoImpl implements TrainerDao {
 	}
 
 
-	
 
 
 	

@@ -12,6 +12,40 @@ import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.vo.Profile;
 
 public interface UserService {
+	
+	
+	// 내글관리(Qna) select (우리나)
+	List<Board> selectMyQnaList(int mno2);
+	
+	// 내글관리(QnaDetail) select (우리나)
+	Board selectMyQnaDetail(int bno2);
+	
+	// 내글관리(QnaReply) select (우리나)
+	Reply selectQnaReply(int bno2);
+
+	List<Board> selectMyBoardList(int mno2);
+  
+  // 내글관리(ReviewList Detail) 글 select (우리나)
+	Board selectOneReview(int bno2);
+	
+	// 내글관리(ReviewList Detail) 사진 select (우리나)
+	Attachment selectOneAttachment(int bno2);
+	
+	// 내글관리(Review Detail) 글 update (우리나)
+	int updateMyReview(Board b);
+	
+	// 내글관리(Review Detail) 사진 update (우리나)
+	int updateMyReviewAttachment(Attachment a);
+
+	int deleteMyReview(int bno2);
+	
+	//qna리스트 페이징
+	int getQnaListCount(int mno2);
+	
+	
+	
+	// 효정 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 
 	// 1. 맞춤 트레이너 리스트 조회 (전효정)
 	List<Member> selectRecommendTrainerList(int mno, String hopeAge, String hopeGender, String hopePeriod, String hopeExercise, String[] hopeExerciseArr);
@@ -52,37 +86,12 @@ public interface UserService {
 	// 13. 다이어트 정보 보내기 - 회원 설문조사 selectOne (전효정)
 	Survey selectOneSurvey(String mno);
 	
-	
+	// 14. 내 정보 보낸 후 mprocess update (전효정)
+	void updateMprocess1(String mno, String tno);
   
-	// 내글관리(Qna) select (우리나)
-	List<Board> selectMyQnaList(int mno2, PageInfo pi);
-	
-	// 내글관리(QnaDetail) select (우리나)
-	Board selectMyQnaDetail(int bno2);
-	
-	// 내글관리(QnaReply) select (우리나)
-	Reply selectQnaReply(int bno2);
-	
-	// 내글관리(ReviewList) select (우리나)
-	List<Board> selectMyBoardList(int mno2);
-	
-	// 내글관리(ReviewList Detail) 글 select (우리나)
-	Board selectOneReview(int bno2);
-	
-	// 내글관리(ReviewList Detail) 사진 select (우리나)
-	Attachment selectOneAttachment(int bno2);
-	
-	// 내글관리(Review Detail) 글 update (우리나)
-	int updateMyReview(Board b);
-	
-	// 내글관리(Review Detail) 사진 update (우리나)
-	int updateMyReviewAttachment(Attachment a);
 
-	int deleteMyReview(int bno2);
 	
-	//qna리스트 페이징
-	int getQnaListCount(int mno2);
-	
+
 
 
 }

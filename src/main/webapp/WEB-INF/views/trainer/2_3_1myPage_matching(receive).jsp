@@ -25,6 +25,18 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
+.subMenuBar1 {
+	width: 49.8%;
+	height: 72px;
+	display: inline-block;
+	border-bottom: 2px solid #ff0066;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 22px;
+	margin-left: 2px;
+	margin-right: -4px;
+}
+
 .subMenuBar2 {
 	width: 49.8%;
 	height: 72px;
@@ -35,18 +47,6 @@
 	padding-top: 22px;
 	background: #ff0066;
 	color: white;
-	margin-left: 2px;
-	margin-right: -4px;
-}
-
-.subMenuBar1 {
-	width: 49.8%;
-	height: 72px;
-	display: inline-block;
-	border-bottom: 2px solid #ff0066;
-	text-align: center;
-	font-size: 16px;
-	padding-top: 22px;
 }
 
 .searchUserListDiv {
@@ -69,6 +69,29 @@
 	margin-right: auto;
 	padding: 10px;
 	background: white;
+	position:relative;
+}
+
+.userListDiv2 {
+	width: 90%;
+	border: 1px solid darkgray;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	background: rgba(0, 0, 0, 0.3);
+	position:relative;
+	top:-132px; 
+	left:0px;
+	height:132px;
+	margin-bottom:-132px;	
+	text-align:center;
+}
+
+.userListDiv2Label{
+	font-family: 'Noto Sans KR', sans-serif;
+	color:white;
+	height:132px;
+	line-height:300%;
 }
 
 .userListTable {
@@ -131,6 +154,29 @@
 	margin-right: auto;
 	width: 100px;
 }
+
+
+.remainDay {
+	border-style:none; 
+	background:#ffe6f3; 
+	color:#ff0066;
+	margin-left:auto; 
+	margin-right:auto;
+	width:100px;
+}
+
+.remainDay:hover {
+	border-style:none; 
+	background:white; 
+	color:#ff0066; 
+	margin-left:auto; 
+	margin-right:auto;
+	width:100px;
+	border:1px solid #ff0066; 
+	cursor:pointer;
+}
+
+
 </style>
 </head>
 <body>
@@ -154,17 +200,25 @@
 			<option value="excerPeriod">운동개월수순</option>
 		</select> <br>
 		<br>
+		<jsp:useBean id="today" class="java.util.Date"/>
+		<fmt:formatDate var="nowTime" value="${ today }" pattern="yyyyMMdd"/>
 		
 	<!-- 반복문으로 회원들의 목록을 조회하는 영역  -->	
 		<c:forEach var="user" items="${ list }" varStatus="status">
+			<c:set var="imgName" value="${user.attachment.modiName}${user.attachment.extension}" />
+			<%-- <fmt:parseDate var="eDate" value="${ user.mprocess.processDate }" pattern="yyyyMMdd"/> --%>
+			<fmt:formatDate var="estDate" value="${ user.mprocess.processDate }" pattern="yyyyMMdd"/>
+			
+			<!-- 남은 일수 유져 --------------------------------------------------------------------------------------------- -->
+			<c:if test="${(estDate + 3 - nowTime) > 0}">
 			<div class="userListDiv">
 				<table class="userListTable">
 					<tr>
-						<input type="hidden" value="${ user.mno }" />
+						<input type="hidden" name="userMno" value="${ user.mno }" />
 						<td rowspan="3" class="userListTableTd1">
 							<div class="profileImg">
 								<img class="profileImage"
-									src="${ contextPath }/resources/images/profileImg.PNG">
+									src="${ contextPath }/resources/uploadFiles/${ imgName}">
 							</div>
 						</td>
 						<td class="userListTableTd2"><label class="userName" for="userName">${ user.name }</label>
@@ -173,7 +227,7 @@
 					</tr>
 					<tr>
 						<td><label class="userKeyword">#${ user.survey.hopeExercise }</label></td>
-						<td></td>
+						<td><button class="remainDay" name="remainCheck${ user.mno }">남은일수 : <label>${ (estDate + 3 - nowTime)}</label>일</button></td>						
 					</tr>
 					<tr>
 						<td><label class="userSurvey">운동 시작가능일 : ${ user.survey.hopeStart}, 운동
@@ -184,6 +238,43 @@
 					</tr>
 				</table>
 			</div>
+			</c:if>
+			
+			<!-- 기한 초과 유져 --------------------------------------------------------------------------------------------- -->
+			<c:if test="${(estDate + 3 - nowTime) <= 0}">
+			<div class="userListDiv">
+				<table class="userListTable">
+					<tr>
+						<input type="hidden" name="userMno" value="${ user.mno }" />
+						<td rowspan="3" class="userListTableTd1">
+							<div class="profileImg">
+								<img class="profileImage"
+									src="${ contextPath }/resources/uploadFiles/${ imgName}">
+							</div>
+						</td>
+						<td class="userListTableTd2"><label class="userName" for="userName">${ user.name }</label>
+							<label class="userGender">(${user.gender })</label></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><label class="userKeyword">#${ user.survey.hopeExercise }</label></td>
+						<td><button class="remainDay" name="remainCheck${ user.mno }">기한초과</button></td>						
+					</tr>
+					<tr>
+						<td><label class="userSurvey">운동 시작가능일 : ${ user.survey.hopeStart}, 운동
+								가능 시간 : ${user.survey.datExercise }, 키 : ${ user.survey.height }cm, 몸무게 : ${ user.survey.weight}kg, 목표감량치 : -${user.survey.hopeWeight}kg</label></td>
+						<td class="userListTableTd1"><button type="button" name="userInfoShow"
+								class="btn btn-primary" data-toggle="modal"
+								data-target="#exampleModalScrollable${ user.mno }">회원 정보 보기</button></td>
+					</tr>
+				</table>
+			</div>
+			<div class="userListDiv2">
+			<br>
+			<label class="userListDiv2Label">응답 기한이 초과된 회원입니다.</label>
+			</div>
+			</c:if>
+			
 			<br>
 			<!-- Modal ---------------------------------------------------------------------------------------------------------- -->
 			<div class="modal fade" id="exampleModalScrollable${ user.mno }" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -354,8 +445,22 @@
 	<script>
 	
 		$(function(){
-			var list = ${ list }
-			console.log(list);
+			var remainDay2 = $("button[name=remainCheck]").children().text();
+			
+			var mno = $("input[name=userMno]").val();
+			console.log("mno : " + mno)
+			var remainDay = "#remainDay" + mno;
+			console.log("remainDay2 : " + remainDay2);
+			
+			if(remainDay2 <= 0){
+				console.log(remainDay);
+				$(remainDay).parent().parent().parent().parent().parent().parent().css({"background":"lightgray"});
+				$(remainDay).parent().parent().parent().parent().parent().css({"background":"lightgray"});
+				$("button[name=remainCheck]").text("기한초과");
+				
+				
+			}
+			console.log(remainDay);
 		})
 		
 	</script>

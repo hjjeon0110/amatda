@@ -98,86 +98,141 @@
    border-radius: 10px;
    align:center;
    margin-left:700px;
-   }
-   #likeicon{
-      width:30%;
-      float:right;
-   }
-   #reviewPic1{
-   width:50%;
-   }
-   #reviewPic2{
-   width:60%;
-   }
-   #replybox{
-   width:500px;
-   height:100px;
-   }
-   
+
+	#likeicon{
+		width:30%;
+		float:right;
+	}
+	#reviewPic1{
+	width:50%;
+	}
+	#reviewPic2{
+	width:60%;
+	}
+	#replybox{
+	width:500px;
+	height:100px;
+	}
+	
+	/* -----(리뷰상세페이지 댓글 시작)------ */
+	
+/* 	#conmmentForm{
+	align:center;
+	} */
+	
+	table #rContent {
+	width: 510px;
+	height: 100px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: solid 2px yellowgreen;
+	border-radius: 5px;
+	resize: both;
+}
+
+tr {
+	height: 25px;
+}
+
+#commentList{
+	background-color:#fff;
+	width:500px;
+	margin-top:50px;
+	
+	
+}
+
+#repContent{
+	width:450px;
+
+}
+
+.area{
+	width:500px;
+	height:65px;
+}
+	
+	
+	
+	/* -----(리뷰상세페이지 댓글 끝)------ */
+	
 </style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 <body>
-   <jsp:include page="../common/menubar.jsp"/> 
-   <img class="testImg" src="${ contextPath }/resources/images/sstestMain.jpg">
-   
-   <div class="outerform" align="center"> 
-   <form action="selectOneReview.bo" method="post">   
-      <table class="selectOneReview">
-      <%-- <c:forEach var="selectOneReview" items="${ sessionScope.selectOneReview }" varStatus="status"><br> --%>
-      <tr class="contentTitle">
-      <h2>아맞다 후기리뷰</h2>
-      <br><br>
-      <%-- <td>${selectOneReview.bTitle }</td> --%>
-      
-      <input type="hidden" id="bNo" value="${b.bNo }">
-      <input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.userId }" >
-      <p>${b.bTitle }</p>
-      <p></p>
-      <p></p>
-      
-      <div class="secondTableLine"></div>
-         <div class="likecount">
-            <a href ="selectOneReview.bo"><h6>1111<img id="likeicon"src="${ contextPath }/resources/images/likeicon.png"></h6></a>
-         </div>
-         <img id="reviewImgFile" src="${contextPath }/resources/uploadFiles/${a.modiName}${a.extension}" width="250" height="200">
-         
-         
-      </tr>
-         
-         <div class="reviewPic">
-      <p>${b.bContent }</p>
-         
-       <button type="button" class="btn btn-primary" data-toggle="modal" 
-              data-target="#my80sizeCenterModal">수정</button>
-       <button type="button" class="btn btn-primary" data-toggle="modal" 
-              data-target="#my80sizeCenterModal">삭제</button>
-       <button type="button" class="btn btn-primary" data-toggle="modal" 
-              data-target="#my80sizeCenterModal" onclick="location.href='selectReview.bo'"> 목록</button>
-      <br><br><br><br>
-      
-      
-      
-      <%-- <form id="conmmentForm" name="commentForm" method="post">
-         <input type="hidden" id="bno" name="bno" value="${b.bNo }">
-         <input type="hidden" name="mNo" value="${sessionScope.loginUser.mNo }">
-         
-         <div class="area">
-            <textarea id="repContent" name="repContent" cols="60" rows="2" placeholder="댓글을 입력하세요 " style="float:left"></textarea>
-         <input type="button" id="replyInsert" value="등록" style="float:right">
-         </div>
-      
-         <div id="commentList">
-            <c:forEach items="${repList }" var="repList">
-               <c:if test="${!empty repList.repContent }">
-                  ${repList.member.name } 트레이너(<fmt:formatDate value="${repList.repDate }" pattern="yyyy-MM-dd hh:mm"/>):
-                  ${repList.repContent} 
-               </c:if>
-            </c:forEach>
-         </div>
-      </form> --%>
-      
-      <!-- <input type="text" id="replybox" placeholder="내용을 입력하세요.">
-      <button type="button" class="btn btn-primary" data-toggle="modal" 
+	<jsp:include page="../common/menubar.jsp"/> 
+	<img class="testImg" src="${ contextPath }/resources/images/sstestMain.jpg">
+	
+	<div class="outerform" align="center"> 
+	<form action="selectOneReview.bo" method="post">	
+		<table class="selectOneReview">
+		<%-- <c:forEach var="selectOneReview" items="${ sessionScope.selectOneReview }" varStatus="status"><br> --%>
+		<tr class="contentTitle">
+		<h2>아맞다 후기리뷰</h2>
+		<br><br>
+		<%-- <td>${selectOneReview.bTitle }</td> --%>
+		
+		<input type="hidden" id="bNo" value="${b.bNo }">
+		<input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.userId }" >
+		<b>${b.bTitle }</b>
+		<p></p>
+		<p></p>
+		
+		<div class="secondTableLine"></div>
+			<div class="likecount">
+				<a href ="selectOneReview.bo"><h6>1111<img id="likeicon"src="${ contextPath }/resources/images/likeicon.png"></h6></a>
+			</div>
+			<img id="reviewImgFile" src="${contextPath }/resources/uploadFiles/${a.modiName}${a.extension}" width="250" height="200">
+			
+			
+		</tr>
+			
+			<div class="reviewPic">
+		<p>${b.bContent }</p>
+		<p>${b.bCount}</p>
+		<br><br>
+			
+		 <button type="button" class="btn btn-primary" data-toggle="modal" 
+		        data-target="#my80sizeCenterModal">수정</button>
+		 <button type="button" class="btn btn-primary" data-toggle="modal" 
+		        data-target="#my80sizeCenterModal">삭제</button>
+		 <button type="button" class="btn btn-primary" data-toggle="modal" 
+		        data-target="#my80sizeCenterModal" onclick="location.href='selectReview.bo'"> 목록</button>
+		<br><br>
+		
+		
+		<!-- 댓글 INSERT ----------->
+		
+		<div class="secondTableLine"></div>
+		
+		<h5>REPLY</h5>
+		<br>
+		 <form id="conmmentForm" name="commentForm" method="post">
+			<input type="hidden" id="bno" name="bno" value="${b.bNo }">
+			<%-- <input type="hidden" name="mNo" value="${sessionScope.loginUser.mType }"> --%>
+			
+			<div class="area">
+				<textarea id="repContent" name="repContent" cols="90" rows="3" placeholder="댓글을 입력하세요 " style="align:center"></textarea>
+			<input type="button" id="replyInsert" value="등록" class="btn btn-primary" "align:center">
+			</div>
+		
+			<div id="commentList">
+				<c:forEach items="${repList }" var="repList">
+					<c:if test="${!empty repList.repContent }">
+						●&nbsp;${repList.member.userId } &nbsp; &nbsp;<fmt:formatDate value="${repList.repDate }" pattern="yyyy-MM-dd HH:mm:ss"/> 
+						&nbsp; &nbsp;${repList.repContent} <br>
+					</c:if>
+					
+		<!-- 댓글 SELECT --------->
+		
+		
+				</c:forEach>
+			</div>
+		</form> 
+		
+		<!-- <input type="text" id="replybox" placeholder="내용을 입력하세요.">
+		<button type="button" class="btn btn-primary" data-toggle="modal" 
         data-target="#my80sizeCenterModal">작성</button> -->
         </div>
    <%-- </c:forEach> --%>
@@ -199,12 +254,29 @@
       }
    }
 
-   /* $("#replyInsert").click(function(){
-      var content=$("#repContent").val();
-      var bno="${b.bNo}";
-      
-      
-   }) */
+
+	 $("#replyInsert").click(function(){
+		var content=$("#repContent").val();
+		var bno="${b.bNo}";
+		var mno=${sessionScope.loginUser.mno};
+		
+		console.log("content: " + content);
+		console.log("bno : " + bno);
+		console.log("mno : " + mno);
+		
+		$.ajax({
+			type:"get",
+			url:"insertReply.bo",
+			data:{content:content,bno:bno,mno:mno},
+			success:function(data){
+				if(data=="success"){
+					alert("댓글 등록");
+				}else{
+					alert("실패");
+				}
+			}
+		})
+	}) 
 
 
 

@@ -184,7 +184,7 @@
 					<h2 class="tm-block-title">멤버쉽 관리</h2>
 
 					<select class="custom-select" id="keyword" name="keyword">
-						<option value="0">멤버쉽별 조회</option>
+						<option value="0">멤버쉽별</option>
 						<option value="S">S</option>
 						<option value="A">A</option>
 						<option value="B">B</option>						
@@ -207,12 +207,14 @@
 							<c:forEach var="list" items="${ paymentList }" varStatus="status">
 								<tr align="center">
 									<th scope="row"><b>${ status.count }</b>
+									<input type="hidden" id="payNo" value="${list.userId }"></th>
 									<td>${ list.userId }</td>
 									<td>멤버쉽${ list.membershipType }</td>
 									<td><fmt:formatNumber value="${ list.membershipPrice }" type="currency"/></td>
 									<td >${ list.membershipCount }회</td>
 									<!-- 지난사용내역 -->			
-									<td><a href="#modalLayer" class="button">상세보기</a>
+									<td>
+										<a href="#modalLayer" class="button">상세보기</a>
 										<div id="modalLayer">
 											<div class="modalContent">
 												<h6 id="title">
@@ -278,7 +280,15 @@
 			var marginLeft = modalCont.outerWidth() / 2;
 			var marginTop = modalCont.outerHeight() / 2;
 
+			
 			button.click(function() {
+				
+				var payNo = $(this).parents("tr").children("th").children().eq(1).val();         
+		        console.log("상세보기 버튼 클릭 : " + payNo);
+		        
+		        var $input = $("<input type='hidden' id='num' value=" + payNo + ">")
+	           	$(".container").append($input);
+		        
 				modalLayer.fadeIn("slow");
 				modalCont.css({
 					"margin-top" : -marginTop,

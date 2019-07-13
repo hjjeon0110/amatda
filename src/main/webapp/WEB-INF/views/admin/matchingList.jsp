@@ -79,6 +79,10 @@
 	
 	
 	}
+	
+	#userId{
+		margin-left:550px;
+	}
 </style>
 </head>
 
@@ -171,8 +175,8 @@
 					class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
 					<h2 class="tm-block-title">매칭 조회</h2>
 
-					<input id="search_input" type="text" name="" placeholder="아이디 입력">
-					<a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+				<input id="userId"  name="userId" type="text"  placeholder="아이디 입력">
+			 <a href="#" class="search_icon" id="idSearch"><i class="fas fa-search"></i></a>
 					
 					
 					
@@ -181,8 +185,8 @@
 						<thead>
 							<tr>
 								<th scope="col">번호</th>
-								<th scope="col">회원 아이디</th>
-								<th scope="col">트레이너 아이디</th>
+								<th scope="col">회원</th>
+								<th scope="col">트레이너</th>
 								<th scope="col">입금완료일</th>
 								<th scope="col">PT시작일</th>
 								<th scope="col">PT종료일</th>

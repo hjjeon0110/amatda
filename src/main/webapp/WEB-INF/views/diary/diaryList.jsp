@@ -46,14 +46,15 @@
 		<%-- <a href="show.di?mno=${sessionScope.loginUser.mno}">다이어리 insert</a>&nbsp;&nbsp; --%>
 		<br><br>
 		
-<%-- <input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" /> --%>
+<input type="hidden" name="mno" value="${ sessionScope.loginUser.mno }" />
 		<div class="listArea">
-		<form action="deleteDiary.di" method="post"> 
+		<!-- <form action="deleteDiary.di" method="post">  -->
 			<table class="table table-hover" id="listTable">
 			<%-- <input type="hidden" name="bno"	value="${ requestScope.list.bNo }" /> --%>
 				<thead>
 					<tr>
 						<th></th>
+						<th><input type="checkbox" name="allCheck" id="allCheck"></th>
 						<th>번호</th>
 						<th>제목</th>
 						<th>등록일</th>
@@ -66,8 +67,8 @@
 				
 				<c:forEach var="i" begin="0" end="${fn:length(diaryList)-1}" varStatus="st">
 					<tr>
-						<%-- <td><input type="hidden" value="${ diaryList[i].bNo }" id="dListBno"/></td> --%>
-						<td><input type="checkbox" name="checkDelete" value="${ diaryList[i].bNo }" /></td>
+						<td><input type="hidden" value="${ diaryList[i].bNo }" id="dListBno"/></td>
+						<td><input type="checkbox" name="checkDelete" class="trCheck"/></td>
 						<td scope="row"><b>${st.count }</b></td>						
 						<td>${ diaryList[i].bTitle }</td>											
 						<td><fmt:formatDate value="${ diaryList[i].bWriteDate }" pattern="yyyy-MM-dd"/></td>
@@ -79,9 +80,9 @@
 				</tbody>
 			</table>
 			<br />
-			<input type="submit" value="delete" />
+			<!-- <input type="submit" value="delete" /> -->
 			
-			</form>
+			<!-- </form> -->
 		
 		<!-- 페이징 처리를 위한 코드, div지정후 페이징 처리 ----------------------------------->
       <div id="pagingArea" align="center">
@@ -185,12 +186,14 @@
 			});
 			
 			
-			/* window.onload = function () {
-				 
-				
-				
-				alert("테스트중");
-				} */
+			$("#allCheck").click(function(){
+				if($("#allCheck").prop("checked")){
+					$("input[type=checkbox]").prop("checked", true);
+				}else{
+					$("input[type=checkbox]").prop("checked",false);
+					/* $("#submit").attr("disabled","true").css({"background":"lightgray","border":"1px solid lightgray"}); */
+				}
+			})
 			
 		</script>
 </div>

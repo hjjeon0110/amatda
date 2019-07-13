@@ -152,6 +152,24 @@ public class TrainerServiceImpl implements TrainerService {
 		
 		return td.getTrainerMyPageMatchingListCount(sqlSession, tno);
 	}
+	
+	// 17. 받은요청 페이징 처리를 위한 카운트(김진환)
+	@Override
+	public int checkMyReceiveListCount(String tno) {
+			
+		return td.checkMyReceiveListCount(sqlSession, tno);
+	}
+	
+	// 18. 받은 요청 리스트 확인 메소드(김진환)
+	@Override
+	public List<Member> myReciveList(String tno, PageInfo pi) {
+		
+		
+		return td.myReciveList(sqlSession, tno, pi);
+	}
+
+
+
 
 	
 
@@ -266,6 +284,9 @@ public class TrainerServiceImpl implements TrainerService {
 	public void deleteMidea(String mno, String thisModiName) {
 		td.deleteMidea(sqlSession, mno, thisModiName);
 	}
+
+
+	
 
 
 

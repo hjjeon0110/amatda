@@ -66,6 +66,13 @@ public interface TrainerService {
 	// 16. 보낸요청 페이징 처리를 위한 카운트(김진환)
 	int getTrainerMyPageMatchingListCount(String tno);
 	
+	// 17. 받은요청 페이징 처리를 위한 카운트 세기 메소드(김진환)
+	int checkMyReceiveListCount(String tno);
+	
+	// 18. 받은 요청 회원에 대한 리스트 확인 메소드 (김진환)
+	List<Member> myReciveList(String tno, PageInfo pi);
+
+	
 	
 	
 	// 효정 메소드 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -115,6 +122,9 @@ public interface TrainerService {
 
 	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 	void deleteMidea(String mno, String thisModiName);
+
+	
+	
 
 
 

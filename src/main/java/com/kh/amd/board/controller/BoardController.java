@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tools.ant.taskdefs.Apt.Option;
@@ -30,6 +31,7 @@ import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.service.BoardService;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.board.model.vo.PageInfo;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.common.CommonUtils;
 import com.kh.amd.common.Pagination;
 import com.kh.amd.member.model.vo.Member;
@@ -48,6 +50,9 @@ public class BoardController {
 		 @RequestMapping("selectNotice.bo")
 		 public String selectNotice(Model model,String currentPage) {
 			
+			 //조회수 카운트 
+			 //int result = bs.updateCount(bNo);
+			 
 			 int currentPageI = 1;
 	          
 	          if(currentPage != null) {
@@ -115,7 +120,8 @@ public class BoardController {
 		//공지사항&이벤트 전체 상세 페이지(SR)
 		@RequestMapping(value="selectOneNotice.bo", method=RequestMethod.GET)
 		 public String selectOneNotice(Model model, int bNo) {
-			 
+			 //조회수 카운트 
+			int result = bs.updateCount(bNo);
 			Board b = bs.selectOneNotice(bNo);
 			
 			System.out.println("디비로부터 받아온 Board" + b);
@@ -270,7 +276,11 @@ public class BoardController {
 		  
 		  //리뷰게시판 상세페이지 (SR)
 		 @RequestMapping(value="selectOneReview.bo",method=RequestMethod.GET)
+		 
 		  public ModelAndView selectOneReview(Model model,@RequestParam int bNo,HttpSession session) {
+			 //조회수 카운트 
+			 int result = bs.updateCount(bNo);
+			 
 			 Board b=bs.selectOneReview(bNo);
 			 System.out.println("b: " + b);
 			 Attachment a= bs.selectOneAttachment(bNo);
@@ -282,12 +292,58 @@ public class BoardController {
 			 mav.addObject("b",b);
 			 mav.addObject("a",a);
 			 
+			 //리뷰게시판 상세페이지 댓글 목록
+			 List<Reply> repList = bs.replyList(bNo);
+			 model.addAttribute("repList", repList);
+			 System.out.println("repList in controller : " + repList);
+			 
+			 
+			 
 			 return mav;
 			 
 			 //System.out.println("bno in controller : " + bNo);
 			 //bs.selectOneReview(bNo);
 			 
 		 }
+		 
+		 //리뷰 상세페이지 댓글입력(SR)
+		 @RequestMapping("insertReply.bo")
+		 public void insertReply(@ModelAttribute Reply reply,HttpServletRequest request,HttpServletResponse response) {
+			 String mno = request.getParameter("mno");
+			 String bno = request.getParameter("bno");
+			 String content = request.getParameter("content");
+			 
+			 int mno2 = Integer.parseInt(mno);
+			 int bno2 = Integer.parseInt(bno);
+			 
+			 Reply rep = new Reply();
+			 rep.setMno(mno2);
+			 
+			 rep.setbNo(bno2);
+			 rep.setRepContent(content);
+			 
+			 int result = bs.insertReply(rep);
+			 System.out.println("DB갔다온 mno : " + mno);
+			 System.out.println("DB갔다온 bno : " + bno);
+			 
+			 if(result > 0) {
+				 try {
+					 response.getWriter().print("success");
+				 }catch(IOException e) {
+					 e.printStackTrace();
+				 }
+				 
+			 }else {
+				 try {
+					 response.getWriter().print("fail");
+				 }catch(IOException e) {
+					 e.printStackTrace();
+				 }
+			 }
+		 }
+		 
+		 
+		
 		 
 		 //★리뷰게시판 입력(SR)
 		 /*@RequestMapping("insertReview.bo")

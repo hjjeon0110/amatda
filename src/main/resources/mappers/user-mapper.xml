@@ -153,6 +153,82 @@
 	</resultMap>
 	
 	
+	<!-- 나의 문의 내역 select (우리나) -->
+	<select id="selectMyQnaList" parameterType="_int" resultMap="boardResultSet" >
+		SELECT *
+		FROM BOARD 
+		WHERE BWRITER=#{mno2}
+		AND BTYPE=4
+		ORDER BY BWRITE_DATE
+	</select>
+	
+	<select id="selectMyQnaDetail" parameterType="_int" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE BNO=#{bno2}
+	</select>
+
+	<select id="selectQnaReply" parameterType="_int" resultMap="replyResultSet">
+		SELECT * 
+		FROM BOARD_REPLY
+		WHERE BNO=#{bno2}
+	</select>
+	
+	
+	<select id="selectMyBoardList" parameterType="_int" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE BWRITER=#{mno2}
+		AND BTYPE=5
+		AND BSTATUS='Y'
+	</select>
+  
+  <select id="selectOneReview" parameterType="_int" resultMap="boardResultSet">
+      SELECT *
+      FROM BOARD
+      WHERE  BTYPE=5
+      AND BSTATUS='Y'
+      AND BNO =#{bno2}
+   </select>
+  
+  <select id="selectOneAttachment"  parameterType="_int" resultMap="attachmentResultSet">
+		SELECT *
+		FROM ATTACHMENT
+   		WHERE BNO=#{bno2}
+	</select>
+	
+	
+	<update id="updateMyReview" parameterType="Board">
+		UPDATE BOARD
+		SET BTITLE =#{bTitle} ,
+			BCONTENT = #{bContent}
+		WHERE BNO = #{bNo}
+	</update>
+
+	<update id="updateMyReviewAttachment" parameterType="Attachment">
+		UPDATE ATTACHMENT
+		SET ORI_NAME = #{oriName}, 
+			MODI_NAME = #{modiName}, 
+			EXTENSION = #{extension}, 
+			FILE_PATH = #{filePath}, 
+			UPLOAD_DATE = SYSDATE
+		WHERE BNO = #{bno}
+	</update>
+	
+	<delete id="deleteMyReview" parameterType="_int">
+		DELETE
+		FROM BOARD
+		WHERE BNO=#{bno2}
+	</delete>
+	
+	<select id="qnaListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+  		FROM BOARD
+  		WHERE BWRITER = #{mno2}
+  		AND BTYPE=4
+	</select>
+	
+	
 	<!-- 효정 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
 	<!-- 1. 맞춤 트레이너 리스트 조회 (전효정) -->
@@ -239,87 +315,11 @@
 		SELECT * FROM SURVEY WHERE UNO = #{mno}
 	</select>
 	
-	
-	<!-- 나의 문의 내역 select (우리나) -->
-	<select id="selectMyQnaList" parameterType="_int" resultMap="boardResultSet" >
-		SELECT *
-		FROM BOARD 
-		WHERE BWRITER=#{mno2}
-		AND BTYPE=4
-		ORDER BY BWRITE_DATE
-	</select>
-	
-	<select id="selectMyQnaDetail" parameterType="_int" resultMap="boardResultSet">
-		SELECT *
-		FROM BOARD
-		WHERE BNO=#{bno2}
-	</select>
+	<!-- 14.  -->
+	<update id="updateMprocess1">
+		UPDATE M_PROCESS SET MATCHING_LEVEL = 1, MATCHING_STATUS = '진행중' WHERE UNO = #{mno} AND TNO = #{tno}
+	</update>
 
-	<select id="selectQnaReply" parameterType="_int" resultMap="replyResultSet">
-		SELECT * 
-		FROM BOARD_REPLY
-		WHERE BNO=#{bno2}
-	</select>
-	
-	
-	<select id="selectMyBoardList" parameterType="_int" resultMap="boardResultSet">
-		SELECT *
-		FROM BOARD
-		WHERE BWRITER=#{mno2}
-		AND BTYPE=5
-		AND BSTATUS='Y'
-		ORDER BY BWRITE_DATE DESC
-	</select>
-	
-	
-	<select id="selectOneReview" parameterType="_int" resultMap="boardResultSet">
-		SELECT *
-		FROM BOARD
-		WHERE  BTYPE=5
-		AND BSTATUS='Y'
-		AND BNO =#{bno2}
-		
-		
-	</select>
-	
-	
-	<select id="selectOneAttachment"  parameterType="_int" resultMap="attachmentResultSet">
-		SELECT *
-		FROM ATTACHMENT
-   		WHERE BNO=#{bno2}
-	</select>
-	
-	
-	<update id="updateMyReview" parameterType="Board">
-		UPDATE BOARD
-		SET BTITLE =#{bTitle} ,
-			BCONTENT = #{bContent}
-		WHERE BNO = #{bNo}
-		
-	</update>
-	
-	
-	<update id="updateMyReviewAttachment" parameterType="Attachment">
-		UPDATE ATTACHMENT
-		SET ORI_NAME = #{oriName}, 
-			MODI_NAME = #{modiName}, 
-			EXTENSION = #{extension}, 
-			FILE_PATH = #{filePath}, 
-			UPLOAD_DATE = SYSDATE
-		WHERE BNO = #{bno}
-			
-	</update>
-	
-	<delete id="deleteMyReview" parameterType="_int">
-		DELETE
-		FROM BOARD
-		WHERE BNO=#{bno2}
-	</delete>
-	
-	<select id="qnaListCount" parameterType="_int" resultType="_int">
-		SELECT COUNT(*)
-  		FROM BOARD
-  		WHERE BWRITER = #{mno2}
-  		AND BTYPE=4
-	</select>
+
+
 </mapper>
