@@ -152,6 +152,37 @@
 	</resultMap>
 	
 	
+	<!-- 나의 문의 내역 select (우리나) -->
+	<select id="selectMyQnaList" parameterType="_int" resultMap="boardResultSet" >
+		SELECT *
+		FROM BOARD 
+		WHERE BWRITER=#{mno2}
+		AND BTYPE=4
+		ORDER BY BWRITE_DATE
+	</select>
+	
+	<select id="selectMyQnaDetail" parameterType="_int" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE BNO=#{bno2}
+	</select>
+
+	<select id="selectQnaReply" parameterType="_int" resultMap="replyResultSet">
+		SELECT * 
+		FROM BOARD_REPLY
+		WHERE BNO=#{bno2}
+	</select>
+	
+	
+	<select id="selectMyBoardList" parameterType="_int" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE BWRITER=#{mno2}
+		AND BTYPE=5
+		AND BSTATUS='Y'
+	</select>
+	
+	
 	<!-- 효정 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
 	<!-- 1. 맞춤 트레이너 리스트 조회 (전효정) -->
@@ -238,35 +269,11 @@
 		SELECT * FROM SURVEY WHERE UNO = #{mno}
 	</select>
 	
-	
-	<!-- 나의 문의 내역 select (우리나) -->
-	<select id="selectMyQnaList" parameterType="_int" resultMap="boardResultSet" >
-		SELECT *
-		FROM BOARD 
-		WHERE BWRITER=#{mno2}
-		AND BTYPE=4
-		ORDER BY BWRITE_DATE
-	</select>
-	
-	<select id="selectMyQnaDetail" parameterType="_int" resultMap="boardResultSet">
-		SELECT *
-		FROM BOARD
-		WHERE BNO=#{bno2}
-	</select>
-
-	<select id="selectQnaReply" parameterType="_int" resultMap="replyResultSet">
-		SELECT * 
-		FROM BOARD_REPLY
-		WHERE BNO=#{bno2}
-	</select>
+	<!-- 14.  -->
+	<update id="updateMprocess1">
+		UPDATE M_PROCESS SET MATCHING_LEVEL = 1, MATCHING_STATUS = '진행중' WHERE UNO = #{mno} AND TNO = #{tno}
+	</update>
 	
 	
-	<select id="selectMyBoardList" parameterType="_int" resultMap="boardResultSet">
-		SELECT *
-		FROM BOARD
-		WHERE BWRITER=#{mno2}
-		AND BTYPE=5
-		AND BSTATUS='Y'
-	</select>
 	
 </mapper>
