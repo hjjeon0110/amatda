@@ -2,6 +2,7 @@ package com.kh.amd.member.model.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.member.model.vo.Member;
 
 public interface MemberDao {
@@ -38,10 +39,12 @@ public interface MemberDao {
 
 	int updateRandomPwd(SqlSessionTemplate sqlSession, Member m);
 
-	void insertMyImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename,
+	void updateMyImg(SqlSessionTemplate sqlSession, String mno, String filePath, String originalFilename,
 			String ext,String changeName);
 
 	int dummyImgInsert(SqlSessionTemplate sqlSession);
+
+	Attachment selectMyImg(SqlSessionTemplate sqlSession, int mno2);
 
 	
 	
