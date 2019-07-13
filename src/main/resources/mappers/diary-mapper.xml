@@ -143,18 +143,19 @@
   	</select>
   	
   	<!-- gallery list -->
-  	<select id="galleryList" resultMap="diaryResultSet">
+  	<!-- <select id="galleryList" resultMap="diaryResultSet">
   		SELECT *
 		FROM BOARD
 		WHERE BTYPE = 6
 		AND BWRITER = #{mno}
         
-  	</select>
+  	</select> -->
   	
   	<select id="selectGallery" parameterType="Attachment" resultMap="attachmentResultSet">
   		SELECT *
 		FROM ATTACHMENT
 		WHERE PNO = #{pno}
+		AND BTYPE = 6
 		ORDER BY UPLOAD_DATE DESC
   	</select>
   	

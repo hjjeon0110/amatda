@@ -239,12 +239,13 @@ public class DiaryController {
 	
 	
 	
-	@RequestMapping("deleteDiary.di")
-	public String deleteDiary() {
-		
-		return "diary/deleteDiary";
-		
-	}
+	/*
+	 * @RequestMapping("deleteDiary.di") public String deleteDiary() {
+	 * 
+	 * return "diary/deleteDiary";
+	 * 
+	 * }
+	 */
 	
 	
 	//리스트 delete
