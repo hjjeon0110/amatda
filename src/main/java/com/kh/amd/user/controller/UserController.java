@@ -1,5 +1,6 @@
 package com.kh.amd.user.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -10,17 +11,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.board.model.vo.Reply;
+import com.kh.amd.common.CommonUtils;
+import com.kh.amd.common.Pagination;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.service.MemberService;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
+import com.kh.amd.trainer.model.vo.Payment;
 import com.kh.amd.trainer.model.vo.Profile;
 import com.kh.amd.user.model.service.UserService;
 
@@ -215,14 +222,31 @@ public class UserController {
 	
 	// 마이페이지_내글관리 페이지 이동 & qna리스트 select (우리나)
 	@RequestMapping("showMyPageMyWriting.us")
-	public String showMyPageMyWritingPageView(Model model,String mno) {
+	public String showMyPageMyWritingPageView(Model model,String mno,String currentPage) {
 		System.out.println("mno넘어오니?" + mno);
-		
 		int mno2 = Integer.parseInt(mno);
 		
-		List<Board> selectMyQnaList = us.selectMyQnaList(mno2);
+	//페이징 시작
+		int currentPageI = 1;
+				
+		if(currentPage != null) {
+			currentPageI = Integer.parseInt(currentPage);
+		}
+		//목록을 조회해서 해당 리스트가 리스트가 얼마인지 확인 
+		int listCount = us.getQnaListCount(mno2);
+				
+		System.out.println("리뷰 게시물 갯수 조회: " + listCount);
+				
+		PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+
+		System.out.println("pi: " + pi);
+		
+		List<Board> selectMyQnaList = us.selectMyQnaList(mno2,pi);
 		System.out.println("db에서 가져온 List: " + selectMyQnaList);
+		
 		model.addAttribute("qnaList", selectMyQnaList);
+		model.addAttribute("pi", pi);
+		
 		return "user/2_5_myPage_myWriting";
 	}
 	
@@ -265,6 +289,120 @@ public class UserController {
 		return "user/2_7_myPage_myReviewList";
 	}
 		
+	
+	
+	//마이페이지 - Review리스트에서 상세리스트로 이동 (우리나)
+	@RequestMapping("gotoMyReviewDetail.us")
+	public String gotoMyReviewDetail(String bno,Model model) {
+		System.out.println("detail review bno: " + bno);
+		
+		 int bno2 = Integer.parseInt(bno);
+		 Board b=us.selectOneReview(bno2);
+		 System.out.println("b: " + b);
+		 
+		 
+		 if(b!=null) {
+			 model.addAttribute("b",b);
+			 Attachment a= us.selectOneAttachment(bno2);
+			 System.out.println("a: " + a);
+			 model.addAttribute("a",a);
+		 }
+		
+		return "user/2_8_myPage_selectMyDetailReview";
+	}
+	
+	
+	//마이페이지 - 리뷰 수정하기 폼으로 이동 (우리나)
+	@RequestMapping("updateMyReview.us")
+	public String updateMyReview(String bno,Model model) {
+		
+		System.out.println("update bno: " + bno);
+		
+		int bno2 = Integer.parseInt(bno);
+		
+		Board b=us.selectOneReview(bno2);
+		 System.out.println("update b: " + b);
+		 
+		 
+		 if(b!=null) {
+			 model.addAttribute("b",b);
+			 Attachment a= us.selectOneAttachment(bno2);
+			 System.out.println("update a: " + a);
+			 model.addAttribute("a",a);
+		 }
+		
+		return  "user/2_9_myPage_updateReview";
+	}
+	
+	//마이페이지 - 리뷰 수정하기  (우리나)
+	@RequestMapping("updateReview.us")
+	public String updateReview(HttpServletRequest request,String bContent, String bTitle,String bno,String mno,@RequestParam(name="modifypicture", required=false) MultipartFile modifypicture) {
+		System.out.println("update기능 bTitle: " + bTitle);
+		System.out.println("update기능 bContent: " + bContent);
+		System.out.println("update기능 bno: " + bno);
+		System.out.println("update기능 mno: " + mno);
+		
+		
+		
+		int bno2 = Integer.parseInt(bno);
+		Board b = new Board();
+		b.setbContent(bContent);
+		b.setbTitle(bTitle);
+		b.setbNo(bno2);
+		
+		int result = us.updateMyReview(b);
+		System.out.println("리뷰 글 result: " + result);
+		
+		if(result>0) {
+			
+			Attachment a = new Attachment();
+			
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String filePath = root + "\\uploadFiles";		
+			String originalFilename = modifypicture.getOriginalFilename();
+			String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
+			String changeName = CommonUtils.getRandomString();
+			try {
+				modifypicture.transferTo(new File(filePath + "\\" + changeName + ext));
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			a.setModiName(changeName);
+			a.setBno(bno2);
+			a.setFilePath(filePath);
+			a.setExtension(ext);
+			a.setOriName(modifypicture.getOriginalFilename());
+			
+			System.out.println("db가기전 작성한 a: " + a);
+			
+			int result2 = us.updateMyReviewAttachment(a);
+			
+			if(result2>0) {
+				System.out.println("리뷰사진 업데이트 성공");
+			}else {
+				System.out.println("리뷰사진 업데이트 실패");
+			}
+		}
+		
+		return "redirect:gotoMyReviewDetail.us?bno="+bno;
+	}
+	
+	
+	
+	@RequestMapping("deleteMyReview.us")
+	public String deleteMyReview(String bno,String mno) {
+		
+		int bno2 = Integer.parseInt(bno);
+		
+		int result = us.deleteMyReview(bno2);
+		System.out.println("삭제 result: " + result);
+		
+		return "redirect:gotoMyReviewList.us?mno=" + mno;
+	}
 	
 	// 매칭 프로세스 페이지 이동 (전효정)
 	@RequestMapping("goMatchingProcess.us")
@@ -348,9 +486,8 @@ public class UserController {
 	
 	
 	
-	//(김진환이 조금이라도 들어간 메소드)------------------------------------------------------------------------------------//
 	
-	// 마이페이지_개인정보관리 페이지 이동 (전효정, 김진환)
+	// 마이페이지_개인정보관리 페이지 이동 (우리나)
 	@RequestMapping("showMyPagePrivacy.us")
 	public String showMyPagePrivacyPageView(String mno,Model model) {
 		

@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
@@ -14,17 +15,29 @@ import com.kh.amd.trainer.model.vo.Profile;
 
 public interface UserDao {
 	
-	
+
 	// 나의 문의 내역 select (우리나)
-	List<Board> selectMyQnaList(SqlSessionTemplate sqlSession, int mno2);
+	List<Board> selectMyQnaList(SqlSessionTemplate sqlSession, int mno2, PageInfo pi);
 	
 	// 내글관리(QnaDetail) select (우리나)
 	Board selectMyQnaDetail(SqlSessionTemplate sqlSession, int bno2);
 	
 	// 내글관리(QnaReply) select (우리나)
 	Reply selectQnaReply(SqlSessionTemplate sqlSession, int bno2);
-
+  
 	List<Board> selectMyBoardList(SqlSessionTemplate sqlSession, int mno2);
+
+	Board selectOneReview(SqlSessionTemplate sqlSession, int bno2);
+
+	Attachment selectOneAttachment(SqlSessionTemplate sqlSession, int bno2);
+
+	int updateMyReview(SqlSessionTemplate sqlSession, Board b);
+
+	int updateMyReviewAttachment(SqlSessionTemplate sqlSession, Attachment a);
+
+	int deleteMyReview(SqlSessionTemplate sqlSession, int bno2);
+
+	int qnaListCount(SqlSessionTemplate sqlSession, int mno2);
 	
 	
 	// 효정 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -68,8 +81,8 @@ public interface UserDao {
 	
 	// 13. 다이어트 정보 보내기 - 회원 설문조사 selectOne (전효정)
 	Survey selectOneSurvey(SqlSessionTemplate sqlSession, String mno);
-
-	// 14. 내 정보 보낸 후 mprocess update (전효정)
+  
+  // 14. 내 정보 보낸 후 mprocess update (전효정)
 	void updateMprocess1(SqlSessionTemplate sqlSession, String mno, String tno);
 	
 

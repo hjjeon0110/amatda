@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
@@ -140,8 +141,8 @@ public class UserServiceImpl implements UserService {
 	public Survey selectOneSurvey(String mno) {
 		return ud.selectOneSurvey(sqlSession, mno);
 	}
-
 	
+  
 	// 14. 내 정보 보낸 후 mprocess update (전효정)
 	@Override
 	public void updateMprocess1(String mno, String tno) {
@@ -151,6 +152,41 @@ public class UserServiceImpl implements UserService {
 	
 	
 
+
+	@Override
+	public Board selectOneReview(int bno2) {
+		return ud.selectOneReview(sqlSession,bno2);
+	}
+
+
+	@Override
+	public Attachment selectOneAttachment(int bno2) {
+		return ud.selectOneAttachment(sqlSession, bno2);
+	}
+
+
+	@Override
+	public int updateMyReview(Board b) {
+		return ud.updateMyReview(sqlSession, b);
+	}
+
+
+	@Override
+	public int updateMyReviewAttachment(Attachment a) {
+		return ud.updateMyReviewAttachment(sqlSession, a);
+	}
+
+
+	@Override
+	public int deleteMyReview(int bno2) {
+		return ud.deleteMyReview(sqlSession,bno2);
+	}
+
+
+	@Override
+	public int getQnaListCount(int mno2) {
+		return ud.qnaListCount(sqlSession,mno2);
+	}
 	
 
 

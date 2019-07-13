@@ -104,6 +104,8 @@
 			</c:forEach>
 				
 		</table>
+		
+		
 	</div>
 	
 	
@@ -118,7 +120,7 @@
 		$(".reviewTable td").click(function(){
 			var bno =$(this).parent().eq(0).children().children().val();
 			alert(bno);
-			//location.href="gotoMyQnaDetailForm.us?bno="+bno;
+			location.href="gotoMyReviewDetail.us?bno="+bno;
 			
 		})
 	})

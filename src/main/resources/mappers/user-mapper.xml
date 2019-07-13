@@ -133,6 +133,7 @@
 		<result property="bLike" column="BLIKE" />
 		<result property="bStatus" column="BSTATUS" />
 		<result property="bWriter" column="BWRITER" />
+		
 	</resultMap>
 	
 	
@@ -180,6 +181,51 @@
 		WHERE BWRITER=#{mno2}
 		AND BTYPE=5
 		AND BSTATUS='Y'
+	</select>
+  
+  <select id="selectOneReview" parameterType="_int" resultMap="boardResultSet">
+      SELECT *
+      FROM BOARD
+      WHERE  BTYPE=5
+      AND BSTATUS='Y'
+      AND BNO =#{bno2}
+   </select>
+  
+  <select id="selectOneAttachment"  parameterType="_int" resultMap="attachmentResultSet">
+		SELECT *
+		FROM ATTACHMENT
+   		WHERE BNO=#{bno2}
+	</select>
+	
+	
+	<update id="updateMyReview" parameterType="Board">
+		UPDATE BOARD
+		SET BTITLE =#{bTitle} ,
+			BCONTENT = #{bContent}
+		WHERE BNO = #{bNo}
+	</update>
+
+	<update id="updateMyReviewAttachment" parameterType="Attachment">
+		UPDATE ATTACHMENT
+		SET ORI_NAME = #{oriName}, 
+			MODI_NAME = #{modiName}, 
+			EXTENSION = #{extension}, 
+			FILE_PATH = #{filePath}, 
+			UPLOAD_DATE = SYSDATE
+		WHERE BNO = #{bno}
+	</update>
+	
+	<delete id="deleteMyReview" parameterType="_int">
+		DELETE
+		FROM BOARD
+		WHERE BNO=#{bno2}
+	</delete>
+	
+	<select id="qnaListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+  		FROM BOARD
+  		WHERE BWRITER = #{mno2}
+  		AND BTYPE=4
 	</select>
 	
 	
@@ -273,7 +319,7 @@
 	<update id="updateMprocess1">
 		UPDATE M_PROCESS SET MATCHING_LEVEL = 1, MATCHING_STATUS = '진행중' WHERE UNO = #{mno} AND TNO = #{tno}
 	</update>
-	
-	
-	
+
+
+
 </mapper>

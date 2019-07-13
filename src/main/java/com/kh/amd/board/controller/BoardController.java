@@ -419,12 +419,12 @@ public class BoardController {
 		            try {
 		               reviewImgFile.transferTo(new File(filePath + "\\" + changeName + ext));
 		               bs.insertReviewImg(mno, filePath, originalFilename, ext, changeName,bno);
-		               return "board/selectReview";
+		               return "redirect:selectReview.bo";
 		            }catch(IllegalStateException | IOException e){
 		               e.printStackTrace();
 		               System.out.println("에러발생");
 		            }
-		            return "board/selectReview";
+		            return "redirect:selectReview.bo";
 		            
 	            // 후기 이미지 insert
 	            //bs.insertReviewImg(mno, filePath, originalFilename, ext, changeName,bno);  //3. 조회해온 bno를 담아서 attachment에 insert
