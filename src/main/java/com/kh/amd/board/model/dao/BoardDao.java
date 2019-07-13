@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.board.model.vo.PageInfo;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.member.model.vo.Member;
 
 
@@ -139,6 +140,15 @@ public interface BoardDao {
 	Attachment selectOneAttachment(SqlSessionTemplate sqlSession, int bNo);
 
 	List<Board> selectReview2(SqlSessionTemplate sqlSession, Attachment a);
+
+	 //리뷰 상세페이지 댓글입력(SR)
+	int insertReply(SqlSessionTemplate sqlSession, Reply rep);
+
+	//리뷰게시판 상세페이지 댓글 목록 SELECT(SR)
+	List<Reply> replyList(SqlSessionTemplate sqlSession, int bNo);
+
+	 //조회수 카운트 (SR)
+	int updateCount(SqlSessionTemplate sqlSession, int bNo);
 
 	//int insertQna(SqlSessionTemplate sqlSession, Board b, String mno);
 

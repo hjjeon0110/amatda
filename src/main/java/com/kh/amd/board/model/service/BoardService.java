@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.board.model.vo.PageInfo;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.member.model.vo.Member;
 
 public interface BoardService {
@@ -138,6 +139,15 @@ public interface BoardService {
 	Attachment selectOneAttachment(int bNo);
 
 	List<Board> selectReview2(Attachment a);
+	
+	//리뷰 상세페이지 댓글입력(SR)
+	int insertReply(Reply rep);
+	
+	//리뷰게시판 상세페이지 댓글 목록 SELECT(SR)
+	List<Reply> replyList(int bNo);
+
+	 //조회수 카운트 (SR)
+	int updateCount(int bNo);
 
 	//void insertReviewImg(String mno, Board b, String filePath, String originalFilename, String ext, String changeName);
 

@@ -14,6 +14,7 @@ import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.dao.BoardDao;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.board.model.vo.PageInfo;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.member.model.vo.Member;
 
 
@@ -294,6 +295,25 @@ public class BoardServiceImpl implements BoardService{
 	public List<Board> selectReview2(Attachment a) {
 	
 		return bd.selectReview2(sqlSession,a);
+	}
+
+	 //리뷰 상세페이지 댓글입력(SR)
+	@Override
+	public int insertReply(Reply rep) {
+		return bd.insertReply(sqlSession,rep);
+	
+	}
+
+	//리뷰게시판 상세페이지 댓글 목록 SELECT(SR)
+	@Override
+	public List<Reply> replyList(int bNo) {
+		return bd.replyList(sqlSession,bNo);
+	}
+
+	 //조회수 카운트 (SR)
+	@Override
+	public int updateCount(int bNo) {
+		return bd.updateCount(sqlSession,bNo);
 	}
 
 

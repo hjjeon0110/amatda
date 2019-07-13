@@ -114,7 +114,51 @@
 	height:100px;
 	}
 	
+	/* -----(리뷰상세페이지 댓글 시작)------ */
+	
+/* 	#conmmentForm{
+	align:center;
+	} */
+	
+	table #rContent {
+	width: 510px;
+	height: 100px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: solid 2px yellowgreen;
+	border-radius: 5px;
+	resize: both;
+}
+
+tr {
+	height: 25px;
+}
+
+#commentList{
+	background-color:#fff;
+	width:500px;
+	margin-top:50px;
+	
+	
+}
+
+#repContent{
+	width:450px;
+
+}
+
+.area{
+	width:500px;
+	height:65px;
+}
+	
+	
+	
+	/* -----(리뷰상세페이지 댓글 끝)------ */
+	
 </style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/> 
@@ -131,7 +175,7 @@
 		
 		<input type="hidden" id="bNo" value="${b.bNo }">
 		<input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.userId }" >
-		<p>${b.bTitle }</p>
+		<b>${b.bTitle }</b>
 		<p></p>
 		<p></p>
 		
@@ -146,6 +190,8 @@
 			
 			<div class="reviewPic">
 		<p>${b.bContent }</p>
+		<p>${b.bCount}</p>
+		<br><br>
 			
 		 <button type="button" class="btn btn-primary" data-toggle="modal" 
 		        data-target="#my80sizeCenterModal">수정</button>
@@ -153,28 +199,37 @@
 		        data-target="#my80sizeCenterModal">삭제</button>
 		 <button type="button" class="btn btn-primary" data-toggle="modal" 
 		        data-target="#my80sizeCenterModal" onclick="location.href='selectReview.bo'"> 목록</button>
-		<br><br><br><br>
+		<br><br>
 		
 		
+		<!-- 댓글 INSERT ----------->
 		
-		<%-- <form id="conmmentForm" name="commentForm" method="post">
+		<div class="secondTableLine"></div>
+		
+		<h5>REPLY</h5>
+		<br>
+		 <form id="conmmentForm" name="commentForm" method="post">
 			<input type="hidden" id="bno" name="bno" value="${b.bNo }">
-			<input type="hidden" name="mNo" value="${sessionScope.loginUser.mNo }">
+			<%-- <input type="hidden" name="mNo" value="${sessionScope.loginUser.mType }"> --%>
 			
 			<div class="area">
-				<textarea id="repContent" name="repContent" cols="60" rows="2" placeholder="댓글을 입력하세요 " style="float:left"></textarea>
-			<input type="button" id="replyInsert" value="등록" style="float:right">
+				<textarea id="repContent" name="repContent" cols="90" rows="3" placeholder="댓글을 입력하세요 " style="align:center"></textarea>
+			<input type="button" id="replyInsert" value="등록" class="btn btn-primary" "align:center">
 			</div>
 		
 			<div id="commentList">
 				<c:forEach items="${repList }" var="repList">
 					<c:if test="${!empty repList.repContent }">
-						${repList.member.name } 트레이너(<fmt:formatDate value="${repList.repDate }" pattern="yyyy-MM-dd hh:mm"/>):
-						${repList.repContent} 
+						●&nbsp;${repList.member.userId } &nbsp; &nbsp;<fmt:formatDate value="${repList.repDate }" pattern="yyyy-MM-dd HH:mm:ss"/> 
+						&nbsp; &nbsp;${repList.repContent} <br>
 					</c:if>
+					
+		<!-- 댓글 SELECT --------->
+		
+		
 				</c:forEach>
 			</div>
-		</form> --%>
+		</form> 
 		
 		<!-- <input type="text" id="replybox" placeholder="내용을 입력하세요.">
 		<button type="button" class="btn btn-primary" data-toggle="modal" 
@@ -199,12 +254,28 @@
 		}
 	}
 
-	/* $("#replyInsert").click(function(){
+	 $("#replyInsert").click(function(){
 		var content=$("#repContent").val();
 		var bno="${b.bNo}";
+		var mno=${sessionScope.loginUser.mno};
 		
+		console.log("content: " + content);
+		console.log("bno : " + bno);
+		console.log("mno : " + mno);
 		
-	}) */
+		$.ajax({
+			type:"get",
+			url:"insertReply.bo",
+			data:{content:content,bno:bno,mno:mno},
+			success:function(data){
+				if(data=="success"){
+					alert("댓글 등록");
+				}else{
+					alert("실패");
+				}
+			}
+		})
+	}) 
 
 
 

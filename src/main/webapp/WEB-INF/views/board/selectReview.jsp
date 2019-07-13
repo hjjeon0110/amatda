@@ -61,6 +61,7 @@ a:active {text-decoration: none; color: #333333;}
  width: 60%;
  margin-right:10%;
  text-align: center;
+
 /*  background:skyblue; */	
  }
  
@@ -222,6 +223,12 @@ a:active {text-decoration: none; color: #333333;}
 	font-weight: bold;
 	}
 	
+	.3reviewTable{
+	board:1;
+	align:center;
+	
+	}
+	
 </style>
 
 </head>
@@ -370,7 +377,7 @@ a:active {text-decoration: none; color: #333333;}
 			
 			//만약 td에 여러 자식들이 있다면 eq(i)를 써줘야한다.
 			//var no = $(this).parent().eq(0).children().children().eq(0).val();  //parent를 하면 tr  -> eq(0)을 하면 tr의 가장 첫번째꺼 -> tr의 children을 하면 td  -> td의 children eq(0)을하면 input 
-			alert(no);
+			//alert(no);
 			location.href="selectOneReview.bo?bNo=" + no;
 		})
 		
