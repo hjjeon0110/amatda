@@ -48,6 +48,7 @@
 		
 <%-- <input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" /> --%>
 		<div class="listArea">
+		<form action="deleteDiary.di" method="post"> 
 			<table class="table table-hover" id="listTable">
 			<%-- <input type="hidden" name="bno"	value="${ requestScope.list.bNo }" /> --%>
 				<thead>
@@ -65,8 +66,8 @@
 				
 				<c:forEach var="i" begin="0" end="${fn:length(diaryList)-1}" varStatus="st">
 					<tr>
-						<td><input type="hidden" value="${ diaryList[i].bNo }" id="dListBno"/></td>
-						<!-- <td><input type="checkbox" name="checkList" value="" /></td> -->
+						<%-- <td><input type="hidden" value="${ diaryList[i].bNo }" id="dListBno"/></td> --%>
+						<td><input type="checkbox" name="checkDelete" value="${ diaryList[i].bNo }" /></td>
 						<td scope="row"><b>${st.count }</b></td>						
 						<td>${ diaryList[i].bTitle }</td>											
 						<td><fmt:formatDate value="${ diaryList[i].bWriteDate }" pattern="yyyy-MM-dd"/></td>
@@ -77,6 +78,10 @@
 				
 				</tbody>
 			</table>
+			<br />
+			<input type="submit" value="delete" />
+			
+			</form>
 		
 		<!-- 페이징 처리를 위한 코드, div지정후 페이징 처리 ----------------------------------->
       <div id="pagingArea" align="center">

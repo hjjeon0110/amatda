@@ -296,14 +296,15 @@ a:active {text-decoration: none; color: #333333;}
 		<c:if test="${i%j == 0 }">
 		
 		<tr>
-			</c:if>
-				<td width="1000px;" align="center"><p>${status.count }</p> <input type="hidden" id="bNo" value="${selectReview.bNo }">
-				<a id="tableTitle" href="selectOneReview.bo"><p>${selectReview.bTitle }</p></a>
-				<%-- <a href="${selectOneReview.bo}"><p>${selectReview.bTitle }</p></a> --%>
-				<p><fmt:formatDate pattern="MM월 dd일" value="${selectReview.bWriteDate }"/></p></td>
-			<c:if test="${i%j==j-1 }">
-				</tr>
-			</c:if>
+         </c:if>
+            <td width="1000px;" align="center" class="tableTd"><img src="#"><br><br>글번호 : ${status.count }
+               <input type="hidden" id="bNo" value="${selectReview.bNo }"><br>작성자 : ${loginUser.userId }
+               <a id="tableTitle" href="selectOneReview.bo"><br>글제목 : ${selectReview.bTitle }</a>
+               <br>작성일 : <fmt:formatDate pattern="MM월 dd일" value="${selectReview.bWriteDate }"/>
+            </td>
+         <c:if test="${i%j==j-1 }">
+            </tr>
+         </c:if>
 		
 			<c:set var = "i" value="${i+1 }"/>
 		
@@ -368,7 +369,8 @@ a:active {text-decoration: none; color: #333333;}
 			$(this).parents("tr").css({"background":"white","cursor":"pointer"});		
 		}).click(function(){
 
-			var no = $(this).parents("tr").children("td").children().eq(1).val();
+			/* var no = $(this).parents("tr").children("td").children().eq(1).val(); */
+			var no = $(this).children().eq(1).val();
 			
 			location.href="selectOneReview.bo?bNo=" + no;
 		})

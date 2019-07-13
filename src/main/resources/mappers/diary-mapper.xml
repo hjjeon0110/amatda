@@ -180,6 +180,13 @@
 		WHERE BWRITER = #{mno}
 	</select>
 	
+	<!-- 다이어리 delete -->	
+	<delete id="deleteDiary">
+      DELETE 
+      FROM BOARD 
+      WHERE BNO = #{bNo}
+   </delete>
+	
 </mapper>
 
 

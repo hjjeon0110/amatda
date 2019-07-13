@@ -57,6 +57,12 @@ public interface DiaryService {
 
 	//페이징처리
 	int diaryListCount(int mno);
+
+
+	int deleteDiary(String bNo);
+
+
+	
 	
 
 	//gallery

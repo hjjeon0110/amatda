@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -244,6 +245,22 @@ public class DiaryController {
 		return "diary/deleteDiary";
 		
 	}
+	
+	
+	//리스트 delete
+	@RequestMapping(value="deleteDiary.di", method = RequestMethod.POST)
+	public String deleteDiary(@RequestParam("checkDelete") String[] checkDelete, ModelMap modelMap, int mno) throws Exception {
+	    // 삭제할 사용자 ID마다 반복해서 사용자 삭제
+	    for (String bNo : checkDelete) {
+	        System.out.println("사용자 삭제 = " + bNo);
+	        int delete_count = ds.deleteDiary(bNo);
+	    }
+	    // 목록 페이지로 이동
+	    return "redirect:list.di?mno=" + mno;
+	}
+
+
+	
 	
 	
 	//갤러리 테스트

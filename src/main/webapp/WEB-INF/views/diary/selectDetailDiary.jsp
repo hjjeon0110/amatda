@@ -118,83 +118,29 @@ tr {
 				</table>
 			</form>
 			<br />
-			
-			
-			<%-- <form id="commentForm" name="commentForm" method="post">
-	
-						<input type="hidden" id="bno" name="bno" value="${d.bNo }">
-						<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" />
-						
-						
-								<textarea class="form-control"  id="repContent1" name="repContent" cols="4" rows="5" placeholder="댓글을 입력하세요"></textarea>
-						
-						
-						
-						<!-- <a href='#' class="button" id="replyInsert">등록</a> --><input type="button" id="replyInsert" value="등록"/>
-						
-					</form>
-					
-					<!-- 댓글 -->
-			<div id="reply">
-			<c:forEach items="${repList}" var="repList">
-							<c:if test="${!empty repList.repContent}">
-								<textarea class="form-control" id="repContent2" name="repContent">${repList.repContent}</textarea>
-							</c:if>
-						</c:forEach>
-						
-						
-				<ol class="replyList">
-					<c:forEach items="${repList}" var="repList">
-					 		<p><b>
-						   
-						  (<fmt:formatDate value="${repList.repDate}" pattern="yyyy-MM-dd" />)
-						    </b></p>
-						  
-						  	<p>${repList.repContent}</p>
-					
-					 </c:forEach>   
-				</ol>
-			</div> --%>
-			
-			
-			
-			<!-- <div id="reply">
-				<div class="replyList">
-					<table>
-						<tr>
-							<td>
-							<textarea name="repContent" id="repContent" cols="60" rows="3" placeholder="트레이너만 입력하세요"></textarea>
-							</td>
-						</tr>
-						<tr>
-							<td align="center"><button id="replyInsert">등록</button></td>
-						</tr>
-					</table>
-				</div>
-			</div> -->
 				
 			
+				
 			
+			<!-- 댓글 insert -->
 			<form id="commentForm" name="commentForm" method="post">
 	
 						<input type="hidden" id="bno" name="bno" value="${d.bNo }">
 						<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mtype }" />
 						<c:if test="${ sessionScope.loginUser.mtype == 'T'}">
 						
-						<%-- <c:forEach items="${repList}" var="repList">textarea.form-control
-							<c:if test="${repList.repContent}"> --%>
+						
 							
 						<div class="area">
 								<textarea id="repContent" name="repContent" cols="60" rows="2" placeholder="댓글을 입력하세요" style="float:left"></textarea>
 								<input type="button" id="replyInsert" value="등록" style="float:right">
-							<%-- </c:if>
-						</c:forEach> --%>
+							
 						
 				
 						</div>
 						</c:if>
 						
-			
+			<!-- 댓글 select -->
 										<div id="commentList">
 						<c:forEach items="${repList}" var="repList">
 							<c:if test="${!empty repList.repContent}">
@@ -205,7 +151,7 @@ tr {
 							</c:if>
 						</c:forEach>
 					
-						<!-- <input type="button" id="replyInsert" value="등록"/> -->
+						
 							
 						</div>
 							
@@ -215,20 +161,7 @@ tr {
 						
 					</form>
 					
-					<!-- 댓글 -->
-			<%-- <div id="reply">
-				<ol class="replyList">
-					<c:forEach items="${repList}" var="repList">
-					 		<p><b>
-						   
-						  (<fmt:formatDate value="${repList.repDate}" pattern="yyyy-MM-dd" />)
-						    </b></p>
-						  
-						  	<p>${repList.repContent}</p>
-					
-					 </c:forEach>   
-				</ol>
-			</div> --%>
+			
 			
 			
 		</div>

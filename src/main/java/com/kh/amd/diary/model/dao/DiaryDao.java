@@ -67,6 +67,10 @@ public interface DiaryDao {
 	int diaryListCount(SqlSessionTemplate sqlSession, int mno);
 
 
+	//다이어리 delete
+	int deleteDiary(SqlSessionTemplate sqlSession, String bNo);
+
+
 
 	
 
