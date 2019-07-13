@@ -109,6 +109,11 @@
       <result property="matchingAccept" column="MATCHING_ACCEPT"/>
       <result property="matchingStatus" column="MATCHING_STATUS"/>
       <result property="processDate" column="PROCESS_DATE"/>
+      <result property="matchEstName" column="MATCH_EST_NAME"/>
+      <result property="matchEstDay" column="MATCH_EST_DAY"/>
+      <result property="matchEstContents" column="MATCH_EST_CONTENTS"/>
+      <result property="matchEstPrice" column="MATCH_EST_PRICE"/>
+      
       <collection property="matchEstimate" column="estimateResultSet" resultMap="estimateResultSet" javaType="Estimate"/>
    </resultMap>
 	
@@ -280,9 +285,11 @@
         JOIN SURVEY S ON (MP.UNO = S.UNO)
 		WHERE MP.TNO = #{tno}
 		AND MP.TRANSFER_STATUS = 'SEND'
+		ORDER BY MP.PROCESS_DATE DESC
 	
 	</select>
 	
+	<!-- 17. 견적서를 이미 보낸 회원인지 찾는 쿼리 -->
 	<select id="checkMprocess" resultType="_int">
 		SELECT COUNT(*)
 		FROM M_PROCESS
@@ -290,6 +297,7 @@
 		AND TNO = #{tno}	
 	
 	</select>
+	<!-- 트레이너 매칭 (보낸요청서)의 리스트 카운트 쿼리 -->
 	<select id="getTrainerMyPageMatchingListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM MEMBER M
@@ -298,7 +306,9 @@
         JOIN SURVEY S ON (MP.UNO = S.UNO)
 		WHERE MP.TNO = #{tno}
 		AND MP.TRANSFER_STATUS = 'SEND'
+		ORDER BY MP.PROCESS_DATE DESC
 	</select>
+	<!-- 트레이너 매칭 (보낸요청서)의 리스트 페이징된 상태로 반환하는 쿼리 -->
 	<select id="sendEstListPaging" resultMap="memberResultSet">
 		SELECT * 
 		FROM MEMBER M
@@ -307,7 +317,33 @@
         JOIN SURVEY S ON (MP.UNO = S.UNO)
 		WHERE MP.TNO = #{tno}
 		AND MP.TRANSFER_STATUS = 'SEND'	
+		ORDER BY MP.PROCESS_DATE DESC
 	</select>
+	
+	<!-- 트레이너가 요청서를 받은 내역에 대한 리스트 갯수 리턴 쿼리 -->
+	<select id="checkMyReceiveListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER M
+		JOIN M_PROCESS MP ON (MP.UNO = M.MNO)
+		JOIN ATTACHMENT A ON (A.PNO = MP.UNO)
+        JOIN SURVEY S ON (MP.UNO = S.UNO)
+		WHERE MP.TNO = #{tno}
+		AND MP.TRANSFER_STATUS = 'RECEIVE'
+		ORDER BY MP.PROCESS_DATE DESC
+	
+	</select>
+	<select id="myReciveList" resultMap="memberResultSet">
+		SELECT * 
+		FROM MEMBER M
+		JOIN M_PROCESS MP ON (MP.UNO = M.MNO)
+		JOIN ATTACHMENT A ON (A.PNO = MP.UNO)
+        JOIN SURVEY S ON (MP.UNO = S.UNO)
+		WHERE MP.TNO = #{tno}
+		AND MP.TRANSFER_STATUS = 'RECEIVE'	
+		ORDER BY MP.PROCESS_DATE DESC
+	
+	</select>
+	
 
 
 
