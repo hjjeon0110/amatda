@@ -139,9 +139,25 @@ public class UserDaoImpl implements UserDao {
 		sqlSession.delete("User.deleteMyTrainer", map);
 		
 	}
+	
+	
+	// 12. 매칭 시작 트레이너 조회 (전효정)
+	@Override
+	public Member selectOneMatchingTrainer(SqlSessionTemplate sqlSession, String tno) {
+		return sqlSession.selectOne("User.selectOneMatchingTrainer", tno);
+	}
+	
+	
+	// 13. 다이어트 정보 보내기 - 회원 설문조사 selectOne (전효정)
+	@Override
+	public Survey selectOneSurvey(SqlSessionTemplate sqlSession, String mno) {
+		return sqlSession.selectOne("User.selectOneSurvey", mno);
+	}
 
 	
-	//12. 나의 문의 내역 select (우리나)
+	
+	
+	// 나의 문의 내역 select (우리나)
 	@Override
 	public List<Board> selectMyQnaList(SqlSessionTemplate sqlSession, int mno2) {
 		System.out.println("dao에서 mno2: " + mno2);
@@ -153,6 +169,7 @@ public class UserDaoImpl implements UserDao {
 	public Board selectMyQnaDetail(SqlSessionTemplate sqlSession, int bno2) {
 		return sqlSession.selectOne("User.selectMyQnaDetail", bno2);
 	}
+
 
 
 

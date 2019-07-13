@@ -43,10 +43,23 @@ public interface UserService {
 	
 	// 11. 마이트레이너 delete (전효정)
 	void deleteMyTrainer(String uno, String tno);
-
+	
+	// 12. 매칭 시작 트레이너 조회 (전효정)
+	Member selectOneMatchingTrainer(String tno);
+	
+	// 13. 다이어트 정보 보내기 - 회원 설문조사 selectOne (전효정)
+	Survey selectOneSurvey(String mno);
+	
+	
+	
+	// Q&A LIST 조회 (우리나)
 	List<Board> selectMyQnaList(int mno2);
 
+	// Q&A 상세내용 조회 (우리나)
 	Board selectMyQnaDetail(int bno2);
+
+	
+
 	
 
 
