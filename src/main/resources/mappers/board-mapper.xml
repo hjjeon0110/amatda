@@ -4,6 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Board">
+<resultMap type="Attachment" id="attachmentResultSet">
+	<id property="fileNo" column="FILE_NO"/>
+	<result property="bno" column="BNO"/>
+	<result property="pno" column="PNO"/>
+	<result property="link" column="LINK"/>
+	<result property="oriName" column="ORI_NAME"/>
+	<result property="modiName" column="MODI_NAME"/>
+	<result property="extension" column="EXTENSION"/>
+	<result property="fileLevel" column="FILE_LEVEL"/>
+	<result property="uploadDate" column="UPLOAD_DATE"/>
+	<result property="aType" column="ATYPE"/>
+	<result property="aStatus" column="A_STATUS"/>
+	<result property="filePath" column="FILE_PATH"/>
+</resultMap>
+
+
 	<!-- 작성자 아이디 가지고 오기 위함 -->
 	<resultMap id="member" type="com.kh.amd.member.model.vo.Member">
 		<id column="MNO" property="mno" /> <!-- DB 기본키 -->
@@ -36,23 +52,13 @@
 		<result property="bLike" column="BLIKE" />
 		<result property="bStatus" column="BSTATUS" />
 		<result property="bWriter" column="BWRITER" />
-		<collection property="member" resultMap="member"/>		
+		<collection property="member" resultMap="member"/>
+		<collection property="attachment" resultMap="attachmentResultSet"/>		
+		
+		
 	</resultMap>
 	
-	<resultMap type="Attachment" id="attachmentResultSet">
-	<id property="fileNo" column="FILE_NO"/>
-	<result property="bno" column="BNO"/>
-	<result property="pno" column="PNO"/>
-	<result property="link" column="LINK"/>
-	<result property="oriName" column="ORI_NAME"/>
-	<result property="modiName" column="MODI_NAME"/>
-	<result property="extension" column="EXTENSION"/>
-	<result property="fileLevel" column="FILE_LEVEL"/>
-	<result property="uploadDate" column="UPLOAD_DATE"/>
-	<result property="aType" column="ATYPE"/>
-	<result property="aStatus" column="A_STATUS"/>
-	<result property="filePath" column="FILE_PATH"/>
-</resultMap>
+	
 
 
 	<!-- Q&A 입력용(sr) -->
@@ -75,7 +81,7 @@
 	</insert>
 	
 	<!-- (review) attachment에 bno를 넣기위한 커발  -->
-	<select id="selectDeclBno" resultType="_int">
+	<select id="selectReviewBno" parameterType="_int" resultType="int">
 		SELECT BNO_SEQ.CURRVAL FROM DUAL 
 	</select>
 	
@@ -301,20 +307,39 @@
   </select>	
   
   <!-- 사용자 후기리뷰 게시판 리뷰 출력(SR) -->
-  <select id="selectReview" resultMap="boardResultSet">
-  	SELECT * 
-  	FROM BOARD
-  	WHERE BTYPE=5 
-  	AND BSTATUS = 'Y'
+  <select id="selectReview2" resultMap="boardResultSet">
+     <!-- SELECT *
+    FROM BOARD B,ATTACHMENT A
+    WHERE B.BWRITER = A.PNO
+    AND BTYPE=5
+    AND BSTATUS='Y'
+    AND A.PNO=#{Attachment.pNo}
+    ORDER BY BWRITE_DATE DESC  -->
+    
+     SELECT *
+    FROM BOARD B
+    JOIN ATTACHMENT A ON(B.BNO = A.BNO)
+    WHERE BTYPE=5
+    AND BSTATUS='Y'
+    ORDER BY BWRITE_DATE DESC 
   </select>
+ 
   
-  <!-- 사용자 후기리뷰 상세 게시물 출력(SR) -->
+  <!-- 사용자 후기리뷰 상세 게시물 출력 1(SR) -->
   <select id="selectOneReview" resultMap="boardResultSet">
-  SELECT *
-  FROM (SELECT * FROM BOARD WHERE BTYPE = 5)
-  WHERE BNO=#{bNo}
+	SELECT *
+    FROM  BOARD
+    WHERE BTYPE=5
+    AND BNO=#{bNo}
   </select>
   
+  <!-- 사용자 후기리뷰 상세 게시물 출력 Attachment 2 (SR) -->
+ <select id="selectOneAttachment" resultMap="attachmentResultSet">
+	  SELECT *
+	  FROM ATTACHMENT
+	  WHERE ATYPE=5
+	  AND BNO=#{bNo}
+  </select>
   
   <!-- 공지사항 카테고리 게시물 상세조회(SR) -->
   	<select id="selectOneNoticeCate" resultMap="boardResultSet" parameterType="_int">
