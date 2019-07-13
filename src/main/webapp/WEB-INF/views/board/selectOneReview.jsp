@@ -157,7 +157,7 @@
 		
 		
 		
-		<form id="conmmentForm" name="commentForm" method="post">
+		<%-- <form id="conmmentForm" name="commentForm" method="post">
 			<input type="hidden" id="bno" name="bno" value="${b.bNo }">
 			<input type="hidden" name="mNo" value="${sessionScope.loginUser.mNo }">
 			
@@ -174,7 +174,7 @@
 					</c:if>
 				</c:forEach>
 			</div>
-		</form>
+		</form> --%>
 		
 		<!-- <input type="text" id="replybox" placeholder="내용을 입력하세요.">
 		<button type="button" class="btn btn-primary" data-toggle="modal" 
@@ -199,12 +199,12 @@
 		}
 	}
 
-	$("#replyInsert").click(function(){
+	/* $("#replyInsert").click(function(){
 		var content=$("#repContent").val();
 		var bno="${b.bNo}";
 		
 		
-	})
+	}) */
 
 
 

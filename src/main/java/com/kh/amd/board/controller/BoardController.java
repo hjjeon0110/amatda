@@ -272,9 +272,11 @@ public class BoardController {
 		 @RequestMapping(value="selectOneReview.bo",method=RequestMethod.GET)
 		  public ModelAndView selectOneReview(Model model,@RequestParam int bNo,HttpSession session) {
 			 Board b=bs.selectOneReview(bNo);
+			 System.out.println("b: " + b);
 			 Attachment a= bs.selectOneAttachment(bNo);
-			 
+			 System.out.println("a: " + a);
 			 ModelAndView mav = new ModelAndView();
+			 System.out.println("mav: " + mav);
 			 mav.setViewName("board/selectOneReview");
 			 mav.addObject("board",bs.selectOneReview(bNo));
 			 mav.addObject("b",b);
