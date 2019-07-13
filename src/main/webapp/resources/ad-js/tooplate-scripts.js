@@ -130,7 +130,7 @@ function drawBarChart() {
   }
 }
 
-function drawPieChart() {
+function drawPieChart(data) {
   if ($("#pieChart").length) {
     var chartHeight = 300;
 
@@ -159,7 +159,7 @@ function drawPieChart() {
       data: {
         datasets: [
           {
-            data: [17, 35],
+            data: data,
             backgroundColor: ["#F7604D", "#4ED6B8"],
             label: "Storage"
           }
@@ -178,9 +178,8 @@ function drawPieChart() {
   
   if ($("#pieChart2").length) {
 	    var chartHeight = 300;
-
+	    
 	    $("#pieChartContainer").css("height", chartHeight + "px");
-
 	    ctxPie = document.getElementById("pieChart2").getContext("2d");
 
 	    optionsPie = {

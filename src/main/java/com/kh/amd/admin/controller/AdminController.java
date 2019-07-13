@@ -450,21 +450,16 @@ public class AdminController {
 
 	//통계관리 페이지
 	@RequestMapping("statistics.ad")
-	public String statistics(){
-	
-		return "admin/statistics";
-	}
-	
-	//통계
-	@RequestMapping("memberAge.ad")
-	public String memberAge(Model model){
-		
+	public String statistics(Model model){
 		List<Member> memberAge = as.memberAge();
 		model.addAttribute("list", memberAge);
 		System.out.println("통계 : " +  memberAge);
-
+		
+		
 		return "admin/statistics";
 	}
+	
+	
 	
 
 }

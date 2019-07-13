@@ -109,6 +109,8 @@
 		<div class="container">
 
 			<div class="row tm-content-row">
+			
+				<%-- <c:set target="${list }"/> --%>
 
 				<!-- <div class="row">
                 <div class="col">
@@ -117,6 +119,9 @@
             </div> -->
 
 				<!-- row -->
+				
+				
+			
 
 				<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
 					<div class="tm-bg-primary-dark tm-block tm-block-taller">
@@ -180,26 +185,42 @@
 				let ctxLine, ctxBar, ctxPie, optionsLine, optionsBar, optionsPie, configLine, configBar, configPie, lineChart;
 				barChart, pieChart;
 				// DOM is ready
+				
+			/* 	console.log("<c:out value='${memberAge}'/>");
+				
+				var list = [];		
+				<c:forEach items="${memberAge}" var="list">
+					list.push("${memberAge}");
+				</c:forEach>
+				console.log(list); */
+				
+				
+				
+					/* $.ajax({
+					
+							url:"memberAge.ad",
+				  			type:"get",
+				  			success:function(data){
+				  				console.log("접근 성공");
+				  				console.log(data);
+				  				
+				  				var no = new Array();
+							    no.push(30);
+							    no.push(100);
+							    drawPieChart(no); // Pie Chart
+				  			}
+						}) */
 			
-			/* 	$.ajax({
-					url:"memberAge.ad",
-		  			type:"get",
-		  			success:function(data){
-		  				console.log(data);
-		  			}
-				})
-				 */
+				
 				$(function() {
-					
-				/* 	var list = '<c:out value="${list}"/>';
-					console.log(list);
-					
-					
-					 */
+				
+				    
+				    
 					drawLineChart(); // Line Chart
 					drawBarChart(); // Bar Chart
-					drawPieChart(); // Pie Chart
-
+					drawPieChart(${ requestScope.list }); // Pie Chart
+					
+	  				
 					$(window).resize(function() {
 						updateLineChart();
 						updateBarChart();

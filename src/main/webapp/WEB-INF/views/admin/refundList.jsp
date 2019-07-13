@@ -275,11 +275,7 @@
          var marginTop = modalCont.outerHeight() / 2;
                   
       button.click(function() {
-            var payNo = $(this).parents("tr").children("th").children().eq(1).val();
-            var mProcess =$(this).parents("tr").children("th").children().eq(2).val();
-            var accept = $(this).parents("tr").children("td").children().eq(1).children().children().children().eq(1).val();
-              
-            /* console.log(accept); */
+            var payNo = $(this).parents("tr").children("th").children().eq(1).val();         
             console.log("요청중 버튼 클릭 : " + payNo);
             
           	var $input = $("<input type='hidden' id='num' value=" + payNo + ">")
@@ -291,7 +287,7 @@
                button.focus(); 
                            
               var payNo = $("#num").val();
-              console.log("승인" + payNo);
+              console.log("승인 : " + payNo);
               location.href="refundAgree.ad?payNo=" + payNo; 
       
             })
@@ -302,7 +298,7 @@
             button.focus();      
             
             var payNo = $("#num").val();
-            console.log("거절" + payNo);
+            console.log("거절 : " + payNo);
             location.href="refundRefuse.ad?payNo=" + payNo;
  
          });

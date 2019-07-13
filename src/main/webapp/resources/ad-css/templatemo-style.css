@@ -540,8 +540,8 @@ input[type="checkbox"]:focus {
   transition: all 0.2s ease;
 }
 .navbar-toggler:hover {
-  border-color: #f5a623;
-  color: #f5a623;
+  border-color: #f8585b;
+  color: #f8585b;
 }
 .tm-nav-icon {
   color: #fff;
