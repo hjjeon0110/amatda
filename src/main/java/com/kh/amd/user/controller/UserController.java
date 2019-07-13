@@ -302,8 +302,29 @@ public class UserController {
 		// 10. 마이트레이너 존재 여부 확인 메소드 (전효정)
 		Mprocess selectOneMyTrainer = us.selectOneMyTrainer(mno, tno);
 		model.addAttribute("selectOneMyTrainer", selectOneMyTrainer);
+				
+		// 12. 매칭 시작 트레이너 조회 (전효정)
+		Member matchingTrainer = us.selectOneMatchingTrainer(tno);
+		model.addAttribute("matchingTrainer", matchingTrainer);
 		
+		// 13. 다이어트 정보 보내기 - 회원 설문조사 selectOne (전효정)
+				Survey survey = us.selectOneSurvey(mno);
+				model.addAttribute("survey", survey);
+				
 		return "user/3_1_matchingProcessPage";
+		
+	}
+	
+	
+	// 회원 설문조사 selectOne (전효정)
+	@RequestMapping("selectOneSurvey.us")
+	public void selectOneSurvey(String mno, Model model) {
+		
+		// 13. 다이어트 정보 보내기 - 회원 설문조사 selectOne (전효정)
+		Survey survey = us.selectOneSurvey(mno);
+		model.addAttribute("survey", survey);
+		
+		System.out.println("survey : " + survey);
 	}
 	
 	

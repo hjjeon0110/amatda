@@ -47,17 +47,26 @@ public interface UserDao {
 
 	// 11. 마이트레이너 delete (전효정)
 	void deleteMyTrainer(SqlSessionTemplate sqlSession, String uno, String tno);
-
-	//12. 나의 문의 내역 select (우리나)
+	
+	// 12. 매칭 시작 트레이너 조회 (전효정)
+	Member selectOneMatchingTrainer(SqlSessionTemplate sqlSession, String tno);
+	
+	// 13. 다이어트 정보 보내기 - 회원 설문조사 selectOne (전효정)
+	Survey selectOneSurvey(SqlSessionTemplate sqlSession, String mno);
+	
+	
+	
+	// 나의 문의 내역 select (우리나)
 	List<Board> selectMyQnaList(SqlSessionTemplate sqlSession, int mno2);
 	
-	//13. 내글관리(QnaDetail) select (우리나)
+	// 내글관리(QnaDetail) select (우리나)
 	Board selectMyQnaDetail(SqlSessionTemplate sqlSession, int bno2);
 	
-	//14. 내글관리(QnaReply) select (우리나)
+	// 내글관리(QnaReply) select (우리나)
 	Reply selectQnaReply(SqlSessionTemplate sqlSession, int bno2);
 
 	List<Board> selectMyBoardList(SqlSessionTemplate sqlSession, int mno2);
+
 
 	
 }
