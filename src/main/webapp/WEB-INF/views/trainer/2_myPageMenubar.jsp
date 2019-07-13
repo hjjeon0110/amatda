@@ -59,7 +59,7 @@
 				<label class="myPageMenuLabel" id="myPageMenu2">견적서 관리</label>
 				
 			</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<div class="myPageMenu" id="myPageMenu3" onclick="location.href='showMyPageMatching.tr'">
+			<div class="myPageMenu" id="myPageMenu3" onclick="location.href='showMyPageMatching.tr?tno=${sessionScope.loginUser.mno}'">
 				<br><br><br>
 				<label class="myPageMenuLabel" id="myPageMenu3">매칭 관리</label>
 				
