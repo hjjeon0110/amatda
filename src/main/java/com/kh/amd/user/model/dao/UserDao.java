@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
@@ -57,9 +58,14 @@ public interface UserDao {
 	
 	// 나의 문의 내역 select (우리나)
 	List<Board> selectMyQnaList(SqlSessionTemplate sqlSession, int mno2);
-
+	
+	// 내글관리(QnaDetail) select (우리나)
 	Board selectMyQnaDetail(SqlSessionTemplate sqlSession, int bno2);
 	
+	// 내글관리(QnaReply) select (우리나)
+	Reply selectQnaReply(SqlSessionTemplate sqlSession, int bno2);
+
+	List<Board> selectMyBoardList(SqlSessionTemplate sqlSession, int mno2);
 
 
 	

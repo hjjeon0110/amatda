@@ -1,7 +1,6 @@
 package com.kh.amd.user.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +16,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.matching.model.vo.Mprocess;
+import com.kh.amd.member.model.service.MemberService;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
-import com.kh.amd.trainer.model.service.TrainerService;
 import com.kh.amd.trainer.model.vo.Profile;
 import com.kh.amd.user.model.service.UserService;
 
@@ -30,6 +30,10 @@ public class UserController {
 	
 	@Autowired
 	private UserService us;
+	
+	
+	@Autowired
+	private MemberService ms;
 	
 	// 트레이너찾기_맞춤트레이너추천 페이지 이동 (전효정)
 	@RequestMapping("showRecommendTrainerPageView.us")
@@ -222,6 +226,46 @@ public class UserController {
 		return "user/2_5_myPage_myWriting";
 	}
 	
+	
+	
+	//마이페이지 _qna리스트에서 detail select (우리나)
+		@RequestMapping("gotoMyQnaDetailForm.us")
+		public String gotoMyQnaDetailForm(String bno,Model model) {
+			System.out.println("bno: " + bno);
+			
+			int bno2 = Integer.parseInt(bno);
+			
+			Board myQnaDetail = us.selectMyQnaDetail(bno2);
+			
+			System.out.println("db다녀온 qna 디테일: " + myQnaDetail);
+			
+			
+			
+			Reply re = us.selectQnaReply(bno2);
+			System.out.println("db다녀온 댓글: " + re);
+			
+			model.addAttribute("myQnaDetail",myQnaDetail);
+			model.addAttribute("re",re);
+			
+			return "user/2_6_myQnaDetail";
+		}
+	
+	
+	//마이페이지 -Review리스트 페이지로 이동 (우리나)
+	@RequestMapping("gotoMyReviewList.us")
+	public String gotoMyReviewList(String mno,Model model) {
+		System.out.println("mno다: " + mno);
+		
+		int mno2 = Integer.parseInt(mno);
+		List<Board> reviewList = us.selectMyBoardList(mno2);
+		
+		System.out.println("db다녀온 리뷰리스트: " + reviewList);
+		model.addAttribute("reviewList", reviewList);
+		
+		return "user/2_7_myPage_myReviewList";
+	}
+		
+	
 	// 매칭 프로세스 페이지 이동 (전효정)
 	@RequestMapping("goMatchingProcess.us")
 	public String goMatchingProcess(Model model, HttpServletRequest request) {
@@ -285,21 +329,7 @@ public class UserController {
 	
 	
 	
-	//마이페이지 _qna리스트에서 detail select (우리나)
-	@RequestMapping("gotoMyQnaDetailForm.us")
-	public String gotoMyQnaDetailForm(String bno,Model model) {
-		System.out.println("bno: " + bno);
-		
-		int bno2 = Integer.parseInt(bno);
-		
-		Board myQnaDetail = us.selectMyQnaDetail(bno2);
-		
-		System.out.println("db다녀온 qna 디테일: " + myQnaDetail);
-		
-		model.addAttribute("myQnaDetail",myQnaDetail);
-		
-		return "user/2_6_myQnaDetail";
-	}
+	
 	
 	
 	
@@ -307,7 +337,19 @@ public class UserController {
 	
 	// 마이페이지_개인정보관리 페이지 이동 (전효정, 김진환)
 	@RequestMapping("showMyPagePrivacy.us")
-	public String showMyPagePrivacyPageView() {
+	public String showMyPagePrivacyPageView(String mno,Model model) {
+		
+		int mno2 = Integer.parseInt(mno);
+		
+		
+		
+		Attachment at = ms.selectMyImg(mno2);
+		
+		
+		System.out.println("at: " + at);
+		model.addAttribute("at",at);
+	
+		
 		return "user/2_1_myPage_privacy";
 	}
 	

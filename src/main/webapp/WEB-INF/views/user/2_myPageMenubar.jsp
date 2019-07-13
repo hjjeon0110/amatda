@@ -45,7 +45,7 @@
 	
 	<div class="myPageMenuBarArea">
 		<div class="myPageMenuBar">
-			<div class="myPageMenu" id="myPageMenu1" onclick="location.href='showMyPagePrivacy.us'">
+			<div class="myPageMenu" id="myPageMenu1" onclick="location.href='showMyPagePrivacy.us?mno=${ sessionScope.loginUser.mno }'">
 				<br><br><br>
 				<label class="myPageMenuLabel" id="myPageMenu1">개인정보 관리</label>
 				

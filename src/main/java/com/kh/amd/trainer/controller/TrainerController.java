@@ -60,8 +60,7 @@ public class TrainerController {
 	  }
 	  
 	 */
-	
-	
+		
 	   //견적서 ajax로 select 보기 메소드(김진환)
 	   @RequestMapping("ajaxshowMyPageEstimate.tr")
 	   public void ajaxshowMyPageEstimate(HttpServletResponse response, int mno, String estType) {
@@ -281,63 +280,65 @@ public class TrainerController {
 		}
 		//견적서 보내기 + 매칭스타트(견적서 있을경우)(김진환)
 		@RequestMapping("insertMatchStart.tr")
-		public String insertMatchStart(Model model, String uno, String tno, String estNo, 
+		public void insertMatchStart(HttpServletResponse response, String uno, String tno, String estNo, 
 				String estName, String estContents, String estDay, String estPrice) {
-			System.out.println("tno : " + tno + "uno : " + uno + "estNo" + estNo);
 			
-			System.out.println("estName : "+ estName);
+			//견적서에 이미 등록된 트레이너 일경우 확인
+			int searchResult = ts.checkMprocess(uno, tno);
+				System.out.println("검색결과값: " + searchResult);
 			
-			int estDayi = Integer.parseInt(estDay);
-			int estPricei = Integer.parseInt(estPrice);
-			int tnoI = Integer.parseInt(tno);
-			
-			Estimate estimate = new Estimate();
-			estimate.setEstContents(estContents);
-			estimate.setEstDay(estDayi);
-			estimate.setEstName(estName);
-			estimate.setEstPrice(estPricei);
-			estimate.setEstType(3);
-			estimate.setTno(tnoI);
-			
-			Estimate existEstimate = ts.selectEstimate(tnoI, 3);
-			System.out.println("estimate : " + estimate);
-			System.out.println("이미 있는 estimate : " + existEstimate);
-			
-			int result = 0;
-			
-			if(existEstimate == null) {
-				System.out.println("인서트로 들어옴");
-				result = ts.insertEstimate(estimate);
+			if(searchResult > 0) {
+				try {
+					response.getWriter().print(false);
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
 				
 			}else {
-				System.out.println("업데이트로 들어옴");
-				result = ts.updateEstimate(estimate);
+			
+				int estDayi = Integer.parseInt(estDay);
+				int estPricei = Integer.parseInt(estPrice);
+				int tnoI = Integer.parseInt(tno);
+				
+				Estimate estimate = new Estimate();
+				estimate.setEstContents(estContents);
+				estimate.setEstDay(estDayi);
+				estimate.setEstName(estName);
+				estimate.setEstPrice(estPricei);
+				estimate.setEstType(3);
+				estimate.setTno(tnoI);
+				
+				Estimate existEstimate = ts.selectEstimate(tnoI, 3);
+				System.out.println("estimate : " + estimate);
+				System.out.println("이미 있는 estimate : " + existEstimate);
+				
+				int result = 0;
+				
+				//int result2 = ts.checkMprocess(); 
+			
+				
+				if(existEstimate == null) {
+					System.out.println("인서트로 들어옴");
+					result = ts.insertEstimate(estimate);
+					
+				}else {
+					System.out.println("업데이트로 들어옴");
+					result = ts.updateEstimate(estimate);
+				}
+				
+				//프로세스 객체 생성, 객체에 값을 넣어서 보냄
+				int unoI = Integer.parseInt(uno);
+				Mprocess mprocess = new Mprocess();
+				mprocess.setMatchEstimate(estimate);
+				mprocess.setTno(tnoI);
+				mprocess.setUno(unoI);
+				
+				//프로세스에 insert + list를 리턴 받는 메소드
+				List<Member> sendEstList = ts.sendEstList(tno, mprocess);
 			}
 			
-			//프로세스 객체 생성, 객체에 값을 넣어서 보냄
-			int unoI = Integer.parseInt(uno);
-			Mprocess mprocess = new Mprocess();
-			mprocess.setMatchEstimate(estimate);
-			mprocess.setTno(tnoI);
-			mprocess.setUno(unoI);
 			
-			//프로세스에 insert + list를 리턴 받는 메소드
-			List<Member> sendEstList = ts.sendEstList(tno, mprocess);
-			System.out.println(sendEstList);
-			
-			model.addAttribute("list", sendEstList);
-		/*
-		 * if(result > 0) { List<Member>
-		 * 
-		 * }
-		 */
-			
-			
-			//int result = ts.insertMatchStart(tno, uno, estNo);
-			
-			//멤버객체를 가져와서 보낸요청 리스트로 리턴
-			
-			return "trainer/2_3_myPage_matching";
 		}
 		
 		//견적서 보내기 + 매칭스타트 메소드(견적서 없을시)(김진환)
@@ -389,6 +390,50 @@ public class TrainerController {
 			
 			return "trainer/2_3_myPage_matching";
 		}
+		// 트레이너 마이페이지_매칭관리 이동 (김진환)
+		@RequestMapping("showMyPageMatching.tr")
+		public String showTrainerMyPageMatchingView(Model model, String tno, String currentPage) {
+			int currentPageI = 1;
+			 
+			if(currentPage != null) {
+					currentPageI = Integer.parseInt(currentPage);
+			}
+			//목록을 조회해서 해당 리스트가 몇개인지 확인 
+			int listCount = ts.getTrainerMyPageMatchingListCount(tno);
+
+			PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+			
+			List<Member> list = ts.sendEstList(tno, pi);
+			
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+			
+			System.out.println(list);
+			
+			return "trainer/2_3_myPage_matching";
+		}
+		@RequestMapping("showMyPageReceivedMatching.tr")
+		public String showMyPageReceivedMatching(Model model, String tno, String currentPage) {
+			int currentPageI = 1;
+			 
+			if(currentPage != null) {
+					currentPageI = Integer.parseInt(currentPage);
+			}
+			//목록을 조회해서 해당 리스트가 몇개인지 확인 
+			int listCount = 0;
+
+			PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+			
+			List<Member> list = null;
+			
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+			
+			System.out.println(list);
+			
+			return "trainer/2_3_myPage_matching";
+		}
+		
 	   
 	
 	
@@ -770,11 +815,7 @@ public class TrainerController {
 	// 페이지 이동 메소드 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 
-	// 트레이너 마이페이지_매칭관리 이동 (전효정)
-	@RequestMapping("showMyPageMatching.tr")
-	public String showTrainerMyPageMatchingView() {
-		return "trainer/2_3_myPage_matching";
-	}
+	
 
 	// 트레이너 마이페이지_멤버십관리 이동 (전효정)
 	@RequestMapping("showMyPageMembership.tr")

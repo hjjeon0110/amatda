@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.member.model.vo.Member;
@@ -45,14 +46,14 @@ public interface BoardService {
 	//FAQ게시판 아코디언 리스트 출력(SR)
 	List<Board> selectFaq();
 
-	//후기리뷰 출력(SR)
-	List<Board> selectReview();
+	//후기리뷰 출력(SR)11
+	//List<Board> selectReview(Attachment a);
 
 	//후기리뷰 입력(SR)
 	int insertReview(Board b);
 
 	//리뷰게시판 상세페이지 (SR)
-	Object selectOneReview(int bNo);
+	//Object selectOneReview(int bNo);
 
 	//★이벤트 카테고리 게시물 상세페이지(SR)
 	Board selectOneEventCate(int bNo);
@@ -128,7 +129,19 @@ public interface BoardService {
 	int getSearchEventCateListCount();
 
 	// 후기 이미지 insert
-	void insertReviewImg(String mno, Board b, String filePath, String originalFilename, String ext, String changeName);
+	void insertReviewImg(String mno,  String filePath, String originalFilename, String ext, String changeName, int bno);
+
+	//리뷰게시판 상세페이지 1(SR)
+	Board selectOneReview(int bNo);
+
+	//리뷰게시판 상세페이지 2(SR)
+	Attachment selectOneAttachment(int bNo);
+
+	List<Board> selectReview2(Attachment a);
+
+	//void insertReviewImg(String mno, Board b, String filePath, String originalFilename, String ext, String changeName);
+
+	//void insertReviewImg(String mno, Board b, String filePath, String originalFilename, String ext, String changeName);
 	
 	
 

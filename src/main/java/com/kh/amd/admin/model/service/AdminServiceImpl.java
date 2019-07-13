@@ -110,6 +110,12 @@ public class AdminServiceImpl implements AdminService{
 	public int declListCount() {
 		return ad.declListCount(sqlSession);
 	}
+
+	//통계
+	@Override
+	public List<Member> memberAge() {
+		return ad.memberAge(sqlSession);
+	}
 	
 
 

@@ -2,6 +2,7 @@ package com.kh.amd.board.model.vo;
 
 import java.util.Date;
 
+import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.member.model.vo.Member;
 
 public class Board implements java.io.Serializable{
@@ -21,8 +22,30 @@ public class Board implements java.io.Serializable{
 	public int bWriter;
 	
 	private Member member;
+	private Attachment attachment;
 	
 	public Board() {}
+
+	public Board(int bNo, int bType, String blCategory, String bmCategory, String bsCategory, Date bWriteDate,
+			Date bModifyDate, String bTitle, String bContent, int bCount, int bLike, String bStatus, int bWriter,
+			Member member, Attachment attachment) {
+		super();
+		this.bNo = bNo;
+		this.bType = bType;
+		this.blCategory = blCategory;
+		this.bmCategory = bmCategory;
+		this.bsCategory = bsCategory;
+		this.bWriteDate = bWriteDate;
+		this.bModifyDate = bModifyDate;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bCount = bCount;
+		this.bLike = bLike;
+		this.bStatus = bStatus;
+		this.bWriter = bWriter;
+		this.member = member;
+		this.attachment = attachment;
+	}
 
 	public int getbNo() {
 		return bNo;
@@ -136,24 +159,12 @@ public class Board implements java.io.Serializable{
 		this.member = member;
 	}
 
-	public Board(int bNo, int bType, String blCategory, String bmCategory, String bsCategory, Date bWriteDate,
-			Date bModifyDate, String bTitle, String bContent, int bCount, int bLike, String bStatus, int bWriter,
-			Member member) {
-		super();
-		this.bNo = bNo;
-		this.bType = bType;
-		this.blCategory = blCategory;
-		this.bmCategory = bmCategory;
-		this.bsCategory = bsCategory;
-		this.bWriteDate = bWriteDate;
-		this.bModifyDate = bModifyDate;
-		this.bTitle = bTitle;
-		this.bContent = bContent;
-		this.bCount = bCount;
-		this.bLike = bLike;
-		this.bStatus = bStatus;
-		this.bWriter = bWriter;
-		this.member = member;
+	public Attachment getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(Attachment attachment) {
+		this.attachment = attachment;
 	}
 
 	@Override
@@ -161,8 +172,12 @@ public class Board implements java.io.Serializable{
 		return "Board [bNo=" + bNo + ", bType=" + bType + ", blCategory=" + blCategory + ", bmCategory=" + bmCategory
 				+ ", bsCategory=" + bsCategory + ", bWriteDate=" + bWriteDate + ", bModifyDate=" + bModifyDate
 				+ ", bTitle=" + bTitle + ", bContent=" + bContent + ", bCount=" + bCount + ", bLike=" + bLike
-				+ ", bStatus=" + bStatus + ", bWriter=" + bWriter + ", member=" + member + "]";
+				+ ", bStatus=" + bStatus + ", bWriter=" + bWriter + ", member=" + member + ", attachment=" + attachment
+				+ "]";
 	}
+
+	
+	
 
 	
 	

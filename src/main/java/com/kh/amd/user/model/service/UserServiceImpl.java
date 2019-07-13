@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
@@ -120,16 +121,23 @@ public class UserServiceImpl implements UserService {
 		return ud.selectMyQnaList(sqlSession,mno2);
 	}
 
-
+	// 내글관리(QnaDetail) select (우리나)
 	@Override
 	public Board selectMyQnaDetail(int bno2) {
 		return ud.selectMyQnaDetail(sqlSession,bno2);
 	}
-
-
-
-
 	
+	// 내글관리(QnaReply) select (우리나)
+	@Override
+	public Reply selectQnaReply(int bno2) {
+		return ud.selectQnaReply(sqlSession,bno2);
+	}
+
+	@Override
+	public List<Board> selectMyBoardList(int mno2) {
+		return ud.selectMyBoardList(sqlSession,mno2);
+	}
+
 	
 
 
