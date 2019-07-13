@@ -37,6 +37,17 @@
 		<result column="MODIFY_DATE" property="modifyDate" />
 		<result column="COMPLETE_SURVEY" property="completeSurvey" />
 	</resultMap>
+	
+	<resultMap type="com.kh.amd.board.model.vo.Reply" id="replyResultSet">
+		<id column="REP_NO" property="repNo" />
+		<result column="BNO" property="bNo"/>
+		<result column="REP_WRITER" property="repWriter" />
+		<result column="REP_CONTENT" property="repContent" />
+		<result column="REP_DATE" property="repDate" />
+		<result column="REP_MDATE" property="repMdate" />
+		<result column="REP_STATUS" property="repStatus" />
+		<collection property="member" resultMap="member"/>
+	</resultMap>
 
 	<resultMap id="boardResultSet" type="com.kh.amd.board.model.vo.Board">
 		<id property="bNo" column="BNO" />
@@ -381,9 +392,27 @@
 	  AND BSTATUS='Y'
   </select>
   
-  <!-- 후기 img insert -->
+<!--  리뷰 상세페이지 댓글입력(SR) -->
+<insert id="insertReply" parameterType="Reply">
+	INSERT INTO BOARD_REPLY
+	VALUES(REP_SEQ.NEXTVAL,#{bNo},#{mno},#{repContent},SYSDATE,NULL,'Y')
+</insert>
+
+<!-- 리뷰게시판 상세페이지 댓글 목록 SELECT (SR) -->
+  <select id="replyList" parameterType="_int" resultMap="replyResultSet">
+  	SELECT R.*,M.ID
+  	FROM BOARD_REPLY R
+  	JOIN MEMBER M ON(REP_WRITER = MNO)
+  	WHERE BNO=#{bNo}
+  </select>
   
-  
+   <!-- 조회수 카운트 (SR) -->
+  <update id="updateCount" parameterType="_int">
+  	UPDATE BOARD 
+  	SET BCOUNT = (SELECT BCOUNT FROM BOARD WHERE BNO=#{bNo})+1
+  	WHERE BNO = #{bNo}
+ </update>
+ 
   </mapper>
 
   

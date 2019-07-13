@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.board.model.vo.PageInfo;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.member.model.vo.Member;
 
 @Repository
@@ -327,6 +328,24 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Board> selectReview2(SqlSessionTemplate sqlSession, Attachment a) {
 		 
 		return sqlSession.selectList("Board.selectReview2",a);
+	}
+
+	 //리뷰 상세페이지 댓글입력 (SR)
+	@Override
+	public int insertReply(SqlSessionTemplate sqlSession, Reply rep) {
+		return sqlSession.insert("Board.insertReply",rep);
+	}
+
+	//리뷰게시판 상세페이지 댓글 목록 SELECT (SR)
+	@Override
+	public List<Reply> replyList(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.selectList("Board.replyList",bNo);
+	}
+
+	 //조회수 카운트 (SR)
+	@Override
+	public int updateCount(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.update("Board.updateCount",bNo);
 	}
 
 	
