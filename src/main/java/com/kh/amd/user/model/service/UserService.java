@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
@@ -54,15 +55,33 @@ public interface UserService {
 	
   
 	// 내글관리(Qna) select (우리나)
-	List<Board> selectMyQnaList(int mno2);
+	List<Board> selectMyQnaList(int mno2, PageInfo pi);
 	
 	// 내글관리(QnaDetail) select (우리나)
 	Board selectMyQnaDetail(int bno2);
 	
 	// 내글관리(QnaReply) select (우리나)
 	Reply selectQnaReply(int bno2);
-
+	
+	// 내글관리(ReviewList) select (우리나)
 	List<Board> selectMyBoardList(int mno2);
+	
+	// 내글관리(ReviewList Detail) 글 select (우리나)
+	Board selectOneReview(int bno2);
+	
+	// 내글관리(ReviewList Detail) 사진 select (우리나)
+	Attachment selectOneAttachment(int bno2);
+	
+	// 내글관리(Review Detail) 글 update (우리나)
+	int updateMyReview(Board b);
+	
+	// 내글관리(Review Detail) 사진 update (우리나)
+	int updateMyReviewAttachment(Attachment a);
+
+	int deleteMyReview(int bno2);
+	
+	//qna리스트 페이징
+	int getQnaListCount(int mno2);
 	
 
 

@@ -113,19 +113,72 @@
    width:500px;
    height:100px;
    }
+   .subMenuBar {
+	width: 100%;
+	height: 100%;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-top:0.5px solid lightgray;
+}
+
+.subMenuBar1 {
+	width: 49.8%;
+	height: 72px;
+	display: inline-block;
+	border-bottom: 2px solid #ff0066;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 22px;
+	background: #ff0066;
+	margin-left: 2px;
+	margin-right: -4px;
+	color:white;
+}
+
+.subMenuBar2 {
+	width: 49.8%;
+	height: 72px;
+	display: inline-block;
+	border-bottom: 2px solid #ff0066;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 22px;
+	background:white;
+	color:black;
+}
+
+.subMenuBar2:hover {
+	width: 49.8%;
+	height: 72px;
+	display: inline-block;
+	border-bottom: 2px solid #ff0066;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 22px;
+	background: white;
+	color: #ff0066;
+	margin-left: 2px;
+	margin-right: -4px;
+	cursor:pointer;
+}
    
 </style>
 </head>
 <body>
    <jsp:include page="../common/menubar.jsp"/> 
-   <img class="testImg" src="${ contextPath }/resources/images/sstestMain.jpg">
+	<jsp:include page="../user/2_myPageMenubar.jsp"/>
+	
+	
+	<div class="subMenuBar">
+		<div class="subMenuBar1" onclick="location.href='gotoMyReviewList.us?mno=${sessionScope.loginUser.mno}'">REVIEW 내역</div>
+		<div class="subMenuBar2" onclick="location.href='showMyPageMyWriting.us?mno=${sessionScope.loginUser.mno}'">Q&A 내역</div>
+	</div>
    
    <div class="outerform" align="center"> 
    <form action="selectOneReview.bo" method="post">   
       <table class="selectOneReview">
       <%-- <c:forEach var="selectOneReview" items="${ sessionScope.selectOneReview }" varStatus="status"><br> --%>
       <tr class="contentTitle">
-      <h2>아맞다 후기리뷰</h2>
+      
       <br><br>
       <%-- <td>${selectOneReview.bTitle }</td> --%>
       
@@ -136,9 +189,7 @@
       <p></p>
       
       <div class="secondTableLine"></div>
-         <div class="likecount">
-            <a href ="selectOneReview.bo"><h6>1111<img id="likeicon"src="${ contextPath }/resources/images/likeicon.png"></h6></a>
-         </div>
+         
          <img id="reviewImgFile" src="${contextPath }/resources/uploadFiles/${a.modiName}${a.extension}" width="250" height="200">
          
          
@@ -148,11 +199,11 @@
       <p>${b.bContent }</p>
          
        <button type="button" class="btn btn-primary" data-toggle="modal" 
-              data-target="#my80sizeCenterModal">수정</button>
-       <button type="button" class="btn btn-primary" data-toggle="modal" 
+              data-target="#my80sizeCenterModal" onclick="location.href='updateMyReview.us?bno=${b.bNo }'">수정</button>
+       <button type="button" class="btn btn-primary" data-toggle="modal"  onclick="deleteReview()"
               data-target="#my80sizeCenterModal">삭제</button>
        <button type="button" class="btn btn-primary" data-toggle="modal" 
-              data-target="#my80sizeCenterModal" onclick="location.href='selectReview.bo'"> 목록</button>
+              data-target="#my80sizeCenterModal" onclick="location.href='gotoMyReviewList.us?mno=${sessionScope.loginUser.mno}'"> 목록</button>
       <br><br><br><br>
       
       
@@ -206,7 +257,22 @@
       
    }) */
 
-
+function deleteReview(){
+	   
+	var mno = ${ sessionScope.loginUser.mno};
+	var bno = ${b.bNo};
+	$.ajax({
+		url:"deleteMyReview.us",
+		type:"post",
+		data:{mno:mno,bno:bno},
+		success:function(){
+			alert("등록하신 리뷰는 삭제되었습니다.");
+			location.href="gotoMyReviewList.us?mno="+mno;
+		},error:function(){
+			alert('실패');
+		}
+	})
+}
 
 </script>
 </body>

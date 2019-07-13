@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
@@ -117,8 +118,8 @@ public class UserServiceImpl implements UserService {
 	
 	// 나의 문의 내역 select (우리나)
 	@Override
-	public List<Board> selectMyQnaList(int mno2) {
-		return ud.selectMyQnaList(sqlSession,mno2);
+	public List<Board> selectMyQnaList(int mno2, PageInfo pi) {
+		return ud.selectMyQnaList(sqlSession,mno2,pi);
 	}
 
 	// 내글관리(QnaDetail) select (우리나)
@@ -138,6 +139,41 @@ public class UserServiceImpl implements UserService {
 		return ud.selectMyBoardList(sqlSession,mno2);
 	}
 
+
+	@Override
+	public Board selectOneReview(int bno2) {
+		return ud.selectOneReview(sqlSession,bno2);
+	}
+
+
+	@Override
+	public Attachment selectOneAttachment(int bno2) {
+		return ud.selectOneAttachment(sqlSession, bno2);
+	}
+
+
+	@Override
+	public int updateMyReview(Board b) {
+		return ud.updateMyReview(sqlSession, b);
+	}
+
+
+	@Override
+	public int updateMyReviewAttachment(Attachment a) {
+		return ud.updateMyReviewAttachment(sqlSession, a);
+	}
+
+
+	@Override
+	public int deleteMyReview(int bno2) {
+		return ud.deleteMyReview(sqlSession,bno2);
+	}
+
+
+	@Override
+	public int getQnaListCount(int mno2) {
+		return ud.qnaListCount(sqlSession,mno2);
+	}
 	
 
 

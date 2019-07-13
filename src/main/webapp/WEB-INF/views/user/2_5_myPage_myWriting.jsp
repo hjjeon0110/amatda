@@ -105,7 +105,47 @@
 				</tr>
 				
 			</c:forEach>
-		</table>		
+		</table>	
+		
+		
+		<!-- 페이징 -->
+		<div id="pagingArea" align="center">
+			<c:if test="${ pi.currentPage <= 1 }">
+				[이전] &nbsp;
+			</c:if>
+			<c:if test="${ pi.currentPage > 1}">
+				<c:url var="blistBack" value="showMyPageMyWriting.us">
+					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+					<c:param name="mno" value="${ sessionScope.loginUser.mno }"/>
+				</c:url>
+				<a href="${ blistBack }">[이전]</a> &nbsp;
+			</c:if>
+			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+				<c:if test="${ p eq pi.currentPage }">
+					<font color="orange" size="4"><b>[${ p }]</b></font>
+				</c:if>
+				<c:if test="${ p ne pi.currentPage }">
+					<c:url var="blistCheck" value="showMyPageMyWriting.us">
+						<c:param name="currentPage" value="${ p }"/>
+						<c:param name="mno" value="${ sessionScope.loginUser.mno }"/>
+					</c:url>
+					<a href="${ blistCheck }">${ p }</a>
+				</c:if>
+			
+			</c:forEach>
+			
+			<c:if test="${pi.currentPage >= pi.maxPage }">
+				&nbsp; [다음]
+			</c:if>
+			<c:if test="${ pi.currentPage < pi.maxPage }">
+				<c:url var="blistEnd" value="showMyPageMyWriting.us">
+					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+					<c:param name="mno" value="${ sessionScope.loginUser.mno }"/>
+				</c:url>
+				<a href="${ blistEnd }">&nbsp;[다음]</a>
+			</c:if>
+			
+		</div>	
 	</div>
 
 	<!-- footer ----------------------------------------------------------------------------------------------------- -->
