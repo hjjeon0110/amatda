@@ -1,7 +1,12 @@
 package com.kh.amd.member.model.service;
 
+import java.util.List;
+
 import javax.security.auth.login.LoginException;
 
+import com.kh.amd.attachment.model.vo.Attachment;
+import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.member.model.vo.Member;
 
 public interface MemberService {
@@ -33,9 +38,15 @@ public interface MemberService {
 
 	int updateRandomPwd(Member m);
 
-	void insertMyImg(String mno, String filePath, String originalFilename, String ext, String changeName);
+	void updateMyImg(String mno, String filePath, String originalFilename, String ext, String changeName);
 
 	int dummyImgInsert();
+
+	Attachment selectMyImg(int mno2);
+
+	
+
+	
 
 	
 	

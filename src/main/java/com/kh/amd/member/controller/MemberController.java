@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.common.CommonUtils;
 import com.kh.amd.member.model.service.MemberService;
 import com.kh.amd.member.model.vo.Member;
@@ -658,9 +659,10 @@ public class MemberController {
 		}
 		
 		
-		@RequestMapping("insertMyImg.me")
-		public String insertMyImg(HttpServletRequest request, String mno, @RequestParam(name="modifypicture", required=false) MultipartFile modifypicture){
-			
+		//마이페이지에서 이미지 등록
+		@RequestMapping("updateMyImg.me")
+		public String updateMyImg(HttpServletRequest request, String mno, @RequestParam(name="modifypicture", required=false) MultipartFile modifypicture){
+		
 			System.out.println("mno: " + mno);
 			System.out.println("modifypicture: " + modifypicture);
 			String root = request.getSession().getServletContext().getRealPath("resources");
@@ -668,17 +670,39 @@ public class MemberController {
 			String filePath = root + "\\uploadFiles";		
 			String originalFilename = modifypicture.getOriginalFilename();
 			String ext = originalFilename.substring(originalFilename.lastIndexOf(".")); 
-			
+		
 			String changeName = CommonUtils.getRandomString();
 			try {
 				modifypicture.transferTo(new File(filePath + "\\" + changeName + ext));
 				
-				//ms.insertMyImg(m.getMno(), filePath, originalFilename,ext, changeName);
-			
+				ms.updateMyImg(mno, filePath, originalFilename,ext, changeName);
+				System.out.println("사진 업데이트 성공");
+				 	
 			} catch (IllegalStateException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}	
-			return "redirect:index.jsp";
+			}
+			
+			return "redirect:showMyPagePrivacy.us?mno=" + mno;
+			
+			
 		}
+		
+		
+		
+
+		//마이페이지에서 이미지 select
+	/*
+	 * @RequestMapping("selectMyImg.me") public void selectMyImg(HttpServletRequest
+	 * request,String mno, Model model) {
+	 * 
+	 * 
+	 * System.out.println("이미지 불러오기 mno: " + mno); int mno2 = Integer.parseInt(mno);
+	 * Attachment at = ms.selectMyImg(mno2);
+	 * 
+	 * System.out.println("at: " + at); model.addAttribute("at",at);
+	 * 
+	 * 
+	 * }
+	 */
 }

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.member.model.dao.MemberDao;
 import com.kh.amd.member.model.vo.Member;
 
@@ -258,8 +259,8 @@ public class MemberServiceImpl implements MemberService{
 		}
 
 		@Override
-		public void insertMyImg(String mno, String filePath, String originalFilename, String ext, String changeName) {
-			md.insertMyImg(sqlSession,mno, filePath, originalFilename, ext,changeName);
+		public void updateMyImg(String mno, String filePath, String originalFilename, String ext, String changeName) {
+			md.updateMyImg(sqlSession,mno, filePath, originalFilename, ext,changeName);
 			
 		}
 
@@ -267,6 +268,11 @@ public class MemberServiceImpl implements MemberService{
 		public int dummyImgInsert() {
 			// TODO Auto-generated method stub
 			return md.dummyImgInsert(sqlSession);
+		}
+
+		@Override
+		public Attachment selectMyImg(int mno2) {
+			return md.selectMyImg(sqlSession,mno2);
 		}
 	
 }

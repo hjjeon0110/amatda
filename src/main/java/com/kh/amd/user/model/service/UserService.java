@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
@@ -43,10 +44,17 @@ public interface UserService {
 	
 	// 11. 마이트레이너 delete (전효정)
 	void deleteMyTrainer(String uno, String tno);
-
+	
+	//12. 내글관리(Qna) select (우리나)
 	List<Board> selectMyQnaList(int mno2);
-
+	
+	//13. 내글관리(QnaDetail) select (우리나)
 	Board selectMyQnaDetail(int bno2);
+	
+	//14. 내글관리(QnaReply) select (우리나)
+	Reply selectQnaReply(int bno2);
+
+	List<Board> selectMyBoardList(int mno2);
 	
 
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
- <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,10 +26,10 @@
 	text-align: center;
 	font-size: 16px;
 	padding-top: 22px;
-	background: white;
+	background: #ff0066;
 	margin-left: 2px;
 	margin-right: -4px;
-	color:black;
+	color:white;
 }
 
 .subMenuBar2 {
@@ -40,11 +40,11 @@
 	text-align: center;
 	font-size: 16px;
 	padding-top: 22px;
-	background:#ff0066;
-	color:white;
+	background:white;
+	color:black;
 }
 
-.subMenuBar1:hover {
+.subMenuBar2:hover {
 	width: 49.8%;
 	height: 72px;
 	display: inline-block;
@@ -73,15 +73,12 @@
 	</div>
 	
 	
-
-	
-	
-	<!-- Q&A 영역 ----------------------------------------------------------------------------------------------------------- -->
-	<div class="qaDiv">
+	<!-- 리뷰 영역 ----------------------------------------------------------------------------------------------------------- -->
+	 <div class="reviewDiv">
 		<br><br><br>
-		<label class="subTitle">Q&A 내역</label>
+		<label class="subTitle">REVIEW 내역</label>
 		<br><br>
-		<table class="qaTable">
+		<table class="reviewTable">
 			<thead>
 				<tr>
 					<th>No.</th>
@@ -89,25 +86,28 @@
 					<th>제목</th>
 					<th>내용</th>
 					<th>작성일</th>
-				
+					
 				</tr>
 			</thead>
-			<c:forEach var ="qnaList" items="${ qnaList }" varStatus="status">
+			<c:forEach var = "reviewList" items="${reviewList}" varStatus="status">
 				<tr class="rowStyle">
 					<td scope="row"> ${status.count }
-						<input type="hidden" id="bNo" value="${qnaList.bNo }">
+						<input type="hidden" id="bNo" value="${reviewList.bNo }">
 					</td>
 					
-					<td>${qnaList.bTitle}</td>
-					<td>${qnaList.bContent }</td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${qnaList.bWriteDate }"/></td> <!-- fmt사용을 위한 taglib위에 추가해야함! -->
+					<td>${reviewList.bTitle }</td>
+					<td>${reviewList.bContent }</td>
+					
+					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${reviewList.bWriteDate }"/></td> <!-- fmt사용을 위한 taglib위에 추가해야함! -->
 					
 				</tr>
-				
 			</c:forEach>
-		</table>		
+				
+		</table>
 	</div>
-
+	
+	
+	
 	<!-- footer ----------------------------------------------------------------------------------------------------- -->
 	<br><br><hr><br>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
@@ -115,10 +115,10 @@
 </body>
 <script>
 	$(function(){
-		$(".qaTable td").click(function(){
+		$(".reviewTable td").click(function(){
 			var bno =$(this).parent().eq(0).children().children().val();
-			
-			location.href="gotoMyQnaDetailForm.us?bno="+bno;
+			alert(bno);
+			//location.href="gotoMyQnaDetailForm.us?bno="+bno;
 			
 		})
 	})
