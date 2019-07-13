@@ -25,6 +25,11 @@
 	Product Admin CSS Template
 	https://templatemo.com/tm-524-product-admin
 	-->
+<style>
+	#userId{
+		margin-left:300px;
+	}
+</style>
 
 </head>
 
@@ -119,7 +124,7 @@
 
 			<!-- 필터링 검색 -->
 					<select class="custom-select" onchange="categoryChange(this)" id="category" name="category">
-						<option>카테고리별 조회</option>
+						<option>카테고리별</option>
 						<option value="gender">성별</option>
 						<option value="age">나이대</option>
 					</select> 
