@@ -201,7 +201,7 @@
 		SELECT *
 		FROM ATTACHMENT
    		WHERE BNO=#{bno2}
-   		AND BTYPE=5
+   		AND ATYPE=5
 	</select>
 	
 	
