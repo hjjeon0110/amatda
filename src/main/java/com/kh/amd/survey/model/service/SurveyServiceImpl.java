@@ -20,6 +20,8 @@ public class SurveyServiceImpl implements SurveyService{
 	@Autowired
 	private DataSourceTransactionManager transactionManager;
 
+	
+	//설문조사 첫번째 insert + 멤버 status update
 	@Override
 	public int insertSurvey1(Survey s, String mno) {
 		
@@ -49,6 +51,8 @@ public class SurveyServiceImpl implements SurveyService{
 	
 	}
 
+	
+	//설문조사 두번째 update
 	@Override
 	public int insertSurvey2(Survey s, String mno) {
 		
@@ -56,26 +60,29 @@ public class SurveyServiceImpl implements SurveyService{
 		
 	}
 
+	
+	//설문조사 세번째 update
 	@Override
 	public int insertSurvey3(Survey s, String mno, String hopeExerciseString) {
 		
 		return sd.insertSurvey3(sqlSession, s, mno, hopeExerciseString);
 	}
 
+	
+	//설문조사 완전체 update
 	@Override
 	public int updateSurvey(Survey s, String mno) {
 		
 		return sd.updateSurvey(sqlSession, s, mno);
 	}
 
+	
+	//설문조사 select
 	@Override
 	public List<Survey> surveyList(int mno) {
 				
 		return sd.surveyList(sqlSession, mno);
 	}
-
-	
-
 	
 
 	
