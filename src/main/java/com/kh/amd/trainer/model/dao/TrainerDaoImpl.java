@@ -285,18 +285,31 @@ public class TrainerDaoImpl implements TrainerDao {
 	
 	// 25. 매칭 진행중인 회원 리스트 조회(김진환)
 	@Override
-	public List<Member> showMatchingProgressList(SqlSessionTemplate sqlSession, String tno) {
+	public List<Member> showMatchingProgressList(SqlSessionTemplate sqlSession, String tno, PageInfo pi) {
 		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		
-		return sqlSession.selectList("Trainer.showMatchingProgressList", tno);
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());	
+		
+		List<Member> list = null;
+		
+		list = (List) sqlSession.selectList("Trainer.showMatchingProgressList", tno, rowBounds);
+		
+		return list;
 	}
 
 	// 26. 매칭 완료 회원 리스트 조회(김진환)
 	@Override
-	public List<Member> showMatchingCompleteList(SqlSessionTemplate sqlSession, String tno) {
+	public List<Member> showMatchingCompleteList(SqlSessionTemplate sqlSession, String tno, PageInfo pi) {
 		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		
-		return sqlSession.selectList("Trainer.showMatchingCompleteList", tno);
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());	
+		
+		List<Member> list = null;
+		list = (List)sqlSession.selectList("Trainer.showMatchingCompleteList", tno, rowBounds);
+		
+		return list;
 	}
 	
 	// 27. 첫회원 가입자인지 확인(김진환)
@@ -312,6 +325,23 @@ public class TrainerDaoImpl implements TrainerDao {
 
 		return sqlSession.update("Trainer.welcomeCharge", mno);
 	}
+	
+	// 29. 진행중인 회원 리스트 count(김진환)
+	@Override
+	public int checkProgressList(SqlSessionTemplate sqlSession, String tno) {
+		
+		
+		return sqlSession.selectOne("Trainer.checkProgressList", tno);
+	}
+
+	// 30. 완료 회원 리스트 count(김진환)
+	@Override
+	public int checkCompleteList(SqlSessionTemplate sqlSession, String tno) {
+		
+		
+		return sqlSession.selectOne("Trainer.checkCompleteList", tno);
+	}
+
 
 
 
@@ -508,6 +538,11 @@ public class TrainerDaoImpl implements TrainerDao {
 		
 		sqlSession.update("Trainer.deleteMedia", map);
 	}
+
+
+
+
+
 
 
 

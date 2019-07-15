@@ -85,16 +85,25 @@ public interface TrainerService {
 	int receivedReqAccept(Mprocess mprocess);
 	
 	// 23. 매칭 진행중인 회원 리스트(김진환)
-	List<Member> showMatchingProgressList(String tno);
+	List<Member> showMatchingProgressList(String tno, PageInfo pi);
 
 	// 24. 매칭 완료 회원 리스트(김진환)
-	List<Member> showMatchingCompleteList(String tno);
+	List<Member> showMatchingCompleteList(String tno, PageInfo pi);
 	
 	// 25. 첫회원 가입자인지 확인(김진환)
 	int checkFirstMembership(int mno);
 
 	// 26. 첫 회원 가입자에 대한 보너스 지급
 	int welcomeCharge(int mno);
+	
+	//27. 진행중인 멤버 리스트 count 조회
+	int checkProgressList(String tno);
+
+	//28. 완료된 회원 리스트 count 조회
+	int checkCompleteList(String tno);
+
+
+
 
 
 	
@@ -150,7 +159,6 @@ public interface TrainerService {
 
 	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 	void deleteMidea(String mno, String thisModiName);
-
 
 
 	

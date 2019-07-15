@@ -440,6 +440,32 @@
 	
 	</update>
 	
+	<select id="checkProgressList" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER M
+		JOIN M_PROCESS MP ON (MP.UNO = M.MNO)
+		JOIN ATTACHMENT A ON (A.PNO = MP.UNO)
+		JOIN SURVEY S ON (MP.UNO = S.UNO)
+		WHERE MP.TNO = #{tno}
+		AND MP.MATCHING_STATUS = '진행중'
+	
+	
+	</select>
+	
+	<select id="checkCompleteList" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER M
+		JOIN M_PROCESS MP ON (MP.UNO = M.MNO)
+		JOIN ATTACHMENT A ON (A.PNO = MP.UNO)
+		JOIN SURVEY S ON (MP.UNO = S.UNO)
+		WHERE MP.TNO = #{tno}
+		AND MP.MATCHING_STATUS = '매칭종료'
+	
+	
+	</select>
+	
+
+	
 
 
 

@@ -94,16 +94,23 @@ public interface TrainerDao {
 	int receivedReqAccept(SqlSessionTemplate sqlSession, Mprocess mprocess);
 
 	// 25. 매칭 진행중인 회원 리스트 조회(김진환)
-	List<Member> showMatchingProgressList(SqlSessionTemplate sqlSession, String tno);
+	List<Member> showMatchingProgressList(SqlSessionTemplate sqlSession, String tno, PageInfo pi);
 
 	// 26. 매칭 완료된 회원 리스트 조회(김진환)
-	List<Member> showMatchingCompleteList(SqlSessionTemplate sqlSession, String tno);
+	List<Member> showMatchingCompleteList(SqlSessionTemplate sqlSession, String tno, PageInfo pi);
 	
 	// 27. 첫회원 가입자인지 확인(김진환)
 	int checkFirstMembership(SqlSessionTemplate sqlSession, int mno);
 
 	// 28. 첫 회원 가입자에 대한 보너스 지급(김진환)
 	int welcomeCharge(SqlSessionTemplate sqlSession, int mno);
+	
+	// 29. 진행중인 회원 리스트 count(김진환)
+	int checkProgressList(SqlSessionTemplate sqlSession, String tno);
+
+	// 30. 완료 회원 리스트 count(김진환)
+	int checkCompleteList(SqlSessionTemplate sqlSession, String tno);
+
 
 
 
@@ -160,6 +167,7 @@ public interface TrainerDao {
 	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 	void deleteMidea(SqlSessionTemplate sqlSession, String mno, String thisModiName);
 
+	
 
 
 	
