@@ -406,7 +406,7 @@ div[role="tabpanel"]:after {
 
 	<div class="subMenuBarDiv">
 		<div class="subMenuBar1">매칭 진행 회원</div>
-		<div class="subMenuBar2" onclick="location.href='goMatchingCompletePage.tr'">매칭 완료 회원</div>
+		<div class="subMenuBar2" onclick="location.href='goMatchingCompletePage.tr?tno=${sessionScope.loginUser.mno}'">매칭 완료 회원</div>
 	</div>
 	
 	<div class="searchUserListDiv">

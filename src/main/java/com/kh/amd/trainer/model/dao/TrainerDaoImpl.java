@@ -222,11 +222,13 @@ public class TrainerDaoImpl implements TrainerDao {
 		return sqlSession.selectOne("Trainer.getTrainerMyPageMatchingListCount", tno);
 	}
 
-	// 19. 받은요청 페이징 철를 위한 카운트(김진환)
+	// 19. 받은요청 페이징 처리를 위한 카운트(김진환)
 	@Override
 	public int checkMyReceiveListCount(SqlSessionTemplate sqlSession, String tno) {
 		
-		return sqlSession.selectOne("Trainer.checkMyReceiveListCount", tno);
+		int result = 0;
+		result = sqlSession.selectOne("Trainer.checkMyReceiveListCount", tno);
+		return result;
 	}
 	
 	// 20. 받은요청 리스트 확인 메소드(김진환)
@@ -238,6 +240,86 @@ public class TrainerDaoImpl implements TrainerDao {
 		
 		return (List) sqlSession.selectList("Trainer.myReciveList", tno, rowBounds);
 	}
+	
+	// 21. 보낸 요청에서 회원에게 보낸 견적서 보여주기(김진환)
+	@Override
+	public Mprocess matchEstimateOpen(SqlSessionTemplate sqlSession, int tno, int uno) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", uno);
+		map.put("tno", tno);
+	
+		return sqlSession.selectOne("Trainer.matchEstimateOpen", map);
+	}
+	
+	// 22. 보낸견적서 요청 철회(김진환)
+	@Override
+	public int matchEstCancel(SqlSessionTemplate sqlSession, int tno, int uno) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", uno);
+		map.put("tno", tno);
+		
+		return sqlSession.delete("Trainer.matchEstCancel", map);
+	}
+	
+	// 23. 요청받은 내역 거절하기(트레이너, 김진환)
+	@Override
+	public int denyRequest(SqlSessionTemplate sqlSession, int tno, int uno) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", uno);
+		map.put("tno", tno);
+	
+		return sqlSession.update("Trainer.denyRequest", map);
+	}
+	
+	// 24. 요청받은 내역에서 견적서 보내기(트레이너, 김진환)
+	@Override
+	public int receivedReqAccept(SqlSessionTemplate sqlSession, Mprocess mprocess) {
+		
+		System.out.println("Dao에서 mprocess : " + mprocess);
+		
+		return sqlSession.update("Trainer.receivedReqAccept", mprocess);
+	}
+	
+	// 25. 매칭 진행중인 회원 리스트 조회(김진환)
+	@Override
+	public List<Member> showMatchingProgressList(SqlSessionTemplate sqlSession, String tno) {
+		
+		
+		return sqlSession.selectList("Trainer.showMatchingProgressList", tno);
+	}
+
+	// 26. 매칭 완료 회원 리스트 조회(김진환)
+	@Override
+	public List<Member> showMatchingCompleteList(SqlSessionTemplate sqlSession, String tno) {
+		
+		
+		return sqlSession.selectList("Trainer.showMatchingCompleteList", tno);
+	}
+	
+	// 27. 첫회원 가입자인지 확인(김진환)
+	@Override
+	public int checkFirstMembership(SqlSessionTemplate sqlSession, int mno) {
+
+		return sqlSession.selectOne("Trainer.checkFirstMembership", mno);
+	}
+
+	// 28. 첫 회원 가입자에 대한 보너스 지급(김진환)
+	@Override
+	public int welcomeCharge(SqlSessionTemplate sqlSession, int mno) {
+
+		return sqlSession.update("Trainer.welcomeCharge", mno);
+	}
+
+
+
+
+
+	
+	
+
 
 
 
@@ -427,6 +509,13 @@ public class TrainerDaoImpl implements TrainerDao {
 		sqlSession.update("Trainer.deleteMedia", map);
 	}
 
+
+
+
+	
+
+	
+	
 
 
 

@@ -72,6 +72,34 @@ public interface TrainerService {
 	// 18. 받은 요청 회원에 대한 리스트 확인 메소드 (김진환)
 	List<Member> myReciveList(String tno, PageInfo pi);
 
+	// 19. 보낸 요청에서 회원에게 보낸 견적서 보여주기(김진환)
+	Mprocess matchEstimateOpen(int tno, int uno);
+	
+	// 20. 보낸견적서 요청 철회(김진환)
+	int matchEstCancel(int tno, int uno);
+	
+	// 21. 요청받은 내역 거절하기(트레이너, 김진환)
+	int denyRequest(int tno, int uno);
+	
+	// 22. 받은요청에서 견적서를 보내기(김진환)
+	int receivedReqAccept(Mprocess mprocess);
+	
+	// 23. 매칭 진행중인 회원 리스트(김진환)
+	List<Member> showMatchingProgressList(String tno);
+
+	// 24. 매칭 완료 회원 리스트(김진환)
+	List<Member> showMatchingCompleteList(String tno);
+	
+	// 25. 첫회원 가입자인지 확인(김진환)
+	int checkFirstMembership(int mno);
+
+	// 26. 첫 회원 가입자에 대한 보너스 지급
+	int welcomeCharge(int mno);
+
+
+	
+
+
 	
 	
 	
@@ -122,6 +150,14 @@ public interface TrainerService {
 
 	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 	void deleteMidea(String mno, String thisModiName);
+
+
+
+	
+
+	
+
+	
 
 	
 	
