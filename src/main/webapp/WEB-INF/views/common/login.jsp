@@ -13,7 +13,7 @@
 
 #submitBtn {
 	width: 500px;
-	border: 1px solid #ff0066;
+	border: 0.5px solid #ff0066;
 	font-size: 17px;
 	color: white;
 	background: #ff0066;
@@ -22,7 +22,7 @@
 
 #submitBtn:hover {
 	width: 500px;
-	border: 1px solid #ff0066;
+	border: 0.5px solid #ff0066;
 	font-size: 17px;
 	color: #ff0066;
 	background: white;
@@ -40,7 +40,8 @@
 .loginDiv {
 	width:100%;
 	height:100%;
-	border-top:1px solid lightgray;
+	border-top:0.5px solid lightgray;
+	background:#f9f9f9;
 }
 .findIdPwdDiv {
 	width:500px;
@@ -85,10 +86,11 @@
 			</div>
 			
 			<button type="submit" class="form-control" id="submitBtn">로그인</button>
+			<br><br><br><br>
 
 		</form>
 	</div>
-	<br><br><br><br><br><br><br><br><br><br><br><br><hr>
+	<hr>
 <jsp:include page="../common/footer.jsp"></jsp:include>
 </body>
 </html>

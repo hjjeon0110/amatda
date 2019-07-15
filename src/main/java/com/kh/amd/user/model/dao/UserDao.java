@@ -15,14 +15,10 @@ import com.kh.amd.trainer.model.vo.Profile;
 
 public interface UserDao {
 	
-
-	// 나의 문의 내역 select (우리나)
 	List<Board> selectMyQnaList(SqlSessionTemplate sqlSession, int mno2, PageInfo pi);
 	
-	// 내글관리(QnaDetail) select (우리나)
 	Board selectMyQnaDetail(SqlSessionTemplate sqlSession, int bno2);
 	
-	// 내글관리(QnaReply) select (우리나)
 	Reply selectQnaReply(SqlSessionTemplate sqlSession, int bno2);
   
 	List<Board> selectMyBoardList(SqlSessionTemplate sqlSession, int mno2, PageInfo pi);
@@ -40,8 +36,6 @@ public interface UserDao {
 	int qnaListCount(SqlSessionTemplate sqlSession, int mno2);
 	
 	int reviewListCount(SqlSessionTemplate sqlSession, int mno2);
-	
-	
 	
 	
 	
@@ -87,8 +81,11 @@ public interface UserDao {
 	// 13. 다이어트 정보 보내기 - 회원 설문조사 selectOne (전효정)
 	Survey selectOneSurvey(SqlSessionTemplate sqlSession, String mno);
   
-  // 14. 내 정보 보낸 후 mprocess update (전효정)
+    // 14. 내 정보 보낸 후 mprocess update (전효정)
 	void updateMprocess1(SqlSessionTemplate sqlSession, String mno, String tno);
+
+	// 15. 매칭 요청 후  mprocess update (전효정)
+	void updateMprocess3(SqlSessionTemplate sqlSession, String mno, String tno);
 
 
 	

@@ -25,18 +25,12 @@ public class UserServiceImpl implements UserService {
 	private UserDao ud;
 	
 
-	
-	
-	
 	// 나의 문의 내역 select (우리나)
 	@Override
 	public List<Board> selectMyQnaList(int mno2, PageInfo pi) {
 		return ud.selectMyQnaList(sqlSession,mno2,pi);
 	}
-
-
 	
-
 	// 내글관리(QnaDetail) select (우리나)
 	@Override
 	public Board selectMyQnaDetail(int bno2) {
@@ -54,51 +48,40 @@ public class UserServiceImpl implements UserService {
 		return ud.selectMyBoardList(sqlSession,mno2,pi);
 	}
 	
-	
-	
 	@Override
 	public Board selectOneReview(int bno2) {
 		return ud.selectOneReview(sqlSession,bno2);
 	}
-
-
+	
 	@Override
 	public Attachment selectOneAttachment(int bno2) {
 		return ud.selectOneAttachment(sqlSession, bno2);
 	}
-
 
 	@Override
 	public int updateMyReview(Board b) {
 		return ud.updateMyReview(sqlSession, b);
 	}
 
-
 	@Override
 	public int updateMyReviewAttachment(Attachment a) {
 		return ud.updateMyReviewAttachment(sqlSession, a);
 	}
-
 
 	@Override
 	public int deleteMyReview(int bno2) {
 		return ud.deleteMyReview(sqlSession,bno2);
 	}
 
-
 	@Override
 	public int getQnaListCount(int mno2) {
 		return ud.qnaListCount(sqlSession,mno2);
 	}
-
-
-	
 	
 	@Override
 	public int getReviewListCount(int mno2) {
 		return ud.reviewListCount(sqlSession,mno2);
 	}
-	
 	
 	
 	// 효정 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -202,7 +185,11 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	
-	
+	// 15. 매칭 요청 후  mprocess update (전효정)
+	@Override
+	public void updateMprocess3(String mno, String tno) {
+		ud.updateMprocess3(sqlSession, mno, tno);
+	}
 
 
 	

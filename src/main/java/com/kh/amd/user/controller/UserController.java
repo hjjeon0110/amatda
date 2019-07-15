@@ -517,6 +517,21 @@ public class UserController {
 	}
 	
 	
+	// 매칭 요청 후  mprocess update (전효정)
+	@RequestMapping("updateMprocess3.us")
+	public String updateMprocess3(Model model, HttpServletRequest request) {
+		
+		String mno = request.getParameter("mno");
+		String tno = request.getParameter("tno");
+		String tname = request.getParameter("tname").toString();
+		
+		// 15. 매칭 요청 후  mprocess update (전효정)
+		us.updateMprocess3(mno, tno);
+		
+		return "redirect:goMatchingProcess.us?mno=" + mno +"&tno=" + tno + "&tname=" + tname;
+	}
+	
+	
 
 	
 }

@@ -50,7 +50,7 @@
 				<label class="myPageMenuLabel" id="myPageMenu1">개인정보 관리</label>
 				
 			</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<div class="myPageMenu" id="myPageMenu2" onclick="location.href='showMyPageDietSurvey.us'">
+			<div class="myPageMenu" id="myPageMenu2" onclick="location.href='list.su?mno=${sessionScope.loginUser.mno}'">
 				<br><br><br>
 				<label class="myPageMenuLabel" id="myPageMenu2">다이어트 정보 관리</label>
 				
