@@ -80,7 +80,7 @@
                             </div>
                         </li>
                         
-                        <li class="nav-item dropdown">
+                  <!--       <li class="nav-item dropdown">
 
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -94,7 +94,11 @@
                                 <a class="dropdown-item" href="membership.ad">멤버쉽</a>
                                 <a class="dropdown-item" href="refund.ad">환불</a>                       
                             </div>
-                        </li>
+                        </li> -->
+                        
+                        <li class="nav-item"><a class="nav-link" href="refund.ad"> <i
+								class="fas fa-shopping-cart"></i> 환불관리 <span class="sr-only">(current)</span>
+						</a></li>
    
                           <li class="nav-item">
                             <a class="nav-link" href="declaration.ad">

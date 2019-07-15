@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <script
@@ -45,17 +46,17 @@
 	left:50%; 
 	top:50%; 
 	z-index:11; 
-	background:#fff;
+	background:#435c70;
 }
 
 #modalConfirm{
-	color:#435c70;
+	color:#fff;
 	text-align:center;
 	margin-top:70px;
 }
 
 #modalContent{
-	color:#435c70;
+	color:#fff;
 	text-align:center;
 	margin-top:30px;
 }
@@ -130,7 +131,7 @@
 									class="dropdown-item" href="QNA.ad">1:1문의</a>
 							</div></li>
 
-						<li class="nav-item dropdown"><a
+					<!-- 	<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <i class="fas fa-shopping-cart"></i> <span>
@@ -140,7 +141,13 @@
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item" href="membership.ad">멤버쉽</a> <a
 									class="dropdown-item" href="refund.ad">환불</a>
-							</div></li>
+							</div></li> -->
+							
+						<li class="nav-item"><a class="nav-link" href="refund.ad"> <i
+								class="fas fa-shopping-cart"></i> 환불관리 <span class="sr-only">(current)</span>
+						</a></li>
+							
+							
 
 						<li class="nav-item"><a class="nav-link" href="declaration.ad"> <i
 								class="fas fa-cog"></i> 신고관리 <span class="sr-only">(current)</span>
@@ -175,8 +182,9 @@
 					class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
 					<h2 class="tm-block-title">매칭 조회</h2>
 
-				<input id="userId"  name="userId" type="text"  placeholder="아이디 입력">
-			 <a href="#" class="search_icon" id="idSearch"><i class="fas fa-search"></i></a>
+			<!-- 	<input id="userId"  name="userId" type="text"  placeholder="아이디 입력">
+			 <a href="#" class="search_icon" id="idSearch"><i class="fas fa-search"></i></a> -->
+			 
 					
 					
 					
@@ -187,7 +195,7 @@
 								<th scope="col">번호</th>
 								<th scope="col">회원</th>
 								<th scope="col">트레이너</th>
-								<th scope="col">입금완료일</th>
+								<th scope="col">매칭단계</th>
 								<th scope="col">PT시작일</th>
 								<th scope="col">PT종료일</th>
 								<th scope="col">상태</th>
@@ -196,14 +204,15 @@
 
 						<tbody>
 
-							<c:forEach var="member" begin="1" end="10">
+							<c:forEach var="list" items="${list }" varStatus="status">
 								<tr>
-									<th scope="row"><b>1</b></th>
-									<td>sunah</td>
-									<td>wannaOne</td>
-									<td>2019.06.07</td>
-									<td>2019.06.21</td>
-									<td>2019.12.21</td>			
+									<th scope="row"><b>${ status.count }</b>
+									<input type="hidden" value="${list.processNo }" id="No"></th>
+									<td>user01</td>
+									<td>${ list.member.userId }</td>
+									<td align="center">${ list.matchingLevel }</td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.startDate }"/></td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.endDate }"/></td>			
 									<td>
 										<a href="#modalLayer" class="button">매칭종료</a>
 										 <div id="modalLayer">
@@ -211,7 +220,7 @@
 											 <h5 id="modalConfirm"><strong>정말 매칭을 종료 시키시겠습니까?</strong></h5>
 											 <p id="modalContent"><b>확인을 누르시면, <br>
 											 회원과 트레이너 관리페이지는 더이상 이용할 수 없습니다.</b></p>
-											<button type="button">확인</button>
+											<button type="button" id="agreeBtn">확인</button>
 											<button type="button">취소</button>
 											</div>
 										</div>
@@ -248,6 +257,25 @@
 			  var marginTop = modalCont.outerHeight()/2; 
 	
 			  button.click(function(){
+				  
+				 
+			    var No = $(this).parents("tr").children("th").children().eq(1).val();         
+			  	 console.log("모달  : " + No);
+			            
+			    var $input = $("<input type='hidden' id='num' value=" + No + ">");
+			    $(".container").append($input);
+			          	
+			     //매칭 종료
+			            $("#agreeBtn").click(function() {
+			               modalLayer.fadeOut("slow");
+			               button.focus(); 
+			                           
+			              var No = $("#num").val();
+			              console.log("매칭종료 : " + No);
+			              location.href="matchingEnd.ad?No=" + No; 
+			      
+			            }) 
+			            
 			    modalLayer.fadeIn("slow");
 			    modalCont.css({"margin-top" : -marginTop, "margin-left" : -marginLeft});
 			    $(this).blur();
@@ -260,6 +288,47 @@
 			    button.focus();
 			  });		
 			});
+		
+		$("#idSearch").click(function(){
+	  		var userId = $("input[name=userId]").val();  		
+	  		var searchId = {userId:userId};
+	  		//console.log(searchId);
+	  		 $.ajax({
+	  			url:"searchId.ad",
+	  			data:searchId,
+	  			type:"get",
+	  			success:function(data){
+	  				//console.log(data[0].name);
+	  				$(".table").children().remove();
+	  				
+	  				 var thead = "<thead><tr><th>번호</th><th>회원</th><th>트레이너</th><th>매칭단계</th><th>PT시작일</th><th>PT종료일</th></tr><thead>";
+	  				 
+	                $(".table").append(thead);
+	                
+	                
+	                
+	     			  for(var i = 0 ; i<data.length; i++){
+	                     
+	                 	console.log(data);
+	         
+	                    var tbody="<tr><td>" + (i+1) + "</td><td>" + 
+	                     data[i].userId + "</td><td>" +  
+	                     data[i].userId + "</td><td>" +  
+	                     data[i].matchingLevel + "</td><td>" +
+	                     data[i].startDate + "</td><td>" +
+	                     data[i].endDate + "</td></tr>";
+	                      $(".table").append(tbody);
+	                      
+	                
+	                    
+	                      
+	                     
+	                  } 
+	  			
+	  				
+	  			}
+	  		})
+	  	})
 	</script>
 
 

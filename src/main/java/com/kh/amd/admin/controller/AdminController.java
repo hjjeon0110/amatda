@@ -32,6 +32,7 @@ import com.kh.amd.board.model.vo.Declaration;
 import com.kh.amd.board.model.vo.PageInfo;
 import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.common.Pagination;
+import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.vo.Payment;
 import com.kh.amd.board.model.service.ReplyService;
@@ -115,28 +116,47 @@ public class AdminController {
 
 	//매칭 조회
 	@RequestMapping("matching.ad")
-	public String matchingList() {
-
+	public String matchingList(Model model) {		
+		List<Mprocess> list = as.matchingList();
+		model.addAttribute("list", list);	
+		System.out.println("매칭 : " + list);
 		return "admin/matchingList";
 	}
 
+	//매칭 종료
+	@RequestMapping("matchingEnd.ad")
+	public String matchingEnd(@RequestParam int No) {	  
+		System.out.println("글번호 : " + No);
+		as.matchingEnd(No); 
+		return "redirect:matching.ad";
+	}
+
+
+	//매칭 아이디 검색 기능
+	/*
+	 * @RequestMapping("searchId.ad") public ResponseEntity searchId(String userId){
+	 * 
+	 * List<Mprocess> searchResult = as.searchId(userId);
+	 * //System.out.println(searchResult); return new ResponseEntity(searchResult,
+	 * HttpStatus.OK); }
+	 */
 
 	//공지사항 리스트
 	@RequestMapping("notice.ad")
 	public String noticeList(Model model, String currentPage){
-		
+
 		//페이징처리
 		int currentPageI = 1;
-        
-        if(currentPage != null) {
-             currentPageI = Integer.parseInt(currentPage);
-          }
-        
-       //목록을 조회해서 해당 리스트가 몇개인지 확인 
-       int listCount = as.noticeListCount();
-       System.out.println("페이징 리턴 수 : " + listCount);
 
-       PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+		if(currentPage != null) {
+			currentPageI = Integer.parseInt(currentPage);
+		}
+
+		//목록을 조회해서 해당 리스트가 몇개인지 확인 
+		int listCount = as.noticeListCount();
+		System.out.println("페이징 리턴 수 : " + listCount);
+
+		PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
 
 		List<Board> noticeList = bs.noticeList(pi);
 		//System.out.println(noticeList);
@@ -200,25 +220,25 @@ public class AdminController {
 	//자주 묻는 질문 리스트
 	@RequestMapping("FAQ.ad")
 	public String FAQList(Model model, String currentPage){
-		
-		//페이징처리
-				int currentPageI = 1;
-		        
-		        if(currentPage != null) {
-		             currentPageI = Integer.parseInt(currentPage);
-		          }
-		        
-		       //목록을 조회해서 해당 리스트가 몇개인지 확인 
-		       int listCount = as.faqListCount();
-		       System.out.println("페이징 리턴 수 : " + listCount);
 
-		       PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
-		
-		
+		//페이징처리
+		int currentPageI = 1;
+
+		if(currentPage != null) {
+			currentPageI = Integer.parseInt(currentPage);
+		}
+
+		//목록을 조회해서 해당 리스트가 몇개인지 확인 
+		int listCount = as.faqListCount();
+		System.out.println("페이징 리턴 수 : " + listCount);
+
+		PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+
+
 		List<Board> FAQList = bs.FAQList(pi);
 		model.addAttribute("list", FAQList);	
 		model.addAttribute("pi", pi);
-		
+
 		return "admin/FAQList";
 	}
 
@@ -280,27 +300,27 @@ public class AdminController {
 	//1:1문의 리스트
 	@RequestMapping("QNA.ad")
 	public String QNAList(Model model, String currentPage){		
-		
+
 		//페이징처리
 		int currentPageI = 1;
-        
-        if(currentPage != null) {
-             currentPageI = Integer.parseInt(currentPage);
-          }
-        
-       //목록을 조회해서 해당 리스트가 몇개인지 확인 
-       int listCount = as.qnaListCount();
-       System.out.println("페이징 리턴 수 : " + listCount);
 
-       PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
-       
+		if(currentPage != null) {
+			currentPageI = Integer.parseInt(currentPage);
+		}
+
+		//목록을 조회해서 해당 리스트가 몇개인지 확인 
+		int listCount = as.qnaListCount();
+		System.out.println("페이징 리턴 수 : " + listCount);
+
+		PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+
 		List<Board> QNAList = bs.QNAList(pi);
 		model.addAttribute("list", QNAList);
 		model.addAttribute("pi", pi);
 		//System.out.println("1:1" + QNAList);
 		return "admin/QNAList";
 	}
-	
+
 
 	//1:1문의 상세보기
 	@RequestMapping(value="QNASelectOne.ad", method=RequestMethod.GET)
@@ -348,7 +368,7 @@ public class AdminController {
 
 		return "admin/membershipList";
 	}
-	
+
 	//카테고리별 검색	(멤버쉽)  
 	@RequestMapping("membershipType.ad") 
 	public ResponseEntity<Map<String, Object>> membershipType(@RequestParam String keyword) {
@@ -380,7 +400,7 @@ public class AdminController {
 		as.refundAgree(payNo); 
 		return "redirect:refund.ad";
 	}
-	
+
 	//환불 거절 처리
 	@RequestMapping("refundRefuse.ad")
 	public String refundRefuse(@RequestParam int payNo) {	  
@@ -405,28 +425,28 @@ public class AdminController {
 	//신고관리 페이지
 	@RequestMapping("declaration.ad")
 	public String declarationList(Model model, String currentPage){
-		
-		//페이징처리
-				int currentPageI = 1;
-		        
-		        if(currentPage != null) {
-		             currentPageI = Integer.parseInt(currentPage);
-		          }
-		        
-		       //목록을 조회해서 해당 리스트가 몇개인지 확인 
-		       int listCount = as.declListCount();
-		       System.out.println("페이징 리턴 수 : " + listCount);
 
-		       PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
-		       
+		//페이징처리
+		int currentPageI = 1;
+
+		if(currentPage != null) {
+			currentPageI = Integer.parseInt(currentPage);
+		}
+
+		//목록을 조회해서 해당 리스트가 몇개인지 확인 
+		int listCount = as.declListCount();
+		System.out.println("페이징 리턴 수 : " + listCount);
+
+		PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+
 		List<Declaration> declarationList = ds.declarationList(pi);
 		//System.out.println(declarationList);
 		model.addAttribute("list", declarationList);
 		model.addAttribute("pi", pi);
-		
+
 		return "admin/declarationList";
 	}
-	
+
 
 	//신고게시물 상세보기
 	@RequestMapping(value="declarationSelectOne.ad", method=RequestMethod.GET)
@@ -454,12 +474,13 @@ public class AdminController {
 		List<Member> memberAge = as.memberAge();
 		model.addAttribute("list", memberAge);
 		System.out.println("통계 : " +  memberAge);
-		
-		
+
+
 		return "admin/statistics";
 	}
-	
-	
-	
+
+
+
+
 
 }

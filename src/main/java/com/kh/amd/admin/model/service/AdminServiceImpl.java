@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.amd.admin.model.dao.AdminDao;
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.vo.Payment;
 
@@ -116,7 +117,26 @@ public class AdminServiceImpl implements AdminService{
 	public List<Member> memberAge() {
 		return ad.memberAge(sqlSession);
 	}
-	
+
+	//매칭 조회
+	@Override
+	public List<Mprocess> matchingList() {
+		return ad.matchingList(sqlSession); 
+	}
+
+	//매칭 아이디 검색
+	@Override
+	public List<Mprocess> searchId(String userId) {
+		return ad.searchId(sqlSession, userId);
+	}
+
+	//매칭 종료
+	@Override
+	public int matchingEnd(int No) {
+		System.out.println("service : " + No);
+		return ad.matchingEnd(sqlSession, No);
+	}
+
 
 
 
