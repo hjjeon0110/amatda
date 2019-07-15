@@ -15,7 +15,7 @@ public interface UserService {
 	
 	
 	// 내글관리(Qna) select (우리나)
-	List<Board> selectMyQnaList(int mno2);
+	List<Board> selectMyQnaList(int mno2,PageInfo pi);
 	
 	// 내글관리(QnaDetail) select (우리나)
 	Board selectMyQnaDetail(int bno2);
@@ -23,7 +23,7 @@ public interface UserService {
 	// 내글관리(QnaReply) select (우리나)
 	Reply selectQnaReply(int bno2);
 
-	List<Board> selectMyBoardList(int mno2);
+	List<Board> selectMyBoardList(int mno2, PageInfo pi);
   
   // 내글관리(ReviewList Detail) 글 select (우리나)
 	Board selectOneReview(int bno2);
@@ -36,12 +36,15 @@ public interface UserService {
 	
 	// 내글관리(Review Detail) 사진 update (우리나)
 	int updateMyReviewAttachment(Attachment a);
-
+	
+	// 내글관리 리뷰 delete (우리나)
 	int deleteMyReview(int bno2);
 	
-	//qna리스트 페이징
+	//qna리스트 갯수조회 - 페이징 (우리나)
 	int getQnaListCount(int mno2);
 	
+	//리뷰리스트 갯수조회 - 페이징 (우리나)
+	int getReviewListCount(int mno2);
 	
 	
 	// 효정 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -88,6 +91,10 @@ public interface UserService {
 	
 	// 14. 내 정보 보낸 후 mprocess update (전효정)
 	void updateMprocess1(String mno, String tno);
+
+	
+
+	
   
 
 	

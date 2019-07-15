@@ -416,8 +416,11 @@ ORDER BY MDATE
 
 <select id="selectTno" parameterType="_int" resultType="int">
 	SELECT COUNT(*)
-	FROM M_PROCESS
-	WHERE UNO=#{mno2}
+FROM MATCHING M
+JOIN M_PROCESS MP ON (M.PROCESS_NO=MP.PROCESS_NO)
+WHERE UNO=#{mno2}
+AND MATCHING_STATUS='진행중'
+AND PT_ENDDATE >SYSDATE
 </select>
 
 <select id="selectTnoTno" parameterType="_int" resultType="int">
