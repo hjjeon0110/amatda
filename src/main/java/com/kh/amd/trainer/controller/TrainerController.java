@@ -571,11 +571,22 @@ public class TrainerController {
 
 		// 트레이너 PT관리페이지_매칭진행회원 이동 (전효정, 김진환)
 		@RequestMapping("showMatchingInProgressPage.tr")
-		public String showMatchingInProgressView(Model model, String tno) {
+		public String showMatchingInProgressView(Model model, String tno, String currentPage) {
+			
+			//페이징 처리를 위한 변수 선언, 관리
+			int currentPageI = 1;
+			 
+			if(currentPage != null) {
+					currentPageI = Integer.parseInt(currentPage);
+			}
+			//목록을 조회해서 해당 리스트가 몇개인지 확인 
+			int listCount = ts.checkProgressList(tno);
 			
 			System.out.println("받아온 tno : " + tno);
 			
-			List<Member> list = ts.showMatchingProgressList(tno);
+			PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+			
+			List<Member> list = ts.showMatchingProgressList(tno, pi);
 			
 			//설문조사 희망운동 , 를 #으로 바꾸기
 			for(Member member : list) {
@@ -587,16 +598,30 @@ public class TrainerController {
 			System.out.println("db에서 조회해온 list : \n" + list);
 			
 			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+
 			
 			return "trainer/3_1_matchingInProgressPage";
 		}
 
 		// 트레이너 PT관리페이지_매칭완료회원 이동 (전효정, 김진환)
 		@RequestMapping("showMatchingCompletePage.tr")
-		public String showMatchingCompleteView(Model model, String tno) {
+		public String showMatchingCompleteView(Model model, String tno, String currentPage) {
+			
+			//페이징 처리를 위한 변수 선언, 관리
+			int currentPageI = 1;
+			 
+			if(currentPage != null) {
+					currentPageI = Integer.parseInt(currentPage);
+			}
+			//목록을 조회해서 해당 리스트가 몇개인지 확인 
+			int listCount = ts.checkCompleteList(tno);
+
+			PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+			
 			System.out.println("받아온 tno : " + tno);
 			
-			List<Member> list = ts.showMatchingCompleteList(tno);
+			List<Member> list = ts.showMatchingCompleteList(tno, pi);
 			
 			//설문조사 희망운동 , 를 #으로 바꾸기
 			for(Member member : list) {
@@ -608,6 +633,7 @@ public class TrainerController {
 			System.out.println("db에서 조회해온 list : \n" + list);
 			
 			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
 			
 			
 			

@@ -204,17 +204,17 @@ public class TrainerServiceImpl implements TrainerService {
 	
 	// 23. 매칭 진행중인 회원 리스트(김진환)
 	@Override
-	public List<Member> showMatchingProgressList(String tno) {
+	public List<Member> showMatchingProgressList(String tno, PageInfo pi) {
 		
-		return td.showMatchingProgressList(sqlSession, tno);
+		return td.showMatchingProgressList(sqlSession, tno, pi);
 	}
 
 	// 24. 매칭 완료 회원 리스트(김진환)
 	@Override
-	public List<Member> showMatchingCompleteList(String tno) {
+	public List<Member> showMatchingCompleteList(String tno, PageInfo pi) {
 		
 		
-		return td.showMatchingCompleteList(sqlSession, tno);
+		return td.showMatchingCompleteList(sqlSession, tno, pi);
 	}
 	
 	// 25. 첫회원 가입자인지 확인(김진환)
@@ -231,6 +231,22 @@ public class TrainerServiceImpl implements TrainerService {
 		
 		return td.welcomeCharge(sqlSession, mno);
 	}
+	
+
+	// 27. 진행중인 회원 리스트 count(김진환)
+	@Override
+	public int checkProgressList(String tno) {
+		
+		return td.checkProgressList(sqlSession, tno);
+	}
+
+	// 28. 완료 회원 리스트 count(김진환)
+	@Override
+	public int checkCompleteList(String tno) {
+		
+		return td.checkCompleteList(sqlSession, tno);
+	}
+
 
 
 
@@ -357,6 +373,8 @@ public class TrainerServiceImpl implements TrainerService {
 	public void deleteMidea(String mno, String thisModiName) {
 		td.deleteMidea(sqlSession, mno, thisModiName);
 	}
+
+
 
 
 	

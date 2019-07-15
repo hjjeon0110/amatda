@@ -274,7 +274,8 @@
 	<c:if test="${ !empty list }">
 	<!-- 정렬을 위한 셀렉트 옵션 영역 -->
 	<div class="searchUserListDiv">
-		<br> <select id="userListSort" class="userSelect">
+		<br> 
+		<select id="userListSort" class="userSelect">
 			<option >- 선택해주세요 -</option>
 			<option value="join" >신규가입순</option>
 			<option value="start">운동시작일순</option>
