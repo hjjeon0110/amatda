@@ -196,7 +196,8 @@ public class UserController {
 		List<Member> myTrainerList = us.selectMyTrainerList(uno);
 		model.addAttribute("myTrainerList", myTrainerList);
 		
-		return "user/2_3_myPage_myTrainer";
+		// return "user/2_3_myPage_myTrainer";
+		return "redirect:showMyPageMyTrainer.us?mno=" + uno;
 	}
 	
 	
@@ -421,6 +422,21 @@ public class UserController {
 		return "redirect:gotoMyReviewList.us?mno=" + mno;
 	}
 	
+	// 마이페이지_개인정보관리 페이지 이동 (우리나)
+	@RequestMapping("showMyPagePrivacy.us")
+	public String showMyPagePrivacyPageView(String mno,Model model) {
+		
+		int mno2 = Integer.parseInt(mno);
+		
+		Attachment at = ms.selectMyImg(mno2);
+		
+		System.out.println("at: " + at);
+		model.addAttribute("at",at);
+	
+		return "user/2_1_myPage_privacy";
+	}
+	
+	
 	// 매칭 프로세스 페이지 이동 (전효정)
 	@RequestMapping("goMatchingProcess.us")
 	public String goMatchingProcess(Model model, HttpServletRequest request) {
@@ -457,6 +473,8 @@ public class UserController {
 		// 10. 마이트레이너 존재 여부 확인 메소드 (전효정)
 		Mprocess selectOneMyTrainer = us.selectOneMyTrainer(mno, tno);
 		model.addAttribute("selectOneMyTrainer", selectOneMyTrainer);
+		
+		System.out.println("selectOneMyTrainer : " + selectOneMyTrainer);
 				
 		// 12. 매칭 시작 트레이너 조회 (전효정)
 		Member matchingTrainer = us.selectOneMatchingTrainer(tno);
@@ -465,6 +483,7 @@ public class UserController {
 		// 13. 다이어트 정보 보내기 - 회원 설문조사 selectOne (전효정)
 				Survey survey = us.selectOneSurvey(mno);
 				model.addAttribute("survey", survey);
+				
 				
 		return "user/3_1_matchingProcessPage";
 		
@@ -498,24 +517,6 @@ public class UserController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	// 마이페이지_개인정보관리 페이지 이동 (우리나)
-	@RequestMapping("showMyPagePrivacy.us")
-	public String showMyPagePrivacyPageView(String mno,Model model) {
-		
-		int mno2 = Integer.parseInt(mno);
-		
-		Attachment at = ms.selectMyImg(mno2);
-		
-		System.out.println("at: " + at);
-		model.addAttribute("at",at);
-	
-		return "user/2_1_myPage_privacy";
-	}
+
 	
 }
