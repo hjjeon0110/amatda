@@ -133,13 +133,15 @@ public class AdminController {
 
 
 	//매칭 아이디 검색 기능
-	/*
-	 * @RequestMapping("searchId.ad") public ResponseEntity searchId(String userId){
-	 * 
-	 * List<Mprocess> searchResult = as.searchId(userId);
-	 * //System.out.println(searchResult); return new ResponseEntity(searchResult,
-	 * HttpStatus.OK); }
-	 */
+	@RequestMapping("searchId.ad") 
+	public ResponseEntity searchId(String userId){
+
+		List<Mprocess> searchResult = as.searchId(userId);
+		System.out.println(searchResult); 
+
+		return new ResponseEntity(searchResult, HttpStatus.OK); 
+	}
+
 
 	//공지사항 리스트
 	@RequestMapping("notice.ad")

@@ -43,6 +43,7 @@ public class Member implements java.io.Serializable{
 	
 	//(김선아 추가)
 	private String uage;
+	private String trainerId;
 
 	public Member () {}
 
@@ -305,6 +306,16 @@ public class Member implements java.io.Serializable{
 	public void setUage(String uage) {
 		this.uage = uage;
 	}
+	
+	
+
+	public String getTrainerId() {
+		return trainerId;
+	}
+
+	public void setTrainerId(String trainerId) {
+		this.trainerId = trainerId;
+	}
 
 	@Override
 	public String toString() {
@@ -315,8 +326,9 @@ public class Member implements java.io.Serializable{
 				+ ", bankCode=" + bankCode + ", accountNo=" + accountNo + ", tage=" + tage + ", topen=" + topen
 				+ ", remainNum=" + remainNum + ", trainerInfo=" + trainerInfo + ", profile=" + profile + ", mprocess="
 				+ mprocess + ", attachment=" + attachment + ", survey=" + survey + ", estimate=" + estimate + ", uage="
-				+ uage + "]";
+				+ uage + ", trainerId=" + trainerId + "]";
 	}
+
 
 	
 	
