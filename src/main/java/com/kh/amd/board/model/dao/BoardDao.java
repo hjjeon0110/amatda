@@ -150,6 +150,8 @@ public interface BoardDao {
 	 //조회수 카운트 (SR)
 	int updateCount(SqlSessionTemplate sqlSession, int bNo);
 
+	int likeCount(SqlSessionTemplate sqlSession, Board b);
+
 	//int insertQna(SqlSessionTemplate sqlSession, Board b, String mno);
 
 

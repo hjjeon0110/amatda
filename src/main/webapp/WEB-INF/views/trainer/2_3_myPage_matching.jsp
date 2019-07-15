@@ -261,6 +261,17 @@
 		<div class="subMenuBar2" onclick="location.href='showMyPageReceivedMatching.tr?tno=${sessionScope.loginUser.mno}'">받은 요청 내역</div>
 	</div>
 	
+	<c:if test="${ empty list }">
+	
+		<div class="recommendtrainerListNullDiv">
+			<br><br>
+			<label class="recommendtrainerListNullLabel">아직받은 보낸 요청이 없습니다. </label><br>
+			<label class="recommendtrainerListNullLabel" style="color:#ff0066;">회원 찾기를 통해 직접요청을 보낼수 있습니다.!</label>
+			<br><br><br>
+		</div>
+	
+	</c:if>
+	<c:if test="${ !empty list }">
 	<!-- 정렬을 위한 셀렉트 옵션 영역 -->
 	<div class="searchUserListDiv">
 		<br> <select id="userListSort" class="userSelect">
@@ -388,7 +399,7 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">닫기</button>
-							<button type="button" class="btn btn-primary" name="estimateOpen" id="modal1"
+							<button type="button" class="btn btn-primary" name="estimateOpen"
 								class="btn btn-primary" data-toggle="modal" value="${ user.mno }" 
 								data-target="#estimateSendModal">내가 보낸 견적서 보기</button>
 						</div>
@@ -396,8 +407,9 @@
 				</div>
 			</div>
 
-			
 		</c:forEach>
+		
+		</c:if>
 		<!-- 페이징 처리를 위한 코드, div지정후 페이징 처리 ----------------------------------->
 		<div id="pagingArea" align="center">
 			<c:if test="${ pi.currentPage <= 1 }">
@@ -443,12 +455,13 @@
 				<div class="modal-dialog modal-dialog-scrollable" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<label class="modalHeader"><i class="fa fa-check"></i></label>&nbsp;&nbsp;&nbsp;&nbsp;
+							<label class="modalHeader"><i class="fa fa-check"></i>회원님에게 보낸 견적서 내용입니다.</label>&nbsp;&nbsp;&nbsp;&nbsp;
 						</div>
 						<div class="modal-body">
 
 					<div class="estimateDiv">
-						<input class="form-control" type="hidden" name="tno" value="${ sessionScope.loginUser.mno }" /> 
+						<input class="form-control" type="hidden" name="tno" value="${ sessionScope.loginUser.mno }" />
+						<input class="form-control" type="hidden" id="estUno" value="" />  
 						<br>
 						<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">제목</label> 
 						<br>
@@ -460,7 +473,7 @@
 						<br>
 						<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">운동일수</label>
 				        <br>
-				    	<input class="form-control" type="text" value=""/>
+				    	<input class="form-control" type="text" id="estDay" value=""/>
 						<br>
 						<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">가격</label>
 						<br>
@@ -473,7 +486,7 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">닫기</button>
-							<button type="button" class="btn btn-primary" name="matchingStart">매칭 철회하기</button>
+							<button type="button" class="btn btn-primary" name="matchingCancel">매칭 철회하기</button>
 						</div>
 						</div>
 					</div>
@@ -503,9 +516,68 @@
 			}
 			console.log(remainDay);
 		})
-		$("#modal1").click(function(){
+		$("button[name=estimateOpen]").click(function(){
+			
+			var uno = $(this).val();
+			var tno = ${sessionScope.loginUser.mno};
+			console.log("uno : " + uno);
+			console.log("tno : " + tno);
+			$.ajax({
+				url:"matchEstimateOpen.tr",
+				type:"get",
+				data:{uno:uno, tno:tno},
+				success:function(data){
+					var matchEstName = data.matchEstName;
+					var matchEstContents = data.matchEstContents;
+					var matchEstPrice = data.matchEstPrice;
+					var matchEstDay = data.matchEstDay;
+					
+					console.log(data);
+					console.log(uno);
+					
+ 					$("#estName").attr("value", matchEstName);
+ 					$("#estContents").text(matchEstContents);
+ 					$("#estPrice").attr("value", matchEstPrice);
+ 					$("#estDay").attr("value", matchEstDay);
+ 					$("#estUno").attr("value", uno)
+				}
+				
+			})
 			
 		});
+		
+		$("button[name=matchingCancel]").click(function(){
+			var uno = $("#estUno").val();
+			var tno = ${sessionScope.loginUser.mno};
+			
+			console.log("uno : " + uno + "tno : " + tno);
+			
+			if(confirm("견적서를 취소하시겠습니까?\n (멤버쉽횟수는 반환되지 않습니다.)") == true){
+				
+				$.ajax({
+					url:"matchEstCancel.tr",
+					data : {tno:tno, uno:uno},
+					type : "get",
+					success:function(data){
+						if(data == "SUCCESS"){
+							alert("회원에게 보낸 견적서를 취소했습니다 .");
+							location.reload();
+						}else{
+							alert("여긴안되는데,,, 견적서를 취소했습니다 .")
+
+						}
+						
+					}
+				
+				})
+				
+			}
+			
+			
+			
+		});
+		
+		
 		
 
 		

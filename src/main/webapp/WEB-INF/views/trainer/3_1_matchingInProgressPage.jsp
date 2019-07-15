@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -170,8 +172,17 @@
 
 	<div class="subMenuBar">
 		<div class="subMenuBar1">매칭 진행 회원</div>
-		<div class="subMenuBar2" onclick="location.href='showMatchingCompletePage.tr'">매칭 완료 회원</div>
+		<div class="subMenuBar2" onclick="location.href='showMatchingCompletePage.tr?tno=${sessionScope.loginUser.mno}'">매칭 완료 회원</div>
 	</div>
+	<c:if test="${ empty list }">
+		<div class="recommendtrainerListNullDiv">
+			<br><br>
+			<label class="recommendtrainerListNullLabel">아직받은 진행중인 회원이 없습니다. </label><br>
+			<label class="recommendtrainerListNullLabel" style="color:#ff0066;">회원 찾기를 통해 직접요청을 보내시면 매칭으로 이어질수 있습니다!!</label>
+			<br><br><br>
+		</div>
+	
+	</c:if>
 	
 	<div class="searchUserListDiv">
 		<br>

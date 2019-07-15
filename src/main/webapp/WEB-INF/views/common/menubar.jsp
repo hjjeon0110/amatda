@@ -195,10 +195,10 @@
 							href="showMyPagePrivacy.us?mno=${sessionScope.loginUser.mno}">MY PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<li class="menubarLi6"><a class="menubarLi6" <%-- href="matching.ms?mno=${sessionScope.loginUser.mno}" --%>>PT
 								PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<li class="menubarLi7"><a class="menubarLi7" href="list.di?mno=${sessionScope.loginUser.mno}">다이어리
+						<%-- <li class="menubarLi7"><a class="menubarLi7" href="list.di?mno=${sessionScope.loginUser.mno}">다이어리
 								</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<li class="menubarLi8"><a class="menubarLi8" href="showGallery.di?mno=${sessionScope.loginUser.mno}">갤러리
-								</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --%>
 					</ul>
 					<div class="dropdown">
 						<button class="btn btn-secondary dropdown-toggle" type="button"
@@ -311,7 +311,7 @@
 						<ul class="menubarLi">
 							<li class="menubarLi1"><a class="menubarLi1" href="showUserFindPageView.tr">회원 찾기</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<li class="menubarLi2"><a class="menubarLi2" href="showMyPageProfile.tr?mno=${sessionScope.loginUser.mno}">MY PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<li class="menubarLi3"><a class="menubarLi3" href="showMatchingInProgressPage.tr">PT 관리</a></li>
+							<li class="menubarLi3"><a class="menubarLi3" href="showMatchingInProgressPage.tr?tno=${ sessionScope.loginUser.mno}">PT 관리</a></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<li class="menuberLi4" id="remainNum">남은 멤버쉽 횟수 : </li><li class="menuberLi4" id="remainNum2"></li><li class="menuberLi4" id="remainNum">번</li>
@@ -366,12 +366,26 @@
 	</c:if>
 	
 	<script>
-		//멤버쉽잔여횟수 체크
+		//멤버쉽잔여횟수 체크 및 초기 보너스 지급을 위한 onload펑션(김진환)
 		$(function(){
 			var checkType = "${ sessionScope.loginUser.mtype }";
 			var mno = ${sessionScope.loginUser.mno};
 			
 			if(checkType == "T"){
+				$.ajax({
+					url:"firstMembership.tr",
+					data : {mno:mno},
+					success:function(data){
+						if(data == "SUCCESS"){
+							alert("회원가입을 축하드립니다!\n 환영의 의미로 보너스로 5포인트를 드립니다.!! \n 지금바로 매칭을 시작해보세요!");
+							
+						}else{
+							
+						}
+						
+						
+					}
+				})
 
 				$.ajax({
 					url:"checkMembership.tr",
@@ -389,7 +403,7 @@
 		$("#switch").change(function(){
 			var checked = $(this).prop('checked');
 			if(checked){
-				alert("체크를 함");
+				alert("회원들로부터 검색이 가능해집니다");
 				var mno = ${sessionScope.loginUser.mno};
 				var open = "Y";
 				$.ajax({
@@ -402,7 +416,7 @@
 				
 				
 			}else{
-				alert("체크해체함");
+				alert("회원들로 부터 회원님의 정보가 보이지 않습니다.");
 				var mno = ${sessionScope.loginUser.mno};
 				var open = "N";
 				$.ajax({

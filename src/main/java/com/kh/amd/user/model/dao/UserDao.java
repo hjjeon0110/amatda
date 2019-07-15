@@ -25,7 +25,7 @@ public interface UserDao {
 	// 내글관리(QnaReply) select (우리나)
 	Reply selectQnaReply(SqlSessionTemplate sqlSession, int bno2);
   
-	List<Board> selectMyBoardList(SqlSessionTemplate sqlSession, int mno2);
+	List<Board> selectMyBoardList(SqlSessionTemplate sqlSession, int mno2, PageInfo pi);
 
 	Board selectOneReview(SqlSessionTemplate sqlSession, int bno2);
 
@@ -38,6 +38,11 @@ public interface UserDao {
 	int deleteMyReview(SqlSessionTemplate sqlSession, int bno2);
 
 	int qnaListCount(SqlSessionTemplate sqlSession, int mno2);
+	
+	int reviewListCount(SqlSessionTemplate sqlSession, int mno2);
+	
+	
+	
 	
 	
 	// 효정 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -84,6 +89,8 @@ public interface UserDao {
   
   // 14. 내 정보 보낸 후 mprocess update (전효정)
 	void updateMprocess1(SqlSessionTemplate sqlSession, String mno, String tno);
+
+
 	
 
 

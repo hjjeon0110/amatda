@@ -236,7 +236,7 @@ public class UserController {
 		//목록을 조회해서 해당 리스트가 리스트가 얼마인지 확인 
 		int listCount = us.getQnaListCount(mno2);
 				
-		System.out.println("리뷰 게시물 갯수 조회: " + listCount);
+		System.out.println("문의 게시물 갯수 조회: " + listCount);
 				
 		PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
 
@@ -278,14 +278,31 @@ public class UserController {
 	
 	//마이페이지 -Review리스트 페이지로 이동 (우리나)
 	@RequestMapping("gotoMyReviewList.us")
-	public String gotoMyReviewList(String mno,Model model) {
+	public String gotoMyReviewList(String mno,Model model,String currentPage) {
 		System.out.println("mno다: " + mno);
 		
 		int mno2 = Integer.parseInt(mno);
-		List<Board> reviewList = us.selectMyBoardList(mno2);
+		
+		//페이징 시작
+			int currentPageI = 1;
+						
+		if(currentPage != null) {
+			currentPageI = Integer.parseInt(currentPage);
+		}
+		//목록을 조회해서 해당 리스트가 리스트가 얼마인지 확인 
+		int listCount = us.getReviewListCount(mno2);
+						
+		System.out.println("리뷰 게시물 갯수 조회: " + listCount);
+						
+		PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
+
+		System.out.println("pi: " + pi);
+		
+		List<Board> reviewList = us.selectMyBoardList(mno2,pi);
 		
 		System.out.println("db다녀온 리뷰리스트: " + reviewList);
 		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("pi", pi);
 		
 		return "user/2_7_myPage_myReviewList";
 	}

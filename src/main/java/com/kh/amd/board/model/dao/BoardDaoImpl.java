@@ -348,6 +348,11 @@ public class BoardDaoImpl implements BoardDao {
 		return sqlSession.update("Board.updateCount",bNo);
 	}
 
+	@Override
+	public int likeCount(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("Board.likeCount", b);
+	}
+
 	
 
 

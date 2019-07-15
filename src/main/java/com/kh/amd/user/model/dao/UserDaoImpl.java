@@ -46,11 +46,69 @@ public class UserDaoImpl implements UserDao {
 	//14. 내글관리(QnaReply) select (우리나)
 
 	@Override
-	public List<Board> selectMyBoardList(SqlSessionTemplate sqlSession, int mno2) {
-		return sqlSession.selectList("User.selectMyBoardList",mno2);
+	public List<Board> selectMyBoardList(SqlSessionTemplate sqlSession, int mno2,PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		List<Board> list = null;
+		list = (List) sqlSession.selectList("User.selectMyBoardList",mno2,rowBounds);
+		return list;
 	}
 	
 	
+	@Override
+	public Board selectOneReview(SqlSessionTemplate sqlSession, int bno2) {
+		return sqlSession.selectOne("User.selectOneReview", bno2);
+	}
+
+
+	@Override
+	public Attachment selectOneAttachment(SqlSessionTemplate sqlSession, int bno2) {
+		return sqlSession.selectOne("User.selectOneAttachment", bno2);
+	}
+
+
+	@Override
+	public int updateMyReview(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("User.updateMyReview", b);
+	}
+
+
+	@Override
+	public int updateMyReviewAttachment(SqlSessionTemplate sqlSession, Attachment a) {
+		return sqlSession.update("User.updateMyReviewAttachment", a);
+	}
+
+
+	@Override
+	public int deleteMyReview(SqlSessionTemplate sqlSession, int bno2) {
+		return sqlSession.delete("User.deleteMyReview", bno2);
+	}
+
+
+	
+
+	//14. 내글관리(QnaReply) select (우리나)
+		@Override
+		public Reply selectQnaReply(SqlSessionTemplate sqlSession, int bno2) {
+			return sqlSession.selectOne("User.selectQnaReply", bno2);
+		}
+
+		@Override
+		public int reviewListCount(SqlSessionTemplate sqlSession, int mno2) {
+			return sqlSession.selectOne("User.reviewListCount", mno2);
+		}
+
+		@Override
+		public int qnaListCount(SqlSessionTemplate sqlSession, int mno2) {
+			return sqlSession.selectOne("User.qnaListCount", mno2);
+					
+		}
+		
+		
+		
 	// 효정 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	
@@ -206,42 +264,7 @@ public class UserDaoImpl implements UserDao {
 	
 
 
-	@Override
-	public Board selectOneReview(SqlSessionTemplate sqlSession, int bno2) {
-		return sqlSession.selectOne("User.selectOneReview", bno2);
-	}
-
-
-	@Override
-	public Attachment selectOneAttachment(SqlSessionTemplate sqlSession, int bno2) {
-		return sqlSession.selectOne("User.selectOneAttachment", bno2);
-	}
-
-
-	@Override
-	public int updateMyReview(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.update("User.updateMyReview", b);
-	}
-
-
-	@Override
-	public int updateMyReviewAttachment(SqlSessionTemplate sqlSession, Attachment a) {
-		return sqlSession.update("User.updateMyReviewAttachment", a);
-	}
-
-
-	@Override
-	public int deleteMyReview(SqlSessionTemplate sqlSession, int bno2) {
-		return sqlSession.delete("User.deleteMyReview", bno2);
-	}
-
-
-	@Override
-	public int qnaListCount(SqlSessionTemplate sqlSession, int mno2) {
-		return sqlSession.selectOne("User.qnaListCount", mno2);
-				
-	}
-
+	
 
 
 

@@ -3,6 +3,7 @@ package com.kh.amd.diary.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -261,6 +263,25 @@ public class DiaryController {
 	}
 
 
+	//리스트 delete 테스트중
+//	@RequestMapping("deleteDiary.di")
+//	@ResponseBody
+//	public String deleteDiary(@RequestParam(name = "checkList[]") List<String> checkList, HttpSession session) {
+//		System.out.println("checkList : " + checkList);
+//		
+//		HashMap<String, Object> infoMap = new HashMap<String, Object>();
+//		
+//		infoMap.put("checkList",checkList);
+//		infoMap.put("mno", ((Member) session.getAttribute("loginUser")).getMno());
+//		
+//		int result = ds.deleteDiary(infoMap);
+//		
+//		if(result == checkList.size()) {
+//			return "sussess";
+//		}else {
+//			return "fail";
+//		}
+//	}
 	
 	
 	
@@ -300,5 +321,9 @@ public class DiaryController {
 		
 		return "gallery/selectGallery";
 	}
+
+
+
+
 
 }

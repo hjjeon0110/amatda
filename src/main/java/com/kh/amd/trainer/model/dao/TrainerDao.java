@@ -80,6 +80,31 @@ public interface TrainerDao {
 	
 	// 20. 받은 요청 리스트 확인 메소드(김진환)
 	List<Member> myReciveList(SqlSessionTemplate sqlSession, String tno, PageInfo pi);
+	
+	// 21. 보낸 요청에서 회원에게 보낸 견적서 보여주기(김진환)
+	Mprocess matchEstimateOpen(SqlSessionTemplate sqlSession, int tno, int uno);
+	
+	// 22. 보낸견적서 요청 철회(김진환)
+	int matchEstCancel(SqlSessionTemplate sqlSession, int tno, int uno);
+		
+	// 23. 요청받은 내역 거절하기(트레이너, 김진환)
+	int denyRequest(SqlSessionTemplate sqlSession, int tno, int uno);
+	
+	// 24. 받은요청에서 견적서를 보내기(김진환)
+	int receivedReqAccept(SqlSessionTemplate sqlSession, Mprocess mprocess);
+
+	// 25. 매칭 진행중인 회원 리스트 조회(김진환)
+	List<Member> showMatchingProgressList(SqlSessionTemplate sqlSession, String tno);
+
+	// 26. 매칭 완료된 회원 리스트 조회(김진환)
+	List<Member> showMatchingCompleteList(SqlSessionTemplate sqlSession, String tno);
+	
+	// 27. 첫회원 가입자인지 확인(김진환)
+	int checkFirstMembership(SqlSessionTemplate sqlSession, int mno);
+
+	// 28. 첫 회원 가입자에 대한 보너스 지급(김진환)
+	int welcomeCharge(SqlSessionTemplate sqlSession, int mno);
+
 
 
 
@@ -135,6 +160,12 @@ public interface TrainerDao {
 	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 	void deleteMidea(SqlSessionTemplate sqlSession, String mno, String thisModiName);
 
+
+
+	
+	
+	
+	
 
 	
 

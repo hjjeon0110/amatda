@@ -163,7 +163,7 @@
 		FROM BOARD 
 		WHERE BWRITER=#{mno2}
 		AND BTYPE=4
-		ORDER BY BWRITE_DATE
+		ORDER BY BWRITE_DATE DESC
 	</select>
 	
 	<select id="selectMyQnaDetail" parameterType="_int" resultMap="boardResultSet">
@@ -178,13 +178,15 @@
 		WHERE BNO=#{bno2}
 	</select>
 	
-	
+	<!-- 후기리스트 조회 -->
 	<select id="selectMyBoardList" parameterType="_int" resultMap="boardResultSet">
 		SELECT *
 		FROM BOARD
 		WHERE BWRITER=#{mno2}
 		AND BTYPE=5
 		AND BSTATUS='Y'
+		ORDER BY BWRITE_DATE DESC
+		
 	</select>
   
   <select id="selectOneReview" parameterType="_int" resultMap="boardResultSet">
@@ -199,6 +201,7 @@
 		SELECT *
 		FROM ATTACHMENT
    		WHERE BNO=#{bno2}
+   		AND BTYPE=5
 	</select>
 	
 	
@@ -232,6 +235,13 @@
   		AND BTYPE=4
 	</select>
 	
+	
+	<select id="reviewListCount"  parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+  		FROM BOARD
+  		WHERE BWRITER = #{mno2}
+  		AND BTYPE=5
+	</select>
 	
 	<!-- 효정 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	

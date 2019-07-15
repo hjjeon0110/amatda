@@ -49,14 +49,14 @@ public class MissionController {
 		int result = ms.selectTno(mno2);
 		System.out.println("조회결과: " + result);
 				
-		if(result == 1) {
+		if(result >0) {
 			try {
 				response.getWriter().print("success");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else {
+		}else if(result<=0){
 			try {
 				response.getWriter().print("fail");
 			} catch (IOException e) {

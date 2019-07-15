@@ -42,7 +42,7 @@ a:active {text-decoration: none; color: #333333;}
  }
  
  .csTable{
- height:1800px;
+ height:1100px;
  
  }
  
@@ -61,7 +61,6 @@ a:active {text-decoration: none; color: #333333;}
  width: 60%;
  margin-right:10%;
  text-align: center;
-
 /*  background:skyblue; */	
  }
  
@@ -194,6 +193,14 @@ a:active {text-decoration: none; color: #333333;}
 	align:center;
 	}
 	
+	.thirdTableLine{
+	background:#ff0066; 
+	width:500px; 
+	height:2px; 
+	margin-bottom:15px;
+	align:center;
+	}
+	
 	#bestReview h5{
 	float:left;
 	font-weight: bold;
@@ -223,11 +230,18 @@ a:active {text-decoration: none; color: #333333;}
 	font-weight: bold;
 	}
 	
-	.3reviewTable{
-	board:1;
-	align:center;
-	
-	}
+	 .3reviewTable{
+   board:1;
+   align:center;
+   }
+   
+   .scrollArea{
+    overflow:scroll; 
+   height:800px;
+   width:1200px;
+   align:center;
+   }
+   
 	
 </style>
 
@@ -284,13 +298,15 @@ a:active {text-decoration: none; color: #333333;}
 				</div>
 		<br>
 		<br>
-		<table class = "3reviewTable" border="1" align="center">
-		
 		<div id="normalReviewList">
   			<h5>전체보기</h5> 
   		</div><br>
   		
 		<div class="secondTableLine"></div> 
+		<div class= "scrollArea">
+		<table class = "3reviewTable"  align="center">
+		
+
 		
 		
 		<br>
@@ -306,13 +322,13 @@ a:active {text-decoration: none; color: #333333;}
 			<tr>
             <td width="1000px;" align="center">
             <input type="hidden" value="${selectReview.bNo }">
-            <p><img src="${contextPath}/resources/uploadFiles/${selectReview.attachment.modiName }${selectReview.attachment.extension}" width="100px" height="75px"/></p>
-            <p>${status.count }
-            </p>
+            <div class="thirdTableLine"></div> <br>
+            <img src="${contextPath}/resources/uploadFiles/${selectReview.attachment.modiName }${selectReview.attachment.extension}" width=200px" height="150px"/></p>
+            <%-- <p>${status.count }</p> --%>
             <input type="hidden" id="bNo" value="${selectReview.bNo }">
-            <p>${selectReview.bTitle }</p></a>
+            <p>${selectReview.bTitle }</p>
             <input type="hidden" id="bNo" value="${selectReview.bNo }">
-            <br>작성자 : ${selectReview.bWriter }
+            	작성자 : ${selectReview.bWriter }
             <%-- <a href="${selectOneReview.bo}"><p>${selectReview.bTitle }</p></a> --%>
             <p><fmt:formatDate pattern="MM월 dd일" value="${selectReview.bWriteDate }"/></p>
             </td>
@@ -329,6 +345,7 @@ a:active {text-decoration: none; color: #333333;}
 		
 		
 		</table>
+		</div>
 		
 		
 	

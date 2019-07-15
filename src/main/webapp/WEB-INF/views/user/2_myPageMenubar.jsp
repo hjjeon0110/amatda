@@ -69,6 +69,11 @@
 				<br><br><br>
 				<label class="myPageMenuLabel" id="myPageMenu5">내 글 관리</label>
 				
+			</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<div class="myPageMenu" id="myPageMenu6" onclick="location.href='showMyPageMyWriting.us?mno=${ sessionScope.loginUser.mno }'">
+				<br><br><br>
+				<label class="myPageMenuLabel" id="myPageMenu6">매칭 관리</label>
+				
 			</div>
 		</div>
 	</div>

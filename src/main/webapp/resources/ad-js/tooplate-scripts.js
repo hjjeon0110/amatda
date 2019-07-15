@@ -219,7 +219,53 @@ function drawPieChart(data) {
 
 	    pieChart2 = new Chart(ctxPie, configPie);
 	  }
+  
+  if ($("#pieChart3").length) {
+	    var chartHeight = 300;
+	    
+	    $("#pieChartContainer").css("height", chartHeight + "px");
+	    ctxPie = document.getElementById("pieChart3").getContext("2d");
+
+	    optionsPie = {
+	      responsive: true,
+	      maintainAspectRatio: false,
+	      layout: {
+	        padding: {
+	          left: 10,
+	          right: 10,
+	          top: 10,
+	          bottom: 10
+	        }
+	      },
+	      legend: {
+	        position: "top"
+	      }
+	    };
+
+	    configPie = {
+	      type: "pie",
+	      data: {
+	        datasets: [
+	          {
+	            data: [15, 78],
+	            backgroundColor: ["#F7604D", "#4ED6B8"],
+	            label: "Storage"
+	          }
+	        ],
+	        labels: [
+	          "여",
+	          "남"
+	          
+	        ]
+	      },
+	      options: optionsPie
+	    };
+
+	    pieChart3 = new Chart(ctxPie, configPie);
+	  }
 }
+
+
 
 function updateLineChart() {
   if (lineChart) {
