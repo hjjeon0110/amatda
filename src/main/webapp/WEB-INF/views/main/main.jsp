@@ -47,6 +47,7 @@
 	<div class="recommendNewTrainer">
 		<label class="recommendNewTrainerLabel" data-aos="fade-up">추천 신입 트레이너</label>
 																						<a href="list.su?mno=${sessionScope.loginUser.mno}">설문조사 update</a>&nbsp;&nbsp;
+																						
 		<section class="blog_section">
 			<div class="container">
 				<div class="blog_content">
