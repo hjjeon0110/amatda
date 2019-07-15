@@ -529,7 +529,7 @@ a#login_pop:hover, a#join_pop:hover {
           </div>
         </div>
         
-        <input type="submit" value="신고" class="btn btn-primary" >
+        <input type="submit" value="신고" class="btn btn-primary"  >
          <!-- <button type="button" class="btn btn-primary" data-toggle="modal" 
         data-target="#my80sizeCenterModal">
   신고
@@ -639,6 +639,13 @@ $(function(){
    
          
    })
+   
+   $(".btn btn-primary").click(function(){
+	 alert("신고가 접수되었습니다. 감사합니다.");
+	   
+   })
+   
+   
 //preview image 
 /* var imgTarget = $('.preview-image .upload-hidden'); 
 imgTarget.on('change', function(){

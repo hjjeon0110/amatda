@@ -149,6 +149,8 @@ public interface BoardService {
 	 //조회수 카운트 (SR)
 	int updateCount(int bNo);
 
+	int likeCount(Board b);
+
 	//void insertReviewImg(String mno, Board b, String filePath, String originalFilename, String ext, String changeName);
 
 	//void insertReviewImg(String mno, Board b, String filePath, String originalFilename, String ext, String changeName);
