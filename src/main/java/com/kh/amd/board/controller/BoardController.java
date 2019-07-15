@@ -3,6 +3,7 @@ package com.kh.amd.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -134,7 +135,8 @@ public class BoardController {
 		
 			@RequestMapping(value="selectOneNoticeCate.bo", method=RequestMethod.GET)
 			 public String selectOneNoticeCate(Model model, int bNo) {
-				 
+				 //조회수 카운트 
+				int result = bs.updateCount(bNo);
 				Board b = bs.selectOneNoticeCate(bNo);
 				
 				System.out.println("디비로부터 받아온 Board" + b);
@@ -148,7 +150,8 @@ public class BoardController {
 			
 			@RequestMapping(value="selectOneEventCate.bo", method=RequestMethod.GET)
 			 public String selectOneEventCate(Model model, int bNo) {
-				 
+				 //조회수 카운트 
+				int result = bs.updateCount(bNo);
 				Board b = bs.selectOneEventCate(bNo);
 				
 				System.out.println("디비로부터 받아온 Board" + b);
@@ -462,6 +465,42 @@ public class BoardController {
 				 return "board/insertReview"; 
 			 }
 			  */
+			 
+			 //리뷰 상세 게시판 좋아요 (SR)
+			 @RequestMapping(value="like.bo")
+			 public String like(Model model,String bno, String mno,HttpSession session) {
+				 System.out.println("좋아요확인 in controller");
+				
+				 int bno2 = Integer.parseInt(bno);
+				 int mno2=Integer.parseInt(mno);
+				 
+				 System.out.println("mno2 in controller : " + mno2);
+				 System.out.println("bno2 in controller : " + bno2);
+				 
+				 Board b = new Board();
+				 b.setbNo(bno2);
+				 b.setbWriter(mno2);
+				 
+				 int result = bs.likeCount(b);
+				 System.out.println("result: " + result);
+		/*
+		 * JSONObject obj = mew JSONObject();
+		 * 
+		 * ArrayList<String> msgs = new ArrayList<String>(); HashMap <String,Object>
+		 * hashMap = new HashMap<String,Object>(); hashMap.put("bno", bNo);
+		 * hashMap.put("mno", mno); LikeCountVO likeCountVO =
+		 * likeCountProc.read(hashMap);
+		 * 
+		 * BoardVO boardVO = boardProc.read(bNo);
+		 * 
+		 */
+				 
+				 
+				 
+				 return "board/selectOneReview";
+			 }
+			 
+			 
 			
 			//---------------------------------------------------------------------------------------------(Q&A)
 			

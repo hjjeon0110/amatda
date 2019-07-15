@@ -413,6 +413,23 @@
   	WHERE BNO = #{bNo}
  </update>
  
+ <!-- 리뷰게시판 좋아요 1(SR) -->
+<update id="likeCount" parameterType="Board">
+ 	UPDATE BOARD
+ 	SET BLIKE = BLIKE + 1
+ 	WHERE BWRITER=#{bWriter} 
+ 	AND BNO=#{bNo}
+ </update>
+ 
+ <!-- 리뷰게시판 좋아요 2(SR) -->
+ <!-- <update id="like_check_cancle" parameterType="HashMap">
+ 	UPDATE LIKECOUNT
+ 	SET LIKE_CHECK = 0
+ 	WHERE MNO=#{mno} AND BNO=#{bNo}
+ </update>
+  -->
+ 
+ 
   </mapper>
 
   

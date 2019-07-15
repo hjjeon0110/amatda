@@ -98,7 +98,7 @@
    border-radius: 10px;
    align:center;
    margin-left:700px;
-
+	}
 	#likeicon{
 		width:30%;
 		float:right;
@@ -151,6 +151,13 @@ tr {
 	width:500px;
 	height:65px;
 }
+
+#bcount{
+width:800px;
+
+/* aligh:center; */
+ /* margin-right:200px;  */
+}
 	
 	
 	
@@ -170,27 +177,48 @@ tr {
 		<%-- <c:forEach var="selectOneReview" items="${ sessionScope.selectOneReview }" varStatus="status"><br> --%>
 		<tr class="contentTitle">
 		<h2>아맞다 후기리뷰</h2>
-		<br><br>
+		<br>
 		<%-- <td>${selectOneReview.bTitle }</td> --%>
 		
 		<input type="hidden" id="bNo" value="${b.bNo }">
 		<input type="hidden" id="mNo" name="mNo" value="${ sessionScope.loginUser.userId }" >
-		<b>${b.bTitle }</b>
+		
+		<div id=bcount>
+		
+		<h3>${b.bTitle }</h3>
+		<p></p>
+		<pre>글쓴이 : ${b.bWriter }                            <fmt:formatDate pattern="MM월 dd일" value="${b.bWriteDate }"/>                           조회수 : <b>${b.bCount}</b></pre>
+		</div>
 		<p></p>
 		<p></p>
 		
 		<div class="secondTableLine"></div>
 			<div class="likecount">
-				<a href ="selectOneReview.bo"><h6>1111<img id="likeicon"src="${ contextPath }/resources/images/likeicon.png"></h6></a>
+				<!-- <a href ="like.bo"> --><h6>1111<img id="likeicon" onclick="like()"src="${ contextPath }/resources/images/likeicon.png"></h6></a>
 			</div>
-			<img id="reviewImgFile" src="${contextPath }/resources/uploadFiles/${a.modiName}${a.extension}" width="250" height="200">
+			<img id="reviewImgFile" src="${contextPath }/resources/uploadFiles/${a.modiName}${a.extension}" width="500" height="500">
 			
 			
 		</tr>
-			
+			<br><br>
 			<div class="reviewPic">
 		<p>${b.bContent }</p>
-		<p>${b.bCount}</p>
+		
+		<%-- <c:choose>
+			<c:when test="${mno != null }">
+				<a href='javascript: like_func();'><img src="${ contextPath }/resources/images/likeicon.png" id='likeicon'></a>
+			</c:when>
+			
+			<c:otherwise>
+				<a href='javascript: login_need();'><img src="${ contextPath }/resources/images/zerolikeicon.png"></a>
+			</c:otherwise>
+		
+		</c:choose> --%>
+		
+		
+		
+		
+		
 		<br><br>
 			
 		 <button type="button" class="btn btn-primary" data-toggle="modal" 
@@ -257,7 +285,7 @@ tr {
 
 	 $("#replyInsert").click(function(){
 		var content=$("#repContent").val();
-		var bno="${b.bNo}";
+		var bno=${b.bNo};
 		var mno=${sessionScope.loginUser.mno};
 		
 		console.log("content: " + content);
@@ -270,7 +298,7 @@ tr {
 			data:{content:content,bno:bno,mno:mno},
 			success:function(data){
 				if(data=="success"){
-					alert("댓글 등록");
+					alert("댓글이 등록되었습니다. 새로고침 해주세요.");
 				}else{
 					alert("실패");
 				}
@@ -278,6 +306,45 @@ tr {
 		})
 	}) 
 
+	 function like(){
+		 
+		 console.log("넘어오니");
+		 var mno = ${sessionScope.loginUser.mno};
+		 var bno = ${b.bNo};
+		 
+		 console.log("mno : " + mno);
+		 console.log("bno : " + bno);
+		
+		 
+		 $.ajax({
+			url:"like.bo",
+			type:"post",
+			data:{mno:mno, bno:bno},
+			success: function(data){
+				/* var msg='';
+				var likeicon = '';
+				msg += data.msg;
+				alert(msg);
+				
+				if(data.like_check ==0){
+					likeicon="${ contextPath }/resources/images/zerolikeicon.png";
+				}else{
+					likeicon="${ contextPath }/resources/images/likeicon.png";
+				}
+				$('#likeicon',frm_read).attr('src',likeicon);
+				$('#like_cnt').html(data.like_cnt);
+				$('#like_check').html(data.like_check); */
+				alert("성공");
+				
+			},
+			error:function(data){
+				alert("실패");
+				//alert("code: "+request.status+"\n" + "message: " + request.resposeText + "\n"+"error:" + error);
+			}
+			 
+		 }); 
+		 
+	 } 
 
 
 </script>

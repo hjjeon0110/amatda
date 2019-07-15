@@ -316,6 +316,11 @@ public class BoardServiceImpl implements BoardService{
 		return bd.updateCount(sqlSession,bNo);
 	}
 
+	@Override
+	public int likeCount(Board b) {
+		return bd.likeCount(sqlSession,b);
+	}
+
 
 
 
