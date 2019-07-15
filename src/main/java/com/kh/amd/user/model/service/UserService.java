@@ -15,7 +15,7 @@ public interface UserService {
 	
 	
 	// 내글관리(Qna) select (우리나)
-	List<Board> selectMyQnaList(int mno2);
+	List<Board> selectMyQnaList(int mno2, PageInfo pi);
 	
 	// 내글관리(QnaDetail) select (우리나)
 	Board selectMyQnaDetail(int bno2);

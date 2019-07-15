@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,8 +38,12 @@
 			</select> 
 			<br><br>
 			
+			<jsp:useBean id="today" class="java.util.Date"/>
+			<fmt:formatDate var="nowTime" value="${ today }" pattern="yyyyMMdd"/>
+			
 			<c:forEach var="i" begin="0" end="${fn:length(myTrainerList)-1}" varStatus="st">
-		
+				<fmt:formatDate var="estDate" value="${ myTrainerList[i].mprocess.processDate }" pattern="yyyyMMdd"/>
+				<c:if test="${(estDate + 3 - nowTime) > 0 && myTrainerList[i].mprocess.matchingAccept != 'N'}">
 				<div class="trainerListDiv">
 					<input type="hidden" class="tname">
 					<table class="trainerListTable">
@@ -52,7 +57,11 @@
 								<label class="trainerName">${ myTrainerList[i].name }</label>
 								<label class="trainerGender">(${ myTrainerList[i].trainerInfo.tage}, ${ myTrainerList[i].gender})</label>
 							</td>
-							<td></td>
+							<td>
+								<c:if test="${ myTrainerList[i].mprocess.matchingLevel != 0 }">
+									<button class="goProfileDetail">남은일수 ${ (estDate + 3 - nowTime)}일</button>
+								</c:if>
+							</td>
 						</tr>
 						<tr>
 							<td><label class="trainerKeyword">${ myTrainerList[i].profile.keyword }</label></td>
@@ -74,9 +83,104 @@
 						</tr>
 					</table>
 				</div>
+				</c:if>
+				<c:if test="${(estDate + 3 - nowTime) <= 0 && myTrainerList[i].mprocess.matchingAccept != 'N'}">
+				
+					<div class="trainerListDiv">
+					<input type="hidden" class="tname">
+					<table class="trainerListTable">
+						<tr>
+							<td rowspan="3" class="trainerListTableTd1">
+								<div class="profileImg">
+									<img class="profileImage" src="${ contextPath }/resources/images/profileImg.PNG">
+								</div>
+							</td>
+							<td class="trainerListTableTd2">
+								<label class="trainerName">${ myTrainerList[i].name }</label>
+								<label class="trainerGender">(${ myTrainerList[i].trainerInfo.tage}, ${ myTrainerList[i].gender})</label>
+							</td>
+							<td>
+								<fmt:formatDate var="estDate" value="${ myTrainerList[i].mprocess.processDate }" pattern="yyyyMMdd"/>
+								<c:if test="${ myTrainerList[i].mprocess.matchingLevel != 0 }">
+									<button class="goProfileDetail">기한초과</button>
+								</c:if>
+							</td>
+						</tr>
+						<tr>
+							<td><label class="trainerKeyword">${ myTrainerList[i].profile.keyword }</label></td>
+							<c:if test="${ myTrainerList[i].mprocess.matchingLevel == 0 }">
+							<td><button class="goProfileDetail">매칭 시작하기</button></td>
+							</c:if>
+							<c:if test="${ myTrainerList[i].mprocess.matchingLevel != 0 }">
+							<td><button class="goProfileDetail">매칭 종료</button></td>
+							</c:if>
+							
+						</tr>
+						<tr>
+							<td><label class="simpleProfile">${ myTrainerList[i].profile.lineProfile}</label></td>
+							<td class="trainerListTableTd1">
+								<input type="hidden" value="${ myTrainerList[i].mno }">
+								<input type="hidden" value="${ myTrainerList[i].name }">
+								<button class="matchingStartBtn">프로필 보기</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="trainerListDiv2">
+				<br>
+				<label class="trainerListDiv2Label">응답 기한이 초과된 트레이너입니다.</label>
+				</div>
+				</c:if>
+				<c:if test="${ myTrainerList[i].mprocess.matchingAccept == 'N' }">
+				
+					<div class="trainerListDiv">
+					<input type="hidden" class="tname">
+					<table class="trainerListTable">
+						<tr>
+							<td rowspan="3" class="trainerListTableTd1">
+								<div class="profileImg">
+									<img class="profileImage" src="${ contextPath }/resources/images/profileImg.PNG">
+								</div>
+							</td>
+							<td class="trainerListTableTd2">
+								<label class="trainerName">${ myTrainerList[i].name }</label>
+								<label class="trainerGender">(${ myTrainerList[i].trainerInfo.tage}, ${ myTrainerList[i].gender})</label>
+							</td>
+							<td>
+								<fmt:formatDate var="estDate" value="${ myTrainerList[i].mprocess.processDate }" pattern="yyyyMMdd"/>
+								<c:if test="${ myTrainerList[i].mprocess.matchingLevel != 0 }">
+								</c:if>
+							</td>
+						</tr>
+						<tr>
+							<td><label class="trainerKeyword">${ myTrainerList[i].profile.keyword }</label></td>
+							<c:if test="${ myTrainerList[i].mprocess.matchingLevel == 0 }">
+							<td><button class="goProfileDetail">매칭 시작하기</button></td>
+							</c:if>
+							<c:if test="${ myTrainerList[i].mprocess.matchingLevel != 0 }">
+							<td><button class="goProfileDetail">매칭 종료</button></td>
+							</c:if>
+							
+						</tr>
+						<tr>
+							<td><label class="simpleProfile">${ myTrainerList[i].profile.lineProfile}</label></td>
+							<td class="trainerListTableTd1">
+								<input type="hidden" value="${ myTrainerList[i].mno }">
+								<input type="hidden" value="${ myTrainerList[i].name }">
+								<button class="matchingStartBtn">프로필 보기</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="trainerListDiv2">
+				<br>
+				<label class="trainerListDiv2Label">매칭이 종료된 트레이너입니다.</label>
+				</div>
+				</c:if>
 				<br>
 			</c:forEach>
 		</div>
+		
 	
 	</c:if>
 

@@ -87,15 +87,19 @@
 		<result property="tno" column="TNO" />
 	</resultMap>
 	<resultMap type="Mprocess" id="mprocessResultSet">
-		<id property="processNo" column="PROCESS_NO"/>
-		<result property="uno" column="UNO"/>
-		<result property="tno" column="TNO"/>
-		<result property="transferStatus" column="TRANSFER_STATUS"/>
-		<result property="matchingLevel" column="MATCHING_LEVEL"/>
-		<result property="matchingAccept" column="MATCHING_ACCEPT"/>
-		<result property="matchingStatus" column="MATCHING_STATUS"/>
-		<result property="processDate" column="PROCESS_DATE"/>
-		<collection property="matchEstimate" column="estimateResultSet" resultMap="estimateResultSet" javaType="Estimate"/>
+		<id property="processNo" column="PROCESS_NO" />
+		<result property="uno" column="UNO" />
+		<result property="tno" column="TNO" />
+		<result property="transferStatus" column="TRANSFER_STATUS" />
+		<result property="matchingLevel" column="MATCHING_LEVEL" />
+		<result property="matchingAccept" column="MATCHING_ACCEPT" />
+		<result property="matchingStatus" column="MATCHING_STATUS" />
+		<result property="processDate" column="PROCESS_DATE" />
+		<result property="matchEstName" column="MATCH_EST_NAME" />
+		<result property="matchEstDay" column="MATCH_EST_DAY" />
+		<result property="matchEstContents" column="MATCH_EST_CONTENTS" />
+		<result property="matchEstPrice" column="MATCH_EST_PRICE" />
+		<collection property="matchEstimate" column="estimateResultSet" resultMap="estimateResultSet" javaType="Estimate" />
 	</resultMap>
 	<resultMap id="selectRecommendTrainerList" type="com.kh.amd.member.model.vo.Member">
 		<id column="MNO" property="mno" /> 
@@ -287,7 +291,7 @@
 	
 	<!-- 8. 마이트레이너 insert (전효정) -->
 	<insert id="insertMyTrainer">
-		INSERT INTO M_PROCESS VALUES(MPROCESS_SEQ.NEXTVAL, NULL, #{uno}, #{tno}, 0, 'N', '매칭전', 'receive', NULL, NULL, NULL, NULL, SYSDATE)
+		INSERT INTO M_PROCESS VALUES(MPROCESS_SEQ.NEXTVAL, NULL, #{uno}, #{tno}, 0, NULL, '매칭전', 'RECEIVE', NULL, NULL, NULL, NULL, SYSDATE)
 	</insert>
 	
 	<!-- 9. 마이트레이너 리스트 조회 (전효정) -->
@@ -317,7 +321,7 @@
 	
 	<!-- 14.  -->
 	<update id="updateMprocess1">
-		UPDATE M_PROCESS SET MATCHING_LEVEL = 1, MATCHING_STATUS = '진행중' WHERE UNO = #{mno} AND TNO = #{tno}
+		UPDATE M_PROCESS SET MATCHING_LEVEL = 1, MATCHING_STATUS = '진행중', PROCESS_DATE = SYSDATE WHERE UNO = #{mno} AND TNO = #{tno}
 	</update>
 
 
