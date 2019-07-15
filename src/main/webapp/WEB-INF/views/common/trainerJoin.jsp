@@ -72,7 +72,12 @@ table{
 .phone{
 	font-size:15px !important;
 }
-
+.form-control {
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size: 14px !important;
+   height:50px !important;
+   background:white !important;
+}
 </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>

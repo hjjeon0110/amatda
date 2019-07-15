@@ -218,8 +218,8 @@
 		  type:"post",
 		  data:{mno:mno},
 		  success:function(data){
-			  console.log(data);
-			  //alert("성~공~");
+			  
+			 
 			  for(var key in data){
 				  if(data[key].completeYN == "Y"){
 				  		var event = {
@@ -260,8 +260,6 @@
 			  type:"post",
 			  data:{mno:mno},
 			  success:function(data){
-				  console.log("운동여부 달력에 띄우기: "+data);
-				  //alert("성~공~!!!!!");
 				  for(var key in data){
 					  if(data[key].completeYN == "Y"){
 					  		var event2 = {
