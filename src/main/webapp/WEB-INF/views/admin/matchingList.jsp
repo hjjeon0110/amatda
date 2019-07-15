@@ -182,9 +182,8 @@
 					class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
 					<h2 class="tm-block-title">매칭 조회</h2>
 
-			<!-- 	<input id="userId"  name="userId" type="text"  placeholder="아이디 입력">
-			 <a href="#" class="search_icon" id="idSearch"><i class="fas fa-search"></i></a> -->
-			 
+			<input id="userId"  name="userId" type="text"  placeholder="아이디 검색">
+			 <a href="#" class="search_icon" id="idSearch"><i class="fas fa-search"></i></a>
 					
 					
 					
@@ -208,8 +207,8 @@
 								<tr>
 									<th scope="row"><b>${ status.count }</b>
 									<input type="hidden" value="${list.processNo }" id="No"></th>
-									<td>user01</td>
 									<td>${ list.member.userId }</td>
+									<td>${ list.member.trainerId }</td>
 									<td align="center">${ list.matchingLevel }</td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.startDate }"/></td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.endDate }"/></td>			
@@ -289,45 +288,87 @@
 			  });		
 			});
 		
+		//Date() 함수에서 날짜 형식 출력
+	      Date.prototype.format = function (f) {
+
+	          if (!this.valueOf()) return " ";
+
+	          var weekKorName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+	          var weekKorShortName = ["일", "월", "화", "수", "목", "금", "토"];
+	          var weekEngName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+	          var weekEngShortName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+	          var d = this;
+
+	          return f.replace(/(yyyy|yy|MM|dd|KS|KL|ES|EL|HH|hh|mm|ss|a\/p)/gi, function ($1) {
+
+	              switch ($1) {
+	                  case "yyyy": return d.getFullYear(); // 년 (4자리)
+	                  case "yy": return (d.getFullYear() % 1000).zf(2); // 년 (2자리)
+	                  case "MM": return (d.getMonth() + 1).zf(2); // 월 (2자리)
+	                  case "dd": return d.getDate().zf(2); // 일 (2자리)
+	                  case "KS": return weekKorShortName[d.getDay()]; // 요일 (짧은 한글)
+	                  case "KL": return weekKorName[d.getDay()]; // 요일 (긴 한글)
+	                  case "ES": return weekEngShortName[d.getDay()]; // 요일 (짧은 영어)
+	                  case "EL": return weekEngName[d.getDay()]; // 요일 (긴 영어)
+	                  case "HH": return d.getHours().zf(2); // 시간 (24시간 기준, 2자리)
+	                  case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2); // 시간 (12시간 기준, 2자리)
+	                  case "mm": return d.getMinutes().zf(2); // 분 (2자리)
+	                  case "ss": return d.getSeconds().zf(2); // 초 (2자리)
+	                  case "a/p": return d.getHours() < 12 ? "오전" : "오후"; // 오전/오후 구분
+	                  default: return $1;
+
+	              }
+
+	          });
+
+	      };
+
+	      String.prototype.string = function (len) { var s = '', i = 0; while (i++ < len) { s += this; } return s; };
+	      String.prototype.zf = function (len) { return "0".string(len - this.length) + this; };
+	      Number.prototype.zf = function (len) { return this.toString().zf(len); };
+	      
+		
 		$("#idSearch").click(function(){
 	  		var userId = $("input[name=userId]").val();  		
 	  		var searchId = {userId:userId};
-	  		//console.log(searchId);
-	  		 $.ajax({
+	  		console.log(searchId);
+	  		
+	  		$.ajax({
 	  			url:"searchId.ad",
 	  			data:searchId,
 	  			type:"get",
 	  			success:function(data){
-	  				//console.log(data[0].name);
+	  				//console.log(data);
 	  				$(".table").children().remove();
 	  				
-	  				 var thead = "<thead><tr><th>번호</th><th>회원</th><th>트레이너</th><th>매칭단계</th><th>PT시작일</th><th>PT종료일</th></tr><thead>";
-	  				 
+	  				var thead = "<thead><tr><th>번호</th><th>회원</th><th>트레이너</th><th>매칭단계</th><th>PT시작일</th><th>PT종료일</th></tr><thead>";	 
 	                $(".table").append(thead);
 	                
 	                
 	                
 	     			  for(var i = 0 ; i<data.length; i++){
+	     				  
+	     				 var startdate = new Date(data[i].startDate);	                   
+	                     var enddate = new Date(data[i].endDate);
+	                     console.log(startdate.format('yyyy-MM-dd'));
+	                     console.log(enddate.format('yyyy-MM-dd'));
 	                     
-	                 	console.log(data);
-	         
-	                    var tbody="<tr><td>" + (i+1) + "</td><td>" + 
-	                     data[i].userId + "</td><td>" +  
-	                     data[i].userId + "</td><td>" +  
+	                var tbody="<tr><td>" + (i+1) + "</td><td>" + 
+	                     data[i].member.userId + "</td><td>" +  
+	                     data[i].member.trainerId + "</td><td>" +  
 	                     data[i].matchingLevel + "</td><td>" +
-	                     data[i].startDate + "</td><td>" +
-	                     data[i].endDate + "</td></tr>";
-	                      $(".table").append(tbody);
+	                     startdate.format('yyyy-MM-dd') + "</td><td>" +
+	                     enddate.format('yyyy-MM-dd') + "</td></tr>";
+	                      $(".table").append(tbody); 
 	                      
 	                
 	                    
-	                      
+	                       
 	                     
-	                  } 
-	  			
-	  				
+	                  }
 	  			}
-	  		})
+	  			
+	  			})
 	  	})
 	</script>
 

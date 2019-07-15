@@ -24,6 +24,7 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		<id column="MNO" property="mno" /> <!-- DB 기본키 -->
 		<result column="NAME" property="name" /><!-- 일반컬럼 -->
 		<result column="ID" property="userId" />
+		<result column="TID" property="trainerId" />
 		<result column="PWD" property="userPwd" />
 		<result column="PHONE" property="phone" />
 		<result column="GENDER" property="gender" />
@@ -225,13 +226,12 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 	<!-- 매칭 조회 -->
 	<select id="matchingList" resultMap="matchingResultSet">
-		SELECT *
-		FROM (SELECT *
-		FROM MATCHING M
-		JOIN M_PROCESS P ON(M.PROCESS_NO = P.PROCESS_NO)
-		JOIN MEMBER U ON(P.TNO = U.MNO)
-		JOIN MEMBER U ON(P.UNO = U.MNO)) P
-		WHERE PT_STATUS = 'Y'
+		SELECT M.PROCESS_NO, M.PT_STARTDATE, M.PT_ENDDATE, M.PT_STATUS, P.UNO, P.TNO, P.MATCHING_LEVEL, T.ID AS TID, U.ID
+              FROM MATCHING M
+              JOIN M_PROCESS P ON(M.PROCESS_NO = P.PROCESS_NO)
+              JOIN MEMBER T ON(P.TNO = T.MNO)
+              JOIN MEMBER U ON(P.UNO = U.MNO)
+              WHERE M.PT_STATUS = 'Y'
 	</select>
 
 	<!-- 매칭 종료 -->
@@ -243,14 +243,16 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	</update>
 	
 	<!-- 매칭 아이디 검색 -->
-<!-- 	<select id="searchUser" resultMap="memberResultSet">
-		SELECT M.*, S.UAGE, I.TAGE
-		FROM MEMBER M
-		LEFT OUTER JOIN SURVEY S ON(MNO = UNO)
-		LEFT OUTER JOIN TUSER_INFO I ON(MNO = TNO)
-		WHERE ID = #{userId}
-	</select>
- -->
+	<select id="searchId" resultMap="matchingResultSet">
+		SELECT M.PT_STARTDATE, M.PT_ENDDATE, M.PT_STATUS, P.UNO, P.TNO, P.MATCHING_LEVEL, U.ID, T.ID AS TID
+        FROM MATCHING M
+        JOIN M_PROCESS P ON(M.PROCESS_NO = P.PROCESS_NO)
+        JOIN MEMBER T ON(P.TNO = T.MNO)
+        JOIN MEMBER U ON(P.UNO = U.MNO)
+        WHERE M.PT_STATUS = 'Y'
+        AND T.ID = #{userId}
+	</select> 
+
 
 </mapper>
 
