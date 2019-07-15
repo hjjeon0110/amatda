@@ -651,7 +651,7 @@ public class TrainerController {
 				try {
 					response.getWriter().print("SUCCESS");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 				
@@ -660,7 +660,6 @@ public class TrainerController {
 				try {
 					response.getWriter().print("FAIL");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -668,6 +667,19 @@ public class TrainerController {
 			
 			
 		}
+		// 트레이너 매칭진행회원_매칭프로세스페이지 이동 (전효정, 김진환)
+		@RequestMapping("showMatchingProcessPage.tr")
+		public String showMatchingProcessView(String tno, String uno, Model model) {	
+			
+			Member matchingMember = ts.showMatchingProcessListView(tno, uno);
+			
+			model.addAttribute("matchingMember", matchingMember);
+			System.out.println("출력하는 메소드 : " + matchingMember);
+			
+			return "trainer/3_1_1_matchingProcessPage";
+		}
+		
+		
 		
 	   
 	
@@ -1045,11 +1057,38 @@ public class TrainerController {
 		return redirect;
 	}
 
+	
+	// 매칭 요청 거절하기 (전효정) -------------------------------------------------------------------------------------------------------------------------------------------
+	@RequestMapping("updateMprocess1.tr")
+	public String updateMprocess1(String uno, String tno) {
+		
+		// 16. 매칭 요청 거절하기 버튼 클릭 시 MPROCESS UPDATE (전효정)
+		ts.updateMprocess1(uno, tno);
+		
+		return "redirect:showMatchingProcessPage.tr?uno=" + uno + "&tno=" + tno;
+	}
+	
+	
+	// 매칭 요청 수락하기 (전효정) -------------------------------------------------------------------------------------------------------------------------------------------
+	@RequestMapping("updateMprocess2.tr")
+	public String updateMprocess2(String uno, String tno) {
+		
+		// 17. 매칭 요청 수락하기 버튼 클릭 시 MPROCESS UPDATE (전효정)
+		ts.updateMprocess2(uno, tno);
+		
+		return "redirect:showMatchingProcessPage.tr?uno=" + uno + "&tno=" + tno;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 	// 페이지 이동 메소드 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-
 	
 
 	// 트레이너 마이페이지_멤버십관리 이동 (전효정)
@@ -1065,13 +1104,7 @@ public class TrainerController {
 	}
 
 
-	// 트레이너 매칭진행회원_매칭프로세스페이지 이동 (전효정)
-	@RequestMapping("showMatchingProcessPage.tr")
-	public String showMatchingProcessView() {
-		return "trainer/3_1_1_matchingProcessPage";
-	}
-	
-	
+
 	
 
 	

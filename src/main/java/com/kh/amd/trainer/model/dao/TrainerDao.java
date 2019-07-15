@@ -111,7 +111,8 @@ public interface TrainerDao {
 	// 30. 완료 회원 리스트 count(김진환)
 	int checkCompleteList(SqlSessionTemplate sqlSession, String tno);
 
-
+	// 31. 매칭중인 회원 프로세스 상세보기(김진환)
+	Member showMatchingProcessListView(SqlSessionTemplate sqlSession, String tno, String uno);
 
 
 
@@ -166,6 +167,14 @@ public interface TrainerDao {
 
 	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 	void deleteMidea(SqlSessionTemplate sqlSession, String mno, String thisModiName);
+
+	// 16. 매칭 요청 거절하기 버튼 클릭 시 MPROCESS UPDATE (전효정)
+	void updateMprocess1(SqlSessionTemplate sqlSession, String uno, String tno);
+
+	// 17. 매칭 요청 수락하기 버튼 클릭 시 MPROCESS UPDATE (전효정)
+	void updateMprocess2(SqlSessionTemplate sqlSession, String uno, String tno);
+
+
 
 	
 

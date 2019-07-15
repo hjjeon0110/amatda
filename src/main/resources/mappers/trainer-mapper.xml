@@ -354,7 +354,7 @@
 		WHERE MP.TNO = #{tno}
 		AND MP.TRANSFER_STATUS = 'RECEIVE'
 		AND MP.MATCHING_STATUS != '매칭종료'
-        AND (MP.MATCHING_LEVEL = 1 OR MP.MATCHING_LEVEL = 0)
+        AND (MP.MATCHING_LEVEL = 1)
 		ORDER BY MP.PROCESS_DATE DESC
 	
 	</select>
@@ -423,7 +423,7 @@
 	
 	</select>
 	
-	<!-- 첫 회원가입이 맞는지 확인 여부의 쿼리 -->
+	<!-- 28. 첫 회원가입이 맞는지 확인 여부의 쿼리 -->
 	<select id="checkFirstMembership" resultType="_int">
 		SELECT COUNT(*)
 		FROM TUSER_INFO
@@ -432,7 +432,7 @@
 	
 	</select>
 	
-	<!-- 첫회원가입이 맞다면 환영 포인트 5회 지급 -->
+	<!-- 29. 첫회원가입이 맞다면 환영 포인트 5회 지급 -->
 	<update id="welcomeCharge">
 		UPDATE TUSER_INFO
 		SET REMAIN_NUM = (REMAIN_NUM + 5), FIRST_CHARGE = 'Y'
@@ -440,6 +440,7 @@
 	
 	</update>
 	
+	<!-- 30. 매칭 진행중인 회원 리스트 횟수 조회용 메소드 -->
 	<select id="checkProgressList" resultType="_int">
 		SELECT COUNT(*)
 		FROM MEMBER M
@@ -452,6 +453,7 @@
 	
 	</select>
 	
+	<!-- 31. 완료중인 회원 리스트 횟수 조회용 메소드 -->
 	<select id="checkCompleteList" resultType="_int">
 		SELECT COUNT(*)
 		FROM MEMBER M
@@ -462,6 +464,16 @@
 		AND MP.MATCHING_STATUS = '매칭종료'
 	
 	
+	</select>
+	
+	<select id="showMatchingProcessListView" parameterType="java.util.Map" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER M
+		JOIN M_PROCESS MP ON (MP.UNO = M.MNO)
+		JOIN ATTACHMENT A ON (A.PNO = MP.UNO)
+		JOIN SURVEY S ON (MP.UNO = S.UNO)
+		WHERE MP.TNO = #{tno}
+		AND MP.UNO = #{uno}
 	</select>
 	
 
@@ -546,6 +558,15 @@
 		UPDATE ATTACHMENT SET A_STATUS = 'N' WHERE PNO = #{mno} AND MODI_NAME = #{thisModiName}
 	</update>
 	
+	<!-- 16. 매칭 요청 거절하기 버튼 클릭 시 MPROCESS UPDATE (전효정) -->
+	<update id="updateMprocess1">
+		UPDATE M_PROCESS SET MATCHING_LEVEL = 3, MATCHING_STATUS = '매칭종료', MATCHING_ACCEPT = 'N' WHERE UNO = #{uno} AND TNO = #{tno}
+	</update>
+	
+	<!-- 17. 매칭 요청 수락하기 버튼 클릭 시 MPROCESS UPDATE (전효정) -->
+	<update id="updateMprocess2">
+		UPDATE M_PROCESS SET MATCHING_LEVEL = 4, MATCHING_STATUS = '진행중', MATCHING_ACCEPT = 'Y' WHERE UNO = #{uno} AND TNO = #{tno}
+	</update>
 
 </mapper>
 

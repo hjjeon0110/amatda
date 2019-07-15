@@ -1,0 +1,372 @@
+@charset "UTF-8";
+
+.trainerListDiv {
+   width: 90%;
+   border: 0.5px solid darkgray;
+   margin-left: auto;
+   margin-right: auto;
+   padding: 10px;
+   background: white;
+}
+
+.trainerListTable {
+   width: 100%;
+   margin-left: auto;
+   margin-right: auto;
+   background: white;
+   font-family: 'Noto Sans KR', sans-serif;
+}
+
+.profileImg {
+   width: 100px;
+   height: 100px;
+   border-radius: 50%;
+   border: 2px solid white;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.profileImage {
+   width: 100%;
+   height: 100%;
+}
+
+.trainerListTable td {
+   padding: 5px;
+   font-size: 14px;
+}
+
+.trainerListTableTd1 {
+   width: 1입금하기;
+   align: center;
+}
+
+.trainerListTableTd2 {
+   width: 70%;
+}
+
+.trainerName {
+   font-weight: bold;
+}
+
+.trainerGender {
+   color: darkgray;
+}
+
+.trainerKeyword {
+   color: #ff0066;
+}
+
+.simpleProfile {
+   font-size: 13px;
+}
+
+.goProfileDetail {
+   border-style: none;
+   background: #ffe6f3;
+   color: #ff0066;
+   margin-left: auto;
+   margin-right: auto;
+   width: 100px;
+}
+
+.goProfileDetail:hover {
+   border:0.5px solid #ff0066;
+   background:white;
+   color:#ff0066;
+   margin-left: auto;
+   margin-right: auto;
+   width: 100px;
+   cursor:pointer;
+}
+.matchingStartBtn {
+   border-style: none;
+   background: #ff0066;
+   color: white;
+   margin-left: auto;
+   margin-right: auto;
+   width: 100px;
+}
+.matchingStartBtn:hover {
+   border:0.5px solid #ff0066;
+   background:white;
+   color:#ff0066;
+   margin-left: auto;
+   margin-right: auto;
+   width: 100px;
+   cursor:pointer;
+}
+
+
+
+
+
+* {box-sizing:border-box}
+ul {
+    list-style:none;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 단계별 상태 스타일 */
+
+.step-state {
+    padding:30px 0 15px;
+    margin-top:15px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.step-state ul:after {
+    content:'';
+    display:block;
+    clear:both;
+}
+.step-state ul li {
+    float:left;
+    position:relative;
+    width:20%; /* 5개 진행바를 5등분 */
+    padding-top:50px; /* 진행바 영역 확보 */
+    font-size:15px;
+    text-align:center;
+    line-height:12px;
+    color:#666;
+}
+.step-state ul li:first-child {
+    font-size:13px;
+}
+/* 도전중, 달성 텍스트 영역 */
+.step-state ul li p:after {
+    position:absolute; /* absolute 기준은 li 영역 */
+    width:41px;
+    height:24px;
+    margin-right:-20px;
+    background:url(http://cfile5.uf.tistory.com/image/241D463E58AFAEAB1642F3) no-repeat 0 0;
+    background-size:auto 24px;
+    background-position:-58px 0;
+    top:0;
+    right:0;
+    color:#fff;
+    font-size:11px;
+    line-height:16px;
+    letter-spacing:-.5px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.step-state ul li p {
+    padding-top:15px
+}
+.step-state ul li span {
+    display:block;
+    margin-top:2px;
+    font-weight:normal;
+    color:#898989;
+    font-size:12px
+}
+/* 회색 진행바 생성 */
+.step-state ul li:before {
+    position:absolute;
+    top:35px;
+    left:0;
+    right:0;
+    height:3px;
+    background:#ddd;
+    content:''
+}
+/* 첫 번째 진행바 반만 생성*/
+.step-state ul li:nth-child(1):before {
+    left:50%
+}
+/* 마지막 진행바 반만 생성*/
+.step-state ul li:nth-child(5):before {
+    right:50%
+}
+/* 화살표 상태 아이콘 */
+.step-state ul li:after {
+    position:absolute;
+    top:27px;
+    left:50%;
+    width:20px;
+    height:20px;
+    margin-left:-10px;
+    background:url(http://cfile5.uf.tistory.com/image/241D463E58AFAEAB1642F3) no-repeat 0 0;
+    background-size:auto 24px;
+    background-position:0 0;
+    content:'';
+}
+
+/* 활성화 진행바 및 활성화 화살표 아이콘 표시 */
+/* 활성화 상태바 */
+.step-state.step1 ul li:nth-child(1):before,
+.step-state.step2 ul li:nth-child(-n+2):before,
+.step-state.step2-ing ul li:nth-child(-n+2):before,
+.step-state.step3 ul li:nth-child(-n+3):before,
+.step-state.step3-ing ul li:nth-child(-n+3):before,
+.step-state.step4 ul li:nth-child(-n+4):before,
+.step-state.step4-ing ul li:nth-child(-n+4):before,
+.step-state.step5 ul li:nth-child(-n+5):before {
+    background:#ff889b
+}
+/* 활성화 아이콘 표시 */
+.step-state.step1 ul li:nth-child(1):after,
+.step-state.step2 ul li:nth-child(-n+2):after,
+.step-state.step2-ing ul li:nth-child(-n+2):after,
+.step-state.step3 ul li:nth-child(-n+3):after,
+.step-state.step3-ing ul li:nth-child(-n+3):after,
+.step-state.step4 ul li:nth-child(-n+4):after,
+.step-state.step4-ing ul li:nth-child(-n+4):after,
+.step-state.step5 ul li:nth-child(-n+5):after {
+    background-position:-20px 0;
+}
+/* 도전 중일 경우의 1/2 영역 비활성화 상태바 영역 */
+.step-state ul li p:before {
+    position:absolute;
+    top:35px;
+    left:50%;
+    right:0;
+    height:3px;
+    content:'';
+}
+.step-state.step2 ul li:nth-child(2) p:before,
+.step-state.step3 ul li:nth-child(3) p:before,
+.step-state.step4 ul li:nth-child(4) p:before {
+    background:#ddd
+}
+/* "도전중" 텍스트 표시 */
+.step-state.step1 ul li:nth-child(1) p:after,
+.step-state.step2-ing ul li:nth-child(2) p:after,
+.step-state.step3-ing ul li:nth-child(3) p:after,
+.step-state.step4-ing ul li:nth-child(4) p:after {
+    content:'진행중';
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* "달성" 텍스트 표시 */
+.step-state.step2 ul li:nth-child(2) p:after,
+.step-state.step3 ul li:nth-child(3) p:after,
+.step-state.step4 ul li:nth-child(4) p:after,
+.step-state.step5 ul li:nth-child(5) p:after {
+    content:'종료';
+    right:50%;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+
+
+.matchingTitleDiv{
+   width:100%;
+   text-align:center;
+}
+.matchingTitle1 {
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size:16px;
+   text-align:center;
+}
+.matchingTitle2 {
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size:16px;
+   text-align:center;
+   color:#ff0066;
+}
+
+.stepDiv {
+   width:100%;
+   height:100%;
+   background:#ffe6f3;
+   text-align:center;
+}
+.stepLabel {
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size:14px;
+}
+
+.stepBtn {
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size:14px;
+   border-style:none;
+   background:#ff0066;
+   color:white;
+   width:200px;
+   height:100%;
+}
+
+.stepBtn:hover {
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size:14px;
+   border:0.5px solid #ff0066;
+   background:white;
+   color:#ff0066;
+   width:200px;
+   height:100%;
+   cursor:pointer;
+}
+
+
+
+
+
+.modal {
+   font-family: 'Noto Sans KR', sans-serif;
+}
+
+.modal-header {   
+   background:#ffe6f3 !important;
+   border-left:0.5px solid gray !important;
+}
+
+.modalHeader {
+   color: #ff0066;
+   font-weight: bold;
+   font-family: 'Noto Sans KR', sans-serif;
+   
+}
+.surveyInfo{
+   font-weight: bold;
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size:14px;
+   margin-top:2px;
+}
+
+.modalMenubar {
+   width:100%;
+   font-family: 'Montserrat', sans-serif;
+}
+
+.modalMenubar thead {
+   text-align:center;
+   font-weight:bold;
+}
+
+.modalMenubar td {
+   width:20%;
+   padding-top:15px;
+   padding-bottom:15px;
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size:14px;
+}
+
+.modalBody {
+   padding:20px;
+}
+
+.modalMenu {
+   color: #ff0066;
+   font-size:16px;
+   font-weight:bold;
+   font-family: 'Noto Sans KR', sans-serif;
+}
+
+.form-control {
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size: 14px !important;
+   height:30px !important;
+   background:white !important;
+}
+
+.index{
+   color: #ff0066;
+   font-weight:bold;
+}
+
+.subTitleLabel {
+   font-weight:bold;
+   font-size: 14px;
+   font-family: 'Noto Sans KR', sans-serif;
+}
