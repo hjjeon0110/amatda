@@ -148,7 +148,7 @@
 			<br><br><br>
 		</div>
 	</c:if>
-	<c:if test="${ selectOneMyTrainer.matchingLevel == 3 }">
+	<c:if test="${ selectOneMyTrainer.matchingLevel == 3 && selectOneMyTrainer.matchingStatus == '매칭종료' && selectOneMyTrainer.matchingAccept== 'N' }">
 	    <div class="step-state step4">
 	        <ul>
 	            <li><p>매칭시작</p></li>
@@ -158,8 +158,17 @@
 	            <li><p>입금하기<span></span></p></li>
 	        </ul>
 	    </div>
+	    <br>
+		<div class="stepDiv">
+			<br><br>
+			<label class="stepLabel">트레이너가 회원님의 매칭 요청을 수락하지 않았습니다.</label><br>
+			<label class="stepLabel" style="color:#ff0066;">트레이너 찾기를 통해 다른 트레이너를 찾아보세요!</label>
+			<br><br>
+			<button class="stepBtn" id="step1" onclick="location.href='showRecommendTrainerPageView.us?mno=${sessionScope.loginUser.mno}'">다른 트레이너 찾기</button>
+			<br><br><br>
+		</div>
 	</c:if>
-	<c:if test="${ selectOneMyTrainer.matchingLevel == 3 }">
+	<c:if test="${ selectOneMyTrainer.matchingLevel == 3 && selectOneMyTrainer.matchingStatus == '진행중' && selectOneMyTrainer.matchingAccept== 'Y' }">
 	    <div class="step-state step4-ing">
 	        <ul>
 	            <li><p>매칭시작</p></li>
@@ -169,8 +178,17 @@
 	            <li><p>입금하기<span></span></p></li>
 	        </ul>
 	    </div>
+        <br>
+		<div class="stepDiv">
+			<br><br>
+			<label class="stepLabel">아직 트레이너가 매칭 요청을 수락하지 않았습니다.</label><br>
+			<label class="stepLabel" style="color:#ff0066;">매칭 요청에 대한 답변이 오기까지 ${(estDate + 3 - nowTime)}일 남았습니다!</label>
+			<br><br>
+			<button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable2">견적서 확인하기</button>
+			<br><br><br>
+		</div>
 	</c:if>
-	<c:if test="${ selectOneMyTrainer.matchingLevel == 4 }">
+	<c:if test="${ selectOneMyTrainer.matchingLevel == 4 && selectOneMyTrainer.matchingStatus == '진행중' && selectOneMyTrainer.matchingAccept== 'Y' }">
 	    <div class="step-state step5">
 	        <ul>
 	            <li><p>매칭시작</p></li>
@@ -180,6 +198,15 @@
 	            <li><p>입금하기<span></span></p></li>
 	        </ul>
 	    </div>
+	    <br>
+		<div class="stepDiv">
+			<br><br>
+			<label class="stepLabel">트레이너가 회원님의 매칭 요청을 수락했습니다.</label><br>
+			<label class="stepLabel" style="color:#ff0066;">견적서에서 확인한 계좌번호로 입금을 완료한 후 트레이너에게 입금 확인을 요청하세요! (입금 가능 날짜가 ${(estDate + 3 - nowTime)}일 남았습니다.)</label>
+			<br><br>
+			<button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable3">입금 확인 요청하기</button>
+			<br><br><br>
+		</div>
 	</c:if>
 	
 	
@@ -269,7 +296,34 @@
 		</div>
 	</div>
 	
-	
+	<!-- 입금 확인 요청하기 Modal ------------------------------------------------------------------------------------------------------------- -->
+	<div class="modal fade" id="exampleModalScrollable3" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle3" aria-hidden="true" data-backdrop="static">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<label class="modalHeader"><i class="fa fa-check"></i> ${ matchingTrainer.name } 트레이너님과 매칭이 완료되었습니다! </label>&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<br>
+					<label class="subTitleLabel">트레이너가 입금 확인 후 PT페이지를 열면 아맞다와 함께 맞춤 다이어트를 시작해보세요!</label>
+					<br>
+					<div class="custom-control custom-checkbox custom-control-inline">
+						<input type="checkbox" class="custom-control-input" id="defaultInline1" name="hopeBody" value="팔부위" checked>
+					 	<label class="custom-control-label" for="defaultInline1" style="font-size:14px;">해당 트레이너에게 입금을 완료했으며, PT 서비스를 시작하는데 동의하십니까?</label>
+						<br><br>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+					<button type="button" class="btn btn-primary" id="sendMatchingRequest">입금 확인 요청하기</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	
 	
@@ -313,13 +367,15 @@
 		});
 		
 		// 3. 매칭 요청하기 버튼 클릭 시
-		$("#sendMatchingRequest".click(function(){
+		$("#sendMatchingRequest").click(function() {
 			var mno = ${ sessionScope.loginUser.mno };
 			var tno = ${ matchingTrainer.mno };
 			var tname = "${ matchingTrainer.name }";
 			
 			location.href='updateMprocess3.us?mno=' + mno + "&tno=" + tno + '&tname=' + tname;
+			
 		});
+
 		
 	</script>
 

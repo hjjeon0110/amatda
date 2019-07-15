@@ -92,6 +92,9 @@ public interface UserService {
 	// 14. 내 정보 보낸 후 mprocess update (전효정)
 	void updateMprocess1(String mno, String tno);
 
+	// 15. 매칭 요청 후  mprocess update (전효정)
+	void updateMprocess3(String mno, String tno);
+
 	
 
 	

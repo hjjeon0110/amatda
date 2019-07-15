@@ -21,7 +21,6 @@ import com.kh.amd.trainer.model.vo.Profile;
 public class UserDaoImpl implements UserDao {
 	
 
-
 	// 나의 문의 내역 select (우리나)
 	@Override
 	public List<Board> selectMyQnaList(SqlSessionTemplate sqlSession, int mno2, PageInfo pi) {
@@ -87,26 +86,22 @@ public class UserDaoImpl implements UserDao {
 		return sqlSession.delete("User.deleteMyReview", bno2);
 	}
 
+	// 내글관리(QnaReply) select (우리나)
+	@Override
+	public Reply selectQnaReply(SqlSessionTemplate sqlSession, int bno2) {
+		return sqlSession.selectOne("User.selectQnaReply", bno2);
+	}
 
-	
+	@Override
+	public int reviewListCount(SqlSessionTemplate sqlSession, int mno2) {
+		return sqlSession.selectOne("User.reviewListCount", mno2);
+	}
 
-	//14. 내글관리(QnaReply) select (우리나)
-		@Override
-		public Reply selectQnaReply(SqlSessionTemplate sqlSession, int bno2) {
-			return sqlSession.selectOne("User.selectQnaReply", bno2);
-		}
-
-		@Override
-		public int reviewListCount(SqlSessionTemplate sqlSession, int mno2) {
-			return sqlSession.selectOne("User.reviewListCount", mno2);
-		}
-
-		@Override
-		public int qnaListCount(SqlSessionTemplate sqlSession, int mno2) {
-			return sqlSession.selectOne("User.qnaListCount", mno2);
-					
-		}
-		
+	@Override
+	public int qnaListCount(SqlSessionTemplate sqlSession, int mno2) {
+		return sqlSession.selectOne("User.qnaListCount", mno2);
+				
+	}
 		
 		
 	// 효정 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -259,6 +254,17 @@ public class UserDaoImpl implements UserDao {
 		map.put("tno", tno);
 		
 		sqlSession.update("User.updateMprocess1", map);
+	}
+
+	
+	// 15. 매칭 요청 후  mprocess update (전효정)
+	@Override
+	public void updateMprocess3(SqlSessionTemplate sqlSession, String mno, String tno) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mno", mno);
+		map.put("tno", tno);
+		
+		sqlSession.update("User.updateMprocess3", map);
 	}
 
 	

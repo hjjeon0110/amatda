@@ -189,9 +189,7 @@
       <p></p>
       
       <div class="secondTableLine"></div>
-         
          <img id="reviewImgFile" src="${contextPath }/resources/uploadFiles/${a.modiName}${a.extension}" width="250" height="200">
-         
          
       </tr>
          
