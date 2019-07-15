@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.vo.Payment;
 
@@ -117,6 +118,25 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public List<Member> memberAge(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectList("Admin.memberAge");
+	}
+
+	//매칭 조회
+	@Override
+	public List<Mprocess> matchingList(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Admin.matchingList");
+	}
+
+	//매칭 아이디 검색
+	@Override
+	public List<Mprocess> searchId(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectList("Admin.searchId", userId);
+	}
+
+	//매칭 종료
+	@Override
+	public int matchingEnd(SqlSessionTemplate sqlSession, int No) {
+		System.out.println("dao : " + No);
+		return sqlSession.update("Admin.matchingEnd", No);
 	}
 
 

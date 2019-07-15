@@ -3,6 +3,7 @@ package com.kh.amd.admin.model.service;
 import java.util.List;
 
 import com.kh.amd.board.model.vo.Board;
+import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.vo.Payment;
 
@@ -56,7 +57,15 @@ public interface AdminService {
 	//통계
 	List<Member> memberAge();
 
-	
+	//매칭 조회
+	List<Mprocess> matchingList();
+
+	//매칭 아이디 검색
+	List<Mprocess> searchId(String userId);
+
+	//매칭 종료
+	int matchingEnd(int No);
+
 
 
 

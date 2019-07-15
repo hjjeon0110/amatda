@@ -2,6 +2,7 @@ package com.kh.amd.matching.model.vo;
 
 import java.util.Date;
 
+import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.trainer.model.vo.Estimate;
 
 public class Mprocess implements java.io.Serializable {
@@ -14,6 +15,11 @@ public class Mprocess implements java.io.Serializable {
 	private String matchingAccept;
 	private String matchingStatus;
 	private Date processDate;
+	
+	//매칭조회(김선아)
+	private Date startDate;
+	private Date endDate;
+	private Member member;
 	
 	//DB에서받아와서 견적서 내용을 보여주기 위한 필드 선언(김진환)
 	private String matchEstName;
@@ -51,6 +57,30 @@ public class Mprocess implements java.io.Serializable {
 
 	public void setProcessNo(int processNo) {
 		this.processNo = processNo;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
 	public int getUno() {
@@ -153,11 +183,13 @@ public class Mprocess implements java.io.Serializable {
 	public String toString() {
 		return "Mprocess [processNo=" + processNo + ", uno=" + uno + ", tno=" + tno + ", matchingLevel=" + matchingLevel
 				+ ", transferStatus=" + transferStatus + ", matchingAccept=" + matchingAccept + ", matchingStatus="
-				+ matchingStatus + ", processDate=" + processDate + ", matchEstName=" + matchEstName + ", matchEstDay="
-				+ matchEstDay + ", matchEstContents=" + matchEstContents + ", matchEstPrice=" + matchEstPrice
-				+ ", matchEstimate=" + matchEstimate + "]";
+				+ matchingStatus + ", processDate=" + processDate + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", member=" + member + ", matchEstName=" + matchEstName + ", matchEstDay=" + matchEstDay
+				+ ", matchEstContents=" + matchEstContents + ", matchEstPrice=" + matchEstPrice + ", matchEstimate="
+				+ matchEstimate + "]";
 	}
-	
+
+
 
 	
 	

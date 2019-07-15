@@ -4,41 +4,43 @@
 SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Admin">
-	
-	<resultMap id="paymentResultSet" type="Payment">
-		<id column="PAY_NO" property="payNo"/>		
-		<result column="MEMBERSHIP_NO" property="membershipNo"/>		
-		<result column="TNO" property="tno"/>		
-		<result column="PROCESS" property="process"/>		
-		<result column="PAY_TYPE" property="payType"/>		
-		<result column="PAY_DATE" property="payDate"/>		
-		<result column="REFUND_REASON" property="refundReason"/>		
-		<result column="MEMBERSHIP_TYPE" property="membershipType"/>		
-		<result column="MEMBERSHIP_COUNT" property="membershipCount"/>		
-		<result column="MEMBERSHIP_PRICE" property="membershipPrice"/>	
-		<result column="ID" property="userId"/>
-	</resultMap>
-	
-	<resultMap id="memberResultSet" type="com.kh.amd.member.model.vo.Member">
-		<id column="MNO" property="mno"/> <!-- DB 기본키 -->
-		<result column="NAME" property="name"/><!-- 일반컬럼 -->
-		<result column="ID" property="userId"/>
-		<result column="PWD" property="userPwd"/>
-		<result column="PHONE" property="phone"/>
-		<result column="GENDER" property="gender"/>
-		<result column="EMAIL" property="email"/>
-		<result column="MTYPE" property="mtype"/>
-		<result column="STATUS" property="status"/>
-		<result column="MATCH_TIME" property="matchTime"/>
-		<result column="EMAIL_YN" property="emailYn"/>
-		<result column="ENROLL_DATE" property="enrollDate"/>
-		<result column="MODIFY_DATE" property="modifyDate"/>
-		<result column="COMPLETE_SURVEY" property="completeSurvey"/>
-		<result column="UAGE" property="uage"/>
-		<result column="TAGE" property="tage"/>
-</resultMap>
 
-<resultMap id="boardResultSet" type="com.kh.amd.board.model.vo.Board">
+	<resultMap id="paymentResultSet" type="Payment">
+		<id column="PAY_NO" property="payNo" />
+		<result column="MEMBERSHIP_NO" property="membershipNo" />
+		<result column="TNO" property="tno" />
+		<result column="PROCESS" property="process" />
+		<result column="PAY_TYPE" property="payType" />
+		<result column="PAY_DATE" property="payDate" />
+		<result column="REFUND_REASON" property="refundReason" />
+		<result column="MEMBERSHIP_TYPE" property="membershipType" />
+		<result column="MEMBERSHIP_COUNT" property="membershipCount" />
+		<result column="MEMBERSHIP_PRICE" property="membershipPrice" />
+		<result column="ID" property="userId" />
+	</resultMap>
+
+	<resultMap id="memberResultSet"
+		type="com.kh.amd.member.model.vo.Member">
+		<id column="MNO" property="mno" /> <!-- DB 기본키 -->
+		<result column="NAME" property="name" /><!-- 일반컬럼 -->
+		<result column="ID" property="userId" />
+		<result column="PWD" property="userPwd" />
+		<result column="PHONE" property="phone" />
+		<result column="GENDER" property="gender" />
+		<result column="EMAIL" property="email" />
+		<result column="MTYPE" property="mtype" />
+		<result column="STATUS" property="status" />
+		<result column="MATCH_TIME" property="matchTime" />
+		<result column="EMAIL_YN" property="emailYn" />
+		<result column="ENROLL_DATE" property="enrollDate" />
+		<result column="MODIFY_DATE" property="modifyDate" />
+		<result column="COMPLETE_SURVEY" property="completeSurvey" />
+		<result column="UAGE" property="uage" />
+		<result column="TAGE" property="tage" />
+	</resultMap>
+
+	<resultMap id="boardResultSet"
+		type="com.kh.amd.board.model.vo.Board">
 		<id property="bNo" column="BNO" />
 		<result property="bType" column="BTYPE" />
 		<result property="blCategory" column="BL_CATEGORY" />
@@ -52,153 +54,203 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		<result property="bLike" column="BLIKE" />
 		<result property="bStatus" column="BSTATUS" />
 		<result property="bWriter" column="BWRITER" />
-		<collection property="member" resultMap="member"/>		
+		<collection property="member" resultMap="memberResultSet" />
 	</resultMap>
-	
+
+	<resultMap id="matchingResultSet"
+		type="com.kh.amd.matching.model.vo.Mprocess">
+		<id column="PROCESS_NO" property="processNo" />
+		<result column="UNO" property="uno" />
+		<result column="TNO" property="tno" />
+		<result column="MATCHING_LEVEL" property="matchingLevel" />
+		<result column="MATCHING_ACCEPT" property="matchingAccept" />
+		<result column="MATCHING_STATUS" property="matchingStatus" />
+
+		<result column="PT_STARTDATE" property="startDate" />
+		<result column="PT_ENDDATE" property="endDate" />
+		<collection property="member" resultMap="memberResultSet" />
+
+	</resultMap>
+
 	<!-- 결제 내역 조회 -->
 	<select id="paymentList" resultMap="paymentResultSet">
 		SELECT *
-		FROM PAYMENT P 
+		FROM PAYMENT P
 		JOIN MEMBERSHIP USING(MEMBERSHIP_NO)
 		JOIN MEMBER M ON(TNO = MNO)
-		WHERE PROCESS = '결제완료'
+		WHERE
+		PROCESS = '결제완료'
 	</select>
-	
+
 	<!-- 환불 내역 조회 -->
 	<select id="refundList" resultMap="paymentResultSet">
 		SELECT *
-		FROM PAYMENT P 
+		FROM PAYMENT P
 		JOIN MEMBERSHIP USING(MEMBERSHIP_NO)
 		JOIN MEMBER M ON(TNO = MNO)
-		WHERE PROCESS LIKE '%환불%'
+		WHERE
+		PROCESS LIKE '%환불%'
 	</select>
-	
+
 	<!-- 회원 정보 조회 -->
 	<select id="userList" resultMap="memberResultSet">
 		SELECT M.*, S.UAGE
 		FROM MEMBER M
-        JOIN SURVEY S ON(MNO = UNO)
+		JOIN SURVEY S ON(MNO = UNO)
 		WHERE MTYPE = 'U'
 	</select>
-	
+
 	<!-- 트레이너 조회 -->
 	<select id="trainerList" resultMap="memberResultSet">
 		SELECT M.*, I.TAGE
-        FROM MEMBER M
-        JOIN TUSER_INFO I ON (MNO = TNO)
-        WHERE MTYPE = 'T'
+		FROM MEMBER M
+		JOIN TUSER_INFO I ON (MNO = TNO)
+		WHERE MTYPE = 'T'
 	</select>
-	
+
 	<!-- 아이디 검색 -->
 	<select id="searchUser" resultMap="memberResultSet">
 		SELECT M.*, S.UAGE, I.TAGE
 		FROM MEMBER M
-        LEFT OUTER JOIN SURVEY S ON(MNO = UNO)
-        LEFT OUTER JOIN TUSER_INFO I ON(MNO = TNO)
-        WHERE ID = #{userId}
+		LEFT OUTER JOIN SURVEY S ON(MNO = UNO)
+		LEFT OUTER JOIN TUSER_INFO I ON(MNO = TNO)
+		WHERE ID = #{userId}
 	</select>
-	
-	
+
+
 	<!-- 카테고리별 검색(회원) -->
 	<select id="filteringList" resultMap="memberResultSet">
-	SELECT M.*, S.UAGE
+		SELECT M.*, S.UAGE
 		FROM MEMBER M
-        JOIN SURVEY S ON(MNO = UNO)
+		JOIN SURVEY S ON(MNO = UNO)
 		WHERE MTYPE = 'U'
-	    <choose>
-			<when test = "category == 'gender'">
+		<choose>
+			<when test="category == 'gender'">
 				AND GENDER = #{keyword}
 			</when>
-			<when test = "category == 'age'">
+			<when test="category == 'age'">
 				AND UAGE = #{keyword}
-			</when>	
+			</when>
 		</choose>
 	</select>
-	
+
 	<!-- 카테고리별 검색(트레이너) -->
 	<select id="T_filteringList" resultMap="memberResultSet">
 		SELECT M.*, I.TAGE
-        FROM MEMBER M
-        JOIN TUSER_INFO I ON (MNO = TNO)
-        WHERE MTYPE = 'T'
-	    <choose>
-			<when test = "category == 'gender'">
+		FROM MEMBER M
+		JOIN TUSER_INFO I ON (MNO = TNO)
+		WHERE MTYPE = 'T'
+		<choose>
+			<when test="category == 'gender'">
 				AND GENDER = #{keyword}
 			</when>
-			<when test = "category == 'age'">
+			<when test="category == 'age'">
 				AND TAGE = #{keyword}
-			</when>	
+			</when>
 		</choose>
 	</select>
 
 	<!-- 카테고리별 검색(환불상태) -->
 	<select id="refundStatus" resultMap="paymentResultSet">
 		SELECT *
-		FROM PAYMENT P 
+		FROM PAYMENT P
 		JOIN MEMBERSHIP USING(MEMBERSHIP_NO)
 		JOIN MEMBER M ON(TNO = MNO)
-		WHERE PROCESS LIKE #{keyword}
+		WHERE
+		PROCESS LIKE #{keyword}
 	</select>
-	
+
 	<!-- 환불 요청 승인 -->
 	<update id="refundAgree">
 		UPDATE PAYMENT
 		SET PROCESS = '환불승인'
-		WHERE PAY_NO = #{payNo}
+		WHERE PAY_NO =
+		#{payNo}
 	</update>
-	
+
 
 	<!-- 환불 요청 거절 -->
 	<update id="refundRefuse">
 		UPDATE PAYMENT
-		SET PROCESS = '환불거절' 
-		WHERE PAY_NO = #{payNo} 
+		SET PROCESS = '환불거절'
+		WHERE PAY_NO = #{payNo}
 	</update>
-	
+
 	<!-- 카테고리별 검색(멤버쉽) -->
 	<select id="membershipType" resultMap="paymentResultSet">
 		SELECT *
-		FROM PAYMENT P 
+		FROM PAYMENT P
 		JOIN MEMBERSHIP USING(MEMBERSHIP_NO)
 		JOIN MEMBER M ON(TNO = MNO)
-		WHERE PROCESS = '결제완료'
-	  	AND MEMBERSHIP_TYPE = #{keyword}	
+		WHERE
+		PROCESS = '결제완료'
+		AND MEMBERSHIP_TYPE = #{keyword}
 	</select>
-	
+
 	<!-- 페이징 처리(공지사항) -->
 	<select id="noticeListCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM BOARD
-		WHERE BTYPE = 1 OR BTYPE=2		
+		FROM
+		BOARD
+		WHERE BTYPE = 1 OR BTYPE=2
 	</select>
-	
+
 	<!-- 페이징 처리(FAQ) -->
 	<select id="faqListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOARD B
-		WHERE BTYPE = 3	
+		WHERE BTYPE = 3
 	</select>
-	
+
 	<!-- 페이징 처리(QNA) -->
 	<select id="qnaListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOARD B
 		WHERE BTYPE = 4
 	</select>
-	
+
 	<!-- 페이징 처리(신고) -->
 	<select id="declListCount" resultType="_int">
-		SELECT COUNT(*) 
-     	FROM DECLARATION 
+		SELECT COUNT(*)
+		FROM DECLARATION
 	</select>
-	
+
 	<!-- 통계 -->
- 	<select id="memberAge" resultType="_int">
-		SELECT COUNT(GENDER) 
+	<select id="memberAge" resultType="_int">
+		SELECT COUNT(GENDER)
 		FROM MEMBER
 		WHERE MTYPE = 'U'
-		GROUP BY GENDER 
+		GROUP BY GENDER
 	</select>
-	 
+
+	<!-- 매칭 조회 -->
+	<select id="matchingList" resultMap="matchingResultSet">
+		SELECT *
+		FROM (SELECT *
+		FROM MATCHING M
+		JOIN M_PROCESS P ON(M.PROCESS_NO = P.PROCESS_NO)
+		JOIN MEMBER U ON(P.TNO = U.MNO)
+		JOIN MEMBER U ON(P.UNO = U.MNO)) P
+		WHERE PT_STATUS = 'Y'
+	</select>
+
+	<!-- 매칭 종료 -->
+	<update id="matchingEnd">
+		UPDATE MATCHING
+		SET PT_STATUS = 'N'
+		WHERE PROCESS_NO =
+		#{No}
+	</update>
+	
+	<!-- 매칭 아이디 검색 -->
+<!-- 	<select id="searchUser" resultMap="memberResultSet">
+		SELECT M.*, S.UAGE, I.TAGE
+		FROM MEMBER M
+		LEFT OUTER JOIN SURVEY S ON(MNO = UNO)
+		LEFT OUTER JOIN TUSER_INFO I ON(MNO = TNO)
+		WHERE ID = #{userId}
+	</select>
+ -->
+
 </mapper>
 
