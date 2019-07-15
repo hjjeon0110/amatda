@@ -125,10 +125,37 @@ public class DiaryServiceImpl implements DiaryService{
 
 
 	//다이어리 delete
+	/*
+	 * @Override public int deleteDiary(String bNo) {
+	 * 
+	 * return dd.deleteDiary(sqlSession, bNo); }
+	 */
+
+
 	@Override
-	public int deleteDiary(String bNo) {
+	public int deleteDiary(Diary d, String bno) {
 		
-		return dd.deleteDiary(sqlSession, bNo);
+		int result = 0;
+		
+		int result1 = dd.deleteDiary(sqlSession, bno);
+		
+		System.out.println("result1 : " + result1);
+		
+		int result2 = dd.deleteGallery(sqlSession, bno);
+		
+		System.out.println("result2 : " + result2);
+		
+		if(result1 > 0 && result2 > 0) {
+			
+			result = 1;
+			
+		}else {
+			
+			
+		}
+		
+		return result;
+		
 	}
 
 

@@ -59,7 +59,7 @@ public interface DiaryService {
 	int diaryListCount(int mno);
 
 
-	int deleteDiary(String bNo);
+	int deleteDiary(Diary d, String bno);
 
 
 	

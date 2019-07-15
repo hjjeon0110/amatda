@@ -251,15 +251,34 @@ public class DiaryController {
 	
 	
 	//리스트 delete
-	@RequestMapping(value="deleteDiary.di", method = RequestMethod.POST)
-	public String deleteDiary(@RequestParam("checkDelete") String[] checkDelete, ModelMap modelMap, int mno) throws Exception {
-	    // 삭제할 사용자 ID마다 반복해서 사용자 삭제
-	    for (String bNo : checkDelete) {
-	        System.out.println("사용자 삭제 = " + bNo);
-	        int delete_count = ds.deleteDiary(bNo);
-	    }
-	    // 목록 페이지로 이동
-	    return "redirect:list.di?mno=" + mno;
+	/*
+	 * @RequestMapping(value="deleteDiary.di", method = RequestMethod.POST) public
+	 * String deleteDiary(@RequestParam("checkDelete") String[] checkDelete,
+	 * ModelMap modelMap, int mno) throws Exception {
+	 * 
+	 * for (String bNo : checkDelete) { System.out.println("사용자 삭제 = " + bNo); int
+	 * delete_count = ds.deleteDiary(bNo); } // 목록 페이지로 이동 return
+	 * "redirect:list.di?mno=" + mno; }
+	 */
+	
+	
+	@RequestMapping(value="deleteDiary.di", method = {RequestMethod.GET, RequestMethod.POST})
+	public String deleteDiary(Model model, Diary d, HttpServletRequest request){
+				
+		String mno = request.getParameter("mno");
+		String bno = request.getParameter("bno");
+		System.out.println("bno : " + bno);
+		
+		//int mno = m.getMno();
+		//int bno = d.getbNo();
+		
+		ds.deleteDiary(d, bno);	
+		
+			
+			return "redirect:list.di?mno=" + mno;
+			
+				
+	
 	}
 
 

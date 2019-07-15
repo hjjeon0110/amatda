@@ -123,6 +123,7 @@
 		FROM BOARD
 		WHERE BTYPE = 6
 		AND BWRITER = #{mno}
+		AND BSTATUS = 'Y'
         ORDER BY BNO DESC  	
   	</select>
   	
@@ -148,6 +149,7 @@
 		FROM BOARD
 		WHERE BTYPE = 6
 		AND BWRITER = #{mno}
+		AND BSTATUS = 'Y'
         
   	</select>
   	
@@ -156,6 +158,7 @@
 		FROM ATTACHMENT
 		WHERE PNO = #{pno}
 		AND ATYPE = 3
+		AND A_STATUS = 'Y'
 		ORDER BY UPLOAD_DATE DESC
   	</select>
   	
@@ -182,11 +185,19 @@
 	</select>
 	
 	<!-- 다이어리 delete -->	
-	<delete id="deleteDiary">
-      DELETE 
-      FROM BOARD 
-      WHERE BNO = #{bNo}
-   </delete>
+	<update id="deleteDiary" parameterType="java.lang.String">
+		UPDATE BOARD
+   		SET BSTATUS = 'N'   			  		
+   		WHERE BNO = #{bno}
+	</update>
+	
+	
+	<!-- 갤러리 delete -->	
+	<update id="deleteGallery" parameterType="java.lang.String">
+		UPDATE ATTACHMENT
+   		SET A_STATUS = 'N'   			  		
+   		WHERE BNO = #{bno}
+	</update>
 	
 </mapper>
 
