@@ -151,6 +151,12 @@ public interface BoardService {
 
 	int likeCount(Board b);
 
+	int selectLikeCount(Board b);
+
+	int likeWho(Board b);
+
+	int likeClick(Board b);
+
 	//void insertReviewImg(String mno, Board b, String filePath, String originalFilename, String ext, String changeName);
 
 	//void insertReviewImg(String mno, Board b, String filePath, String originalFilename, String ext, String changeName);

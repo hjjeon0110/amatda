@@ -430,6 +430,25 @@
   -->
  
  
+ <select id="selectLikeCount" parameterType="Board" resultType="_int">
+ 	SELECT BLIKE
+	FROM BOARD
+	WHERE BNO=#{bNo}
+ </select>
+ 
+ 
+ <insert id="likeWho" parameterType="Board">
+ 	INSERT INTO LIKECOUNT
+ 	VALUES(LIKE_SEQ.NEXTVAL,#{bNo},#{bWriter},null)
+ </insert>
+ 
+ 
+ <select id="likeClick" parameterType="Board" resultType="_int">
+ 	SELECT COUNT(*)
+ 	FROM LIKECOUNT
+    WHERE MNO=#{bWriter}
+ 	
+ </select>
   </mapper>
 
   

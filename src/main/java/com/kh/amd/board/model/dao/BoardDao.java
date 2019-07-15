@@ -152,6 +152,12 @@ public interface BoardDao {
 
 	int likeCount(SqlSessionTemplate sqlSession, Board b);
 
+	int selectLikeCount(SqlSessionTemplate sqlSession, Board b);
+
+	int likeWho(SqlSessionTemplate sqlSession, Board b);
+
+	int likeClick(SqlSessionTemplate sqlSession, Board b);
+
 	//int insertQna(SqlSessionTemplate sqlSession, Board b, String mno);
 
 

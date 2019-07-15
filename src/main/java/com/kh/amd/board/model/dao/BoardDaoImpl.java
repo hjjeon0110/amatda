@@ -353,6 +353,21 @@ public class BoardDaoImpl implements BoardDao {
 		return sqlSession.update("Board.likeCount", b);
 	}
 
+	@Override
+	public int selectLikeCount(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.selectOne("Board.selectLikeCount",b);
+	}
+
+	@Override
+	public int likeWho(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("Board.likeWho",b);
+	}
+
+	@Override
+	public int likeClick(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.selectOne("Board.likeClick",b);
+	}
+
 	
 
 

@@ -3,24 +3,18 @@ package com.kh.amd.board.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tools.ant.taskdefs.Apt.Option;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.kh.amd.attachment.model.vo.Attachment;
 import com.kh.amd.board.model.service.BoardService;
 import com.kh.amd.board.model.vo.Board;
@@ -466,9 +462,40 @@ public class BoardController {
 			 }
 			  */
 			 
+			 
+			 //좋아요 수 조회(SR)
+			 @RequestMapping(value="selectCountOnLoad.bo")
+			 public void selectCountOnLoac(String bno, String mno, HttpServletResponse response) {
+				
+				 int bno2 = Integer.parseInt(bno);
+				 int mno2=Integer.parseInt(mno);
+				 
+				 
+				 Board b = new Board();
+				 b.setbNo(bno2);
+				 b.setbWriter(mno2);
+				 
+				 int likeCount = bs.selectLikeCount(b);
+				 System.out.println("좋아요 현재 카운트 수: " + likeCount);
+				  
+				  response.setContentType("application/json"); 
+		
+		  if(likeCount >= 0) {
+		  
+		  try { 
+			  new Gson().toJson("" + likeCount, response.getWriter()); 
+		  } catch(JsonIOException e) { // TODO Auto-generated catch block e.printStackTrace();
+		  } catch (IOException e) { // TODO Auto-generated catch block
+		  e.printStackTrace(); }
+		  }
+			 }
+			 
+			 
+			 
+			 
 			 //리뷰 상세 게시판 좋아요 (SR)
 			 @RequestMapping(value="like.bo")
-			 public String like(Model model,String bno, String mno,HttpSession session) {
+			 public void like(String bno, String mno,HttpServletResponse response) {
 				 System.out.println("좋아요확인 in controller");
 				
 				 int bno2 = Integer.parseInt(bno);
@@ -481,8 +508,52 @@ public class BoardController {
 				 b.setbNo(bno2);
 				 b.setbWriter(mno2);
 				 
+				 //이사람이 좋아요를 눌렀는지 안눌렀는지
+				 int result0 = bs.likeClick(b);
+				 
+				 if(result0<=0) {
+				 
+				 
+				 //카운트 수 증가
 				 int result = bs.likeCount(b);
 				 System.out.println("result: " + result);
+				 
+				//누가 좋아요 눌렀는지 기록
+				 int who = bs.likeWho(b);
+				
+				//System.out.println("잘들어갔니? " + who);
+			
+				
+				if(result > 0) {
+					try {
+						response.getWriter().print("success");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			}else if(result0>0){
+				try {
+					response.getWriter().print("fail");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		/*
+		 * int likeCount = bs.selectLikeCount(b); System.out.println("좋아요 현재 카운트 수: " +
+		 * likeCount);
+		 * 
+		 * response.setContentType("application/json");
+		 * 
+		 * if(likeCount > 0) {
+		 * 
+		 * try { new Gson().toJson("" + likeCount, response.getWriter()); }
+		 * catch(JsonIOException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); } catch (IOException e) { // TODO Auto-generated catch
+		 * block e.printStackTrace(); } }
+		 */
 		/*
 		 * JSONObject obj = mew JSONObject();
 		 * 
@@ -495,9 +566,6 @@ public class BoardController {
 		 * 
 		 */
 				 
-				 
-				 
-				 return "board/selectOneReview";
 			 }
 			 
 			 

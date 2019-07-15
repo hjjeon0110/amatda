@@ -321,6 +321,21 @@ public class BoardServiceImpl implements BoardService{
 		return bd.likeCount(sqlSession,b);
 	}
 
+	@Override
+	public int selectLikeCount(Board b) {
+		return bd.selectLikeCount(sqlSession,b);
+	}
+
+	@Override
+	public int likeWho(Board b) {
+		return bd.likeWho(sqlSession,b);
+	}
+
+	@Override
+	public int likeClick(Board b) {
+		return bd.likeClick(sqlSession,b);
+	}
+
 
 
 
