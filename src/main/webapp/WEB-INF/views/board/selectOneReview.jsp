@@ -191,10 +191,11 @@ width:800px;
 		</div>
 		<p></p>
 		<p></p>
-		
+		<p></p>
 		<div class="secondTableLine"></div>
 			<div class="likecount">
-				<!-- <a href ="like.bo"> --><h6>1111<img id="likeicon" onclick="like()"src="${ contextPath }/resources/images/likeicon.png"></h6></a>
+				<!-- <a href ="like.bo"> --><label id="likeCount22"></label><img id="likeicon" onclick="like()"src="${ contextPath }/resources/images/likeicon.png"></a>
+				
 			</div>
 			<img id="reviewImgFile" src="${contextPath }/resources/uploadFiles/${a.modiName}${a.extension}" width="500" height="500">
 			
@@ -318,33 +319,48 @@ width:800px;
 		 
 		 $.ajax({
 			url:"like.bo",
-			type:"post",
 			data:{mno:mno, bno:bno},
+			method:"get",
 			success: function(data){
-				/* var msg='';
-				var likeicon = '';
-				msg += data.msg;
-				alert(msg);
-				
-				if(data.like_check ==0){
-					likeicon="${ contextPath }/resources/images/zerolikeicon.png";
-				}else{
-					likeicon="${ contextPath }/resources/images/likeicon.png";
-				}
-				$('#likeicon',frm_read).attr('src',likeicon);
-				$('#like_cnt').html(data.like_cnt);
-				$('#like_check').html(data.like_check); */
+				console.log(data)
+				if(data=="success"){
 				alert("성공");
+				console.log("data: " + data);
+				//$("#likeCount22").text(data);
 				
+				location.reload();
+				}else if(data=="fail"){
+					alert("이미 좋아요 누르신 게시물입니다.");
+				}
 			},
 			error:function(data){
-				alert("실패");
+				
 				//alert("code: "+request.status+"\n" + "message: " + request.resposeText + "\n"+"error:" + error);
 			}
 			 
 		 }); 
 		 
 	 } 
+	 
+	 
+	 $(function(){
+		 var mno = ${sessionScope.loginUser.mno};
+		 var bno = ${b.bNo};
+		 
+		 $.ajax({
+			 url:"selectCountOnLoad.bo",
+			 data:{mno:mno, bno:bno},
+				method:"post",
+				dataType:"json",
+				success:function(data){
+					$("#likeCount22").text(data);
+					
+				},error:function(data){
+					alert("실패");
+				}
+			 
+		 })
+	 })
 
 
 </script>
