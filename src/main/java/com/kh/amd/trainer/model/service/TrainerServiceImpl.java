@@ -246,6 +246,14 @@ public class TrainerServiceImpl implements TrainerService {
 		
 		return td.checkCompleteList(sqlSession, tno);
 	}
+	
+	// 29. 매칭중인 회원 프로세스 상세보기(김진환)
+	@Override
+	public Member showMatchingProcessListView(String tno, String uno) {
+		
+		return td.showMatchingProcessListView(sqlSession, tno, uno);
+	}
+
 
 
 
@@ -373,6 +381,21 @@ public class TrainerServiceImpl implements TrainerService {
 	public void deleteMidea(String mno, String thisModiName) {
 		td.deleteMidea(sqlSession, mno, thisModiName);
 	}
+
+
+	// 16. 매칭 요청 거절하기 버튼 클릭 시 MPROCESS UPDATE (전효정)
+	@Override
+	public void updateMprocess1(String uno, String tno) {
+		td.updateMprocess1(sqlSession, uno, tno);
+	}
+
+
+	// 17. 매칭 요청 수락하기 버튼 클릭 시 MPROCESS UPDATE (전효정)
+	@Override
+	public void updateMprocess2(String uno, String tno) {
+		td.updateMprocess2(sqlSession, uno, tno);
+	}
+
 
 
 

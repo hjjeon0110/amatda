@@ -60,19 +60,19 @@
 .searchUserListDiv {
 	width:100%;
 	height:100%;
-	background:whitesmoke;
+	background:#f9f9f9;
 }
 
 .userSelect {
 	width:150px;
 	font-family: 'Noto Sans KR', sans-serif;
-	border:1px solid lightgray;
+	border:0.5px solid darkgray;
 	margin-left:50px;
 }
 
-.userList {
+.userListDiv {
 	width:90%; 
-	border:1px solid lightgray;
+	border:0.5px solid darkgray;
 	margin-left:auto; 
 	margin-right:auto;
 	padding:10px;
@@ -166,6 +166,26 @@
 	width:100px;
 	cursor:pointer;
 }
+
+.remainDay {
+	border-style:none; 
+	background:#ffe6f3; 
+	color:#ff0066;
+	margin-left:auto; 
+	margin-right:auto;
+	width:100px;
+}
+
+.remainDay:hover {
+	border-style:none; 
+	background:white; 
+	color:#ff0066; 
+	margin-left:auto; 
+	margin-right:auto;
+	width:100px;
+	border:1px solid #ff0066; 
+	cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -192,8 +212,9 @@
 	<!-- 값이 있을때만 조회되는 영역 -->
 	<c:if test="${ !empty list }">
 	<div class="searchUserListDiv">
+		<jsp:useBean id="today" class="java.util.Date"/>
 		<fmt:formatDate var="nowTime" value="${ today }" pattern="yyyyMMdd"/>
-		
+		<br><br>
 	<!-- 반복문으로 회원들의 목록을 조회하는 영역  -->	
 		<c:forEach var="user" items="${ list }" varStatus="status">
 			<c:set var="imgName" value="${user.attachment.modiName}${user.attachment.extension}" />
@@ -318,11 +339,12 @@
 			</div>
 
 		</c:forEach>
-		
+		<br>
 		</div>
 	</c:if>
 	
 	<!-- 페이징 처리를 위한 코드, div지정후 페이징 처리 ----------------------------------->
+	<br>
 		<div id="pagingArea" align="center">
 			<c:if test="${ pi.currentPage <= 1 }">
 				[이전] &nbsp;
@@ -345,6 +367,7 @@
 					</c:url>
 					<a href="${ blistCheck }">${ p }</a>
 				</c:if>
+				
 			
 			</c:forEach>
 			

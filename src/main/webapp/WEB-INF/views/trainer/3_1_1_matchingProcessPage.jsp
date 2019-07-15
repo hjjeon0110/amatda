@@ -28,20 +28,21 @@
                   </div>
                </td>
                <td class="trainerListTableTd2">
-                  <label class="trainerName">${ matchingTrainer.name }</label>
-                  <label class="trainerGender">(${ matchingTrainer.trainerInfo.tage}, ${ matchingTrainer.gender})</label>
+                  <label class="trainerName">${ matchingMember.name }</label>
+                  <label class="trainerGender">(${ matchingMember.gender})</label>
                </td>
                <td></td>
             </tr>
             <tr>
-               <td><label class="trainerKeyword">${ matchingTrainer.profile.keyword }</label></td>
+               <td><label class="trainerKeyword">${ matchingMember.survey.hopeExercise }</label></td>
                <td><button class="goProfileDetail">매칭 진행중</button></td>
             </tr>
             <tr>
-               <td><label class="simpleProfile">${ matchingTrainer.profile.lineProfile}</label></td>
+               <td><label class="simpleProfile">운동 시작가능일 : ${ matchingMember.survey.hopeStart}, 운동
+								가능 시간 : ${matchingMember.survey.datExercise }, 키 : ${ matchingMember.survey.height }cm, 몸무게 : ${ matchingMember.survey.weight}kg, 목표감량치 : -${matchingMember.survey.hopeWeight}kg</label></td>
                <td class="trainerListTableTd1">
-                  <input type="hidden" value="${ matchingTrainer.mno }">
-                  <input type="hidden" value="${ matchingTrainer.name }">
+                  <input type="hidden" value="${ matchingMember.mno }">
+                  <input type="hidden" value="${ matchingMember.name }">
                   <button class="matchingStartBtn">프로필 보기</button>
                </td>
             </tr>
@@ -51,16 +52,16 @@
    </div>
    <br>
    <div class="matchingTitleDiv">
-      <label class="matchingTitle1">${ matchingTrainer.name } 트레이너님과의</label> <label class="matchingTitle2">매칭 단계</label>
+      <label class="matchingTitle1">${ matchingMember.name } 회원님과의</label> <label class="matchingTitle2">매칭 단계</label>
    </div>
-   <c:if test="${ selectOneMyTrainer.matchingLevel == 0 }">
+   <%-- <c:if test="${ matchingMember.mprocess.matchingLevel == 1 }">
        <div class="step-state step1">
            <ul>
                <li><p>매칭시작</p></li>
-               <li><p>내 정보 보내기<span></span></p></li>
-               <li><p>견적서 확인하기<span></span></p></li>
-               <li><p>매칭 요청하기<span></span></p></li>
-               <li><p>입금하기<span></span></p></li>
+               <li><p>견적서 보내기<span></span></p></li>
+               <li><p>매칭 요청 수락하기<span></span></p></li>
+               <li><p>입금 확인하기<span></span></p></li>
+               <li><p>PT 시작하기<span></span></p></li>
            </ul>
        </div>
        <br>
@@ -72,90 +73,110 @@
          <button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable">다이어트 정보 보내기</button>
          <br><br><br>
       </div>
-   </c:if>
-   <%-- <c:if test="${ selectOneMyTrainer.matchingLevel == 1 }">
+   </c:if> --%>
+   <%-- <c:if test="${ matchingMember.mprocess.matchingLevel == 1 }">
        <div class="step-state step2">
            <ul>
                <li><p>매칭시작</p></li>
-               <li><p>내 정보 보내기<span></span></p></li>
-               <li><p>견적서 확인하기<span></span></p></li>
-               <li><p>매칭 요청하기<span></span></p></li>
-               <li><p>입금하기<span></span></p></li>
+               <li><p>견적서 보내기<span></span></p></li>
+               <li><p>매칭 요청 수락하기<span></span></p></li>
+               <li><p>입금 확인하기<span></span></p></li>
+               <li><p>PT 시작하기<span></span></p></li>
            </ul>
        </div>
    </c:if> --%>
-   <c:if test="${ selectOneMyTrainer.matchingLevel == 1 && selectOneMyTrainer.matchingStatus == '진행중' }">
+   <c:if test="${ matchingMember.mprocess.matchingLevel == 2 && matchingMember.mprocess.matchingStatus == '진행중' }">
        <div class="step-state step2-ing">
            <ul>
                <li><p>매칭시작</p></li>
-               <li><p>내 정보 보내기<span></span></p></li>
-               <li><p>견적서 확인하기<span></span></p></li>
-               <li><p>매칭 요청하기<span></span></p></li>
-               <li><p>입금하기<span></span></p></li>
+               <li><p>견적서 보내기<span></span></p></li>
+               <li><p>매칭 요청 수락하기<span></span></p></li>
+               <li><p>입금 확인하기<span></span></p></li>
+               <li><p>PT 시작하기<span></span></p></li>
            </ul>
        </div>
        <br>
       <div class="stepDiv">
          <jsp:useBean id="today" class="java.util.Date"/>
          <fmt:formatDate var="nowTime" value="${ today }" pattern="yyyyMMdd"/>
-         <fmt:formatDate var="estDate" value="${ selectOneMyTrainer.processDate }" pattern="yyyyMMdd"/>
+         <fmt:formatDate var="estDate" value="${ matchingMember.mprocess.processDate }" pattern="yyyyMMdd"/>
          
          <br><br>
-         <label class="stepLabel">트레이너가 회원님께서 보낸 요청서를 확인하고 있습니다.</label><br>
-         <label class="stepLabel" style="color:#ff0066;">견적서가 도착하기까지 ${(estDate + 3 - nowTime)}일 남았습니다!</label>
+         <label class="stepLabel">${ matchingMember.name } 회원님께서 아직 매칭 요청을 보내지 않았습니다.</label><br>
+         <label class="stepLabel" style="color:#ff0066;">회원님께 보낸 견적서를 확인해보세요!</label>
          <br><br>
-         <button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable" disabled="true">견적서 확인하기</button>
+         <button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable">보낸 견적서 확인하기</button>
          <br><br><br>
       </div>
    </c:if>
-   <c:if test="${ selectOneMyTrainer.matchingLevel == 2 && selectOneMyTrainer.matchingStatus == '매칭종료' && selectOneMyTrainer.matchingAccept== 'N' }">
+   <c:if test="${ matchingMember.mprocess.matchingLevel == 3 && matchingMember.mprocess.matchingStatus == '진행중' && matchingMember.mprocess.matchingAccept== 'Y'  }">
+       <div class="step-state step2-ing">
+           <ul>
+               <li><p>매칭시작</p></li>
+               <li><p>견적서 보내기<span></span></p></li>
+               <li><p>매칭 요청 수락하기<span></span></p></li>
+               <li><p>입금 확인하기<span></span></p></li>
+               <li><p>PT 시작하기<span></span></p></li>
+           </ul>
+       </div>
+       <br>
+      <div class="stepDiv">
+         <br><br>
+         <label class="stepLabel">${ matchingMember.name } 회원님께서 트레이너님께 매칭 요청을 보냈습니다.</label><br>
+         <label class="stepLabel" style="color:#ff0066;">지금 바로 매칭 요청을 수락할 수 있습니다!</label>
+         <br><br>
+         <button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable2">매칭 요청 응답하기</button>
+         <br><br><br>
+      </div>
+   </c:if>
+   <c:if test="${ matchingMember.mprocess.matchingLevel == 3 && matchingMember.mprocess.matchingStatus == '매칭종료' && matchingMember.mprocess.matchingAccept== 'N' }">
        <div class="step-state step3">
            <ul>
                <li><p>매칭시작</p></li>
-               <li><p>내 정보 보내기<span></span></p></li>
-               <li><p>견적서 확인하기<span></span></p></li>
-               <li><p>매칭 요청하기<span></span></p></li>
-               <li><p>입금하기<span></span></p></li>
+               <li><p>견적서 보내기<span></span></p></li>
+               <li><p>매칭 요청 수락하기<span></span></p></li>
+               <li><p>입금 확인하기<span></span></p></li>
+               <li><p>PT 시작하기<span></span></p></li>
            </ul>
        </div>
        <br>
       <div class="stepDiv">
          <br><br>
-         <label class="stepLabel">트레이너가 회원님께 견적서를 보내지 않았습니다.</label><br>
-         <label class="stepLabel" style="color:#ff0066;">트레이너 찾기를 통해 다른 트레이너를 찾아보세요!</label>
+         <label class="stepLabel">${ matchingMember.name } 회원님과의 매칭이 종료되었습니다.</label><br>
+         <label class="stepLabel" style="color:#ff0066;">회원 찾기를 통해 다른 회원를 찾아보세요!</label>
          <br><br>
-         <button class="stepBtn" id="step1" onclick="location.href='showRecommendTrainerPageView.us?mno=${sessionScope.loginUser.mno}'">다른 트레이너 찾기</button>
+         <button class="stepBtn" id="step1" onclick="location.href='showUserFindPageView.tr?mno=${sessionScope.loginUser.mno}'">다른 회원 찾기</button>
          <br><br><br>
       </div>
    </c:if>
-   <c:if test="${ selectOneMyTrainer.matchingLevel == 2 && selectOneMyTrainer.matchingStatus == '진행중' && selectOneMyTrainer.matchingAccept== 'Y' }">
+   <c:if test="${ matchingMember.mprocess.matchingLevel == 4 && matchingMember.mprocess.matchingStatus == '진행중' && matchingMember.mprocess.matchingAccept== 'Y' }">
        <div class="step-state step3-ing">
            <ul>
                <li><p>매칭시작</p></li>
-               <li><p>내 정보 보내기<span></span></p></li>
-               <li><p>견적서 확인하기<span></span></p></li>
-               <li><p>매칭 요청하기<span></span></p></li>
-               <li><p>입금하기<span></span></p></li>
+               <li><p>견적서 보내기<span></span></p></li>
+               <li><p>매칭 요청 수락하기<span></span></p></li>
+               <li><p>입금 확인하기<span></span></p></li>
+               <li><p>PT 시작하기<span></span></p></li>
            </ul>
        </div>
        <br>
       <div class="stepDiv">
          <br><br>
-         <label class="stepLabel">트레이너가 회원님께서 보낸 견적서가 도착했습니다.</label><br>
-         <label class="stepLabel" style="color:#ff0066;">지금 바로 견적서를 확인하시고 매칭을 요청하세요! (${(estDate + 3 - nowTime)}일 내에 매칭 요청을 보내야 합니다.)</label>
+         <label class="stepLabel">${ matchingMember.name } 회원님께서 아직 입금 확인 요청을 보내지 않았습니다.</label><br>
+         <label class="stepLabel" style="color:#ff0066;">입금 확인 요청이 오기까지  ${(estDate + 3 - nowTime)}일 남았습니다.</label>
          <br><br>
-         <button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable2">견적서 확인하기</button>
+         <button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable3" disabled="true">입금 확인하기</button>
          <br><br><br>
       </div>
    </c:if>
-   <c:if test="${ selectOneMyTrainer.matchingLevel == 3 && selectOneMyTrainer.matchingStatus == '매칭종료' && selectOneMyTrainer.matchingAccept== 'N' }">
+   <c:if test="${ matchingMember.mprocess.matchingLevel == 5 && matchingMember.mprocess.matchingStatus == '매칭종료' && matchingMember.mprocess.matchingAccept== 'N' }">
        <div class="step-state step4">
            <ul>
                <li><p>매칭시작</p></li>
-               <li><p>내 정보 보내기<span></span></p></li>
-               <li><p>견적서 확인하기<span></span></p></li>
-               <li><p>매칭 요청하기<span></span></p></li>
-               <li><p>입금하기<span></span></p></li>
+               <li><p>견적서 보내기<span></span></p></li>
+               <li><p>매칭 요청 수락하기<span></span></p></li>
+               <li><p>입금 확인하기<span></span></p></li>
+               <li><p>PT 시작하기<span></span></p></li>
            </ul>
        </div>
        <br>
@@ -168,14 +189,14 @@
          <br><br><br>
       </div>
    </c:if>
-   <c:if test="${ selectOneMyTrainer.matchingLevel == 3 && selectOneMyTrainer.matchingStatus == '진행중' && selectOneMyTrainer.matchingAccept== 'Y' }">
+   <c:if test="${ matchingMember.mprocess.matchingLevel == 5 && matchingMember.mprocess.matchingStatus == '진행중' && matchingMember.mprocess.matchingAccept== 'Y' }">
        <div class="step-state step4-ing">
            <ul>
                <li><p>매칭시작</p></li>
-               <li><p>내 정보 보내기<span></span></p></li>
-               <li><p>견적서 확인하기<span></span></p></li>
-               <li><p>매칭 요청하기<span></span></p></li>
-               <li><p>입금하기<span></span></p></li>
+               <li><p>견적서 보내기<span></span></p></li>
+               <li><p>매칭 요청 수락하기<span></span></p></li>
+               <li><p>입금 확인하기<span></span></p></li>
+               <li><p>PT 시작하기<span></span></p></li>
            </ul>
        </div>
         <br>
@@ -184,18 +205,18 @@
          <label class="stepLabel">아직 트레이너가 매칭 요청을 수락하지 않았습니다.</label><br>
          <label class="stepLabel" style="color:#ff0066;">매칭 요청에 대한 답변이 오기까지 ${(estDate + 3 - nowTime)}일 남았습니다!</label>
          <br><br>
-         <button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable2">견적서 확인하기</button>
+         <button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable3">매칭 요청 수락하기</button>
          <br><br><br>
       </div>
    </c:if>
-   <c:if test="${ selectOneMyTrainer.matchingLevel == 4 && selectOneMyTrainer.matchingStatus == '진행중' && selectOneMyTrainer.matchingAccept== 'Y' }">
+   <c:if test="${ matchingMember.mprocess.matchingLevel == 5 && matchingMember.mprocess.matchingStatus == '진행중' && matchingMember.mprocess.matchingAccept== 'Y' }">
        <div class="step-state step5">
            <ul>
                <li><p>매칭시작</p></li>
-               <li><p>내 정보 보내기<span></span></p></li>
-               <li><p>견적서 확인하기<span></span></p></li>
-               <li><p>매칭 요청하기<span></span></p></li>
-               <li><p>입금하기<span></span></p></li>
+               <li><p>견적서 보내기<span></span></p></li>
+               <li><p>매칭 요청 수락하기<span></span></p></li>
+               <li><p>입금 확인하기<span></span></p></li>
+               <li><p>PT 시작하기<span></span></p></li>
            </ul>
        </div>
        <br>
@@ -213,6 +234,87 @@
    <!-- footer ------------------------------------------------------------------------------------------------------------ -->
    <br><br><hr><br>
    <jsp:include page="../common/footer.jsp"></jsp:include>
+   
+   
+   <!-- 보낸 견적서 확인하기 Modal ------------------------------------------------------------------------------------------------------------- -->
+   <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <label class="modalHeader"><i class="fa fa-check"></i> ${ matchingMember.name } 회원님께 보낸 견적서 </label>&nbsp;&nbsp;&nbsp;&nbsp;
+               <button type="button" class="close" data-dismiss="modal"
+                  aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">제목</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<input class='form-control' type="text" value="${ matchingMember.mprocess.matchEstName }" readonly><br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">커리큘럼</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<textarea class="form-control" type="text" readonly style="height:150px !important">${ matchingMember.mprocess.matchEstContents}</textarea><br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">개월수</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ matchingMember.mprocess.matchEstDay }" readonly><br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">가격</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ matchingMember.mprocess.matchEstPrice }" readonly><br>
+               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">은행/계좌번호</label>
+               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ matchingMember.mprocess.matchEstName }" readonly><br>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            </div>
+         </div>
+      </div>
+   </div>
+   
+   <!-- 매칭 요청 수락하기 Modal ------------------------------------------------------------------------------------------------------------- -->
+   <div class="modal fade" id="exampleModalScrollable2" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle2" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <label class="modalHeader"><i class="fa fa-check"></i> ${ matchingMember.name } 회원님의 매칭 요청을 수락하시겠습니까?</label>&nbsp;&nbsp;&nbsp;&nbsp;
+               <button type="button" class="close" data-dismiss="modal"
+                  aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <br>
+               <label class="subTitleLabel">매칭을 수락한 후 입금 확인 요청이 도착하면 확인 후 바로 PT 서비스를 시작할 수 있습니다!</label>
+               <br>
+               <div class="custom-control custom-checkbox custom-control-inline">
+                  <!-- <input type="checkbox" class="custom-control-input" id="defaultInline1" name="hopeBody" value="팔부위" checked>
+                   <label class="custom-control-label" for="defaultInline1" style="font-size:14px;">해당 트레이너에게 입금을 완료했으며, PT 서비스를 시작하는데 동의하십니까?</label>
+                  <br><br> -->
+               </div>
+            </div>
+            <div class="modal-footer">
+               <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button> -->
+               <button type="button" class="btn btn-primary" id="refuseMatchingRequestBtn">거절하기</button>
+               <button type="button" class="btn btn-primary" id="acceptMatchingRequestBtn">수락하기</button>
+            </div>
+         </div>
+      </div>
+   </div>
+   
+   <script>
+   		
+   		// 매칭 요청 거절하기 버튼 클릭 시
+   		$("#refuseMatchingRequestBtn").click(function() {
+   			var tno = ${ sessionScope.loginUser.mno };
+   			var uno = ${ matchingMember.mno };
+   			
+   			location.href = "updateMprocess1.tr?uno=" + uno + "&tno=" + tno;
+   		});
+   		
+   		// 매칭 요청 수락하기 버튼 클릭 시
+   		$("#acceptMatchingRequestBtn").click(function() {
+   			var tno = ${ sessionScope.loginUser.mno };
+   			var uno = ${ matchingMember.mno };
+   			
+   			location.href = "updateMprocess2.tr?uno=" + uno + "&tno=" + tno;
+   		});
+   </script>
 	
 </body>
 </html>

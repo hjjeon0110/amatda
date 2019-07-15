@@ -341,6 +341,19 @@ public class TrainerDaoImpl implements TrainerDao {
 		
 		return sqlSession.selectOne("Trainer.checkCompleteList", tno);
 	}
+	
+	// 31.매칭중인 회원 프로세스 상세보기(김진환)
+
+	@Override
+	public Member showMatchingProcessListView(SqlSessionTemplate sqlSession, String tno, String uno) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", uno);
+		map.put("tno", tno);
+	
+		
+		return sqlSession.selectOne("Trainer.showMatchingProcessListView", map);
+	}
 
 
 
@@ -538,6 +551,32 @@ public class TrainerDaoImpl implements TrainerDao {
 		
 		sqlSession.update("Trainer.deleteMedia", map);
 	}
+
+
+	// 16. 매칭 요청 거절하기 버튼 클릭 시 MPROCESS UPDATE (전효정)
+	@Override
+	public void updateMprocess1(SqlSessionTemplate sqlSession, String uno, String tno) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", uno);
+		map.put("tno", tno);
+		
+		sqlSession.update("Trainer.updateMprocess1", map);
+	}
+
+
+	// 17. 매칭 요청 수락하기 버튼 클릭 시 MPROCESS UPDATE (전효정)
+	@Override
+	public void updateMprocess2(SqlSessionTemplate sqlSession, String uno, String tno) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", uno);
+		map.put("tno", tno);
+		
+		sqlSession.update("Trainer.updateMprocess2", map);
+	}
+
+
 
 
 

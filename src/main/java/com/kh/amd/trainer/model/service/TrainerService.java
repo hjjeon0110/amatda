@@ -96,21 +96,16 @@ public interface TrainerService {
 	// 26. 첫 회원 가입자에 대한 보너스 지급
 	int welcomeCharge(int mno);
 	
-	//27. 진행중인 멤버 리스트 count 조회
+	// 27. 진행중인 멤버 리스트 count 조회
 	int checkProgressList(String tno);
 
-	//28. 완료된 회원 리스트 count 조회
+	// 28. 완료된 회원 리스트 count 조회
 	int checkCompleteList(String tno);
 
+	// 29. 매칭중인 회원 프로세스 상세보기(김진환)
+	Member showMatchingProcessListView(String tno, String uno);
 
 
-
-
-	
-
-
-	
-	
 	
 	// 효정 메소드 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -159,6 +154,15 @@ public interface TrainerService {
 
 	// 15. 프로필 - 미디어/자격증 삭제하기 (전효정)
 	void deleteMidea(String mno, String thisModiName);
+
+	// 16. 매칭 요청 거절하기 버튼 클릭 시 MPROCESS UPDATE (전효정)
+	void updateMprocess1(String uno, String tno);
+
+	// 17. 매칭 요청 수락하기 버튼 클릭 시 MPROCESS UPDATE (전효정)
+	void updateMprocess2(String uno, String tno);
+	
+
+	
 
 
 	

@@ -57,7 +57,7 @@
 .searchUserListDiv {
 	width:100%;
 	height:100%;
-	background:whitesmoke;
+	background:#f9f9f9;
 }
 
 .userSelect {
@@ -67,9 +67,9 @@
 	margin-left:50px;
 }
 
-.userList {
+.userListDiv {
 	width:90%; 
-	border:1px solid lightgray;
+	border:0.5px solid darkgray;
 	margin-left:auto; 
 	margin-right:auto;
 	padding:10px;
@@ -214,7 +214,7 @@
 	
 		<jsp:useBean id="today" class="java.util.Date"/>
 		<fmt:formatDate var="nowTime" value="${ today }" pattern="yyyyMMdd"/>
-		<br>
+		<br><br>
 		<!-- 반복문으로 회원들의 목록을 조회하는 영역 -->
 		
 		<c:forEach var="user" items="${ list }" varStatus="status">
@@ -342,13 +342,14 @@
 		</c:forEach>
 		
 		
-		<br><br>
+		<br>
 	</div>
 	</c:if>
 	
 	
 	<!--  페이징을 위한 div -->
 	<!-- 페이징 처리를 위한 코드, div지정후 페이징 처리 ----------------------------------->
+	<br>
 		<div id="pagingArea" align="center">
 			<c:if test="${ pi.currentPage <= 1 }">
 				[이전] &nbsp;
