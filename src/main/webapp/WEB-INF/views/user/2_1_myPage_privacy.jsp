@@ -38,7 +38,7 @@
 							width="200px" height="150px" /> --%>
 						<img
 							src="${contextPath}/resources/uploadFiles/${ at.modiName }${ at.extension }"
-							style="width: 200px; height: 180px" id="profileImg" />
+							style="width: 180px; height: 180px" id="profileImg" />
 
 					</div> 
 					<br> 

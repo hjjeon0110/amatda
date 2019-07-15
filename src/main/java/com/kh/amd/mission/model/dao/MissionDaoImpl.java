@@ -255,6 +255,7 @@ public class MissionDaoImpl implements MissionDao{
 
 	@Override
 	public int selectTnoTno(SqlSessionTemplate sqlSession, int tno2) {
+		System.out.println("DAO에서 TNO: "  + tno2);
 		int tno = sqlSession.selectOne("Mission.selectTnoTno", tno2);
 		int result;
 		
@@ -264,7 +265,7 @@ public class MissionDaoImpl implements MissionDao{
 			result = 0;
 		}
 		
-		System.out.println(result);
+		System.out.println("트레이너 PT페이지 들어가기전 조회: "+result);
 		
 		return result;	
 	}

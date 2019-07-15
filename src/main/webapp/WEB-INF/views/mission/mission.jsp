@@ -435,7 +435,7 @@
 <body>
 <c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
 		scope="application" />
-  <jsp:include page="../common/menubar.jsp"/>
+  <jsp:include page="../common/missionMenubar.jsp"/>
   
   <div id="container">
   

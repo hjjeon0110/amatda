@@ -195,10 +195,10 @@
 							href="showMyPagePrivacy.us?mno=${sessionScope.loginUser.mno}">MY PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<li class="menubarLi6"><a class="menubarLi6" <%-- href="matching.ms?mno=${sessionScope.loginUser.mno}" --%>>PT
 								PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<%-- <li class="menubarLi7"><a class="menubarLi7" href="list.di?mno=${sessionScope.loginUser.mno}">다이어리
+						<li class="menubarLi7"><a class="menubarLi7" href="list.di?mno=${sessionScope.loginUser.mno}">다이어리
 								</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<li class="menubarLi8"><a class="menubarLi8" href="showGallery.di?mno=${sessionScope.loginUser.mno}">갤러리
-								</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --%>
+								</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					</ul>
 					<div class="dropdown">
 						<button class="btn btn-secondary dropdown-toggle" type="button"
