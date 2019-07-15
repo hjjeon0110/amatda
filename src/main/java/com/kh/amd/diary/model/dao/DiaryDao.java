@@ -68,7 +68,11 @@ public interface DiaryDao {
 
 
 	//다이어리 delete
-	int deleteDiary(SqlSessionTemplate sqlSession, String bNo);
+	int deleteDiary(SqlSessionTemplate sqlSession, String bno);
+
+
+	//갤러리 delete
+	int deleteGallery(SqlSessionTemplate sqlSession, String bno);
 
 
 

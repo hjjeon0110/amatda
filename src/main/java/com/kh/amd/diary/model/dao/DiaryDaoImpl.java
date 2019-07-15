@@ -172,9 +172,17 @@ public class DiaryDaoImpl implements DiaryDao{
 
 	//다이어리 delete
 	@Override
-	public int deleteDiary(SqlSessionTemplate sqlSession, String bNo) {
+	public int deleteDiary(SqlSessionTemplate sqlSession, String bno) {
 		
-		return sqlSession.delete("Diary.deleteDiary", bNo);
+		return sqlSession.update("Diary.deleteDiary", bno);
+	}
+
+
+	//갤러리 delete
+	@Override
+	public int deleteGallery(SqlSessionTemplate sqlSession, String bno) {
+		
+		return sqlSession.update("Diary.deleteGallery", bno);
 	}
 	
 	//gallery

@@ -174,14 +174,18 @@
 			var result = confirm("삭제할래?");
 			if(result){
 				var bno = new Array();
+				var mno = ${ sessionScope.loginUser.mno };
 				$(".rowTr").each(function(){
 					if($(this).find(".trCheck").is(":checked")){
 						console.log($(this).find("#diaryListbno").eq(0).val());
-						bno.push($(this).find("#diaryListbno").eq(0).val());
+						// bno.push($(this).find("#diaryListbno").eq(0).val());
+						var bno2 = $(this).find('#diaryListbno').eq(0).val();
+						bno = bno2;
+						
 					}
 				});
-				console.log(bno);
-				location.href="deleteDiary.di?bno=" + bno;
+				console.log("bno : " + bno);
+				location.href="deleteDiary.di?bno=" + bno +"&mno=" + mno;
 			}else{
 				location = location;
 			}
