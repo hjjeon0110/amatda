@@ -47,6 +47,7 @@ public class TrainerController {
 	      
           response.setContentType("application/json");
           response.setCharacterEncoding("UTF-8");
+          
 	      try {
 			new Gson().toJson(estimate, response.getWriter());
 			} catch (JsonIOException | IOException e) {
@@ -237,7 +238,6 @@ public class TrainerController {
 			//페이징 처리를 위해 pageinfo객체 초기화
 			PageInfo pi = Pagination.getPageInfo(currentPageI, listCount);
 			
-
 			
 			//정렬 리스트 조회
 			List<Member> list = ts.userListSort(sort, pi);
@@ -311,8 +311,13 @@ public class TrainerController {
 				mprocess.setTno(tnoI);
 				mprocess.setUno(unoI);
 				
+				
+				
+				
 				//프로세스에 insert + list를 리턴 받는 메소드
 				List<Member> sendEstList = ts.sendEstList(tno, mprocess);
+			
+				
 			}
 			
 			
@@ -360,7 +365,12 @@ public class TrainerController {
 			
 			//int result = ts.insertEstMatchStart(uno, tno, estDay, estName, estContents, estPrice);
 			List<Member> sendEstList = ts.sendEstList(tno, mprocess);
-			System.out.println(sendEstList);
+			
+			//설문조사 희망운동 , 를 #으로 바꾸기
+			for(Member member : sendEstList) {
+				String changeExcer = member.getSurvey().getHopeExercise().replaceAll(",", " #");
+				member.getSurvey().setHopeExercise(changeExcer);
+			}
 			
 			model.addAttribute("list", sendEstList);
 			//멤버객체를 가져와서 보낸요청 리스트로 리턴
@@ -382,14 +392,20 @@ public class TrainerController {
 			
 			List<Member> list = ts.sendEstList(tno, pi);
 			
+			//설문조사 희망운동 , 를 #으로 바꾸기
+			for(Member member : list) {
+				String changeExcer = member.getSurvey().getHopeExercise().replaceAll(",", " #");
+				member.getSurvey().setHopeExercise(changeExcer);
+			}
+			
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
 			
-			System.out.println(list);
 			
 			return "trainer/2_3_myPage_matching";
 		}
 		
+		//받은 요청 조회용 메소드(김진환)
 		@RequestMapping("showMyPageReceivedMatching.tr")
 		public String showMyPageReceivedMatching(Model model, String tno, String currentPage) {
 			int currentPageI = 1;
@@ -404,12 +420,227 @@ public class TrainerController {
 			
 			List<Member> list = ts.myReciveList(tno, pi);
 			
+			//설문조사 희망운동 , 를 #으로 바꾸기
+			for(Member member : list) {
+				String changeExcer = member.getSurvey().getHopeExercise().replaceAll(",", " #");
+				member.getSurvey().setHopeExercise(changeExcer);
+			}
+			
+			
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
 			
 			System.out.println(list);
 			
 			return "trainer/2_3_1myPage_matching(receive)";
+		}
+		
+		//보낸요청에서 내가 보낸 견적서 조회하기용 메소드(김진환)
+		@RequestMapping("matchEstimateOpen.tr")
+		public void matchEstimateOpen(HttpServletResponse response, int uno, int tno) {
+			
+			
+			Mprocess mp = ts.matchEstimateOpen(tno, uno);
+			
+			response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            System.out.println(mp);
+            
+            try {
+				new Gson().toJson(mp, response.getWriter());
+			} catch (JsonIOException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+		//보낸견적서 취소(김진환)
+		@RequestMapping("matchEstCancel.tr")
+		public void matchEstCancel(HttpServletResponse response, int uno, int tno) {
+			
+			int result = ts.matchEstCancel(tno, uno);
+			
+			
+			if(result > 0) {
+				try {
+					response.getWriter().print("SUCCESS");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}else {
+				try {
+					response.getWriter().print("FAIL");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			
+		}
+		
+		//요청한 내역 거절하기 메소드(김진환)
+		@RequestMapping("denyRequest.tr")
+		public void denyRequest(HttpServletResponse response, int tno, int uno) {
+			System.out.println("둘다 받아옴  : " + tno + "uno :" + uno);
+			
+			int result = ts.denyRequest(tno, uno);
+			
+			
+			
+			if(result > 0 ) {
+				try {
+					response.getWriter().print("SUCCESS");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else {
+				try {
+					response.getWriter().print("FAIL");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		}
+		
+		//받은 요청서 수락하기 메소드(김진환)
+		@RequestMapping("receivedReqAccept.tr")
+		public void receivedReqAccept(HttpServletResponse response, int uno, int tno, int estDay, 
+			String estName, String estContents, int estPrice) {
+			
+			Estimate estimate = new Estimate();
+			estimate.setEstContents(estContents);
+			estimate.setEstDay(estDay);
+			estimate.setEstName(estName);
+			estimate.setEstPrice(estPrice);
+			estimate.setEstType(3);
+			estimate.setTno(tno);
+			
+			Estimate existEstimate = ts.selectEstimate(tno, 3);
+			System.out.println("estimate : " + estimate);
+			System.out.println("이미 있는 estimate : " + existEstimate);
+			
+			int result = 0;
+			
+			if(existEstimate == null) {
+				System.out.println("인서트로 들어옴");
+				result = ts.insertEstimate(estimate);
+				
+			}else {
+				System.out.println("업데이트로 들어옴");
+				result = ts.updateEstimate(estimate);
+			}
+			
+			
+			Mprocess mprocess = new Mprocess();
+			mprocess.setMatchEstimate(estimate);
+			mprocess.setTno(tno);
+			mprocess.setUno(uno);
+			
+			System.out.println(mprocess);
+			
+			//update 
+			int updateResult = ts.receivedReqAccept(mprocess);
+			
+			if(updateResult > 0) {
+				try {
+					response.getWriter().print("SUCCESS");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}else {
+				try {
+					response.getWriter().print("FAIL");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		}
+		
+
+		// 트레이너 PT관리페이지_매칭진행회원 이동 (전효정, 김진환)
+		@RequestMapping("showMatchingInProgressPage.tr")
+		public String showMatchingInProgressView(Model model, String tno) {
+			
+			System.out.println("받아온 tno : " + tno);
+			
+			List<Member> list = ts.showMatchingProgressList(tno);
+			
+			//설문조사 희망운동 , 를 #으로 바꾸기
+			for(Member member : list) {
+				String changeExcer = member.getSurvey().getHopeExercise().replaceAll(",", " #");
+				member.getSurvey().setHopeExercise(changeExcer);
+			}
+			
+			
+			System.out.println("db에서 조회해온 list : \n" + list);
+			
+			model.addAttribute("list", list);
+			
+			return "trainer/3_1_matchingInProgressPage";
+		}
+
+		// 트레이너 PT관리페이지_매칭완료회원 이동 (전효정, 김진환)
+		@RequestMapping("showMatchingCompletePage.tr")
+		public String showMatchingCompleteView(Model model, String tno) {
+			System.out.println("받아온 tno : " + tno);
+			
+			List<Member> list = ts.showMatchingCompleteList(tno);
+			
+			//설문조사 희망운동 , 를 #으로 바꾸기
+			for(Member member : list) {
+				String changeExcer = member.getSurvey().getHopeExercise().replaceAll(",", " #");
+				member.getSurvey().setHopeExercise(changeExcer);
+			}
+			
+			
+			System.out.println("db에서 조회해온 list : \n" + list);
+			
+			model.addAttribute("list", list);
+			
+			
+			
+			return "trainer/3_2_matchingCompletePage";
+		}
+		
+		@RequestMapping("firstMembership.tr")
+		public void firstMembership (HttpServletResponse response, int mno) {
+			
+			int checkFirst = ts.checkFirstMembership(mno);
+			
+			if(checkFirst > 0) {
+				int updateCharge = ts.welcomeCharge(mno);
+				
+				try {
+					response.getWriter().print("SUCCESS");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}else {
+				
+				try {
+					response.getWriter().print("FAIL");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			
+			
 		}
 		
 	   
@@ -807,17 +1038,6 @@ public class TrainerController {
 		return "trainer/2_5_myPage_myWriting";
 	}
 
-	// 트레이너 PT관리페이지_매칭진행회원 이동 (전효정)
-	@RequestMapping("showMatchingInProgressPage.tr")
-	public String showMatchingInProgressView() {
-		return "trainer/3_1_matchingInProgressPage";
-	}
-
-	// 트레이너 PT관리페이지_매칭완료회원 이동 (전효정)
-	@RequestMapping("showMatchingCompletePage.tr")
-	public String showMatchingCompleteView() {
-		return "trainer/3_2_matchingCompletePage";
-	}
 
 	// 트레이너 매칭진행회원_매칭프로세스페이지 이동 (전효정)
 	@RequestMapping("showMatchingProcessPage.tr")

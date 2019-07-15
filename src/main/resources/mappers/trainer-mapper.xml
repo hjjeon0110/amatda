@@ -122,7 +122,7 @@
 	<!-- 트레이너 추가 정보 회원가입 -->
 	<insert id="insertTrainerInfo" parameterType="TrainerInfo">
 		INSERT INTO TUSER_INFO
-		VALUES(#{mno}, #{accountName}, #{bankCode}, #{accountNo}, null, 'Y', null)
+		VALUES(#{mno}, #{accountName}, #{bankCode}, #{accountNo}, null, 'Y', 0, default)
 	</insert>
 
 
@@ -271,7 +271,7 @@
 	<!-- 15. 견적서 보내기 - 매칭 프로세스에 insert -->
 	<insert id="insertMprocess" parameterType="Mprocess" >
 		INSERT INTO M_PROCESS
-		VALUES(MPROCESS_SEQ.NEXTVAL, #{uno}, #{tno}, 0, 'N', '매칭전', 'SEND', 
+		VALUES(MPROCESS_SEQ.NEXTVAL, 0, #{uno}, #{tno}, 0, NULL, '매칭전', 'SEND', 
 		#{matchEstimate.estName}, #{matchEstimate.estContents}, #{matchEstimate.estDay}, #{matchEstimate.estPrice}, sysdate)
 			
 	</insert>
@@ -285,6 +285,8 @@
         JOIN SURVEY S ON (MP.UNO = S.UNO)
 		WHERE MP.TNO = #{tno}
 		AND MP.TRANSFER_STATUS = 'SEND'
+		AND MP.MATCHING_STATUS != '매칭종료'
+        AND (MP.MATCHING_LEVEL = 1 OR MP.MATCHING_LEVEL = 0)
 		ORDER BY MP.PROCESS_DATE DESC
 	
 	</select>
@@ -297,8 +299,10 @@
 		AND TNO = #{tno}	
 	
 	</select>
-	<!-- 트레이너 매칭 (보낸요청서)의 리스트 카운트 쿼리 -->
+	
+	<!-- 18.트레이너 매칭 (보낸요청서)의 리스트 카운트 쿼리 -->
 	<select id="getTrainerMyPageMatchingListCount" resultType="_int">
+	
 		SELECT COUNT(*)
 		FROM MEMBER M
 		JOIN M_PROCESS MP ON (MP.UNO = M.MNO)
@@ -306,9 +310,12 @@
         JOIN SURVEY S ON (MP.UNO = S.UNO)
 		WHERE MP.TNO = #{tno}
 		AND MP.TRANSFER_STATUS = 'SEND'
+		AND MP.MATCHING_STATUS != '매칭종료'
+        AND (MP.MATCHING_LEVEL = 1 OR MP.MATCHING_LEVEL = 0)
 		ORDER BY MP.PROCESS_DATE DESC
 	</select>
-	<!-- 트레이너 매칭 (보낸요청서)의 리스트 페이징된 상태로 반환하는 쿼리 -->
+	
+	<!-- 19.트레이너 매칭 (보낸요청서)의 리스트 페이징된 상태로 반환하는 쿼리 -->
 	<select id="sendEstListPaging" resultMap="memberResultSet">
 		SELECT * 
 		FROM MEMBER M
@@ -316,11 +323,13 @@
 		JOIN ATTACHMENT A ON (A.PNO = MP.UNO)
         JOIN SURVEY S ON (MP.UNO = S.UNO)
 		WHERE MP.TNO = #{tno}
-		AND MP.TRANSFER_STATUS = 'SEND'	
+		AND MP.TRANSFER_STATUS = 'SEND'
+		AND MP.MATCHING_STATUS != '매칭종료'
+        AND (MP.MATCHING_LEVEL = 1 OR MP.MATCHING_LEVEL = 0)
 		ORDER BY MP.PROCESS_DATE DESC
 	</select>
 	
-	<!-- 트레이너가 요청서를 받은 내역에 대한 리스트 갯수 리턴 쿼리 -->
+	<!-- 20.트레이너가 요청서를 받은 내역에 대한 리스트 갯수 리턴 쿼리 -->
 	<select id="checkMyReceiveListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM MEMBER M
@@ -329,9 +338,13 @@
         JOIN SURVEY S ON (MP.UNO = S.UNO)
 		WHERE MP.TNO = #{tno}
 		AND MP.TRANSFER_STATUS = 'RECEIVE'
+		AND MP.MATCHING_STATUS != '매칭종료'
+        AND (MP.MATCHING_LEVEL = 1 OR MP.MATCHING_LEVEL = 0)
 		ORDER BY MP.PROCESS_DATE DESC
 	
 	</select>
+	
+	<!-- 21. 트레이너가 요청서를 받은 내역에 대한 리스트 조회(페이징 처리 완료) -->
 	<select id="myReciveList" resultMap="memberResultSet">
 		SELECT * 
 		FROM MEMBER M
@@ -339,10 +352,93 @@
 		JOIN ATTACHMENT A ON (A.PNO = MP.UNO)
         JOIN SURVEY S ON (MP.UNO = S.UNO)
 		WHERE MP.TNO = #{tno}
-		AND MP.TRANSFER_STATUS = 'RECEIVE'	
+		AND MP.TRANSFER_STATUS = 'RECEIVE'
+		AND MP.MATCHING_STATUS != '매칭종료'
+        AND (MP.MATCHING_LEVEL = 1 OR MP.MATCHING_LEVEL = 0)
 		ORDER BY MP.PROCESS_DATE DESC
 	
 	</select>
+	
+	<!-- 22. 내가 보낸견적서를 보낸요청서에서 조회용 쿼리 -->
+	<select id="matchEstimateOpen" resultMap="mprocessResultSet" parameterType="java.util.Map">
+		SELECT * 
+		FROM M_PROCESS
+		WHERE TNO = #{tno}
+		AND UNO = #{uno}
+		AND TRANSFER_STATUS = 'SEND'
+	
+	</select>
+	
+	<!-- 23. 보낸 요청 철회에 대한 쿼리 -->
+	<delete id="matchEstCancel" parameterType="java.util.Map">
+		DELETE 
+		FROM M_PROCESS
+		WHERE TNO = #{tno}
+		AND UNO = #{uno}
+		AND TRANSFER_STATUS = 'SEND'	
+	</delete>
+	
+	<!-- 24. 받은 요청 거부에 대한 쿼리 -->
+	<update id="denyRequest" parameterType="java.util.Map">
+		UPDATE M_PROCESS
+		SET MATCHING_STATUS = '매칭종료', MATCHING_ACCEPT = 'N'
+		WHERE TNO = #{tno}
+		AND UNO = #{uno}
+	
+	</update>
+	
+	<!-- 25. 받은 요청 수락하기 쿼리 -->
+	<update id="receivedReqAccept" parameterType="Mprocess">
+		UPDATE M_PROCESS
+		SET MATCHING_ACCEPT = 'Y', MATCHING_LEVEL = 2, PROCESS_DATE = SYSDATE,
+		MATCH_EST_NAME = #{matchEstimate.estName}, MATCH_EST_CONTENTS = #{matchEstimate.estContents}, MATCH_EST_DAY = #{matchEstimate.estDay}, MATCH_EST_PRICE = #{matchEstimate.estPrice}
+		WHERE TNO = #{tno}
+		AND UNO = #{uno}	
+	
+	</update>
+	
+	<!-- 26. 매칭 진행중인 회원 보기 쿼리 -->
+	<select id="showMatchingProgressList" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER M
+		JOIN M_PROCESS MP ON (MP.UNO = M.MNO)
+		JOIN ATTACHMENT A ON (A.PNO = MP.UNO)
+		JOIN SURVEY S ON (MP.UNO = S.UNO)
+		WHERE MP.TNO = #{tno}
+		AND MP.MATCHING_STATUS = '진행중'
+		ORDER BY MP.PROCESS_DATE DESC
+
+	</select>
+	
+	<!-- 27. 매칭 완료된 회원 보기 쿼리 -->
+	<select id="showMatchingCompleteList" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER M
+		JOIN M_PROCESS MP ON (MP.UNO = M.MNO)
+		JOIN ATTACHMENT A ON (A.PNO = MP.UNO)
+		JOIN SURVEY S ON (MP.UNO = S.UNO)
+		WHERE MP.TNO = #{tno}
+		AND MP.MATCHING_STATUS = '매칭종료'
+		ORDER BY MP.PROCESS_DATE DESC
+	
+	</select>
+	
+	<!-- 첫 회원가입이 맞는지 확인 여부의 쿼리 -->
+	<select id="checkFirstMembership" resultType="_int">
+		SELECT COUNT(*)
+		FROM TUSER_INFO
+		WHERE TNO = #{mno}
+		AND FIRST_CHARGE = 'N'
+	
+	</select>
+	
+	<!-- 첫회원가입이 맞다면 환영 포인트 5회 지급 -->
+	<update id="welcomeCharge">
+		UPDATE TUSER_INFO
+		SET REMAIN_NUM = (REMAIN_NUM + 5), FIRST_CHARGE = 'Y'
+		WHERE TNO = #{mno}	
+	
+	</update>
 	
 
 

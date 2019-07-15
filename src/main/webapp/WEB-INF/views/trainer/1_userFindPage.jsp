@@ -105,6 +105,75 @@
 	}
 
 
+.modal {
+   font-family: 'Noto Sans KR', sans-serif;
+}
+
+.modal-header {   
+   background:#ffe6f3 !important;
+   border-left:0.5px solid gray !important;
+}
+
+.modalHeader {
+   color: #ff0066;
+   font-weight: bold;
+   font-family: 'Noto Sans KR', sans-serif;
+   
+}
+.surveyInfo{
+   font-weight: bold;
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size:14px;
+   margin-top:2px;
+}
+
+.modalMenubar {
+   width:100%;
+   font-family: 'Montserrat', sans-serif;
+}
+
+.modalMenubar thead {
+   text-align:center;
+   font-weight:bold;
+}
+
+.modalMenubar td {
+   width:20%;
+   padding-top:15px;
+   padding-bottom:15px;
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size:14px;
+}
+
+.modalBody {
+   padding:20px;
+}
+
+.modalMenu {
+   color: #ff0066;
+   font-size:16px;
+   font-weight:bold;
+   font-family: 'Noto Sans KR', sans-serif;
+}
+
+.form-control {
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size: 14px !important;
+   height:30px !important;
+   background:white !important;
+}
+
+.index{
+   color: #ff0066;
+   font-weight:bold;
+}
+
+.subTitleLabel {
+   font-weight:bold;
+   font-size: 14px;
+   font-family: 'Noto Sans KR', sans-serif;
+}
+
 </style>
 </head>
 <body>
@@ -117,15 +186,15 @@
 	<!-- 키워드 검색 영역 ------------------------------------------------------------------------------------------------------ -->
 	<div class="searchKeywordDiv">
 		<label class="searchKeywordLabel">키워드</label>&nbsp;&nbsp;&nbsp;
-		<input class="searchKeywordInput" type="text">&nbsp;&nbsp;&nbsp;
-		<button class="searchKeywordBtn"><i class="fa fa-search"></i></button>
+		<input name="searchKeywordInput" class="searchKeywordInput" type="text">&nbsp;&nbsp;&nbsp;
+		<button class="searchKeywordBtn" onclick="searchKeywordAll()"><i class="fa fa-search"></i></button>
 		<br><br>
 		<div class="keywordDiv">
-			<span class="badge badge-pill badge-danger"> #키워드1 </span>&nbsp;
-			<span class="badge badge-pill badge-danger"> #키워드2 </span>&nbsp;
-			<span class="badge badge-pill badge-danger"> #키워드3 </span>&nbsp;
-			<span class="badge badge-pill badge-danger"> #키워드4 </span>&nbsp;
-			<span class="badge badge-pill badge-danger"> #키워드5 </span>
+			<span class="badge badge-pill badge-danger" id="keyword1" onclick="keywordAdd1()">#키워드1</span>&nbsp;
+			<span class="badge badge-pill badge-danger" id="keyword2" onclick="keywordAdd2()">#키워드2</span>&nbsp;
+			<span class="badge badge-pill badge-danger" id="keyword3" onclick="keywordAdd3()">#키워드3</span>&nbsp;
+			<span class="badge badge-pill badge-danger" id="keyword4" onclick="keywordAdd4()">#키워드4</span>&nbsp;
+			<span class="badge badge-pill badge-danger" id="keyword5" onclick="keywordAdd5()">#키워드5</span>			
 		</div>
 	</div>
 
@@ -143,6 +212,7 @@
 		
 	<!-- 반복문으로 회원들의 목록을 조회하는 영역  -->	
 		<c:forEach var="user" items="${ list }" varStatus="status">
+			<c:set var="imgName" value="${user.attachment.modiName}${user.attachment.extension}" />
 			<div class="userListDiv">
 				<table class="userListTable">
 					<tr>
@@ -150,10 +220,10 @@
 						<td rowspan="3" class="userListTableTd1">
 							<div class="profileImg">
 								<img class="profileImage"
-									src="${ contextPath }/resources/images/profileImg.PNG">
+									src="${ contextPath }/resources/uploadFiles/${ imgName}">
 							</div>
 						</td>
-						<td class="userListTableTd2"><label class="userName" for="userName">${ user.name }</label>
+						<td class="userListTableTd2"><label class="userName" id="userName1" for="userName">${ user.name }</label>
 							<label class="userGender">(${user.gender })</label></td>
 						<td></td>
 					</tr>
@@ -184,30 +254,30 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<label class="index">I</label>&nbsp;&nbsp;<label>PT를 받는 목적이 무엇인가요?</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.dietReason } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>이전 다이어트 실패의 이유</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.dietFail} readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>선호 트레이너 성별</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.hopeGender } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>가장빼고 싶은 신체부위</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.hopeBody } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>선호하는 다이어트방법</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.hopeMethod } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>선호하는 트레이너 연령</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.hopeAge } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>운동시작 희망일자</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.hopeStart } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>하루식사량</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.datFood } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>선호운동유형</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.hopeExercise } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>하루운동가능량</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.datExercise } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>장애 및 질병 여부</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.disease } readonly><br><br>
-							<label class="index">I</label>&nbsp;&nbsp;<label>일일운동시간</label><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;<input class="answer" type="text" value=${ user.survey.dayTime } readonly><br><br>
+							<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">PT를 받는 목적이 무엇인가요?</label>
+			               &nbsp;&nbsp;&nbsp;&nbsp;<input class='form-control' type="text" value="${ user.survey.dietReason }" readonly><br>
+			               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">이전 다이어트 실패의 이유</label>
+			               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.dietFail}" readonly><br>
+			               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">선호 트레이너 성별</label>
+			               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.hopeGender }" readonly><br>
+			               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">가장빼고 싶은 신체부위</label>
+			               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.hopeBody }" readonly><br>
+			               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">선호하는 다이어트방법</label>
+			               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.hopeMethod }" readonly><br>
+			               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">선호하는 트레이너 연령</label>
+			               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.hopeAge }" readonly><br>
+			               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">운동시작 희망일자</label>
+			               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.hopeStart }" readonly><br>
+			               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">하루식사량</label>
+			               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.datFood }" readonly><br>
+			               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">선호운동유형</label>
+			               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.hopeExercise }" readonly><br>
+			               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">하루운동가능량</label>
+			               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.datExercise }" readonly><br>
+			               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">장애 및 질병 여부</label>
+			               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.disease }" readonly><br>
+			               <label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">일일운동시간</label>
+			               &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ user.survey.dayTime }" readonly><br>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
@@ -403,7 +473,6 @@
 	//새로만들기 클릭시
 	function openEstimate(value) {
 		var uno = $(value).val();
-		console.log("uno : " + uno);
 		$("button[name=matchingStart]").attr("value", uno);
 		$("button[name=insertEstMatchStart]").attr("value", uno);
 		//$(".subMenuBar2").children().eq(1).attr("value", uno);
@@ -429,6 +498,83 @@
                  $("button[name=matchingStart]").show();
                  $("button[name=insertEstMatchStart]").hide();
             	}else{
+            		var estType = "1";
+            		$.ajax({
+            			url:"ajaxshowMyPageEstimate.tr",
+            			data:{mno:mno, estType:estType},
+            			type:"get",
+                        dataType:"json",
+                        success:function(data){
+                        	if(data != null){
+                       		 $("input[name=estNo]").val(data.estNo);
+                           	 $("input[name=estName]").attr("readonly", true).val(data.estName);
+                             $("textarea[name=estContents]").attr("readonly", true).val(data.estContents);
+                             $("input[name=estPrice]").attr("readonly", true).val(data.estPrice);
+                             $("select[name=estDay]").attr("disabled", true).val(data.estDay).prop("selected", true);
+                             $("select[name=estimateType]").show();
+                             $("select[name=estimateType]").val(1).prop("selected", true);
+                             $(".subMenuBar1").css({"background":"#ff0066", "color":"white"});
+                             $(".subMenuBar2").css({"background":"white", "color":"black"}); 
+                             $(".estimateNew").hide();
+                             $("button[name=matchingStart]").show();
+                             $("button[name=insertEstMatchStart]").hide();
+                        	}else{
+                        		
+                        		var estType = "2";
+                        		$.ajax({
+                        			url:"ajaxshowMyPageEstimate.tr",
+                        			data:{mno:mno, estType:estType},
+                        			type:"get",
+                                    dataType:"json",
+                                    success:function(data){
+                                    	if(data != null){
+                                   		 $("input[name=estNo]").val(data.estNo);
+                                       	 $("input[name=estName]").attr("readonly", true).val(data.estName);
+                                         $("textarea[name=estContents]").attr("readonly", true).val(data.estContents);
+                                         $("input[name=estPrice]").attr("readonly", true).val(data.estPrice);
+                                         $("select[name=estDay]").attr("disabled", true).val(data.estDay).prop("selected", true);
+                                         $("select[name=estimateType]").show();
+                                         $("select[name=estimateType]").val(2).prop("selected", true);
+                                         $(".subMenuBar1").css({"background":"#ff0066", "color":"white"});
+                                         $(".subMenuBar2").css({"background":"white", "color":"black"}); 
+                                         $(".estimateNew").hide();
+                                         $("button[name=matchingStart]").show();
+                                         $("button[name=insertEstMatchStart]").hide();
+                                    	}else{
+                                    		
+                                    		
+                                    	 $("input[name=estNo]").val("");
+                                       	 $("input[name=estName]").attr("readonly", false).val("");
+                                       	 $("textarea[name=estContents]").attr("readonly", false).val("");
+                                         $("select[name=estDay]").attr("disabled", false).val(30).prop("selected", true);
+                                         $("input[name=estPrice]").attr("readonly", false).val("");
+                                         $(".subMenuBar2").css({"background":"#ff0066", "color":"white"});
+                                         $(".subMenuBar1").css({"background":"white", "color":"black"}); 
+                                         $("select[name=estimateType]").hide();
+                                         $(".estimateNew").show();
+                                         $("button[name=matchingStart]").hide();
+                                         $("button[name=insertEstMatchStart]").show();
+                                    	}
+                                    }
+                        		})
+                        		
+                        		
+                        	 $("input[name=estNo]").val("");
+                           	 $("input[name=estName]").attr("readonly", false).val("");
+                           	 $("textarea[name=estContents]").attr("readonly", false).val("");
+                             $("select[name=estDay]").attr("disabled", false).val(30).prop("selected", true);
+                             $("input[name=estPrice]").attr("readonly", false).val("");
+                             $(".subMenuBar2").css({"background":"#ff0066", "color":"white"});
+                             $(".subMenuBar1").css({"background":"white", "color":"black"}); 
+                             $("select[name=estimateType]").hide();
+                             $(".estimateNew").show();
+                             $("button[name=matchingStart]").hide();
+                             $("button[name=insertEstMatchStart]").show();
+                        	}
+                        }
+            		})
+            		
+            		/////견적서값 모두 검색///////
             	 $("input[name=estNo]").val("");
                	 $("input[name=estName]").attr("readonly", false).val("");
                	 $("textarea[name=estContents]").attr("readonly", false).val("");
@@ -490,6 +636,87 @@
 	                 $("button[name=matchingStart]").show();
 	                 $("button[name=insertEstMatchStart]").hide();
 	            	}else{
+	            		///////////기존 견적서 1개라도있으면 찾기/////
+	            		var estType = "1";
+            		$.ajax({
+            			url:"ajaxshowMyPageEstimate.tr",
+            			data:{mno:mno, estType:estType},
+            			type:"get",
+                        dataType:"json",
+                        success:function(data){
+                        	if(data != null){
+                       		 $("input[name=estNo]").val(data.estNo);
+                           	 $("input[name=estName]").attr("readonly", true).val(data.estName);
+                             $("textarea[name=estContents]").attr("readonly", true).val(data.estContents);
+                             $("input[name=estPrice]").attr("readonly", true).val(data.estPrice);
+                             $("select[name=estDay]").attr("disabled", true).val(data.estDay).prop("selected", true);
+                             $("select[name=estimateType]").show();
+                             $("select[name=estimateType]").val(1).prop("selected", true);
+                             $(".subMenuBar1").css({"background":"#ff0066", "color":"white"});
+                             $(".subMenuBar2").css({"background":"white", "color":"black"}); 
+                             $(".estimateNew").hide();
+                             $("button[name=matchingStart]").show();
+                             $("button[name=insertEstMatchStart]").hide();
+                        	}else{
+                        		
+                        		var estType = "2";
+                        		$.ajax({
+                        			url:"ajaxshowMyPageEstimate.tr",
+                        			data:{mno:mno, estType:estType},
+                        			type:"get",
+                                    dataType:"json",
+                                    success:function(data){
+                                    	if(data != null){
+                                   		 $("input[name=estNo]").val(data.estNo);
+                                       	 $("input[name=estName]").attr("readonly", true).val(data.estName);
+                                         $("textarea[name=estContents]").attr("readonly", true).val(data.estContents);
+                                         $("input[name=estPrice]").attr("readonly", true).val(data.estPrice);
+                                         $("select[name=estDay]").attr("disabled", true).val(data.estDay).prop("selected", true);
+                                         $("select[name=estimateType]").show();
+                                         $("select[name=estimateType]").val(2).prop("selected", true);
+                                         $(".subMenuBar1").css({"background":"#ff0066", "color":"white"});
+                                         $(".subMenuBar2").css({"background":"white", "color":"black"}); 
+                                         $(".estimateNew").hide();
+                                         $("button[name=matchingStart]").show();
+                                         $("button[name=insertEstMatchStart]").hide();
+                                    	}else{
+                                    		
+                                    		
+                                    	 $("input[name=estNo]").val("");
+                                       	 $("input[name=estName]").attr("readonly", false).val("");
+                                       	 $("textarea[name=estContents]").attr("readonly", false).val("");
+                                         $("select[name=estDay]").attr("disabled", false).val(30).prop("selected", true);
+                                         $("input[name=estPrice]").attr("readonly", false).val("");
+                                         $(".subMenuBar2").css({"background":"#ff0066", "color":"white"});
+                                         $(".subMenuBar1").css({"background":"white", "color":"black"}); 
+                                         $("select[name=estimateType]").hide();
+                                         $(".estimateNew").show();
+                                         $("button[name=matchingStart]").hide();
+                                         $("button[name=insertEstMatchStart]").show();
+                                    	}
+                                    }
+                        		})
+                        		
+                        		
+                        	 $("input[name=estNo]").val("");
+                           	 $("input[name=estName]").attr("readonly", false).val("");
+                           	 $("textarea[name=estContents]").attr("readonly", false).val("");
+                             $("select[name=estDay]").attr("disabled", false).val(30).prop("selected", true);
+                             $("input[name=estPrice]").attr("readonly", false).val("");
+                             $(".subMenuBar2").css({"background":"#ff0066", "color":"white"});
+                             $(".subMenuBar1").css({"background":"white", "color":"black"}); 
+                             $("select[name=estimateType]").hide();
+                             $(".estimateNew").show();
+                             $("button[name=matchingStart]").hide();
+                             $("button[name=insertEstMatchStart]").show();
+                        	}
+                        }
+            		})
+            		///////////견적서 찾기 끝/////
+	            		
+	            		
+	            		
+	            		
 	            	 alert("견적서가 없습니다! 새로작성해보세요!");
 	            	 $("input[name=estNo]").val("");
 	               	 $("input[name=estName]").attr("readonly", false).val("");
@@ -515,6 +742,8 @@
 		var uno = $("button[name=matchingStart]").val();
 		var tno = ${sessionScope.loginUser.mno};
 		var estNo = $("input[name=estNo]").val();
+		var userName2 = $("#userName1").text();
+		alert(userName2);
 		var userName = $("button[name=userInfoShow]").parent().parent().parent().children().children("td").eq(1).children().eq(0).text();
 		var estName = $("input[name=estName]").val();
 		var estContents = $("textarea[name=estContents]").val();
@@ -595,10 +824,34 @@
 	              $($("input[name=estPrice]").focus());
 	              return false;  
 	          }
-	          //"&estContents=" + estContents
-			location.href = "insertEstMatchStart.tr?estName=" + estName + 
-						"&estDay=" + estDay + "&estPrice=" + estPrice + "&estContents=" + estContents + 
-						"&uno=" + uno + "&tno=" + tno;		       
+	          if(memberShip > 0){
+					 
+					 $.ajax({
+						url : "insertEstMatchStart.tr",
+						data : {uno:uno, tno:tno, estName:estName, estContents:estContents, estPrice:estPrice, estDay:estDay},
+						type : "post",
+						success:function(data){
+													
+							if(data == "false"){						
+								alert("해당 회원에게는 이미 견적서를 보냈습니다.!")
+								location.reload();
+
+							}else{
+								alert(userName + "님에게 견적서를 보냈습니다.\n 견적서는 3일이내 답변을 받아보실수 있습니다.")
+								location.reload();
+								
+							}
+							
+						}
+						
+					 })
+					 
+				 }else{
+					 alert("멤버쉽이 부족합니다. 충전후 이용해보세요!");
+					 location.href="showMyPageMembership.tr";
+					 
+				 }
+	                 
 	    }
 	    else{
 	        return ;
@@ -606,15 +859,60 @@
 		
 	})
 	
-	//빈값체크 메소드
-      $(document).ready(function(){
-         $('button[name=insertEstMatchStart]').bind('submit', function(){          
+	//keyword를 검색창에 태워보자
+	
+	var str = "";
+	
+     function keywordAdd1(){
+   		var text = $("#keyword1").text();
+   		console.log(text);
+   		str+=text;
+   		$("input[name=searchKeywordInput]").attr("value", str);
+	}
+	 function keywordAdd2(){
+	   		var text = $("#keyword2").text();
+	   		console.log(text);
+	   		str+=text;
+	   		$("input[name=searchKeywordInput]").attr("value", str);
+		}
+	 function keywordAdd3(){
+	   		var text = $("#keyword3").text();
+	   		console.log(text);
+	   		str+=text;
+	   		$("input[name=searchKeywordInput]").attr("value", str);
+		}
+	 function keywordAdd4(){
+	   		var text = $("#keyword4").text();
+	   		console.log(text);
+	   		str+=text;
+	   		$("input[name=searchKeywordInput]").attr("value", str);
+		}
+	 function keywordAdd5(){
+	   		var text = $("#keyword5").text();
+	   		console.log(text);
+	   		str+=text;
+	   		$("input[name=searchKeywordInput]").attr("value", str);
+		}
+	 function searchKeywordAll(){
+		 var searchKeyword = $("input[name=searchKeywordInput]").val();
+		 alert("검색값: " + searchKeyword);
+		 if(searchKeyword == null || searchKeyword == ""){
+			 alert("검색값을 입력해주세요!")
+		 }
+	 }
+    		  
+    	  
+    	  
+    	  
+    	  
+    	  
+         /* $('button[name=insertEstMatchStart]').bind('submit', function(){          
             
             
             
-         })
+         }) */
          
-      })
+      
 	
 	
 	
