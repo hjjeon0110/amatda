@@ -595,6 +595,7 @@ public class UserController {
 	@RequestMapping("trainerReviewCheck.us")
 	public void trainerReviewCheck(HttpServletResponse response, int tno, int uno) {
 		
+		//INT선언하기
 		int result = us.trainerReviewCheck(uno, tno);
 		
 		if(result > 0) {

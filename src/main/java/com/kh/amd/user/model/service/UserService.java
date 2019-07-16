@@ -112,7 +112,7 @@ public interface UserService {
 	// 20. 리뷰 평점 평균 리턴(김진환)
 	double reviewRating(String tno);
 	
-	// 21. 리뷰 갯수 리턴하기(김진환)
+	// 21. 리뷰 갯수 리턴하기 (김진환)
 	int reviewCount(String tno);
 
 

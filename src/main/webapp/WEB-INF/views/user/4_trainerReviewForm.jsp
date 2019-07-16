@@ -248,7 +248,7 @@
 			data: {uno:uno, tno:tno},
 			success:function(data){
 				if(data == "exist"){
-					alert("이미 리뷰를 작성하셨습니다!\n 리뷰는 1번 작성하실수 있습니다.")
+					alert("이미 리뷰를 작성하셨습니다!\n 리뷰는 1번 작성하실수 있습니다 .")
 					location.reload();
 					
 				}else{

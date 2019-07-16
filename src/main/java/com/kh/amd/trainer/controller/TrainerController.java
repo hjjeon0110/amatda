@@ -38,7 +38,7 @@ public class TrainerController {
 	
 	// 진환 메소드 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-	   //견적서 ajax로 select 보기 메소드(김진환)
+	   //견적서 ajax로 select 보기  메소드(김진환)
 	   @RequestMapping("ajaxshowMyPageEstimate.tr")
 	   public void ajaxshowMyPageEstimate(HttpServletResponse response, int mno, String estType) {
 		   System.out.println("받아온 mno : " + mno + "받아온 estType : " + estType);

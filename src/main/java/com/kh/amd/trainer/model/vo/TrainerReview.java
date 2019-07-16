@@ -17,8 +17,7 @@ public class TrainerReview implements java.io.Serializable{
 	private int reviewLevel;
 	private String name;
 	
-	
-	
+	//ATTACHMENT
 	private Attachment attachment;
 	
 	
