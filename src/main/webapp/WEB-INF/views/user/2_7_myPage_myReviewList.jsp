@@ -156,7 +156,7 @@
 	$(function(){
 		$(".reviewTable td").click(function(){
 			var bno =$(this).parent().eq(0).children().children().val();
-			alert(bno);
+			
 			location.href="gotoMyReviewDetail.us?bno="+bno;
 			
 		})
