@@ -216,14 +216,6 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		FROM DECLARATION
 	</select>
 
-	<!-- 통계 -->
-	<select id="memberAge" resultType="_int">
-		SELECT COUNT(GENDER)
-		FROM MEMBER
-		WHERE MTYPE = 'U'
-		GROUP BY GENDER
-	</select>
-
 	<!-- 매칭 조회 -->
 	<select id="matchingList" resultMap="matchingResultSet">
 		SELECT M.PROCESS_NO, M.PT_STARTDATE, M.PT_ENDDATE, M.PT_STATUS, P.UNO, P.TNO, P.MATCHING_LEVEL, T.ID AS TID, U.ID
@@ -252,6 +244,38 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
         WHERE M.PT_STATUS = 'Y'
         AND T.ID = #{userId}
 	</select> 
+	
+	<!-- 통계 -->
+	<select id="userCount" resultType="_int">
+		SELECT COUNT(GENDER)
+		FROM MEMBER
+		WHERE MTYPE = 'U'
+		GROUP BY GENDER
+	</select>
+	
+	<select id="trainerCount" resultType="_int">
+		SELECT COUNT(GENDER)
+		FROM MEMBER
+		WHERE MTYPE = 'T'
+		GROUP BY GENDER
+	</select>
+	
+	<select id="userAge" resultType="_int">
+		SELECT COUNT (S.UAGE)
+		FROM MEMBER M
+		JOIN SURVEY S ON(M.MNO = S.UNO)
+		GROUP BY S.UAGE
+		ORDER BY S.UAGE ASC
+	</select>
+	
+	<select id="preferenceAge" resultType="_int">
+	SELECT COUNT(HOPE_AGE)
+	FROM SURVEY
+	GROUP BY HOPE_AGE
+	ORDER BY HOPE_AGE
+	</select>
+	
+
 
 
 </mapper>

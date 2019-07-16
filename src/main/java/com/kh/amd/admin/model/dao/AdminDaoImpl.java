@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
+import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.vo.Payment;
 
 @Repository
@@ -114,12 +115,6 @@ public class AdminDaoImpl implements AdminDao{
 		return sqlSession.selectOne("Admin.declListCount");
 	}
 
-	//통계
-	@Override
-	public List<Member> memberAge(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectList("Admin.memberAge");
-	}
-
 	//매칭 조회
 	@Override
 	public List<Mprocess> matchingList(SqlSessionTemplate sqlSession) {
@@ -137,6 +132,27 @@ public class AdminDaoImpl implements AdminDao{
 	public int matchingEnd(SqlSessionTemplate sqlSession, int No) {
 		System.out.println("dao : " + No);
 		return sqlSession.update("Admin.matchingEnd", No);
+	}
+	
+	//통계
+	@Override
+	public List<Member> userCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Admin.userCount");
+	}
+
+	@Override
+	public List<Member> trainerCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Admin.trainerCount");
+	}
+
+	@Override
+	public List<Member> userAge(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Admin.userAge");
+	}
+
+	@Override
+	public List<Member> preferenceAge(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Admin.preferenceAge");
 	}
 
 
