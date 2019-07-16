@@ -267,13 +267,13 @@ width:450px;
         </div>
         <br>
        
-		<div class="searchBox">
+		<%-- <div class="searchBox">
 		<input type="text" id="searchCon" name="searchCon" placeholder="검색하실 내용을 입력하세요.">
-			<%-- <button type="button" id="searchicon"><img src="${ contextPath }/resources/images/searchicon.png"></button> --%>
+			<button type="button" id="searchicon"><img src="${ contextPath }/resources/images/searchicon.png"></button>
 			 <img id="searchicon" src="${ contextPath }/resources/images/searchicon.png"> 
 			
 			
-		</div>
+		</div> --%>
 		
 		<br>
 				

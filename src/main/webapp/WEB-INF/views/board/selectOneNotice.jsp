@@ -28,10 +28,10 @@ border:1px solid black;
  .selectOneTable{
 
     margin-top:2%;
-    float:right;
+    /* float:right; */
     width: 60%;
    align:center;
-    margin-right:10%;
+    margin-left:15%;
     text-align: center;
    /*  background:skyblue; */   
     }
