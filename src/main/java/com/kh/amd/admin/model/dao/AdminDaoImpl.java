@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.amd.admin.model.vo.Statistics;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
@@ -153,6 +154,16 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public List<Member> preferenceAge(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectList("Admin.preferenceAge");
+	}
+
+	@Override
+	public List<Statistics> Exercise(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Admin.Exercise");
+	}
+
+	@Override
+	public List<Member> membershipCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Admin.membershipCount");
 	}
 
 

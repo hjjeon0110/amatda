@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.amd.admin.model.dao.AdminDao;
+import com.kh.amd.admin.model.vo.Statistics;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
@@ -152,6 +153,17 @@ public class AdminServiceImpl implements AdminService{
 	public List<Member> preferenceAge() {
 		return ad.preferenceAge(sqlSession);
 	}
+
+	@Override
+	public List<Statistics> Exercise() {
+		return ad.Exercise(sqlSession);
+	}
+
+	@Override
+	public List<Member> membershipCount() {
+		return ad.membershipCount(sqlSession);
+	}
+
 
 
 

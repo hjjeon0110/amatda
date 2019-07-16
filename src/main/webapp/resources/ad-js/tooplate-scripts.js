@@ -114,7 +114,7 @@ function drawLineChart2(data) {
 
 
 
-function drawBarChart() {
+function drawBarChart(data) {
   if ($("#barChart").length) {
     ctxBar = document.getElementById("barChart").getContext("2d");
 
@@ -123,12 +123,17 @@ function drawBarChart() {
       scales: {
         yAxes: [
           {
-            barPercentage: 0.2,
+            barPercentage: 0.3,
             ticks: {
-              beginAtZero: true
+              beginAtZero: true,
+              ticks:{
+          		 max:30,
+          		 min:0       		
+          	 }
             },
             scaleLabel: {
-              display: true,
+              display: true
+            
              /* labelString: "Hits"*/
             }
           }
@@ -153,11 +158,11 @@ function drawBarChart() {
     configBar = {
       type: "horizontalBar",
       data: {
-        labels: ["맨몸운동", "필라테스", "요가", "웨이트"],
+        labels: ["맨몸운동", "웨이트", "필라테스", "요가"],
         datasets: [
           {
             label: "# of 트레이너",
-            data: [33, 40, 28, 49],
+            data:data,
             backgroundColor: [
               "#F7604D",
               "#4ED6B8",
@@ -177,6 +182,70 @@ function drawBarChart() {
     barChart = new Chart(ctxBar, configBar);
   }
 }
+
+function drawBarChart2(data) {
+	  if ($("#barChart2").length) {
+	    ctxBar = document.getElementById("barChart2").getContext("2d");
+
+	    optionsBar = {
+	      responsive: true,
+	      scales: {
+	        yAxes: [
+	          {
+	            barPercentage: 0.5,
+	            ticks: {
+	              beginAtZero: true
+	            },
+	            scaleLabel: {
+	              display: true,
+	             /* labelString: "Hits"*/
+	            }
+	          }
+	        ]
+	      }
+	    };
+
+	    optionsBar.maintainAspectRatio =
+	      $(window).width() < width_threshold ? false : true;
+
+	    /**
+	     * COLOR CODES
+	     * Red: #F7604D
+	     * Aqua: #4ED6B8
+	     * Green: #A8D582
+	     * Yellow: #D7D768
+	     * Purple: #9D66CC
+	     * Orange: #DB9C3F
+	     * Blue: #3889FC
+	     */
+
+	    configBar = {
+	      type: "horizontalBar",
+	      data: {
+	        labels: ["A", "B", "S"],
+	        datasets: [
+	          {
+	            label: "이용하는 트레이너",
+	            data:data,
+	            backgroundColor: [
+	              "#F7604D",
+	              "#4ED6B8",
+	              "#A8D582",
+	              "#D7D768",
+	              "#9D66CC",
+	              "#DB9C3F",
+	              "#3889FC"
+	            ],
+	            borderWidth: 0
+	          }
+	        ]
+	      },
+	      options: optionsBar
+	    };
+
+	    barChart2 = new Chart(ctxBar, configBar);
+	  }
+	}
 
 function drawPieChart(data) {
   if ($("#pieChart").length) {
