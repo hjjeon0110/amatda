@@ -91,6 +91,6 @@ public interface MissionDao {
 
 	int selectTno(SqlSessionTemplate sqlSession,int mno2);
 
-	int selectTnoTno(SqlSessionTemplate sqlSession, int tno2);
+	int selectTnoTno(SqlSessionTemplate sqlSession, int tno2,String userName);
 
 }
