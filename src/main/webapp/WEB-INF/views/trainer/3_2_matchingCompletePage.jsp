@@ -268,7 +268,7 @@
 			<div class="userListDiv">
 				<table class="userListTable">
 					<tr>
-						<input type="hidden" name="userMno" value="${ user.mno }" />
+						<input type="hidden" name="userMno" class="userMno" value="${ user.mno }" />
 						<td rowspan="3" class="userListTableTd1">
 							<div class="profileImg">
 								<img class="profileImage"
@@ -419,9 +419,12 @@
 	
 	$(".goPtPageBtn").click(function() {
 		var tno = ${ sessionScope.loginUser.mno };
+		var userName = $(".userName").text();
+		
+		console.log("mno나오니?" + userName);
 		$.ajax({
 			url:"goUpdateMission.ms?tno=" + tno,
-			data:{tno:tno},
+			data:{tno:tno,userName:userName},
 			success:function(data) {
 				if(data == "success") {
 					location.href="goUpdateMissiono.ms?tno=" + tno;

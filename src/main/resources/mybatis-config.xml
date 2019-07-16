@@ -20,10 +20,12 @@
   		<typeAlias type="com.kh.amd.trainer.model.vo.Payment" alias="Payment" />
   		<typeAlias type="com.kh.amd.board.model.vo.Reply" alias="Reply"/>
   		<typeAlias type="com.kh.amd.matching.model.vo.Mprocess" alias="Mprocess" />
+  		<typeAlias type="com.kh.amd.admin.model.vo.Statistics" alias="Statistics" />
+  		<typeAlias type="com.kh.amd.trainer.model.vo.TrainerReview" alias="TrainerReview" />
   	</typeAliases>
   	
   	<mappers>
-  		<mapper resource="mappers/member-mapper.xml"/> <!-- 이 파일의 쿼리를 사용한다. -->
+  		<mapper resource="mappers/member-mapper.xml"/> <!-- 이 파일의 쿼리를 사용한다.!-->
   		<mapper resource="mappers/survey-mapper.xml"/>
   		<mapper resource="mappers/trainer-mapper.xml"/>
   		<mapper resource="mappers/user-mapper.xml"/>

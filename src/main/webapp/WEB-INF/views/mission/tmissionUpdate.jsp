@@ -41,72 +41,15 @@
       
       
       
-      /* events: [
-        {
-          title: '식단 실패',
-          start: '2019-06-01'
-        },
-        {
-          title: 'Long Event',
-          start: '2019-06-07',
-          end: '2019-06-10'
-        },
-        {
-          groupId: 999,
-          title: 'Repeating Event',
-          start: '2019-06-09T16:00:00'
-        },
-        {
-          groupId: 999,
-          title: '안녕',
-          start: '2019-06-16T16:00:00'
-        },
-        {
-          title: 'Conference',
-          start: '2019-06-11',
-          end: '2019-06-13'
-        },
-        {
-          title: 'Meeting',
-          start: '2019-06-12T10:30:00',
-          end: '2019-06-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2019-06-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2019-06-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2019-06-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: '2019-06-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2019-06-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          url: 'missionRegister.ca',
-          start: '2019-06-28'
-        }
-      ], */
+  
      
       dateClick:function (date, allDay, jsEvent, view){
-    	/*  var moment = $('#calendar').fullCalendar('getDate');
-    	console.log(moment); */
+    	
     	console.log("date: " + date.dateStr);
     	var mDate0 = date.dateStr;
     	console.log("mDate0: " + mDate0);
         $("#mDate2").val(date.dateStr);
-    	//alert("후");
-    	/* $("#dialog").modal(); */
+    	
     	$("#updateModal").modal();	
     	
     	
@@ -436,24 +379,27 @@
     <div class="modal-content" style="border:5px solid pink;">
       <div class="modal-header">
         
-        <h4 class="modal-title" style="font-family: 'Noto Sans KR', sans-serif;">미션수정</h4>
+        <h4 class="modal-title" style="font-family: 'Noto Sans KR', sans-serif;">미션</h4>
       </div>
       <div class="modal-body">
        <table style="margin-left:160px;">
         	<tr>
-        		<td>날짜 <input type="text" id="mDate2" readonly></td>
+        		<td>날짜 <input type="text" id="mDate2"class="form-control" readonly></td>
         	</tr>
         	<tr style="height:50px;">
         		<td><label style="margin-left:150px; margin-top:40px" id="eating">식단</label><hr></td>
         	</tr>
         	<tr>
-        		<td><label id="breakf">아침</label><input type="text" id="breakfast2" style="margin-left:30px"><button type="button" id="updateBreakEat222" onclick="updateBreakEat()" style="background:#ff0066; color:white; border:1px solid #ff0066; width:50px; height:30px; margin-left:10px; ">수정하기</button><button type="button" id="insertBreakEat" style="margin-left:10px; background:#ff0066; color:white; border:1px solid #ff0066">등록</button></td>
+        		<td><label id="breakf">아침</label><input type="text"  class="form-control"id="breakfast2" style="margin-left:30px; width:300px"></td>
+        		<td><button type="button" id="updateBreakEat222" onclick="updateBreakEat()" style="background:#ff0066; color:white; border:1px solid #ff0066; width:50px; height:50px; margin-left:10px; margin-top:30px ">수정</button><button type="button" id="insertBreakEat" style="margin-left:10px; background:#ff0066; color:white; width:50px; height:50px; margin-top:30px; border:1px solid #ff0066">등록</button></td>
         	</tr>
         	<tr>
-        		<td><label id="lun">점심</label><input type="text" id="lunch2" style="margin-left:30px"><button type="button" id="updateLunchEat222"onclick="updateLunchEat()" style="margin-left:10px; background:#ff0066; color:white; border:1px solid #ff0066; width:50px; height:30px; margin-left:10px;">수정하기</button><button type="button" id="insertLunchEat" style="margin-left:10px; background:#ff0066; color:white; border:1px solid #ff0066">등록</button></td>
+        		<td><label id="lun">점심</label><input type="text"  class="form-control"id="lunch2" style="margin-left:30px ;width:300px"></td>
+        		<td><button type="button" id="updateLunchEat222"onclick="updateLunchEat()" style="margin-left:10px; background:#ff0066; color:white; border:1px solid #ff0066; width:50px; height:50px; margin-left:10px; margin-top:30px ">수정</button><button type="button" id="insertLunchEat" style="margin-left:10px; background:#ff0066; width:50px; height:50px; margin-top:30px;color:white; border:1px solid #ff0066">등록</button></td>
         	</tr>
         	<tr>
-        		<td><label id="din">저녁</label><input type="text" id="dinner2" style="margin-left:30px"><button type="button" id="updateDinnerEat222" onclick="updateDinnerEat()" style="margin-left:10px; background:#ff0066; color:white; border:1px solid #ff0066; width:50px; height:30px; margin-left:10px;">수정하기</button><button type="button" id="insertDinnerEat" style="margin-left:10px; background:#ff0066; color:white; border:1px solid #ff0066">등록</button></td>
+        		<td><label id="din">저녁</label><input type="text"  class="form-control"id="dinner2" style="margin-left:30px ;width:300px"></td>
+        		<td><button type="button" id="updateDinnerEat222" onclick="updateDinnerEat()" style="margin-left:10px; background:#ff0066; color:white; border:1px solid #ff0066; width:50px; height:50px; margin-left:10px; margin-top:30px;">수정</button><button type="button" id="insertDinnerEat" style="margin-left:10px; background:#ff0066; width:50px; height:50px; margin-top:30px;color:white; border:1px solid #ff0066">등록</button></td>
         	</tr>
         	
         	
@@ -461,29 +407,35 @@
         		<td><label style="margin-left:150px; margin-top:40px" id="exercise">운동</label><hr></td>
         	</tr>
         	<tr>
-        		<td><label id="breakE">아침</label><input type="text" id="breakEx2" style="margin-left:30px"></td>
-        		<td rowspan="2"></td>
+        		<td><label id="breakE">아침</label><input type="text" id="breakEx2" class="form-control" style="margin-left:30px; width:300px"></td>
+        		<td></td>
+        		<td><button type="button" onclick="updateBreakEx()" style="margin-left:-70px;margin-top:30px; width:50px; height:50px; background:#ff0066; color:white; border:1px solid #ff0066" id="updateBreakEx222">수정</button></td>
         	</tr>
         	
         	<tr>
-        		<td><input type="text" id="breakExLink2" style="margin-left:60px"><button type="button" id="insertBreakfastEx" style="margin-left:10px; margin-bottom:-90px; background:#ff0066; color:white; border:1px solid #ff0066">등록</button></td>
-        		<td><button type="button" onclick="updateBreakEx()" style="margin-left:-150px;margin-bottom:-50px; width:50px; height:30px; background:#ff0066; color:white; border:1px solid #ff0066" id="updateBreakEx222">수정</button></td>
+        		<td><input type="text" id="breakExLink2" class="form-control" style="margin-left:30px;width:300px"></td>
+        		<td><button type="button" id="insertBreakfastEx" style="margin-left:10px; background:#ff0066; color:white; border:1px solid #ff0066; width:50px; height:50px; margin-top:5px">등록</button></td>
+        		<td></td>
         	</tr>
         	<tr>
-        		<td><label id="lunE">점심</label><input type="text" id="lunchEx2" style="margin-left:30px"></td>
-        		<td rowspan="2"></td>
+        		<td><label id="lunE">점심</label><input type="text" id="lunchEx2" style="margin-left:30px; width:300px" class="form-control"></td>
+        		<td></td>
+        		<td><button type="button" onclick="updateLunchEx()" style="margin-left:-70px;margin-top:30px; width:50px; height:50px;background:#ff0066; color:white; border:1px solid #ff0066" id="updateLunchEx222">수정</button></td>
         	</tr>
         	<tr>	
-        		<td><input type="text" id="lunchExLink2" style="margin-left:60px"><button type="button" id="insertLunchEx" style=" margin-left:10px; background:#ff0066; color:white; border:1px solid #ff0066">등록</button></td>
-        		<td><button type="button" onclick="updateLunchEx()" style="margin-left:-150px; width:50px; height:30px;background:#ff0066; color:white; border:1px solid #ff0066" id="updateLunchEx222">수정</button></td>
+        		<td><input type="text" id="lunchExLink2" class="form-control" style="margin-left:30px; width:300px"></td>
+        		<td><button type="button" id="insertLunchEx" style="margin-left:10px; background:#ff0066; color:white; border:1px solid #ff0066;width:50px; height:50px; margin-top:5px">등록</button></td>
+        		<td></td>
         	</tr>
         	<tr>
-        		<td><label id="dinE">저녁</label><input type="text" id="dinnerEx2" style="margin-left:30px"></td>
-        		<td rowspan="2"></td>
+        		<td><label id="dinE">저녁</label><input type="text" class="form-control" id="dinnerEx2" style="margin-left:30px; width:300px"></td>
+        		<td></td>
+        		<td><button type="button" onclick="updateDinnerEx()" style="margin-left:-70px;margin-top:30px; width:50px; height:50px;background:#ff0066; color:white; border:1px solid #ff0066" id="updateDinnerEx222">수정</button></td>
         	</tr>
         	<tr>
-        		<td><input type="text" id="dinnerExLink2" style="margin-left:60px"><button type="button" id="insertDinnerEx" style="margin-left:10px; background:#ff0066; color:white; border:1px solid #ff0066">등록</button></td>
-        		<td><button type="button" onclick="updateDinnerEx()" style="margin-left:-150px; width:50px; height:30px;background:#ff0066; color:white; border:1px solid #ff0066" id="updateDinnerEx222">수정</button></td>
+        		<td><input type="text" id="dinnerExLink2" class="form-control" style="margin-left:30px; width:300px"></td>
+        		<td><button type="button" id="insertDinnerEx" style="margin-left:10px;margin-top:30px; width:50px; height:50px; background:#ff0066; color:white; border:1px solid #ff0066;margin-top:5px">등록</button></td>
+        		<td></td>
         	</tr>
         	<!-- <tr>
         		<td><input type="submit" value="수정하기" style="margin-left:80px" onclick="updateMission()"></td>

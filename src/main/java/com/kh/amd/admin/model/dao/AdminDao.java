@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.amd.admin.model.vo.Statistics;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
@@ -74,6 +75,10 @@ public interface AdminDao {
 	List<Member> userAge(SqlSessionTemplate sqlSession);
 
 	List<Member> preferenceAge(SqlSessionTemplate sqlSession);
+
+	List<Statistics> Exercise(SqlSessionTemplate sqlSession);
+
+	List<Member> membershipCount(SqlSessionTemplate sqlSession);
 
 
 

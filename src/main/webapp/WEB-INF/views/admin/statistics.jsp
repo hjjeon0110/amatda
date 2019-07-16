@@ -222,9 +222,10 @@
 				    
 					drawLineChart(${ requestScope.userAge });
 					drawLineChart2(${ requestScope.preferenceAge });
-					drawBarChart(); // Bar Chart
+					drawBarChart(${ requestScope.exercise }); // Bar Chart
 					drawPieChart(${ requestScope.userCount }); // Pie Chart
 					drawPieChart2(${ requestScope.trainerCount });
+					drawBarChart2(${ requestScope.membershipCount }); // Bar Chart
 	  				
 					$(window).resize(function() {
 						updateLineChart();

@@ -58,7 +58,7 @@
 .userSelect {
 	width: 150px;
 	font-family: 'Noto Sans KR', sans-serif;
-	border: 0.5px solid darkgray;
+	border: 1px solid darkgray;
 	margin-left: 50px;
 }
 
@@ -74,7 +74,7 @@
 
 .userListDiv2 {
 	width: 90%;
-	border: 0.5px solid darkgray;
+	border: 1px solid darkgray;
 	margin-left: auto;
 	margin-right: auto;
 	padding: 10px;
@@ -172,80 +172,97 @@
 	margin-left:auto; 
 	margin-right:auto;
 	width:100px;
-	border:1px solid #ff0066; 
+	border:0.5px solid #ff0066; 
+	cursor:pointer;
+}
+
+.matchingStartBtn {
+	border-style: none;
+	background: #ff0066;
+	color: white;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100px;
+}
+.matchingStartBtn:hover {
+	border:0.5px solid #ff0066;
+	background:white;
+	color:#ff0066;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100px;
 	cursor:pointer;
 }
 
 
 .modal {
-   font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
-.modal-header {   
-   background:#ffe6f3 !important;
-   border-left:0.2px solid gray !important;
+.modal-header {	
+	background:#ffe6f3 !important;
+	border-left:0.5px solid gray !important;
 }
 
 .modalHeader {
-   color: #ff0066;
-   font-weight: bold;
-   font-family: 'Noto Sans KR', sans-serif;
-   
+	color: #ff0066;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+	
 }
 .surveyInfo{
-   font-weight: bold;
-   font-family: 'Noto Sans KR', sans-serif;
-   font-size:14px;
-   margin-top:3px;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:14px;
+	margin-top:2px;
 }
 
 .modalMenubar {
-   width:100%;
-   font-family: 'Montserrat', sans-serif;
+	width:100%;
+	font-family: 'Montserrat', sans-serif;
 }
 
 .modalMenubar thead {
-   text-align:center;
-   font-weight:bold;
+	text-align:center;
+	font-weight:bold;
 }
 
 .modalMenubar td {
-   width:20%;
-   padding-top:15px;
-   padding-bottom:15px;
-   font-family: 'Noto Sans KR', sans-serif;
-   font-size:14px;
+	width:20%;
+	padding-top:15px;
+	padding-bottom:15px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:14px;
 }
 
 .modalBody {
-   padding:20px;
+	padding:20px;
 }
 
 .modalMenu {
-   color: #ff0066;
-   font-size:16px;
-   font-weight:bold;
-   font-family: 'Noto Sans KR', sans-serif;
+	color: #ff0066;
+	font-size:16px;
+	font-weight:bold;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 .form-control {
-   font-family: 'Noto Sans KR', sans-serif;
-   font-size: 14px !important;
-   height:30px !important;
-   background:white !important;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 14px !important;
+	height:30px !important;
+	background:white !important;
 }
 
 .index{
-   color: #ff0066;
-   font-weight:bold;
+	color: #ff0066;
+	font-weight:bold;
 }
 
 .subTitleLabel {
-   font-weight:bold;
-   font-size: 14px;
-   font-family: 'Noto Sans KR', sans-serif;
+	font-weight:bold;
+	font-size: 14px;
+	font-family: 'Noto Sans KR', sans-serif;
 }
-
 
 </style>
 </head>
@@ -314,9 +331,9 @@
 					<tr>
 						<td><label class="userSurvey">운동 시작가능일 : ${ user.survey.hopeStart}, 운동
 								가능 시간 : ${user.survey.datExercise }, 키 : ${ user.survey.height }cm, 몸무게 : ${ user.survey.weight}kg, 목표감량치 : -${user.survey.hopeWeight}kg</label></td>
-						<td class="userListTableTd1"><button type="button" name="userInfoShow"
-								class="btn btn-primary" data-toggle="modal"
-								data-target="#exampleModalScrollable${ user.mno }">회원 정보 보기</button></td>
+						<td class="userListTableTd1"><button name="userInfoShow"
+								class="matchingStartBtn" data-toggle="modal"
+								data-target="#exampleModalScrollable${ user.mno }">회원정보 보기</button></td>
 					</tr>
 				</table>
 			</div>
@@ -345,9 +362,9 @@
 					<tr>
 						<td><label class="userSurvey">운동 시작가능일 : ${ user.survey.hopeStart}, 운동
 								가능 시간 : ${user.survey.datExercise }, 키 : ${ user.survey.height }cm, 몸무게 : ${ user.survey.weight}kg, 목표감량치 : -${user.survey.hopeWeight}kg</label></td>
-						<td class="userListTableTd1"><button type="button" name="userInfoShow"
-								class="btn btn-primary" data-toggle="modal"
-								data-target="#exampleModalScrollable${ user.mno }">회원 정보 보기</button></td>
+						<td class="userListTableTd1"><button name="userInfoShow"
+								class="matchingStartBtn" data-toggle="modal"
+								data-target="#exampleModalScrollable${ user.mno }">회원정보 보기</button></td>
 					</tr>
 				</table>
 			</div>

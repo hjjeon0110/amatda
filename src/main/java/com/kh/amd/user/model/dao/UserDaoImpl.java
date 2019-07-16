@@ -16,6 +16,7 @@ import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.vo.Payment;
 import com.kh.amd.trainer.model.vo.Profile;
+import com.kh.amd.trainer.model.vo.TrainerReview;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -268,58 +269,6 @@ public class UserDaoImpl implements UserDao {
 		sqlSession.update("User.updateMprocess3", map);
 	}
 	
-	// 16. 리뷰작성하기 폼으로 회원정보 보여주기(김진환)
-	@Override
-	public Member trainerReviewForm(SqlSessionTemplate sqlSession, int tno) {
-		
-		
-		return sqlSession.selectOne("User.trainerReviewForm", tno);
-	}
-	
-	// 17. 트레이너 리뷰 작성 insert(김진환)
-	@Override
-	public int insertTrainerReview(SqlSessionTemplate sqlSession, String title, String starRating, String content,
-			int tno, int uno) {
-		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("uno", uno);
-		map.put("tno", tno);
-		map.put("starRating", starRating);
-		map.put("content", content);
-		map.put("title", title);
-		
-		return sqlSession.insert("User.insertTrainerReview", map);
-	}
-
-	@Override
-	public int trainerReviewCheck(SqlSessionTemplate sqlSession, int uno, int tno) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("uno", uno);
-		map.put("tno", tno);
-		
-		return sqlSession.selectOne("User.trainerReviewCheck", map);
-	}
-
-	@Override
-	public HashMap<String, Object> trainerReviewShow(SqlSessionTemplate sqlSession, String tno, String mno) {
-		
-		
-		
-		return null;
-	}
-
-	@Override
-	public int reviewRating(SqlSessionTemplate sqlSession, String tno) {
-		
-		return 0;
-	}
-
-	@Override
-	public int reviewCount(SqlSessionTemplate sqlSession, String tno) {
-		
-		return 0;
-	}
-
 	
 	// 16. 입금 확인 요청 후  mprocess update (전효정)
 	@Override
@@ -338,6 +287,105 @@ public class UserDaoImpl implements UserDao {
 	public List<Member> selectRequestsReceivedList(SqlSessionTemplate sqlSession, String mno) {
 		return sqlSession.selectList("User.selectRequestsReceivedList", mno);
 	}
+
+	
+	// 18. 받은 견적서 확인 후 매칭 수락 시 mprocess update (전효정)
+	@Override
+	public void updateMprocessSend1(SqlSessionTemplate sqlSession, String mno, String tno) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mno", mno);
+		map.put("tno", tno);
+		
+		sqlSession.update("User.updateMprocessSend1", map);
+		
+	}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+	// 16. 리뷰작성하기 폼으로 회원정보 보여주기(김진환)
+	@Override
+	public Member trainerReviewForm(SqlSessionTemplate sqlSession, int tno) {
+		
+		
+		return sqlSession.selectOne("User.trainerReviewForm", tno);
+	}
+	
+	// 17. 트레이너 리뷰 작성 insert(김진환)
+	@Override
+	public int insertTrainerReview(SqlSessionTemplate sqlSession, String title, String starRating, String content,
+			int tno, int uno, String name) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", uno);
+		map.put("tno", tno);
+		map.put("starRating", starRating);
+		map.put("content", content);
+		map.put("title", title);
+		map.put("name", name);
+		
+		return sqlSession.insert("User.insertTrainerReview", map);
+	}
+
+	@Override
+	public int trainerReviewCheck(SqlSessionTemplate sqlSession, int uno, int tno) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", uno);
+		map.put("tno", tno);
+		
+		return sqlSession.selectOne("User.trainerReviewCheck", map);
+	}
+
+	@Override
+	public List<TrainerReview> trainerReviewShow(SqlSessionTemplate sqlSession, String tno, String mno) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", mno);
+		map.put("tno", tno);
+		
+		
+		List<TrainerReview> list = null;
+		
+		list = (List)sqlSession.selectList("User.trainerReviewShow", map);
+		
+		return list;
+	}
+
+	@Override
+	public double reviewRating(SqlSessionTemplate sqlSession, String tno) {
+		
+		double result = 0;
+		if(sqlSession.selectOne("User.reviewRating", tno) != null) {
+			
+			result = sqlSession.selectOne("User.reviewRating", tno);
+		}
+		
+		return result;
+	}
+	
+	//리뷰보여주기 
+	@Override
+	public int reviewCount(SqlSessionTemplate sqlSession, String tno) {
+		
+		int result = 0;
+		if(sqlSession.selectOne("User.reviewCount", tno) != null){
+			result = sqlSession.selectOne("User.reviewCount", tno);
+		}
+		
+		return result;
+	}
+
+	
+	
 
 	
 

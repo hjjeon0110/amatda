@@ -30,6 +30,7 @@ import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.vo.Payment;
 import com.kh.amd.trainer.model.vo.Profile;
+import com.kh.amd.trainer.model.vo.TrainerReview;
 import com.kh.amd.user.model.service.UserService;
 
 @SessionAttributes("loginUser")
@@ -126,20 +127,22 @@ public class UserController {
 		model.addAttribute("selectOneMyTrainer", selectOneMyTrainer);
 		
 		// 작성된 리뷰 리턴하기
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map = us.trainerReviewShow(tno, mno);
-		model.addAttribute("reviewList", map);
-		
-		
+		List<TrainerReview> reviewList = us.trainerReviewShow(tno, mno);
+		model.addAttribute("reviewList", reviewList);
+
 		// 리뷰 갯수 리턴
 		int reviewCount = us.reviewCount(tno);
 		model.addAttribute("reviewCount", reviewCount);
 		
 		// 리뷰 평점 리턴 
-		int reviewRating = us.reviewRating(tno);
+		double reviewRating = us.reviewRating(tno);
 		model.addAttribute("reviewRating", reviewRating);
 		
-		
+		System.out.println("reviewList : " + reviewList);
+		System.out.println("reviewCount : " + reviewCount);
+		System.out.println("reviewRating : " + reviewRating);
+			
+			
 		return "user/1_3_profileDetailPage";
 	}
 	
@@ -246,6 +249,7 @@ public class UserController {
 		
 		return "user/2_4_myPage_requestsReceived";
 	}
+	
 	
 	// 마이페이지_내글관리 페이지 이동 & qna리스트 select (우리나)
 	@RequestMapping("showMyPageMyWriting.us")
@@ -473,6 +477,9 @@ public class UserController {
 		model.addAttribute("tno", tno);
 		model.addAttribute("tname", tname);
 		
+		System.out.println("매칭 프로세스 넘어온 mno : " + mno);
+		System.out.println("매칭 프로세스 넘어온 tno : " + tno);
+		
 		// 4. 프로필 이미지 존재 여부 확인 메소드 (전효정)
 		Attachment profileImgAttachment = us.checkProfileImg(tno);
 		
@@ -557,6 +564,31 @@ public class UserController {
 		return "redirect:goMatchingProcess.us?mno=" + mno +"&tno=" + tno + "&tname=" + tname;
 	}
 	
+	
+	// 받은 견적서 확인 후 매칭 수락 시 mprocess update (전효정)
+	@RequestMapping("updateMprocessSend1.us")
+	public String updateMprocessSend1(Model model, HttpServletRequest request) {
+		
+		String mno = request.getParameter("mno");
+		String tno = request.getParameter("tno");
+		String tname = request.getParameter("tname").toString();
+		
+		System.out.println("매칭 수락 후 컨트롤러  mno : " + mno);
+		System.out.println("매칭 수락 후 컨트롤러  tno : " + tno);
+		
+		// 18. 받은 견적서 확인 후 매칭 수락 시 mprocess update (전효정)
+		us.updateMprocessSend1(mno, tno);
+		
+		return "redirect:goMatchingProcess.us?mno=" + mno +"&tno=" + tno + "&tname=" + tname;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	// 트레이너 리뷰 작성 폼
 	@RequestMapping("trainerReviewForm.us")
 	public String trainerReviewForm(Model model, int uno, int tno, String name) {
@@ -565,6 +597,7 @@ public class UserController {
 		
 		System.out.println("받은 tno : " + tno);
 		System.out.println("받   " + member);
+		System.out.println("받은 이름 : ");
 		
 		model.addAttribute("matchingTrainer", member);
 		model.addAttribute("mno", uno);
@@ -576,7 +609,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("trainerReviewWrite.us")
-	public void trainerReviewWrite(HttpServletResponse response, String title, String starRating, String content, int tno, int uno) {
+	public void trainerReviewWrite(HttpServletResponse response, String title, String starRating, String content, int tno, int uno, String name) {
 		
 		System.out.println("title : " + title);
 		System.out.println("starRating : " + starRating);
@@ -584,7 +617,7 @@ public class UserController {
 		System.out.println("uno : " + uno);
 		System.out.println("tno : " + tno);
 		
-		int result = us.insertTrainerReview(title, starRating, content, tno, uno);
+		int result = us.insertTrainerReview(title, starRating, content, tno, uno, name);
 		
 		if(result > 0) {
 			
@@ -601,6 +634,7 @@ public class UserController {
 	@RequestMapping("trainerReviewCheck.us")
 	public void trainerReviewCheck(HttpServletResponse response, int tno, int uno) {
 		
+		//INT선언하기
 		int result = us.trainerReviewCheck(uno, tno);
 		
 		if(result > 0) {
@@ -608,7 +642,7 @@ public class UserController {
 			try {
 				response.getWriter().print("exist");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			

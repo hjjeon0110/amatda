@@ -88,12 +88,12 @@ public class MissionController {
 	
 	//트레이너용 미션수정하기 폼으로 이동
 	@RequestMapping("goUpdateMission.ms")
-	public void goUpdateMission(HttpServletRequest request,HttpServletResponse response) {
+	public void goUpdateMission(HttpServletRequest request,HttpServletResponse response,String userName) {
 		String tno = request.getParameter("tno");
 		System.out.println("tno 폼이동: " + tno);
 		int tno2 = Integer.parseInt(tno);
 		
-		int result = ms.selectTnoTno(tno2);
+		int result = ms.selectTnoTno(tno2,userName);
 		System.out.println("goUpdateMission.ms의 result: " + result);
 		if(result == 1) {
 			try {
