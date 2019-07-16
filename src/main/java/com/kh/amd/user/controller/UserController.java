@@ -30,6 +30,7 @@ import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.vo.Payment;
 import com.kh.amd.trainer.model.vo.Profile;
+import com.kh.amd.trainer.model.vo.TrainerReview;
 import com.kh.amd.user.model.service.UserService;
 
 @SessionAttributes("loginUser")
@@ -126,20 +127,22 @@ public class UserController {
 		model.addAttribute("selectOneMyTrainer", selectOneMyTrainer);
 		
 		// 작성된 리뷰 리턴하기
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map = us.trainerReviewShow(tno, mno);
-		model.addAttribute("reviewList", map);
-		
-		
+		List<TrainerReview> reviewList = us.trainerReviewShow(tno, mno);
+		model.addAttribute("reviewList", reviewList);
+
 		// 리뷰 갯수 리턴
 		int reviewCount = us.reviewCount(tno);
 		model.addAttribute("reviewCount", reviewCount);
 		
 		// 리뷰 평점 리턴 
-		int reviewRating = us.reviewRating(tno);
+		double reviewRating = us.reviewRating(tno);
 		model.addAttribute("reviewRating", reviewRating);
 		
-		
+		System.out.println("reviewList : " + reviewList);
+		System.out.println("reviewCount : " + reviewCount);
+		System.out.println("reviewRating : " + reviewRating);
+			
+			
 		return "user/1_3_profileDetailPage";
 	}
 	
@@ -594,6 +597,7 @@ public class UserController {
 		
 		System.out.println("받은 tno : " + tno);
 		System.out.println("받   " + member);
+		System.out.println("받은 이름 : ");
 		
 		model.addAttribute("matchingTrainer", member);
 		model.addAttribute("mno", uno);
@@ -605,7 +609,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("trainerReviewWrite.us")
-	public void trainerReviewWrite(HttpServletResponse response, String title, String starRating, String content, int tno, int uno) {
+	public void trainerReviewWrite(HttpServletResponse response, String title, String starRating, String content, int tno, int uno, String name) {
 		
 		System.out.println("title : " + title);
 		System.out.println("starRating : " + starRating);
@@ -613,7 +617,7 @@ public class UserController {
 		System.out.println("uno : " + uno);
 		System.out.println("tno : " + tno);
 		
-		int result = us.insertTrainerReview(title, starRating, content, tno, uno);
+		int result = us.insertTrainerReview(title, starRating, content, tno, uno, name);
 		
 		if(result > 0) {
 			
@@ -630,6 +634,7 @@ public class UserController {
 	@RequestMapping("trainerReviewCheck.us")
 	public void trainerReviewCheck(HttpServletResponse response, int tno, int uno) {
 		
+		//INT선언하기
 		int result = us.trainerReviewCheck(uno, tno);
 		
 		if(result > 0) {
@@ -637,7 +642,7 @@ public class UserController {
 			try {
 				response.getWriter().print("exist");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			

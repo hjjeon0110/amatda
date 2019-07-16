@@ -229,30 +229,32 @@
 	};
 	starRating();
 	
-	//작성하기 누르면 바로 ajax로 실행
+	//작성완료 누르면 바로 ajax로 실행
 	$("#writeReview").click(function(){
 		var title = $("#title").val();
 		var content = $("#reviewContent").val();
-		var starRating = $("input[name=star-input]").val();
+		var starRating = $("input[name=star-input]:checked").val();
 		var uno = ${sessionScope.loginUser.mno};
 		var tno = ${tno};
+		var name = "${sessionScope.loginUser.name}";
 		
 		console.log(title)
 		console.log(content)
 		console.log(starRating)
+		console.log(name);
 		
 		$.ajax({
 			url:"trainerReviewCheck.us",
 			data: {uno:uno, tno:tno},
 			success:function(data){
 				if(data == "exist"){
-					alert("이미 리뷰를 작성하셨습니다!\n 리뷰는 1번 작성하실수 있습니다.")
+					alert("이미 리뷰를 작성하셨습니다!\n 리뷰는 1번 작성하실수 있습니다 .")
 					location.reload();
 					
 				}else{
 					$.ajax({
 						url:"trainerReviewWrite.us",
-						data : {title:title, content:content, starRating:starRating, uno:uno, tno:tno},
+						data : {title:title, content:content, starRating:starRating, uno:uno, tno:tno, name:name},
 						type : "get",
 						success:function(data){
 							alert("리뷰 등록이 완료되었습니다.");

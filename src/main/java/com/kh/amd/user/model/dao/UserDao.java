@@ -13,6 +13,7 @@ import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.vo.Profile;
+import com.kh.amd.trainer.model.vo.TrainerReview;
 
 public interface UserDao {
 	
@@ -82,7 +83,7 @@ public interface UserDao {
 	// 13. 다이어트 정보 보내기 - 회원 설문조사 selectOne (전효정)
 	Survey selectOneSurvey(SqlSessionTemplate sqlSession, String mno);
   
-    // 14. 내 정보 보낸 후 mprocess update (전효정)
+  // 14. 내 정보 보낸 후 mprocess update (전효정)
 	void updateMprocess1(SqlSessionTemplate sqlSession, String mno, String tno);
 
 	// 15. 매칭 요청 후  mprocess update (전효정)
@@ -103,22 +104,22 @@ public interface UserDao {
 	
 	
 	
-	// 16. 리뷰작성하기 폼으로 회원정보 보여주기(김진환)
+	// 1. 리뷰작성하기 폼으로 회원정보 보여주기(김진환)
 	Member trainerReviewForm(SqlSessionTemplate sqlSession, int tno);
 	
-	// 17. 트레이너 리뷰 작성 insert(김진환)
-	int insertTrainerReview(SqlSessionTemplate sqlSession, String title, String starRating, String content, int tno, int uno);
+	// 2. 트레이너 리뷰 작성 insert(김진환)
+	int insertTrainerReview(SqlSessionTemplate sqlSession, String title, String starRating, String content, int tno, int uno, String name);
 
-	// 18. 트레이너에게 리뷰작성했는지 체크(김진환)
+	// 3. 트레이너에게 리뷰작성했는지 체크(김진환)
 	int trainerReviewCheck(SqlSessionTemplate sqlSession, int uno, int tno);
 
-	// 19. 트레이너 리뷰를 유저에게 보여주기(김진환)
-	HashMap<String, Object> trainerReviewShow(SqlSessionTemplate sqlSession, String tno, String mno);
+	// 4. 트레이너 리뷰를 유저에게 보여주기(김진환)
+	List<TrainerReview> trainerReviewShow(SqlSessionTemplate sqlSession, String tno, String mno);
 	
-	// 20. 트레이너 평균 평점 보여주기(김진환)
-	int reviewRating(SqlSessionTemplate sqlSession, String tno);
+	// 5. 트레이너 평균 평점 보여주기(김진환)
+	double reviewRating(SqlSessionTemplate sqlSession, String tno);
 	
-	// 21. 트레이너 리뷰 갯수 보여주기(김진환)
+	// 6. 트레이너 리뷰 갯수 보여주기임 (김진환)
 	int reviewCount(SqlSessionTemplate sqlSession, String tno);
 
 

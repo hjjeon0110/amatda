@@ -145,6 +145,21 @@
 		<result column="REP_STATUS" property="repStatus" />
 	</resultMap>
 	
+	<resultMap type="TrainerReview" id="TrainerReviewResultSet">
+		<id column="TRNO" property="trno"/>
+		<result column="TNO" property="tno"/>
+		<result column="REVIEW_WRITE_DATE" property="writeDate"/>
+		<result column="REVIEW_TITLE" property="title"/>
+		<result column="REVIEW_WRITER" property="writer"/>
+		<result column="REVIEW_CONTENT" property="content"/>
+		<result column="STAR_POINT" property="starPoint"/>
+		<result column="REVIEW_RATING" property="reviewRating"/>
+		<result column="REVIEW_LEVEL" property="reviewLevel"/>
+		<result column="WRITER_NAME" property="name"/>
+		<collection property="attachment" resultMap="attachmentResultSet" javaType="Attachment"/>
+			
+	
+	</resultMap>
 	
 	<!-- 나의 문의 내역 select (우리나) -->
 	<select id="selectMyQnaList" parameterType="_int" resultMap="boardResultSet" >
@@ -328,7 +343,7 @@
 		UPDATE M_PROCESS SET MATCHING_LEVEL = 3, MATCHING_STATUS = '진행중', PROCESS_DATE = SYSDATE WHERE UNO = #{mno} AND TNO = #{tno}
 	</update>
   
- 	 <!-- 16. 입금 확인 요청 후  mprocess update (전효정) -->
+ 	<!-- 16. 입금 확인 요청 후  mprocess update (전효정) -->
 	<update id="updateMprocess4">
 		UPDATE M_PROCESS SET MATCHING_LEVEL = 5, MATCHING_STATUS = '진행중', PROCESS_DATE = SYSDATE WHERE UNO = #{mno} AND TNO = #{tno}
 	</update>
@@ -359,7 +374,7 @@
 	<!-- 리뷰 작성 insert(김진환) -->
 	<insert id="insertTrainerReview" parameterType="java.util.Map">
 		INSERT INTO TRAINER_REVIEW
-		VALUES(TR_SEQ.NEXTVAL, SYSDATE, NULL, #{title}, #{uno}, #{content}, NULL, #{starRating}, #{tno}, 0)
+		VALUES(TR_SEQ.NEXTVAL, SYSDATE, NULL, #{title}, #{uno}, #{content}, NULL, #{starRating}, #{tno}, 0, #{name})
 	
 	</insert>
 		
@@ -371,6 +386,27 @@
 		AND REVIEW_WRITER = #{uno}		
 	</select>
 	
+	<select id="trainerReviewShow" parameterType="java.util.Map" resultMap="TrainerReviewResultSet">
+		SELECT *
+		FROM TRAINER_REVIEW TR
+		JOIN ATTACHMENT A ON(TR.REVIEW_WRITER = A.PNO)
+		WHERE A.ATYPE = 0
+		AND TR.TNO = #{tno}	
+	</select>
+	
+	<select id="reviewCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM TRAINER_REVIEW
+		WHERE TNO = #{tno}	
+	</select>	
+		
+	<!-- 리뷰평점 합계  -->
+	<select id="reviewRating" resultType="_double">
+		SELECT TRUNC(AVG(REVIEW_RATING), 1)
+		FROM TRAINER_REVIEW
+		WHERE TNO = #{tno}	
+	
+	</select>
 
 
 

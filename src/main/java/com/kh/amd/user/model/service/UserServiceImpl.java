@@ -15,6 +15,7 @@ import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.vo.Profile;
+import com.kh.amd.trainer.model.vo.TrainerReview;
 import com.kh.amd.user.model.dao.UserDao;
 
 @Service
@@ -224,42 +225,42 @@ public class UserServiceImpl implements UserService {
 	
 	
 	
-	// 리뷰작성하기 폼으로 회원정보 보여주기(김진환)
+	// 1. 리뷰작성하기 폼으로 회원정보 보여주기(김진환)
 	@Override
 	public Member trainerReviewForm(int tno) {
 		
 		return ud.trainerReviewForm(sqlSession, tno);
 	}
 	
-	// 트레이너 리뷰 작성 insert(김진환)
+	// 2. 트레이너 리뷰 작성 insert(김진환)
 	@Override
-	public int insertTrainerReview(String title, String starRating, String content, int tno, int uno) {
+	public int insertTrainerReview(String title, String starRating, String content, int tno, int uno, String name) {
 	
-		return ud.insertTrainerReview(sqlSession, title, starRating, content, tno, uno);
+		return ud.insertTrainerReview(sqlSession, title, starRating, content, tno, uno, name);
 	}
 
-	// 트레이너에게 리뷰를 작성했었는지 체크(김진환)
+	// 3. 트레이너에게 리뷰를 작성했었는지 체크(김진환)
 	@Override
 	public int trainerReviewCheck(int uno, int tno) {
 		
 		return ud.trainerReviewCheck(sqlSession, uno, tno);
 	}
 
-	// 트레이너 리뷰 유저에게 보여주기(김진환)
+	// 4. 트레이너 리뷰 유저에게 보여주기(김진환)
 	@Override
-	public HashMap<String, Object> trainerReviewShow(String tno, String mno) {
+	public List<TrainerReview> trainerReviewShow(String tno, String mno) {
 		
 		return ud.trainerReviewShow(sqlSession, tno, mno);
 	}
 	
-	// 리뷰 평점 평균 보여주기(김진환)
+	// 5. 리뷰 평점 평균 보여주기(김진환)
 	@Override
-	public int reviewRating(String tno) {
+	public double reviewRating(String tno) {
 		
 		return ud.reviewRating(sqlSession, tno);
 	}
 	
-	// 리뷰 갯수 리턴해주기(김진환)
+	// 6. 리뷰 갯수 리턴해주기(김진환)
 	@Override
 	public int reviewCount(String tno) {
 	
