@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>설문조사 첫번째</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/user/2_2_myPage_dietSurvey.css">
 <style>
-.outer {
+/* .outer {
 	width: 1000px;
 	height: 600px;
 	background-image: url(${ contextPath }/resources/images/pink.jpg);
@@ -16,12 +18,27 @@
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 50px;
-	margin-bottom: 50px;
+	margin-bottom: 50px; 
+	padding-left: 50px;
+	padding-right: 50px;
+} */
+
+.outer {
+	width: 100%;
+	height: 1150px;
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-size: 100% 1400px;
+	padding-left: 50px;
+	padding-right: 50px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
+/* 
 td {
 	height: 80px;
-	/* border: 1px solid #ff0066; */
+	
 }
 
 #font {
@@ -36,6 +53,57 @@ td {
 .surveySubmitBtn {
 	margin-left:auto;
 	margin-right:auto;
+	color:white;
+	background:#ff0066;
+	border: 1px solid #ff0066;
+	border-radius: 5px;
+}
+ */
+.surveyTable {
+	width: 100%;
+}
+td {
+	height:40px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:14px;
+	border-bottom:0.5px solid lightgray;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.td1 {
+	background:#f9f9f9;
+}
+label {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.surveyTitleLabel2 {
+	font-size:18px !important;
+	color:#ff0066;
+	font-weight:bold;
+}
+
+.form-control {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 14px !important;
+	height:30px !important;
+	background:white !important;
+}
+
+#editSurveyBtn{
+	width:100px;
+	height:30px;
+	background:#ff0066;
+	border-style:none;
+	color:white;
+}
+#editSurveyBtn:hover{
+	width:100px;
+	height:30px;
+	background:white;
+	border:0.5px solid #ff0066;
+	color:#ff0066;
+	cursor:pointer;
 }
 
 
@@ -44,6 +112,7 @@ td {
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -63,27 +132,34 @@ td {
 		<form action="insert1.su" method="post">
 		<input type="hidden" name="mNo" value="${ sessionScope.loginUser.mno }" />
 
-			<table align="center" id="font">
-				<tr>
+			<table align="center" id="font" class="surveyTable">
+				<!-- <tr>
 					<h2 id="font" align="center">개인 기초 정보 입력 사항</h2>
+				</tr> -->
+				
+				<tr>
+					<td colspan="2" style="background:white !important;">
+						<label class="surveyTitleLabel2"><br><i class="fa fa-check"></i> 개인 기초 정보 입력 사항</label><br><br>
+					</td>
 				</tr>
+				
 				<br />
 				<tr>
-					<td>키(Cm)</td>
+					<td class="td1">키(Cm)</td>
 					<td><input type="text" placeholder="숫자만 입력하세요" name="height"
 						class="form-control" autofocus /></td>
 				</tr>
 				<tr>
-					<td>몸무게(Kg)</td>
+					<td class="td1">몸무게(Kg)</td>
 					<td><input type="text" placeholder="숫자만 입력하세요" name="weight"
 						class="form-control" /></td>
 				</tr>
 				<tr>
-					<td>목표 몸무게(Kg)</td>
+					<td class="td1">목표 몸무게(Kg)</td>
 					<td><input type="text" placeholder="숫자만 입력하세요"
 						name="hopeWeight" class="form-control" /></td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td>나이 연령대</td>
 					<td><input type="radio" class="uAge" name="uAge" value="18세미만" id="uAge1"/><label for="uAge1">18세 미만</label> &nbsp;
 						<input type="radio" class="uAge" name="uAge" value="18~24세" id="uAge2"/><label for="uAge2">18 ~ 24세</label> &nbsp; 
@@ -91,7 +167,50 @@ td {
 						<input type="radio" class="uAge" name="uAge" value="35~44세" id="uAge4"/><label for="uAge4">35 ~ 44세 </label>&nbsp; 
 						<input type="radio" class="uAge" name="uAge" value="45~54세" id="uAge5"/><label for="uAge5">45 ~ 54세 </label>&nbsp; 
 						<input type="radio" class="uAge" name="uAge" value="55세이상" id="uAge6"/><label for="uAge6">55세 이상</label></td>
+				</tr> -->
+				
+				<tr>
+					<td class="td1">나이 연령대</td>
+					<td>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input type="radio" class="custom-control-input" id="defaultInline1r" name="uAge" value="18세미만">
+							<label class="custom-control-label" for="defaultInline1r">18세 미만</label>
+						</div>
+						
+						<div class="custom-control custom-radio custom-control-inline">
+						  	<input type="radio" class="custom-control-input" id="defaultInline2r" name="uAge" value="18~24세">
+						  	<label class="custom-control-label" for="defaultInline2r">18-24세</label>
+						</div>
+						
+						<div class="custom-control custom-radio custom-control-inline">
+						  	<input type="radio" class="custom-control-input" id="defaultInline3r" name="uAge" value="25~34세">
+						  	<label class="custom-control-label" for="defaultInline3r">25-34세</label>
+						</div>
+						
+						<div class="custom-control custom-radio custom-control-inline">
+						  	<input type="radio" class="custom-control-input" id="defaultInline4r" name="uAge" value="35~44세">
+						  	<label class="custom-control-label" for="defaultInline4r">35-44세</label>
+						</div>
+						
+						<div class="custom-control custom-radio custom-control-inline">
+						  	<input type="radio" class="custom-control-input" id="defaultInline5r" name="uAge" value="45~54세">
+						  	<label class="custom-control-label" for="defaultInline5r">45-54세</label>
+						</div>
+						
+						<div class="custom-control custom-radio custom-control-inline">
+						  	<input type="radio" class="custom-control-input" id="defaultInline6r" name="uAge" value="55세이상">
+						  	<label class="custom-control-label" for="defaultInline6r">55세 이상</label>
+						</div>
+					
+						<!-- <input type="radio" class="uAge" name="uAge" value="18세미만" id="uAge1"/><label for="uAge1">18세 미만</label> &nbsp;
+						<input type="radio" class="uAge" name="uAge" value="18~24세" id="uAge2"/><label for="uAge2">18 ~ 24세</label> &nbsp; 
+						<input type="radio" class="uAge" name="uAge" value="25~34세" id="uAge3"/><label for="uAge3">25 ~ 34세 </label>&nbsp; 
+						<input type="radio" class="uAge" name="uAge" value="35~44세" id="uAge4"/><label for="uAge4">35 ~ 44세 </label>&nbsp; 
+						<input type="radio" class="uAge" name="uAge" value="45~54세" id="uAge5"/><label for="uAge5">45 ~ 54세 </label>&nbsp; 
+						<input type="radio" class="uAge" name="uAge" value="55세이상" id="uAge6"/><label for="uAge6">55세 이상</label> -->
+					</td>
 				</tr>
+				
 				<!-- <tr>
 					<td>
 						<h2>다이어트 정보</h2>
@@ -204,7 +323,7 @@ td {
 				</tr> -->
 				<tr></tr>
 				<tr align="center">
-					<td colspan="2"><input type="submit" class="surveySubmitBtn" value="다음 설문으로 이동"/></td>
+					<td colspan="2" style="background:white !important;"><input type="submit" id="editSurveyBtn" value="다음 설문으로"/></td>
 					<td></td>
 				</tr>
 			</table>

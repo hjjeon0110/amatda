@@ -31,6 +31,12 @@
 	margin: 0 auto;
 	border-spacing: 10px;
 }
+.diaryBtn{
+	color:white;
+	background:#ff0066;
+	border: 1px solid #ff0066;
+	border-radius: 5px;
+}
 </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -43,8 +49,8 @@
 		<br>
 		<h1 id="fontEng" align="center">Diary List</h1>
 		<br> <br>
-		<button	onclick="location.href='show.di?mno=${sessionScope.loginUser.mno}'"	style="float: right; margin-right: 100px;">작성하기</button>
-		<input type="button" id="deletefn" value="삭제" onclick="deletefn()" style="float: right; margin-right: 100px;"/>
+		<input type="button" id="deletefn" value="삭제" class="diaryBtn" onclick="deletefn()" style="float: right; margin-right: 100px;"/>
+		<button	class="diaryBtn" onclick="location.href='show.di?mno=${sessionScope.loginUser.mno}'"	style="float: right; margin-right: 20px;">작성하기</button>
 		<%-- <a href="show.di?mno=${sessionScope.loginUser.mno}">다이어리 insert</a>&nbsp;&nbsp; --%>
 		<br> <br> <input type="hidden" name="mno" value="${ sessionScope.loginUser.mno }" />
 		<div class="listArea">
@@ -64,7 +70,21 @@
 				<tbody>
 
 					<%-- <c:forEach var="diaryList" items="${ diaryList }" varStatus="status"> --%>
+					<c:if test="${empty diaryList }">
+					<%-- <c:forEach var="i" begin="0" end="${fn:length(diaryList)-1}" varStatus="st"> --%>
+						<tr class="rowTr">
+							<td><input type="hidden"id="diaryListbno" /></td>
+							<td onclick="event.cancelBubble=true;"><input type="checkbox" name="checkRow" class="trCheck" /></td>
+							<td scope="row"><b></b></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
 
+					<%-- </c:forEach> --%>
+					</c:if>
+					
+					<c:if test="${!empty diaryList }">
 					<c:forEach var="i" begin="0" end="${fn:length(diaryList)-1}" varStatus="st">
 						<tr class="rowTr">
 							<td><input type="hidden" value="${ diaryList[i].bNo }" id="diaryListbno" /></td>
@@ -76,12 +96,12 @@
 						</tr>
 
 					</c:forEach>
-
+					</c:if>
 				</tbody>
 			</table>
 
 
-			<input type="button" id="deletefn" value="삭제" onclick="deletefn()"/> <br />
+			<!-- <input type="button" id="deletefn" value="삭제" onclick="deletefn()"/> <br /> -->
 			<!-- <input type="submit" value="delete" /> -->
 
 			<!-- </form> -->

@@ -132,6 +132,7 @@ public class DiaryServiceImpl implements DiaryService{
 	 */
 
 
+	//리스트 체크박스 삭제
 	@Override
 	public int deleteDiary(Diary d, String bno) {
 		
@@ -149,8 +150,7 @@ public class DiaryServiceImpl implements DiaryService{
 			
 			result = 1;
 			
-		}else {
-			
+		}else {			
 			
 		}
 		

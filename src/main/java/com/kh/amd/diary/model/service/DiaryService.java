@@ -59,6 +59,7 @@ public interface DiaryService {
 	int diaryListCount(int mno);
 
 
+	//리스트 체크박스 삭제
 	int deleteDiary(Diary d, String bno);
 
 
