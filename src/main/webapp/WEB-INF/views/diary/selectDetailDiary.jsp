@@ -69,12 +69,9 @@ tr {
 
 
 </style>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -141,28 +138,19 @@ tr {
 						</c:if>
 						
 			<!-- 댓글 select -->
-										<div id="commentList">
-						<c:forEach items="${repList}" var="repList">
-							<c:if test="${!empty repList.repContent}">
-								${repList.member.name} 트레이너 (<fmt:formatDate value="${repList.repDate}" pattern="yyyy-MM-dd" />) :
-								${repList.repContent}
-								
-							<br />
-							</c:if>
-						</c:forEach>
+		<div id="commentList">
+			<c:forEach items="${repList}" var="repList">
+				<c:if test="${!empty repList.repContent}">
+					${repList.member.name} 트레이너 (<fmt:formatDate value="${repList.repDate}" pattern="yyyy-MM-dd" />) :
+					${repList.repContent}
 					
-						
+				<br />
+				</c:if>
+			</c:forEach>					
 							
-						</div>
-							
+	  </div>						
 						
-						
-						
-						
-					</form>
-					
-			
-			
+					</form>			
 			
 		</div>
 	</div>
@@ -170,34 +158,6 @@ tr {
 	<br />
 
 <script>
-	<!-- 
-		$(".modifydiaryImgBtn").hide();
-		
-		$(".diaryImgDiv").mouseenter(function(){
-			$(".modifydiaryImgBtn").show();
-		}).mouseout(function() {
-			$(".modifydiaryImgBtn").hide();
-		});  
-		
-		$(".modifydiaryImgBtn").mouseenter(function() {
-			$(".modifydiaryImgBtn").show();
-		});
-		
-		$(".modifydiaryImg").hide();
-		$(".modifydiaryImgSubmit").hide();
-		
-		$(".modifydiaryImgBtn").click(function() {
-			
-			$(".modifydiaryImg").click();
-			//$(".modifydiaryImgSubmit").click();
-		});
-		
-		$(".modifydiaryImg").on("change", function() {
-			$(".modifydiaryImgSubmit").click();
-		});
--->
-
-
 
 		function loaddiaryImgFile(value) {
 			if (value.files && value.files[0]) {
@@ -234,6 +194,8 @@ tr {
 			})
 		})
 	</script>
+	
+	
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 
 </body>

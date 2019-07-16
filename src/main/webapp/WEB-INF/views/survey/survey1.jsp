@@ -213,11 +213,7 @@ td {
 
 	</div>
 	
-	<!-- <script>
-		$(".uAge").click(function(){
-			
-		});
-	</script> -->
+	
 	
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 </body>

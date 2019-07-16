@@ -44,6 +44,7 @@
 		<h1 id="fontEng" align="center">Diary List</h1>
 		<br> <br>
 		<button	onclick="location.href='show.di?mno=${sessionScope.loginUser.mno}'"	style="float: right; margin-right: 100px;">작성하기</button>
+		<input type="button" id="deletefn" value="삭제" onclick="deletefn()" style="float: right; margin-right: 100px;"/>
 		<%-- <a href="show.di?mno=${sessionScope.loginUser.mno}">다이어리 insert</a>&nbsp;&nbsp; --%>
 		<br> <br> <input type="hidden" name="mno" value="${ sessionScope.loginUser.mno }" />
 		<div class="listArea">

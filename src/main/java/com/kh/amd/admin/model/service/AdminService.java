@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
+import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.vo.Payment;
 
 public interface AdminService {
@@ -53,9 +54,6 @@ public interface AdminService {
 
 	//페이징 처리(신고)
 	int declListCount();
-	
-	//통계
-	List<Member> memberAge();
 
 	//매칭 조회
 	List<Mprocess> matchingList();
@@ -65,6 +63,17 @@ public interface AdminService {
 
 	//매칭 종료
 	int matchingEnd(int No);
+	
+	//통계
+	List<Member> userCount();
+	
+	List<Member> trainerCount();
+
+	List<Member> userAge();
+
+	List<Member> preferenceAge();
+
+
 
 
 

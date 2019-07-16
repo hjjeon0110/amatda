@@ -318,7 +318,7 @@
   </select>	
   
   <!-- 사용자 후기리뷰 게시판 리뷰 출력(SR) -->
-  <select id="selectReview2" resultMap="boardResultSet">
+  <select id="selectReview2" parameterType="Board" resultMap="boardResultSet">
      <!-- SELECT *
     FROM BOARD B,ATTACHMENT A
     WHERE B.BWRITER = A.PNO
@@ -327,21 +327,35 @@
     AND A.PNO=#{Attachment.pNo}
     ORDER BY BWRITE_DATE DESC  -->
     
-     SELECT *
+   <!--   SELECT *
     FROM BOARD B
     JOIN ATTACHMENT A ON(B.BNO = A.BNO)
     WHERE BTYPE=5
     AND BSTATUS='Y'
-    ORDER BY BWRITE_DATE DESC 
+    ORDER BY BWRITE_DATE DESC  -->
+    
+    
+	SELECT *
+	FROM (SELECT * FROM BOARD B JOIN ATTACHMENT A ON(B.BNO=A.BNO) JOIN MEMBER M ON(M.MNO = B.BWRITER)WHERE BTYPE=5 ORDER BY BLIKE DESC)
+    
   </select>
+  
  
   
+  
+  
+  
   <!-- 사용자 후기리뷰 상세 게시물 출력 1(SR) -->
-  <select id="selectOneReview" resultMap="boardResultSet">
-	SELECT *
+  <select id="selectOneReview2" resultMap="boardResultSet">
+	<!-- SELECT *
     FROM  BOARD
     WHERE BTYPE=5
     AND BNO=#{bNo}
+    
+    -->
+    SELECT *
+    FROM (SELECT * FROM BOARD B JOIN ATTACHMENT A ON(B.BNO=A.BNO) JOIN MEMBER M ON(M.MNO = B.BWRITER) WHERE B.BTYPE=5 AND B.BNO = #{bNo} ORDER BY BLIKE DESC)
+    
   </select>
   
   <!-- 사용자 후기리뷰 상세 게시물 출력 Attachment 2 (SR) -->
@@ -417,8 +431,7 @@
 <update id="likeCount" parameterType="Board">
  	UPDATE BOARD
  	SET BLIKE = BLIKE + 1
- 	WHERE BWRITER=#{bWriter} 
- 	AND BNO=#{bNo}
+ 	WHERE BNO=#{bNo}
  </update>
  
  <!-- 리뷰게시판 좋아요 2(SR) -->
@@ -447,8 +460,30 @@
  	SELECT COUNT(*)
  	FROM LIKECOUNT
     WHERE MNO=#{bWriter}
- 	
+    AND BNO=#{bNo}
  </select>
+ 
+ <select id="bestReviewSelect" parameterType="Board" resultMap="boardResultSet">
+	SELECT *
+	FROM (SELECT * FROM BOARD B JOIN ATTACHMENT A ON(B.BNO=A.BNO) JOIN MEMBER M ON(M.MNO = B.BWRITER)WHERE BTYPE=5 ORDER BY BLIKE DESC)
+	WHERE ROWNUM <![CDATA[<=]]>3
+	
+ </select>
+ <update id="likeCancel" parameterType="Board">
+ 	UPDATE BOARD
+ 	SET BLIKE = BLIKE - 1
+ 	WHERE BNO = #{bNo}
+ 
+ </update>
+ <delete id="likeResultDelete" parameterType="Board">
+ 	DELETE 
+ 	FROM LIKECOUNT
+ 	WHERE MNO = #{bWriter}
+ 	AND BNO = #{bNo} 
+ 
+ </delete>
+ 
+ 
   </mapper>
 
   

@@ -57,6 +57,17 @@
 	cursor:pointer;
 }
 
+.recommendtrainerListNullDiv {
+	width:100%;
+	height:100%;
+	background:#F9F9F9;
+	text-align:center;
+}
+
+.recommendtrainerListNullLabel {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
 .searchUserListDiv {
 	width:100%;
 	height:100%;
@@ -160,14 +171,14 @@
 	border-style:none; 
 	background:white; 
 	color:#ff0066;
-	border:1px solid #ff0066; 
+	border:0.5px solid #ff0066; 
 	margin-left:auto; 
 	margin-right:auto;
 	width:100px;
 	cursor:pointer;
 }
 
-.remainDay {
+.remainDay, .goPtPageBtn {
 	border-style:none; 
 	background:#ffe6f3; 
 	color:#ff0066;
@@ -176,14 +187,14 @@
 	width:100px;
 }
 
-.remainDay:hover {
+.remainDay:hover, .goPtPageBtn:hover {
 	border-style:none; 
 	background:white; 
 	color:#ff0066; 
 	margin-left:auto; 
 	margin-right:auto;
 	width:100px;
-	border:1px solid #ff0066; 
+	border:0.5px solid #ff0066; 
 	cursor:pointer;
 }
 </style>
@@ -228,8 +239,8 @@
 					<tr>
 						<input type="hidden" name="userMno" value="${ user.mno }" />
 						<td rowspan="3" class="userListTableTd1">
-							<div class="profileImg">
-								<img class="profileImage"
+							<div class="profileImg" style="border-radius: 50%;">
+								<img class="profileImage" style="border-radius: 50%;"
 									src="${ contextPath }/resources/uploadFiles/${ imgName}">
 							</div>
 						</td>
@@ -239,7 +250,7 @@
 					</tr>
 					<tr>
 						<td><label class="userKeyword">#${ user.survey.hopeExercise }</label></td>
-						<td><button class="remainDay" name="remainCheck${ user.mno }">남은일수 : <label>${ (estDate + 3 - nowTime)}</label>일</button></td>						
+						<td><button class="goPtPageBtn" name="remainCheck${ user.mno }" style="font-family: 'Montserrat', sans-serif;">PT PAGE</td>						
 					</tr>
 					<tr>
 						<td><label class="userSurvey">운동 시작가능일 : ${ user.survey.hopeStart}, 운동
@@ -390,21 +401,36 @@
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 </body>
 <script>
-$(".ttt").click(function(){
-	var tno = ${ sessionScope.loginUser.mno };
-	console.log("제발좀: " + tno);
-	$.ajax({
-		url:"goUpdateMission.ms?tno=" + tno,
-		data:{tno:tno},
-		success:function(data) {
-			if(data == "success") {
-				location.href="goUpdateMissiono.ms?tno=" + tno;
-			}else if(data == "fail"){
-				alert("진행중인 매칭이 없습니다!");
-				location.reload();
+/* 	$(".ttt").click(function(){
+		var tno = ${ sessionScope.loginUser.mno };
+		$.ajax({
+			url:"goUpdateMission.ms?tno=" + tno,
+			data:{tno:tno},
+			success:function(data) {
+				if(data == "success") {
+					location.href="goUpdateMissiono.ms?tno=" + tno;
+				}else if(data == "fail"){
+					alert("진행중인 매칭이 없습니다!");
+					location.reload();
+				}
 			}
-		}
-	})
-})
+		})
+	}) */
+	
+	$(".goPtPageBtn").click(function() {
+		var tno = ${ sessionScope.loginUser.mno };
+		$.ajax({
+			url:"goUpdateMission.ms?tno=" + tno,
+			data:{tno:tno},
+			success:function(data) {
+				if(data == "success") {
+					location.href="goUpdateMissiono.ms?tno=" + tno;
+				}else if(data == "fail"){
+					alert("진행중인 매칭이 없습니다!");
+					location.reload();
+				}
+			}
+		})
+	});
 </script>
 </html>

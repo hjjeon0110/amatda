@@ -95,50 +95,14 @@ tr {
 				</table>
 			</form>
 			<br />
-			<!-- <div class="replyArea">
-				<div class="replyWriterArea">
-					<table>
-						<tr>
-							<td>
-							<textarea id="rContent" cols="60" rows="3" placeholder="트레이너만 입력하세요"></textarea>
-							</td>
-						</tr>
-						<tr>
-							<td align="center"><button id="replyBtn">등록</button></td>
-						</tr>
-					</table>
-				</div>
-			</div> -->
+			
 		</div>
 	</div>
 	<br />
 	<br />
 
 	<script>
-		/* $(".modifydiaryImgBtn").hide();
 		
-		$(".diaryImgDiv").mouseenter(function(){
-			$(".modifydiaryImgBtn").show();
-		}).mouseout(function() {
-			$(".modifydiaryImgBtn").hide();
-		});  
-		
-		$(".modifydiaryImgBtn").mouseenter(function() {
-			$(".modifydiaryImgBtn").show();
-		});
-		
-		$(".modifydiaryImg").hide();
-		$(".modifydiaryImgSubmit").hide();
-		
-		$(".modifydiaryImgBtn").click(function() {
-			
-			$(".modifydiaryImg").click();
-			//$(".modifydiaryImgSubmit").click();
-		});
-		
-		$(".modifydiaryImg").on("change", function() {
-			$(".modifydiaryImgSubmit").click();
-		}); */
 
 		//이미지 첨부
 		function loaddiaryImgFile(value) {

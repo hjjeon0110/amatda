@@ -577,6 +577,18 @@ public class TrainerDaoImpl implements TrainerDao {
 	}
 
 
+	// 18. 입금 확인 요청 수락하기 버튼 클릭 시 MPROCESS UPDATE (전효정)
+	@Override
+	public void updateMprocess3(SqlSessionTemplate sqlSession, String uno, String tno) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", uno);
+		map.put("tno", tno);
+		
+		sqlSession.update("Trainer.updateMprocess3", map);
+	}
+
+
 
 
 

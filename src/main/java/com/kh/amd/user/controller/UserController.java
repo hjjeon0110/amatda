@@ -233,7 +233,17 @@ public class UserController {
 	
 	// 마이페이지_받은요청내역 페이지 이동 (전효정)
 	@RequestMapping("showMyPageRequestsReceived.us")
-	public String showMyPageRequestsReceivedPageView() {
+	public String showMyPageRequestsReceivedPageView(Model model, HttpServletRequest request) {
+		
+		String mno = request.getParameter("mno");
+		
+		// 17. 받은 요청 내역 조회 (전효정)
+		List<Member> requestsReceivedList = us.selectRequestsReceivedList(mno);
+		model.addAttribute("requestsReceivedList", requestsReceivedList);
+		System.out.println("requestsReceivedList : " + requestsReceivedList);
+		
+		
+		
 		return "user/2_4_myPage_requestsReceived";
 	}
 	
@@ -605,6 +615,21 @@ public class UserController {
 		}
 	}
 	
+	
+	
+	// 입금 확인 요청 후  mprocess update (전효정)
+	@RequestMapping("updateMprocess4.us")
+	public String updateMprocess4(Model model, HttpServletRequest request) {
+		
+		String mno = request.getParameter("mno");
+		String tno = request.getParameter("tno");
+		String tname = request.getParameter("tname").toString();
+		
+		// 16. 입금 확인 요청 후  mprocess update (전효정)
+		us.updateMprocess4(mno, tno);
+		
+		return "redirect:goMatchingProcess.us?mno=" + mno +"&tno=" + tno + "&tname=" + tname;
+	}
 	
 	
 

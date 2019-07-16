@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -171,109 +172,127 @@
 			</div>
 			<br><br>
 			<div class="row">
-				<div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+				<!-- <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
 					<label class="level">1st</label>
 					<div class="block-2">
 						<div class="flipper">
 							<div class="front">
 								<div class="like">
-									<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum">777</label>
+									<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum" id="likeNum1"></label>
+									<img id="frontPic" src="#">
 								</div>
 								<div class="box">
-									<h2>Will Smith</h2>
-									<p>President</p>
+									<h2 id="frontName1"></h2>
+									
 								</div>
 							</div>
-							<div class="back">
-								<!-- back content -->
+							<div class="back" id="back">
+								back content
 								<blockquote>
-									<p>&ldquo;Even the all-powerful Pointing has no control
+									<p id="backCon1">&ldquo;Even the all-powerful Pointing has no control
 										about the blind texts it is an almost unorthographic life One
 										day however a small line of blind text by the name of Lorem
 										Ipsum decided to leave for the far World of Grammar.&rdquo;</p>
 								</blockquote>
 								<div class="author d-flex">
 									<div class="image mr-3 align-self-center">
-										<img src="images/person_3.jpg" alt="">
+										<img src="images/person_3.jpg" id="backPic"alt="">
 									</div>
 									<div class="name align-self-center">
-										Will Smith <span class="position">President</span>
+										<label id="backName1"></label><span class="position"></span>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!-- .flip-container -->
+					.flip-container
 				</div>
-				<div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-					<label class="level">2nd</label>
-					<div class="block-2">
-						<!-- .hover -->
-						<div class="flipper">
-							<div class="front">
-								<div class="like">
-									<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum">555</label>
-								</div>
-								<div class="box">
-									<h2>Claire Williams</h2>
-									<p>Business Manager</p>
-								</div>
-							</div>
-							<div class="back">
-								<!-- back content -->
-								<blockquote>
-									<p>&ldquo;Even the all-powerful Pointing has no control
-										about the blind texts it is an almost unorthographic life One
-										day however a small line of blind text by the name of Lorem
-										Ipsum decided to leave for the far World of Grammar.&rdquo;</p>
-								</blockquote>
-								<div class="author d-flex">
-									<div class="image mr-3 align-self-center">
-										<img src="images/person_1.jpg" alt="">
-									</div>
-									<div class="name align-self-center">
-										Claire Williams <span class="position">Business Manager</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- .flip-container -->
-				</div>
-				<div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
-					<label class="level">3rd</label>
+				
+				1----------
+				
+					<div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+					<label class="level">1st</label>
 					<div class="block-2">
 						<div class="flipper">
 							<div class="front">
 								<div class="like">
-									<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum">333</label>
+									<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum" id="likeNum2"></label>
 								</div>
 								<div class="box">
-									<h2>Jane Johnson</h2>
-									<p>Marketing Director</p>
+									<h2 id="frontName2"></h2>
+									
 								</div>
 							</div>
-							<div class="back">
-								<!-- back content -->
+							<div class="back" id="back">
+								back content
 								<blockquote>
-									<p>&ldquo;Even the all-powerful Pointing has no control
+									<p id="backCon2">&ldquo;Even the all-powerful Pointing has no control
 										about the blind texts it is an almost unorthographic life One
 										day however a small line of blind text by the name of Lorem
 										Ipsum decided to leave for the far World of Grammar.&rdquo;</p>
 								</blockquote>
 								<div class="author d-flex">
 									<div class="image mr-3 align-self-center">
-										<img src="images/person_2.jpg" alt="">
+										<img src="images/person_3.jpg" id="backPic"alt="">
 									</div>
 									<div class="name align-self-center">
-										Jane Johnson <span class="position">Marketing Director</span>
+										<label id="backName2"></label><span class="position"></span>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					.flip-container
+				</div>
+				
+					2---------- -->
+					<c:forEach var = "list" items="${list }" varStatus="status">
+					<div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+					<label class="level"></label>
+					<div class="block-2">
+					
+						<div class="flipper">
+						
+							<div class="front">
+							
+								<div class="like">
+									<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum" id="likeNum3">${list.bLike }</label><br>
+								    <img src="${contextPath}/resources/uploadFiles/${list.attachment.modiName}${list.attachment.extension}"  style="width: 250px; height: 300px; margin-left:1%;">
+								</div>
+								<div class="box">
+								<%-- <c:if test=${not empty list.bWriter }>
+									<div onclick="location.href='selectWriterName.me?writer=${list.bWriter }'"></div> --%>
+									<h2 id="frontName3">${list.member.userId }</h2>
+								<%-- </c:if>	 --%>
+								</div>
+							
+							</div>
+							<div class="back" id="back">
+								<!-- back content -->
+								<!-- <blockquote> -->
+								 <p id="backTitle">${list.bTitle }</p><br>
+								 <p id="backCon3" style="margin-top:60px">${list.bContent}</p> 
+								 
+								<!-- </blockquote> -->
+								<div class="author d-flex">
+									<div class="image mr-3 align-self-center">
+										<!-- <img src="images/person_3.jpg" id="backPic"alt=""> -->
+										<%-- <img src="$contextPath}/resources/uploadFile/${at.modiName}${at.extension} "> --%>
+									</div>
+									<div class="name align-self-center">
+								<label id="backName3">${list.member.userId}</label><span class="position"></span> 
+									</div>
+								</div>
+								
+							</div>
+							
+						</div>
+					</div>
 					<!-- .flip-container -->
 				</div>
+				</c:forEach>	
+						<!-- 3---------- -->
+				
 			</div>
 		</div>
 	</div>
@@ -338,6 +357,43 @@
 		}
 	})
 	
+	
+		/* $.ajax({
+			url:"bestReviewSelect.bo",
+			success:function(data){
+				console.log(data[0]);
+				console.log("이미지: " + data[0].attachment.modiName);
+				alert("성공");
+				$("#likeNum1").text(data[0].bLike);
+				$("#frontName1").text(data[0].bWriter);
+				$("#backCon1").text(data[0].bContent);
+				$("#backName1").text(data[0].bWriter);
+				$("frontPic").attr("src", data[0].attachment.modiName data[0].attachment.extension)
+				
+				
+				$("#likeNum2").text(data[1].bLike);
+				$("#frontName2").text(data[1].bWriter);
+				$("#backCon2").text(data[1].bContent);
+				$("#backName2").text(data[1].bWriter);
+				
+				$("#likeNum3").text(data[2].bLike);
+				$("#frontName3").text(data[2].bWriter);
+				$("#backCon3").text(data[2].bContent);
+				$("#backName3").text(data[2].bWriter);
+				
+				
+				
+				
+			},
+			error:function(data){
+				alert("실패");
+			}
+			
+		}) */
+		
+
+	
+
 	</script>
 </body>
 </html>

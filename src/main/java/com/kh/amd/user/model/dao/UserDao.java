@@ -107,6 +107,12 @@ public interface UserDao {
 	// 21. 트레이너 리뷰 갯수 보여주기(김진환)
 	int reviewCount(SqlSessionTemplate sqlSession, String tno);
 
+	// 16. 입금 확인 요청 후  mprocess update (전효정)
+	void updateMprocess4(SqlSessionTemplate sqlSession, String mno, String tno);
+
+	// 17. 받은 요청 내역 조회 (전효정)
+	List<Member> selectRequestsReceivedList(SqlSessionTemplate sqlSession, String mno);
+
 
 	
 

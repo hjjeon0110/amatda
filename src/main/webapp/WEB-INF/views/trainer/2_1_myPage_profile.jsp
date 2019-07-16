@@ -708,14 +708,14 @@
 			$("#modifyProfileBtn").attr("value", "modalMenu5");
 			
 			$addBtnDiv = $("<div class='addBtnDiv'>");
-			$addCertification1ImgBtn = $("<button class='addCertification1ImgBtn'>").text("사업등록증 등록");
-			$nbsp = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-			$addCertification2ImgBtn = $("<button class='addCertification2ImgBtn'>").text("자격증 등록");
+			$addCertification1ImgBtn = $("<button class='addCertification1ImgBtn'>").text("자격증 및 사업등록증 등록");
+			/* $nbsp = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+			$addCertification2ImgBtn = $("<button class='addCertification2ImgBtn'>").text("자격증 등록"); */
 			
 			$(".modalBody").append($addBtnDiv);
 			$addBtnDiv.append($addCertification1ImgBtn);
-			$addCertification1ImgBtn.after($nbsp);
-			$addBtnDiv.append($addCertification2ImgBtn);
+			/* $addCertification1ImgBtn.after($nbsp);
+			$addBtnDiv.append($addCertification2ImgBtn); */
 			
 			$(".addCertification1ImgBtn").click(function() {
 				$(".insertCertificationImg").click();

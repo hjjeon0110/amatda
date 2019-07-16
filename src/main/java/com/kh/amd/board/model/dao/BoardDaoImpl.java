@@ -315,7 +315,7 @@ public class BoardDaoImpl implements BoardDao {
 	//리뷰게시판 상세페이지 1 (SR)
 	@Override
 	public Board selectOneReview(SqlSessionTemplate sqlSession, int bNo) {
-		return sqlSession.selectOne("Board.selectOneReview",bNo);
+		return sqlSession.selectOne("Board.selectOneReview2",bNo);
 	}
 
 	//리뷰게시판 상세페이지 2(SR)
@@ -366,6 +366,39 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public int likeClick(SqlSessionTemplate sqlSession, Board b) {
 		return sqlSession.selectOne("Board.likeClick",b);
+	}
+
+	@Override
+	public List<Board> bestReviewSelect(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Board.bestReviewSelect");
+	}
+
+	@Override
+	public List<Board> selectReview2(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Board.selectReview2");
+	}
+
+	@Override
+	public List<Board> selectOneReview2(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectList("Board.selectOneReview2");
+	}
+
+	@Override
+	public int likeResultDelete(SqlSessionTemplate sqlSession, int bno2, int mno2) {
+		Board board = new Board();
+		board.setbNo(bno2);
+		board.setbWriter(mno2);
+		
+		return sqlSession.delete("Board.likeResultDelete", board);
+	}
+
+	@Override
+	public int likeCancel(SqlSessionTemplate sqlSession, int bno2, int mno2) {
+		Board board = new Board();
+		board.setbNo(bno2);
+		board.setbWriter(mno2);
+		
+		return sqlSession.update("Board.likeCancel", board);
 	}
 
 	

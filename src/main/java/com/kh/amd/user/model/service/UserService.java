@@ -26,7 +26,7 @@ public interface UserService {
 
 	List<Board> selectMyBoardList(int mno2, PageInfo pi);
   
-  // 내글관리(ReviewList Detail) 글 select (우리나)
+	// 내글관리(ReviewList Detail) 글 select (우리나)
 	Board selectOneReview(int bno2);
 	
 	// 내글관리(ReviewList Detail) 사진 select (우리나)
@@ -95,25 +95,36 @@ public interface UserService {
 
 	// 15. 매칭 요청 후  mprocess update (전효정)
 	void updateMprocess3(String mno, String tno);
+  
+  // 16. 입금 확인 요청 후  mprocess update (전효정)
+	void updateMprocess4(String mno, String tno);
 
-	// 16. 리뷰작성하기 폼으로 회원정보 보여주기(김진환)
+	// 17. 받은 요청 내역 조회 (전효정)
+	List<Member> selectRequestsReceivedList(String mno);
+
+  
+  
+
+	// 리뷰작성하기 폼으로 회원정보 보여주기(김진환)
 	Member trainerReviewForm(int tno);
 	
-	// 17. 트레이너 리뷰 작성 insert(김진환)
+	// 트레이너 리뷰 작성 insert(김진환)
 	int insertTrainerReview(String title, String starRating, String content, int tno, int uno);
 
-	// 18. 리뷰 기존에 작성했는지 체크 여부(김진환)
+	// 리뷰 기존에 작성했는지 체크 여부(김진환)
 	int trainerReviewCheck(int uno, int tno);
 
-	// 19. 리뷰 리스트를 유저에게 보여주기(김진환)
+	// 리뷰 리스트를 유저에게 보여주기(김진환)
 	HashMap<String, Object> trainerReviewShow(String tno, String mno);
 
-	// 20. 리뷰 평점 평균 리턴(김진환)
+	// 리뷰 평점 평균 리턴(김진환)
 	int reviewRating(String tno);
 	
-	// 21. 리뷰 갯수 리턴(김진환)
+	// 리뷰 갯수 리턴(김진환)
 	int reviewCount(String tno);
 
+
+	
 
 	
 

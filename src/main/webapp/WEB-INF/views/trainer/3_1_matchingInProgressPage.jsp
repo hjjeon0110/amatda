@@ -54,6 +54,18 @@
 	color:#ff0066;
 	cursor:pointer;
 }
+
+.recommendtrainerListNullDiv {
+	width:100%;
+	height:100%;
+	background:#F9F9F9;
+	text-align:center;
+}
+
+.recommendtrainerListNullLabel {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
 .searchUserListDiv {
 	width:100%;
 	height:100%;

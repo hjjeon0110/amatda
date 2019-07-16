@@ -56,7 +56,8 @@ border:1px solid black;
    }
     
     .boardBtn{
-   align:center;
+  /*  align:center; */
+	margin-left:20%;
        
     }
     
@@ -67,6 +68,10 @@ border:1px solid black;
     } 
     
     tr.bordered2{
+    border-top:2px solid #000;
+    } 
+    
+    tr.bordered3{
     border-top:2px solid #000;
     } 
     
@@ -92,6 +97,7 @@ margin-left: 400px;
     width:100%;
     height:400px;
  }
+
 
  
 </style>
@@ -135,17 +141,23 @@ margin-left: 400px;
           
          <tr class="bordered2">
             <td colspan="5">
+            <br><br>
                ${ Board.bContent }
+                <br><br><br>
             </td>
+         </tr>
+         
+         <tr class="bordered3">
+          <td colspan="5"></td>
          </tr>
          
          <%--  </c:forEach> --%>
          </table>
          
-         <br><br><br>
+         <br>
       
           <div class="boardBtn">
-            <button type="button" class="btn btn-primary" data-toggle="modal" 
+            <button type="button" class="btn btn-primary" data-toggle="modal"  
               data-target="#my80sizeCenterModal" onclick="location.href='selectNotice.bo'">목록</button>
            </div>
       </div>
