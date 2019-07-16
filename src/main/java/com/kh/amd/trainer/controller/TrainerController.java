@@ -1080,6 +1080,17 @@ public class TrainerController {
 	}
 	
 	
+	// 입금 확인 요청 수락하기 (전효정) -------------------------------------------------------------------------------------------------------------------------------------------
+	@RequestMapping("updateMprocess3.tr")
+	public String updateMprocess3(String uno, String tno) {
+		
+		// 18. 입금 확인 요청 수락하기 버튼 클릭 시 MPROCESS UPDATE (전효정)
+		ts.updateMprocess3(uno, tno);
+		
+		return "redirect:showMatchingProcessPage.tr?uno=" + uno + "&tno=" + tno;
+	}
+	
+	
 	
 	
 	

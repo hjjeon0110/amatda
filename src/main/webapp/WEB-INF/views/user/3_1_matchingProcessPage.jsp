@@ -208,6 +208,26 @@
 			<br><br><br>
 		</div>
 	</c:if>
+	<c:if test="${ selectOneMyTrainer.matchingLevel == 5 && selectOneMyTrainer.matchingAccept== 'Y' }">
+	    <div class="step-state step5">
+	        <ul>
+	            <li><p>매칭시작</p></li>
+	            <li><p>내 정보 보내기<span></span></p></li>
+	            <li><p>견적서 확인하기<span></span></p></li>
+	            <li><p>매칭 요청하기<span></span></p></li>
+	            <li><p>입금하기<span></span></p></li>
+	        </ul>
+	    </div>
+	    <br>
+		<div class="stepDiv">
+			<br><br>
+			<label class="stepLabel">PT 서비스를 받기 위한 모든 단계가 끝났습니다.</label><br>
+			<label class="stepLabel" style="color:#ff0066;">트레이너가 입금 확인을 완료하면 바로 PT 서비스가 시작됩니다!</label>
+			<br><br>
+			<button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable3">PT 페이지 이동하기</button>
+			<br><br><br>
+		</div>
+	</c:if>
 	
 	
 	<!-- footer ------------------------------------------------------------------------------------------------------------ -->
@@ -319,7 +339,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-primary" id="sendMatchingRequest">입금 확인 요청하기</button>
+					<button type="button" class="btn btn-primary" id="sendDepositCheckRequest">입금 확인 요청하기</button>
 				</div>
 			</div>
 		</div>
@@ -374,6 +394,15 @@
 			
 			location.href='updateMprocess3.us?mno=' + mno + "&tno=" + tno + '&tname=' + tname;
 			
+		});
+		
+		// 4. 입금 확인 요청하기 버튼 클릭 시
+		$("#sendDepositCheckRequest").click(function() {
+			var mno = ${ sessionScope.loginUser.mno };
+			var tno = ${ matchingTrainer.mno };
+			var tname = "${ matchingTrainer.name }";
+			
+			location.href='updateMprocess4.us?mno=' + mno + "&tno=" + tno + '&tname=' + tname;
 		});
 
 		

@@ -25,7 +25,7 @@ public interface UserService {
 
 	List<Board> selectMyBoardList(int mno2, PageInfo pi);
   
-  // 내글관리(ReviewList Detail) 글 select (우리나)
+	// 내글관리(ReviewList Detail) 글 select (우리나)
 	Board selectOneReview(int bno2);
 	
 	// 내글관리(ReviewList Detail) 사진 select (우리나)
@@ -94,6 +94,14 @@ public interface UserService {
 
 	// 15. 매칭 요청 후  mprocess update (전효정)
 	void updateMprocess3(String mno, String tno);
+
+	// 16. 입금 확인 요청 후  mprocess update (전효정)
+	void updateMprocess4(String mno, String tno);
+
+	// 17. 받은 요청 내역 조회 (전효정)
+	List<Member> selectRequestsReceivedList(String mno);
+	
+	
 
 	
 

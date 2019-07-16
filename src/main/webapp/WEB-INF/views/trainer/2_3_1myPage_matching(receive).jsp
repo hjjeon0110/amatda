@@ -74,7 +74,7 @@
 
 .userListDiv {
 	width: 90%;
-	border: 1px solid darkgray;
+	border: 0.5px solid darkgray;
 	margin-left: auto;
 	margin-right: auto;
 	padding: 10px;

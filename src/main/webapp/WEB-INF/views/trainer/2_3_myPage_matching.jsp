@@ -58,13 +58,13 @@
 .userSelect {
 	width: 150px;
 	font-family: 'Noto Sans KR', sans-serif;
-	border: 1px solid darkgray;
+	border: 0.5px solid darkgray;
 	margin-left: 50px;
 }
 
 .userListDiv {
 	width: 90%;
-	border: 1px solid darkgray;
+	border: 0.5px solid darkgray;
 	margin-left: auto;
 	margin-right: auto;
 	padding: 10px;
@@ -74,7 +74,7 @@
 
 .userListDiv2 {
 	width: 90%;
-	border: 1px solid darkgray;
+	border: 0.5px solid darkgray;
 	margin-left: auto;
 	margin-right: auto;
 	padding: 10px;
@@ -298,8 +298,8 @@
 					<tr>
 						<input type="hidden" name="userMno" value="${ user.mno }" />
 						<td rowspan="3" class="userListTableTd1">
-							<div class="profileImg">
-								<img class="profileImage"
+							<div class="profileImg" style="border-radius: 50%;">
+								<img class="profileImage" style="border-radius: 50%;"
 									src="${ contextPath }/resources/uploadFiles/${ imgName}">
 							</div>
 						</td>
