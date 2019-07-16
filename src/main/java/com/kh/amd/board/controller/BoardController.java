@@ -260,23 +260,88 @@ public class BoardController {
 		 }
 		 
 		 
+	/*
+	 * //리뷰게시판 리스트(sr)
+	 * 
+	 * @RequestMapping("selectReview.bo") public String selectReview2(Model
+	 * model,Attachment a ) { System.out.println("selectReview페이지로 옴");
+	 * System.out.println("a잘넘어오나? " + a);
+	 * 
+	 * List <Board> selectReview = bs.selectReview2(a);
+	 * model.addAttribute("selectReview",selectReview);
+	 * System.out.println("selectReview in controller : " + selectReview);
+	 * 
+	 * return "board/selectReview"; }
+	 */
+		  
+		 
 		 //리뷰게시판 리스트(sr)
 		  @RequestMapping("selectReview.bo")
-		  public String selectReview2(Model model,Attachment a ) {
+		  public String selectReview2(HttpServletResponse response, Model model ) {
 			  System.out.println("selectReview페이지로 옴");
-			  System.out.println("a잘넘어오나? " + a);
-			  List <Board> selectReview = bs.selectReview2(a);
-			  model.addAttribute("selectReview",selectReview);
-			  System.out.println("selectReview in controller : " + selectReview);
+			  //System.out.println("a잘넘어오나? " + a);
 			  
+			  List <Board> selectReview2 = bs.selectReview2();
+			  System.out.println("selectReview조회 : " + selectReview2);
+			  
+			  response.setContentType("application/json");
+				 response.setCharacterEncoding("UTF-8");
+				 
+				 try {
+					new Gson().toJson(selectReview2,response.getWriter());
+				} catch (JsonIOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			  
+				 model.addAttribute("selectReview2", selectReview2);
+			 
 			  return "board/selectReview"; 
 			  } 
+		 
+		  //------------------------------------------------------------
+		  
+		//메인페이지 bestReviewSelect.bo 
+			 
+			 /*@RequestMapping("bestReviewSelect.bo")
+			 public String bestReviewSelect(HttpServletResponse response) {
+				 System.out.println("bestReviewSelect in Con 확인 ");
+				 
+				 List<Board> list = bs.bestReviewSelect();
+				 
+				 System.out.println("list조회: " + list);
+				 
+				 response.setContentType("application/json");
+				 response.setCharacterEncoding("UTF-8");
+				 
+				 try {
+					new Gson().toJson(list,response.getWriter());
+				} catch (JsonIOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				 
+				 return "main/main";
+				 
+			 }
+		  */
+		  
+		  
+		  
+		  
+		  //-------------------------------------------------------------
 		  
 		  
 		  //리뷰게시판 상세페이지 (SR)
 		 @RequestMapping(value="selectOneReview.bo",method=RequestMethod.GET)
 		 
-		  public ModelAndView selectOneReview(Model model,@RequestParam int bNo,HttpSession session) {
+		  public ModelAndView selectOneReview(@RequestParam int bNo,HttpSession session) {
 			 //조회수 카운트 
 			 int result = bs.updateCount(bNo);
 			 
@@ -286,15 +351,41 @@ public class BoardController {
 			 System.out.println("a: " + a);
 			 ModelAndView mav = new ModelAndView();
 			 System.out.println("mav: " + mav);
+			 
+			 List<Reply> repList = bs.replyList(bNo);
 			 mav.setViewName("board/selectOneReview");
-			 mav.addObject("board",bs.selectOneReview(bNo));
-			 mav.addObject("b",b);
-			 mav.addObject("a",a);
+			 mav.addObject("selectOneReview2", bs.selectOneReview(bNo));
+			 mav.addObject("b", b);
+			 mav.addObject("a", a);
+			 mav.addObject("repList", repList);
+			 //--------------------
+			 //List<Board> selectOneReview2 = bs.selectOneReview2();
+		/*
+		 * response.setContentType("application/json");
+		 * response.setCharacterEncoding("UTF-8");
+		 */
+			 
+		/*
+		 * try { new Gson().toJson(selectOneReview2,response.getWriter()); } catch
+		 * (JsonIOException e) { // TODO Auto-generated catch block e.printStackTrace();
+		 * } catch (IOException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); }
+		 * 
+		 * model.addAttribute("selectOneReview2", selectOneReview2);
+		 */
+			 
+			 
+			 
+			 //--------------------
+			 
+			 
+			 
 			 
 			 //리뷰게시판 상세페이지 댓글 목록
-			 List<Reply> repList = bs.replyList(bNo);
-			 model.addAttribute("repList", repList);
-			 System.out.println("repList in controller : " + repList);
+		/*
+		 * List<Reply> repList = bs.replyList(bNo); model.addAttribute("repList",
+		 * repList); System.out.println("repList in controller : " + repList);
+		 */
 			 
 			 
 			 
@@ -304,6 +395,11 @@ public class BoardController {
 			 //bs.selectOneReview(bNo);
 			 
 		 }
+		 //----------------------------------
+		 
+		
+		 
+		 //---------------------------------------------------------------
 		 
 		 //리뷰 상세페이지 댓글입력(SR)
 		 @RequestMapping("insertReply.bo")
@@ -511,7 +607,7 @@ public class BoardController {
 				 //이사람이 좋아요를 눌렀는지 안눌렀는지
 				 int result0 = bs.likeClick(b);
 				 
-				 if(result0<=0) {
+				 if(result0 <= 0) {
 				 
 				 
 				 //카운트 수 증가
@@ -533,13 +629,20 @@ public class BoardController {
 					}
 				}
 				
-			}else if(result0>0){
-				try {
-					response.getWriter().print("fail");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				}else if(result0 > 0){
+					
+					//1. 좋아요수 깎기 
+					int likeCancel = bs.likeCancel(bno2, mno2);
+					
+					//2. 좋아요 한 내역을 삭제
+					int likeResultDelete = bs.likeResultDelete(bno2, mno2);
+					
+					try {
+						response.getWriter().print("fail");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 			}
 		/*
 		 * int likeCount = bs.selectLikeCount(b); System.out.println("좋아요 현재 카운트 수: " +
@@ -565,6 +668,33 @@ public class BoardController {
 		 * BoardVO boardVO = boardProc.read(bNo);
 		 * 
 		 */
+				 
+			 }
+			 
+			 //메인페이지 bestReviewSelect.bo 
+			 
+			 @RequestMapping("bestReviewSelect.bo")
+			 public String bestReviewSelect(HttpServletResponse response) {
+				 System.out.println("bestReviewSelect in Con 확인 ");
+				 
+				 List<Board> list = bs.bestReviewSelect();
+				 
+				 System.out.println("list조회: " + list);
+				 
+				 response.setContentType("application/json");
+				 response.setCharacterEncoding("UTF-8");
+				 
+				 try {
+					new Gson().toJson(list,response.getWriter());
+				} catch (JsonIOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				 
+				 return "main/main";
 				 
 			 }
 			 

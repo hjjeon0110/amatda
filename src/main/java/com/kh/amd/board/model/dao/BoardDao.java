@@ -158,6 +158,16 @@ public interface BoardDao {
 
 	int likeClick(SqlSessionTemplate sqlSession, Board b);
 
+	List<Board> bestReviewSelect(SqlSessionTemplate sqlSession);
+
+	List<Board> selectReview2(SqlSessionTemplate sqlSession);
+
+	List<Board> selectOneReview2(SqlSessionTemplate sqlSession);
+
+	int likeResultDelete(SqlSessionTemplate sqlSession, int bno2, int mno2);
+
+	int likeCancel(SqlSessionTemplate sqlSession, int bno2, int mno2);
+
 	//int insertQna(SqlSessionTemplate sqlSession, Board b, String mno);
 
 

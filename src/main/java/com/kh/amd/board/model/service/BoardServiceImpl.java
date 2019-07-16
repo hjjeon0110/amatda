@@ -336,6 +336,33 @@ public class BoardServiceImpl implements BoardService{
 		return bd.likeClick(sqlSession,b);
 	}
 
+	@Override
+	public List<Board> bestReviewSelect() {
+		return bd.bestReviewSelect(sqlSession);
+	}
+
+	@Override
+	public List<Board> selectReview2() {
+		return bd.selectReview2(sqlSession);
+	}
+
+	@Override
+	public List<Board> selectOneReview2() {
+		return bd.selectOneReview2(sqlSession);
+	}
+
+	@Override
+	public int likeResultDelete(int bno2, int mno2) {
+		
+		return bd.likeResultDelete(sqlSession, bno2, mno2);
+	}
+
+	@Override
+	public int likeCancel(int bno2, int mno2) {
+		
+		return bd.likeCancel(sqlSession, bno2, mno2);
+	}
+
 
 
 
