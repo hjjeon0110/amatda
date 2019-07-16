@@ -61,7 +61,7 @@
 							</td>
 							<td>
 								<c:if test="${ requestsReceivedList[i].mprocess.matchingLevel == 0 }">
-									<button class="openEstBtn" data-toggle="modal" data-target="#exampleModalScrollable">견적서 보기</button>
+									<button class="openEstBtn" data-toggle="modal" data-target="#exampleModalScrollable${ requestsReceivedList[i].mno }">견적서 보기</button>
 								</c:if>
 								<c:if test="${ requestsReceivedList[i].mprocess.matchingLevel != 0 }">
 									<button class="goProfileDetail">남은일수 ${ (estDate + 3 - nowTime)}일</button>
@@ -71,7 +71,7 @@
 						<tr>
 							<td><label class="trainerKeyword">${ requestsReceivedList[i].profile.keyword }</label></td>
 							<c:if test="${ requestsReceivedList[i].mprocess.matchingLevel == 0 }">
-							<td><button class="goProfileDetail">매칭 시작하기</button></td>
+							<td><button class="goProfileDetail" name="goProfileDetail">매칭 시작하기</button></td>
 							</c:if>
 							<c:if test="${ requestsReceivedList[i].mprocess.matchingLevel != 0 }">
 							<td><button class="goProfileDetail">매칭 진행중</button></td>
@@ -157,7 +157,7 @@
 						<tr>
 							<td><label class="trainerKeyword">${ requestsReceivedList[i].profile.keyword }</label></td>
 							<c:if test="${ requestsReceivedList[i].mprocess.matchingLevel == 0 }">
-							<td><button class="goProfileDetail">매칭 시작하기</button></td>
+							<td><button class="goProfileDetail" name="goProfileDetail">매칭 시작하기</button></td>
 							</c:if>
 							<c:if test="${ requestsReceivedList[i].mprocess.matchingLevel != 0 }">
 							<td><button class="goProfileDetail">매칭 종료</button></td>
@@ -226,6 +226,40 @@
 				</div>
 				</c:if>
 				<br>
+				<!-- 견적서 확인하기 Modal ------------------------------------------------------------------------------------------------------------- -->
+	<div class="modal fade" id="exampleModalScrollable${ requestsReceivedList[i].mno }" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<label class="modalHeader"><i class="fa fa-check"></i> ${requestsReceivedList[i].name } 트레이너님의 견적서 </label>&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<br>
+					<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">제목</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;<input class='form-control' type="text" value="${ requestsReceivedList[i].mprocess.matchEstName }" readonly><br>
+					<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">커리큘럼</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;<textarea class="form-control" type="text" readonly style="height:150px !important">${ requestsReceivedList[i].mprocess.matchEstContents}</textarea><br>
+					<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">개월수</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ requestsReceivedList[i].mprocess.matchEstDay }" readonly><br>
+					<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">가격</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ requestsReceivedList[i].mprocess.matchEstPrice }" readonly><br>
+					<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">은행/계좌번호</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ requestsReceivedList[i].mprocess.matchEstName }" readonly><br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+					<button type="button" class="btn btn-primary" name="acceptMatchingRequest" >매칭 수락하기</button>
+					<input type="hidden" value="${ requestsReceivedList[i].mno }">
+					<input type="hidden" value="${ requestsReceivedList[i].name }">
+				</div>
+			</div>
+		</div>
+	</div>
+				
 			</c:forEach>
 		</div>
 		
@@ -237,7 +271,7 @@
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	
 	
-	<!-- 견적서 확인하기 Modal ------------------------------------------------------------------------------------------------------------- -->
+	<%-- <!-- 견적서 확인하기 Modal ------------------------------------------------------------------------------------------------------------- -->
 	<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static">
 		<div class="modal-dialog modal-dialog-scrollable" role="document">
 			<div class="modal-content">
@@ -251,15 +285,15 @@
 				<div class="modal-body">
 					<br>
 					<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">제목</label>
-					&nbsp;&nbsp;&nbsp;&nbsp;<input class='form-control' type="text" value="${ selectOneMyTrainer.matchEstName }" readonly><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;<input class='form-control' type="text" value="${ requestsReceivedList[i].mprocess.matchEstName }" readonly><br>
 					<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">커리큘럼</label>
-					&nbsp;&nbsp;&nbsp;&nbsp;<textarea class="form-control" type="text" readonly style="height:150px !important">${ selectOneMyTrainer.matchEstContents}</textarea><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;<textarea class="form-control" type="text" readonly style="height:150px !important">${ requestsReceivedList[i].mprocess.matchEstContents}</textarea><br>
 					<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">개월수</label>
-					&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ selectOneMyTrainer.matchEstDay }" readonly><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ requestsReceivedList[i].mprocess.matchEstDay }" readonly><br>
 					<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">가격</label>
-					&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ selectOneMyTrainer.matchEstPrice }" readonly><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ requestsReceivedList[i].mprocess.matchEstPrice }" readonly><br>
 					<label class="index">I</label>&nbsp;&nbsp;<label class="subTitleLabel">은행/계좌번호</label>
-					&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ selectOneMyTrainer.matchEstName }" readonly><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" value="${ requestsReceivedList[i].mprocess.matchEstName }" readonly><br>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
@@ -267,7 +301,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --%>
 	
 	
 	<script>
@@ -287,7 +321,7 @@
 		});
 		
 		// 매칭 시작하기
-		$(".goProfileDetail").click(function() {
+		$("button[name=goProfileDetail]").click(function() {
 			
 			var mno = ${ sessionScope.loginUser.mno };
 			var tno = $(this).parent().parent().parent().children().eq(2).children().eq(1).children().eq(0).val();
@@ -299,6 +333,20 @@
 			location.href='goMatchingProcess.us?mno=' + mno + "&tno=" + tno + '&tname=' + tname;
 			
 		});
+		
+		// 매칭 수락하기
+		$("button[name=acceptMatchingRequest]").click(function() {
+			var mno = ${ sessionScope.loginUser.mno };
+			var tno = $(this).parent().children().eq(2).val();
+			var tname = $(this).parent().children().eq(3).val();
+			console.log("mno : " + mno);
+			console.log("tno : " + tno);
+			console.log("tname : " + tname);
+			
+			location.href='updateMprocessSend1.us?mno=' + mno + "&tno=" + tno + '&tname=' + tname;
+			
+		});
+		
 		
 	</script>
 	

@@ -193,8 +193,78 @@
 	margin-left:auto; 
 	margin-right:auto;
 	width:100px;
-	border:1px solid #ff0066; 
+	border:0.5px solid #ff0066; 
 	cursor:pointer;
+}
+
+
+.modal {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.modal-header {	
+	background:#ffe6f3 !important;
+	border-left:0.5px solid gray !important;
+}
+
+.modalHeader {
+	color: #ff0066;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+	
+}
+.surveyInfo{
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:14px;
+	margin-top:2px;
+}
+
+.modalMenubar {
+	width:100%;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.modalMenubar thead {
+	text-align:center;
+	font-weight:bold;
+}
+
+.modalMenubar td {
+	width:20%;
+	padding-top:15px;
+	padding-bottom:15px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:14px;
+}
+
+.modalBody {
+	padding:20px;
+}
+
+.modalMenu {
+	color: #ff0066;
+	font-size:16px;
+	font-weight:bold;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.form-control {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 14px !important;
+	height:30px !important;
+	background:white !important;
+}
+
+.index{
+	color: #ff0066;
+	font-weight:bold;
+}
+
+.subTitleLabel {
+	font-weight:bold;
+	font-size: 14px;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 
@@ -240,9 +310,9 @@
 				<table class="userListTable">
 					<tr>
 						<input type="hidden" name="userMno" value="${ user.mno }" />
-						<td rowspan="3" class="userListTableTd1">
+						<td rowspan="3" class="userListTableTd1" style="border-radius: 50%;">
 							<div class="profileImg">
-								<img class="profileImage"
+								<img class="profileImage" style="border-radius: 50%;"
 									src="${ contextPath }/resources/uploadFiles/${ imgName}">
 							</div>
 						</td>

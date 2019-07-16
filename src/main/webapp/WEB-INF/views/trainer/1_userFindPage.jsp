@@ -636,7 +636,7 @@
 	                 $("button[name=matchingStart]").show();
 	                 $("button[name=insertEstMatchStart]").hide();
 	            	}else{
-	            		///////////기존 견적서 1개라도있으면 찾기/////
+	            		///////////기존 견적서 1개라도있으면 찾기///////
 	            		var estType = "1";
             		$.ajax({
             			url:"ajaxshowMyPageEstimate.tr",

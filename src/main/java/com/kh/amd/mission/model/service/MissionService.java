@@ -91,7 +91,7 @@ public interface MissionService {
 
 	int selectTno(int mno2);
 
-	int selectTnoTno(int tno2);
+	int selectTnoTno(int tno2,String userName);
 
 	
 	

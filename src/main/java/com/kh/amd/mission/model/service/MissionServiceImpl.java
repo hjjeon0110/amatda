@@ -250,8 +250,8 @@ public class MissionServiceImpl implements MissionService{
 	}
 
 	@Override
-	public int selectTnoTno(int tno2) {
-		return md.selectTnoTno(sqlSession,tno2);
+	public int selectTnoTno(int tno2,String userName) {
+		return md.selectTnoTno(sqlSession,tno2,userName);
 	}
 
 	

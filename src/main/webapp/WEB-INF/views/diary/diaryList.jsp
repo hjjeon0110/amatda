@@ -64,6 +64,7 @@
 				<tbody>
 
 					<%-- <c:forEach var="diaryList" items="${ diaryList }" varStatus="status"> --%>
+					
 
 					<c:forEach var="i" begin="0" end="${fn:length(diaryList)-1}" varStatus="st">
 						<tr class="rowTr">
