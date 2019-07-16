@@ -90,15 +90,16 @@ public class DiaryController {
 	//다이어리 리스트
 	@RequestMapping("list.di")
 	public String selectDiary(Model model, Member m, int mno, String currentPage) {
-		//리스트
+		
 
 		
-		//페이지처리
+		//페이징처리
 		int currentPageI = 1;
         
         if(currentPage != null) {
              currentPageI = Integer.parseInt(currentPage);
           }
+        
        //목록을 조회해서 해당 리스트가 몇개인지 확인 
        int listCount = ds.diaryListCount(mno);
        
@@ -183,14 +184,14 @@ public class DiaryController {
 			try {
 				response.getWriter().print("success");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 		}else {
 			try {
 				response.getWriter().print("fail");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 		}
@@ -237,31 +238,9 @@ public class DiaryController {
 			return "diary/showDiary";		
 		
 		}
+		
 	
-	
-	
-	
-	/*
-	 * @RequestMapping("deleteDiary.di") public String deleteDiary() {
-	 * 
-	 * return "diary/deleteDiary";
-	 * 
-	 * }
-	 */
-	
-	
-	//리스트 delete
-	/*
-	 * @RequestMapping(value="deleteDiary.di", method = RequestMethod.POST) public
-	 * String deleteDiary(@RequestParam("checkDelete") String[] checkDelete,
-	 * ModelMap modelMap, int mno) throws Exception {
-	 * 
-	 * for (String bNo : checkDelete) { System.out.println("사용자 삭제 = " + bNo); int
-	 * delete_count = ds.deleteDiary(bNo); } // 목록 페이지로 이동 return
-	 * "redirect:list.di?mno=" + mno; }
-	 */
-	
-	
+	//리스트 delete	
 	@RequestMapping(value="deleteDiary.di", method = {RequestMethod.GET, RequestMethod.POST})
 	public String deleteDiary(Model model, Diary d, HttpServletRequest request){
 				
@@ -272,62 +251,14 @@ public class DiaryController {
 		//int mno = m.getMno();
 		//int bno = d.getbNo();
 		
-		ds.deleteDiary(d, bno);	
-		
+		ds.deleteDiary(d, bno);		
 			
-			return "redirect:list.di?mno=" + mno;
-			
-				
+	return "redirect:list.di?mno=" + mno;				
 	
-	}
-
-
-	//리스트 delete 테스트중
-//	@RequestMapping("deleteDiary.di")
-//	@ResponseBody
-//	public String deleteDiary(@RequestParam(name = "checkList[]") List<String> checkList, HttpSession session) {
-//		System.out.println("checkList : " + checkList);
-//		
-//		HashMap<String, Object> infoMap = new HashMap<String, Object>();
-//		
-//		infoMap.put("checkList",checkList);
-//		infoMap.put("mno", ((Member) session.getAttribute("loginUser")).getMno());
-//		
-//		int result = ds.deleteDiary(infoMap);
-//		
-//		if(result == checkList.size()) {
-//			return "sussess";
-//		}else {
-//			return "fail";
-//		}
-//	}
+	}	
 	
 	
-	
-	//갤러리 테스트
-//		@RequestMapping(value="showGallery.di", method=RequestMethod.GET)
-//		public ModelAndView selectGallery(@RequestParam String mno, HttpSession session) {
-//			
-//			System.out.println("컨트롤러 mno : " + mno);
-//			
-//			Diary d = ds.selectGallery(mno);
-//			Attachment a = ds.selectAttachment(mno);
-//			
-//			System.out.println("다이어리 : " + d);
-//			System.out.println("다이어리 이미지 : " + a);
-//					
-//			ModelAndView mav = new ModelAndView();
-//			mav.setViewName("gallery/selectGallery");
-//			mav.addObject("gallery", ds.selectGallery(mno));
-//			
-//			mav.addObject("d", d);
-//			mav.addObject("a", a);
-//			
-//			return mav;
-//			
-//		}
-//		
-	
+	//갤러리 리스트
 	@RequestMapping("showGallery.di")
 	public String selectGallery(HttpServletRequest request, Attachment a, HttpSession session, Member m, Model model ) {
 		
@@ -342,6 +273,14 @@ public class DiaryController {
 	}
 
 
+	
+	//메뉴바
+	@RequestMapping("diary.di")
+	public String diary() {
+		
+		return "diary/diary";
+		
+	}
 
 
 

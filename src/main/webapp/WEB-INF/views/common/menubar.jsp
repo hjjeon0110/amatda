@@ -195,7 +195,7 @@
 							href="showMyPagePrivacy.us?mno=${sessionScope.loginUser.mno}">MY PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<li class="menubarLi6"><a class="menubarLi6" <%-- href="matching.ms?mno=${sessionScope.loginUser.mno}" --%>>PT
 								PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<li class="menubarLi6"><a class="menubarLi6" <%-- href="matching.ms?mno=${sessionScope.loginUser.mno}" --%>>DAIRY
+						<li class="menubarLi7"><a class="menubarLi7" href="diary.di?mno=${sessionScope.loginUser.mno}" >DAIRY
 								PAGE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<%-- <li class="menubarLi7"><a class="menubarLi7" href="list.di?mno=${sessionScope.loginUser.mno}">다이어리
 								</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

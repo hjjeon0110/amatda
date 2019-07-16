@@ -11,6 +11,8 @@ import com.kh.amd.survey.model.vo.Survey;
 @Repository
 public class SurveyDaoImpl implements SurveyDao{ 
 
+	
+	//설문조사 첫번째 insert + 멤버 status update 
 	@Override
 	public int insertSurvey1(SqlSessionTemplate sqlSession, Survey s, String mno) {
 		
@@ -21,6 +23,8 @@ public class SurveyDaoImpl implements SurveyDao{
 		return sqlSession.insert("Survey.insertSurvey1", map);
 	}
 
+	
+	//설문조사 두번째 update
 	@Override
 	public int insertSurvey2(SqlSessionTemplate sqlSession, Survey s, String mno) {
 		
@@ -32,6 +36,8 @@ public class SurveyDaoImpl implements SurveyDao{
 		
 	}
 
+	
+	//설문조사 세번째 update
 	@Override
 	public int insertSurvey3(SqlSessionTemplate sqlSession, Survey s, String mno, String hopeExerciseString) {
 		
@@ -44,6 +50,8 @@ public class SurveyDaoImpl implements SurveyDao{
 		
 	}
 
+	
+	//설문조사 완전체 update
 	@Override
 	public int updateSurvey(SqlSessionTemplate sqlSession, Survey s, String mno) {
 		
@@ -54,6 +62,8 @@ public class SurveyDaoImpl implements SurveyDao{
 		return sqlSession.update("Survey.updateSurvey", map);
 	}
 
+	
+	//설문조사 select
 	@Override
 	public List<Survey> surveyList(SqlSessionTemplate sqlSession, int mno) {
 		
@@ -62,6 +72,8 @@ public class SurveyDaoImpl implements SurveyDao{
 		return sqlSession.selectList("Survey.listSurvey", mno);
 	}
 
+	
+	//설문조사 트랜잭션
 	@Override
 	public int updateMember(SqlSessionTemplate sqlSession, String mno) {		
 		
