@@ -72,6 +72,11 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		<collection property="member" resultMap="memberResultSet" />
 
 	</resultMap>
+	
+	<resultMap id="Statistics" type="com.kh.amd.admin.model.vo.Statistics">
+		<result column ="EXERCISE" property="exercise"/>
+		<result column ="COUNT" property="count"/>
+	</resultMap>
 
 	<!-- 결제 내역 조회 -->
 	<select id="paymentList" resultMap="paymentResultSet">
@@ -275,6 +280,24 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	ORDER BY HOPE_AGE
 	</select>
 	
+	<select id="Exercise" resultMap="Statistics">
+		SELECT REGEXP_SUBSTR(KEYWORD, '[^#]+', 1, 1) AS EXERCISE, COUNT(REGEXP_SUBSTR(KEYWORD, '[^#]+', 1, 1)) COUNT
+		FROM PROFILE
+		GROUP BY REGEXP_SUBSTR(KEYWORD, '[^#]+', 1, 1)
+		UNION
+		SELECT REGEXP_SUBSTR(KEYWORD, '[^#]+', 1, 2), COUNT(REGEXP_SUBSTR(KEYWORD, '[^#]+', 1, 2))
+		FROM PROFILE
+		WHERE REGEXP_SUBSTR(KEYWORD, '[^#]+', 1, 2) IS NOT NULL
+		GROUP BY REGEXP_SUBSTR(KEYWORD, '[^#]+', 1, 2)
+	</select>
+	
+	<select id="membershipCount" resultType="_int">
+	SELECT COUNT(MEMBERSHIP_TYPE)
+	FROM PAYMENT P
+	JOIN MEMBERSHIP M USING(MEMBERSHIP_NO)
+	WHERE PROCESS='결제완료'
+	GROUP BY M.MEMBERSHIP_TYPE
+	</select>
 
 
 

@@ -2,6 +2,7 @@ package com.kh.amd.admin.model.service;
 
 import java.util.List;
 
+import com.kh.amd.admin.model.vo.Statistics;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
@@ -70,6 +71,10 @@ public interface AdminService {
 	List<Member> trainerCount();
 
 	List<Member> userAge();
+
+	List<Statistics> Exercise();
+
+	List<Member> membershipCount();
 
 	List<Member> preferenceAge();
 
