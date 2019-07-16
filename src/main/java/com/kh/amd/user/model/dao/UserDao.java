@@ -88,12 +88,26 @@ public interface UserDao {
 	// 15. 매칭 요청 후  mprocess update (전효정)
 	void updateMprocess3(SqlSessionTemplate sqlSession, String mno, String tno);
 	
+	// 16. 입금 확인 요청 후  mprocess update (전효정)
+	void updateMprocess4(SqlSessionTemplate sqlSession, String mno, String tno);
+	
+	// 17. 받은 요청 내역 조회 (전효정)
+	List<Member> selectRequestsReceivedList(SqlSessionTemplate sqlSession, String mno);
+	
+	// 18. 받은 견적서 확인 후 매칭 수락 시 mprocess update (전효정)
+	void updateMprocessSend1(SqlSessionTemplate sqlSession, String mno, String tno);
+	
+	
+	
+	
+	
+	
+	
 	// 16. 리뷰작성하기 폼으로 회원정보 보여주기(김진환)
 	Member trainerReviewForm(SqlSessionTemplate sqlSession, int tno);
 	
 	// 17. 트레이너 리뷰 작성 insert(김진환)
-	int insertTrainerReview(SqlSessionTemplate sqlSession, String title, String starRating, String content, int tno,
-			int uno);
+	int insertTrainerReview(SqlSessionTemplate sqlSession, String title, String starRating, String content, int tno, int uno);
 
 	// 18. 트레이너에게 리뷰작성했는지 체크(김진환)
 	int trainerReviewCheck(SqlSessionTemplate sqlSession, int uno, int tno);
@@ -107,11 +121,6 @@ public interface UserDao {
 	// 21. 트레이너 리뷰 갯수 보여주기(김진환)
 	int reviewCount(SqlSessionTemplate sqlSession, String tno);
 
-	// 16. 입금 확인 요청 후  mprocess update (전효정)
-	void updateMprocess4(SqlSessionTemplate sqlSession, String mno, String tno);
-
-	// 17. 받은 요청 내역 조회 (전효정)
-	List<Member> selectRequestsReceivedList(SqlSessionTemplate sqlSession, String mno);
 
 
 	

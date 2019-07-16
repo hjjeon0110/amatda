@@ -96,11 +96,14 @@ public interface UserService {
 	// 15. 매칭 요청 후  mprocess update (전효정)
 	void updateMprocess3(String mno, String tno);
   
-  // 16. 입금 확인 요청 후  mprocess update (전효정)
+	// 16. 입금 확인 요청 후  mprocess update (전효정)
 	void updateMprocess4(String mno, String tno);
 
 	// 17. 받은 요청 내역 조회 (전효정)
 	List<Member> selectRequestsReceivedList(String mno);
+	
+	// 18. 받은 견적서 확인 후 매칭 수락 시 mprocess update (전효정)
+	void updateMprocessSend1(String mno, String tno);
 
   
   
@@ -122,6 +125,8 @@ public interface UserService {
 	
 	// 리뷰 갯수 리턴(김진환)
 	int reviewCount(String tno);
+
+	
 
 
 	

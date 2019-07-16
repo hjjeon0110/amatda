@@ -300,7 +300,7 @@
 	
 	<!-- 10. 마이트레이너 존재 여부 확인 (전효정) -->
 	<select id="selectOneMyTrainer" resultMap="mprocessResultSet">
-		SELECT * FROM M_PROCESS WHERE UNO = #{mno} AND TNO = #{tno} AND TRANSFER_STATUS = 'RECEIVE'
+		SELECT * FROM M_PROCESS WHERE UNO = #{mno} AND TNO = #{tno} 
 	</select>
 	
 	<!-- 11. 마이트레이너 delete (전효정) -->
@@ -328,7 +328,7 @@
 		UPDATE M_PROCESS SET MATCHING_LEVEL = 3, MATCHING_STATUS = '진행중', PROCESS_DATE = SYSDATE WHERE UNO = #{mno} AND TNO = #{tno}
 	</update>
   
-  <!-- 16. 입금 확인 요청 후  mprocess update (전효정) -->
+ 	 <!-- 16. 입금 확인 요청 후  mprocess update (전효정) -->
 	<update id="updateMprocess4">
 		UPDATE M_PROCESS SET MATCHING_LEVEL = 5, MATCHING_STATUS = '진행중', PROCESS_DATE = SYSDATE WHERE UNO = #{mno} AND TNO = #{tno}
 	</update>
@@ -337,6 +337,11 @@
 	<select id="selectRequestsReceivedList" resultMap="selectRecommendTrainerList">
 		SELECT * FROM MEMBER M JOIN M_PROCESS MP ON(MP.TNO = M.MNO) JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE MP.UNO = #{mno} AND MP.TRANSFER_STATUS = 'SEND'
 	</select>
+	
+	<!-- 18. 받은 견적서 확인 후 매칭 수락 시 mprocess update (전효정) -->
+	<update id="updateMprocessSend1">
+		UPDATE M_PROCESS SET MATCHING_LEVEL = 4, MATCHING_STATUS = '진행중', MATCHING_ACCEPT = 'Y', PROCESS_DATE = SYSDATE WHERE UNO = #{mno} AND TNO = #{tno}
+	</update>
 	
   
   
