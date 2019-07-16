@@ -13,8 +13,8 @@
 .outer {
 	width: 1000px;
 	height: 800px;
-	/* background:#ffe6f3; */
-	background-image: url(${ contextPath }/resources/images/background.jpg);
+	background:#ffe6f3;
+	/* background-image: url(${ contextPath }/resources/images/background.jpg); */
 	background-repeat: no-repeat;
 	background-position: top center;
 	background-size: 100% 800px;
