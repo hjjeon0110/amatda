@@ -27,7 +27,7 @@ a:hover {text-decoration: underline; color: black;}
  }
  
  .csTable{
- height:470px;
+ height:150px;
  
  }
  
@@ -44,8 +44,9 @@ a:hover {text-decoration: underline; color: black;}
  margin-top:5%;
  float:right;
  width: 60%;
- margin-right:10%;
+
  text-align: center;
+ margin-right:5%;
  
 
 /*  background:skyblue; */   
@@ -475,7 +476,7 @@ imgTarget.on('change', function(){
 	
 	});
 	$("#qnaSend").click(function(){
-		alert("질문이 접수되었습니다.\n 답변은 내글관리에서 확인하실수 있습니다.");
+		alert("질문이 접수되었습니다.\n답변은 내글 관리에서 확인하실수 있습니다.\n감사합니다.");
 	});
 
 

@@ -51,8 +51,8 @@ a:active {text-decoration: none; color: #333333;}
 
  margin-top:5%;
  float:right;
- width: 60%;
- margin-right:10%;
+ width: 67%;
+ margin-right:1%;
  text-align: center;
 /*  background:skyblue; */	
  }
@@ -70,7 +70,7 @@ a:active {text-decoration: none; color: #333333;}
 }
  
  .checkboxgroup{
-		margin-left:60%;
+		margin-left:50%;
 	}
 	
 	
@@ -221,7 +221,7 @@ margin-bottom:15px;
 			    </c:forEach> 
 			    </tbody>
   			</table>
-  			<br><br><br>
+  			
   			
   			<div class="checkboxgroup">
 				<select id="searchType">
@@ -322,7 +322,7 @@ margin-bottom:15px;
 			for(var key in data){
 				var date = new Date(data[key].bWriteDate);
 				date = getFormatDate(date);
-				var table = "<tr><td>" + data[key].bNo + "</td><td>" + data[key].bTitle + "</td><td>" + date + "</td><td>" + data[key].bCount + "</td><tr>";
+				var table = "<tr><td>" + data[key].bNo + "</td><td>" + data[key].bsCategory + "</td><td>" + data[key].bTitle + "</td><td>" + date + "</td><td>" + data[key].bCount + "</td><tr>";
 				
 				$("#boardTable > tbody").append(table);
 			}

@@ -34,7 +34,7 @@ a:active {text-decoration: none; color: #333333;}
  }
  
  .csTable{
-height:900px;
+height:300px;
  
  }
  
@@ -52,7 +52,7 @@ height:900px;
  float:right;
  width: 60%;
 
- margin-right:10%;
+ margin-right:5%;
  text-align: center;
 /*  background:skyblue; */   
  }
@@ -114,7 +114,7 @@ input[type=submit]:hover {
   border-radius: 5px;
   background-color: #ffe6f3;
   padding: 20px;
-  height:650px;
+  height:350px;
 
 }
 
@@ -642,7 +642,7 @@ $(function(){
    })
    
    $("#decl_send").click(function(){
-	 alert("신고가 접수되었습니다. 감사합니다.");
+	 alert("신고가 접수되었습니다.\n빠른시일내로 답변드리겠습니다.\n감사합니다.");
 	   
    })
    

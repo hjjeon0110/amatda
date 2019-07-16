@@ -59,7 +59,8 @@ a:active {text-decoration: none; color: #333333;}
  margin-top:5%;
  float:right;
  width: 60%;
- margin-right:10%;
+ margin-right:5%;
+ 
  text-align: center;
 /*  background:skyblue; */   
  }
@@ -228,9 +229,10 @@ a:active {text-decoration: none; color: #333333;}
    width:20%;
    }
    
-   #normalReviewList h5{
-   float:left;
+   #normalReviewList{
+   /* float:left; */
    font-weight: bold;
+   margin-left:75%;
    }
    
     .3reviewTable{
@@ -296,19 +298,16 @@ a:active {text-decoration: none; color: #333333;}
            
            <div class="secondTableLine"></div> -->
            
-      <br>
-            <div class="firstbestReviewLine">
-            
-            </div>
-      
+    
+      <br><br>
       <div id="normalReviewList">
-           <span><h5>전체보기</h5>                       <a href ="insertReviewFormView.bo"><h6>후기리뷰 작성<img id="writeicon"src="${ contextPath }/resources/images/writeicon.png"></h6></a></span>
+           <span> <a href ="insertReviewFormView.bo"><h6>후기리뷰 작성<img id="writeicon"src="${ contextPath }/resources/images/writeicon.png"></h6></a></span>
            
-        </div><br>
+        </div>
         
       <div class="secondTableLine"></div> 
       
-      <br><br>
+      
       <div class= "scrollArea">
       <table class = "3reviewTable"  align="center">
       
@@ -372,17 +371,9 @@ a:active {text-decoration: none; color: #333333;}
             
       </div>
    </div>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
+  
+  
+   
    <jsp:include page="../common/footer.jsp"/> 
    <br>
    <br>

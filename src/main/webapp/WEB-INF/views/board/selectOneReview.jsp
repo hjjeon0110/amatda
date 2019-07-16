@@ -85,6 +85,15 @@
    margin-bottom:15px;
    align:center;
    }
+    .thirdTableLine{
+   background:#ff0066; 
+   width:800px; 
+   height:2px; 
+   /* margin-bottom:15px; */
+   margin-left:2%;
+   align:center;
+   }
+   
    .contentTitle{
    align:center;
    }
@@ -200,10 +209,10 @@ width:800px;
 			<img id="reviewImgFile" src="${contextPath }/resources/uploadFiles/${a.modiName}${a.extension}" width="500" height="500">
 			
 			
-		</tr>
 			<br><br>
-			<div class="reviewPic">
+			<div class="reviewPic" style="width: 700px; height: 200px;">
 		<p>${b.bContent }</p>
+	
 		
 		<%-- <c:choose>
 			<c:when test="${mno != null }">
@@ -220,22 +229,24 @@ width:800px;
 		
 		
 		
-		<br><br>
+		
 			
 		<!--  <button type="button" class="btn btn-primary" data-toggle="modal" 
 		        data-target="#my80sizeCenterModal">수정</button>
 		 <button type="button" class="btn btn-primary" data-toggle="modal" 
 		        data-target="#my80sizeCenterModal">삭제</button> -->
-		 <button type="button" class="btn btn-primary" data-toggle="modal" 
+		 <br><button type="button" class="btn btn-primary" data-toggle="modal" 
 		        data-target="#my80sizeCenterModal" onclick="location.href='selectReview.bo'"> 목록</button>
-		<br><br>
+		        
+		        </tr>
+	
 		
 		
 		<!-- 댓글 INSERT ----------->
 		
-		<div class="secondTableLine"></div>
+		<div class="thirdTableLine"></div> 
 		
-		<h5>REPLY</h5>
+		<br><h5>REPLY</h5>
 		<br>
 		 <form id="conmmentForm" name="commentForm" method="post">
 			<input type="hidden" id="bno" name="bno" value="${b.bNo }">
@@ -299,10 +310,10 @@ width:800px;
 			data:{content:content,bno:bno,mno:mno},
 			success:function(data){
 				if(data=="success"){
-					alert("댓글이 등록되었습니다.");
+					/* alert("댓글이 등록되었습니다."); */
 					location.reload();
 				}else{
-					alert("실패");
+					/* alert("실패"); */
 				}
 			}
 		})
@@ -325,13 +336,13 @@ width:800px;
 			success: function(data){
 				console.log(data)
 				if(data=="success"){
-				alert("성공");
+				/* alert("성공"); */
 				console.log("data: " + data);
 				//$("#likeCount22").text(data);
 				
 				location.reload();
 				}else if(data=="fail"){
-					alert("좋아요를 취소합니다.");
+					/* alert("좋아요를 취소합니다."); */
 					location.reload();
 				}
 			},
