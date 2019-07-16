@@ -109,6 +109,7 @@
 		SELECT *
 		FROM BOARD
 		WHERE BTYPE = 1 OR BTYPE=2
+        ORDER BY BNO DESC
 	</select>
 
 	<!-- 공지사항 상세조회(김선아) -->
