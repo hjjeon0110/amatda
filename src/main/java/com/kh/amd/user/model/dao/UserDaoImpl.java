@@ -16,6 +16,7 @@ import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.vo.Payment;
 import com.kh.amd.trainer.model.vo.Profile;
+import com.kh.amd.trainer.model.vo.TrainerReview;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -278,7 +279,7 @@ public class UserDaoImpl implements UserDao {
 	// 17. 트레이너 리뷰 작성 insert(김진환)
 	@Override
 	public int insertTrainerReview(SqlSessionTemplate sqlSession, String title, String starRating, String content,
-			int tno, int uno) {
+			int tno, int uno, String name) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("uno", uno);
@@ -286,6 +287,7 @@ public class UserDaoImpl implements UserDao {
 		map.put("starRating", starRating);
 		map.put("content", content);
 		map.put("title", title);
+		map.put("name", name);
 		
 		return sqlSession.insert("User.insertTrainerReview", map);
 	}
@@ -300,23 +302,41 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public HashMap<String, Object> trainerReviewShow(SqlSessionTemplate sqlSession, String tno, String mno) {
+	public List<TrainerReview> trainerReviewShow(SqlSessionTemplate sqlSession, String tno, String mno) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", mno);
+		map.put("tno", tno);
 		
 		
+		List<TrainerReview> list = null;
 		
-		return null;
+		list = (List)sqlSession.selectList("User.trainerReviewShow", map);
+		
+		return list;
 	}
 
 	@Override
-	public int reviewRating(SqlSessionTemplate sqlSession, String tno) {
+	public double reviewRating(SqlSessionTemplate sqlSession, String tno) {
 		
-		return 0;
+		double result = 0;
+		if(sqlSession.selectOne("User.reviewRating", tno) != null) {
+			
+			result = sqlSession.selectOne("User.reviewRating", tno);
+		}
+		
+		return result;
 	}
 
 	@Override
 	public int reviewCount(SqlSessionTemplate sqlSession, String tno) {
 		
-		return 0;
+		int result = 0;
+		if(sqlSession.selectOne("User.reviewCount", tno) != null){
+			result = sqlSession.selectOne("User.reviewCount", tno);
+		}
+		
+		return result;
 	}
 
 	

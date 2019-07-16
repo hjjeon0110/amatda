@@ -13,6 +13,7 @@ import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.vo.Profile;
+import com.kh.amd.trainer.model.vo.TrainerReview;
 
 public interface UserDao {
 	
@@ -93,16 +94,16 @@ public interface UserDao {
 	
 	// 17. 트레이너 리뷰 작성 insert(김진환)
 	int insertTrainerReview(SqlSessionTemplate sqlSession, String title, String starRating, String content, int tno,
-			int uno);
+			int uno, String name);
 
 	// 18. 트레이너에게 리뷰작성했는지 체크(김진환)
 	int trainerReviewCheck(SqlSessionTemplate sqlSession, int uno, int tno);
 
 	// 19. 트레이너 리뷰를 유저에게 보여주기(김진환)
-	HashMap<String, Object> trainerReviewShow(SqlSessionTemplate sqlSession, String tno, String mno);
+	List<TrainerReview> trainerReviewShow(SqlSessionTemplate sqlSession, String tno, String mno);
 	
 	// 20. 트레이너 평균 평점 보여주기(김진환)
-	int reviewRating(SqlSessionTemplate sqlSession, String tno);
+	double reviewRating(SqlSessionTemplate sqlSession, String tno);
 	
 	// 21. 트레이너 리뷰 갯수 보여주기(김진환)
 	int reviewCount(SqlSessionTemplate sqlSession, String tno);

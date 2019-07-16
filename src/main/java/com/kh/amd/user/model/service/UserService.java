@@ -11,6 +11,7 @@ import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
 import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.vo.Profile;
+import com.kh.amd.trainer.model.vo.TrainerReview;
 
 public interface UserService {
 	
@@ -100,16 +101,16 @@ public interface UserService {
 	Member trainerReviewForm(int tno);
 	
 	// 17. 트레이너 리뷰 작성 insert(김진환)
-	int insertTrainerReview(String title, String starRating, String content, int tno, int uno);
+	int insertTrainerReview(String title, String starRating, String content, int tno, int uno, String name);
 
 	// 18. 리뷰 기존에 작성했는지 체크 여부(김진환)
 	int trainerReviewCheck(int uno, int tno);
 
 	// 19. 리뷰 리스트를 유저에게 보여주기(김진환)
-	HashMap<String, Object> trainerReviewShow(String tno, String mno);
+	List<TrainerReview> trainerReviewShow(String tno, String mno);
 
 	// 20. 리뷰 평점 평균 리턴(김진환)
-	int reviewRating(String tno);
+	double reviewRating(String tno);
 	
 	// 21. 리뷰 갯수 리턴(김진환)
 	int reviewCount(String tno);

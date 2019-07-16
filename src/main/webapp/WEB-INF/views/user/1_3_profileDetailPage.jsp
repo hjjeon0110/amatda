@@ -52,7 +52,7 @@
 					</tr>
 					<tr>
 						<td><br>
-						<i class="fa fa-star"></i>&nbsp;&nbsp;평점 0&nbsp;&nbsp;l&nbsp;&nbsp;리뷰 0<br><br>
+						<i class="fa fa-star"></i>&nbsp;&nbsp;평점 ${ reviewRating }&nbsp;&nbsp;l&nbsp;&nbsp;리뷰 ${ reviewCount }<br><br>
 						<i class="fa fa-heart"></i>&nbsp;&nbsp;0</td>
 						<td class="traineProfileTableTd1">
 							<br><br><br>
@@ -176,11 +176,26 @@
 		</div>
 		
 		<!-- 리뷰 -->
+		<c:if test="${empty reviewList }">
 		<div class="reviewDiv">
 			<br><br>
 			<label class="subTitle">리뷰</label><br>
 			<label class="contents">작성된 리뷰가 없습니다.</label><br>
-		</div>		
+		</div>
+		</c:if>
+		<c:if test="${ !empty reviewList }">
+				<c:forEach var="review" items="${ reviewList }" varStatus="status">
+				<div class="reviewDiv">
+					<br><br>
+					<label class="subTitle">리뷰</label><br>
+					<p>작성자 : ${ review.name }</p><br>
+					<label class="title"><input type="text" value="${ review.title }"/></label>
+					<label class="contents"><textarea cols="30" rows="10">${ review.content }</textarea></label><br>
+					<p>날짜 : ${ review.writeDate }</p>
+				</div>
+			</c:forEach>
+			
+		</c:if>
 	
 	
 	<!-- footer ----------------------------------------------------------------------------------------------------- -->
