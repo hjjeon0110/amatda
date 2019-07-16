@@ -27,18 +27,17 @@ border:1px solid black;
 } */
  .selectOneTable{
 
-	 margin-top:2%;
-	 float:right;
-	 width: 60%;
-	align: center;
-	 margin-right:10%;
-	 text-align: center;
-	/*  background:skyblue; */	
+	  margin-top:2%;
+    /* float:right; */
+    width: 60%;
+   align:center;
+    margin-left:15%;
+    text-align: center;
 	 }
  
 	 .contentTable{
 	 	width:750px;
-	 	margin-left: 100px;
+	 	/* margin-left: 100px; */
 	 	
 	 }
 	 	.btn{

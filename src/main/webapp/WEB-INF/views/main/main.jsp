@@ -249,45 +249,47 @@
 					<c:forEach var = "list" items="${list }" varStatus="status">
 					<div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
 					<label class="level"></label>
-					<div class="block-2">
-					
-						<div class="flipper">
-						
-							<div class="front">
-							
-								<div class="like">
-									<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum" id="likeNum3">${list.bLike }</label><br>
-								    <img src="${contextPath}/resources/uploadFiles/${list.attachment.modiName}${list.attachment.extension}"  style="width: 250px; height: 300px; margin-left:1%;">
-								</div>
-								<div class="box">
-								<%-- <c:if test=${not empty list.bWriter }>
-									<div onclick="location.href='selectWriterName.me?writer=${list.bWriter }'"></div> --%>
-									<h2 id="frontName3">${list.member.userId }</h2>
-								<%-- </c:if>	 --%>
-								</div>
-							
-							</div>
-							<div class="back" id="back">
-								<!-- back content -->
-								<!-- <blockquote> -->
-								 <p id="backTitle">${list.bTitle }</p><br>
-								 <p id="backCon3" style="margin-top:60px">${list.bContent}</p> 
-								 
-								<!-- </blockquote> -->
-								<div class="author d-flex">
-									<div class="image mr-3 align-self-center">
-										<!-- <img src="images/person_3.jpg" id="backPic"alt=""> -->
-										<%-- <img src="$contextPath}/resources/uploadFile/${at.modiName}${at.extension} "> --%>
-									</div>
-									<div class="name align-self-center">
-								<label id="backName3">${list.member.userId}</label><span class="position"></span> 
-									</div>
-								</div>
+					<table class="bestClick">
+						<div class="block-2">
+								<div class="flipper">
 								
-							</div>
-							
+									<div class="front">
+									
+										<div class="like">
+											<input type="hidden" value="${list.bNo }">
+											<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum" id="likeNum3">${list.bLike }</label><br>
+										    <img src="${contextPath}/resources/uploadFiles/${list.attachment.modiName}${list.attachment.extension}"  style="width: 250px; height: 300px; margin-left:1%;">
+										</div>
+										<div class="box">
+										<%-- <c:if test=${not empty list.bWriter }>
+											<div onclick="location.href='selectWriterName.me?writer=${list.bWriter }'"></div> --%>
+											<h2 id="frontName3">${list.member.userId }</h2>
+										<%-- </c:if>	 --%>
+										</div>
+									
+									</div>
+									<div class="back" id="back">
+										<!-- back content -->
+										<!-- <blockquote> -->
+										 <p id="backTitle">${list.bTitle }</p><br>
+										 <p id="backCon3" style="margin-top:60px">${list.bContent}</p> 
+										 
+										<!-- </blockquote> -->
+										<div class="author d-flex">
+											<div class="image mr-3 align-self-center">
+												<!-- <img src="images/person_3.jpg" id="backPic"alt=""> -->
+												<%-- <img src="$contextPath}/resources/uploadFile/${at.modiName}${at.extension} "> --%>
+											</div>
+											<div class="name align-self-center">
+										<label id="backName3">${list.member.userId}</label><span class="position"></span> 
+											</div>
+										</div>
+										
+									</div>
+									
+								</div>
 						</div>
-					</div>
+					</table>
 					<!-- .flip-container -->
 				</div>
 				</c:forEach>	
@@ -357,6 +359,15 @@
 		}
 	})
 	
+
+	
+	$(".block-2").on('click',function(){
+		var no=$(this).children().children().children().children().eq(0).val();
+		console.log("no: " + no);
+		location.href="selectOneReview.bo?bNo=" + no;
+		
+		
+	});
 	
 		/* $.ajax({
 			url:"bestReviewSelect.bo",

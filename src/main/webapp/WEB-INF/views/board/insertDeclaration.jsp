@@ -51,6 +51,7 @@ height:900px;
  margin-top:5%;
  float:right;
  width: 60%;
+
  margin-right:10%;
  text-align: center;
 /*  background:skyblue; */   
