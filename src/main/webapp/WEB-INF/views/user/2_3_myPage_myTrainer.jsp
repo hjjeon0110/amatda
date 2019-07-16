@@ -79,6 +79,7 @@
 								<input type="hidden" value="${ myTrainerList[i].mno }">
 								<input type="hidden" value="${ myTrainerList[i].name }">
 								<button class="matchingStartBtn">프로필 보기</button>
+								<button name="writeReview" class="writeReview">매칭 종료</button>
 							</td>
 						</tr>
 					</table>
@@ -122,6 +123,7 @@
 								<input type="hidden" value="${ myTrainerList[i].mno }">
 								<input type="hidden" value="${ myTrainerList[i].name }">
 								<button class="matchingStartBtn">프로필 보기</button>
+								<button name="writeReview" class="writeReview">매칭 종료</button>
 							</td>
 						</tr>
 					</table>
@@ -161,6 +163,7 @@
 							<td><button class="goProfileDetail">매칭 종료</button></td>
 							</c:if>
 							
+							
 						</tr>
 						<tr>
 							<td><label class="simpleProfile">${ myTrainerList[i].profile.lineProfile}</label></td>
@@ -168,6 +171,7 @@
 								<input type="hidden" value="${ myTrainerList[i].mno }">
 								<input type="hidden" value="${ myTrainerList[i].name }">
 								<button class="matchingStartBtn">프로필 보기</button>
+								<button name="writeReview" class="writeReview">매칭 종료</button>
 							</td>
 						</tr>
 					</table>
@@ -218,6 +222,20 @@
 			location.href='goMatchingProcess.us?mno=' + mno + "&tno=" + tno + '&tname=' + tname;
 			
 		});
+		
+		//리뷰 작성하기
+		$("button[name=writeReview]").click(function(){
+			var uno = ${sessionScope.loginUser.mno}
+			var tno = $(this).parent().children().eq(0).val();
+			var name = $(this).parent().children().eq(1).val();
+			console.log("uno : " + uno + "  tno " + tno + "   name : " + name);
+			
+			
+			location.href="trainerReviewForm.us?uno="+ uno + "&tno=" + tno + "&name=" + name;
+			
+		})
+			
+		
 		
 	</script>
 	

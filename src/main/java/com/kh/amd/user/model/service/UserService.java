@@ -1,5 +1,6 @@
 package com.kh.amd.user.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.kh.amd.attachment.model.vo.Attachment;
@@ -94,6 +95,25 @@ public interface UserService {
 
 	// 15. 매칭 요청 후  mprocess update (전효정)
 	void updateMprocess3(String mno, String tno);
+
+	// 16. 리뷰작성하기 폼으로 회원정보 보여주기(김진환)
+	Member trainerReviewForm(int tno);
+	
+	// 17. 트레이너 리뷰 작성 insert(김진환)
+	int insertTrainerReview(String title, String starRating, String content, int tno, int uno);
+
+	// 18. 리뷰 기존에 작성했는지 체크 여부(김진환)
+	int trainerReviewCheck(int uno, int tno);
+
+	// 19. 리뷰 리스트를 유저에게 보여주기(김진환)
+	HashMap<String, Object> trainerReviewShow(String tno, String mno);
+
+	// 20. 리뷰 평점 평균 리턴(김진환)
+	int reviewRating(String tno);
+	
+	// 21. 리뷰 갯수 리턴(김진환)
+	int reviewCount(String tno);
+
 
 	
 

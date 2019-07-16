@@ -266,6 +266,58 @@ public class UserDaoImpl implements UserDao {
 		
 		sqlSession.update("User.updateMprocess3", map);
 	}
+	
+	// 16. 리뷰작성하기 폼으로 회원정보 보여주기(김진환)
+	@Override
+	public Member trainerReviewForm(SqlSessionTemplate sqlSession, int tno) {
+		
+		
+		return sqlSession.selectOne("User.trainerReviewForm", tno);
+	}
+	
+	// 17. 트레이너 리뷰 작성 insert(김진환)
+	@Override
+	public int insertTrainerReview(SqlSessionTemplate sqlSession, String title, String starRating, String content,
+			int tno, int uno) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", uno);
+		map.put("tno", tno);
+		map.put("starRating", starRating);
+		map.put("content", content);
+		map.put("title", title);
+		
+		return sqlSession.insert("User.insertTrainerReview", map);
+	}
+
+	@Override
+	public int trainerReviewCheck(SqlSessionTemplate sqlSession, int uno, int tno) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", uno);
+		map.put("tno", tno);
+		
+		return sqlSession.selectOne("User.trainerReviewCheck", map);
+	}
+
+	@Override
+	public HashMap<String, Object> trainerReviewShow(SqlSessionTemplate sqlSession, String tno, String mno) {
+		
+		
+		
+		return null;
+	}
+
+	@Override
+	public int reviewRating(SqlSessionTemplate sqlSession, String tno) {
+		
+		return 0;
+	}
+
+	@Override
+	public int reviewCount(SqlSessionTemplate sqlSession, String tno) {
+		
+		return 0;
+	}
 
 	
 

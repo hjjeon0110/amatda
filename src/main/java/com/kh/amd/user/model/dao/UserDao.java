@@ -1,5 +1,6 @@
 package com.kh.amd.user.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -86,6 +87,25 @@ public interface UserDao {
 
 	// 15. 매칭 요청 후  mprocess update (전효정)
 	void updateMprocess3(SqlSessionTemplate sqlSession, String mno, String tno);
+	
+	// 16. 리뷰작성하기 폼으로 회원정보 보여주기(김진환)
+	Member trainerReviewForm(SqlSessionTemplate sqlSession, int tno);
+	
+	// 17. 트레이너 리뷰 작성 insert(김진환)
+	int insertTrainerReview(SqlSessionTemplate sqlSession, String title, String starRating, String content, int tno,
+			int uno);
+
+	// 18. 트레이너에게 리뷰작성했는지 체크(김진환)
+	int trainerReviewCheck(SqlSessionTemplate sqlSession, int uno, int tno);
+
+	// 19. 트레이너 리뷰를 유저에게 보여주기(김진환)
+	HashMap<String, Object> trainerReviewShow(SqlSessionTemplate sqlSession, String tno, String mno);
+	
+	// 20. 트레이너 평균 평점 보여주기(김진환)
+	int reviewRating(SqlSessionTemplate sqlSession, String tno);
+	
+	// 21. 트레이너 리뷰 갯수 보여주기(김진환)
+	int reviewCount(SqlSessionTemplate sqlSession, String tno);
 
 
 	

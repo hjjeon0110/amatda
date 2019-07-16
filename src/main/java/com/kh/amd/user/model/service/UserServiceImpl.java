@@ -1,5 +1,6 @@
 package com.kh.amd.user.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -189,6 +190,48 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void updateMprocess3(String mno, String tno) {
 		ud.updateMprocess3(sqlSession, mno, tno);
+	}
+	
+	// 16. 리뷰작성하기 폼으로 회원정보 보여주기(김진환)
+	@Override
+	public Member trainerReviewForm(int tno) {
+		
+		return ud.trainerReviewForm(sqlSession, tno);
+	}
+	
+	// 17. 트레이너 리뷰 작성 insert(김진환)
+	@Override
+	public int insertTrainerReview(String title, String starRating, String content, int tno, int uno) {
+	
+		return ud.insertTrainerReview(sqlSession, title, starRating, content, tno, uno);
+	}
+
+	// 18. 트레이너에게 리뷰를 작성했었는지 체크(김진환)
+	@Override
+	public int trainerReviewCheck(int uno, int tno) {
+		
+		return ud.trainerReviewCheck(sqlSession, uno, tno);
+	}
+
+	// 19. 트레이너 리뷰 유저에게 보여주기(김진환)
+	@Override
+	public HashMap<String, Object> trainerReviewShow(String tno, String mno) {
+		
+		return ud.trainerReviewShow(sqlSession, tno, mno);
+	}
+	
+	// 20. 리뷰 평점 평균 보여주기(김진환)
+	@Override
+	public int reviewRating(String tno) {
+		
+		return ud.reviewRating(sqlSession, tno);
+	}
+	
+	// 21. 리뷰 갯수 리턴해주기(김진환)
+	@Override
+	public int reviewCount(String tno) {
+	
+		return ud.reviewCount(sqlSession, tno);
 	}
 
 
