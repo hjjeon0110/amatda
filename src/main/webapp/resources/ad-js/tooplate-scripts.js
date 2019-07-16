@@ -1,8 +1,6 @@
 const width_threshold = 480;
 
-function drawLineChart() {
-	
-	
+function drawLineChart(data) {
 	
   if ($("#lineChart").length) {
     ctxLine = document.getElementById("lineChart").getContext("2d");
@@ -11,8 +9,14 @@ function drawLineChart() {
         yAxes: [
           {
             scaleLabel: {
-              display: true
-             /* labelString: "Hits"*/
+              display: true,
+            /* labelString: "Hits",*/
+            	 ticks:{
+            		 max:100,
+            		 min:0,
+            		 stepSize:5
+            	 }
+            	 
             }
           }
         ]
@@ -30,28 +34,13 @@ function drawLineChart() {
         datasets: [
           {
             label: "회원",
-            data: [88, 68, 79, 57, 50],
+            data: data,
             fill: false,
             borderColor: "rgb(75, 192, 192)",
-            cubicInterpolationMode: "monotone",
-            pointRadius: 0
-          },
-          {
-            label: "트레이너",
-            data: [33, 45, 37, 21, 55],
-            fill: false,
-            borderColor: "rgba(255,99,132,1)",
-            cubicInterpolationMode: "monotone",
+           /* cubicInterpolationMode: "monotone",*/
             pointRadius: 0
           }
-        /*  {
-            label: "Featured",
-            data: [44, 19, 38, 46, 85, 66, 79],
-            fill: false,
-            borderColor: "rgba(153, 102, 255, 1)",
-            cubicInterpolationMode: "monotone",
-            pointRadius: 0
-          }*/
+         
         ]
       },
       options: optionsLine
@@ -60,6 +49,65 @@ function drawLineChart() {
     lineChart = new Chart(ctxLine, configLine);
   }
 }
+ 
+function drawLineChart2(data) {
+	
+	  if ($("#lineChart2").length) {
+	    ctxLine = document.getElementById("lineChart2").getContext("2d");
+	    optionsLine = {
+	      scales: {
+	        yAxes: [
+	          {
+	            scaleLabel: {
+	              display: true,
+	            /* labelString: "Hits",*/
+	            	 ticks:{
+	            		 max:100,
+	            		 min:0,
+	            		 stepSize:5
+	            	 }
+	            	 
+	            }
+	          }
+	        ]
+	      }
+	    };
+
+	    // Set aspect ratio based on window width
+	    optionsLine.maintainAspectRatio =
+	      $(window).width() < width_threshold ? false : true;
+
+	    configLine = {
+	      type: "line", //차트타입
+	      data: {
+	          labels: ['20대', '30대', '40대', '50대', '상관없음'],
+	         datasets: [
+	      
+	        /*   {
+	             label: "트레이너",
+	             data: [33, 45, 37, 21, 55],
+	             fill: false,
+	             borderColor: "rgba(255,99,132,1)",
+	             cubicInterpolationMode: "monotone",
+	             pointRadius: 0
+	           },*/
+	      {
+	             label: "트레이너",
+	             data: data,
+	             fill: false,
+	             borderColor: "rgba(153, 102, 255, 1)",
+	             cubicInterpolationMode: "monotone",
+	             pointRadius: 0
+	           }
+	         ]
+	       },
+	      options: optionsLine
+	    };
+
+	    lineChart2 = new Chart(ctxLine, configLine);
+	  }
+	}
+
 
 
 
@@ -175,7 +223,10 @@ function drawPieChart(data) {
 
     pieChart = new Chart(ctxPie, configPie);
   }
-  
+}
+
+function drawPieChart2(data) {
+	
   if ($("#pieChart2").length) {
 	    var chartHeight = 300;
 	    
@@ -203,7 +254,7 @@ function drawPieChart(data) {
 	      data: {
 	        datasets: [
 	          {
-	            data: [15, 78],
+	            data: data,
 	            backgroundColor: ["#F7604D", "#4ED6B8"],
 	            label: "Storage"
 	          }
@@ -219,8 +270,9 @@ function drawPieChart(data) {
 
 	    pieChart2 = new Chart(ctxPie, configPie);
 	  }
+}
   
-  if ($("#pieChart3").length) {
+ /* if ($("#pieChart3").length) {
 	    var chartHeight = 300;
 	    
 	    $("#pieChartContainer").css("height", chartHeight + "px");
@@ -263,7 +315,7 @@ function drawPieChart(data) {
 
 	    pieChart3 = new Chart(ctxPie, configPie);
 	  }
-}
+}*/
 
 
 
@@ -280,3 +332,4 @@ function updateBarChart() {
     barChart.update();
   }
 }
+

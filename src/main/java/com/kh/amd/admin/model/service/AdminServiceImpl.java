@@ -10,6 +10,7 @@ import com.kh.amd.admin.model.dao.AdminDao;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
+import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.vo.Payment;
 
 @Service
@@ -112,12 +113,6 @@ public class AdminServiceImpl implements AdminService{
 		return ad.declListCount(sqlSession);
 	}
 
-	//통계
-	@Override
-	public List<Member> memberAge() {
-		return ad.memberAge(sqlSession);
-	}
-
 	//매칭 조회
 	@Override
 	public List<Mprocess> matchingList() {
@@ -135,6 +130,27 @@ public class AdminServiceImpl implements AdminService{
 	public int matchingEnd(int No) {
 		System.out.println("service : " + No);
 		return ad.matchingEnd(sqlSession, No);
+	}
+
+	//통계
+	@Override
+	public List<Member> userCount() {
+		return ad.userCount(sqlSession);
+	}
+
+	@Override
+	public List<Member> trainerCount() {
+		return ad.trainerCount(sqlSession);
+	}
+
+	@Override
+	public List<Member> userAge() {
+		return ad.userAge(sqlSession);
+	}
+
+	@Override
+	public List<Member> preferenceAge() {
+		return ad.preferenceAge(sqlSession);
 	}
 
 
