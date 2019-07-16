@@ -247,6 +247,7 @@ public class UserController {
 		return "user/2_4_myPage_requestsReceived";
 	}
 	
+	
 	// 마이페이지_내글관리 페이지 이동 & qna리스트 select (우리나)
 	@RequestMapping("showMyPageMyWriting.us")
 	public String showMyPageMyWritingPageView(Model model,String mno,String currentPage) {
@@ -473,6 +474,9 @@ public class UserController {
 		model.addAttribute("tno", tno);
 		model.addAttribute("tname", tname);
 		
+		System.out.println("매칭 프로세스 넘어온 mno : " + mno);
+		System.out.println("매칭 프로세스 넘어온 tno : " + tno);
+		
 		// 4. 프로필 이미지 존재 여부 확인 메소드 (전효정)
 		Attachment profileImgAttachment = us.checkProfileImg(tno);
 		
@@ -556,6 +560,31 @@ public class UserController {
 		
 		return "redirect:goMatchingProcess.us?mno=" + mno +"&tno=" + tno + "&tname=" + tname;
 	}
+	
+	
+	// 받은 견적서 확인 후 매칭 수락 시 mprocess update (전효정)
+	@RequestMapping("updateMprocessSend1.us")
+	public String updateMprocessSend1(Model model, HttpServletRequest request) {
+		
+		String mno = request.getParameter("mno");
+		String tno = request.getParameter("tno");
+		String tname = request.getParameter("tname").toString();
+		
+		System.out.println("매칭 수락 후 컨트롤러  mno : " + mno);
+		System.out.println("매칭 수락 후 컨트롤러  tno : " + tno);
+		
+		// 18. 받은 견적서 확인 후 매칭 수락 시 mprocess update (전효정)
+		us.updateMprocessSend1(mno, tno);
+		
+		return "redirect:goMatchingProcess.us?mno=" + mno +"&tno=" + tno + "&tname=" + tname;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	// 트레이너 리뷰 작성 폼
 	@RequestMapping("trainerReviewForm.us")
