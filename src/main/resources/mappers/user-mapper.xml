@@ -327,8 +327,8 @@
 	<update id="updateMprocess3">
 		UPDATE M_PROCESS SET MATCHING_LEVEL = 3, MATCHING_STATUS = '진행중', PROCESS_DATE = SYSDATE WHERE UNO = #{mno} AND TNO = #{tno}
 	</update>
-	
-	<!-- 16. 입금 확인 요청 후  mprocess update (전효정) -->
+  
+  <!-- 16. 입금 확인 요청 후  mprocess update (전효정) -->
 	<update id="updateMprocess4">
 		UPDATE M_PROCESS SET MATCHING_LEVEL = 5, MATCHING_STATUS = '진행중', PROCESS_DATE = SYSDATE WHERE UNO = #{mno} AND TNO = #{tno}
 	</update>
@@ -338,6 +338,33 @@
 		SELECT * FROM MEMBER M JOIN M_PROCESS MP ON(MP.TNO = M.MNO) JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE MP.UNO = #{mno} AND MP.TRANSFER_STATUS = 'SEND'
 	</select>
 	
+  
+  
+  
+  
+  
+  
+  
+  
+	<!-- 리뷰작성하기 폼으로 회원정보 보여주기(김진환) -->
+	<select id="trainerReviewForm" resultMap="selectRecommendTrainerList">
+		SELECT * FROM MEMBER M JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE MNO = #{tno}
+	</select>
+	
+	<!-- 리뷰 작성 insert(김진환) -->
+	<insert id="insertTrainerReview" parameterType="java.util.Map">
+		INSERT INTO TRAINER_REVIEW
+		VALUES(TR_SEQ.NEXTVAL, SYSDATE, NULL, #{title}, #{uno}, #{content}, NULL, #{starRating}, #{tno}, 0)
+	
+	</insert>
+		
+	<!-- 트레이너에게 리뷰 작성했는지 체크(김진환) -->	
+	<select id="trainerReviewCheck" parameterType="java.util.Map" resultType="_int">
+		SELECT COUNT(*)
+		FROM TRAINER_REVIEW
+		WHERE TNO = #{tno} 
+		AND REVIEW_WRITER = #{uno}		
+	</select>
 	
 
 

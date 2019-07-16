@@ -2,6 +2,7 @@ package com.kh.amd.user.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -123,6 +124,21 @@ public class UserController {
 		// 10. 마이트레이너 존재 여부 확인 메소드 (전효정)
 		Mprocess selectOneMyTrainer = us.selectOneMyTrainer(mno, tno);
 		model.addAttribute("selectOneMyTrainer", selectOneMyTrainer);
+		
+		// 작성된 리뷰 리턴하기
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map = us.trainerReviewShow(tno, mno);
+		model.addAttribute("reviewList", map);
+		
+		
+		// 리뷰 갯수 리턴
+		int reviewCount = us.reviewCount(tno);
+		model.addAttribute("reviewCount", reviewCount);
+		
+		// 리뷰 평점 리턴 
+		int reviewRating = us.reviewRating(tno);
+		model.addAttribute("reviewRating", reviewRating);
+		
 		
 		return "user/1_3_profileDetailPage";
 	}
@@ -540,6 +556,65 @@ public class UserController {
 		
 		return "redirect:goMatchingProcess.us?mno=" + mno +"&tno=" + tno + "&tname=" + tname;
 	}
+	
+	// 트레이너 리뷰 작성 폼
+	@RequestMapping("trainerReviewForm.us")
+	public String trainerReviewForm(Model model, int uno, int tno, String name) {
+		
+		Member member = us.trainerReviewForm(tno);
+		
+		System.out.println("받은 tno : " + tno);
+		System.out.println("받   " + member);
+		
+		model.addAttribute("matchingTrainer", member);
+		model.addAttribute("mno", uno);
+		model.addAttribute("tname", name);
+		model.addAttribute("tno", tno);
+		
+		
+		return "user/4_trainerReviewForm";
+	}
+	
+	@RequestMapping("trainerReviewWrite.us")
+	public void trainerReviewWrite(HttpServletResponse response, String title, String starRating, String content, int tno, int uno) {
+		
+		System.out.println("title : " + title);
+		System.out.println("starRating : " + starRating);
+		System.out.println("content : " + content);
+		System.out.println("uno : " + uno);
+		System.out.println("tno : " + tno);
+		
+		int result = us.insertTrainerReview(title, starRating, content, tno, uno);
+		
+		if(result > 0) {
+			
+			try {
+				response.getWriter().print("SUCCESS");
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+	@RequestMapping("trainerReviewCheck.us")
+	public void trainerReviewCheck(HttpServletResponse response, int tno, int uno) {
+		
+		int result = us.trainerReviewCheck(uno, tno);
+		
+		if(result > 0) {
+			
+			try {
+				response.getWriter().print("exist");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
+	
 	
 	
 	// 입금 확인 요청 후  mprocess update (전효정)
