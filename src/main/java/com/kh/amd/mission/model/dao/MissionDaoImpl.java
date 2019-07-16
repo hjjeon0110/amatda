@@ -1,11 +1,11 @@
 package com.kh.amd.mission.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.mission.model.vo.Mission;
 
 
@@ -254,9 +254,12 @@ public class MissionDaoImpl implements MissionDao{
 	}
 
 	@Override
-	public int selectTnoTno(SqlSessionTemplate sqlSession, int tno2) {
+	public int selectTnoTno(SqlSessionTemplate sqlSession, int tno2, String userName) {
 		System.out.println("DAO에서 TNO: "  + tno2);
-		int tno = sqlSession.selectOne("Mission.selectTnoTno", tno2);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+	      map.put("tno2", tno2);
+	      map.put("userName", userName);
+		int tno = sqlSession.selectOne("Mission.selectTnoTno", map);
 		int result;
 		
 		if(tno != 0) {
