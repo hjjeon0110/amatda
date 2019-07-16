@@ -54,40 +54,40 @@
 						<div class="blog_item">
 							<div class="blog_image">
 								<img class="img-fluid"
-									src="${contextPath}/resources/images/trainer.jpg"
+									src="${contextPath}/resources/uploadFiles/${n1.attachment.modiName}${n1.attachment.extension}"
 									alt="images not found"> <span><i
 									class="icon ion-md-create"></i></span>
 							</div>
 							<div class="blog_details">
-								<label class="tName">트레이너1&nbsp;&nbsp;</label><button class="newBtn">신입</button><br>
-								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br><br>
-								<button class="goProfile">프로필 상세보기 ></button><br>
+								<label class="tName">${ n1.name } 트레이너님&nbsp;&nbsp;</label><button class="newBtn">신입</button><br>
+								<label class="simpleProfile">${ n1.profile.lineProfile }</label><br><br>
+								<button class="goProfile" onclick="location.href='showProfileDetailPageView.us?mno=' ${sessionScope.loginUser.mno } + '&tno=' + ${n1.mno}">프로필 상세보기 ></button><br>
 							</div>
 						</div>
 						<div class="blog_item">
 							<div class="blog_image">
 								<img class="img-fluid"
-									src="${contextPath}/resources/images/trainer.jpg"
+									src="${contextPath}/resources/uploadFiles/${n2.attachment.modiName}${n2.attachment.extension}"
 									alt="images not found"> <span><i
 									class="icon ion-md-create"></i></span>
 							</div>
 							<div class="blog_details">
-								<label class="tName">트레이너2&nbsp;&nbsp;</label><button class="newBtn">신입</button><br>
-								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br><br>
-								<button class="goProfile">프로필 상세보기 ></button><br>
+								<label class="tName">${ n2.name } 트레이너님&nbsp;&nbsp;</label><button class="newBtn">신입</button><br>
+								<label class="simpleProfile">${ n2.profile.lineProfile }</label><br><br>
+								<button class="goProfile" onclick="location.href='showProfileDetailPageView.us?mno=' ${sessionScope.loginUser.mno } + '&tno=' + ${n2.mno}">프로필 상세보기 ></button><br>
 							</div>
 						</div>
 						<div class="blog_item">
 							<div class="blog_image">
 								<img class="img-fluid"
-									src="${contextPath}/resources/images/trainer.jpg"
+									src="${contextPath}/resources/uploadFiles/${n3.attachment.modiName}${n3.attachment.extension}"
 									alt="images not found"> <span><i
 									class="icon ion-md-create"></i></span>
 							</div>
 							<div class="blog_details">
-								<label class="tName">트레이너3&nbsp;&nbsp;</label><button class="newBtn">신입</button><br>
-								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br><br>
-								<button class="goProfile">프로필 상세보기 ></button><br>
+								<label class="tName">${ n3.name } 트레이너님&nbsp;&nbsp;</label><button class="newBtn">신입</button><br>
+								<label class="simpleProfile">${ n3.profile.lineProfile }</label><br><br>
+								<button class="goProfile" onclick="location.href='showProfileDetailPageView.us?mno=' ${sessionScope.loginUser.mno } + '&tno=' + ${n3.mno}">프로필 상세보기 ></button><br>
 							</div>
 						</div>
 					</div>
@@ -119,40 +119,40 @@
 						<div class="blog_item">
 							<div class="blog_image">
 								<img class="img-fluid"
-									src="${contextPath}/resources/images/trainer.jpg"
+									src="${contextPath}/resources/uploadFiles/${m1.attachment.modiName}${m1.attachment.extension}"
 									alt="images not found"> <span><i
-									class="icon ion-md-create"></i></span>
+									class="icon ion-md-create">1위</i></span>
 							</div>
 							<div class="blog_details">
-								<label class="tName">트레이너1&nbsp;&nbsp;</label><button class="newBtn">인기</button><br>
-								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br><br>
-								<button class="goProfile">프로필 상세보기 ></button><br>
+								<label class="tName">${ m1.name } 트레이너님&nbsp;&nbsp;</label><button class="newBtn">인기</button><br>
+								<label class="simpleProfile">${ m1.profile.lineProfile }</label><br><br>
+								<button class="goProfile" onclick="location.href='showProfileDetailPageView.us?mno=' ${sessionScope.loginUser.mno } + '&tno=' + ${m1.mno}">프로필 상세보기 ></button><br>
 							</div>
 						</div>
 						<div class="blog_item">
 							<div class="blog_image">
 								<img class="img-fluid"
-									src="${contextPath}/resources/images/trainer.jpg"
+									src="${contextPath}/resources/uploadFiles/${m2.attachment.modiName}${m2.attachment.extension}"
 									alt="images not found"> <span><i
-									class="icon ion-md-create"></i></span>
+									class="icon ion-md-create">2위</i></span>
 							</div>
 							<div class="blog_details">
-								<label class="tName">트레이너2&nbsp;&nbsp;</label><button class="newBtn">인기</button><br>
-								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br><br>
-								<button class="goProfile">프로필 상세보기 ></button><br>
+								<label class="tName">${ m2.name }&nbsp;&nbsp;</label><button class="newBtn">인기</button><br>
+								<label class="simpleProfile">${ m2.profile.lineProfile }</label><br><br>
+								<button class="goProfile" onclick="location.href='showProfileDetailPageView.us?mno='  + ${sessionScope.loginUser.mno } + '&tno=' + ${m2.mno}">프로필 상세보기 ></button><br>
 							</div>
 						</div>
 						<div class="blog_item">
 							<div class="blog_image">
 								<img class="img-fluid"
-									src="${contextPath}/resources/images/trainer.jpg"
+									src="${contextPath}/resources/uploadFiles/${m3.attachment.modiName}${m3.attachment.extension}"
 									alt="images not found"> <span><i
-									class="icon ion-md-create"></i></span>
+									class="icon ion-md-create">3위</i></span>
 							</div>
 							<div class="blog_details">
-								<label class="tName">트레이너3&nbsp;&nbsp;</label><button class="newBtn">인기</button><br>
-								<label class="simpleProfile">한 줄 프로필 공간입니다.</label><br><br>
-								<button class="goProfile">프로필 상세보기 ></button><br>
+								<label class="tName">${ m3.name }&nbsp;&nbsp;</label><button class="newBtn">인기</button><br>
+								<label class="simpleProfile">${ m3.profile.lineProfile }</label><br><br>
+								<button class="goProfile" onclick="location.href='showProfileDetailPageView.us?mno=' ${sessionScope.loginUser.mno } + '&tno=' + ${m3.mno}">프로필 상세보기 ></button><br>
 							</div>
 						</div>
 					</div>
@@ -305,7 +305,7 @@
 		<div class="container">
 			<div class="row site-hero-inner justify-content-center align-items-center">
 				<div class="col-md-10 text-center" data-aos="fade-up">
-					<h1 class="heading">Stay With Us &amp; Relax</h1>
+					<h1 class="heading">JUST DO!! AMATDA!</h1>
 				</div>
 			</div>
 		</div>

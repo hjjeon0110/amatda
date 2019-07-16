@@ -3,6 +3,8 @@ package com.kh.amd.member.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -287,27 +289,48 @@ public class MemberController {
 		return "common/selectJoinType";
 	}
 	
-	// 메인 페이지 이동
+	// 메인 페이지 이동 추천 신입, 추천 회원 리스트 추가(김진환)
 	@RequestMapping("showMain.me")
 	public String showMain(HttpServletResponse response,Model model) {
 		 System.out.println("bestReviewSelect in Con 확인 ");
 		 
 		 List<Board> list = bs.bestReviewSelect();
 		 
-		 System.out.println("Member에서 list조회: " + list);
+		 List<Member> bestTrList = ms.bestTrainer();
 		 
-		 response.setContentType("application/json");
-		 response.setCharacterEncoding("UTF-8");
+		 List<Member> newTrList = ms.newComerTrainerList();
 		 
-		 try {
-			new Gson().toJson(list,response.getWriter());
-		} catch (JsonIOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		 //System.out.println(bestTrList);
+		 
+		/*
+		 * System.out.println("Member에서 list조회: " + list);
+		 * 
+		 * response.setContentType("application/json");
+		 * response.setCharacterEncoding("UTF-8");
+		 * 
+		 * try { new Gson().toJson(list,response.getWriter()); } catch (JsonIOException
+		 * e) { // TODO Auto-generated catch block e.printStackTrace(); } catch
+		 * (IOException e) { // TODO Auto-generated catch block e.printStackTrace(); }
+		 * 
+		 * 
+		 */
+		 Member m1 = bestTrList.get(0);
+		 Member m2 = bestTrList.get(1);
+		 Member m3 = bestTrList.get(2);
+		 
+		 model.addAttribute("m1", m1);
+		 model.addAttribute("m2", m2);
+		 model.addAttribute("m3", m3);
+		 
+		 Member n1 = newTrList.get(0);
+		 Member n2 = newTrList.get(1);
+		 Member n3 = newTrList.get(2);
+		 
+		 model.addAttribute("n1", n1);
+		 model.addAttribute("n2", n2);
+		 model.addAttribute("n3", n3);
+
+		 
 		 
 		 model.addAttribute("list",list);
 		return "main/main";

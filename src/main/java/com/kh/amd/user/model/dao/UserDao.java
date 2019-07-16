@@ -122,6 +122,9 @@ public interface UserDao {
 	// 6. 트레이너 리뷰 갯수 보여주기임 (김진환)
 	int reviewCount(SqlSessionTemplate sqlSession, String tno);
 
+	// 7. 마이 트레이너 등록 갯수 리턴(김진환)
+	int myTrainerCount(SqlSessionTemplate sqlSession, String tno);
+
 
 
 	

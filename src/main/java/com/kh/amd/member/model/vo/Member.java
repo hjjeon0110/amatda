@@ -7,6 +7,7 @@ import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.vo.Estimate;
 import com.kh.amd.trainer.model.vo.Profile;
+import com.kh.amd.trainer.model.vo.TrainerReview;
 
 public class Member implements java.io.Serializable{
 	private int mno;

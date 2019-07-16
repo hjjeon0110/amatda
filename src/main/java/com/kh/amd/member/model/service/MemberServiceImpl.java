@@ -1,5 +1,6 @@
 package com.kh.amd.member.model.service;
 
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -273,6 +274,19 @@ public class MemberServiceImpl implements MemberService{
 		@Override
 		public Attachment selectMyImg(int mno2) {
 			return md.selectMyImg(sqlSession,mno2);
+		}
+
+		@Override
+		public List<Member> bestTrainer() {
+		
+			
+			return md.bestTrainer(sqlSession);
+		}
+
+		@Override
+		public List<Member> newComerTrainerList() {
+			
+			return md.newComerTrainerList(sqlSession);
 		}
 	
 }

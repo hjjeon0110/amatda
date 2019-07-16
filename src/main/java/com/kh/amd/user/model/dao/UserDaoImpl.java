@@ -384,6 +384,19 @@ public class UserDaoImpl implements UserDao {
 		return result;
 	}
 
+	//마이트레이너 갯수 리턴
+	@Override
+	public int myTrainerCount(SqlSessionTemplate sqlSession, String tno) {
+		
+		int result = 0;
+		
+		if(sqlSession.selectOne("User.myTrainerCount", tno) != null) {
+			result = sqlSession.selectOne("User.myTrainerCount", tno);
+		}
+		
+		return result;
+	}
+
 	
 	
 

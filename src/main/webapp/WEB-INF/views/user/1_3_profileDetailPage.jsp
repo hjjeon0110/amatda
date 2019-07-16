@@ -53,7 +53,7 @@
 					<tr>
 						<td><br>
 						<i class="fa fa-star"></i>&nbsp;&nbsp;평점 ${ reviewRating }&nbsp;&nbsp;l&nbsp;&nbsp;리뷰 ${ reviewCount }<br><br>
-						<i class="fa fa-heart"></i>&nbsp;&nbsp;0</td>
+						<i class="fa fa-heart"></i>&nbsp;&nbsp;${ myTcount }</td>
 						<td class="traineProfileTableTd1">
 							<br><br><br>
 						</td>
