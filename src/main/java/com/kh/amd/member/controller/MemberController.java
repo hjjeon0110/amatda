@@ -3,6 +3,7 @@ package com.kh.amd.member.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -29,11 +30,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.kh.amd.attachment.model.vo.Attachment;
+import com.google.gson.JsonIOException;
+import com.kh.amd.board.model.service.BoardService;
+import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.common.CommonUtils;
 import com.kh.amd.member.model.service.MemberService;
 import com.kh.amd.member.model.vo.Member;
-import com.sun.mail.iap.Response;
 @SessionAttributes("loginUser")
 @Controller
 
@@ -43,6 +45,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService ms;
+	
+	@Autowired
+	private BoardService bs;
 	
 	//아이디,비밀번호 찾기 뷰 페이지로 이동
 	@RequestMapping("findIdPwd.me")
@@ -284,9 +289,33 @@ public class MemberController {
 	
 	// 메인 페이지 이동
 	@RequestMapping("showMain.me")
-	public String showMain() {
+	public String showMain(HttpServletResponse response,Model model) {
+		 System.out.println("bestReviewSelect in Con 확인 ");
+		 
+		 List<Board> list = bs.bestReviewSelect();
+		 
+		 System.out.println("Member에서 list조회: " + list);
+		 
+		 response.setContentType("application/json");
+		 response.setCharacterEncoding("UTF-8");
+		 
+		 try {
+			new Gson().toJson(list,response.getWriter());
+		} catch (JsonIOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+		 model.addAttribute("list",list);
 		return "main/main";
 	}
+	
+	
+	  
+	
 	//사용자 약관동의
 	@RequestMapping("agree.me")
 	public String agree() {

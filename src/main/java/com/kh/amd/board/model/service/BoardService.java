@@ -157,6 +157,16 @@ public interface BoardService {
 
 	int likeClick(Board b);
 
+	List<Board> bestReviewSelect();
+
+	List<Board> selectReview2();
+
+	List<Board> selectOneReview2();
+
+	int likeResultDelete(int bno2, int mno2);
+
+	int likeCancel(int bno2, int mno2);
+
 	//void insertReviewImg(String mno, Board b, String filePath, String originalFilename, String ext, String changeName);
 
 	//void insertReviewImg(String mno, Board b, String filePath, String originalFilename, String ext, String changeName);

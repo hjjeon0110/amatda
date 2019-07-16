@@ -315,22 +315,22 @@ a:active {text-decoration: none; color: #333333;}
 		<c:set var="i" value="0"/>
 		<c:set var="j" value="3"/>
 		
-		<c:forEach var="selectReview" items="${ requestScope.selectReview }" varStatus="status">
+		<c:forEach var="selectReview2" items="${selectReview2 }" varStatus="status">
 		<c:if test="${i%j == 0 }">
 			
          </c:if>
 			<tr>
             <td width="1000px;" align="center">
-            <input type="hidden" value="${selectReview.bNo }">
+            <input type="hidden" value="${selectReview2.bNo }">
             <div class="thirdTableLine"></div> <br>
-            <img src="${contextPath}/resources/uploadFiles/${selectReview.attachment.modiName }${selectReview.attachment.extension}" width=200px" height="150px"/></p>
+            <img src="${contextPath}/resources/uploadFiles/${selectReview2.attachment.modiName }${selectReview2.attachment.extension}" width=200px" height="150px"/></p>
             <%-- <p>${status.count }</p> --%>
-            <input type="hidden" id="bNo" value="${selectReview.bNo }">
-            <p>${selectReview.bTitle }</p>
-            <input type="hidden" id="bNo" value="${selectReview.bNo }">
-            	작성자 : ${selectReview.bWriter }
+            <input type="hidden" id="bNo" value="${selectReview2.bNo }">
+            <p>${selectReview2.bTitle }</p>
+            <input type="hidden" id="bNo" value="${selectReview2.bNo }">
+            	작성자 : ${selectReview2.member.userId }
             <%-- <a href="${selectOneReview.bo}"><p>${selectReview.bTitle }</p></a> --%>
-            <p><fmt:formatDate pattern="MM월 dd일" value="${selectReview.bWriteDate }"/></p>
+            <p><fmt:formatDate pattern="MM월 dd일" value="${selectReview2.bWriteDate }"/></p>
             </td>
             </tr>
          <c:if test="${i%j==j-1 }">
