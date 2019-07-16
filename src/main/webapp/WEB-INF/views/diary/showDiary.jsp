@@ -70,7 +70,7 @@ tr {
 				<input type="hidden" name="mNo"	value="${ sessionScope.loginUser.mno }" />
 				<table>
 					<tr>
-						<td id="font">제 목 <input type="text" size="40" name="bTitle" autofocus>
+						<td id="font">제 목 <input type="text" class="form-control" size="40" name="bTitle" autofocus>
 						</td>
 
 					</tr>
