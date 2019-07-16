@@ -228,7 +228,7 @@ public class UserServiceImpl implements UserService {
 		return ud.reviewRating(sqlSession, tno);
 	}
 	
-	// 21. 리뷰 갯수 리턴해주기(김진환)
+	// 21. 리뷰 갯수 리턴해주기임(김진환)
 	@Override
 	public int reviewCount(String tno) {
 	

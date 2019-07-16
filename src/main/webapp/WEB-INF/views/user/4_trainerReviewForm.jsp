@@ -242,8 +242,6 @@
 		console.log(content)
 		console.log(starRating)
 		console.log(name);
-		alert("별점 : " + starRating);
-		alert("이름 : " + name);
 		
 		$.ajax({
 			url:"trainerReviewCheck.us",

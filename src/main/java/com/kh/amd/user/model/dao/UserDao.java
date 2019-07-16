@@ -105,7 +105,7 @@ public interface UserDao {
 	// 20. 트레이너 평균 평점 보여주기(김진환)
 	double reviewRating(SqlSessionTemplate sqlSession, String tno);
 	
-	// 21. 트레이너 리뷰 갯수 보여주기(김진환)
+	// 21. 트레이너 리뷰 갯수 보여주기임(김진환)
 	int reviewCount(SqlSessionTemplate sqlSession, String tno);
 
 

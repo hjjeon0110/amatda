@@ -180,7 +180,7 @@
 		<div class="reviewDiv">
 			<br><br>
 			<label class="subTitle">리뷰</label><br>
-			<label class="contents">작성된 리뷰가 없습니다.</label><br>
+			<label class="contents">작성된 리뷰가 없습니다!.</label><br>
 		</div>
 		</c:if>
 		<c:if test="${ !empty reviewList }">

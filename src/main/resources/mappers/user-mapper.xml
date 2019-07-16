@@ -385,7 +385,8 @@
 		FROM TRAINER_REVIEW
 		WHERE TNO = #{tno}	
 	</select>	
-	
+		
+	<!-- 리뷰평점 합계 -->
 	<select id="reviewRating" resultType="_double">
 		SELECT TRUNC(AVG(REVIEW_RATING), 1)
 		FROM TRAINER_REVIEW

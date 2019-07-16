@@ -327,7 +327,8 @@ public class UserDaoImpl implements UserDao {
 		
 		return result;
 	}
-
+	
+	//리뷰보여주기
 	@Override
 	public int reviewCount(SqlSessionTemplate sqlSession, String tno) {
 		

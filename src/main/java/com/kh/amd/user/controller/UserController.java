@@ -602,7 +602,7 @@ public class UserController {
 			try {
 				response.getWriter().print("exist");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			
