@@ -56,7 +56,7 @@ border:1px solid black;
 	}
 	 
 	 .boardBtn{
-	align:center;
+	margin-left:20%;
 	 	
 	 }
 	 
@@ -69,7 +69,11 @@ border:1px solid black;
 	 tr.bordered2{
 	 border-top:2px solid #000;
 	 } 
-	 
+
+	 tr.bordered3{
+    border-top:2px solid #000;
+    } 
+	
   .contentTable hr{
 	 width:150px;
 	 size:5px;
@@ -132,15 +136,21 @@ margin-left: 400px;
 			 
 			<tr class="bordered2">
 				<td colspan="5">
+				 <br><br>
 					${ Board.bContent }
+					 <br><br> <br>
 				</td>
 			</tr>
+			
+			<tr class="bordered3">
+          <td colspan="5"></td>
+         </tr>
 			
 			<%--  </c:forEach> --%>
 			</table>
 			
-			<br><br><br>
-		
+			
+		<br>
 	       <div class="boardBtn">
 	         <button type="button" class="btn btn-primary" data-toggle="modal" 
 		        data-target="#my80sizeCenterModal" onclick="location.href='selectEventCate.bo'">목록</button>
@@ -149,11 +159,8 @@ margin-left: 400px;
 		
 		<div class="divv">
 		</div>
-		<br>
-	
-	
-	<br>
-	<br>
+		
+		<br><br><br><br><hr><br>
 	<jsp:include page="../common/footer.jsp"/> 
 	<br>
 	<br>

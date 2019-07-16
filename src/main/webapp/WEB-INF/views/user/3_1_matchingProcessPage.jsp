@@ -53,7 +53,7 @@
 	<div class="matchingTitleDiv">
 		<label class="matchingTitle1">${ matchingTrainer.name } 트레이너님과의</label> <label class="matchingTitle2">매칭 단계</label>
 	</div>
-	<c:if test="${ selectOneMyTrainer.matchingLevel == 0 }">
+	<c:if test="${ selectOneMyTrainer.matchingLevel == 0 && selectOneMyTrainer.transferStatus == 'RECEIVE' }">
 	    <div class="step-state step1">
 	        <ul>
 	            <li><p>매칭시작</p></li>
@@ -84,7 +84,7 @@
 	        </ul>
 	    </div>
 	</c:if> --%>
-	<c:if test="${ selectOneMyTrainer.matchingLevel == 1 && selectOneMyTrainer.matchingStatus == '진행중' }">
+	<c:if test="${ selectOneMyTrainer.matchingLevel == 1 && selectOneMyTrainer.matchingStatus == '진행중' && selectOneMyTrainer.transferStatus == 'RECEIVE' }">
 	    <div class="step-state step2-ing">
 	        <ul>
 	            <li><p>매칭시작</p></li>
@@ -108,7 +108,7 @@
 			<br><br><br>
 		</div>
 	</c:if>
-	<c:if test="${ selectOneMyTrainer.matchingLevel == 2 && selectOneMyTrainer.matchingStatus == '매칭종료' && selectOneMyTrainer.matchingAccept== 'N' }">
+	<c:if test="${ selectOneMyTrainer.matchingLevel == 2 && selectOneMyTrainer.matchingStatus == '매칭종료' && selectOneMyTrainer.matchingAccept== 'N' && selectOneMyTrainer.transferStatus == 'RECEIVE'}">
 	    <div class="step-state step3">
 	        <ul>
 	            <li><p>매칭시작</p></li>
@@ -128,7 +128,7 @@
 			<br><br><br>
 		</div>
 	</c:if>
-	<c:if test="${ selectOneMyTrainer.matchingLevel == 2 && selectOneMyTrainer.matchingStatus == '진행중' && selectOneMyTrainer.matchingAccept== 'Y' }">
+	<c:if test="${ selectOneMyTrainer.matchingLevel == 2 && selectOneMyTrainer.matchingStatus == '진행중' && selectOneMyTrainer.matchingAccept== 'Y' && selectOneMyTrainer.transferStatus == 'RECEIVE' }">
 	    <div class="step-state step3-ing">
 	        <ul>
 	            <li><p>매칭시작</p></li>
@@ -148,7 +148,7 @@
 			<br><br><br>
 		</div>
 	</c:if>
-	<c:if test="${ selectOneMyTrainer.matchingLevel == 3 && selectOneMyTrainer.matchingStatus == '매칭종료' && selectOneMyTrainer.matchingAccept== 'N' }">
+	<c:if test="${ selectOneMyTrainer.matchingLevel == 3 && selectOneMyTrainer.matchingStatus == '매칭종료' && selectOneMyTrainer.matchingAccept== 'N' && selectOneMyTrainer.transferStatus == 'RECEIVE' }">
 	    <div class="step-state step4">
 	        <ul>
 	            <li><p>매칭시작</p></li>
@@ -168,7 +168,7 @@
 			<br><br><br>
 		</div>
 	</c:if>
-	<c:if test="${ selectOneMyTrainer.matchingLevel == 3 && selectOneMyTrainer.matchingStatus == '진행중' && selectOneMyTrainer.matchingAccept== 'Y' }">
+	<c:if test="${ selectOneMyTrainer.matchingLevel == 3 && selectOneMyTrainer.matchingStatus == '진행중' && selectOneMyTrainer.matchingAccept== 'Y' && selectOneMyTrainer.transferStatus == 'RECEIVE' }">
 	    <div class="step-state step4-ing">
 	        <ul>
 	            <li><p>매칭시작</p></li>
@@ -188,7 +188,7 @@
 			<br><br><br>
 		</div>
 	</c:if>
-	<c:if test="${ selectOneMyTrainer.matchingLevel == 4 && selectOneMyTrainer.matchingStatus == '진행중' && selectOneMyTrainer.matchingAccept== 'Y' }">
+	<c:if test="${ selectOneMyTrainer.matchingLevel == 4 && selectOneMyTrainer.matchingStatus == '진행중' && selectOneMyTrainer.matchingAccept== 'Y' && selectOneMyTrainer.transferStatus == 'RECEIVE' }">
 	    <div class="step-state step5">
 	        <ul>
 	            <li><p>매칭시작</p></li>
@@ -205,6 +205,66 @@
 			<label class="stepLabel" style="color:#ff0066;">견적서에서 확인한 계좌번호로 입금을 완료한 후 트레이너에게 입금 확인을 요청하세요! (입금 가능 날짜가 ${(estDate + 3 - nowTime)}일 남았습니다.)</label>
 			<br><br>
 			<button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable3">입금 확인 요청하기</button>
+			<br><br><br>
+		</div>
+	</c:if>
+	<c:if test="${ selectOneMyTrainer.matchingLevel == 4 && selectOneMyTrainer.matchingStatus == '진행중' && selectOneMyTrainer.matchingAccept == 'Y' && selectOneMyTrainer.transferStatus == 'SEND' }">
+	    <div class="step-state step4-ing">
+	        <ul>
+	            <li><p>매칭시작</p></li>
+	            <li><p>내 정보 보내기<span></span></p></li>
+	            <li><p>견적서 확인하기<span></span></p></li>
+	            <li><p>매칭 수락하기<span></span></p></li>
+	            <li><p>입금하기<span></span></p></li>
+	        </ul>
+	    </div>
+	    <br>
+		<div class="stepDiv">
+			<br><br>
+			<label class="stepLabel">매칭 요청 수락을 완료했습니다.</label><br>
+			<label class="stepLabel" style="color:#ff0066;">견적서에서 확인한 계좌번호로 입금을 완료한 후 트레이너에게 입금 확인을 요청하세요! (입금 가능 날짜가 ${(estDate + 3 - nowTime)}일 남았습니다.)</label>
+			<br><br>
+			<button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable3">입금 확인 요청하기</button>
+			<br><br><br>
+		</div>
+	</c:if>
+	<c:if test="${ selectOneMyTrainer.matchingLevel == 5 && selectOneMyTrainer.matchingAccept== 'Y' && selectOneMyTrainer.transferStatus == 'RECEIVE'}">
+	    <div class="step-state step5">
+	        <ul>
+	            <li><p>매칭시작</p></li>
+	            <li><p>내 정보 보내기<span></span></p></li>
+	            <li><p>견적서 확인하기<span></span></p></li>
+	            <li><p>매칭 요청하기<span></span></p></li>
+	            <li><p>입금하기<span></span></p></li>
+	        </ul>
+	    </div>
+	    <br>
+		<div class="stepDiv">
+			<br><br>
+			<label class="stepLabel">PT 서비스를 받기 위한 모든 단계가 끝났습니다.</label><br>
+			<label class="stepLabel" style="color:#ff0066;">트레이너가 입금 확인을 완료하면 바로 PT 서비스가 시작됩니다!</label>
+			<br><br>
+			<button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable3">PT 페이지 이동하기</button>
+			<br><br><br>
+		</div>
+	</c:if>
+	<c:if test="${ selectOneMyTrainer.matchingLevel == 5 && selectOneMyTrainer.matchingAccept== 'Y' && selectOneMyTrainer.transferStatus == 'SEND'}">
+	    <div class="step-state step5">
+	        <ul>
+	            <li><p>매칭시작</p></li>
+	            <li><p>내 정보 보내기<span></span></p></li>
+	            <li><p>견적서 확인하기<span></span></p></li>
+	            <li><p>매칭 수락하기<span></span></p></li>
+	            <li><p>입금하기<span></span></p></li>
+	        </ul>
+	    </div>
+	    <br>
+		<div class="stepDiv">
+			<br><br>
+			<label class="stepLabel">PT 서비스를 받기 위한 모든 단계가 끝났습니다.</label><br>
+			<label class="stepLabel" style="color:#ff0066;">트레이너가 입금 확인을 완료하면 바로 PT 서비스가 시작됩니다!</label>
+			<br><br>
+			<button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable3">PT 페이지 이동하기</button>
 			<br><br><br>
 		</div>
 	</c:if>
@@ -319,7 +379,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-primary" id="sendMatchingRequest">입금 확인 요청하기</button>
+					<button type="button" class="btn btn-primary" id="sendDepositCheckRequest">입금 확인 요청하기</button>
 				</div>
 			</div>
 		</div>
@@ -374,6 +434,15 @@
 			
 			location.href='updateMprocess3.us?mno=' + mno + "&tno=" + tno + '&tname=' + tname;
 			
+		});
+		
+		// 4. 입금 확인 요청하기 버튼 클릭 시
+		$("#sendDepositCheckRequest").click(function() {
+			var mno = ${ sessionScope.loginUser.mno };
+			var tno = ${ matchingTrainer.mno };
+			var tname = "${ matchingTrainer.name }";
+			
+			location.href='updateMprocess4.us?mno=' + mno + "&tno=" + tno + '&tname=' + tname;
 		});
 
 		

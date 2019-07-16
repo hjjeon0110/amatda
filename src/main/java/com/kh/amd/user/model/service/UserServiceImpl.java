@@ -193,47 +193,81 @@ public class UserServiceImpl implements UserService {
 		ud.updateMprocess3(sqlSession, mno, tno);
 	}
 	
-	// 16. 리뷰작성하기 폼으로 회원정보 보여주기(김진환)
+	
+	// 16. 입금 확인 요청 후  mprocess update (전효정)
+	@Override
+	public void updateMprocess4(String mno, String tno) {
+		ud.updateMprocess4(sqlSession, mno, tno);
+	}
+	
+	
+	// 17. 받은 요청 내역 조회 (전효정)
+	@Override
+	public List<Member> selectRequestsReceivedList(String mno) {
+		return ud.selectRequestsReceivedList(sqlSession, mno);
+	}
+	
+	
+	// 18. 받은 견적서 확인 후 매칭 수락 시 mprocess update (전효정)
+	@Override
+	public void updateMprocessSend1(String mno, String tno) {
+		ud.updateMprocessSend1(sqlSession, mno, tno);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 1. 리뷰작성하기 폼으로 회원정보 보여주기(김진환)
 	@Override
 	public Member trainerReviewForm(int tno) {
 		
 		return ud.trainerReviewForm(sqlSession, tno);
 	}
 	
-	// 17. 트레이너 리뷰 작성 insert(김진환)
+	// 2. 트레이너 리뷰 작성 insert(김진환)
 	@Override
 	public int insertTrainerReview(String title, String starRating, String content, int tno, int uno, String name) {
 	
 		return ud.insertTrainerReview(sqlSession, title, starRating, content, tno, uno, name);
 	}
 
-	// 18. 트레이너에게 리뷰를 작성했었는지 체크(김진환)
+	// 3. 트레이너에게 리뷰를 작성했었는지 체크(김진환)
 	@Override
 	public int trainerReviewCheck(int uno, int tno) {
 		
 		return ud.trainerReviewCheck(sqlSession, uno, tno);
 	}
 
-	// 19. 트레이너 리뷰 유저에게 보여주기(김진환)
+	// 4. 트레이너 리뷰 유저에게 보여주기(김진환)
 	@Override
 	public List<TrainerReview> trainerReviewShow(String tno, String mno) {
 		
 		return ud.trainerReviewShow(sqlSession, tno, mno);
 	}
 	
-	// 20. 리뷰 평점 평균 보여주기(김진환)
+	// 5. 리뷰 평점 평균 보여주기(김진환)
 	@Override
 	public double reviewRating(String tno) {
 		
 		return ud.reviewRating(sqlSession, tno);
 	}
 	
-	// 21. 리뷰 갯수 리턴해주기임 (김진환)
+	// 6. 리뷰 갯수 리턴해주기(김진환)
 	@Override
 	public int reviewCount(String tno) {
 	
 		return ud.reviewCount(sqlSession, tno);
 	}
+
+	
 
 
 	

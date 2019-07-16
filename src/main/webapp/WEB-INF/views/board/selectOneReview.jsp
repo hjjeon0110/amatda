@@ -187,7 +187,7 @@ width:800px;
 		
 		<h3>${b.bTitle }</h3>
 		<p></p>
-		<pre>글쓴이 : ${b.bWriter }                            <fmt:formatDate pattern="MM월 dd일" value="${b.bWriteDate }"/>                           조회수 : <b>${b.bCount}</b></pre>
+		<pre>글쓴이 : ${selectOneReview2.member.userId }                            <fmt:formatDate pattern="MM월 dd일" value="${b.bWriteDate }"/>                           조회수 : <b>${b.bCount}</b></pre>
 		</div>
 		<p></p>
 		<p></p>
@@ -222,10 +222,10 @@ width:800px;
 		
 		<br><br>
 			
-		 <button type="button" class="btn btn-primary" data-toggle="modal" 
+		<!--  <button type="button" class="btn btn-primary" data-toggle="modal" 
 		        data-target="#my80sizeCenterModal">수정</button>
 		 <button type="button" class="btn btn-primary" data-toggle="modal" 
-		        data-target="#my80sizeCenterModal">삭제</button>
+		        data-target="#my80sizeCenterModal">삭제</button> -->
 		 <button type="button" class="btn btn-primary" data-toggle="modal" 
 		        data-target="#my80sizeCenterModal" onclick="location.href='selectReview.bo'"> 목록</button>
 		<br><br>
@@ -299,7 +299,8 @@ width:800px;
 			data:{content:content,bno:bno,mno:mno},
 			success:function(data){
 				if(data=="success"){
-					alert("댓글이 등록되었습니다. 새로고침 해주세요.");
+					alert("댓글이 등록되었습니다.");
+					location.reload();
 				}else{
 					alert("실패");
 				}
@@ -330,12 +331,13 @@ width:800px;
 				
 				location.reload();
 				}else if(data=="fail"){
-					alert("이미 좋아요 누르신 게시물입니다.");
+					alert("좋아요를 취소합니다.");
+					location.reload();
 				}
 			},
 			error:function(data){
 				
-				//alert("code: "+request.status+"\n" + "message: " + request.resposeText + "\n"+"error:" + error);
+				
 			}
 			 
 		 }); 

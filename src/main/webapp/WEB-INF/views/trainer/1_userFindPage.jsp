@@ -218,8 +218,8 @@
 					<tr>
 						<input type="hidden" value="${ user.mno }" />
 						<td rowspan="3" class="userListTableTd1">
-							<div class="profileImg">
-								<img class="profileImage"
+							<div class="profileImg" style="border-radius: 50%;">
+								<img class="profileImage" style="border-radius: 50%;"
 									src="${ contextPath }/resources/uploadFiles/${ imgName}">
 							</div>
 						</td>
@@ -246,8 +246,8 @@
 				<div class="modal-dialog modal-dialog-scrollable" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<label class="modalHeader">${user.name }님의 다이어트 정보 </label>&nbsp;&nbsp;&nbsp;
-							<label> 나이 : ${ user.survey.uAge } 키 : ${user.survey.height }cm, 몸무게 : ${ user.survey.weight}kg, 목표감량치 : -${user.survey.hopeWeight}kg</label>
+							<label class="modalHeader"><i class="fa fa-check"></i> ${ user.name }의 다이어트 정보</label>&nbsp;&nbsp;&nbsp;&nbsp;
+							<label class="surveyInfo">나이 : ${ user.survey.uAge } / 키 : ${ user.survey.height }cm / 몸무게 : ${ user.survey.weight}kg / 목표감량치 : -${ user.survey.hopeWeight}kg</label>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
@@ -298,7 +298,7 @@
 				<div class="modal-dialog modal-dialog-scrollable" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<label class="subTitle">${ sessionScope.loginUser.name } 트레이너 님의 견적서 정보</label>
+							<label class="modalHeader"><i class="fa fa-check"></i> ${ sessionScope.loginUser.name } 트레이너 님의 견적서 정보</label>&nbsp;&nbsp;&nbsp;&nbsp;
 						</div>
 						<div class="modal-body">
 							<div class="subMenuBar">

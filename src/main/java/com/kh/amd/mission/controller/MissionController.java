@@ -88,12 +88,12 @@ public class MissionController {
 	
 	//트레이너용 미션수정하기 폼으로 이동
 	@RequestMapping("goUpdateMission.ms")
-	public void goUpdateMission(HttpServletRequest request,HttpServletResponse response) {
+	public void goUpdateMission(HttpServletRequest request,HttpServletResponse response,String userName) {
 		String tno = request.getParameter("tno");
 		System.out.println("tno 폼이동: " + tno);
 		int tno2 = Integer.parseInt(tno);
 		
-		int result = ms.selectTnoTno(tno2);
+		int result = ms.selectTnoTno(tno2,userName);
 		System.out.println("goUpdateMission.ms의 result: " + result);
 		if(result == 1) {
 			try {
@@ -134,20 +134,16 @@ public class MissionController {
 		return "mission/tmissionInsert";
 	}
 	
+	//우리나 정리!!
 	@RequestMapping("selectAllCalender.ms")
 	public void selectAllCalendar(int mno, HttpServletResponse response) {
-		System.out.println("캘린더 서블릿이다!!!!!");
-		System.out.println("selectAllCalendar의 mno: " + mno);
+		
 		List<Mission> m = ms.selectAllCalendar(mno);
 		System.out.println("selectAllCalendar의 List m : " + m);
 		
 		
 		
 		if(m!=null) {
-			
-			
-			
-			System.out.println("ajax로 보내기 전 m : " + m);
 			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
@@ -1738,7 +1734,7 @@ public class MissionController {
 	}
 	
 	
-	
+	//우리나 정리!
 	
 	@RequestMapping("selectEatDinner.ms")
 	public void selectEatDinnerMission(HttpServletRequest request, HttpServletResponse response) {

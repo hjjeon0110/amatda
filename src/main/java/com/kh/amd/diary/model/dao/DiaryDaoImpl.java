@@ -109,6 +109,7 @@ public class DiaryDaoImpl implements DiaryDao{
 		System.out.println("bno나오냐: " + bno);
 	}
 
+	
 	//diary Img update
 	@Override
 	public void updateDiaryImg(SqlSessionTemplate sqlSession, String bno, String mno, String filePath,
@@ -127,6 +128,7 @@ public class DiaryDaoImpl implements DiaryDao{
 	}
 
 
+	//갤러리 리스트
 	@Override
 	public List<Object> selectGallery(SqlSessionTemplate sqlSession, Attachment a) {
 		
@@ -184,17 +186,6 @@ public class DiaryDaoImpl implements DiaryDao{
 		
 		return sqlSession.update("Diary.deleteGallery", bno);
 	}
-	
-	//gallery
-//	@Override
-//	public List<Diary> galleryList(SqlSessionTemplate sqlSession, int mno) {
-//		
-//		
-//		return sqlSession.selectList("Diary.galleryList", mno);
-//	}
-
-
-	
 	
 
 

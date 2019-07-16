@@ -18,8 +18,8 @@
 .searchKeywordDiv {
 	width: 100%;
 	height: 200px;
-	border-top: 1px solid lightgray;
-	border-bottom: 1px solid lightgray;
+	border-top: 0.5px solid lightgray;
+	border-bottom: 0.5px solid lightgray;
 	padding: 50px;
 }
 
@@ -46,7 +46,7 @@
 .searchKeywordBtn:hover {
 	width: 50px;
 	height: 30px;
-	border:1px solid #ff0066;
+	border:0.5px solid #ff0066;
 	background: white;
 	color: #ff0066;
 	cursor:pointer;
@@ -60,19 +60,19 @@
 .searchUserListDiv {
 	width: 100%;
 	height: 100%;
-	background: whitesmoke;
+	background: #f9f9f9;
 }
 
 .userSelect {
 	width: 150px;
 	font-family: 'Noto Sans KR', sans-serif;
-	border: 1px solid darkgray;
+	border: 0.5px solid darkgray;
 	margin-left: 50px;
 }
 
 .userListDiv {
 	width: 90%;
-	border: 1px solid darkgray;
+	border: 0.5px solid darkgray;
 	margin-left: auto;
 	margin-right: auto;
 	padding: 10px;

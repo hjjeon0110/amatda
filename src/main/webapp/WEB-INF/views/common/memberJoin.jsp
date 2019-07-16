@@ -86,7 +86,11 @@ body{
 .checkBtn2{
 	margin-top:5px; 
 }
-
+.form-control {
+   font-family: 'Noto Sans KR', sans-serif;
+   font-size: 14px !important;
+   height:50px !important;
+}
 </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -192,7 +196,7 @@ $(function(){
 		
 		if(password == password2){
 			$("#passwordResult").text("일치").css("color", "yellowgreen");
-			$("#submit").attr("disabled", false).css({"background":"#ff0066", "color":"white","font-size":"15px"});
+			$("#submit").attr("disabled", false).css({"color":"white", "background":"#ff0066", "font-size":"35px"});
 		}else if (password != password2){
 			$("#passwordResult").text("불일치").css("color", "red");
 			$("#submit").attr("disabled", true);

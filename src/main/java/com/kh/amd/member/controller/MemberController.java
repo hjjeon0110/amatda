@@ -3,6 +3,7 @@ package com.kh.amd.member.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -29,11 +30,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.kh.amd.attachment.model.vo.Attachment;
+import com.google.gson.JsonIOException;
+import com.kh.amd.board.model.service.BoardService;
+import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.common.CommonUtils;
 import com.kh.amd.member.model.service.MemberService;
 import com.kh.amd.member.model.vo.Member;
-import com.sun.mail.iap.Response;
 @SessionAttributes("loginUser")
 @Controller
 
@@ -43,6 +45,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService ms;
+	
+	@Autowired
+	private BoardService bs;
 	
 	//아이디,비밀번호 찾기 뷰 페이지로 이동
 	@RequestMapping("findIdPwd.me")
@@ -241,10 +246,7 @@ public class MemberController {
 	@RequestMapping("updateMyPwd.me")
 	public void updateMyPwd(Model model, String userPwd, HttpServletResponse response,HttpServletRequest request) {
 		
-		/*
-		 * String name = request.getParameter("name");
-		 * System.out.println("받아온 name: "+name);
-		 */
+		
 		System.out.println("받아온 userPwd" + userPwd);
 		String updateEncPwd = passwordEncoder.encode(userPwd);
 		System.out.println(updateEncPwd);
@@ -252,7 +254,7 @@ public class MemberController {
 		
 		Member m = new Member();
 		m.setUserPwd(updateEncPwd);
-		//m.setName(name);
+		
 		int result = ms.updateMyPwd(m);
 		
 		
@@ -287,9 +289,33 @@ public class MemberController {
 	
 	// 메인 페이지 이동
 	@RequestMapping("showMain.me")
-	public String showMain() {
+	public String showMain(HttpServletResponse response,Model model) {
+		 System.out.println("bestReviewSelect in Con 확인 ");
+		 
+		 List<Board> list = bs.bestReviewSelect();
+		 
+		 System.out.println("Member에서 list조회: " + list);
+		 
+		 response.setContentType("application/json");
+		 response.setCharacterEncoding("UTF-8");
+		 
+		 try {
+			new Gson().toJson(list,response.getWriter());
+		} catch (JsonIOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+		 model.addAttribute("list",list);
 		return "main/main";
 	}
+	
+	
+	  
+	
 	//사용자 약관동의
 	@RequestMapping("agree.me")
 	public String agree() {
@@ -332,18 +358,7 @@ public class MemberController {
 		return "common/gotoRandomPwdWrite";
 	}
 	
-	//임시비밀번호로 로그인
-	/*
-	 * @RequestMapping("login2.me") public String login2(Model model,Member m) {
-	 * Member loginUser; try { loginUser = ms.loginMember(m);
-	 * model.addAttribute("loginUser", loginUser); System.out.println(loginUser);
-	 * return "redirect:index.jsp";
-	 * 
-	 * } catch (LoginException e) { model.addAttribute("msg", e.getMessage());
-	 * return "common/errorPage"; }
-	 * 
-	 * }
-	 */
+	
 	
 	//로그아웃
 	@RequestMapping("logout.me")
@@ -367,7 +382,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("insertMember.me")
-	public void insertMember(Model model,Member m, HttpServletResponse response) {
+	public void insertMember(Member m, HttpServletResponse response) {
 		
 		
 		System.out.println("일반 회원가입: "+m);
@@ -375,10 +390,11 @@ public class MemberController {
 		m.setUserPwd(passwordEncoder.encode(m.getUserPwd()));
 		
 		int result = ms.insertMember(m);
-		//기본 사진 삽입메소드
+		
+		
 		int dummyImgInsert = ms.dummyImgInsert();
 		
-		System.out.println("controller: " + result);
+		
 		PrintWriter out;
 		try {
 			out = response.getWriter();
@@ -476,19 +492,16 @@ public class MemberController {
 	  }
 	  
 	  
-	  // 인증번호 이메일 보내기
-
-		@RequestMapping("emailCheckNumSend.me")
-		
-		public ModelAndView emailAuth(HttpServletResponse response, HttpServletRequest request) throws Exception{
+	  //인증번호 이메일 보내기
+	  @RequestMapping("emailCheckNumSend.me")
+	  public ModelAndView emailAuth(HttpServletResponse response, HttpServletRequest request) throws Exception{
 			
 			String email = request.getParameter("email");
-			
-			System.out.println("받아온 email: " + email);
 			
 			String authNum = "";
 			authNum = RandomNum();
 			
+			//이메일 전송
 			sendEmail(email, authNum);
 			
 			ModelAndView mv = new ModelAndView();
@@ -509,10 +522,7 @@ public class MemberController {
 
 			String from = "wln02036549@gmail.com";
 
-		
-
 			String from_name = "우리나 운영자";
-
 			
 			String content="인증번호 [" + authNum+ "]";
 
@@ -586,10 +596,7 @@ public class MemberController {
 			
 			System.out.println("ajax에서 받아온 mno: " + mno);
 			
-		/*
-		 * int mno2 = Integer.parseInt(mno); System.out.println("int타입으로 바꾼 mno2: " +
-		 * mno2);
-		 */
+		
 			
 			Member result =  ms.selectMyInfo(mno);
 			
@@ -597,7 +604,7 @@ public class MemberController {
 				System.out.println("db잘감");
 				System.out.println(result);
 				try {
-					//response.getWriter().print("success");
+					
 					response.setContentType("application/json");
 					response.setCharacterEncoding("UTF-8");
 					
@@ -609,10 +616,7 @@ public class MemberController {
 				}
 			}else {
 				System.out.println("db못감");
-			/*
-			 * try { //response.getWriter().print("fail"); } catch (IOException e) { // TODO
-			 * Auto-generated catch block e.printStackTrace(); }
-			 */
+			
 			}
 		}
 		
@@ -633,7 +637,6 @@ public class MemberController {
 			m.setMno(mno2);
 			m.setName(name);
 			m.setPhone(phone);
-			//m.setUserPwd(userPwd);
 			m.setGender(gender);
 			m.setUserId(userId);
 			m.setUserPwd(passwordEncoder.encode(userPwd));
@@ -691,18 +694,4 @@ public class MemberController {
 		
 		
 
-		//마이페이지에서 이미지 select
-	/*
-	 * @RequestMapping("selectMyImg.me") public void selectMyImg(HttpServletRequest
-	 * request,String mno, Model model) {
-	 * 
-	 * 
-	 * System.out.println("이미지 불러오기 mno: " + mno); int mno2 = Integer.parseInt(mno);
-	 * Attachment at = ms.selectMyImg(mno2);
-	 * 
-	 * System.out.println("at: " + at); model.addAttribute("at",at);
-	 * 
-	 * 
-	 * }
-	 */
 }

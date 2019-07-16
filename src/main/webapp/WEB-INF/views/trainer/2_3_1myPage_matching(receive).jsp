@@ -74,7 +74,7 @@
 
 .userListDiv {
 	width: 90%;
-	border: 1px solid darkgray;
+	border: 0.5px solid darkgray;
 	margin-left: auto;
 	margin-right: auto;
 	padding: 10px;
@@ -306,9 +306,9 @@
 				<table class="userListTable">
 					<tr>
 						<input type="hidden" name="userMno" value="${ user.mno }" />
-						<td rowspan="3" class="userListTableTd1">
-							<div class="profileImg">
-								<img class="profileImage"
+						<td rowspan="3" class="userListTableTd1" >
+							<div class="profileImg" style="border-radius: 50%;">
+								<img class="profileImage" style="border-radius: 50%;"
 									src="${ contextPath }/resources/uploadFiles/${ imgName}">
 							</div>
 						</td>

@@ -417,7 +417,7 @@
 		JOIN ATTACHMENT A ON (A.PNO = MP.UNO)
 		JOIN SURVEY S ON (MP.UNO = S.UNO)
 		WHERE MP.TNO = #{tno}
-		AND MP.MATCHING_STATUS = '매칭종료'
+		AND MP.MATCHING_STATUS = '매칭완료'
 		ORDER BY MP.PROCESS_DATE DESC
 	
 	</select>
@@ -460,7 +460,7 @@
 		JOIN ATTACHMENT A ON (A.PNO = MP.UNO)
 		JOIN SURVEY S ON (MP.UNO = S.UNO)
 		WHERE MP.TNO = #{tno}
-		AND MP.MATCHING_STATUS = '매칭종료'
+		AND MP.MATCHING_STATUS = '매칭완료'
 	
 	
 	</select>
@@ -565,6 +565,11 @@
 	<!-- 17. 매칭 요청 수락하기 버튼 클릭 시 MPROCESS UPDATE (전효정) -->
 	<update id="updateMprocess2">
 		UPDATE M_PROCESS SET MATCHING_LEVEL = 4, MATCHING_STATUS = '진행중', MATCHING_ACCEPT = 'Y' WHERE UNO = #{uno} AND TNO = #{tno}
+	</update>
+	
+	<!-- 18. 입금 확인 요청 수락하기 버튼 클릭 시 MPROCESS UPDATE (전효정) -->
+	<update id="updateMprocess3">
+		UPDATE M_PROCESS SET MATCHING_LEVEL = 5, MATCHING_STATUS = '매칭완료', MATCHING_ACCEPT = 'Y' WHERE UNO = #{uno} AND TNO = #{tno}
 	</update>
 
 </mapper>

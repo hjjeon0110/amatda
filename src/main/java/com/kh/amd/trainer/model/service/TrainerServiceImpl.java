@@ -396,6 +396,13 @@ public class TrainerServiceImpl implements TrainerService {
 		td.updateMprocess2(sqlSession, uno, tno);
 	}
 
+	
+	// 18. 입금 확인 요청 수락하기 버튼 클릭 시 MPROCESS UPDATE (전효정)
+	@Override
+	public void updateMprocess3(String uno, String tno) {
+		td.updateMprocess3(sqlSession, uno, tno);
+	}
+
 
 
 

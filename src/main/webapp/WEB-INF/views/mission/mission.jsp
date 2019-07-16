@@ -7,7 +7,9 @@
 <head>
 <meta charset='utf-8' />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/calendar/core/main.css">
+
 <!-- <link href='../packages/core/main.css' rel='stylesheet' /> -->
 
 <link href="${pageContext.request.contextPath}/resources/css/calendar/daygrid/main.css" rel='stylesheet' />
@@ -44,74 +46,15 @@
      
       
       
-     /*  events: [
-        {
-          title: '오늘의 식단',
-          start: '2019-06-01'
-        },
-        {
-          title: 'Long Event',
-          start: '2019-06-07',
-          end: '2019-06-10'
-        },
-        {
-          groupId: 999,
-          title: 'Repeating Event',
-          start: '2019-06-09T16:00:00'
-        },
-        {
-          groupId: 999,
-          title: '안녕',
-          start: '2019-06-16T16:00:00'
-        },
-        {
-          title: 'Conference',
-          start: '2019-06-11',
-          end: '2019-06-13'
-        },
-        {
-          title: 'Meeting',
-          start: '2019-06-12T10:30:00',
-          end: '2019-06-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2019-06-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2019-06-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2019-06-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: '2019-06-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2019-06-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          url: 'missionRegister.ca',
-          start: '2019-06-28'
-        }
-      ], */
+    
      
       dateClick:function (date, allDay, jsEvent, view){
-    	  /* var cDate = $('#calendar').fullCalendar('getDate'); 
-    	  var date = new Date(cDate).format("yyyyMM"); */
-    	/*  var moment = $('#calendar').fullCalendar('getDate');
-    	console.log(moment); */
+    	  
     	console.log("allDay: " + allDay);
     	console.log("date: " + date);
     	console.log("date- dateStr: " + date.dateStr);
     	$("#mDate2").text(date.dateStr);
-    	//alert("후");
-    	/* $("#dialog").modal(); */
+    	
     	$("#myModal").modal();	
     	
     	var mno =  ${sessionScope.loginUser.mno};
@@ -218,8 +161,8 @@
 		  type:"post",
 		  data:{mno:mno},
 		  success:function(data){
-			  console.log(data);
-			  //alert("성~공~");
+			  
+			 
 			  for(var key in data){
 				  if(data[key].completeYN == "Y"){
 				  		var event = {
@@ -260,8 +203,6 @@
 			  type:"post",
 			  data:{mno:mno},
 			  success:function(data){
-				  console.log("운동여부 달력에 띄우기: "+data);
-				  //alert("성~공~!!!!!");
 				  for(var key in data){
 					  if(data[key].completeYN == "Y"){
 					  		var event2 = {
@@ -385,9 +326,9 @@
 
   body {
     margin: 40px 10px;
-    padding: 0;s
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-    font-size: 14px;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 11px;
   }
 
   #calendar {
@@ -455,7 +396,7 @@
   			<td><label id="morning">아침</label><br><label id="selbreakfast" style="width:300px"></label></td>
   		</tr>
   		<tr>
-  			<td><input type="checkbox" id="breakCheck" name="breakCheck" style="margin-top:20px; margin-bottom:40px;" value="N"><input type="button" id="checkMission" value="기록" style="background:#ff0066; color:white; border:1px solid lightgray"></td>
+  			<td><input type="checkbox" id="breakCheck"  name="breakCheck" style="margin-top:20px; margin-bottom:40px;" value="N"><input type="button" id="checkMission" value="기록" style="background:#ff0066; color:white; border:1px solid lightgray"></td>
   		</tr>
   		<tr>
   			<td><label id="lunch">점심</label><br><label id="sellunch" style="width:300px"></label></td>
@@ -520,22 +461,25 @@
   			<h4 class="modal-title" style="font-family: 'Noto Sans KR', sans-serif;">미션결과 확인</h4>
       </div>
       <div class="modal-body">
-      	<table style="margin-left:160px;">
+      	<table style="margin-left:160px;" >
         	<tr>
         		<!-- <td><label  style="margin-left:80px;">날짜</label> <input type="text" id="mDate2" ></td> -->
         			  <td><label id="mDate2" style="font-size:20px;margin-left:-160px;"></label></td>
         	</tr>
-        	<tr style="height:50px;">
-        		<td><label style="margin-left:150px; margin-top:40px" id="eating">식단</label><hr></td>
+        	<tr>
+        		<td><label style="margin-left:150px; margin-top:20px" id="eating">식단</label><hr></td>
         	</tr>
         	<tr>
-        		<td><label id="breakf">아침</label><input type="text" id="completeBreakfast2" style="margin-left:30px"><label style="margin-left:30px" id="completeYNBreak"></label></td>
+        		<td><label id="breakf">아침</label><input type="text" class="form-control" id="completeBreakfast2" style="margin-left:30px;"></td>
+        		<td><label style="margin-left:60px; margin-top:30px" id="completeYNBreak"></label></td>
         	</tr>
         	<tr>
-        		<td><label id="lun">점심</label><input type="text" id="completeLunch2" style="margin-left:30px"><label style="margin-left:30px" id="completeYNLunch"></label></td>
+        		<td><label id="lun">점심</label><input type="text" id="completeLunch2" class="form-control" style="margin-left:30px"></td>
+        		<td><label style="margin-left:60px; margin-top:30px" id="completeYNLunch"></label></td>
         	</tr>
         	<tr>
-        		<td><label id="din">저녁</label><input type="text" id="completeDinner2" style="margin-left:30px"><label style="margin-left:30px" id="completeYNDinner"></label></td>
+        		<td><label id="din">저녁</label><input type="text" id="completeDinner2" class="form-control" style="margin-left:30px"></td>
+        		<td><label style="margin-left:60px; margin-top:30px" id="completeYNDinner"></label></td>
         	</tr>
         	
         	
@@ -543,26 +487,29 @@
         		<td><label style="margin-left:150px; margin-top:40px" id="exercise">운동</label><hr></td>
         	</tr>
         	<tr>
-        		<td><label id="breakE">아침</label><input type="text" id="completeBreakEx2" style="margin-left:30px" ><label style="margin-left:30px" id="completeYNBreakEx"></label></td>
-        		<td rowspan="2"></td>
+        		<td><label id="breakE">아침</label><input type="text" class="form-control" id="completeBreakEx2" style="margin-left:30px" ></td>
+        		<td><label style="margin-left:60px; margin-top:30px" id="completeYNBreakEx"></label></td>
+        		<td></td>
         	</tr>
         	
         	<tr>
-        		<td><input type="text" id="completeBreakExLink2" style="margin-left:60px"></td>
+        		<td><input type="text" id="completeBreakExLink2" style="margin-left:30px" class="form-control"></td>
         	</tr>
         	<tr>
-        		<td><label id="lunE">점심</label><input type="text" id="completeLunchEx2" style="margin-left:30px"><label style="margin-left:30px" id="completeYNLunchEx"></label></td>
-        		<td rowspan="2"></td>
+        		<td><label id="lunE">점심</label><input type="text" class="form-control" id="completeLunchEx2" style="margin-left:30px"></td>
+        		<td><label style="margin-left:60px; margin-top:30px" id="completeYNLunchEx"></label></td>
+        		<td></td>
         	</tr>
         	<tr>	
-        		<td><input type="text" id="completeLunchExLink2" style="margin-left:60px"></td>
+        		<td><input type="text" class="form-control" id="completeLunchExLink2" style="margin-left:30px"></td>
         	</tr>
         	<tr>
-        		<td><label id="dinE">저녁</label><input type="text" id="completeDinnerEx2" style="margin-left:30px"><label style="margin-left:30px" id="completeYNDinnerEx"></label></td>
-        		<td rowspan="2"></td>
+        		<td><label id="dinE">저녁</label><input type="text"  class="form-control"id="completeDinnerEx2" style="margin-left:30px"></td>
+        		<td><label style="margin-left:60px; margin-top:30px" id="completeYNDinnerEx"></label></td>
+        		<td></td>
         	</tr>
         	<tr>
-        		<td><input type="text" id="completeDinnerExLink2" style="margin-left:60px"></td>
+        		<td><input type="text" id="completeDinnerExLink2" class="form-control" style="margin-left:30px"></td>
         	</tr>
         	
         </table>

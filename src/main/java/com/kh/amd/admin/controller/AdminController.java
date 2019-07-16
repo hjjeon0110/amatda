@@ -34,6 +34,7 @@ import com.kh.amd.board.model.vo.Reply;
 import com.kh.amd.common.Pagination;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
+import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.vo.Payment;
 import com.kh.amd.board.model.service.ReplyService;
 
@@ -473,10 +474,21 @@ public class AdminController {
 	//통계관리 페이지
 	@RequestMapping("statistics.ad")
 	public String statistics(Model model){
-		List<Member> memberAge = as.memberAge();
-		model.addAttribute("list", memberAge);
-		System.out.println("통계 : " +  memberAge);
-
+		
+		List<Member> userCount = as.userCount();
+		model.addAttribute("userCount", userCount);		
+		List<Member> trainerCount = as.trainerCount();
+		model.addAttribute("trainerCount", trainerCount);	
+		List<Member> userAge = as.userAge();
+		model.addAttribute("userAge", userAge);
+		
+		List<Member> preferenceAge = as.preferenceAge();
+		model.addAttribute("preferenceAge", preferenceAge);
+		
+		
+		
+		
+		System.out.println("통계 : " +  model);
 
 		return "admin/statistics";
 	}

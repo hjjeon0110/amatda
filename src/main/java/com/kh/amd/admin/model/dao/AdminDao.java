@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.amd.board.model.vo.Board;
 import com.kh.amd.matching.model.vo.Mprocess;
 import com.kh.amd.member.model.vo.Member;
+import com.kh.amd.survey.model.vo.Survey;
 import com.kh.amd.trainer.model.vo.Payment;
 
 public interface AdminDao {
@@ -56,9 +57,6 @@ public interface AdminDao {
 	//페이징처리(신고)
 	int declListCount(SqlSessionTemplate sqlSession);
 
-	//통계
-	List<Member> memberAge(SqlSessionTemplate sqlSession);
-
 	//매칭 조회
 	List<Mprocess> matchingList(SqlSessionTemplate sqlSession);
 
@@ -67,6 +65,16 @@ public interface AdminDao {
 
 	//매칭 종료
 	int matchingEnd(SqlSessionTemplate sqlSession, int No);
+	
+	//통계
+	List<Member> userCount(SqlSessionTemplate sqlSession);
+
+	List<Member> trainerCount(SqlSessionTemplate sqlSession);
+
+	List<Member> userAge(SqlSessionTemplate sqlSession);
+
+	List<Member> preferenceAge(SqlSessionTemplate sqlSession);
+
 
 
 

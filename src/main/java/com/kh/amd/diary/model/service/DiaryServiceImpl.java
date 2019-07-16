@@ -158,25 +158,6 @@ public class DiaryServiceImpl implements DiaryService{
 		
 	}
 
-
-	
-	
-
-	//gallery
-//	@Override
-//	public List<Diary> galleryList(int mno) {
-//		
-//		return dd.galleryList(sqlSession, mno);
-//	}
-
-
-	
-
-	
-	
-	
-	
-
 	
 
 }

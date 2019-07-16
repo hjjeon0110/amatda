@@ -324,7 +324,7 @@ margin:0 auto;
     </div>
   </div>
   
-   <input type="submit" value="전송" class="btn btn-primary">
+   <input type="submit" value="전송" class="btn btn-primary" id="qnaSend">
   
   
   <!-- <div class="row">
@@ -473,6 +473,9 @@ imgTarget.on('change', function(){
 		
 	} 
 	
+	});
+	$("#qnaSend").click(function(){
+		alert("질문이 접수되었습니다.\n 답변은 내글관리에서 확인하실수 있습니다.");
 	});
 
 

@@ -9,22 +9,6 @@
 <meta charset="UTF-8">
 <title>갤러리 리스트</title>
 
-<%-- <script scr="http://code.jquery.com-1.10.2.js"></script>
-<script type="text/javascript">
-	$(window).scroll(function(){
-		if($(window).scrollTop() == $(document).height() - $(window).height()){
-			lastPostFunc();
-		}
-	});
-function lastPostFunc(){
-	$.post("selectGallery.jsp", {resvidx:$(".lastid:last").attr("id"),search:"=<%=search%>"},function(data){
-		if(data != ""){
-			$(".lastid:last").after(data);
-		}
-	});
-}
-</script> --%>
-
 <style>
 .outer {
 	width: 1000px;
@@ -54,7 +38,7 @@ function lastPostFunc(){
 	padding:10px;
 }
 
-.galleryList:hover {
+.galleryList:hover{background-color:hotpink} {
 	opacity: 0.8;
 	cursor: pointer;
 }

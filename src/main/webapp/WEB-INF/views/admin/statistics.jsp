@@ -129,7 +129,7 @@
 
 				<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
 					<div class="tm-bg-primary-dark tm-block tm-block-taller">
-						<h2 class="tm-block-title">회원</h2>
+						<h2 class="tm-block-title">회원 성별</h2>
 						<div id="pieChartContainer">
 							<canvas id="pieChart" class="chartjs-render-monitor" width="200"
 								height="200"></canvas>
@@ -141,7 +141,7 @@
 				<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
 
 					<div class="tm-bg-primary-dark tm-block tm-block-taller">
-						<h2 class="tm-block-title">트레이너</h2>
+						<h2 class="tm-block-title">트레이너 성별</h2>
 
 						<div id="pieChartContainer">
 
@@ -156,8 +156,15 @@
 
 				<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
 					<div class="tm-bg-primary-dark tm-block">
-						<h2 class="tm-block-title">나이대별</h2>
+						<h2 class="tm-block-title">회원 나이대</h2>
 						<canvas id="lineChart"></canvas>
+					</div>
+				</div>
+				
+				<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+					<div class="tm-bg-primary-dark tm-block">
+						<h2 class="tm-block-title">선호하는 연령</h2>
+						<canvas id="lineChart2"></canvas>
 					</div>
 				</div>
 
@@ -176,7 +183,7 @@
 					</div>
 				</div>
 				
-				<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+			<%-- 	<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
 					<div class="tm-bg-primary-dark tm-block tm-block-taller">
 						<h2 class="tm-block-title">매칭달성율</h2>
 						<div id="pieChartContainer">
@@ -185,7 +192,7 @@
 
 						</div>
 					</div>
-				</div>
+				</div> --%>
 
 
 
@@ -208,40 +215,16 @@
 				barChart, pieChart;
 				// DOM is ready
 				
-			/* 	console.log("<c:out value='${memberAge}'/>");
-				
-				var list = [];		
-				<c:forEach items="${memberAge}" var="list">
-					list.push("${memberAge}");
-				</c:forEach>
-				console.log(list); */
-				
-				
-				
-					/* $.ajax({
-					
-							url:"memberAge.ad",
-				  			type:"get",
-				  			success:function(data){
-				  				console.log("접근 성공");
-				  				console.log(data);
-				  				
-				  				var no = new Array();
-							    no.push(30);
-							    no.push(100);
-							    drawPieChart(no); // Pie Chart
-				  			}
-						}) */
-			
-				
+	
 				$(function() {
 				
 				    
 				    
-					drawLineChart(); // Line Chart
+					drawLineChart(${ requestScope.userAge });
+					drawLineChart2(${ requestScope.preferenceAge });
 					drawBarChart(); // Bar Chart
-					drawPieChart(${ requestScope.list }); // Pie Chart
-					
+					drawPieChart(${ requestScope.userCount }); // Pie Chart
+					drawPieChart2(${ requestScope.trainerCount });
 	  				
 					$(window).resize(function() {
 						updateLineChart();

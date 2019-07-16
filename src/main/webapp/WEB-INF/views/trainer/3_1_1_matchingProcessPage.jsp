@@ -23,8 +23,8 @@
          <table class="trainerListTable">
             <tr>
                <td rowspan="3" class="trainerListTableTd1">
-                  <div class="profileImg">
-                     <img class="profileImage" src="${ contextPath }/resources/images/profileImg.PNG">
+                  <div class="profileImg" style="border-radius: 50%;">
+                     <img class="profileImage" style="border-radius: 50%;" src="${ contextPath }/resources/uploadFiles/${ matchingMember.attachment.modiName}${matchingMember.attachment.extension }">
                   </div>
                </td>
                <td class="trainerListTableTd2">
@@ -85,7 +85,7 @@
            </ul>
        </div>
    </c:if> --%>
-   <c:if test="${ matchingMember.mprocess.matchingLevel == 2 && matchingMember.mprocess.matchingStatus == '진행중' }">
+   <c:if test="${ matchingMember.mprocess.matchingLevel == 2 && matchingMember.mprocess.matchingStatus == '진행중' && matchingMember.mprocess.transferStatus == 'RECEIVE' }">
        <div class="step-state step2-ing">
            <ul>
                <li><p>매칭시작</p></li>
@@ -109,7 +109,7 @@
          <br><br><br>
       </div>
    </c:if>
-   <c:if test="${ matchingMember.mprocess.matchingLevel == 3 && matchingMember.mprocess.matchingStatus == '진행중' && matchingMember.mprocess.matchingAccept== 'Y'  }">
+   <c:if test="${ matchingMember.mprocess.matchingLevel == 3 && matchingMember.mprocess.matchingStatus == '진행중' && matchingMember.mprocess.matchingAccept== 'Y' && matchingMember.mprocess.transferStatus == 'RECEIVE' }">
        <div class="step-state step2-ing">
            <ul>
                <li><p>매칭시작</p></li>
@@ -129,7 +129,7 @@
          <br><br><br>
       </div>
    </c:if>
-   <c:if test="${ matchingMember.mprocess.matchingLevel == 3 && matchingMember.mprocess.matchingStatus == '매칭종료' && matchingMember.mprocess.matchingAccept== 'N' }">
+   <c:if test="${ matchingMember.mprocess.matchingLevel == 3 && matchingMember.mprocess.matchingStatus == '매칭종료' && matchingMember.mprocess.matchingAccept== 'N' && matchingMember.mprocess.transferStatus == 'RECEIVE' }">
        <div class="step-state step3">
            <ul>
                <li><p>매칭시작</p></li>
@@ -149,7 +149,7 @@
          <br><br><br>
       </div>
    </c:if>
-   <c:if test="${ matchingMember.mprocess.matchingLevel == 4 && matchingMember.mprocess.matchingStatus == '진행중' && matchingMember.mprocess.matchingAccept== 'Y' }">
+   <c:if test="${ matchingMember.mprocess.matchingLevel == 4 && matchingMember.mprocess.matchingStatus == '진행중' && matchingMember.mprocess.matchingAccept== 'Y' && matchingMember.mprocess.transferStatus == 'RECEIVE' }">
        <div class="step-state step3-ing">
            <ul>
                <li><p>매칭시작</p></li>
@@ -169,7 +169,67 @@
          <br><br><br>
       </div>
    </c:if>
-   <c:if test="${ matchingMember.mprocess.matchingLevel == 5 && matchingMember.mprocess.matchingStatus == '매칭종료' && matchingMember.mprocess.matchingAccept== 'N' }">
+   <c:if test="${ matchingMember.mprocess.matchingLevel == 4 && matchingMember.mprocess.matchingStatus == '진행중' && matchingMember.mprocess.matchingAccept== 'Y' && matchingMember.mprocess.transferStatus == 'SEND' }">
+       <div class="step-state step3-ing">
+           <ul>
+               <li><p>매칭시작</p></li>
+               <li><p>견적서 보내기<span></span></p></li>
+               <li><p>매칭 요청하기<span></span></p></li>
+               <li><p>입금 확인하기<span></span></p></li>
+               <li><p>PT 시작하기<span></span></p></li>
+           </ul>
+       </div>
+       <br>
+      <div class="stepDiv">
+         <br><br>
+         <label class="stepLabel">${ matchingMember.name } 회원님께서 아직 입금 확인 요청을 보내지 않았습니다.</label><br>
+         <label class="stepLabel" style="color:#ff0066;">입금 확인 요청이 오기까지  ${(estDate + 3 - nowTime)}일 남았습니다.</label>
+         <br><br>
+         <button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable3" disabled="true">입금 확인하기</button>
+         <br><br><br>
+      </div>
+   </c:if>
+   <c:if test="${ matchingMember.mprocess.matchingLevel == 5 && matchingMember.mprocess.matchingStatus == '진행중' && matchingMember.mprocess.matchingAccept== 'Y' && matchingMember.mprocess.transferStatus == 'RECEIVE' }">
+       <div class="step-state step3-ing">
+           <ul>
+               <li><p>매칭시작</p></li>
+               <li><p>견적서 보내기<span></span></p></li>
+               <li><p>매칭 요청 수락하기<span></span></p></li>
+               <li><p>입금 확인하기<span></span></p></li>
+               <li><p>PT 시작하기<span></span></p></li>
+           </ul>
+       </div>
+       <br>
+      <div class="stepDiv">
+         <br><br>
+         <label class="stepLabel">${ matchingMember.name } 회원님께서 입금을 완료하셨습니다!</label><br>
+         <label class="stepLabel" style="color:#ff0066;">입금 확인이 완료되면 PT 서비스를 진행하실 수 있습니다.</label>
+         <br><br>
+         <button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable3">입금 확인하기</button>
+         <br><br><br>
+      </div>
+   </c:if>
+   <c:if test="${ matchingMember.mprocess.matchingLevel == 5 && matchingMember.mprocess.matchingStatus == '진행중' && matchingMember.mprocess.matchingAccept== 'Y' && matchingMember.mprocess.transferStatus == 'SEND' }">
+       <div class="step-state step3-ing">
+           <ul>
+               <li><p>매칭시작</p></li>
+               <li><p>견적서 보내기<span></span></p></li>
+               <li><p>매칭 요청하기<span></span></p></li>
+               <li><p>입금 확인하기<span></span></p></li>
+               <li><p>PT 시작하기<span></span></p></li>
+           </ul>
+       </div>
+       <br>
+      <div class="stepDiv">
+         <br><br>
+         <label class="stepLabel">${ matchingMember.name } 회원님께서 입금을 완료하셨습니다!</label><br>
+         <label class="stepLabel" style="color:#ff0066;">입금 확인이 완료되면 PT 서비스를 진행하실 수 있습니다.</label>
+         <br><br>
+         <button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable3">입금 확인하기</button>
+         <br><br><br>
+      </div>
+   </c:if>
+  <%--  <c:if test="${ matchingMember.mprocess.matchingLevel == 5 && matchingMember.mprocess.matchingStatus == '매칭종료' && matchingMember.mprocess.matchingAccept== 'N' }">
        <div class="step-state step4">
            <ul>
                <li><p>매칭시작</p></li>
@@ -188,9 +248,9 @@
          <button class="stepBtn" id="step1" onclick="location.href='showRecommendTrainerPageView.us?mno=${sessionScope.loginUser.mno}'">다른 트레이너 찾기</button>
          <br><br><br>
       </div>
-   </c:if>
-   <c:if test="${ matchingMember.mprocess.matchingLevel == 5 && matchingMember.mprocess.matchingStatus == '진행중' && matchingMember.mprocess.matchingAccept== 'Y' }">
-       <div class="step-state step4-ing">
+   </c:if> --%>
+   <c:if test="${ matchingMember.mprocess.matchingLevel == 5 && matchingMember.mprocess.matchingStatus == '매칭완료' && matchingMember.mprocess.matchingAccept== 'Y' && matchingMember.mprocess.transferStatus == 'RECEIVE' }">
+       <div class="step-state step5">
            <ul>
                <li><p>매칭시작</p></li>
                <li><p>견적서 보내기<span></span></p></li>
@@ -202,14 +262,34 @@
         <br>
       <div class="stepDiv">
          <br><br>
-         <label class="stepLabel">아직 트레이너가 매칭 요청을 수락하지 않았습니다.</label><br>
-         <label class="stepLabel" style="color:#ff0066;">매칭 요청에 대한 답변이 오기까지 ${(estDate + 3 - nowTime)}일 남았습니다!</label>
+         <label class="stepLabel">PT를 시작하기 위한 모든 단계가 끝났습니다.</label><br>
+         <label class="stepLabel" style="color:#ff0066;">지금 바로 ${ matchingMember.name } 회원님과 PT를 시작해보세요!</label>
          <br><br>
-         <button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable3">매칭 요청 수락하기</button>
+         <button class="stepBtn" id="step5">PT 관리 페이지로 이동하기</button>
          <br><br><br>
       </div>
    </c:if>
-   <c:if test="${ matchingMember.mprocess.matchingLevel == 5 && matchingMember.mprocess.matchingStatus == '진행중' && matchingMember.mprocess.matchingAccept== 'Y' }">
+   <c:if test="${ matchingMember.mprocess.matchingLevel == 5 && matchingMember.mprocess.matchingStatus == '매칭완료' && matchingMember.mprocess.matchingAccept== 'Y' && matchingMember.mprocess.transferStatus == 'SEND' }">
+       <div class="step-state step5">
+           <ul>
+               <li><p>매칭시작</p></li>
+               <li><p>견적서 보내기<span></span></p></li>
+               <li><p>매칭 요청하기<span></span></p></li>
+               <li><p>입금 확인하기<span></span></p></li>
+               <li><p>PT 시작하기<span></span></p></li>
+           </ul>
+       </div>
+        <br>
+      <div class="stepDiv">
+         <br><br>
+         <label class="stepLabel">PT를 시작하기 위한 모든 단계가 끝났습니다.</label><br>
+         <label class="stepLabel" style="color:#ff0066;">지금 바로 ${ matchingMember.name } 회원님과 PT를 시작해보세요!</label>
+         <br><br>
+         <button class="stepBtn" id="step5">PT 관리 페이지로 이동하기</button>
+         <br><br><br>
+      </div>
+   </c:if>
+   <%-- <c:if test="${ matchingMember.mprocess.matchingLevel == 6 && matchingMember.mprocess.matchingStatus == '진행중' && matchingMember.mprocess.matchingAccept== 'Y' }">
        <div class="step-state step5">
            <ul>
                <li><p>매칭시작</p></li>
@@ -228,7 +308,7 @@
          <button class="stepBtn" id="step1" data-toggle="modal" data-target="#exampleModalScrollable3">입금 확인 요청하기</button>
          <br><br><br>
       </div>
-   </c:if>
+   </c:if> --%>
    
    
    <!-- footer ------------------------------------------------------------------------------------------------------------ -->
@@ -267,6 +347,7 @@
       </div>
    </div>
    
+   
    <!-- 매칭 요청 수락하기 Modal ------------------------------------------------------------------------------------------------------------- -->
    <div class="modal fade" id="exampleModalScrollable2" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle2" aria-hidden="true" data-backdrop="static">
       <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -297,6 +378,36 @@
       </div>
    </div>
    
+   
+   <!-- 입금 확인하기 Modal ------------------------------------------------------------------------------------------------------------- -->
+   <div class="modal fade" id="exampleModalScrollable3" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle3" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <label class="modalHeader"><i class="fa fa-check"></i> ${ matchingMember.name } 회원님의 입금 확인 요청을 수락하시겠습니까?</label>&nbsp;&nbsp;&nbsp;&nbsp;
+               <button type="button" class="close" data-dismiss="modal"
+                  aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <br>
+               <label class="subTitleLabel">입금 확인 요청이 도착하면 확인 후 바로 PT 서비스를 시작할 수 있습니다!</label>
+               <br>
+               <div class="custom-control custom-checkbox custom-control-inline">
+                  <!-- <input type="checkbox" class="custom-control-input" id="defaultInline1" name="hopeBody" value="팔부위" checked>
+                   <label class="custom-control-label" for="defaultInline1" style="font-size:14px;">해당 트레이너에게 입금을 완료했으며, PT 서비스를 시작하는데 동의하십니까?</label>
+                  <br><br> -->
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+               <button type="button" class="btn btn-primary" id="acceptDepositCheckRequestBtn">수락하기</button>
+            </div>
+         </div>
+      </div>
+   </div>
+   
    <script>
    		
    		// 매칭 요청 거절하기 버튼 클릭 시
@@ -314,6 +425,22 @@
    			
    			location.href = "updateMprocess2.tr?uno=" + uno + "&tno=" + tno;
    		});
+   		
+   		// 입금 확인 요청 수락하기 버튼 클릭 시
+   		$("#acceptDepositCheckRequestBtn").click(function() {
+   			var tno = ${ sessionScope.loginUser.mno };
+   			var uno = ${ matchingMember.mno };
+   			
+   			location.href = "updateMprocess3.tr?uno=" + uno + "&tno=" + tno;
+   		});
+   		
+   		// PT관리 페이지로 이동하기 버튼 클릭 시
+   		$("#step5").click(function() {
+   			var tno = ${ sessionScope.loginUser.mno };
+   			
+   			location.href = "showMatchingCompletePage.tr?tno=" + tno;
+   		});
+   		
    </script>
 	
 </body>

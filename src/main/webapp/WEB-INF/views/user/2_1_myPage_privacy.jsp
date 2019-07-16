@@ -33,23 +33,17 @@
 
 
 
-						<%-- <img
-							src="${ contextPath }/resources/uploadFiles/${ list.modiName }${ list.extension }"
-							width="200px" height="150px" /> --%>
+						
 						<img
 							src="${contextPath}/resources/uploadFiles/${ at.modiName }${ at.extension }"
 							style="width: 180px; height: 180px" id="profileImg" />
 
 					</div> 
 					<br> 
-					<%-- <c:if test="${result == 0 }">
-						<button type="button" class="checkBtn" data-toggle="modal"
-							data-target="#memberpicture">사진 등록</button>
-					</c:if> 
-					<c:if test="${result == 1 }"> --%>
+					
 						<button type="button" class="checkBtn" data-toggle="modal"
 							data-target="#memberpicture">사진 변경</button>
-					<%-- </c:if> --%>
+					
 
 				</td>
 			</tr>
