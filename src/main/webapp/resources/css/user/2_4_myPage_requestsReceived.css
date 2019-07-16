@@ -12,24 +12,58 @@
 .searchTrainerListDiv {
 	width: 100%;
 	height: 100%;
-	background: whitesmoke;
-	border-top:1px solid lightgray;
+	background: #F9F9F9;
 }
+
+.recommendtrainerListNullDiv {
+	width:100%;
+	height:100%;
+	background:#F9F9F9;
+	text-align:center;
+}
+
+.recommendtrainerListNullLabel {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
 
 .trainerSelect {
 	width: 150px;
 	font-family: 'Noto Sans KR', sans-serif;
-	border: 1px solid darkgray;
+	border: 0.5px solid darkgray;
 	margin-left: 50px;
 }
 
 .trainerListDiv {
 	width: 90%;
-	border: 1px solid darkgray;
+	border: 0.5px solid darkgray;
 	margin-left: auto;
 	margin-right: auto;
 	padding: 10px;
 	background: white;
+	position:relative;
+}
+
+.trainerListDiv2 {
+	width: 90%;
+	border: 1px solid darkgray;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	background: rgba(0, 0, 0, 0.3);
+	position:relative;
+	top:-130px; 
+	left:0px;
+	height:130px;
+	margin-bottom:-130px;	
+	text-align:center;
+}
+
+.trainerListDiv2Label{
+	font-family: 'Noto Sans KR', sans-serif;
+	color:white;
+	height:130px;
+	line-height:300%;
 }
 
 .trainerListTable {
@@ -80,20 +114,29 @@
 	color: #ff0066;
 }
 
-.daysRemaining {
-	border-style:none; 
-	background:#ffe6f3; 
-	color:#ff0066;
-	margin-left:auto; 
-	margin-right:auto;
-	width:100px;
-}
-
 .simpleProfile {
 	font-size: 13px;
 }
 
 .goProfileDetail {
+	border-style: none;
+	background: #ffe6f3;
+	color: #ff0066;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100px;
+}
+
+.goProfileDetail:hover {
+	border:0.5px solid #ff0066;
+	background:white;
+	color:#ff0066;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100px;
+	cursor:pointer;
+}
+.matchingStartBtn, .openEstBtn {
 	border-style: none;
 	background: #ff0066;
 	color: white;
@@ -101,13 +144,84 @@
 	margin-right: auto;
 	width: 100px;
 }
-
-.goProfileDetail:hover {
-	border:1px solid #ff0066;
+.matchingStartBtn:hover, .openEstBtn:hover {
+	border:0.5px solid #ff0066;
 	background:white;
 	color:#ff0066;
 	margin-left: auto;
 	margin-right: auto;
 	width: 100px;
 	cursor:pointer;
+}
+
+
+
+
+.modal {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.modal-header {	
+	background:#ffe6f3 !important;
+	border-left:0.5px solid gray !important;
+}
+
+.modalHeader {
+	color: #ff0066;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+	
+}
+.surveyInfo{
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:14px;
+	margin-top:2px;
+}
+
+.modalMenubar {
+	width:100%;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.modalMenubar thead {
+	text-align:center;
+	font-weight:bold;
+}
+
+.modalMenubar td {
+	width:20%;
+	padding-top:15px;
+	padding-bottom:15px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:14px;
+}
+
+.modalBody {
+	padding:20px;
+}
+
+.modalMenu {
+	color: #ff0066;
+	font-size:16px;
+	font-weight:bold;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.form-control {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 14px !important;
+	height:30px !important;
+	background:white !important;
+}
+
+.index{
+	color: #ff0066;
+	font-weight:bold;
+}
+
+.subTitleLabel {
+	font-weight:bold;
+	font-size: 14px;
+	font-family: 'Noto Sans KR', sans-serif;
 }

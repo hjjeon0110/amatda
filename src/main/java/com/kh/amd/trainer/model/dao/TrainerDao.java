@@ -174,6 +174,9 @@ public interface TrainerDao {
 	// 17. 매칭 요청 수락하기 버튼 클릭 시 MPROCESS UPDATE (전효정)
 	void updateMprocess2(SqlSessionTemplate sqlSession, String uno, String tno);
 
+	// 18. 입금 확인 요청 수락하기 버튼 클릭 시 MPROCESS UPDATE (전효정)
+	void updateMprocess3(SqlSessionTemplate sqlSession, String uno, String tno);
+
 
 
 	

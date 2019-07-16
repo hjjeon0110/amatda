@@ -87,6 +87,12 @@ public interface UserDao {
 	// 15. 매칭 요청 후  mprocess update (전효정)
 	void updateMprocess3(SqlSessionTemplate sqlSession, String mno, String tno);
 
+	// 16. 입금 확인 요청 후  mprocess update (전효정)
+	void updateMprocess4(SqlSessionTemplate sqlSession, String mno, String tno);
+
+	// 17. 받은 요청 내역 조회 (전효정)
+	List<Member> selectRequestsReceivedList(SqlSessionTemplate sqlSession, String mno);
+
 
 	
 

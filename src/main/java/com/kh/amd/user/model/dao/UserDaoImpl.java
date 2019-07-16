@@ -260,11 +260,31 @@ public class UserDaoImpl implements UserDao {
 	// 15. 매칭 요청 후  mprocess update (전효정)
 	@Override
 	public void updateMprocess3(SqlSessionTemplate sqlSession, String mno, String tno) {
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("mno", mno);
 		map.put("tno", tno);
 		
 		sqlSession.update("User.updateMprocess3", map);
+	}
+
+	
+	// 16. 입금 확인 요청 후  mprocess update (전효정)
+	@Override
+	public void updateMprocess4(SqlSessionTemplate sqlSession, String mno, String tno) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mno", mno);
+		map.put("tno", tno);
+		
+		sqlSession.update("User.updateMprocess4", map);
+	}
+
+	
+	// 17. 받은 요청 내역 조회 (전효정)
+	@Override
+	public List<Member> selectRequestsReceivedList(SqlSessionTemplate sqlSession, String mno) {
+		return sqlSession.selectList("User.selectRequestsReceivedList", mno);
 	}
 
 	

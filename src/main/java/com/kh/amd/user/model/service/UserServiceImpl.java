@@ -191,6 +191,19 @@ public class UserServiceImpl implements UserService {
 		ud.updateMprocess3(sqlSession, mno, tno);
 	}
 
+	
+	// 16. 입금 확인 요청 후  mprocess update (전효정)
+	@Override
+	public void updateMprocess4(String mno, String tno) {
+		ud.updateMprocess4(sqlSession, mno, tno);
+	}
+
+	// 17. 받은 요청 내역 조회 (전효정)
+	@Override
+	public List<Member> selectRequestsReceivedList(String mno) {
+		return ud.selectRequestsReceivedList(sqlSession, mno);
+	}
+
 
 	
 
