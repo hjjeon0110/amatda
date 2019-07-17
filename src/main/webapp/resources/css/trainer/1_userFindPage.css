@@ -158,4 +158,42 @@
 	width:95%;
 	height:100%;
 	font-family: 'Nanum Gothic', sans-serif;
+	font-family: 'Montserrat', sans-serif;
+}
+.pagingBtn {
+	border-style:none;
+	background:white;
+	color:#ff0066;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-radius:5px;
+}
+.pagingBtn:hover {
+	border:0.5px solid #ff0066;
+	background:#ff0066;
+	color:white;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-radius:5px;
+	cursor:pointer;
+}
+.pagingBtn2 {
+	border-style:none;
+	background:#ffe3f6;
+	color:#ff0066;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-radius:5px;
+}
+.pagingBtn2:hover {
+	border-style:none;
+	background:#ffe3f6;
+	color:#ff0066;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-radius:5px;
+	cursor:pointer;
+}
+.pagingBtnThis {
+	border-style:none;
+	background:#Ff0066;
+	color:white;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-radius:5px;
 }

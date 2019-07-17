@@ -7,6 +7,29 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/user/1_3_profileDetailPage.css">
+<style>
+.reviewTable {
+	width:100%;
+}
+.reviewTable td {
+	text-align:left;
+}
+.writerLabel {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:14px;
+	font-weight:bold;
+}
+.contentLabel {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:14px;
+	
+}
+.writeDateLabel {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:14px;
+	color:darkgray;
+}
+</style>
 </head>
 <body>
 
@@ -180,20 +203,29 @@
 		<div class="reviewDiv">
 			<br><br>
 			<label class="subTitle">리뷰</label><br>
-			<label class="contents">작성된 리뷰가 없습니다 !.</label><br>
+			<label class="contents">작성된 리뷰가 없습니다.</label><br>
 		</div>
 		</c:if>
 		<c:if test="${ !empty reviewList }">
-				<c:forEach var="review" items="${ reviewList }" varStatus="status">
-				<div class="reviewDiv">
-					<br><br>
-					<label class="subTitle">리뷰</label><br>
-					<p>작성자 : ${ review.name }</p><br>
-					<label class="title"><input type="text" value="${ review.title }"/></label>
-					<label class="contents"><textarea cols="30" rows="10">${ review.content }</textarea></label><br>
-					<p>날짜 : ${ review.writeDate }</p>
-				</div>
+		<div class="reviewDiv">
+		<br><br>
+			<label class="subTitle">리뷰</label><br><br>
+			<c:forEach var="review" items="${ reviewList }" varStatus="status">
+				<table class="reviewTable">
+					<tr>
+						<td rowspan="3" style="width:10%;"><img style="border-radius: 50%; width:90px; height:90px;" src="${ contextPath }/resources/uploadFiles/${ review.attachment.modiName }${ review.attachment.extension }"></td>
+						<td style="width:90%; padding-left:20px;"><label class="writerLabel">${ review.name }</label>&nbsp;&nbsp;<label class="writeDateLabel">${ review.writeDate }</label></td>
+					</tr>
+					<tr>
+						<td style="padding-left:20px;"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></td>
+					</tr>
+					<tr>
+						<td style="padding-left:20px;"><label class="contentLabel">${ review.content }</label></td>
+					</tr>
+				</table>
+				<hr>
 			</c:forEach>
+			</div>
 			
 		</c:if>
 	

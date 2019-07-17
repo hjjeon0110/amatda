@@ -151,6 +151,7 @@
 				data:{mno:mno, searchServiceKeyword:searchServiceKeyword, searchTrainerAge:searchTrainerAge, searchTrainerGender:searchTrainerGender, searchTrainerName:searchTrainerName},
 				success:function(data) {
 					
+					
 					if(data[0] == null) {
 						
 						$(".searchTrainerListDiv").children().remove();
@@ -193,6 +194,10 @@
 						
 						for(var i in data) {
 							
+							var src1 = "${ contextPath }/resources/uploadFiles/";
+							var src2 = data[i].attachment.modiName;
+							var src3 = data[i].attachment.extension;
+							
 							$br = "<br>";
 							$nbsp = "&nbsp;";
 							$searchTrainerListDiv = $(".searchTrainerListDiv");
@@ -202,7 +207,10 @@
 							$trainerListTableTd1 = $("<td class='trainerListTableTd1' rowspan='3'>");
 							$trainerListTableTd11 = $("<td class='trainerListTableTd11'>");
 							$profileImgDiv = $("<div class='profileImg'>");
-							$profileImage = $("<img class='profileImage' src='${ contextPath }/resources/images/profileImg.PNG'>")
+							//$profileImage = $("<img class='profileImage' style='border-radius: 50%;' src='${ contextPath }/resources/uploadFiles/data[i].attachment.modiNamedata[i].attachment.extension'>");
+
+							$profileImage = $("<img class='profileImage' style='border-radius: 50%;' src=''>");
+							$profileImage.attr('src', src1 + src2 + src3);
 							$trainerListTableTr2 = $("<tr>");
 							$trainerListTableTd2 = $("<td class='trainerListTableTd2'>");
 							$trainerName = $("<label class='trainerName'>").text(data[i].name);
@@ -216,7 +224,7 @@
 							$tno = $("<input type='hidden'>").text(data[i].mno);
 							$tname = $("<input type='hidden'>").text(data[i].name);
 							$goProfileDetailBtn = $("<button class='goProfileDetail' id='tt' onclick='goProfileDetail(this)'>").text("프로필 보기");
-														
+																					
 							$(".searchTrainerListNullDiv").remove();
 							
 							$searchTrainerListDiv.append($trainerListDiv);

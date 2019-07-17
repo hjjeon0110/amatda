@@ -119,6 +119,7 @@
 		<collection property="trainerInfo" column="trainerResultSet" resultMap="trainerResultSet" javaType="TrainerInfo"/>
 		<collection property="profile" column="profileResultSet" resultMap="profileResultSet" javaType="Profile"/>
 		<collection property="mprocess" column="mprocessResultSet" resultMap="mprocessResultSet" javaType="Mprocess"/>
+		<collection property="attachment" column="attachmentResultSet" resultMap="attachmentResultSet" javaType="Attachment"/>
 	</resultMap>
 	<resultMap id="boardResultSet" type="com.kh.amd.board.model.vo.Board">
 		<id property="bNo" column="BNO" />
@@ -251,7 +252,7 @@
 	
 	<!-- 1. 맞춤 트레이너 리스트 조회 (전효정) -->
 	<select id="selectRecommendTrainerList" resultMap="selectRecommendTrainerList">
-		SELECT * FROM MEMBER M JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE M.MTYPE = 'T' AND TI.TOPEN = 'Y' AND TI.TAGE = #{hopeAge} AND M.GENDER = #{hopeGender} AND 
+		SELECT * FROM MEMBER M JOIN ATTACHMENT A ON(A.PNO = M.MNO) JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE M.MTYPE = 'T' AND TI.TOPEN = 'Y' AND TI.TAGE = #{hopeAge} AND M.GENDER = #{hopeGender} AND 
 		<foreach collection="hopeExerciseArr" item="item" index="index" open="(" separator="OR" close=")" >
 			<choose>
 				<when test="item != null">
@@ -268,7 +269,7 @@
 	
 	<!-- 3. 셀프 트레이너 검색 리스트 조회 (전효정) -->
 	<select id="selectSearchTrainerList" resultMap="selectRecommendTrainerList" parameterType="java.util.Map">
-		SELECT * FROM MEMBER M JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE M.MTYPE = 'T' AND TI.TOPEN = 'Y' 
+		SELECT * FROM MEMBER M JOIN ATTACHMENT A ON(A.PNO = M.MNO) JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE M.MTYPE = 'T' AND TI.TOPEN = 'Y' 
 			<if test='searchServiceKeyword != null and !searchServiceKeyword.equals("")'>
 				AND P.KEYWORD LIKE '%' || #{searchServiceKeyword} || '%'
 			</if>
@@ -310,12 +311,12 @@
 	
 	<!-- 9. 마이트레이너 리스트 조회 (전효정) -->
 	<select id="selectMyTrainer" resultMap="selectRecommendTrainerList">
-		SELECT * FROM MEMBER M JOIN M_PROCESS MP ON(MP.TNO = M.MNO) JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE MP.UNO = #{mno} AND MP.TRANSFER_STATUS = 'RECEIVE'
+		SELECT * FROM MEMBER M JOIN ATTACHMENT A ON(A.PNO = M.MNO) JOIN M_PROCESS MP ON(MP.TNO = M.MNO) JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE MP.UNO = #{mno} AND MP.TRANSFER_STATUS = 'RECEIVE'
 	</select>
 	
 	<!-- 10. 마이트레이너 존재 여부 확인 (전효정) -->
 	<select id="selectOneMyTrainer" resultMap="mprocessResultSet">
-		SELECT * FROM M_PROCESS WHERE UNO = #{mno} AND TNO = #{tno} 
+		SELECT * FROM M_PROCESS WHERE UNO = #{mno} AND TNO = #{tno} AND TRANSFER_STATUS = 'RECEIVE'
 	</select>
 	
 	<!-- 11. 마이트레이너 delete (전효정) -->
@@ -350,7 +351,7 @@
 	
 	<!-- 17. 받은 요청 내역 조회 (전효정) -->
 	<select id="selectRequestsReceivedList" resultMap="selectRecommendTrainerList">
-		SELECT * FROM MEMBER M JOIN M_PROCESS MP ON(MP.TNO = M.MNO) JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE MP.UNO = #{mno} AND MP.TRANSFER_STATUS = 'SEND'
+		SELECT * FROM MEMBER M JOIN ATTACHMENT A ON(A.PNO = M.MNO) JOIN M_PROCESS MP ON(MP.TNO = M.MNO) JOIN PROFILE P ON(M.MNO = P.TNO) JOIN TUSER_INFO TI ON(M.MNO = TI.TNO) WHERE MP.UNO = #{mno} AND MP.TRANSFER_STATUS = 'SEND'
 	</select>
 	
 	<!-- 18. 받은 견적서 확인 후 매칭 수락 시 mprocess update (전효정) -->
