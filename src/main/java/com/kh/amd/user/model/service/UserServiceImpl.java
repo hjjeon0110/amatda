@@ -266,6 +266,13 @@ public class UserServiceImpl implements UserService {
 	
 		return ud.reviewCount(sqlSession, tno);
 	}
+	
+	// 7. 마이트레이너 갯수 리턴(김진환)
+	@Override
+	public int myTrainerCount(String tno) {
+		
+		return ud.myTrainerCount(sqlSession, tno);
+	}
 
 	
 

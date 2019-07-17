@@ -44,6 +44,10 @@ public interface MemberService {
 
 	Attachment selectMyImg(int mno2);
 
+	List<Member> bestTrainer();
+
+	List<Member> newComerTrainerList();
+
 	
 
 	

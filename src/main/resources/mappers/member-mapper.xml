@@ -38,6 +38,37 @@ SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<result column="COMPLETE_SURVEY" property="completeSurvey"/>
 
 </resultMap>
+	<resultMap id="memberResultSet2" type="com.kh.amd.member.model.vo.Member">
+		<id column="MNO" property="mno" /> 
+		<result column="NAME" property="name" />
+		<result column="ID" property="userId" />
+		<result column="PWD" property="userPwd" />
+		<result column="PHONE" property="phone" />
+		<result column="GENDER" property="gender" />
+		<result column="EMAIL" property="email" />
+		<result column="MTYPE" property="mtype" />
+		<result column="STATUS" property="status" />
+		<result column="MATCH_TIME" property="matchTime" />
+		<result column="EMAIL_YN" property="emailYn" />
+		<result column="ENROLL_DATE" property="enrollDate" />
+		<result column="MODIFY_DATE" property="modifyDate" />
+		<result column="COMPLETE_SURVEY" property="completeSurvey" />
+		<collection property="attachment" column="attachmentResultSet" resultMap="attachmentResultSet" javaType="Attachment"/>
+		<collection property="profile" resultMap="profileResultSet" javaType="Profile"></collection>
+		
+	</resultMap>
+	<resultMap type="com.kh.amd.trainer.model.vo.Profile" id="profileResultSet">
+		<id property="profileno" column="PROFILE_NO" />
+		<result property="tno" column="TNO" />
+		<result property="lineProfile" column="LINE_PROFILE" />
+		<result property="proTitle" column="PRO_TITLE" />
+		<result property="intro" column="INTRO" />
+		<result property="media" column="MEDIA" />
+		<result property="certificate" column="CERTIPICATE" />
+		<result property="keyword" column="KEYWORD" />
+	</resultMap>
+	
+	
 
 
 <!-- 일반 사용자 회원가입용 -->
@@ -190,5 +221,33 @@ FROM ATTACHMENT
 WHERE PNO = #{mno2}
 AND ATYPE=0
 </select>
+
+<select id="bestTrainer" resultMap="memberResultSet2">
+	SELECT * 
+	FROM MEMBER M
+	JOIN ATTACHMENT A ON (A.PNO = M.MNO)
+    JOIN PROFILE P ON (A.PNO = P.TNO)
+	WHERE M.MTYPE = 'T'
+    AND A.ATYPE = 0
+    ORDER BY M.MATCH_TIME DESC
+</select>
+
+<select id="newComerTrainerList" resultMap="memberResultSet2">
+     <![CDATA[
+		SELECT * 
+		FROM MEMBER M
+	    JOIN ATTACHMENT A ON (A.PNO = M.MNO)
+	    JOIN PROFILE P ON (A.PNO = P.TNO)
+		WHERE M.MTYPE = 'T'
+	    AND A.ATYPE = 0
+	    AND MATCH_TIME < 3
+	    ORDER BY ENROLL_DATE DESC
+    ]]>
+</select>
+
+
+
+
+
 
 </mapper>

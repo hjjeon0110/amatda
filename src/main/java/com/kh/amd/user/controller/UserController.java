@@ -63,6 +63,9 @@ public class UserController {
 		List<Member> recommendtrainerList = us.selectRecommendTrainerList(mno, hopeAge, hopeGender, hopePeriod, hopeExercise, hopeExerciseArr);
 		model.addAttribute("recommendtrainerList", recommendtrainerList);
 		
+		
+		
+		
 		return "user/1_1_recommendTrainerPage";
 	}
 	
@@ -126,17 +129,22 @@ public class UserController {
 		Mprocess selectOneMyTrainer = us.selectOneMyTrainer(mno, tno);
 		model.addAttribute("selectOneMyTrainer", selectOneMyTrainer);
 		
-		// 작성된 리뷰 리턴하기
+		// 작성된 리뷰 리턴하기(김진환)
 		List<TrainerReview> reviewList = us.trainerReviewShow(tno, mno);
 		model.addAttribute("reviewList", reviewList);
 
-		// 리뷰 갯수 리턴
+		// 리뷰 갯수 리턴(김진환)
 		int reviewCount = us.reviewCount(tno);
 		model.addAttribute("reviewCount", reviewCount);
 		
-		// 리뷰 평점 리턴 
+		// 리뷰 평점 리턴 (김진환)
 		double reviewRating = us.reviewRating(tno);
 		model.addAttribute("reviewRating", reviewRating);
+		
+		// 마이트레이너 등록 횟수 리턴(김진환)
+		int myTrainerCount = us.myTrainerCount(tno);
+		model.addAttribute("myTcount", myTrainerCount);
+		
 		
 		System.out.println("reviewList : " + reviewList);
 		System.out.println("reviewCount : " + reviewCount);
@@ -188,6 +196,22 @@ public class UserController {
 		// 10. 마이트레이너 존재 여부 확인 메소드 (전효정)
 		Mprocess selectOneMyTrainer = us.selectOneMyTrainer(mno, tno);
 		model.addAttribute("selectOneMyTrainer", selectOneMyTrainer);
+		
+		// 작성된 리뷰 리턴하기(김진환)
+		List<TrainerReview> reviewList = us.trainerReviewShow(tno, mno);
+		model.addAttribute("reviewList", reviewList);
+
+		// 리뷰 갯수 리턴(김진환)
+		int reviewCount = us.reviewCount(tno);
+		model.addAttribute("reviewCount", reviewCount);
+		
+		// 리뷰 평점 리턴 (김진환)
+		double reviewRating = us.reviewRating(tno);
+		model.addAttribute("reviewRating", reviewRating);
+		
+		// 마이트레이너 등록 횟수 리턴(김진환)
+		int myTrainerCount = us.myTrainerCount(tno);
+		model.addAttribute("myTcount", myTrainerCount);
 		
 		return "user/1_3_profileDetailPage";
 	}
@@ -589,7 +613,7 @@ public class UserController {
 	
 	
 	
-	// 트레이너 리뷰 작성 폼
+	// 트레이너 리뷰 작성 폼(김진환)
 	@RequestMapping("trainerReviewForm.us")
 	public String trainerReviewForm(Model model, int uno, int tno, String name) {
 		
@@ -608,6 +632,7 @@ public class UserController {
 		return "user/4_trainerReviewForm";
 	}
 	
+	// 트레이너 리뷰 작성 insert(김진환)
 	@RequestMapping("trainerReviewWrite.us")
 	public void trainerReviewWrite(HttpServletResponse response, String title, String starRating, String content, int tno, int uno, String name) {
 		
@@ -631,6 +656,8 @@ public class UserController {
 		}
 		
 	}
+	
+	// 트레이너 리뷰 작성 여부 체크
 	@RequestMapping("trainerReviewCheck.us")
 	public void trainerReviewCheck(HttpServletResponse response, int tno, int uno) {
 		

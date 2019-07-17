@@ -128,6 +128,9 @@ public interface UserService {
 	// 6. 리뷰 갯수 리턴하기 (김진환)
 	int reviewCount(String tno);
 
+	// 7. 마이트레이네 갯수 리턴(김진환) 
+	int myTrainerCount(String tno);
+
 	
 
 

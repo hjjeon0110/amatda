@@ -1,6 +1,7 @@
 package com.kh.amd.member.model.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -158,6 +159,19 @@ public class MemberDaoImpl implements MemberDao{
 		@Override
 		public Attachment selectMyImg(SqlSessionTemplate sqlSession, int mno2) {
 			return sqlSession.selectOne("Member.selectMyImg", mno2);
+		}
+
+		
+		@Override
+		public List<Member> bestTrainer(SqlSessionTemplate sqlSession) {
+		
+			return sqlSession.selectList("Member.bestTrainer");
+		}
+
+		@Override
+		public List<Member> newComerTrainerList(SqlSessionTemplate sqlSession) {
+			
+			return sqlSession.selectList("Member.newComerTrainerList");
 		}
 
 

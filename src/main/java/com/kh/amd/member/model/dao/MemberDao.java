@@ -1,5 +1,7 @@
 package com.kh.amd.member.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.amd.attachment.model.vo.Attachment;
@@ -45,6 +47,10 @@ public interface MemberDao {
 	int dummyImgInsert(SqlSessionTemplate sqlSession);
 
 	Attachment selectMyImg(SqlSessionTemplate sqlSession, int mno2);
+
+	List<Member> bestTrainer(SqlSessionTemplate sqlSession);
+
+	List<Member> newComerTrainerList(SqlSessionTemplate sqlSession);
 
 	
 	

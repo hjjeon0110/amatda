@@ -315,7 +315,7 @@
 	
 	<!-- 10. 마이트레이너 존재 여부 확인 (전효정) -->
 	<select id="selectOneMyTrainer" resultMap="mprocessResultSet">
-		SELECT * FROM M_PROCESS WHERE UNO = #{mno} AND TNO = #{tno} 
+		SELECT * FROM M_PROCESS WHERE UNO = #{mno} AND TNO = #{tno} AND TRANSFER_STATUS = 'RECEIVE'
 	</select>
 	
 	<!-- 11. 마이트레이너 delete (전효정) -->
@@ -406,6 +406,15 @@
 		FROM TRAINER_REVIEW
 		WHERE TNO = #{tno}	
 	
+	</select>
+	
+	<select id="myTrainerCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM M_PROCESS
+		WHERE TNO = #{tno}
+		AND MATCHING_STATUS = '매칭전'
+		AND MATCHING_LEVEL = 0
+		AND TRANSFER_STATUS = 'RECEIVE'
 	</select>
 
 
