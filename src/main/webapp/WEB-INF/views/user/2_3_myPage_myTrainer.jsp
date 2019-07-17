@@ -51,7 +51,7 @@
 						<tr>
 							<td rowspan="3" class="trainerListTableTd1">
 								<div class="profileImg">
-									<img class="profileImage" src="${ contextPath }/resources/images/profileImg.PNG">
+									<img class="profileImage" style="border-radius: 50%;" src="${ contextPath }/resources/uploadFiles/${myTrainerList[i].attachment.modiName}${myTrainerList[i].attachment.extension}">
 								</div>
 							</td>
 							<td class="trainerListTableTd2">
@@ -80,7 +80,6 @@
 								<input type="hidden" value="${ myTrainerList[i].mno }">
 								<input type="hidden" value="${ myTrainerList[i].name }">
 								<button class="matchingStartBtn">프로필 보기</button>
-								<button name="writeReview" class="writeReview">매칭 종료</button>
 							</td>
 						</tr>
 					</table>
@@ -94,7 +93,7 @@
 						<tr>
 							<td rowspan="3" class="trainerListTableTd1">
 								<div class="profileImg">
-									<img class="profileImage" src="${ contextPath }/resources/images/profileImg.PNG">
+									<img class="profileImage" style="border-radius: 50%;" src="${ contextPath }/resources/uploadFiles/${myTrainerList[i].attachment.modiName}${myTrainerList[i].attachment.extension}">
 								</div>
 							</td>
 							<td class="trainerListTableTd2">
@@ -103,7 +102,9 @@
 							</td>
 							<td>
 								<c:if test="${ myTrainerList[i].mprocess.matchingLevel != 0 }">
-									<button class="goProfileDetail">리뷰 작성하기</button>
+								<input type="hidden" value="${ myTrainerList[i].mno }">
+								<input type="hidden" value="${ myTrainerList[i].name }">
+									<button class="writeReview" name="writeReview">리뷰 작성하기</button>
 								</c:if>
 							</td>
 						</tr>
@@ -137,7 +138,7 @@
 						<tr>
 							<td rowspan="3" class="trainerListTableTd1">
 								<div class="profileImg">
-									<img class="profileImage" src="${ contextPath }/resources/images/profileImg.PNG">
+									<img class="profileImage" style="border-radius: 50%;" src="${ contextPath }/resources/uploadFiles/${myTrainerList[i].attachment.modiName}${myTrainerList[i].attachment.extension}">
 								</div>
 							</td>
 							<td class="trainerListTableTd2">
@@ -167,7 +168,6 @@
 								<input type="hidden" value="${ myTrainerList[i].mno }">
 								<input type="hidden" value="${ myTrainerList[i].name }">
 								<button class="matchingStartBtn">프로필 보기</button>
-								<button name="writeReview" class="writeReview">매칭 종료</button>
 							</td>
 						</tr>
 					</table>
@@ -185,7 +185,7 @@
 						<tr>
 							<td rowspan="3" class="trainerListTableTd1">
 								<div class="profileImg">
-									<img class="profileImage" src="${ contextPath }/resources/images/profileImg.PNG">
+									<img class="profileImage" style="border-radius: 50%;" src="${ contextPath }/resources/uploadFiles/${myTrainerList[i].attachment.modiName}${myTrainerList[i].attachment.extension}">
 								</div>
 							</td>
 							<td class="trainerListTableTd2">
@@ -215,7 +215,6 @@
 								<input type="hidden" value="${ myTrainerList[i].mno }">
 								<input type="hidden" value="${ myTrainerList[i].name }">
 								<button class="matchingStartBtn">프로필 보기</button>
-								<button name="writeReview" class="writeReview">매칭 종료</button>
 							</td>
 						</tr>
 					</table>

@@ -82,6 +82,8 @@ public class UserController {
 		// 3. 셀프 트레이너 검색 리스트 조회 (전효정)
 		List<Member> searchTrainerList = us.selectSearchTrainerList(mno, searchServiceKeyword, searchTrainerAge, searchTrainerGender, searchTrainerName);
 		
+		System.out.println("셀프검색 : " + searchTrainerList);
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
         try {

@@ -371,35 +371,35 @@
 		<!-- 페이징 처리를 위한 코드, div지정후 페이징 처리 ----------------------------------->
 		<div id="pagingArea" align="center">
 			<c:if test="${ pi.currentPage <= 1 }">
-				[이전] &nbsp;
+				<button class="pagingBtn2">이전</button>
 			</c:if>
 			<c:if test="${ pi.currentPage > 1}">
 				<c:url var="blistBack" value="showUserFindPageView.tr">
 					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 				</c:url>
-				<a href="${ blistBack }">[이전]</a> &nbsp;
+				<a href="${ blistBack }"><button class="pagingBtn2">이전</button></a>
 			</c:if>
 			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 				<c:if test="${ p eq pi.currentPage }">
-					<font color="orange" size="4"><b>[${ p }]</b></font>
+					<button class="pagingBtnThis">${ p }</button>
 				</c:if>
 				<c:if test="${ p ne pi.currentPage }">
 					<c:url var="blistCheck" value="showUserFindPageView.tr">
 						<c:param name="currentPage" value="${ p }"/>
 					</c:url>
-					<a href="${ blistCheck }">${ p }</a>
+					<a href="${ blistCheck }"><button class="pagingBtn">${ p }</button></a>
 				</c:if>
 			
 			</c:forEach>
 			
 			<c:if test="${pi.currentPage >= pi.maxPage }">
-				&nbsp; [다음]
+				<button class="pagingBtn2">다음</button>
 			</c:if>
 			<c:if test="${ pi.currentPage < pi.maxPage }">
 				<c:url var="blistEnd" value="showUserFindPageView.tr">
 					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 				</c:url>
-				<a href="${ blistEnd }">&nbsp;[다음]</a>
+				<a href="${ blistEnd }"><button class="pagingBtn2">다음</button></a>
 			</c:if>
 			
 		</div>

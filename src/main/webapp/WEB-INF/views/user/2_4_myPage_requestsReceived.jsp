@@ -52,7 +52,7 @@
 						<tr>
 							<td rowspan="3" class="trainerListTableTd1">
 								<div class="profileImg">
-									<img class="profileImage" src="${ contextPath }/resources/images/profileImg.PNG">
+									<img class="profileImage" style="border-radius: 50%;" src="${ contextPath }/resources/uploadFiles/${requestsReceivedList[i].attachment.modiName}${requestsReceivedList[i].attachment.extension}">
 								</div>
 							</td>
 							<td class="trainerListTableTd2">
@@ -97,7 +97,7 @@
 						<tr>
 							<td rowspan="3" class="trainerListTableTd1">
 								<div class="profileImg">
-									<img class="profileImage" src="${ contextPath }/resources/images/profileImg.PNG">
+									<img class="profileImage" style="border-radius: 50%;" src="${ contextPath }/resources/uploadFiles/${requestsReceivedList[i].attachment.modiName}${requestsReceivedList[i].attachment.extension}">
 								</div>
 							</td>
 							<td class="trainerListTableTd2">
@@ -140,7 +140,7 @@
 						<tr>
 							<td rowspan="3" class="trainerListTableTd1">
 								<div class="profileImg">
-									<img class="profileImage" src="${ contextPath }/resources/images/profileImg.PNG">
+									<img class="profileImage" style="border-radius: 50%;" src="${ contextPath }/resources/uploadFiles/${requestsReceivedList[i].attachment.modiName}${requestsReceivedList[i].attachment.extension}">
 								</div>
 							</td>
 							<td class="trainerListTableTd2">
@@ -187,7 +187,7 @@
 						<tr>
 							<td rowspan="3" class="trainerListTableTd1">
 								<div class="profileImg">
-									<img class="profileImage" src="${ contextPath }/resources/images/profileImg.PNG">
+									<img class="profileImage" style="border-radius: 50%;" src="${ contextPath }/resources/uploadFiles/${requestsReceivedList[i].attachment.modiName}${requestsReceivedList[i].attachment.extension}">
 								</div>
 							</td>
 							<td class="trainerListTableTd2">

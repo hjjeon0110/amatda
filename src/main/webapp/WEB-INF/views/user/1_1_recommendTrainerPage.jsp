@@ -69,8 +69,8 @@
 					<table class="trainerListTable">
 						<tr>
 							<td rowspan="3" class="trainerListTableTd1">
-								<div class="profileImg">
-									<img class="profileImage" src="${ contextPath }/resources/images/profileImg.PNG">
+								<div class="profileImg" style="border-radius: 50%;">
+									<img class="profileImage" style="border-radius: 50%;" src="${ contextPath }/resources/uploadFiles/${recommendtrainerList[i].attachment.modiName}${recommendtrainerList[i].attachment.extension}">
 								</div>
 							</td>
 							<td class="trainerListTableTd2">
