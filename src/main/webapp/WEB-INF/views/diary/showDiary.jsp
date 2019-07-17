@@ -48,6 +48,58 @@ table #rContent {
 tr {
 	height: 25px;
 }
+
+.diaryBtn{
+	color:white;
+	background:#ff0066;
+	border: 1px solid #ff0066;
+	border-radius: 5px;
+}
+
+.filebox label {
+  display: inline-block;
+  padding: .5em .75em;
+  color: #fff;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #5cb85c;
+  cursor: pointer;
+  border: 1px solid #4cae4c;
+  border-radius: .25em;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+.filebox label:hover {
+  background-color: #ff0066;
+}
+
+.filebox label:active {
+  background-color: #367c36;
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.filebox input[type="submit"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 </style>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -77,7 +129,11 @@ tr {
 					<tr></tr>
 					<tr>
 						<td id="font">사진을 등록하세요 <img id="diaryImgFile" src="${ contextPath }/resources/images/camera.JPG" width="500"	height="400"> 
-						<input type="file" name="diaryImgFile" onchange="loaddiaryImgFile(this)" />
+						<!-- <input type="file" name="diaryImgFile" class="diaryBtn" onchange="loaddiaryImgFile(this)" /> -->
+						<div class="filebox">
+  <label for="ex_file">업로드</label>
+  <input type="file" id="ex_file" name="diaryImgFile" onchange="loaddiaryImgFile(this)">
+</div>
 						</td>
 					</tr>
 					<tr>
@@ -90,7 +146,13 @@ tr {
 						</td>
 					</tr>
 					<tr align="center">
-						<td><input type="submit" value="등 록" /></td>
+						<!-- <td><input type="submit" class="diaryBtn" value="등 록" /></td> -->
+						<td>
+							<div class="filebox">
+  <label for="ex_file1">등 록</label>
+  <input type="submit" id="ex_file1" value="등 록">
+</div>
+						</td>
 					</tr>
 				</table>
 			</form>

@@ -58,7 +58,18 @@
 	margin-right: -4px;
 	cursor:pointer;
 }
-
+.outer {
+	width: 1200px;
+	height: 500px;
+	background-image: url(${ contextPath }/resources/images/background2.JPG);
+	/* background-repeat: no-repeat; */
+	background-position: top center;
+	/* background-size: 100% 1500px; */
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
 
 
 </style>
@@ -77,11 +88,12 @@
 		<div class="subMenuBar2" onclick="location.href='showGallery.di?mno=${sessionScope.loginUser.mno}'">갤러리</div>
 	</div>
 
+	<div class="outer"></div>
 
 
 
 
-	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+	<!-- <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> -->
 	
 	
 	<!-- footer ----------------------------------------------------------------------------------------------------- -->

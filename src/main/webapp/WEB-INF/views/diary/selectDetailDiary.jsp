@@ -67,6 +67,50 @@ tr {
 	height:65px;
 }
 
+.filebox label {
+  display: inline-block;
+  padding: .5em .75em;
+  color: #fff;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #5cb85c;
+  cursor: pointer;
+  border: 1px solid #4cae4c;
+  border-radius: .25em;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+.filebox label:hover {
+  background-color: #ff0066;
+}
+
+.filebox label:active {
+  background-color: #367c36;
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.filebox input[type="submit"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 
 </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -97,7 +141,11 @@ tr {
 					<tr>
 						<td>  
 						<img id="diaryImgFile" src="${ contextPath }/resources/uploadFiles/${ a.modiName }${ a.extension }" width="500"	height="400"> 
-						<input type="file" name="diaryImgFile" onchange="loaddiaryImgFile(this)" />
+						<!-- <input type="file" name="diaryImgFile" onchange="loaddiaryImgFile(this)" /> -->
+						<div class="filebox">
+  <label for="ex_file">업로드</label>
+  <input type="file" id="ex_file" name="diaryImgFile" onchange="loaddiaryImgFile(this)">
+</div>
 						</td>
 					</tr>
 					<tr>
@@ -110,7 +158,13 @@ tr {
 						</td>
 					</tr>
 					<tr align="center">
-						<td><input type="submit" value="수 정" /></td>
+						<!-- <td><input type="submit" value="수 정" /></td> -->
+						<td>
+							<div class="filebox">
+  <label for="ex_file1">수 정</label>
+  <input type="submit" id="ex_file1" value="수 정">
+</div>
+						</td>
 					</tr>
 				</table>
 			</form>
