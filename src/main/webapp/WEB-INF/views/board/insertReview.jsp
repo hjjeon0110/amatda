@@ -78,11 +78,14 @@
 	tbody th{
 	background-color:#ffe6f3;
 	}
-.btnArea{
-align:center;
-display:inline;
-}
+	.btnArea{
+	align:center;
+	display:inline;
+	}
+	#cancelBtn{
+	margin-left:47%;
 	
+	}
 </style>
 </head>
 <body>
@@ -118,7 +121,7 @@ display:inline;
 								</td>
 						</tr>
 						<tr>
-							<th>첨부파일   (썸네일)</th>
+							<th>첨부파일</th>
 							<td>
 							
 							  <input type="file" name="reviewImgFile"/> 
@@ -132,11 +135,9 @@ display:inline;
 								</div> -->
 							</td>							
 						</tr> 
-						
 					</tbody>
-					
 				</table>
-			<br>
+			
 			<!-- <div class="btnArea">
 	            <button onclick="location.href='selectReview.bo'">취소하기</button>
 	            <button onclick="location.href='selectReview.bo'">작성하기</button>
@@ -144,11 +145,9 @@ display:inline;
          </div> -->
 			
 			<input type="submit" value="작성하기" class="btn btn-primary">
-			
 			</div> 
-			
 		</form>
-		<button onclick="location.href='selectReviewFormView.bo'" class="btn btn-primary">목록으로</button>
+		<button onclick="location.href='selectReview.bo'" id="cancelBtn" class="btn btn-primary">목록으로</button>
 	</div>
 	
 	<script>

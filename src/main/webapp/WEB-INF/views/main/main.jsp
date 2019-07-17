@@ -257,14 +257,17 @@
 									
 										<div class="like">
 											<input type="hidden" value="${list.bNo }">
-											<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum" id="likeNum3">${list.bLike }</label><br>
+											<i class="fa fa-heart text-primary" aria-hidden="true"></i>&nbsp;&nbsp;<label class="likeNum" id="likeNum3"  style="color:red">${list.bLike }</label><br>
 										    <img src="${contextPath}/resources/uploadFiles/${list.attachment.modiName}${list.attachment.extension}"  style="width: 250px; height: 300px; margin-left:1%;">
 										</div>
 										<div class="box">
 										<%-- <c:if test=${not empty list.bWriter }>
 											<div onclick="location.href='selectWriterName.me?writer=${list.bWriter }'"></div> --%>
-											<h2 id="frontName3">${list.member.userId }</h2>
+											<%-- <h2 id="frontName3" style="color:red">${list.member.userId }</h2> --%>
+											<h6 id="frontName3" style="color:red">${list.bTitle }</h6>
+											
 										<%-- </c:if>	 --%>
+										<%-- <br><h6>${list.bTitle }</h6><br> --%>
 										</div>
 									
 									</div>
@@ -280,9 +283,9 @@
 												<!-- <img src="images/person_3.jpg" id="backPic"alt=""> -->
 												<%-- <img src="$contextPath}/resources/uploadFile/${at.modiName}${at.extension} "> --%>
 											</div>
-											<div class="name align-self-center">
+											<%-- <div class="name align-self-center">
 										<label id="backName3">${list.member.userId}</label><span class="position"></span> 
-											</div>
+											</div> --%>
 										</div>
 										
 									</div>

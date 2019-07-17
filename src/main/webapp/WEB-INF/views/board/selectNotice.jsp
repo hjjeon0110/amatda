@@ -49,9 +49,9 @@ a:active {text-decoration: none; color: #333333;}
  .secondTable{
 
  margin-top:5%;
- float:right;
- width: 60%;
- margin-right:10%;
+  float:right; 
+ width: 67%;
+ margin-right:1%;
  text-align: center;
 /*  background:skyblue; */	
  }
@@ -69,7 +69,7 @@ a:active {text-decoration: none; color: #333333;}
 }
  
  .checkboxgroup{
-		margin-left:60%;
+		margin-left:50%;
 	}
 	
 	
@@ -217,7 +217,7 @@ margin-bottom:15px;
 			    </c:forEach> 
 			    </tbody>
   			</table>
-  			<br><br><br>
+  			
   			
   			<div class="checkboxgroup">
   				<select id="searchType">
@@ -228,7 +228,7 @@ margin-bottom:15px;
 				<input type="text" name="searchCon">&nbsp;
 				<button id="searchResult">검색</button> 
 			</div>
-  			
+  			<br>
 	  		<!-- 페이징 시작----------------------------------------------------------------- -->
 	  
 	  			<!-- 페이징 처리를 위한 코드, div지정후 페이징 처리 ----------------------------------->

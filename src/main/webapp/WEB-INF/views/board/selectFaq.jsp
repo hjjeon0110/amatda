@@ -51,7 +51,7 @@ a:active {text-decoration: none; color: #333333;}
  margin-top:5%;
  float:right;
  width: 60%;
- margin-right:10%;
+ margin-right:5%;
  text-align: center;
 /*  background:skyblue; */   
  }
@@ -229,7 +229,7 @@ width:450px;
    <div class="csTable">
       <div class="firstTable">
       
-      <h2>고객센터</h2>
+      <h1>고객센터</h1>
       <div class="firstTableLine1"></div>
       
      <h6><a href="selectNotice.bo">공지사항 / 이벤트</a></h6>
@@ -252,7 +252,7 @@ width:450px;
      
       <div class="secondTable">
       
-         <h2>FAQ</h2>
+         <h1>FAQ</h1>
          <br>
         
         
