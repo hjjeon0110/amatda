@@ -272,6 +272,8 @@
 			              var No = $("#num").val();
 			              console.log("매칭종료 : " + No);
 			              location.href="matchingEnd.ad?No=" + No; 
+			              
+			              alert("매칭이 성공적으로 종료되었습니다.");
 			      
 			            }) 
 			            
